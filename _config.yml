@@ -1,5 +1,5 @@
 ---
-title: Список фильмов
+title: Domini's блог
 timezone: Europe/Moscow
 collections:
   uploads:
@@ -9,7 +9,7 @@ collections:
     title: Статьи
     output: true
 email: dominidomini@mail.ru
-description: Пробный сайт
+description: личный сайт, блог Domini
 baseurl: 
 url: https://dominicusin.github.io/
 twitter_username: dominicusin
