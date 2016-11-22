@@ -1,6 +1,6 @@
 ---
 title: Список фильмов
-timezone: UTC
+timezone: Europe/Moscow
 collections:
   posts:
     title: Posts
