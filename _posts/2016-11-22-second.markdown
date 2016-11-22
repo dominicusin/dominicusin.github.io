@@ -29,8 +29,8 @@ layout: default
 
 # о животных
 1. [Медведь / L'ours](http://www.kinopoisk.ru/film/22907/) 
-# 
-притчи
+
+# притчи
 1. Сладкий фильм Sweet Movie http://www.kinopoisk.ru/film/93220/
 1. Машинист El Maquinista http://www.kinopoisk.ru/film/5206/
 1. Быть Джоном Малковичем / Being John Malkovich http://www.kinopoisk.ru/film/462/
