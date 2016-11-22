@@ -1,5 +1,5 @@
 ---
-title: About
+title: первый список
 permalink: "/about/"
 layout: page
 ---
