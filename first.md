@@ -1,7 +1,7 @@
 ---
-title: первый список
+title: о сайте
 permalink: "/about/"
 layout: page
 ---
 
-список
+Domini's блог
