@@ -2,11 +2,11 @@
 title: Список фильмов
 timezone: Europe/Moscow
 collections:
-  posts:
-    title: Posts
-    output: true
   uploads:
     title: Uploads
+    output: true
+  posts:
+    title: Статьи
     output: true
 email: dominidomini@mail.ru
 description: Пробный сайт
