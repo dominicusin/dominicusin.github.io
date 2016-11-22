@@ -12,7 +12,8 @@ layout: default
 1. [Прекрасная зеленая / La belle verte](http://www.kinopoisk.ru/film/55035/)
 1. [предложение]
 (http://www.kinopoisk.ru/film/321842/)
-1. [золото дураков]      (http://www.kinopoisk.ru/film/261668/)
+1. [золото дураков]
+(http://www.kinopoisk.ru/film/261668/)
 1. Смерть на похоронах / Death at a Funeral http://www.kinopoisk.ru/film/256498/
 1. Хороший год / A Good Year http://www.kinopoisk.ru/film/77596/
 1. Красный отель /L'auberge rouge http://www.kinopoisk.ru/film/271878/
