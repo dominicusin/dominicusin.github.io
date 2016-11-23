@@ -100,6 +100,7 @@ layout: default
 
 # медитативные
 **Qatsi trilogy  Годфри Реджио**
+
 1. [«Койяанискаци» (1983)](http://www.kinopoisk.ru/film/7328/) 
 1. [«Поваккаци» (1988)](http://www.kinopoisk.ru/film/7325/) 
 1. [«Накойкаци» (2002)](http://www.kinopoisk.ru/film/18297/) 
