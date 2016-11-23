@@ -85,21 +85,17 @@ layout: default
 1. [Бойцовский клуб / Fight Club](http://www.kinopoisk.ru/film/361/) 
 1. [Карты, деньги, два ствола /Lock, Stock and Two Smoking Barrels](http://www.kinopoisk.ru/film/522/) 
 
-# 
-фантастика
+# фантастика
 1. [Враг мой / Enemy Mine](http://www.kinopoisk.ru/film/2702/) 
 1. [Через тернии к звездам ](http://www.kinopoisk.ru/film/45488/)
 
-# 
-приключения
-1. [Ремо Уильямс: Приключение начинается / Remo Williams: The Adventure Begin](http://www.kinopoisk.ru/film/6515/)s
+# приключения
+1. [Ремо Уильямс: Приключение начинается / Remo Williams: The Adventure Begins](http://www.kinopoisk.ru/film/6515/)
 
-# 
-документальный
+# документальный
 1. [Счастливые люди ](http://www.kinopoisk.ru/film/674243/)
 
-# 
-сериалы
+# сериалы
 1. [Северная сторона / Northern Exposure ](http://www.kinopoisk.ru/film/277675/)
 
 # медитативные
