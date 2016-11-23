@@ -99,12 +99,13 @@ layout: default
 1. [Северная сторона / Northern Exposure ](http://www.kinopoisk.ru/film/277675/)
 
 # медитативные 
-Qatsi trilogy Годфри Реджио
 
+Qatsi trilogy Годфри Реджио
 1. [«Койяанискаци» (1983)](http://www.kinopoisk.ru/film/7328/) 
 1. [«Поваккаци» (1988)](http://www.kinopoisk.ru/film/7325/) 
 1. [«Накойкаци» (2002)](http://www.kinopoisk.ru/film/18297/) 
-1. [Пепел и снег Ashes and Snow ](http://www.kinopoisk.ru/film/252659/)
+
+ 1. [Пепел и снег Ashes and Snow ](http://www.kinopoisk.ru/film/252659/)
 1. [Стеклянное сердце Herz aus Glas ](http://www.kinopoisk.ru/film/82424/)
 
 # исторические
