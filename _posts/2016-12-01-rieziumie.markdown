@@ -91,4 +91,4 @@ telecommuting обслуживаю организации по договора�
 
 ## EDUCATION
 
-### [ Petrozavodsk State University](http://itpark.karelia.ru/eng_about.htm) (1991-01 — 1999-01)
+### [ Petrozavodsk State University](https://petrsu.ru/) (1991-01 — 1999-01)
