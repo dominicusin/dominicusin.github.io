@@ -67,7 +67,7 @@ The first design and content of the botanical garden site of PetrSU. Netscape v3
 
 foxpro, Registration of burials.
 
-### programmer, Karelian Institute for the Enhancement of the Qualifications of Education Workers (1997-01 — 1998-01)
+### programmer, Karelian advanced training Institute for the Enhancement of the Qualifications of Education Workers (1997-01 — 1998-01)
 
 ### programmer, ЭЧ-8 power supply distance of Russian Railways (1998-01 — 1999-01)
 
@@ -75,7 +75,7 @@ Network IOLA, support for NT-server, Delphi, fox, with \ + \ + workstations.
 
 ### programmer, Petroglyph (1999-01 — 2002-01)
 
-Participated in writing the automation of accounting (VCv6, BCv3, Btrieve, CrystalReports, perl) configured NT server, wingate, NortonPCAnywhere, mdaemon v3.56. Collected, serviced, installed Debian GNU Linux 2.2r2, sendmail, apache, bind, proftpd, sshd, webmin, mysql, tomcat ... on a single server. Developed a system for generating and updating the site for perl, counter, B2B Internet shop. ..
+Participated in writing the automation of accounting (VCv6, BCv3, Btrieve, CrystalReports, perl) configured NT server, wingate, NortonPCAnywhere, mdaemon v3.56. Collected, serviced, installed Debian GNU Linux 2.2r2, sendmail, apache, bind, proftpd, sshd, webmin, mysql, tomcat ... on a single server. Developed a system for generating and updating the site on perl, counter, B2B Internet shop. ..
 
 
 ### *Technical support engineer *, NordHost (2002-01 — 2003-01)
@@ -88,7 +88,7 @@ BCB, mysql, fox, sql, newsfactory, обслуживание более 4-х ле
 
 ### *programmer*, Hitech inc/ (2006-01 — 2016-01)
 
-telecommuting I service organizations on contracts / accounting, subscribers, web, salary, payment, tax, .../. freelance
+telecommuting, I service organizations on contracts / accounting, subscribers, web, salary, payment, tax, .../. freelance
 
 ## EDUCATION
 
