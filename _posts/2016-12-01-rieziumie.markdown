@@ -35,11 +35,11 @@ layout: default
 
 ## EMPLOYMENT
 
-### programmer,  aemtech TayzhBoumMash (1989-01 — 1990-01)
+### programmer,  aemtech TyazhBumMash(Heavy paper building factory) (1989-01 — 1990-01)
 
 The system of virtual machines made a bunch clipper\+ Intel assembler
 
-### programmer, KarelLeasProm (1990-01 — 1993-01)
+### programmer, Joint Stock Company «Timber Holding Company «KarelLesProm» () (1990-01 — 1993-01)
 
 SuperCalc, QuattroPro
 
