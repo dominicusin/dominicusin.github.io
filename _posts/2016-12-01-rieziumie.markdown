@@ -63,7 +63,7 @@ foxpro dos/win
 
 The first design and content of the botanical garden site of PetrSU. Netscape v3 \+ Win v3.11
 
-### *The inspector on booking, * Military Commissariat of the Republic of Karelia (1997-01 — 1998-01)
+### * The inspector on booking, * Military Commissariat of the Republic of Karelia (1997-01 — 1998-01)
 
 foxpro, Registration of burials.
 
@@ -84,7 +84,7 @@ Support nordhost.com, administration apache,postfix,mysql,bind,webmin,php. The f
 
 ### programmer,Karelian TV Company Nika (1998-01 — 2006-01)
 
-BCB, mysql, fox, sql, newsfactory, обслуживание более 4-х лет.
+BCB, mysql, fox, sql, newsfactory, Service more than 4 years.
 
 ### *programmer*, Hitech inc/ (2006-01 — ...)
 
