@@ -86,7 +86,7 @@ Support nordhost.com, administration apache,postfix,mysql,bind,webmin,php. The f
 
 BCB, mysql, fox, sql, newsfactory, обслуживание более 4-х лет.
 
-### *programmer*, Hitech inc/ (2006-01 — 2016-01)
+### *programmer*, Hitech inc/ (2006-01 — ...)
 
 telecommuting, I service organizations on contracts / accounting, subscribers, web, salary, payment, tax, .../. freelance
 
