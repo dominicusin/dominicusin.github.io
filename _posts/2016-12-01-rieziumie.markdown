@@ -45,50 +45,51 @@ SuperCalc, QuattroPro
 
 ### programmer, Petrozavodsk Machine-Tool Plant, Production Enterprise(1992-01 — 1993-01)
 
-СМ-4 \+ kermit \+ AT/XT/EC, Industrial accounting
+SM-4 \+ kermit \+ AT/XT/EC, Industrial accounting
 
-### programmer, ПроектноКонструкторский Технологический Институт (1993-01 — 1994-01)
+### programmer, Design Institute of Technology(1993-01 — 1994-01)
 
-Пакет графики на ассемблере для ДВК-4, Электроника-85.
+A graphics package in assembler for DVK-4, Electronics-85.
 
-### programmer, Морские Компьютерные Системы (1994-01 — 1995-01)
+### programmer, Marine Computer Systems (1994-01 — 1995-01)
 
-добавление фич к старым прогам
+Adding features to old programs
 
-### programmer, БеломороОнежскоеПароходство (1995-01 — 1996-01)
+### programmer,Belomoro Onega Shipping Company (1995-01 — 1996-01)
 
 foxpro dos/win
 
-### programmer, Ботанический Сад (1996-01 — 1997-01)
+### programmer, The Botanical Garden (1996-01 - 1997-01)
 
-Первый дизайн и контент сайта ботанического сада ПетрГУ. Netscape v3 \+ Win v3.11
+The first design and content of the botanical garden site of PetrSU. Netscape v3 \+ Win v3.11
 
-### *инспектор по бронированию*, ВоенныйКомиссариат РеспубликиКарелия (1997-01 — 1998-01)
+### *The inspector on booking, * Military Commissariat of the Republic of Karelia (1997-01 — 1998-01)
 
-foxpro, учёт захоронений.
+foxpro, Registration of burials.
 
-### programmer, Карельский Институт Повышения Квалификациии Работников Образования (1997-01 — 1998-01)
+### programmer, Karelian Institute for the Enhancement of the Qualifications of Education Workers (1997-01 — 1998-01)
 
-### programmer, ЭЧ-8 дистанция электроснабжения РЖД (1998-01 — 1999-01)
+### programmer, ЭЧ-8 power supply distance of Russian Railways (1998-01 — 1999-01)
 
-Сеть иола, поддержка NT-сервака, Delphi,fox,c\+\+ АРМы.
+Network IOLA, support for NT-server, Delphi, fox, with \ + \ + workstations.
 
-### programmer, Петроглиф (1999-01 — 2002-01)
+### programmer, Petroglyph (1999-01 — 2002-01)
 
-участвовал в написании системы автоматизации учета (VCv6,BCv3, Btrieve, CrystalReports, perl) настраивал NT server, wingate, NortonPCAnywhere, mdaemon v3.56. собирал, обслуживал, устанавливал на онего сервер Debian GNU Linux 2.2r2, sendmail, apache, bind, proftpd, sshd, webmin, mysql, tomcat ... разрабатывал систему генерации и обновления сайта на perl, счётчик, инет-магазин B2B, ....
+Participated in writing the automation of accounting (VCv6, BCv3, Btrieve, CrystalReports, perl) configured NT server, wingate, NortonPCAnywhere, mdaemon v3.56. Collected, serviced, installed Debian GNU Linux 2.2r2, sendmail, apache, bind, proftpd, sshd, webmin, mysql, tomcat ... on a single server. Developed a system for generating and updating the site for perl, counter, B2B Internet shop. ..
 
-### *инженер тех.поддержки*, НордХост (2002-01 — 2003-01)
 
-саппорт nordhost.com, администрирование apache,postfix,mysql,bind,webmin,php. Борьба с забаниванием, переключение подсетей, ответы в аське, виртуалы, ...
+### *Technical support engineer *, NordHost (2002-01 — 2003-01)
 
-### programmer, Карельская Телекомпания Ника (1998-01 — 2006-01)
+Support nordhost.com, administration apache,postfix,mysql,bind,webmin,php. The fight against billing, switching subnets, answers in ICQ, virtuals, ...
+
+### programmer,Karelian TV Company Nika (1998-01 — 2006-01)
 
 BCB, mysql, fox, sql, newsfactory, обслуживание более 4-х лет.
 
 ### *programmer*, Hitech inc/ (2006-01 — 2016-01)
 
-telecommuting обслуживаю организации по договорам /учёт, абоненты, web, зарплата, платёжки, налог, .../. freelance
+telecommuting I service organizations on contracts / accounting, subscribers, web, salary, payment, tax, .../. freelance
 
 ## EDUCATION
 
-### [ Petrozavodsk State University](http://itpark.karelia.ru/eng_about.htm) (1991-01 — 1999-01)
+### [ Petrozavodsk State University](https://petrsu.ru/en) (1991-01 — 1999-01)
