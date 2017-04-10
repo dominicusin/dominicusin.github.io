@@ -88,7 +88,7 @@ BCB, mysql, fox, sql, newsfactory, Service more than 4 years.
 
 ### *programmer*, Hitech inc/ (2006-01 — ...)
 
-telecommuting, I service organizations on contracts / accounting, subscribers, web, salary, payment, tax, .../. freelance
+telecommuting,  organizations on contracts service / accounting, subscribers, web, salary, payment, tax, .../. freelance
 
 ## EDUCATION
 
