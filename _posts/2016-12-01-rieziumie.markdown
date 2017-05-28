@@ -1,5 +1,5 @@
 ---
-title: Резюме
+title: Curriculum Vitae
 date: 2016-12-01 11:32:00 +03:00
 Field name: 
 layout: default
