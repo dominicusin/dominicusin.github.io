@@ -10,8 +10,10 @@ collections:
     output: true
 email: transgregorial@gmail.com
 description: personal site, blog Domini
-baseurl: 
+baseurl:
+- 
 url: https://dominicusin.github.io/
 twitter_username: dominicusin
 github_username: dominicusin
 markdown: kramdown
+Field name: 
