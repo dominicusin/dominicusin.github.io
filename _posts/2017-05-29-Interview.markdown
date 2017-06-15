@@ -1,5 +1,5 @@
 ---
-title: Linux System Administrator/DevOp Interview Questions
+title: Linux System Administrator(DevOp) Interview Questions
 date: 2017-05-29 01:03:00 +03:00
 ---
 
