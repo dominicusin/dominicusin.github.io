@@ -5,6 +5,9 @@ collections:
   uploads:
     title: Uploads
     output: true
+  domini:
+    title: domini
+    output: true
   posts:
     title: Статьи
     output: true
