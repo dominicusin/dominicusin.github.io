@@ -4,4 +4,4 @@ permalink: "/about/"
 layout: page
 ---
 
-Domini's Simple Blog
+**Domini's Simple Blog**
