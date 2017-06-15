@@ -9,7 +9,7 @@ collections:
     title: Статьи
     output: true
 email: transgregorial@gmail.com
-description: личный сайт, блог Domini
+description: personal site, blog Domini
 baseurl: 
 url: https://dominicusin.github.io/
 twitter_username: dominicusin
