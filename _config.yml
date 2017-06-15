@@ -8,7 +8,7 @@ collections:
   posts:
     title: Статьи
     output: true
-email: dominidomini@mail.ru
+email: transgregorial@gmail.com
 description: личный сайт, блог Domini
 baseurl: 
 url: https://dominicusin.github.io/
