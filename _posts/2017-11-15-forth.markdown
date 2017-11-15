@@ -5,28 +5,6 @@ date: 2017-11-15 15:38:00 +02:00
 
 
 
-INSTRUCTIONS
-------------
-
-If you're in a hurry just add the repository URL at the end of this page like this:
-
-* https://github.com/USER_AND_REPO
-
-To do it properly copy and paste the following template row to the end of the table, replacing the placeholders with the real values.
-
-|STARS|[NAME](https://github.com/USER_AND_REPO)|LANGUAGE|BASED_ON|SHORT_DESCRIPTION|
-
-
-ABOUT THE STARS:
-----------------
-
-we could use automatic fetching of stars like this: ![](https://img.shields.io/github/stars/USER_AND_REPO.svg?style=social&label=%20)
-
-But since the star-fetching API call often fails, is better to write the number manually. They seem to be working on that: https://github.com/badges/shields/issues/529
--->
-
-Work in progress; see https://github.com/ForthHub/discussion/issues/19.
-
 ## Forths in Assembly
 
 |:star:| Name / Link | Lang | CPU | Description |
