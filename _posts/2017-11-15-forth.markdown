@@ -1,0 +1,91 @@
+---
+title: forth
+date: 2017-11-15 15:38:00 +02:00
+---
+
+<!---
+
+INSTRUCTIONS
+------------
+
+If you're in a hurry just add the repository URL at the end of this page like this:
+
+* https://github.com/USER_AND_REPO
+
+To do it properly copy and paste the following template row to the end of the table, replacing the placeholders with the real values.
+
+|STARS|[NAME](https://github.com/USER_AND_REPO)|LANGUAGE|BASED_ON|SHORT_DESCRIPTION|
+
+
+ABOUT THE STARS:
+----------------
+
+we could use automatic fetching of stars like this: ![](https://img.shields.io/github/stars/USER_AND_REPO.svg?style=social&label=%20)
+
+But since the star-fetching API call often fails, is better to write the number manually. They seem to be working on that: https://github.com/badges/shields/issues/529
+-->
+
+Work in progress; see https://github.com/ForthHub/discussion/issues/19.
+
+## Forths in Assembly
+
+|:star:| Name / Link | Lang | CPU | Description |
+|:------:|:------------|:-----|:----|:------------|
+|:sparkles:|[AmForth](https://github.com/search?q=amforth&type=Repositories&s=updated)|Assembly|AVR, MSP430|_(13 repositories)_|
+|126|[pijFORTHos](https://github.com/organix/pijFORTHos)|Assembly|ARM|Bare-metal FORTH operating system for Raspberry Pi|
+|53|[Swapforth](https://github.com/jamesbowman/swapforth)|Assembly|J1, FT900, x64|Cross-platform 32-bit ANS Forth|
+|44|[jonesforth](https://github.com/chengchangwu/jonesforth)|Assembly|x86|ANS FORTH version of jonesforth|
+|32|[STM8EF](https://github.com/TG9541/stm8ef)|Assembly|STM8S|eForth with extensions for $0.20 µCs|
+|30|[DCPU](https://github.com/hellige/dcpu)|Assembly|DCPU-16|Forth for Notch's DCPU-16|
+|29|[CoreForth](https://github.com/ekoeppen/CoreForth)|Assembly|ARM|Forth for the Cortex-M3|
+|23|[JonesForth-arm](https://github.com/M2IHP13-admin/JonesForth-arm)|Assembly|ARM|ARM port of JonesForth|
+|22|[DurexForth](https://github.com/jkotlinski/durexforth)|Assembly|6502|Modern C64 Forth|
+|13|[asforth](https://github.com/nfz/asforth)|Assembly|AVR|Subroutine threaded Forth for Atmega328|
+|9|[PETTIL](https://github.com/chitselb/pettil)|Assembly|6502|Forth for the Commodore PET 2001|
+|8|[FlashForth](https://github.com/oh2aun/flashforth)|Assembly|PIC, AVR|Forth system for the Microchip PIC 18, 24, 30, 33 and the Atmel Atmega |
+|8|[FastForth](https://github.com/jean-michel/FAST-FORTH)|Assembly|MSP430|Forth for all MSP430 FRAM devices, with SD card FAT16/32 and much more|
+|7|[feline](https://github.com/gnooth/feline)|Assembly|x64|64-bit native code Forth 200x|
+|6|[OSX-Forth](https://github.com/vygr/OSX-Forth)|Assembly|x86|Forth for OSX|
+|3|[j1eforth](https://github.com/samawati/j1eforth)|Assembly|J1|eForth for the j1|
+|3|[megaforth](https://github.com/ehaliewicz/megaforth)|Assembly|68000|Forth designed for the Sega Megadrive|
+|2|[MecrispStellaris](https://github.com/jjonethal/mecrisp-stellaris)|Assembly|ARM Cortex|Mecrisp Stellaris Forth for ARM Cortex Architectures|
+|1|[CF430R](https://github.com/mikalus/CF430FR)|Assembly|MSP430|CamelForth for MSP430|
+|1|[Mecrisp](http://mecrisp.sourceforge.net)|Assembly|MSP430|Mecrisp Forth for MSP430|
+|1|[hForth](https://github.com/nealcrook/hForth)|Assembly|8086, Z80, ARM|hForth for i8086, Z80 and ARM|
+
+
+## Forths in Forth
+
+| :star: | Name / Link | Lang | CPU | Description |
+|:------:|:------------|:-----|:----|:------------|
+|49|[lbForth](https://github.com/larsbrinkhoff/lbForth)|Forth|x86|Self-hosting metacompiled Forth, bootstrapping from a few lines of C|
+|8|[PicForth](https://github.com/samueltardieu/picforth)|Forth|PIC16|Forth cross-compiler for PIC16Fxxx|
+|8|[myforth-arduino](https://github.com/CharleyShattuck/myforth-arduino)|Forth|AVR|Simple, non-standard, tethered Forth for the Arduino|
+|7|[m3forth](https://github.com/oco2000/m3forth)|Forth|ARM|Cross-compiler for Cortex-M3|
+|6|[cmFORTH](https://github.com/ForthHub/cmFORTH)|Forth|NC4016||
+|5|[FIG-Forth](https://github.com/ForthHub/FIG-Forth)|Forth|6502||
+|2|[sbc09 Forth](https://github.com/6809/sbc09)|Forth|6809||
+|2|[CamelForth](https://github.com/nealcrook/multicomp6809/tree/master/camelforth)|Forth|6809||
+
+## Forths in JavaScript and other scripted languages
+
+| :star: | Name / Link | Lang | CPU | Description |
+|:------:|:------------|:-----|:----|:------------|
+|61|[Easy Forth](https://github.com/skilldrick/easyforth)|JavaScript||Small ebook for learning Forth|
+|4|[project-k](https://github.com/hcchengithub/project-k)|JavaScript||Forth kernel in JavaScript|
+|3|[Sonnet](https://github.com/doy/sonnet)|Lua||forth-like language interpreter, written in lua|
+|3|[forthlike](https://github.com/Omnifarious/forthlike)|Python||A very simple Forth-like language implemented in Python|
+|2|[jeforth.3we](https://github.com/hcchengithub/jeforth.3we)|JavaScript||jeforth 3 words engine|
+|9|[TclForth](https://github.com/wolfwejgaard/tclforth)|Tcl/Tk||Multi-OS Forth using Tcl as its native language|
+|15|[jsforth](https://github.com/eatonphil/jsforth)|Javascript||A simple Forth-like language with a web-based REPL|
+
+## Forths in Other Languages
+
+| :star: | Name / Link | Lang | CPU | Description |
+|:------:|:------------|:-----|:----|:------------|
+|41|[pForth](https://github.com/philburk/pforth)|C||Portable Forth|
+|20|[Gforth](https://github.com/forthy42/gforth)|C||Gforth mirror|
+|13|[staapl](https://github.com/zwizwa/staapl)|Racket|PIC18|Racket-based Forth / Macro Assembler on steroids for PIC18F|
+|3|[uForth](https://github.com/tcoram/uforth)|C||Very portable (embeddable) switch threaded Forth|
+|3|[rtForth](https://github.com/chengchangwu/rtforth)|Rust||Forth implemented in Rust for realtime application|
+|3|[Creole Forth](https://github.com/tiluser/Creole-Forth)|Pascal||Scripting language in the form of a Delphi/Lazarus component|
