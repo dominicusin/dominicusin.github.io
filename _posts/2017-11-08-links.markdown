@@ -5,3 +5,43 @@ date: 2017-11-08 12:26:00 +02:00
 
 1. [https://blahcat.github.io/](https://blahcat.github.io/)
 1. [GitHub ❤ ~/](http://dotfiles.github.io)
+
+
+* [dwm + apple trackpad](https://github.com/bernerdschaefer/dotfiles/blob/bs-nixos/nixos/configuration.nix) ([profile.nix](https://github.com/bernerdschaefer/dotfiles/blob/bs-nixos/profile.nix))
+* [xmonad](https://gist.github.com/i-e-b/6320077)
+* [gnome3 + select variation for 2 different machines (laptop vs desktop)](https://github.com/bjornfor/nixos-config/blob/master/configuration.nix)
+
+
+### Common searches
+
+#### Setup
+
+* [xmonad repos](https://github.com/search?l=Nix&q=xmonad&type=Code&utf8=✓) / [xmonad gists](https://gist.github.com/search?l=nix&q=xmonad) / [xmonad #nixos](https://botbot.me/freenode/nixos/search/?q=xmonad) / [xmonad issues](https://github.com/NixOS/nixpkgs/search?q=xmonad&type=Issues)
+* [gnome3 repos](https://github.com/search?l=Nix&q=gnome3&type=Code&utf8=✓) / [gnome3 gists](https://gist.github.com/search?l=nix&q=gnome3) / [gnome3 #nixos](https://botbot.me/freenode/nixos/search/?q=gnome3) / [gnome3 issues](https://github.com/NixOS/nixpkgs/search?q=gnome3&type=Issues)
+* [lightdm repos](https://github.com/search?l=Nix&q=lightdm&type=Code&utf8=✓) / [lightdm gists](https://gist.github.com/search?l=nix&q=lightdm) / [lightdm #nixos](https://botbot.me/freenode/nixos/search/?q=lightdm) / [lightdm issues](https://github.com/NixOS/nixpkgs/search?q=lightdm&type=Issues)
+* [gdm repos](https://github.com/search?l=Nix&q=gdm&type=Code&utf8=✓) / [gdm gists](https://gist.github.com/search?l=nix&q=gdm) / [gdm #nixos](https://botbot.me/freenode/nixos/search/?q=gdm) / [gdm issues](https://github.com/NixOS/nixpkgs/search?q=gdm&type=Issues)
+* [macbook repos](https://github.com/search?l=Nix&q=macbook&type=Code&utf8=✓) / [macbook gists](https://gist.github.com/search?l=nix&q=macbook) / [macbook #nixos](https://botbot.me/freenode/nixos/search/?q=macbook) / [macbook issues](https://github.com/NixOS/nixpkgs/search?q=macbook&type=Issues)
+* [lxde repos](https://github.com/search?l=Nix&q=lxde&type=Code&utf8=✓) / [lxde gists](https://gist.github.com/search?l=nix&q=lxde) / [lxde #nixos](https://botbot.me/freenode/nixos/search/?q=lxde) / [lxde issues](https://github.com/NixOS/nixpkgs/search?q=lxde&type=Issues)
+
+#### Editors
+
+* [yi repos](https://github.com/search?l=Nix&q=yi&type=Code&utf8=✓) / [yi gists](https://gist.github.com/search?l=nix&q=yi) / [yi #nixos](https://botbot.me/freenode/nixos/search/?q=yi) / [yi issues](https://github.com/NixOS/nixpkgs/search?q=yi&type=Issues)
+* [vim repos](https://github.com/search?l=Nix&q=vim&type=Code&utf8=✓) / [vim gists](https://gist.github.com/search?l=nix&q=vim) / [vim #nixos](https://botbot.me/freenode/nixos/search/?q=vim) / [vim issues](https://github.com/NixOS/nixpkgs/search?q=vim&type=Issues)
+* [emacs repos](https://github.com/search?l=Nix&q=emacs&type=Code&utf8=✓) / [emacs gists](https://gist.github.com/search?l=nix&q=emacs) / [emacs #nixos](https://botbot.me/freenode/nixos/search/?q=emacs) / [emacs issues](https://github.com/NixOS/nixpkgs/search?q=emacs&type=Issues)
+
+#### Browsers
+
+* [chromium repos](https://github.com/search?l=Nix&q=chromium&type=Code&utf8=✓) / [chromium gists](https://gist.github.com/search?l=nix&q=chromium) / [chromium #nixos](https://botbot.me/freenode/nixos/search/?q=chromium) / [chromium issues](https://github.com/NixOS/nixpkgs/search?q=chromium&type=Issues)
+* [chrome repos](https://github.com/search?l=Nix&q=chrome&type=Code&utf8=✓) / [chrome gists](https://gist.github.com/search?l=nix&q=chrome) / [chrome #nixos](https://botbot.me/freenode/nixos/search/?q=chrome) / [chrome issues](https://github.com/NixOS/nixpkgs/search?q=chrome&type=Issues)
+* [firefox repos](https://github.com/search?l=Nix&q=firefox&type=Code&utf8=✓) / [firefox gists](https://gist.github.com/search?l=nix&q=firefox) / [firefox #nixos](https://botbot.me/freenode/nixos/search/?q=firefox) / [firefox issues](https://github.com/NixOS/nixpkgs/search?q=firefox&type=Issues)
+
+# Haskell
+
+* [hoogle repos](https://github.com/search?l=Nix&q=hoogle) / [hoogle gists](https://gist.github.com/search?l=Nix&q=hoogle) / [hoogle #nixos](https://botbot.me/freenode/nixos/search/?q=hoogle) / [hoogle issues](https://github.com/NixOS/nixpkgs/search?q=hoogle&type=Issues)
+
+# More reading
+
+* [Awesome Nix](https://github.com/jhedev/awesome-nix)
+* [Nix Cheatsheet](https://nixos.org/wiki/Cheatsheet)
+* [Where to go from here](https://robots.thoughtbot.com/install-linux-on-a-macbook-air#where-to-go-from-here)
+* [Install/remove software](https://nixos.org/wiki/Install/remove_software)
