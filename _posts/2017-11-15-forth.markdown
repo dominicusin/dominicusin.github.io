@@ -3,8 +3,6 @@ title: forth
 date: 2017-11-15 15:38:00 +02:00
 ---
 
-
-
 ## Forths in Assembly
 
 |:star:| Name / Link | Lang | CPU | Description |

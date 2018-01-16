@@ -1,6 +1,6 @@
 ---
 title: Curriculum Vitae
-date: 2016-12-01 11:32:00 +03:00
+date: 2016-12-01 10:32:00 +02:00
 Field name: 
 layout: default
 ---

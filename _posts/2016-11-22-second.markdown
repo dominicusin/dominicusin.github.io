@@ -1,6 +1,6 @@
 ---
 title: List of favourite movies
-date: 2016-11-22 05:25:00 +03:00
+date: 2016-11-22 04:25:00 +02:00
 layout: default
 ---
 
