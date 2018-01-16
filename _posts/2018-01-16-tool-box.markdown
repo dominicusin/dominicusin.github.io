@@ -3796,8 +3796,9 @@ I use this little trick to change the file extension for many files at once. For
 
 \# for i in \\\*.cxx; do mv $i ${i%%.cxx}.cpp; done      # with bash builtins
 
-Programming\
+Programming
 C basics
+
 
 strcpy(newstr,str)                        /\\\* copy str to newstr \*/\
 expr1 ? expr2 : expr3                     /\* if (expr1) expr2 else expr3 \*/\
