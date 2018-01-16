@@ -42,6 +42,8 @@ System
 Hardware | Statistics | Users | Limits | Runlevels | root password | Compile kernel | Repair grub | Misc\
 Running kernel and system information
 
+```
+
 \# uname -a                           # Get the kernel version (and BSD version)
 
 \# lsb_release -a                     # Full release info of any LSB distribution
@@ -3919,9 +3921,11 @@ simplecpp: ${OBJS}\
 clean:\
 rm -f ${TARGET} ${OBJS}
 
-Online Help\
-Documentation\
-Linux Documentation     en.tldp.org\
+```
+
+Online Help
+Documentation
+Linux Documentation     en.tldp.org
 Linux Man Pages     www.linuxmanpages.com\
 Linux commands directory    www.oreillynet.com/linux/cmd\
 Linux doc man howtos    linux.die.net\
