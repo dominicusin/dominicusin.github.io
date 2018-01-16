@@ -8,6 +8,9 @@ collections:
   domini:
     title: domini
     output: true
+  people:
+    title: people
+    output: true
   posts:
     title: Статьи
     output: true
