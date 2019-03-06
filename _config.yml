@@ -1,6 +1,7 @@
 ---
 title: Domini's blog
 timezone: Europe/Helsinki
+theme: minima
 collections:
   uploads:
     title: Uploads
