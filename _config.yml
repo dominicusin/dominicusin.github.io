@@ -1,7 +1,6 @@
 ---
 title: Domini's blog
 timezone: Europe/Helsinki
-theme: minima
 collections:
   uploads:
     title: Uploads
@@ -15,6 +14,7 @@ collections:
   posts:
     title: Статьи
     output: true
+theme: jekyll-theme-hacker
 email: transgregorial@gmail.com
 description: "**personal site, blog Domini**"
 url: https://dominicusin.github.io/
@@ -22,4 +22,3 @@ twitter_username: dominicusin
 github_username: dominicusin
 Field name: 
 markdown: kramdown
-theme: jekyll-theme-hacker
