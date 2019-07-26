@@ -14,7 +14,7 @@ collections:
   posts:
     title: Статьи
     output: true
-theme: jekyll-theme-modernist
+theme: jekyll-theme-time-machine
 email: transgregorial@gmail.com
 description: "**personal site, blog Domini**"
 url: https://dominicusin.github.io/
