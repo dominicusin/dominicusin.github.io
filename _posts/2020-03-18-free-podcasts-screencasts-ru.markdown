@@ -108,3 +108,4 @@ date: 2020-03-18 19:09:00 +02:00
 * [Разбор полётов](http://razbor-poletov.com) (Podcast)
 * [Развлекательный IT подкаст](http://radioma.org) (Podcast)
 * [Слава + Паша](https://it.asm0dey.ru) (Podcast)
+
