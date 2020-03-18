@@ -5,8 +5,7 @@ date: 2020-03-18 02:37:00 +02:00
 
 
 
-
-1. Never trust yourself   It's about the code. Everytime, when I have an error somewhere but can't find it, I begin blame everything: interpreter, environment, language. But this is always the error in code, mostly this error is simple, like similar name of variable or just silly typo. In such moment I always trying to change state of my mind, switch environment, write unit test, grab cup of coffee or go for a walk.
+1.  Never trust yourself   It's about the code. Everytime, when I have an error somewhere but can't find it, I begin blame everything: interpreter, environment, language. But this is always the error in code, mostly this error is simple, like similar name of variable or just silly typo. In such moment I always trying to change state of my mind, switch environment, write unit test, grab cup of coffee or go for a walk.
 
 2. Stay calm   Everytime, when we have something important, we start worrying about that. I know, this is complicated to keep things under control, and I think that is possible. There are plenty things, which can annoy you like slow deployment or environment, bad code, lack of documentation or even noise in the office. It is very important to understand that this is just your job and you are professional, you can handle that. Sometimes it gets tricky or complicated, but this is possible.
 
