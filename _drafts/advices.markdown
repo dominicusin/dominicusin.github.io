@@ -18,19 +18,19 @@ date: 2020-03-18 02:37:00 +02:00
    Sometimes I start writing interface or abstract class. Sometimes i begin with one-line comments. Start coding right now, don't postpone it!
 
 4. Read the books
-\
+   \
    Read, read and read. You are pour without books. Yes, you can read the articles, but that is not enough. Many books systematize your knowledge, make it deeper and wider. Also, books contribute to evolving of your intellection. I don't speak about language references, I always thought that is useless because many modern IDE has perfect support of documentation rendering. I speak about the good books, like "Code complete" for example.
 
 5. Know your tools
-\
+   \
    The biggest part of my life I have spent with relatively slow hardware, therefore I had to use simplest and fastest solutions. I used shell, I tried to create little bash and bat scripts. And later when I started using IDE, by habit I haven't used its most advanced features. It takes some effort to learn but it drastically increases your productivity. Always invest in your education.
 
 6. Help others
-\
+   \
    Always help your friends or colleagues. It will pay you back.
 
 7. Never stop learning
-\
+   \
    Doesn't matter how old you are. Just go and learn.
 
-   [Seven golden advices for programmer](https://www.zoonman.com/blog/seven-golden-advices/)
+   [getting from  Seven golden advices for programmer](https://www.zoonman.com/blog/seven-golden-advices/)
