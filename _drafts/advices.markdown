@@ -1,5 +1,5 @@
 ---
-title: Adv's for programmer
+title: Advs for programmer
 date: 2020-03-18 02:37:00 +02:00
 ---
 
