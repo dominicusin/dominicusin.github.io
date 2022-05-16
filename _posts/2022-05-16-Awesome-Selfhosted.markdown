@@ -5,6 +5,8 @@ date: 2022-05-16 22:52:00 +03:00
 
 # Awesome-Selfhosted
 
+from https://github.com/awesome-selfhosted/awesome-selfhosted
+
 
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome) [![](https://img.shields.io/travis/awesome-selfhosted/awesome-selfhosted/master?label=link%20checks)](https://github.com/awesome-selfhosted/awesome-selfhosted/issues/2266)
 
