@@ -6,6 +6,8 @@ date: 2023-01-14 15:26:00 +02:00
 
 [https://github.com/ai-collection/ai-collection/blob/main/README.md](https://github.com/ai-collection/ai-collection/blob/main/README.md)
 
+![white_check_mark](https://github.githubassets.com/images/icons/emoji/unicode/2705.png)![grey_question](https://github.githubassets.com/images/icons/emoji/unicode/2754.png)![x](https://github.githubassets.com/images/icons/emoji/unicode/274c.png)
+
 ## Index
 
 * [Architecture & Interior Design](#Architecture--interior-design)
