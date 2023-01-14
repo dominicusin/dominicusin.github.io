@@ -3,6 +3,7 @@ title: A Collection of Awesome AI Applications
 date: 2023-01-14 15:26:00 +02:00
 ---
 
+
 [https://github.com/ai-collection/ai-collection/blob/main/README.md](https://github.com/ai-collection/ai-collection/blob/main/README.md)
 
 ## Index
