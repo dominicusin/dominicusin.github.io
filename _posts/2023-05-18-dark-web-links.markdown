@@ -1,6 +1,7 @@
 ---
 title: Dark Web Links
 date: 2023-05-18 09:02:00 +03:00
+layout: page
 ---
 
 # Dark Web Links v3
