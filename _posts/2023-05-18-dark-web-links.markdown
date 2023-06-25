@@ -26,150 +26,151 @@ The following list are the first sites which are available as a v3 .onion hidden
 > Some of the most interesting sites on The Hidden Wiki and the dark web
 
 ##### [1] Mixabit – Bitcoin mixer
-- http://hqfld5smkr4b4xrjcco7zotvoqhuuoehjdvoin755iytmpk4sm7cbwad.onion/
+- [http://hqfld5smkr4b4xrjcco7zotvoqhuuoehjdvoin755iytmpk4sm7cbwad.onion/](http://hqfld5smkr4b4xrjcco7zotvoqhuuoehjdvoin755iytmpk4sm7cbwad.onion/)
 
 ##### [2] OnionLinks – .Onion link directory.
-- http://jaz45aabn5vkemy4jkg4mi4syheisqn2wn2n4fsuitpccdackjwxplad.onion/
-- http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion/
+- [http://jaz45aabn5vkemy4jkg4mi4syheisqn2wn2n4fsuitpccdackjwxplad.onion/](http://jaz45aabn5vkemy4jkg4mi4syheisqn2wn2n4fsuitpccdackjwxplad.onion/)
+- [http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion/](http://s4k4ceiapwwgcm3mkb6e4diqecpo7kvdnfr5gg7sph7jjppqkvwwqtyd.onion/)
 
 ##### [3] Bitpharma – Biggest european .onion drug store
-- http://guzjgkpodzshso2nohspxijzk5jgoaxzqioa7vzy6qdmwpz3hq4mwfid.onion/
+- [http://guzjgkpodzshso2nohspxijzk5jgoaxzqioa7vzy6qdmwpz3hq4mwfid.onion/](http://guzjgkpodzshso2nohspxijzk5jgoaxzqioa7vzy6qdmwpz3hq4mwfid.onion/)
 
 ##### [4] DarkWebHackers – Dark Web Hackers for hire.
-- http://zkj7mzglnrbvu3elepazau7ol26cmq7acryvsqxvh4sreoydhzin7zid.onion/
-- http://prjd5pmbug2cnfs67s3y65ods27vamswdaw2lnwf45ys3pjl55h2gwqd.onion/
+- [http://zkj7mzglnrbvu3elepazau7ol26cmq7acryvsqxvh4sreoydhzin7zid.onion/](http://zkj7mzglnrbvu3elepazau7ol26cmq7acryvsqxvh4sreoydhzin7zid.onion/)
+- [http://prjd5pmbug2cnfs67s3y65ods27vamswdaw2lnwf45ys3pjl55h2gwqd.onion/](http://prjd5pmbug2cnfs67s3y65ods27vamswdaw2lnwf45ys3pjl55h2gwqd.onion/)
 
 ##### [5] Cardshop – USA CVV KNOWN BALANCE & Worldwide CC & CVV .
-- http://f6wqhy6ii7metm45m4mg6yg76yytik5kxe6h7sestyvm6gnlcw3n4qad.onion/
-- http://s57divisqlcjtsyutxjz2ww77vlbwpxgodtijcsrgsuts4js5hnxkhqd.onion/
+- [http://f6wqhy6ii7metm45m4mg6yg76yytik5kxe6h7sestyvm6gnlcw3n4qad.onion/](http://f6wqhy6ii7metm45m4mg6yg76yytik5kxe6h7sestyvm6gnlcw3n4qad.onion/)
+- [http://s57divisqlcjtsyutxjz2ww77vlbwpxgodtijcsrgsuts4js5hnxkhqd.onion/](http://s57divisqlcjtsyutxjz2ww77vlbwpxgodtijcsrgsuts4js5hnxkhqd.onion/)
 
 
 ## [ Introduction Points ]
 > Some sites with good .onion lists
 
 ### The Hidden Wiki
-- https://thehiddenwiki.com/
+- [https://thehiddenwiki.com/](https://thehiddenwiki.com/)
 
 ### Dark Web Links 
-- https://darkweblinks.com/
+- [https://darkweblinks.com/](https://darkweblinks.com/)
 
 ### The Original Hidden Wiki – The oldest hidden wiki
-- http://zqktlwiuavvvqqt4ybvgvi7tyo4hjl5xgfuvpdf6otjiycgwqbym2qad.onion/wiki/index.php/Main_Page
-- http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/
+- [http://zqktlwiuavvvqqt4ybvgvi7tyo4hjl5xgfuvpdf6otjiycgwqbym2qad.onion/wiki/index.php/](http://zqktlwiuavvvqqt4ybvgvi7tyo4hjl5xgfuvpdf6otjiycgwqbym2qad.onion/wiki/index.php/)Main_Page
+- [http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/](http://6nhmgdpnyoljh5uzr5kwlatx2u3diou4ldeommfxjz3wkhalzgjqxzqd.onion/)
 
 ### The Hidden Wiki – New Hidden Wiki 2019
-- http://paavlaytlfsqyvkg3yqj7hflfg5jw2jdg2fgkza5ruf6lplwseeqtvyd.onion/
+- [http://paavlaytlfsqyvkg3yqj7hflfg5jw2jdg2fgkza5ruf6lplwseeqtvyd.onion/](http://paavlaytlfsqyvkg3yqj7hflfg5jw2jdg2fgkza5ruf6lplwseeqtvyd.onion/)
 
 ### Another Hidden Wiki Another hidden wiki like link collection.
-- http://2jwcnprqbugvyi6ok2h2h7u26qc6j5wxm7feh3znlh2qu3h6hjld4kyd.onion/
+- [http://2jwcnprqbugvyi6ok2h2h7u26qc6j5wxm7feh3znlh2qu3h6hjld4kyd.onion/](http://2jwcnprqbugvyi6ok2h2h7u26qc6j5wxm7feh3znlh2qu3h6hjld4kyd.onion/)
 
 ### The Dark Web Pug - Pug’s Ultimate Dark Web Guide .
-- http://jgwe5cjqdbyvudjqskaajbfibfewew4pndx52dye7ug3mt3jimmktkid.onion/
+- [http://jgwe5cjqdbyvudjqskaajbfibfewew4pndx52dye7ug3mt3jimmktkid.onion/](http://jgwe5cjqdbyvudjqskaajbfibfewew4pndx52dye7ug3mt3jimmktkid.onion/)
 
 ### Torlinks - TorLinks is a moderated replacement for The Hidden Wiki.
-- http://torlinksge6enmcyyuxjpjkoouw4oorgdgeo7ftnq3zodj7g2zxi3kyd.onion/
+- [http://torlinksge6enmcyyuxjpjkoouw4oorgdgeo7ftnq3zodj7g2zxi3kyd.onion/](http://torlinksge6enmcyyuxjpjkoouw4oorgdgeo7ftnq3zodj7g2zxi3kyd.onion/)
 
 ### The Longest Onion Index
-- http://jptvwdeyknkv6oiwjtr2kxzehfnmcujl7rf7vytaikmwlvze773uiyyd.onion/
+- [http://jptvwdeyknkv6oiwjtr2kxzehfnmcujl7rf7vytaikmwlvze773uiyyd.onion/](http://jptvwdeyknkv6oiwjtr2kxzehfnmcujl7rf7vytaikmwlvze773uiyyd.onion/)
 
 ### Wiki Links | Tor .onion urls directories
-- http://vykenniek4sagugiayj3z32rpyrinoadduprjtdy4wharue6cz7zudid.onion/
+- [http://vykenniek4sagugiayj3z32rpyrinoadduprjtdy4wharue6cz7zudid.onion/](http://vykenniek4sagugiayj3z32rpyrinoadduprjtdy4wharue6cz7zudid.onion/)
 
 ### DuckDuckGo – A Hidden Service that searches the clearnet.
-- https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+- [https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/](https://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/)
 
 
 ### Link Dir Onion
-- http://lnbpcgk4mem5vvvwilqsk7yb5i2bgtjphnvq37kajdycu56i5omt4cqd.onion/
+- [http://lnbpcgk4mem5vvvwilqsk7yb5i2bgtjphnvq37kajdycu56i5omt4cqd.onion/](http://lnbpcgk4mem5vvvwilqsk7yb5i2bgtjphnvq37kajdycu56i5omt4cqd.onion/)
 
 ### Dark Net 2020
-- http://i66lrq4yi4gm6afdnnbqj2w46zrgsnbnvdr3hfdmrvfryk3luempd5ad.onion/
+- [http://i66lrq4yi4gm6afdnnbqj2w46zrgsnbnvdr3hfdmrvfryk3luempd5ad.onion/](http://i66lrq4yi4gm6afdnnbqj2w46zrgsnbnvdr3hfdmrvfryk3luempd5ad.onion/)
 
 ### Dark Net Tor
-- http://c3b24jvpheh5twkgyccwrxanl67wnir5amkgoxg5ex4dq4ltmaopn7id.onion/
+- [http://c3b24jvpheh5twkgyccwrxanl67wnir5amkgoxg5ex4dq4ltmaopn7id.onion/](http://c3b24jvpheh5twkgyccwrxanl67wnir5amkgoxg5ex4dq4ltmaopn7id.onion/)
 
 ### Dark Web 2020
-- http://ygzg6qzkup7xfcq2vl3yogcs6jvrupf5qxujeevmqxbcair6vptfimqd.onion/
+- [http://ygzg6qzkup7xfcq2vl3yogcs6jvrupf5qxujeevmqxbcair6vptfimqd.onion/](http://ygzg6qzkup7xfcq2vl3yogcs6jvrupf5qxujeevmqxbcair6vptfimqd.onion/)
 
 ### Dark Web 2021
-- http://dwltorbltw3tdjskxn23j2mwz2f4q25j4ninl5bdvttiy4xb6cqzikid.onion/
+- [http://dwltorbltw3tdjskxn23j2mwz2f4q25j4ninl5bdvttiy4xb6cqzikid.onion/](http://dwltorbltw3tdjskxn23j2mwz2f4q25j4ninl5bdvttiy4xb6cqzikid.onion/)
 
 ### Deeb Web Links
-- http://z5zmar3i6yf4ds6nbbl3e4pxwptvotrrvlixmbtxsaw5c6vba5kcj3qd.onion/
+- [http://z5zmar3i6yf4ds6nbbl3e4pxwptvotrrvlixmbtxsaw5c6vba5kcj3qd.onion/](http://z5zmar3i6yf4ds6nbbl3e4pxwptvotrrvlixmbtxsaw5c6vba5kcj3qd.onion/)
 
 ### Tor Onion Urls Dir
-- http://d6q4gw2ahmctlez3jvxvycubmwbsqownjerr7yqlaunmmvmk2te4ktqd.onion/ 
+- [http://d6q4gw2ahmctlez3jvxvycubmwbsqownjerr7yqlaunmmvmk2te4ktqd.onion/ ](http://d6q4gw2ahmctlez3jvxvycubmwbsqownjerr7yqlaunmmvmk2te4ktqd.onion/)
 
 ### Tor Web 
-- http://ivsrrl2knkwb7vjroibxbq5yqvmwn3hixmjzht2li7yl3lwa636vt4qd.onion/
+- [http://ivsrrl2knkwb7vjroibxbq5yqvmwn3hixmjzht2li7yl3lwa636vt4qd.onion/](http://ivsrrl2knkwb7vjroibxbq5yqvmwn3hixmjzht2li7yl3lwa636vt4qd.onion/)
 
 ### Links Tor
-- http://2orrxnndqeoygi3a7wivy4odtc5ufq224rggvbedbpbg7yfkcgbs3wid.onion/
+- [http://2orrxnndqeoygi3a7wivy4odtc5ufq224rggvbedbpbg7yfkcgbs3wid.onion/](http://2orrxnndqeoygi3a7wivy4odtc5ufq224rggvbedbpbg7yfkcgbs3wid.onion/)
 
 ### Hidden Wiki Tor
-- http://skhz5s6z5dpjz3flxudesptuc53lsfykjjzk6mwxabssrgqwz6k7cyid.onion/
+- [http://skhz5s6z5dpjz3flxudesptuc53lsfykjjzk6mwxabssrgqwz6k7cyid.onion/](http://skhz5s6z5dpjz3flxudesptuc53lsfykjjzk6mwxabssrgqwz6k7cyid.onion/)
 
 ### Tor Catalog
-- http://oj5l6if6aq4q2yupnbzagh2bndgunx4urcrgobietlxtesjc345btpyd.onion/
+- [http://oj5l6if6aq4q2yupnbzagh2bndgunx4urcrgobietlxtesjc345btpyd.onion/](http://oj5l6if6aq4q2yupnbzagh2bndgunx4urcrgobietlxtesjc345btpyd.onion/)
 
 ### Tor Wiki
-- http://ub6bby4x2djuerj4i2cbxnzmef566zgb2f7x6iqnu6dzwznxw2tscmqd.onion/
+-[ http://ub6bby4x2djuerj4i2cbxnzmef566zgb2f7x6iqnu6dzwznxw2tscmqd.onion/](http://ub6bby4x2djuerj4i2cbxnzmef566zgb2f7x6iqnu6dzwznxw2tscmqd.onion/)
 
 ### Wiki Tor
-- http://7zikb4l6oyuuf4gfslqtvi2haazbknxcu5stpn6pnjrwnscbo72e4mid.onion/
+- [http://7zikb4l6oyuuf4gfslqtvi2haazbknxcu5stpn6pnjrwnscbo72e4mid.onion/](http://7zikb4l6oyuuf4gfslqtvi2haazbknxcu5stpn6pnjrwnscbo72e4mid.onion/)
 
 ### DarkDir
-- http://l7vh56hxm3t4tzy75nxzducszppgi45fyx2wy6chujxb2rhy7o5r62ad.onion/
+- [http://l7vh56hxm3t4tzy75nxzducszppgi45fyx2wy6chujxb2rhy7o5r62ad.onion/](http://l7vh56hxm3t4tzy75nxzducszppgi45fyx2wy6chujxb2rhy7o5r62ad.onion/)
 
 ### Trust Wiki
-- http://wiki6dtqpuvwtc5hopuj33eeavwa6sik7sy57cor35chkx5nrbmmolqd.onion/
+- [http://wiki6dtqpuvwtc5hopuj33eeavwa6sik7sy57cor35chkx5nrbmmolqd.onion/](http://wiki6dtqpuvwtc5hopuj33eeavwa6sik7sy57cor35chkx5nrbmmolqd.onion/)
 
 ## [ Search Engines ]
 > Search on dark web 
 
 ### Ahmia.fi - Clearnet search engine for Tor Hidden Services.
-- http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/
+- [http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/](http://juhanurmihxlp77nkq76byazcldy2hlmovfu2epvl5ankdibsot4csyd.onion/)
 
 ### DuckDuckGo Search Engine 
-- http://duckgoknglkhx43vwhlcycmzep3rnjkrckzfjdx5iorbhdqucvhsrdad.onion/
-- http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/
+- [http://duckgoknglkhx43vwhlcycmzep3rnjkrckzfjdx5iorbhdqucvhsrdad.onion/](http://duckgoknglkhx43vwhlcycmzep3rnjkrckzfjdx5iorbhdqucvhsrdad.onion/)
+- [http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion](http://duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion/)/
 
 ### Torch - Tor Search Engine. Claims to index around 1.1 Million pages.
-- http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega
+- [http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega
+](http://xmh57jrknzkhv6y3ls3ubitzfqnkrwxhopf5aygthi7d6rplyvk3noyd.onion/cgi-bin/omega/omega)
 
 ### Sentor
-- http://e27slbec2ykiyo26gfuovaehuzsydffbit5nlxid53kigw3pvz6uosqd.onion/
+- [http://e27slbec2ykiyo26gfuovaehuzsydffbit5nlxid53kigw3pvz6uosqd.onion/](http://e27slbec2ykiyo26gfuovaehuzsydffbit5nlxid53kigw3pvz6uosqd.onion/)
 
 ### Demon
-- http://srcdemonm74icqjvejew6fprssuolyoc2usjdwflevbdpqoetw4x3ead.onion/
+- [http://srcdemonm74icqjvejew6fprssuolyoc2usjdwflevbdpqoetw4x3ead.onion/](http://srcdemonm74icqjvejew6fprssuolyoc2usjdwflevbdpqoetw4x3ead.onion/)
 
 ### FindTor
-- http://findtorroveq5wdnipkaojfpqulxnkhblymc7aramjzajcvpptd4rjqd.onion/
+- [http://findtorroveq5wdnipkaojfpqulxnkhblymc7aramjzajcvpptd4rjqd.onion/](http://findtorroveq5wdnipkaojfpqulxnkhblymc7aramjzajcvpptd4rjqd.onion/)
 
 ### TorNode
-- http://e6wzjohnxejirqa2sgridvymv2jxhrqdfuyxvoxp3xpqh7kr4kbwpwad.onion/
+- [http://e6wzjohnxejirqa2sgridvymv2jxhrqdfuyxvoxp3xpqh7kr4kbwpwad.onion/](http://e6wzjohnxejirqa2sgridvymv2jxhrqdfuyxvoxp3xpqh7kr4kbwpwad.onion/)
 
 ### OnionLand Search
-- http://3bbad7fauom4d6sgppalyqddsqbf5u5p56b5k5uk2zxsy3d6ey2jobad.onion/
+- [http://3bbad7fauom4d6sgppalyqddsqbf5u5p56b5k5uk2zxsy3d6ey2jobad.onion/](http://3bbad7fauom4d6sgppalyqddsqbf5u5p56b5k5uk2zxsy3d6ey2jobad.onion/)
 
 ### tordex
-- http://tordexu73joywapk2txdr54jed4imqledpcvcuf75qsas2gwdgksvnyd.onion/
+- [http://tordexu73joywapk2txdr54jed4imqledpcvcuf75qsas2gwdgksvnyd.onion/](http://tordexu73joywapk2txdr54jed4imqledpcvcuf75qsas2gwdgksvnyd.onion/)
 
 ### MetaGer – German Search
-- http://metagerv65pwclop2rsfzg4jwowpavpwd6grhhlvdgsswvo6ii4akgyd.onion/
+- [http://metagerv65pwclop2rsfzg4jwowpavpwd6grhhlvdgsswvo6ii4akgyd.onion/](http://metagerv65pwclop2rsfzg4jwowpavpwd6grhhlvdgsswvo6ii4akgyd.onion/)
 
 ## [ Financial Services ]
 > Currencies, banks, money markets, clearing houses, exchangers
 
 ### AccMarket – Premium Paypal, Ebay and bank accounts.
-- http://z7s2w5vruxbp2wzts3snxs24yggbtdcdj5kp2f6z5gimouyh3wiaf7id.onion/
-- http://55niksbd22qqaedkw36qw4cpofmbxdtbwonxam7ov2ga62zqbhgty3yd.onion/
+- [http://z7s2w5vruxbp2wzts3snxs24yggbtdcdj5kp2f6z5gimouyh3wiaf7id.onion/](http://z7s2w5vruxbp2wzts3snxs24yggbtdcdj5kp2f6z5gimouyh3wiaf7id.onion/)
+- [http://55niksbd22qqaedkw36qw4cpofmbxdtbwonxam7ov2ga62zqbhgty3yd.onion/](http://55niksbd22qqaedkw36qw4cpofmbxdtbwonxam7ov2ga62zqbhgty3yd.onion/)
 
 ### Dark Mixer – Anonymous bitcoin mixer
-- http://y22arit74fqnnc2pbieq3wqqvkfub6gnlegx3cl6thclos4f7ya7rvad.onion/
+- [http://y22arit74fqnnc2pbieq3wqqvkfub6gnlegx3cl6thclos4f7ya7rvad.onion/](http://y22arit74fqnnc2pbieq3wqqvkfub6gnlegx3cl6thclos4f7ya7rvad.onion/)
 
 ### Viring Bitcoins – Buy freshly mined clean bitcoins .
-- http://ovai7wvp4yj6jl3wbzihypbq657vpape7lggrlah4pl34utwjrpetwid.onion/
+- [http://ovai7wvp4yj6jl3wbzihypbq657vpape7lggrlah4pl34utwjrpetwid.onion/](http://ovai7wvp4yj6jl3wbzihypbq657vpape7lggrlah4pl34utwjrpetwid.onion/)
 
 ### ccPal – PayPals, Ebays, CCs and more
 - http://xykxv6fmblogxgmzjm5wt6akdhm4wewiarjzcngev4tupgjlyugmc7qd.onion/
