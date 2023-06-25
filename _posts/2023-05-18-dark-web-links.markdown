@@ -591,133 +591,126 @@ The following list are the first sites which are available as a v3 .onion hidden
 - [http://fahue6hb7odzns36vfoi2dqfvqvjq4btt7vo52a67jivmyz6a6h3vzqd.onion/](http://fahue6hb7odzns36vfoi2dqfvqvjq4btt7vo52a67jivmyz6a6h3vzqd.onion/)
 
 ### Ransomware Group Sites 
-- http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/ 
+- [http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/](http://)[](http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/) 
 
 ### Runion
-- http://runionv3do7jdylpx7ufc6qkmygehsiuichjcstpj4hb2ycqrnmp67ad.onion/
+- [http://runionv3do7jdylpx7ufc6qkmygehsiuichjcstpj4hb2ycqrnmp67ad.onion/](http://runionv3do7jdylpx7ufc6qkmygehsiuichjcstpj4hb2ycqrnmp67ad.onion/)
 
 ### Tape
-- http://tapefaqb6kz5buk4bqhnjv3oo3oi7xn6y6kpkjfh5hqu3t7e3dzr65yd.onion/
-
+- [http://tapefaqb6kz5buk4bqhnjv3oo3oi7xn6y6kpkjfh5hqu3t7e3dzr65yd.onion/
+](http://tapefaqb6kz5buk4bqhnjv3oo3oi7xn6y6kpkjfh5hqu3t7e3dzr65yd.onion/)
 ### The Permanent Booru
-- http://owmvhpxyisu6fgd7r2fcswgavs7jly4znldaey33utadwmgbbp4pysad.onion/
+- [http://owmvhpxyisu6fgd7r2fcswgavs7jly4znldaey33utadwmgbbp4pysad.onion/](http://owmvhpxyisu6fgd7r2fcswgavs7jly4znldaey33utadwmgbbp4pysad.onion/)
 
 ### Dread
-- http://dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/
+- [http://dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/](http://dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/)
 
 ### CFM
-- http://cin2qdnu3rwdahxvrx5pyvmc3zhy22zthfzwtmt43th45x5hyb465qqd.onion/
+- [http://cin2qdnu3rwdahxvrx5pyvmc3zhy22zthfzwtmt43th45x5hyb465qqd.onion/](http://cin2qdnu3rwdahxvrx5pyvmc3zhy22zthfzwtmt43th45x5hyb465qqd.onion/)
 
 ### Cebulka
-- http://cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd.onion/
+- [http://cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd.onion/](http://cebulka7uxchnbpvmqapg5pfos4ngaxglsktzvha7a5rigndghvadeyd.onion/)
 
 ### TruthBoard
-- http://k5aintllrufq23khjnmmfli6uxioboe3ylcao7k72mk2bgvwqb5ek4ad.onion/
+- [http://k5aintllrufq23khjnmmfli6uxioboe3ylcao7k72mk2bgvwqb5ek4ad.onion/](http://k5aintllrufq23khjnmmfli6uxioboe3ylcao7k72mk2bgvwqb5ek4ad.onion/)
 
 ### Raddle
-- http://c32zjeghcp5tj3kb72pltz56piei66drc63vkhn5yixiyk4cmerrjtid.onion/
+- [http://c32zjeghcp5tj3kb72pltz56piei66drc63vkhn5yixiyk4cmerrjtid.onion/](http://c32zjeghcp5tj3kb72pltz56piei66drc63vkhn5yixiyk4cmerrjtid.onion/)
 
 ### SuprBay: The PirateBay Forum
-- http://suprbaydvdcaynfo4dgdzgxb4zuso7rftlil5yg5kqjefnw4wq4ulcad.onion/
+- [http://suprbaydvdcaynfo4dgdzgxb4zuso7rftlil5yg5kqjefnw4wq4ulcad.onion/](http://suprbaydvdcaynfo4dgdzgxb4zuso7rftlil5yg5kqjefnw4wq4ulcad.onion/)
 
 ### NZ Darknet Market Forums
-- http://nzdnmfcf2z5pd3vwfyfy3jhwoubv6qnumdglspqhurqnuvr52khatdad.onion/
+- [http://nzdnmfcf2z5pd3vwfyfy3jhwoubv6qnumdglspqhurqnuvr52khatdad.onion/](http://nzdnmfcf2z5pd3vwfyfy3jhwoubv6qnumdglspqhurqnuvr52khatdad.onion/)
 
 ### Rutor
-- http://rutordeepkpafpudl22pbbhzm4llbgncunvgcc66kax55sc4mp4kxcid.onion/
+- [http://rutordeepkpafpudl22pbbhzm4llbgncunvgcc66kax55sc4mp4kxcid.onion/](http://rutordeepkpafpudl22pbbhzm4llbgncunvgcc66kax55sc4mp4kxcid.onion/)
 
 ### French World
-- http://frenchwltobamdhyq5y2egezkbnz53ws5kaa6wnscildhnegdw5nhsyd.onion/
+- [http://frenchwltobamdhyq5y2egezkbnz53ws5kaa6wnscildhnegdw5nhsyd.onion/](http://frenchwltobamdhyq5y2egezkbnz53ws5kaa6wnscildhnegdw5nhsyd.onion/)
 
 ### AnonGTS  
-- http://eux4gt4qcaiesps5w5rppxcenoe5shapwycums5yuiikmc4mpc74gpyd.onion/
+- [http://eux4gt4qcaiesps5w5rppxcenoe5shapwycums5yuiikmc4mpc74gpyd.onion/](http://eux4gt4qcaiesps5w5rppxcenoe5shapwycums5yuiikmc4mpc74gpyd.onion/)
 
 ### DEF CON Forums
-- https://ezdhgsy2aw7zg54z6dqsutrduhl22moami5zv2zt6urr6vub7gs6wfad.onion/
+- [https://ezdhgsy2aw7zg54z6dqsutrduhl22moami5zv2zt6urr6vub7gs6wfad.onion/](https://ezdhgsy2aw7zg54z6dqsutrduhl22moami5zv2zt6urr6vub7gs6wfad.onion/)
 
 ### ALOG.SPACE 
-- http://bhlnasxdkbaoxf4gtpbhavref7l2j3bwooes77hqcacxztkindztzrad.onion/
-
+- [http://bhlnasxdkbaoxf4gtpbhavref7l2j3bwooes77hqcacxztkindztzrad.onion/
+](http://bhlnasxdkbaoxf4gtpbhavref7l2j3bwooes77hqcacxztkindztzrad.onion/)
 ### CryptBB
-- http://cryptbbtg65gibadeeo2awe3j7s6evg7eklserehqr4w4e2bis5tebid.onion/
+- [http://cryptbbtg65gibadeeo2awe3j7s6evg7eklserehqr4w4e2bis5tebid.onion/](http://cryptbbtg65gibadeeo2awe3j7s6evg7eklserehqr4w4e2bis5tebid.onion/)
 
 ### Deutschland im Deep Web Forum
-- http://germany2igel45jbmjdipfbzdswjcpjqzqozxt4l33452kzrrda2rbid.onion/
+- [http://germany2igel45jbmjdipfbzdswjcpjqzqozxt4l33452kzrrda2rbid.onion/](http://germany2igel45jbmjdipfbzdswjcpjqzqozxt4l33452kzrrda2rbid.onion/)
 
 ### Envory Forum v2
-- http://envoy2vxtsbz63bik33yb6vka2ed4x5leeisfg2isd2gz2eg4skwmbyd.onion/welcome
+- [http://envoy2vxtsbz63bik33yb6vka2ed4x5leeisfg2isd2gz2eg4skwmbyd.onion/welcome](http://envoy2vxtsbz63bik33yb6vka2ed4x5leeisfg2isd2gz2eg4skwmbyd.onion/welcome)
 
 ### Exploit.in
-- https://exploitivzcm5dawzhe6c32bbylyggbjvh5dyvsvb5lkuz5ptmunkmqd.onion
+- [https://exploitivzcm5dawzhe6c32bbylyggbjvh5dyvsvb5lkuz5ptmunkmqd.onion](https://exploitivzcm5dawzhe6c32bbylyggbjvh5dyvsvb5lkuz5ptmunkmqd.onion)
 
 ### Poast
-- http://6x7g7rr6fhdoszolkqkaittdr6qzgejjxoc42q4ceaph2xttmo5vgryd.onion/
-
+- [http://6x7g7rr6fhdoszolkqkaittdr6qzgejjxoc42q4ceaph2xttmo5vgryd.onion/
+](http://6x7g7rr6fhdoszolkqkaittdr6qzgejjxoc42q4ceaph2xttmo5vgryd.onion/)
 ### Rutor
-- http://rutorbestyszzvgnbky4t3s5i5h5xp7kj3wrrgmgmfkgvnuk7tnen2yd.onion/
+- [http://rutorbestyszzvgnbky4t3s5i5h5xp7kj3wrrgmgmfkgvnuk7tnen2yd.onion/](http://rutorbestyszzvgnbky4t3s5i5h5xp7kj3wrrgmgmfkgvnuk7tnen2yd.onion/)
 
 ### The HUB
-- http://thehubmcwyzwijjoqvdtpmu36npcueypjbgnvbqz4jliwjmmnpfkzkqd.onion/
-
+- [http://thehubmcwyzwijjoqvdtpmu36npcueypjbgnvbqz4jliwjmmnpfkzkqd.onion/
+](http://thehubmcwyzwijjoqvdtpmu36npcueypjbgnvbqz4jliwjmmnpfkzkqd.onion/)
 ### The Stock Insiders
-- http://thestock6nonb74owd6utzh4vld3xsf2n2fwxpwywjgq7maj47mvwmid.onion/
+- [http://thestock6nonb74owd6utzh4vld3xsf2n2fwxpwywjgq7maj47mvwmid.onion/](http://thestock6nonb74owd6utzh4vld3xsf2n2fwxpwywjgq7maj47mvwmid.onion/)
 
 ## [ Chats ]
 
 ### Ableonion 
-- http://notbumpz34bgbz4yfdigxvd6vzwtxc3zpt5imukgl6bvip2nikdmdaad.onion/
+- [http://notbumpz34bgbz4yfdigxvd6vzwtxc3zpt5imukgl6bvip2nikdmdaad.onion/](http://notbumpz34bgbz4yfdigxvd6vzwtxc3zpt5imukgl6bvip2nikdmdaad.onion/)
 
 ### MadIRC 
-- http://wbi67emmdx6i6rcr6nnk3hco3nrvdc2juxrbvomvt6nze5afjz6pgtad.onion/
+- [http://wbi67emmdx6i6rcr6nnk3hco3nrvdc2juxrbvomvt6nze5afjz6pgtad.onion/](http://wbi67emmdx6i6rcr6nnk3hco3nrvdc2juxrbvomvt6nze5afjz6pgtad.onion/)
 
 ### JitJat 
-- http://jitjatj3qbb42jvik4udcehxpkoidppz3gojslh7jcatuo4hx4xwayid.onion/login.php
+- [http://jitjatj3qbb42jvik4udcehxpkoidppz3gojslh7jcatuo4hx4xwayid.onion/login.php](http://jitjatj3qbb42jvik4udcehxpkoidppz3gojslh7jcatuo4hx4xwayid.onion/login.php)
 
 ### CGI IRC 
-- http://34vnln24rlakgbk6gpityvljieayyw7q4bhdbbgs6zp2v5nbh345zgad.onion/
+- [http://34vnln24rlakgbk6gpityvljieayyw7q4bhdbbgs6zp2v5nbh345zgad.onion/](http://34vnln24rlakgbk6gpityvljieayyw7q4bhdbbgs6zp2v5nbh345zgad.onion/)
 
 ### Black Hat 
-- http://blkhatjxlrvc5aevqzz5t6kxldayog6jlx5h7glnu44euzongl4fh5ad.onion/
+- [http://blkhatjxlrvc5aevqzz5t6kxldayog6jlx5h7glnu44euzongl4fh5ad.onion/](http://blkhatjxlrvc5aevqzz5t6kxldayog6jlx5h7glnu44euzongl4fh5ad.onion/)
 
 ### Infantile 
-- http://juvenilezskkwc2gu7j5c4akppjnr3kzlgljjeodd5psn6fwcnloplid.onion/
+- [http://juvenilezskkwc2gu7j5c4akppjnr3kzlgljjeodd5psn6fwcnloplid.onion/](http://juvenilezskkwc2gu7j5c4akppjnr3kzlgljjeodd5psn6fwcnloplid.onion/)
 
 
 ## [ Others Sites ]
 
 ### CIA.gov – Official CIA Site
-- http://ciadotgov4sjwlzihbbgxnqg3xiyrg7so2r2o3lt5wz5ypk4sxyjstad.onion/
+- [http://ciadotgov4sjwlzihbbgxnqg3xiyrg7so2r2o3lt5wz5ypk4sxyjstad.onion/](http://ciadotgov4sjwlzihbbgxnqg3xiyrg7so2r2o3lt5wz5ypk4sxyjstad.onion/)
 
 ### NCIDE Task Force
-- http://ncidetfs7banpz2d7vpndev5somwoki5vwdpfty2k7javniujekit6ad.onion/
+- [http://ncidetfs7banpz2d7vpndev5somwoki5vwdpfty2k7javniujekit6ad.onion/](http://ncidetfs7banpz2d7vpndev5somwoki5vwdpfty2k7javniujekit6ad.onion/)
 
 ### National Police of the Netherlands
-- http://tcecdnp2fhyxlcrjoyc2eimdjosr65hweut6y7r2u6b5y75yuvbkvfyd.onion/
+- [http://tcecdnp2fhyxlcrjoyc2eimdjosr65hweut6y7r2u6b5y75yuvbkvfyd.onion/](http://tcecdnp2fhyxlcrjoyc2eimdjosr65hweut6y7r2u6b5y75yuvbkvfyd.onion/)
 
 ### Bible4u – The Bible
-- http://bible4u2lvhacg4b3to2e2veqpwmrc2c3tjf2wuuqiz332vlwmr4xbad.onion/
+- [http://bible4u2lvhacg4b3to2e2veqpwmrc2c3tjf2wuuqiz332vlwmr4xbad.onion/](http://bible4u2lvhacg4b3to2e2veqpwmrc2c3tjf2wuuqiz332vlwmr4xbad.onion/)
 
 ### LocalMonero – Local Monero Trades
-- http://nehdddktmhvqklsnkjqcbpmb63htee2iznpcbs5tgzctipxykpj6yrid.onion/nojs/captcha
+- [http://nehdddktmhvqklsnkjqcbpmb63htee2iznpcbs5tgzctipxykpj6yrid.onion/nojs/captcha](http://nehdddktmhvqklsnkjqcbpmb63htee2iznpcbs5tgzctipxykpj6yrid.onion/nojs/captcha)
 
 ### TMG Mirror List
-- http://tmglsdds6usxqsghympkjfbddume3olbvpqdrpxvcxplhd4z7bxucdid.onion/
-
+- [http://tmglsdds6usxqsghympkjfbddume3olbvpqdrpxvcxplhd4z7bxucdid.onion/
+](http://tmglsdds6usxqsghympkjfbddume3olbvpqdrpxvcxplhd4z7bxucdid.onion/)
 ### Satanic Ceremony
-- http://ho2hua2hfduv6f7hcbzdj2e6qdn4szgyy2jjnx545v4z3epq7uyrscid.onion/
+- [http://ho2hua2hfduv6f7hcbzdj2e6qdn4szgyy2jjnx545v4z3epq7uyrscid.onion/](http://ho2hua2hfduv6f7hcbzdj2e6qdn4szgyy2jjnx545v4z3epq7uyrscid.onion/)
 
 ### Tech Learning Collective
-- http://lpiyu33yusoalp5kh3f4hak2so2sjjvjw5ykyvu2dulzosgvuffq6sad.onion/
+- [http://lpiyu33yusoalp5kh3f4hak2so2sjjvjw5ykyvu2dulzosgvuffq6sad.onion/](http://lpiyu33yusoalp5kh3f4hak2so2sjjvjw5ykyvu2dulzosgvuffq6sad.onion/)
 
 ### Beneath VT
-- http://bvten5svsltfpxrxl72ukqxixwo2m5ek5svmcxgrmkta4tbmiemuibid.onion/
+- [http://bvten5svsltfpxrxl72ukqxixwo2m5ek5svmcxgrmkta4tbmiemuibid.onion/](http://bvten5svsltfpxrxl72ukqxixwo2m5ek5svmcxgrmkta4tbmiemuibid.onion/)
 
 ### Deep Web Radio
-- http://anonyradixhkgh5myfrkarggfnmdzzhhcgoy2v66uf7sml27to5n2tid.onion/
-
-## Donate
-- BTC) bc1qjmp35tkz542xf7dmvrzqz4fgxlrm0prl0re889
-- ETH) 0x0B3F99A01205F23109F9578Cb72BA46A025381B3
-- BNB) bnb1fehst2crq957glcy0k2w8cvp64nu2wnezpznj0
-- SHIB - ERC20) 0x0B3F99A01205F23109F9578Cb72BA46A025381B3
-- USDT - ERC20) 0x0B3F99A01205F23109F9578Cb72BA46A025381B3
+- [http://anonyradixhkgh5myfrkarggfnmdzzhhcgoy2v66uf7sml27to5n2tid.onion/](http://anonyradixhkgh5myfrkarggfnmdzzhhcgoy2v66uf7sml27to5n2tid.onion/)
