@@ -12,24 +12,24 @@ layout: page
 
 * *If perchance one among you possess the courage to induct a lazy impatient and hubristic acolyte of BSD into the sacred communion of shared purpose:*
 
- 1. [https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1](https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1)
+  [https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1](https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1)
 
- 2. [https://join.skype.com/invite/zc1pFDXR0nHO](https://join.skype.com/invite/zc1pFDXR0nHO)
+  [https://join.skype.com/invite/zc1pFDXR0nHO](https://join.skype.com/invite/zc1pFDXR0nHO)
 
- 3. [https://meet.google.com/nup-jwho-ips](https://meet.google.com/nup-jwho-ips)
+  [https://meet.google.com/nup-jwho-ips](https://meet.google.com/nup-jwho-ips)
 
- 4. [https://dominicusin.github.io/](https://dominicusin.github.io/)
+  [https://dominicusin.github.io/](https://dominicusin.github.io/)
 
- 5. http://www.researcherid.com/rid/C-7449-2018
+  http://www.researcherid.com/rid/C-7449-2018
 
- 6. https://publons.com/researcher/1390905/dominicusin-montessori/
+  https://publons.com/researcher/1390905/dominicusin-montessori/
 
- 7. http://orcid.org/0000-0002-7425-0526
+  http://orcid.org/0000-0002-7425-0526
 
- 8. https://www.mendeley.com/profiles/domini-montessori/
+  https://www.mendeley.com/profiles/domini-montessori/
 
- 9. https://scholar.google.ru/citations?user=H6jV56gAAAAJ
+  https://scholar.google.ru/citations?user=H6jV56gAAAAJ
 
-10. https://independent.academia.edu/DominicusinMontessori
+  https://independent.academia.edu/DominicusinMontessori
 
-\*\*\* \*\*\* \*\*\*
+\*\*\* 
