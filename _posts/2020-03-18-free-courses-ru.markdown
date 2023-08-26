@@ -1,5 +1,5 @@
 ---
-title: free-courses-ru
+title: free-courses
 date: 2020-03-18 18:55:00 +02:00
 ---
 
