@@ -4,7 +4,7 @@ permalink: "/about/"
 layout: page
 ---
 
-
+tt
 
 * *I am not in search of trading my time for coins, but rather seeking a humble assembly where each soul is attuned to the collective pursuit, devoid of the need for guidance. A sanctuary where I could be both a student and an artisan of wisdom, contributing unto all, within such a quaint and virtuous fellowship…*
 
