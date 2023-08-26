@@ -1,5 +1,5 @@
 ---
-title: free-programming-books-ru
+title: free-programming-books
 date: 2020-03-18 19:06:00 +02:00
 ---
 
