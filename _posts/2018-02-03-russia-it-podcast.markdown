@@ -1,5 +1,5 @@
 ---
-title: russia-it-podcast
+title: it-podcast
 date: 2018-02-03 14:50:00 +02:00
 ---
 
