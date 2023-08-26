@@ -4,6 +4,8 @@ permalink: "/about/"
 layout: page
 ---
 
+
+
 * *I am not in search of trading my time for coins, but rather seeking a humble assembly where each soul is attuned to the collective pursuit, devoid of the need for guidance. A sanctuary where I could be both a student and an artisan of wisdom, contributing unto all, within such a quaint and virtuous fellowship…*
 
 * *My affections are primarily drawn to the realm of functional wonders—Haskell, closure, and their kin—yet I shall not disdain F# either. The preferred os is, undoubtedly, that of plan9 and guix in their ethereal dance, although the forthcoming harmony of guix upon the GNU hurd shall bestow further grandeur. Moreover, the birth of openvms9 upon x86 has elicited a symphony of approval. In truth, I hold an ardor for the exotic, whether it be the comforts of Mac or the known solace it brings.*
