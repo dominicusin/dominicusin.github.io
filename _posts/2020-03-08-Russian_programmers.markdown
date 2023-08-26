@@ -1,5 +1,5 @@
 ---
-title: Russian programmers
+title: programmers
 date: 2020-03-08 22:49:00 +02:00
 ---
 
