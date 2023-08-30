@@ -32,4 +32,4 @@ layout: page
 
   https://independent.academia.edu/DominicusinMontessori
 
-\*\*\* \*\*\* \*\*\*
+\*\*\*
