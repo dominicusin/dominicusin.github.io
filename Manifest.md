@@ -10,7 +10,7 @@ layout: page
 
 * Forsooth, various Kubernetes, in my humble view, bear an errant path. Even as I engage with AWS GCE and the enigmatic oracles of the cloud, I do not embrace the heresies of Heroku. Yet, let it be known, these are tools; instruments in the grand ensemble. The magnum opuses, however, destined by Gödel’s theorem to falter, are the gallant efforts to encapsulate meaning within extensible formal systems.\*
 
-* If perchance one among you possess the courage to induct a lazy impatient and hubristic acolyte of BSD into the sacred communion of shared purpose:\*
+* If perchance one among you possess the courage to induct a crazy, lazy, impatient and hubristic  BSDelnika into the sacred communion of shared purpose:\*
 
   [https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1](https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1)
 
