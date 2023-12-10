@@ -14,7 +14,6 @@ layout: page
 
   [https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1](https://us04web.zoom.us/j/9460373943?pwd=xJlcmHLU59bxw63arzRvDXeMctrde1.1)
 
-  [https://join.skype.com/invite/zc1pFDXR0nHO](https://join.skype.com/invite/zc1pFDXR0nHO)
 
   [https://meet.google.com/nup-jwho-ips](https://meet.google.com/nup-jwho-ips)
 
