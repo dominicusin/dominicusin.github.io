@@ -3,6 +3,7 @@ title: AI
 date: 2025-03-14 15:43:00 +02:00
 ---
 
+
  1. [Mistral](https://chat.mistral.ai/chat)
 
  2. [hatGPT](https://chatgpt.com/)
