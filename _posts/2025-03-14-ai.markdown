@@ -3,10 +3,9 @@ title: AI
 date: 2025-03-14 15:43:00 +02:00
 ---
 
-
  1. [Mistral](https://chat.mistral.ai/chat)
 
- 2. [hatGPT](https://chatgpt.com/)
+ 2. [ChatGPT](https://chatgpt.com/)
 
  3. [Gemini](https://gemini.google.com/app)
 
@@ -55,4 +54,3 @@ date: 2025-03-14 15:43:00 +02:00
 25. [Bagoodex](https://bagoodex.io/chat)
 
 26. [Otter Voice Meeting Notes](https://otter.ai/home)
-
