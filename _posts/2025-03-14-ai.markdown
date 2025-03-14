@@ -3,7 +3,6 @@ title: AI
 date: 2025-03-14 15:43:00 +02:00
 ---
 
-
 [conversational AI](#conversational-ai) - [All-in-one tools](#all-in-one-tools) - [AI Search Engine](#ai-search-engine) - [writing tools](#writing-tools) - [video tools](#video-tools) - [audio tools](#audio-tools) - [images tools](#images-tools) - [commerce & marketing tools](#commerce--marketing-tools) - [design tools](#design-tools) - [Coding tools](#coding-tools) - [color tools](#color-tools) - [miscellaneous](#miscellaneous)
 
  1. [Mistral](https://chat.mistral.ai/chat)
@@ -265,9 +264,7 @@ date: 2025-03-14 15:43:00 +02:00
 | [sonix ai](https://sonix.ai/) |     Automatically convert audio and video to text: Fast, Accurate, & Affordable | Sonix  |
 | \[speak ai\](https:
 
-# Awesome AI
-
-> A curated list of awesome things related to artificial intelligence (AI).
+# 
 
 [conversational AI](#conversational-ai) - [All-in-one tools](#all-in-one-tools) - [AI Search Engine](#ai-search-engine) - [writing tools](#writing-tools) - [video tools](#video-tools) - [audio tools](#audio-tools) - [images tools](#images-tools) - [commerce & marketing tools](#commerce--marketing-tools) - [design tools](#design-tools) - [Coding tools](#coding-tools) - [color tools](#color-tools) - [miscellaneous](#miscellaneous)
 
