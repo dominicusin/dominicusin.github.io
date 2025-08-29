@@ -8,11 +8,7 @@ date: 2025-08-29 23:55:00 +03:00
 </div>
 
 
-# You've found the map.
-> It shows the terrain.<br>
-> Models. Tools. Tactics. Proof.<br>
-> All in one place.<br>
-> Built by dev. For devs.<br>
+
 
 ## 🦜 LLMs
 |Logo|Vendor  | Description |
