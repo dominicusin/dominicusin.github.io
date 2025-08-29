@@ -3,9 +3,6 @@ title: AI2
 date: 2025-08-29 23:55:00 +03:00
 ---
 
-<div align="center">
-  <img src="assets/repo_logo.png" height="320">
-</div>
 
 
 
