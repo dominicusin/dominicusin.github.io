@@ -3,6 +3,7 @@ title: AI2
 date: 2025-08-29 23:55:00 +03:00
 ---
 
+
 ## 🦜 LLMs
 
 * |<img src="/assets/openai.png" width="30">|[OpenAI](https://chatgpt.com) | GPT-5 is an iPhone in LLM space |
@@ -54,8 +55,6 @@ date: 2025-08-29 23:55:00 +03:00
 ---
 
 **2. FEW-SHOT:**<br>
-
-    
 
 Отзыв: «iPhone 13 стоит 799 долларов и заслуживает 5/5 звёзд!»\
 Товар: iPhone 13, цена: 799 долларов, оценка: 5/5
@@ -224,11 +223,11 @@ date: 2025-08-29 23:55:00 +03:00
 
 ШАГ ЦЕПОЧКИ 1: Извлечь название продукта → \[выходные данные\]
 
- ОТЗЫВЫ: Это корректная модель телефона?(Да/Нет) → \[ввод пользователя\] 
+ОТЗЫВЫ: Это корректная модель телефона?(Да/Нет) → \[ввод пользователя\]
 
-ШАГ ЦЕПОЧКИ 2: Извлечь цену → \[выходные данные\] 
+ШАГ ЦЕПОЧКИ 2: Извлечь цену → \[выходные данные\]
 
-ОТЗЫВЫ: Соответствует ли цена региональным ценам?(Да/Нет) → \[ввод пользователя\] 
+ОТЗЫВЫ: Соответствует ли цена региональным ценам?(Да/Нет) → \[ввод пользователя\]
 
 ШАГ ЦЕПОЧКИ 3: Вывести ОКОНЧАТЕЛЬНЫЙ результат ТОЛЬКО после получения 2 корректных отзывов. Отзыв: «Я купил Samsung Galaxy A54 за 450 долларов на прошлой неделе.Он довольно хороший, я бы поставил ему 4 из 5 звёзд».
 
@@ -266,9 +265,9 @@ date: 2025-08-29 23:55:00 +03:00
 
  7. |2022|[Research: quantifying GitHub Copilot’s impact on developer productivity and happiness ](https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/) |  Is this GitHub copilot elping developers?   |
 
- 8. | 2022 |[Training language models to follow instructions with human feedback ](https://arxiv.org/abs/2203.02155) | Introducing RLHF. GPT-3.5, engine of hatGPT  
+ 8. | 2022 |[Training language models to follow instructions with human feedback ](https://arxiv.org/abs/2203.02155) | Introducing RLHF. GPT-3.5, engine of hatGPT
 
- 9.  2022 |[Constitutional AI: Harmlessness from AI Feedback](https://scalingintelligence.stanford.edu/pubs/constitutionalai.pdf) | -  |
+ 9. 2022 |[Constitutional AI: Harmlessness from AI Feedback](https://scalingintelligence.stanford.edu/pubs/constitutionalai.pdf) | -  |
 
 10. | 2022 |[Emergent Abilities of Large Language Models](https://arxiv.org/abs/2206.07682) | -  |
 
