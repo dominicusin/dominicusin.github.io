@@ -3,51 +3,68 @@
 
 @charset "utf-8";
 
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-
-// Our variables
-$base-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
+// Variables
+$base-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+$mono-font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+$base-font-size: 16px;
 $base-font-weight: 400;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
+$small-font-size: 14px;
+$base-line-height: 1.6;
 
-$spacing-unit:     30px;
+$spacing-unit: 30px;
 
-$text-color:       #111;
-$background-color: #fdfdfd;
-$brand-color:      #2a7ae2;
+// Colors
+$text-color: #2d3748;
+$background-color: #ffffff;
+$brand-color: #3182ce;
+$brand-color-light: #63b3ed;
+$brand-color-dark: #2c5282;
 
-$grey-color:       #828282;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+$grey-color: #718096;
+$grey-color-light: #e2e8f0;
+$grey-color-dark: #4a5568;
 
-// Width of the content area
-$content-width:    800px;
+$success-color: #38a169;
+$warning-color: #d69e2e;
+$error-color: #e53e3e;
 
-$on-palm:          600px;
-$on-laptop:        800px;
+$border-color: #e2e8f0;
+$shadow-color: rgba(0, 0, 0, 0.1);
 
+// Layout
+$content-width: 1200px;
+$on-palm: 600px;
+$on-laptop: 1024px;
 
-
-// Use media queries like this:
-// @include media-query($on-palm) {
-//     .wrapper {
-//         padding-right: $spacing-unit / 2;
-//         padding-left: $spacing-unit / 2;
-//     }
-// }
+// Mixins
 @mixin media-query($device) {
     @media screen and (max-width: $device) {
         @content;
     }
 }
 
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
 
+@mixin box-shadow($shadow) {
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+}
 
-// Import partials from `sass_dir` (defaults to `_sass`)
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+// Import partials
 @import
-        "base",
-        "layout",
-        "syntax-highlighting"
-;
+    "base",
+    "layout",
+    "components",
+    "syntax-highlighting";

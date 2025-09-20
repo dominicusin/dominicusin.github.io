@@ -3,21 +3,66 @@ layout: default
 ---
 
 <div class="home">
+  <section class="hero">
+    <h1 class="hero-title">Welcome to {{ site.title }}</h1>
+    <p class="hero-description">{{ site.description | markdownify | strip_html }}</p>
+  </section>
 
-  <h1 class="page-heading">Posts</h1>
+  <section class="recent-posts">
+    <h2 class="section-title">Recent Posts</h2>
+    
+    <div class="post-grid">
+      {% for post in site.posts limit:6 %}
+        <article class="post-card">
+          <div class="post-card-content">
+            <h3 class="post-card-title">
+              <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+            </h3>
+            
+            <div class="post-card-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%B %-d, %Y" }}
+              </time>
+              {% if post.categories.size > 0 %}
+                <span class="post-card-category">{{ post.categories.first }}</span>
+              {% endif %}
+            </div>
+            
+            {% if post.excerpt %}
+              <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+            {% endif %}
+            
+            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read more →</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    
+    <div class="view-all-posts">
+      <a href="/archive/" class="btn btn-primary">View All Posts</a>
+    </div>
+  </section>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  <section class="featured-content">
+    <h2 class="section-title">Featured Topics</h2>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <h3>Programming</h3>
+        <p>Articles about various programming languages and technologies</p>
+        <a href="/categories/programming/" class="topic-link">Explore →</a>
+      </div>
+      
+      <div class="topic-card">
+        <h3>System Administration</h3>
+        <p>Linux, DevOps, and infrastructure management</p>
+        <a href="/categories/sysadmin/" class="topic-link">Explore →</a>
+      </div>
+      
+      <div class="topic-card">
+        <h3>Security</h3>
+        <p>Cybersecurity, privacy, and related topics</p>
+        <a href="/categories/security/" class="topic-link">Explore →</a>
+      </div>
+    </div>
+  </section>
 </div>

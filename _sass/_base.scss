@@ -1,14 +1,16 @@
 /**
- * Reset some basic elements
+ * Reset and base styles
  */
+* {
+    box-sizing: border-box;
+}
+
 body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
     margin: 0;
     padding: 0;
 }
-
-
 
 /**
  * Basic styling
@@ -23,9 +25,8 @@ body {
     -o-font-feature-settings: "kern" 1;
     font-feature-settings: "kern" 1;
     font-kerning: normal;
+    line-height: $base-line-height;
 }
-
-
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -37,30 +38,35 @@ ul, ol, dl, figure,
     margin-bottom: $spacing-unit / 2;
 }
 
-
-
 /**
  * Images
  */
 img {
     max-width: 100%;
+    height: auto;
     vertical-align: middle;
+    @include border-radius(4px);
 }
-
-
 
 /**
  * Figures
  */
-figure > img {
-    display: block;
+figure {
+    margin: $spacing-unit 0;
+    
+    > img {
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 figcaption {
     font-size: $small-font-size;
+    color: $grey-color;
+    text-align: center;
+    margin-top: 8px;
+    font-style: italic;
 }
-
-
 
 /**
  * Lists
@@ -70,22 +76,36 @@ ul, ol {
 }
 
 li {
+    margin-bottom: 4px;
+    
     > ul,
     > ol {
-         margin-bottom: 0;
+        margin-bottom: 0;
+        margin-top: 4px;
     }
 }
-
-
 
 /**
  * Headings
  */
 h1, h2, h3, h4, h5, h6 {
-    font-weight: $base-font-weight;
+    font-weight: 600;
+    line-height: 1.2;
+    color: $grey-color-dark;
+    margin-top: $spacing-unit;
+    margin-bottom: $spacing-unit / 2;
+    
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
-
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
 
 /**
  * Links
@@ -93,71 +113,111 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: $brand-color;
     text-decoration: none;
+    @include transition();
 
     &:visited {
-        color: darken($brand-color, 15%);
+        color: $brand-color-dark;
     }
 
     &:hover {
-        color: $text-color;
+        color: $brand-color-light;
         text-decoration: underline;
     }
+
+    &:focus {
+        outline: 2px solid $brand-color;
+        outline-offset: 2px;
+    }
 }
-
-
 
 /**
  * Blockquotes
  */
 blockquote {
     color: $grey-color;
-    border-left: 4px solid $grey-color-light;
-    padding-left: $spacing-unit / 2;
-    font-size: 18px;
-    letter-spacing: -1px;
+    border-left: 4px solid $brand-color;
+    padding: $spacing-unit / 2;
+    font-size: 1.125rem;
+    letter-spacing: -0.5px;
     font-style: italic;
+    background-color: #f8fafc;
+    @include border-radius(4px);
+    margin: $spacing-unit 0;
 
     > :last-child {
         margin-bottom: 0;
     }
+    
+    p {
+        margin-bottom: $spacing-unit / 4;
+    }
 }
-
-
 
 /**
  * Code formatting
  */
 pre,
 code {
-    font-size: 15px;
-    border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
+    font-family: $mono-font-family;
+    font-size: 0.9rem;
+    border: 1px solid $border-color;
+    @include border-radius(4px);
+    background-color: #f7fafc;
 }
 
 code {
-    padding: 1px 5px;
+    padding: 2px 6px;
+    color: #e53e3e;
+    background-color: #fed7d7;
+    border: 1px solid #feb2b2;
 }
 
 pre {
-    padding: 8px 12px;
+    padding: $spacing-unit / 2;
     overflow-x: auto;
+    line-height: 1.4;
+    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
 
     > code {
         border: 0;
         padding-right: 0;
         padding-left: 0;
+        background-color: transparent;
+        color: inherit;
     }
 }
 
+/**
+ * Tables
+ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: $spacing-unit 0;
+    font-size: 0.9rem;
+}
 
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid $border-color;
+}
+
+th {
+    background-color: #f7fafc;
+    font-weight: 600;
+    color: $grey-color-dark;
+}
+
+tr:hover {
+    background-color: #f7fafc;
+}
 
 /**
  * Wrapper
  */
 .wrapper {
-    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
-    max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
+    max-width: $content-width;
     margin-right: auto;
     margin-left: auto;
     padding-right: $spacing-unit;
@@ -165,42 +225,44 @@ pre {
     @extend %clearfix;
 
     @include media-query($on-laptop) {
-        max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
-        max-width:         calc(#{$content-width} - (#{$spacing-unit}));
+        max-width: calc(#{$content-width} - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
     }
 }
 
-
-
 /**
  * Clearfix
  */
-%clearfix {
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+%clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
-
-
 /**
- * Icons
+ * Utilities
  */
-.icon {
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
 
-    > svg {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        vertical-align: middle;
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.mt-1 { margin-top: $spacing-unit / 2; }
+.mb-1 { margin-bottom: $spacing-unit / 2; }
+.mt-2 { margin-top: $spacing-unit; }
+.mb-2 { margin-bottom: $spacing-unit; }
 
-        path {
-            fill: $grey-color;
-        }
-    }
+.hidden { display: none; }
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
