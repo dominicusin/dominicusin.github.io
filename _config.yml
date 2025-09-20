@@ -14,66 +14,48 @@ collections:
   posts:
     title: Статьи
     output: true
-
-# Site settings
 email: transgregorial@gmail.com
 description: "**personal site, blog Domini**"
 url: https://dominicusin.github.io/
 twitter_username: dominicusin
 github_username: dominicusin
-
-# Build settings
 markdown: kramdown
 highlighter: rouge
-permalink: /:year/:month/:day/:title/
-
-# Plugins
+permalink: "/:year/:month/:day/:title/"
 plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Exclude from processing
+- jekyll-feed
+- jekyll-sitemap
+- jekyll-seo-tag
 exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-
-# Sass settings
+- Gemfile
+- Gemfile.lock
+- node_modules
+- vendor/bundle/
+- vendor/cache/
+- vendor/gems/
+- vendor/ruby/
 sass:
   sass_dir: _sass
   style: compressed
-
-# SEO settings
 author:
   name: Domini
   email: transgregorial@gmail.com
   twitter: dominicusin
-
-# Social links
 social:
-  - name: GitHub
-    url: https://github.com/dominicusin
-    icon: github
-  - name: Twitter
-    url: https://twitter.com/dominicusin
-    icon: twitter
-
-# Navigation
+- name: GitHub
+  url: https://github.com/dominicusin
+  icon: github
+- name: Twitter
+  url: https://twitter.com/dominicusin
+  icon: twitter
 navigation:
-  - name: Home
-    url: /
-  - name: About
-    url: /about/
-  - name: Posts
-    url: /posts/
-  - name: Archive
-    url: /archive/
-
-# Pagination
+- name: Home
+  url: "/"
+- name: About
+  url: "/about/"
+- name: Posts
+  url: "/posts/"
+- name: Archive
+  url: "/archive/"
 paginate: 10
 paginate_path: "/page:num/"

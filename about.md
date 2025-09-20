@@ -1,8 +1,8 @@
 ---
-layout: page
 title: About
+permalink: "/about/"
+layout: page
 subtitle: Learn more about Domini and this blog
-permalink: /about/
 ---
 
 # About Domini
