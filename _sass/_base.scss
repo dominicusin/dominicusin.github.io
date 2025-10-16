@@ -138,22 +138,36 @@ a {
  * Blockquotes
  */
 blockquote {
-    color: $grey-color;
-    border-left: 4px solid $brand-color;
-    padding: $spacing-unit / 2;
+    color: $grey-color-dark;
+    border-left: none;
+    padding: $spacing-unit * 0.875 $spacing-unit * 1.25;
     font-size: 1.125rem;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.02em;
     font-style: italic;
-    background-color: #f8fafc;
-    @include border-radius(4px);
-    margin: $spacing-unit 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    @include border-radius(8px);
+    margin: $spacing-unit * 1.5 0;
+    position: relative;
+    @include box-shadow(0 2px 8px rgba(102, 126, 234, 0.08));
+    
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        @include border-radius(8px 0 0 8px);
+    }
 
     > :last-child {
         margin-bottom: 0;
     }
     
     p {
-        margin-bottom: $spacing-unit / 4;
+        margin-bottom: $spacing-unit / 3;
+        line-height: 1.75;
     }
 }
 
@@ -164,30 +178,33 @@ pre,
 code {
     font-family: $mono-font-family;
     font-size: 0.9rem;
-    border: 1px solid $border-color;
-    @include border-radius(4px);
-    background-color: #f7fafc;
+    @include border-radius(6px);
 }
 
 code {
-    padding: 2px 6px;
-    color: #e53e3e;
-    background-color: #fed7d7;
-    border: 1px solid #feb2b2;
+    padding: 3px 8px;
+    color: #c53030;
+    background: linear-gradient(135deg, rgba(254, 215, 215, 0.6) 0%, rgba(252, 129, 129, 0.15) 100%);
+    border: 1px solid rgba(254, 178, 178, 0.6);
+    font-size: 0.875rem;
 }
 
 pre {
-    padding: $spacing-unit / 2;
+    padding: $spacing-unit * 0.75 $spacing-unit;
     overflow-x: auto;
-    line-height: 1.4;
-    @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+    line-height: 1.5;
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin: $spacing-unit * 1.25 0;
+    @include border-radius(8px);
 
     > code {
         border: 0;
-        padding-right: 0;
-        padding-left: 0;
-        background-color: transparent;
-        color: inherit;
+        padding: 0;
+        background: transparent;
+        color: #e2e8f0;
+        font-size: 0.9rem;
     }
 }
 

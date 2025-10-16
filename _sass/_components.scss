@@ -62,12 +62,19 @@
 }
 
 .category {
-    background-color: $brand-color;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 4px 12px;
-    @include border-radius(16px);
+    padding: 4px 14px;
+    @include border-radius(18px);
     font-size: 0.75rem;
     font-weight: 500;
+    @include transition(all 0.3s ease);
+    display: inline-block;
+    
+    &:hover {
+        transform: translateY(-1px);
+        @include box-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+    }
 }
 
 /**
@@ -75,37 +82,113 @@
  */
 .post-content {
     margin-bottom: $spacing-unit * 2;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+    line-height: 1.8;
     
     h1, h2, h3, h4, h5, h6 {
-        margin-top: $spacing-unit * 1.5;
-        margin-bottom: $spacing-unit / 2;
+        margin-top: $spacing-unit * 2;
+        margin-bottom: $spacing-unit * 0.75;
+        letter-spacing: -0.025em;
+        line-height: 1.3;
+        font-weight: 600;
         
         &:first-child {
             margin-top: 0;
         }
     }
     
+    h1 {
+        font-size: 2.25rem;
+        letter-spacing: -0.03em;
+    }
+    
     h2 {
-        padding-bottom: 8px;
-        border-bottom: 2px solid $border-color;
+        font-size: 1.875rem;
+        padding-bottom: 12px;
+        border-bottom: none;
+        position: relative;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            @include border-radius(2px);
+        }
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    h4 {
+        font-size: 1.25rem;
+    }
+    
+    h5 {
+        font-size: 1.125rem;
+    }
+    
+    h6 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $grey-color;
     }
     
     p {
-        margin-bottom: $spacing-unit / 2;
-        text-align: justify;
+        margin-bottom: $spacing-unit * 0.875;
+        text-align: left;
     }
     
     ul, ol {
-        margin-bottom: $spacing-unit / 2;
+        margin-bottom: $spacing-unit;
+        line-height: 1.9;
+        padding-left: $spacing-unit * 1.2;
         
         li {
-            margin-bottom: 4px;
+            margin-bottom: 10px;
+            padding-left: 8px;
+            
+            &::marker {
+                color: #667eea;
+                font-weight: 600;
+            }
+        }
+        
+        ul, ol {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+    }
+    
+    ul {
+        li {
+            position: relative;
+            list-style: none;
+            
+            &::before {
+                content: '';
+                position: absolute;
+                left: -24px;
+                top: 12px;
+                width: 8px;
+                height: 8px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                @include border-radius(50%);
+            }
         }
     }
     
     img {
-        margin: $spacing-unit 0;
-        @include box-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        margin: $spacing-unit * 1.5 0;
+        @include box-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+        @include border-radius(8px);
     }
 }
 
@@ -130,13 +213,43 @@
 
 .tag {
     display: inline-block;
-    background-color: #f7fafc;
-    color: $grey-color;
-    padding: 4px 8px;
-    margin: 2px;
-    @include border-radius(4px);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+    color: $grey-color-dark;
+    padding: 6px 14px;
+    margin: 4px;
+    @include border-radius(6px);
     font-size: 0.8rem;
-    border: 1px solid $border-color;
+    border: 1.5px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    @include transition(all 0.3s ease);
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 6px;
+        padding: 1.5px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.4;
+        @include transition(opacity 0.3s ease);
+    }
+    
+    &:hover {
+        color: #667eea;
+        transform: translateY(-2px);
+        @include box-shadow(0 4px 12px rgba(102, 126, 234, 0.15));
+        
+        &::before {
+            opacity: 1;
+        }
+    }
 }
 
 .post-navigation {
