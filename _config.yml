@@ -34,6 +34,7 @@ exclude:
 - vendor/cache/
 - vendor/gems/
 - vendor/ruby/
+- Manifest.md
 sass:
   sass_dir: _sass
   style: compressed
