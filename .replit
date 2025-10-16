@@ -37,10 +37,6 @@ externalPort = 80
 localPort = 35729
 externalPort = 3000
 
-[[ports]]
-localPort = 38151
-externalPort = 3001
-
 [deployment]
 deploymentTarget = "autoscale"
 run = ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--port", "5000"]
