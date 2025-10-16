@@ -1,0 +1,128 @@
+---
+layout: page
+title: Теги
+permalink: /tags/
+subtitle: Все статьи по тегам
+---
+
+<div class="tags-page">
+  <style>
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+      border-radius: 16px;
+    }
+    
+    .tag-cloud-item {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 24px;
+      text-decoration: none;
+      color: #4a5568;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .tag-cloud-item:hover {
+      border-color: #667eea;
+      color: #667eea;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    }
+    
+    .tag-section {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .tag-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid #667eea;
+    }
+    
+    .tag-posts-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .tag-posts-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .tag-posts-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .tag-posts-list a {
+      color: #2d3748;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .tag-posts-list a:hover {
+      color: #667eea;
+    }
+    
+    .tag-posts-list time {
+      color: #718096;
+      font-size: 0.875rem;
+      margin-right: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+
+  {% assign tags = site.tags | sort %}
+  
+  <div class="tags-cloud">
+    {% for tag in tags %}
+      <a href="#{{ tag[0] | slugify }}" class="tag-cloud-item">
+        #{{ tag[0] }} <span style="opacity: 0.7;">({{ tag[1].size }})</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="tags-content">
+    {% for tag in tags %}
+      <section class="tag-section" id="{{ tag[0] | slugify }}">
+        <h2 class="tag-heading">
+          <span>🏷️</span>
+          <span>#{{ tag[0] }}</span>
+          <span style="color: #718096; font-size: 1rem; font-weight: normal; margin-left: auto;">
+            {{ tag[1].size }} 
+            {% if tag[1].size == 1 %}статья
+            {% elsif tag[1].size < 5 %}статьи
+            {% else %}статей{% endif %}
+          </span>
+        </h2>
+        
+        <ul class="tag-posts-list">
+          {% assign sorted_posts = tag[1] | sort: 'date' | reverse %}
+          {% for post in sorted_posts %}
+            <li>
+              <time datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%d.%m.%Y" }}
+              </time>
+              <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endfor %}
+  </div>
+</div>
