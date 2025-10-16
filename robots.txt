@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /assets/
+Disallow: /css/
+Disallow: /js/
+Disallow: /_site/
+
+Crawl-delay: 1
+
+Sitemap: https://dominicusin.github.io/sitemap.xml

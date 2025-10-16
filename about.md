@@ -37,7 +37,7 @@ I believe in the power of open source software, decentralized systems, and the i
 - **Email**: [transgregorial@gmail.com](mailto:transgregorial@gmail.com)
 - **GitHub**: [@dominicusin](https://github.com/dominicusin)
 - **Twitter**: [@dominicusin](https://twitter.com/dominicusin)
-
+- **ORCID**: [0000-0002-7425-0526](https://orcid.org/0000-0002-7425-0526)
 ## Technical Setup
 
 This site is built with Jekyll and hosted on GitHub Pages. The source code is available on [GitHub](https://github.com/dominicusin/dominicusin.github.io).

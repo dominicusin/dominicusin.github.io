@@ -1,6 +1,10 @@
 ---
-title: Domini's blog
-timezone: Europe/Helsinki
+# Основная информация
+title: "Domini's Blog"
+# SEO настройки
+lang: ru_RU
+locale: ru_RU
+timezone: Europe/Chisinau
 collections:
   uploads:
     title: Uploads
@@ -15,31 +19,46 @@ collections:
     title: Статьи
     output: true
 email: transgregorial@gmail.com
-description: "**personal site, blog Domini**"
-url: https://dominicusin.github.io/
+description: >-
+  Экспертный блог о промышленной инженерии, системной инженерии, 
+  науке о данных и искусственном интеллекте. Практические руководства, 
+  аналитика и инструменты для профессионалов.
+
+url: "https://dominicusin.github.io"
+# Тема и плагины
+theme: minima
 twitter_username: dominicusin
 github_username: dominicusin
-markdown: kramdown
-highlighter: rouge
 permalink: "/:year/:month/:day/:title/"
+# Тема и плагины
+theme: minima
 plugins:
-- jekyll-feed
-- jekyll-sitemap
-- jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+# Исключения
 exclude:
-- Gemfile
-- Gemfile.lock
-- node_modules
-- vendor/bundle/
-- vendor/cache/
-- vendor/gems/
-- vendor/ruby/
-- Manifest.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - LICENSE
+  - .gitignore
+  - .github
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - Manifest.md
 sass:
   sass_dir: _sass
   style: compressed
 author:
-  name: Domini
+  name: "Domini"
+  orcid: "0000-0002-7425-0526"
+  github: "dominicusin"
   email: transgregorial@gmail.com
   twitter: dominicusin
 social:
@@ -58,5 +77,17 @@ navigation:
   url: "/posts/"
 - name: Archive
   url: "/archive/"
+# Настройки блога
 paginate: 10
 paginate_path: "/page:num/"
+# Оптимизация
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+# Компрессия
+sass:
+  style: compressed
+safe: true
+
