@@ -17,9 +17,14 @@ collections:
 lang: ru_RU
 locale: ru_RU
 email: transgregorial@gmail.com
-description: Экспертный блог о промышленной инженерии, системной инженерии,  науке
-  о данных и искусственном интеллекте. Практические руководства,  аналитика и инструменты
-  для профессионалов.
+#description: Экспертный блог о промышленной инженерии, системной инженерии,  науке
+#  о данных и искусственном интеллекте. Практические руководства,  аналитика и инструменты
+#  для профессионалов.
+description: >-
+  An expert blog on industrial engineering, systems engineering,
+  data science, and artificial intelligence. Practical guides,.
+  analytics, and tools for professionals.
+
 url: https://dominicusin.github.io
 theme: minima
 twitter_username: dominicusin
