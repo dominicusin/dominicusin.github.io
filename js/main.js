@@ -76,13 +76,31 @@ function initSmoothScrolling() {
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            const href = this.getAttribute('href');
+            
+            // Handle back-to-top or empty hash
+            if (href === '#' || href === '#top') {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
+                return;
+            }
+            
+            // Handle specific anchor links
+            try {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            } catch (err) {
+                // Invalid selector, let default behavior happen
+                console.warn('Invalid anchor selector:', href);
             }
         });
     });
