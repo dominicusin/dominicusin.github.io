@@ -1,0 +1,28 @@
+---
+layout: post
+title: "arch"
+date: 2025-07-03 09:54:46 +0300
+categories: gist
+tags: [gist, code]
+gist_id: 75dc10649ef1619223938456e2f80458
+gist_url: https://gist.github.com/dominicusin/75dc10649ef1619223938456e2f80458
+---
+
+arch
+
+[View on GitHub Gist](https://gist.github.com/dominicusin/75dc10649ef1619223938456e2f80458)
+
+```txt
+curl https://mirror.cachyos.org/cachyos-repo.tar.xz -o cachyos-repo.tar.xz
+tar xvf cachyos-repo.tar.xz && cd cachyos-repo
+sudo ./cachyos-repo.sh
+
+curl -O https://blackarch.org/strap.sh
+chmod +x strap.sh
+sudo ./strap.sh
+
+curl -LO git.io/strap.sh
+sudo sh strap.sh
+
+```
+
