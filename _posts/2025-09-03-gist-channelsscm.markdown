@@ -1,9 +1,12 @@
 ---
+title: channels.scm
+date: 2025-09-03 11:08:12 +03:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "channels.scm"
-date: 2025-09-03 11:08:12 +0300
-categories: gist
-tags: [gist, code]
 gist_id: a94364c9e2c9e742d0c94dc58a706361
 gist_url: https://gist.github.com/dominicusin/a94364c9e2c9e742d0c94dc58a706361
 ---

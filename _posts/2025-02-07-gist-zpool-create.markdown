@@ -1,9 +1,12 @@
 ---
+title: zpool create
+date: 2025-02-07 18:29:56 +02:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "zpool create"
-date: 2025-02-07 19:29:56 +0300
-categories: gist
-tags: [gist, code]
 gist_id: 64a2951303a20059006c99895f8a35d8
 gist_url: https://gist.github.com/dominicusin/64a2951303a20059006c99895f8a35d8
 ---

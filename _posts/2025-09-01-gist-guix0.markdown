@@ -1,9 +1,12 @@
 ---
+title: guix0
+date: 2025-09-01 08:56:11 +03:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "guix0"
-date: 2025-09-01 08:56:11 +0300
-categories: gist
-tags: [gist, code]
 gist_id: ee9fed0beea74d3e265dc93a53772a53
 gist_url: https://gist.github.com/dominicusin/ee9fed0beea74d3e265dc93a53772a53
 ---

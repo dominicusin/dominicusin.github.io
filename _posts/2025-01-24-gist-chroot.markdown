@@ -1,9 +1,12 @@
 ---
+title: chroot
+date: 2025-01-24 11:46:30 +02:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "chroot"
-date: 2025-01-24 12:46:30 +0300
-categories: gist
-tags: [gist, code]
 gist_id: 8402abedb4df49c2852ce150f03a5372
 gist_url: https://gist.github.com/dominicusin/8402abedb4df49c2852ce150f03a5372
 ---

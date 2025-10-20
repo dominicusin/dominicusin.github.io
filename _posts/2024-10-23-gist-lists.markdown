@@ -1,9 +1,12 @@
 ---
+title: lists
+date: 2024-10-23 14:15:44 +03:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "lists"
-date: 2024-10-23 14:15:44 +0300
-categories: gist
-tags: [gist, code]
 gist_id: 4d2dd71dbda592ec3e974f895d9629b6
 gist_url: https://gist.github.com/dominicusin/4d2dd71dbda592ec3e974f895d9629b6
 ---

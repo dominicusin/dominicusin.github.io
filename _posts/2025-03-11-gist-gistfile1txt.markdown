@@ -1,10 +1,13 @@
 ---
+title: gistfile1 txt
+date: 2025-03-11 08:38:07 +02:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "gistfile1 txt"
-date: 2025-03-11 09:38:07 +0300
-categories: gist
-tags: [gist, code]
-gist_id: 09e979be90a5a188026c91453113f5fa
+gist_id: '09e979be90a5a188026c91453113f5fa'
 gist_url: https://gist.github.com/dominicusin/09e979be90a5a188026c91453113f5fa
 ---
 

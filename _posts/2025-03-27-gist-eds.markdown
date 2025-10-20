@@ -1,9 +1,12 @@
 ---
+title: ed's
+date: 2025-03-27 08:15:22 +02:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "ed's"
-date: 2025-03-27 09:15:22 +0300
-categories: gist
-tags: [gist, code]
 gist_id: 9b501e765b90f223a969b1617e067222
 gist_url: https://gist.github.com/dominicusin/9b501e765b90f223a969b1617e067222
 ---

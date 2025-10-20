@@ -1,9 +1,12 @@
 ---
+title: flatpaks
+date: 2025-05-04 07:56:00 +03:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "flatpaks"
-date: 2025-05-04 07:56:00 +0300
-categories: gist
-tags: [gist, code]
 gist_id: 93445e617b848ab12e5b0a7026f25752
 gist_url: https://gist.github.com/dominicusin/93445e617b848ab12e5b0a7026f25752
 ---

@@ -1,9 +1,12 @@
 ---
+title: arch
+date: 2025-07-03 09:54:46 +03:00
+categories:
+- gist
+tags:
+- gist
+- code
 layout: post
-title: "arch"
-date: 2025-07-03 09:54:46 +0300
-categories: gist
-tags: [gist, code]
 gist_id: 75dc10649ef1619223938456e2f80458
 gist_url: https://gist.github.com/dominicusin/75dc10649ef1619223938456e2f80458
 ---
