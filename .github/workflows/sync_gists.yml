@@ -1,0 +1,55 @@
+# Имя GitHub Action, которое будет отображаться в интерфейсе
+name: Sync Gists
+
+# Условия запуска Action
+on:
+  # Позволяет запускать Action вручную со страницы Actions
+  workflow_dispatch:
+  # Запускать по расписанию: раз в день в полночь по UTC
+  schedule:
+    - cron: "0 0 * * *"
+
+# Задачи, которые будет выполнять Action
+jobs:
+  sync:
+    # Использовать последнюю версию Ubuntu для выполнения
+    runs-on: ubuntu-latest
+    steps:
+      # Шаг 1: Клонирование вашего репозитория
+      # Это необходимо, чтобы Action мог вносить изменения в код
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Шаг 2: Синхронизация Gists
+      # Используется готовый Action 'exuanbo/gists-sync-action'
+      # для получения ваших gists и сохранения их в репозитории
+      - name: Sync Gists
+        uses: exuanbo/gists-sync-action@v1.2.2
+        with:
+          # Используйте автоматически создаваемый токен для доступа к API GitHub.
+          # Он имеет необходимые права для доступа к публичным данным.
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          # Имя пользователя GitHub, чьи Gists нужно получить.
+          gist_user: 'dominicusin'
+          # Директория в репозитории, куда будут сохраняться Gists.
+          # Можете изменить 'gists' на любое другое имя.
+          output_dir: 'gists'
+
+      # Шаг 3: Фиксация и отправка изменений (коммит и пуш)
+      # Этот шаг сохранит добавленные файлы с Gists в ваш репозиторий.
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: update gists"
+          commit_options: '--no-verify'
+          # Укажите ветку, в которую нужно вносить изменения.
+          # Обычно это 'main' или 'master'.
+          branch: main
+          # Директория, в которой нужно отслеживать изменения.
+          # Должна совпадать с 'output_dir' из предыдущего шага.
+          file_pattern: 'gists/*'
+          repository: '.'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
+
