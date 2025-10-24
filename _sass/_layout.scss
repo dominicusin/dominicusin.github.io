@@ -2,12 +2,20 @@
  * Site header
  */
 .site-header {
-    background-color: $background-color;
+    background-color: rgba(255, 255, 255, 0.98);
     border-bottom: 1px solid $border-color;
     position: sticky;
     top: 0;
     z-index: 1000;
-    @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    @include box-shadow(0 2px 12px rgba(0, 0, 0, 0.08));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    @include transition(all 0.3s ease);
+
+    &.scrolled {
+        @include box-shadow(0 4px 20px rgba(0, 0, 0, 0.12));
+        background-color: rgba(255, 255, 255, 0.95);
+    }
 }
 
 .header-content {
@@ -133,26 +141,25 @@
  */
 .site-footer {
     position: relative;
-    padding: $spacing-unit * 3 0 $spacing-unit * 1.5;
-    background: linear-gradient(135deg, #4c5fd5 0%, #5a3a7f 50%, #4c5fd5 100%);
+    padding: $spacing-unit * 3.5 0 $spacing-unit * 2;
+    background: linear-gradient(135deg, #1a1f3a 0%, #2d1b4e 50%, #1a1f3a 100%);
     background-size: 200% 200%;
-    animation: footerGradient 15s ease infinite;
-    margin-top: $spacing-unit * 3;
+    animation: footerGradient 20s ease infinite;
+    margin-top: $spacing-unit * 4;
     overflow: hidden;
-    
-    // Gradient border on top
+    @include box-shadow(0 -10px 40px rgba(0, 0, 0, 0.2));
+
     &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        animation: borderShift 3s linear infinite;
+        height: 4px;
+        background: linear-gradient(90deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+        animation: borderShift 4s linear infinite;
     }
-    
-    // Decorative background effects
+
     &::after {
         content: '';
         position: absolute;
@@ -160,10 +167,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15) 0%, transparent 50%);
+        background: radial-gradient(circle at 20% 50%, rgba(65, 88, 208, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(200, 80, 192, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 20%, rgba(255, 204, 112, 0.05) 0%, transparent 40%);
         pointer-events: none;
-        animation: float 20s ease-in-out infinite;
+        animation: float 25s ease-in-out infinite;
     }
 }
 
@@ -345,16 +353,17 @@
  */
 .hero {
     text-align: center;
-    padding: $spacing-unit * 3 $spacing-unit;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    background-size: 200% 200%;
-    animation: gradientShift 15s ease infinite;
+    padding: $spacing-unit * 3.5 $spacing-unit;
+    background: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+    background-size: 300% 300%;
+    animation: gradientShift 20s ease infinite;
     color: white;
-    margin: (-$spacing-unit) (-$spacing-unit) $spacing-unit * 2;
-    @include border-radius(0 0 24px 24px);
+    margin: (-$spacing-unit) (-$spacing-unit) $spacing-unit * 2.5;
+    @include border-radius(0 0 32px 32px);
     position: relative;
     overflow: hidden;
-    
+    @include box-shadow(0 10px 40px rgba(65, 88, 208, 0.2));
+
     &::before {
         content: '';
         position: absolute;
@@ -362,9 +371,20 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%),
                     radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
         animation: float 20s ease-in-out infinite;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 150px;
+        background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+        pointer-events: none;
     }
 }
 
@@ -458,13 +478,27 @@
 
 .post-card {
     background: white;
-    @include border-radius(12px);
-    @include box-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
-    @include transition(all 0.3s cubic-bezier(0.4, 0, 0.2, 1));
-    border: 1px solid $border-color;
+    @include border-radius(16px);
+    @include box-shadow(0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02));
+    @include transition(all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
+    border: 1px solid rgba(226, 232, 240, 0.8);
     overflow: hidden;
     animation: fadeInUp 0.6s ease-out backwards;
-    
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+        transform: scaleX(0);
+        transform-origin: left;
+        @include transition(transform 0.4s ease);
+    }
+
     &:nth-child(1) { animation-delay: 0.1s; }
     &:nth-child(2) { animation-delay: 0.2s; }
     &:nth-child(3) { animation-delay: 0.3s; }
@@ -473,9 +507,13 @@
     &:nth-child(6) { animation-delay: 0.6s; }
 
     &:hover {
-        @include box-shadow(0 12px 35px rgba(102, 126, 234, 0.15));
-        transform: translateY(-4px) scale(1.02);
-        border-color: rgba(102, 126, 234, 0.3);
+        @include box-shadow(0 20px 50px rgba(65, 88, 208, 0.15), 0 10px 20px rgba(65, 88, 208, 0.1));
+        transform: translateY(-8px);
+        border-color: rgba(65, 88, 208, 0.2);
+
+        &::before {
+            transform: scaleX(1);
+        }
     }
 }
 
@@ -545,41 +583,58 @@
 }
 
 .topic-card {
-    background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 100%);
-    padding: $spacing-unit * 1.5;
-    @include border-radius(16px);
-    @include box-shadow(0 2px 8px rgba(0, 0, 0, 0.05));
-    border: 2px solid transparent;
+    background: white;
+    padding: $spacing-unit * 2;
+    @include border-radius(20px);
+    @include box-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
+    border: 2px solid rgba(226, 232, 240, 0.8);
     text-align: center;
-    @include transition(all 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+    @include transition(all 0.4s cubic-bezier(0.4, 0, 0.2, 1));
     animation: fadeInUp 0.6s ease-out backwards;
     position: relative;
     overflow: hidden;
-    
+
     &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        height: 5px;
+        background: linear-gradient(90deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
         transform: scaleX(0);
         transform-origin: left;
-        @include transition(transform 0.3s ease);
+        @include transition(transform 0.4s ease);
     }
-    
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(65, 88, 208, 0.08) 0%, transparent 70%);
+        transform: translate(-50%, -50%) scale(0);
+        @include transition(transform 0.5s ease);
+        border-radius: 50%;
+    }
+
     &:nth-child(1) { animation-delay: 0.7s; }
     &:nth-child(2) { animation-delay: 0.8s; }
     &:nth-child(3) { animation-delay: 0.9s; }
 
     &:hover {
-        @include box-shadow(0 8px 25px rgba(102, 126, 234, 0.12));
-        transform: translateY(-4px) scale(1.03);
-        border-color: rgba(102, 126, 234, 0.2);
-        
+        @include box-shadow(0 16px 40px rgba(65, 88, 208, 0.15));
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(65, 88, 208, 0.3);
+
         &::before {
             transform: scaleX(1);
+        }
+
+        &::after {
+            transform: translate(-50%, -50%) scale(1);
         }
     }
 
@@ -587,21 +642,38 @@
         color: $grey-color-dark;
         margin-bottom: $spacing-unit / 2;
         margin-top: 0;
+        position: relative;
+        z-index: 1;
+        font-size: 1.35rem;
     }
 
     p {
         color: $grey-color;
         margin-bottom: $spacing-unit / 2;
+        position: relative;
+        z-index: 1;
+        line-height: 1.7;
     }
 }
 
 .topic-link {
     color: $brand-color;
-    font-weight: 500;
-    
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 8px 20px;
+    margin-top: 8px;
+    @include border-radius(8px);
+    background: rgba(65, 88, 208, 0.05);
+    @include transition(all 0.3s ease);
+
     &:hover {
         text-decoration: none;
-        color: $brand-color-dark;
+        color: white;
+        background: $brand-color;
+        transform: translateY(-2px);
+        @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.3));
     }
 }
 
@@ -610,36 +682,55 @@
  */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    font-weight: 500;
+    padding: 14px 32px;
+    font-weight: 600;
     text-align: center;
-    @include border-radius(8px);
-    @include transition();
+    @include border-radius(12px);
+    @include transition(all 0.3s cubic-bezier(0.4, 0, 0.2, 1));
     cursor: pointer;
     border: none;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.05rem;
     line-height: 1;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        @include transition(width 0.6s, height 0.6s);
+    }
 
     &:hover {
         text-decoration: none;
-        transform: translateY(-1px);
+        transform: translateY(-3px);
+
+        &::before {
+            width: 300px;
+            height: 300px;
+        }
     }
 
     &:focus {
-        outline: 2px solid $brand-color;
-        outline-offset: 2px;
+        outline: 3px solid rgba(65, 88, 208, 0.4);
+        outline-offset: 3px;
     }
 }
 
 .btn-primary {
-    background-color: $brand-color;
+    background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
     color: white;
-    @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.3));
 
     &:hover {
-        background-color: $brand-color-dark;
-        @include box-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+        @include box-shadow(0 8px 24px rgba(65, 88, 208, 0.4));
     }
 }
 

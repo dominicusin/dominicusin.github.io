@@ -1,47 +1,43 @@
 // Main JavaScript file for Domini's blog
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
     initMobileMenu();
-    
-    // Back to top button
     initBackToTop();
-    
-    // Smooth scrolling for anchor links
     initSmoothScrolling();
-    
-    // Code block enhancements
     initCodeBlocks();
-    
-    // Search functionality (if implemented)
     initSearch();
-    
-    // Scroll animations
     initScrollAnimations();
-    
-    // Active nav links
     initActiveNav();
-    
-    // Hero parallax
     initHeroParallax();
+    initReadingProgress();
+    initImageLazyLoad();
+    initTableOfContents();
 });
 
 function initMobileMenu() {
     const navTrigger = document.getElementById('nav-trigger');
     const menuIcon = document.querySelector('.menu-icon');
-    
+    const header = document.querySelector('.site-header');
+
     if (menuIcon) {
         menuIcon.addEventListener('click', function() {
             navTrigger.checked = !navTrigger.checked;
         });
     }
-    
-    // Close menu when clicking outside
+
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.site-nav') && navTrigger && navTrigger.checked) {
             navTrigger.checked = false;
         }
     });
+
+    window.addEventListener('scroll', debounce(() => {
+        if (window.pageYOffset > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }, 10));
 }
 
 function initBackToTop() {
@@ -107,25 +103,33 @@ function initSmoothScrolling() {
 }
 
 function initCodeBlocks() {
-    // Add copy button to code blocks
     document.querySelectorAll('pre code').forEach(function(codeBlock) {
         const pre = codeBlock.parentNode;
+
+        if (pre.querySelector('.copy-code-btn')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
         const button = document.createElement('button');
         button.className = 'copy-code-btn';
-        button.textContent = 'Copy';
+        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>';
         button.setAttribute('aria-label', 'Copy code to clipboard');
-        
+
         button.addEventListener('click', function() {
             navigator.clipboard.writeText(codeBlock.textContent).then(function() {
-                button.textContent = 'Copied!';
+                button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Copied!</span>';
+                button.classList.add('copied');
                 setTimeout(function() {
-                    button.textContent = 'Copy';
+                    button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>';
+                    button.classList.remove('copied');
                 }, 2000);
             });
         });
-        
-        pre.style.position = 'relative';
-        pre.appendChild(button);
+
+        wrapper.appendChild(button);
     });
 }
 
@@ -259,16 +263,94 @@ function initActiveNav() {
     });
 }
 
-// Hero section parallax effect
 function initHeroParallax() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
-    
+
     const handleScroll = debounce(() => {
         const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.5;
+        const parallax = scrolled * 0.4;
+        const opacity = Math.max(0, 1 - scrolled / 600);
         hero.style.transform = `translateY(${parallax}px)`;
+        hero.style.opacity = opacity;
     }, 10);
-    
+
     window.addEventListener('scroll', handleScroll);
+}
+
+function initReadingProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'reading-progress';
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', debounce(() => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.pageYOffset;
+        const progress = (scrolled / documentHeight) * 100;
+        progressBar.style.width = progress + '%';
+    }, 10));
+}
+
+function initImageLazyLoad() {
+    const images = document.querySelectorAll('img[data-src]');
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+    } else {
+        images.forEach(img => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+    }
+}
+
+function initTableOfContents() {
+    const postContent = document.querySelector('.post-content');
+    if (!postContent) return;
+
+    const headings = postContent.querySelectorAll('h2, h3');
+    if (headings.length < 3) return;
+
+    const toc = document.createElement('nav');
+    toc.className = 'table-of-contents';
+    toc.innerHTML = '<h4>Table of Contents</h4><ul class="toc-list"></ul>';
+
+    const tocList = toc.querySelector('.toc-list');
+
+    headings.forEach((heading, index) => {
+        const id = heading.id || `heading-${index}`;
+        heading.id = id;
+
+        const li = document.createElement('li');
+        li.className = `toc-item toc-${heading.tagName.toLowerCase()}`;
+        const link = document.createElement('a');
+        link.href = `#${id}`;
+        link.textContent = heading.textContent;
+        link.className = 'toc-link';
+
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.history.pushState(null, null, `#${id}`);
+        });
+
+        li.appendChild(link);
+        tocList.appendChild(li);
+    });
+
+    const firstHeading = postContent.querySelector('h1, h2');
+    if (firstHeading) {
+        firstHeading.parentNode.insertBefore(toc, firstHeading.nextSibling);
+    }
 }

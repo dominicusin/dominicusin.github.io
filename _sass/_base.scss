@@ -22,7 +22,7 @@ dl, dd, ol, ul, figure {
 body {
     font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
     color: $text-color;
-    background-color: $background-color;
+    background-color: #fafbfc;
     -webkit-text-size-adjust: 100%;
     -webkit-font-feature-settings: "kern" 1;
     -moz-font-feature-settings: "kern" 1;
@@ -30,6 +30,8 @@ body {
     font-feature-settings: "kern" 1;
     font-kerning: normal;
     line-height: $base-line-height;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /**
@@ -117,7 +119,8 @@ h6 { font-size: 1rem; }
 a {
     color: $brand-color;
     text-decoration: none;
-    @include transition();
+    @include transition(all 0.25s ease);
+    position: relative;
 
     &:visited {
         color: $brand-color-dark;
@@ -125,12 +128,17 @@ a {
 
     &:hover {
         color: $brand-color-light;
-        text-decoration: underline;
+        text-decoration: none;
     }
 
     &:focus {
         outline: 2px solid $brand-color;
         outline-offset: 2px;
+        @include border-radius(2px);
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: none;
     }
 }
 
@@ -140,16 +148,17 @@ a {
 blockquote {
     color: $grey-color-dark;
     border-left: none;
-    padding: $spacing-unit * 0.875 $spacing-unit * 1.25;
-    font-size: 1.125rem;
-    letter-spacing: -0.02em;
+    padding: $spacing-unit * 1.125 $spacing-unit * 1.5;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
     font-style: italic;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-    @include border-radius(8px);
-    margin: $spacing-unit * 1.5 0;
+    background: linear-gradient(135deg, rgba(65, 88, 208, 0.04) 0%, rgba(200, 80, 192, 0.04) 100%);
+    @include border-radius(12px);
+    margin: $spacing-unit * 1.75 0;
     position: relative;
-    @include box-shadow(0 2px 8px rgba(102, 126, 234, 0.08));
-    
+    @include box-shadow(0 4px 16px rgba(65, 88, 208, 0.08));
+    border: 1px solid rgba(65, 88, 208, 0.1);
+
     &::before {
         content: '';
         position: absolute;
@@ -157,17 +166,30 @@ blockquote {
         top: 0;
         bottom: 0;
         width: 5px;
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-        @include border-radius(8px 0 0 8px);
+        background: linear-gradient(180deg, #4158D0 0%, #C850C0 100%);
+        @include border-radius(12px 0 0 12px);
+    }
+
+    &::after {
+        content: '\201C';
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 4rem;
+        color: rgba(65, 88, 208, 0.1);
+        font-style: normal;
+        line-height: 1;
     }
 
     > :last-child {
         margin-bottom: 0;
     }
-    
+
     p {
         margin-bottom: $spacing-unit / 3;
-        line-height: 1.75;
+        line-height: 1.8;
+        position: relative;
+        z-index: 1;
     }
 }
 
@@ -190,21 +212,23 @@ code {
 }
 
 pre {
-    padding: $spacing-unit * 0.75 $spacing-unit;
+    padding: $spacing-unit * 1 $spacing-unit * 1.25;
     overflow-x: auto;
-    line-height: 1.5;
-    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-    border: 1px solid rgba(102, 126, 234, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    margin: $spacing-unit * 1.25 0;
-    @include border-radius(8px);
+    line-height: 1.6;
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    border: 2px solid rgba(65, 88, 208, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin: 0;
+    @include border-radius(12px);
+    position: relative;
 
     > code {
         border: 0;
         padding: 0;
         background: transparent;
         color: #e2e8f0;
-        font-size: 0.9rem;
+        font-size: 0.92rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
 }
 

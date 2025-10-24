@@ -39,20 +39,12 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    
-    &::before {
-        content: "📅";
-    }
 }
 
 .post-author {
     display: flex;
     align-items: center;
     gap: 4px;
-    
-    &::before {
-        content: "👤";
-    }
 }
 
 .post-categories {
@@ -82,11 +74,12 @@
  */
 .post-content {
     margin-bottom: $spacing-unit * 2;
-    max-width: 750px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    font-size: 17px;
-    line-height: 1.8;
+    font-size: 17.5px;
+    line-height: 1.75;
+    color: $text-color;
     
     h1, h2, h3, h4, h5, h6 {
         margin-top: $spacing-unit * 2;
@@ -144,26 +137,28 @@
     p {
         margin-bottom: $spacing-unit * 0.875;
         text-align: left;
+        color: #2d3748;
     }
     
     ul, ol {
         margin-bottom: $spacing-unit;
-        line-height: 1.9;
-        padding-left: $spacing-unit * 1.2;
-        
+        line-height: 1.85;
+        padding-left: $spacing-unit * 1.4;
+
         li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             padding-left: 8px;
-            
+            color: #2d3748;
+
             &::marker {
-                color: #667eea;
+                color: $brand-color;
                 font-weight: 600;
             }
         }
-        
+
         ul, ol {
-            margin-top: 8px;
-            margin-bottom: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
     }
     
@@ -186,9 +181,16 @@
     }
     
     img {
-        margin: $spacing-unit * 1.5 0;
-        @include box-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
-        @include border-radius(8px);
+        margin: $spacing-unit * 1.5 auto;
+        display: block;
+        @include box-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
+        @include border-radius(12px);
+        @include transition(transform 0.3s ease, box-shadow 0.3s ease);
+
+        &:hover {
+            transform: scale(1.02);
+            @include box-shadow(0 12px 28px rgba(0, 0, 0, 0.18));
+        }
     }
 }
 
@@ -389,14 +391,145 @@
 
 .archive-title {
     flex: 1;
-    
+
     a {
         color: $text-color;
         font-weight: 500;
-        
+
         &:hover {
             color: $brand-color;
             text-decoration: none;
+        }
+    }
+}
+
+/**
+ * Code block copy button
+ */
+.code-block-wrapper {
+    position: relative;
+    margin: $spacing-unit * 1.25 0;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    @include border-radius(8px);
+    color: $grey-color-dark;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    @include transition(all 0.2s ease);
+    @include box-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+    z-index: 10;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+    }
+
+    &:hover {
+        background: $brand-color;
+        color: white;
+        border-color: $brand-color;
+        transform: translateY(-2px);
+        @include box-shadow(0 4px 12px rgba(102, 126, 234, 0.3));
+    }
+
+    &.copied {
+        background: $success-color;
+        color: white;
+        border-color: $success-color;
+    }
+}
+
+/**
+ * Reading progress bar
+ */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    width: 0%;
+    z-index: 9999;
+    @include transition(width 0.1s ease);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+/**
+ * Table of contents
+ */
+.table-of-contents {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.04) 0%, rgba(118, 75, 162, 0.04) 100%);
+    border: 2px solid rgba(102, 126, 234, 0.15);
+    @include border-radius(12px);
+    padding: $spacing-unit;
+    margin: $spacing-unit * 2 0;
+    @include box-shadow(0 4px 12px rgba(102, 126, 234, 0.08));
+
+    h4 {
+        margin: 0 0 $spacing-unit / 2;
+        font-size: 1.1rem;
+        color: $grey-color-dark;
+        font-weight: 600;
+    }
+}
+
+.toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-item {
+    margin: 0;
+    padding: 0;
+
+    &.toc-h3 {
+        padding-left: 20px;
+    }
+}
+
+.toc-link {
+    display: block;
+    padding: 8px 12px;
+    color: $text-color;
+    font-size: 0.9rem;
+    @include border-radius(6px);
+    @include transition(all 0.2s ease);
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        @include border-radius(2px);
+        @include transition(height 0.2s ease);
+    }
+
+    &:hover {
+        background: rgba(102, 126, 234, 0.08);
+        color: $brand-color;
+        text-decoration: none;
+        padding-left: 16px;
+
+        &::before {
+            height: 80%;
         }
     }
 }
