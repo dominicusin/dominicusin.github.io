@@ -44,7 +44,7 @@ jobs:
           commit_options: '--no-verify'
           # Укажите ветку, в которую нужно вносить изменения.
           # Обычно это 'main' или 'master'.
-          branch: main
+          branch: master
           # Директория, в которой нужно отслеживать изменения.
           # Должна совпадать с 'output_dir' из предыдущего шага.
           file_pattern: 'gists/*'
