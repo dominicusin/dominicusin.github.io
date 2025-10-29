@@ -1,8 +1,6 @@
 source "https://rubygems.org"
 
-# Jekyll
-gem "jekyll", "~> 4.3"
-gem "minima", "~> 2.5"
+gem "github-pages", "~> 232"
 
 # Plugins
 group :jekyll_plugins do
