@@ -3,10 +3,10 @@
  */
 .highlight {
     background: #f8fafc;
-    @extend %vertical-rhythm;
     @include border-radius(8px);
     @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
     margin: $spacing-unit 0;
+    padding: $spacing-unit;
 
     .highlighter-rouge & {
         background: #f8fafc;

@@ -1,3 +1,5 @@
+---
+---
 @charset "utf-8";
 
 // ============================================
@@ -266,7 +268,7 @@ $z-tooltip: 4000;
 // Responsive typography
 @supports (font-size: clamp(1rem, 2vw, 1.5rem)) {
   body {
-    font-size: clamp(16px, 1vw + 0.5rem, 18px);
+    font-size: clamp(16px, calc(1vw + 0.5rem), 18px);
   }
 }
 
