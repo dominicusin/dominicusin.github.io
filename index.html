@@ -3,66 +3,294 @@ layout: default
 ---
 
 <div class="home">
-  <section class="hero">
-    <h1 class="hero-title">Welcome to {{ site.title }}</h1>
-    <p class="hero-description">{{ site.description | markdownify | strip_html }}</p>
+  <!-- Hero Section -->
+  <section class="hero" role="banner">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Добро пожаловать в
+        <span class="gradient-text">{{ site.title }}</span>
+      </h1>
+      <p class="hero-description">{{ site.description | markdownify | strip_html }}</p>
+      
+      <div class="hero-actions">
+        <a href="#recent-posts" class="btn btn-primary">Читать статьи</a>
+        <a href="/about/" class="btn btn-secondary">О блоге</a>
+      </div>
+      
+      <!-- Статистика -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">{{ site.posts.size }}</span>
+          <span class="stat-label">Статей</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ site.categories.size }}</span>
+          <span class="stat-label">Категорий</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ site.tags.size }}</span>
+          <span class="stat-label">Тегов</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Анимированный фон -->
+    <div class="hero-background">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-shape hero-shape-3"></div>
+    </div>
   </section>
 
-  <section class="recent-posts">
-    <h2 class="section-title">Recent Posts</h2>
+  <!-- Recent Posts Section -->
+  <section class="recent-posts" id="recent-posts">
+    <div class="section-header">
+      <h2 class="section-title">Последние статьи</h2>
+      <p class="section-subtitle">
+        Свежие материалы по промышленной инженерии, системной инженерии и науке о данных
+      </p>
+    </div>
     
-    <div class="post-grid">
-      {% for post in site.posts limit:6 %}
-        <article class="post-card">
-          <div class="post-card-content">
-            <h3 class="post-card-title">
-              <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-            </h3>
-            
-            <div class="post-card-meta">
-              <time datetime="{{ post.date | date_to_xmlschema }}">
-                {{ post.date | date: "%B %-d, %Y" }}
-              </time>
-              {% if post.categories.size > 0 %}
-                <span class="post-card-category">{{ post.categories.first }}</span>
-              {% endif %}
-            </div>
-            
-            {% if post.excerpt %}
-              <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    {% if site.posts.size > 0 %}
+      <div class="post-grid">
+        {% for post in site.posts limit:6 %}
+          <article class="post-card" itemscope itemtype="http://schema.org/BlogPosting">
+            {% if post.image %}
+              <div class="post-card-image">
+                <img src="{{ post.image | relative_url }}" 
+                     alt="{{ post.title | escape }}"
+                     itemprop="image"
+                     loading="lazy">
+                {% if post.categories.size > 0 %}
+                  <span class="post-card-category">{{ post.categories.first }}</span>
+                {% endif %}
+              </div>
             {% endif %}
             
-            <a href="{{ post.url | prepend: site.baseurl }}" class="read-more">Read more →</a>
-          </div>
-        </article>
-      {% endfor %}
+            <div class="post-card-content">
+              <div class="post-card-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  {{ post.date | date: "%d.%m.%Y" }}
+                </time>
+                
+                {% if post.reading_time %}
+                  <span class="reading-time">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    {{ post.reading_time }} мин
+                  </span>
+                {% else %}
+                  <span class="reading-time">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    {{ post.content | number_of_words | divided_by: 200 }} мин
+                  </span>
+                {% endif %}
+              </div>
+              
+              <h3 class="post-card-title" itemprop="headline">
+                <a href="{{ post.url | prepend: site.baseurl }}" itemprop="url">
+                  {{ post.title }}
+                </a>
+              </h3>
+              
+              {% if post.excerpt %}
+                <p class="post-card-excerpt" itemprop="description">
+                  {{ post.excerpt | strip_html | truncatewords: 25 }}
+                </p>
+              {% endif %}
+              
+              {% if post.tags.size > 0 %}
+                <div class="post-card-tags">
+                  {% for tag in post.tags limit:3 %}
+                    <span class="tag">#{{ tag }}</span>
+                  {% endfor %}
+                  {% if post.tags.size > 3 %}
+                    <span class="tag">+{{ post.tags.size | minus: 3 }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+              
+              <a href="{{ post.url | prepend: site.baseurl }}" class="read-more" aria-label="Читать {{ post.title }}">
+                Читать далее
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      
+      <div class="view-all-posts">
+        <a href="/archive/" class="btn btn-primary btn-lg">
+          Все статьи
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        <h3>Статей пока нет</h3>
+        <p>Скоро здесь появится интересный контент</p>
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- Featured Topics Section -->
+  <section class="featured-topics">
+    <div class="section-header">
+      <h2 class="section-title">Основные направления</h2>
+      <p class="section-subtitle">
+        Экспертные материалы по ключевым областям знаний
+      </p>
     </div>
     
-    <div class="view-all-posts">
-      <a href="/archive/" class="btn btn-primary">View All Posts</a>
+    <div class="topic-grid">
+      <article class="topic-card" data-topic="industrial">
+        <div class="topic-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+        </div>
+        <h3>Промышленная инженерия</h3>
+        <p>
+          Оптимизация производственных процессов, lean-методологии, 
+          управление качеством и современные подходы к производству
+        </p>
+        <div class="topic-meta">
+          {% assign industrial_posts = site.categories['Industrial Engineering'] | size %}
+          <span>{{ industrial_posts }} статей</span>
+        </div>
+        <a href="/categories/industrial-engineering/" class="topic-link">
+          Подробнее
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </article>
+      
+      <article class="topic-card" data-topic="systems">
+        <div class="topic-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6m9.07-12.07l-4.24 4.24m-5.66 5.66l-4.24 4.24M23 12h-6m-6 0H1m20.07 9.07l-4.24-4.24m-5.66-5.66l-4.24-4.24"></path>
+          </svg>
+        </div>
+        <h3>Системная инженерия</h3>
+        <p>
+          Проектирование сложных систем, архитектура программного обеспечения, 
+          DevOps-практики и инфраструктурные решения
+        </p>
+        <div class="topic-meta">
+          {% assign systems_posts = site.categories['Systems Engineering'] | size %}
+          <span>{{ systems_posts }} статей</span>
+        </div>
+        <a href="/categories/systems-engineering/" class="topic-link">
+          Подробнее
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </article>
+      
+      <article class="topic-card" data-topic="data">
+        <div class="topic-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <h3>Data Science & AI</h3>
+        <p>
+          Машинное обучение, искусственный интеллект, анализ больших данных 
+          и практическое применение DS-методов
+        </p>
+        <div class="topic-meta">
+          {% assign data_posts = site.categories['Data Science'] | size %}
+          <span>{{ data_posts }} статей</span>
+        </div>
+        <a href="/categories/data-science/" class="topic-link">
+          Подробнее
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </article>
     </div>
   </section>
 
-  <section class="featured-content">
-    <h2 class="section-title">Featured Topics</h2>
-    <div class="topic-grid">
-      <div class="topic-card">
-        <h3>Programming</h3>
-        <p>Articles about various programming languages and technologies</p>
-        <a href="/categories/programming/" class="topic-link">Explore →</a>
+  <!-- Newsletter Section (опционально) -->
+  <section class="newsletter-section">
+    <div class="newsletter-container">
+      <div class="newsletter-content">
+        <h2>Подписка на обновления</h2>
+        <p>Получайте уведомления о новых статьях и материалах</p>
       </div>
-      
-      <div class="topic-card">
-        <h3>System Administration</h3>
-        <p>Linux, DevOps, and infrastructure management</p>
-        <a href="/categories/sysadmin/" class="topic-link">Explore →</a>
-      </div>
-      
-      <div class="topic-card">
-        <h3>Security</h3>
-        <p>Cybersecurity, privacy, and related topics</p>
-        <a href="/categories/security/" class="topic-link">Explore →</a>
+      <div class="newsletter-form">
+        <a href="/feed.xml" class="btn btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 11a9 9 0 0 1 9 9"></path>
+            <path d="M4 4a16 16 0 0 1 16 16"></path>
+            <circle cx="5" cy="19" r="1"></circle>
+          </svg>
+          RSS Feed
+        </a>
       </div>
     </div>
   </section>
 </div>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "{{ site.title }}",
+  "description": "{{ site.description }}",
+  "url": "{{ site.url }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author.name }}",
+    "url": "{{ site.url }}/about/",
+    "sameAs": [
+      "https://github.com/{{ site.author.github }}",
+      "https://twitter.com/{{ site.author.twitter }}",
+      "https://orcid.org/{{ site.author.orcid }}"
+    ]
+  },
+  "blogPost": [
+    {% for post in site.posts limit:6 %}
+    {
+      "@type": "BlogPosting",
+      "headline": "{{ post.title | escape }}",
+      "datePublished": "{{ post.date | date_to_xmlschema }}",
+      "url": "{{ post.url | absolute_url }}",
+      "description": "{{ post.excerpt | strip_html | truncatewords: 30 }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
