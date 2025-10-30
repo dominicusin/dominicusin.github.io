@@ -1,77 +1,280 @@
----
-title: Domini's Blog
-timezone: Europe/Chisinau
-collections:
-  uploads:
-    title: Uploads
-    output: true
-  domini:
-    title: domini
-    output: true
-  people:
-    title: people
-    output: true
-  posts:
-    title: Статьи
-    output: true
+# ============================================
+# ОСНОВНАЯ КОНФИГУРАЦИЯ САЙТА
+# ============================================
+title: "Domini's Blog"
+tagline: "Промышленная инженерия • Системная инженерия • Data Science • AI"
+description: >-
+  Экспертный блог о промышленной и системной инженерии, науке о данных 
+  и искусственном интеллекте. Практические руководства, глубокая аналитика 
+  и профессиональные инструменты.
+
+# URL конфигурация
+url: "https://dominicusin.github.io"
+baseurl: ""
+enforce_ssl: "dominicusin.github.io"
+
+# ============================================
+# АВТОР И СОЦИАЛЬНЫЕ СЕТИ
+# ============================================
+author:
+  name: "Domini"
+  email: "transgregorial@gmail.com"
+  bio: "Эксперт в области промышленной инженерии, системной инженерии и науки о данных"
+  avatar: "/assets/images/avatar.jpg"
+  location: "Chișinău, Moldova"
+  
+  # Научные профили
+  orcid: "0000-0002-7425-0526"
+  researcherid: "C-7449-2018"
+  scholar: "H6jV56gAAAAJ"
+  
+  # Социальные сети
+  github: "dominicusin"
+  twitter: "dominicusin"
+  linkedin: "dominicusin"
+  keybase: "dominicusin"
+
+# ============================================
+# ЛОКАЛИЗАЦИЯ
+# ============================================
 lang: ru_RU
 locale: ru_RU
-email: transgregorial@gmail.com
-description: An expert blog on industrial engineering, systems engineering, data science,
-  and artificial intelligence. Practical guides,. analytics, and tools for professionals.
-url: https://dominicusin.github.io
+timezone: Europe/Chisinau
+encoding: utf-8
+
+# ============================================
+# ТЕМА И ПЛАГИНЫ
+# ============================================
 theme: minima
-twitter_username: dominicusin
-github_username: dominicusin
-permalink: "/:year/:month/:day/:title/"
+remote_theme: null
+
 plugins:
-- jekyll-feed
-- jekyll-seo-tag
-- jekyll-sitemap
-- jekyll-paginate
-exclude:
-- Gemfile
-- Gemfile.lock
-- node_modules
-- vendor
-- README.md
-- LICENSE
-- ".gitignore"
-- ".github"
-- vendor/bundle/
-- vendor/cache/
-- vendor/gems/
-- vendor/ruby/
-- Manifest.md
-sass:
-  style: compressed
-author:
-  name: Domini
-  orcid: 0000-0002-7425-0526
-  github: dominicusin
-  email: transgregorial@gmail.com
-  twitter: dominicusin
-social:
-- name: GitHub
-  url: https://github.com/dominicusin
-  icon: github
-- name: Twitter
-  url: https://twitter.com/dominicusin
-  icon: twitter
-navigation:
-- name: Home
-  url: "/"
-- name: About
-  url: "/about/"
-- name: Posts
-  url: "/posts/"
-- name: Archive
-  url: "/archive/"
-paginate: 10
-paginate_path: "/page:num/"
-highlighter: rouge
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-archives
+
+# ============================================
+# НАСТРОЙКИ КОНТЕНТА
+# ============================================
+# Markdown
 markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+
+# Подсветка синтаксиса
+highlighter: rouge
+
+# Постоянные ссылки
+permalink: /:year/:month/:title/
+
+# Пагинация
+paginate: 12
+paginate_path: "/page/:num/"
+
+# Архивы
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+    - year
+    - month
+  layouts:
+    category: category
+    tag: tag
+    year: year
+    month: month
+  permalinks:
+    category: "/category/:name/"
+    tag: "/tag/:name/"
+    year: "/:year/"
+    month: "/:year/:month/"
+
+# ============================================
+# КОЛЛЕКЦИИ
+# ============================================
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Domini"
+      comments: false
+      share: true
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# ============================================
+# НАВИГАЦИЯ
+# ============================================
+navigation:
+  - name: "Главная"
+    url: "/"
+    icon: "home"
+  - name: "Статьи"
+    url: "/archive/"
+    icon: "article"
+  - name: "Категории"
+    url: "/categories/"
+    icon: "folder"
+  - name: "Теги"
+    url: "/tags/"
+    icon: "tag"
+  - name: "О блоге"
+    url: "/about/"
+    icon: "info"
+
+# ============================================
+# СОЦИАЛЬНЫЕ ССЫЛКИ (для футера)
+# ============================================
+social:
+  - name: "GitHub"
+    url: "https://github.com/dominicusin"
+    icon: "github"
+  - name: "Twitter"
+    url: "https://twitter.com/dominicusin"
+    icon: "twitter"
+  - name: "ORCID"
+    url: "https://orcid.org/0000-0002-7425-0526"
+    icon: "orcid"
+  - name: "Google Scholar"
+    url: "https://scholar.google.ru/citations?user=H6jV56gAAAAJ"
+    icon: "scholar"
+  - name: "Keybase"
+    url: "https://keybase.io/dominicusin"
+    icon: "keybase"
+
+# ============================================
+# SEO И АНАЛИТИКА
+# ============================================
+# Google Analytics (раскомментируйте и добавьте ID)
+# google_analytics: "UA-XXXXXXXXX-X"
+
+# Yandex Metrika (раскомментируйте и добавьте ID)
+# yandex_metrika: "XXXXXXXX"
+
+# Верификация
+# google_site_verification: "XXXXXXXXXXX"
+# yandex_verification: "XXXXXXXXXXX"
+
+# ============================================
+# ОПТИМИЗАЦИЯ И ПРОИЗВОДИТЕЛЬНОСТЬ
+# ============================================
+# Компрессия
+sass:
+  style: compressed
+  sourcemap: never
+
+# Liquid опции
+liquid:
+  error_mode: strict
+  strict_filters: true
+  strict_variables: false
+
+# Безопасность
 safe: true
+strict_front_matter: true
+
+# ============================================
+# ИСКЛЮЧЕНИЯ
+# ============================================
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - .sass-cache
+  - .jekyll-cache
+  - README.md
+  - LICENSE
+  - CONTRIBUTING.md
+  - Manifest.md
+  - .gitignore
+  - .git
+  - .github
+  - "*.log"
+  - package.json
+  - package-lock.json
+  - replit.md
+  - .replit
+
+include:
+  - _pages
+  - .htaccess
+  - .well-known
+
+keep_files:
+  - .git
+  - .svn
+
+# ============================================
+# НАСТРОЙКИ РАЗРАБОТКИ
+# ============================================
+# Для локальной разработки
+# show_drafts: false
+# unpublished: false
+# future: false
+# watch: true
+# incremental: true
+# profile: true
+
+# ============================================
+# ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ
+# ============================================
+# RSS Feed
+feed:
+  path: feed.xml
+  excerpt_only: false
+
+# Читаемость
+excerpt_separator: "<!--more-->"
+
+# Количество связанных постов
+lsi: false
+related_posts_limit: 3
+
+# Дата и время
+date_format: "%d.%m.%Y"
+time_format: "%H:%M"
+
+# Функции
+reading_time: true
+words_per_minute: 200
+
+# ============================================
+# WHITELIST (для GitHub Pages)
+# ============================================
+whitelist:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-archives
