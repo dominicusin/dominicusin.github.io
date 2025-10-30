@@ -1,73 +1,378 @@
 @charset "utf-8";
 
-// Import Google Fonts
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+// ============================================
+// ИМПОРТ ШРИФТОВ
+// ============================================
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-// Variables
-$base-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-$mono-font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+// ============================================
+// ПЕРЕМЕННЫЕ
+// ============================================
+
+// Шрифты
+$base-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$mono-font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, 'Courier New', monospace;
+
+// Размеры шрифтов
 $base-font-size: 16px;
 $base-font-weight: 400;
 $small-font-size: 14px;
-$base-line-height: 1.6;
+$base-line-height: 1.7;
 
+// Отступы
 $spacing-unit: 30px;
 
-// Colors
-$text-color: #2d3748;
+// Цвета - Светлая тема
+$text-color: #1a202c;
 $background-color: #ffffff;
-$brand-color: #3182ce;
-$brand-color-light: #63b3ed;
-$brand-color-dark: #2c5282;
+$brand-color: #4158D0;
+$brand-color-light: #667eea;
+$brand-color-dark: #2c3e8f;
 
 $grey-color: #718096;
 $grey-color-light: #e2e8f0;
-$grey-color-dark: #4a5568;
+$grey-color-dark: #2d3748;
 
 $success-color: #38a169;
 $warning-color: #d69e2e;
 $error-color: #e53e3e;
+$info-color: #3182ce;
 
 $border-color: #e2e8f0;
 $shadow-color: rgba(0, 0, 0, 0.1);
+
+// Темная тема
+$dark-text-color: #e2e8f0;
+$dark-background-color: #1a202c;
+$dark-surface-color: #2d3748;
+$dark-border-color: #4a5568;
+
+// Градиенты
+$gradient-primary: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+$gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-accent: linear-gradient(90deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
 
 // Layout
 $content-width: 1200px;
 $on-palm: 600px;
 $on-laptop: 1024px;
 
-// Mixins
+// Z-index levels
+$z-header: 1000;
+$z-dropdown: 2000;
+$z-modal: 3000;
+$z-tooltip: 4000;
+
+// ============================================
+// МИКСИНЫ
+// ============================================
+
+// Media queries
 @mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+  @media screen and (max-width: $device) {
+    @content;
+  }
 }
 
+// Transitions
 @mixin transition($property: all, $duration: 0.3s, $timing: ease) {
-    transition: $property $duration $timing;
+  transition: $property $duration $timing;
+  will-change: $property;
 }
 
-// Allow multiple box-shadow arguments to avoid "takes 1 argument but 2 were passed" errors
-// Accept a varargs list so callers may pass 1..n shadows:
-//   @include box-shadow(0 2px 4px rgba(...));
-//   @include box-shadow(0 2px 4px rgba(...), inset 0 1px 0 rgba(...));
+// Box shadow с множественными значениями
 @mixin box-shadow($shadows...) {
-    // Ensure the value becomes a comma-separated list for CSS
-    $value: if(length($shadows) == 1, nth($shadows, 1), $shadows);
-    -webkit-box-shadow: $value;
-    -moz-box-shadow: $value;
-    box-shadow: $value;
+  $value: if(length($shadows) == 1, nth($shadows, 1), $shadows);
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
 }
 
+// Border radius
 @mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    -moz-border-radius: $radius;
-    border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
 }
 
-// Import partials
+// Flexbox центрирование
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Grid с автозаполнением
+@mixin auto-grid($min-size: 250px, $gap: $spacing-unit) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-size, 1fr));
+  gap: $gap;
+}
+
+// Обрезка текста
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Многострочное обрезание
+@mixin line-clamp($lines: 3) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Visually hidden (но доступно для screen readers)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Hover эффект для карточек
+@mixin card-hover {
+  @include transition(all, 0.3s, cubic-bezier(0.4, 0, 0.2, 1));
+  
+  &:hover {
+    transform: translateY(-8px);
+    @include box-shadow(
+      0 20px 50px rgba(65, 88, 208, 0.15),
+      0 10px 20px rgba(65, 88, 208, 0.1)
+    );
+  }
+}
+
+// Градиентный текст
+@mixin gradient-text($gradient: $gradient-secondary) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Стекломорфизм
+@mixin glass-effect($opacity: 0.9) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Пульсация
+@mixin pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+}
+
+// ============================================
+// ТЕМНАЯ ТЕМА
+// ============================================
+
+// Автоматическое переключение на основе предпочтений системы
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --text-color: #{$dark-text-color};
+    --background-color: #{$dark-background-color};
+    --surface-color: #{$dark-surface-color};
+    --border-color: #{$dark-border-color};
+    --grey-color: #a0aec0;
+    --grey-color-light: #4a5568;
+    --grey-color-dark: #e2e8f0;
+  }
+}
+
+// Ручное переключение темы
+[data-theme="dark"] {
+  --text-color: #{$dark-text-color};
+  --background-color: #{$dark-background-color};
+  --surface-color: #{$dark-surface-color};
+  --border-color: #{$dark-border-color};
+  --grey-color: #a0aec0;
+  --grey-color-light: #4a5568;
+  --grey-color-dark: #e2e8f0;
+  
+  // Инверсия изображений в темной теме
+  img:not([data-no-invert]) {
+    filter: brightness(0.9);
+  }
+}
+
+// ============================================
+// CSS CUSTOM PROPERTIES
+// ============================================
+
+:root {
+  --text-color: #{$text-color};
+  --background-color: #{$background-color};
+  --surface-color: #ffffff;
+  --border-color: #{$border-color};
+  --grey-color: #{$grey-color};
+  --grey-color-light: #{$grey-color-light};
+  --grey-color-dark: #{$grey-color-dark};
+  
+  // Spacing scale
+  --space-xs: #{$spacing-unit * 0.25};
+  --space-sm: #{$spacing-unit * 0.5};
+  --space-md: #{$spacing-unit};
+  --space-lg: #{$spacing-unit * 1.5};
+  --space-xl: #{$spacing-unit * 2};
+  --space-2xl: #{$spacing-unit * 3};
+  
+  // Border radius scale
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+// ============================================
+// ИМПОРТ КОМПОНЕНТОВ
+// ============================================
+
 @import
-    "base",
-    "layout",
-    "components",
-    "syntax-highlighting";
+  "base",
+  "layout",
+  "components",
+  "syntax-highlighting";
+
+// ============================================
+// УТИЛИТЫ
+// ============================================
+
+// Container queries (для современных браузеров)
+@supports (container-type: inline-size) {
+  .container {
+    container-type: inline-size;
+  }
+}
+
+// Responsive typography
+@supports (font-size: clamp(1rem, 2vw, 1.5rem)) {
+  body {
+    font-size: clamp(16px, 1vw + 0.5rem, 18px);
+  }
+}
+
+// Улучшенная прокрутка
+@supports (scrollbar-gutter: stable) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+// ============================================
+// PRINT STYLES
+// ============================================
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+  
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+  
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  
+  img {
+    max-width: 100% !important;
+  }
+  
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+  
+  // Скрыть элементы навигации
+  .site-header,
+  .site-footer,
+  .back-to-top,
+  .reading-progress {
+    display: none !important;
+  }
+}
+
+// ============================================
+// ПЕРФОРМАНС ОПТИМИЗАЦИИ
+// ============================================
+
+// Анимации только для интерактивных элементов
+@media (hover: hover) and (pointer: fine) {
+  .post-card,
+  .topic-card,
+  .btn {
+    @include transition(transform);
+  }
+}
+
+// Убрать анимации на слабых устройствах
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// GPU acceleration для анимированных элементов
+.post-card,
+.topic-card,
+.hero {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
