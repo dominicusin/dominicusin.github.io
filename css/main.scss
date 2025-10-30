@@ -1,6 +1,3 @@
----
----
-
 @charset "utf-8";
 
 // Import Google Fonts
@@ -50,10 +47,16 @@ $on-laptop: 1024px;
     transition: $property $duration $timing;
 }
 
-@mixin box-shadow($shadow) {
-    -webkit-box-shadow: $shadow;
-    -moz-box-shadow: $shadow;
-    box-shadow: $shadow;
+// Allow multiple box-shadow arguments to avoid "takes 1 argument but 2 were passed" errors
+// Accept a varargs list so callers may pass 1..n shadows:
+//   @include box-shadow(0 2px 4px rgba(...));
+//   @include box-shadow(0 2px 4px rgba(...), inset 0 1px 0 rgba(...));
+@mixin box-shadow($shadows...) {
+    // Ensure the value becomes a comma-separated list for CSS
+    $value: if(length($shadows) == 1, nth($shadows, 1), $shadows);
+    -webkit-box-shadow: $value;
+    -moz-box-shadow: $value;
+    box-shadow: $value;
 }
 
 @mixin border-radius($radius) {
