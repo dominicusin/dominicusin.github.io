@@ -1,64 +1,67 @@
-# ============================================
-# ОСНОВНАЯ КОНФИГУРАЦИЯ САЙТА
-# ============================================
-title: "Domini's Blog"
-tagline: "Промышленная инженерия • Системная инженерия • Data Science • AI"
-description: >-
-  Экспертный блог о промышленной и системной инженерии, науке о данных 
-  и искусственном интеллекте. Практические руководства, глубокая аналитика 
-  и профессиональные инструменты.
-
-# URL конфигурация
-url: "https://dominicusin.github.io"
-baseurl: ""
-enforce_ssl: "dominicusin.github.io"
-
-# ============================================
-# АВТОР И СОЦИАЛЬНЫЕ СЕТИ
-# ============================================
+---
+title: Domini's Blog
+timezone: Europe/Chisinau
+collections:
+  posts:
+    title: Posts
+    output: true
+  projects:
+    title: Projects
+    output: true
+    permalink: "/projects/:name/"
+  uploads:
+    title: Uploads
+    output: true
+defaults:
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
+    author: Domini
+    comments: false
+    share: true
+- scope:
+    path: ''
+    type: pages
+  values:
+    layout: page
+- scope:
+    path: ''
+    type: projects
+  values:
+    layout: project
+tagline: Промышленная инженерия • Системная инженерия • Data Science • AI
+description: Экспертный блог о промышленной и системной инженерии, науке о данных  и
+  искусственном интеллекте. Практические руководства, глубокая аналитика  и профессиональные
+  инструменты.
+url: https://dominicusin.github.io
+baseurl: ''
+enforce_ssl: dominicusin.github.io
 author:
-  name: "Domini"
-  email: "transgregorial@gmail.com"
-  bio: "Эксперт в области промышленной инженерии, системной инженерии и науки о данных"
+  name: Domini
+  email: transgregorial@gmail.com
+  bio: Эксперт в области промышленной инженерии, системной инженерии и науки о данных
   avatar: "/assets/images/avatar.jpg"
-  location: "Chișinău, Moldova"
-  
-  # Научные профили
-  orcid: "0000-0002-7425-0526"
-  researcherid: "C-7449-2018"
-  scholar: "H6jV56gAAAAJ"
-  
-  # Социальные сети
-  github: "dominicusin"
-  twitter: "dominicusin"
-  linkedin: "dominicusin"
-  keybase: "dominicusin"
-
-# ============================================
-# ЛОКАЛИЗАЦИЯ
-# ============================================
+  location: Chișinău, Moldova
+  orcid: 0000-0002-7425-0526
+  researcherid: C-7449-2018
+  scholar: H6jV56gAAAAJ
+  github: dominicusin
+  twitter: dominicusin
+  linkedin: dominicusin
+  keybase: dominicusin
 lang: ru_RU
 locale: ru_RU
-timezone: Europe/Chisinau
 encoding: utf-8
-
-# ============================================
-# ТЕМА И ПЛАГИНЫ
-# ============================================
 theme: minima
-remote_theme: null
-
+remote_theme: 
 plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
-  - jekyll-archives
-
-# ============================================
-# НАСТРОЙКИ КОНТЕНТА
-# ============================================
-# Markdown
+- jekyll-feed
+- jekyll-seo-tag
+- jekyll-sitemap
+- jekyll-paginate
+- jekyll-archives
 markdown: kramdown
 kramdown:
   input: GFM
@@ -71,24 +74,16 @@ kramdown:
   entity_output: as_char
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
-
-# Подсветка синтаксиса
 highlighter: rouge
-
-# Постоянные ссылки
-permalink: /:year/:month/:title/
-
-# Пагинация
+permalink: "/:year/:month/:title/"
 paginate: 12
 paginate_path: "/page/:num/"
-
-# Архивы
 jekyll-archives:
   enabled:
-    - categories
-    - tags
-    - year
-    - month
+  - categories
+  - tags
+  - year
+  - month
   layouts:
     category: category
     tag: tag
@@ -99,182 +94,87 @@ jekyll-archives:
     tag: "/tag/:name/"
     year: "/:year/"
     month: "/:year/:month/"
-
-# ============================================
-# КОЛЛЕКЦИИ
-# ============================================
-collections:
-  posts:
-    output: true
-    permalink: /:year/:month/:day/:title/
-  projects:
-    output: true
-    permalink: /projects/:name/
-
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-      author: "Domini"
-      comments: false
-      share: true
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
-  - scope:
-      path: ""
-      type: "projects"
-    values:
-      layout: "project"
-
-# ============================================
-# НАВИГАЦИЯ
-# ============================================
 navigation:
-  - name: "Главная"
-    url: "/"
-    icon: "home"
-  - name: "Статьи"
-    url: "/archive/"
-    icon: "article"
-  - name: "Категории"
-    url: "/categories/"
-    icon: "folder"
-  - name: "Теги"
-    url: "/tags/"
-    icon: "tag"
-  - name: "О блоге"
-    url: "/about/"
-    icon: "info"
-
-# ============================================
-# СОЦИАЛЬНЫЕ ССЫЛКИ (для футера)
-# ============================================
+- name: Главная
+  url: "/"
+  icon: home
+- name: Статьи
+  url: "/archive/"
+  icon: article
+- name: Категории
+  url: "/categories/"
+  icon: folder
+- name: Теги
+  url: "/tags/"
+  icon: tag
+- name: О блоге
+  url: "/about/"
+  icon: info
 social:
-  - name: "GitHub"
-    url: "https://github.com/dominicusin"
-    icon: "github"
-  - name: "Twitter"
-    url: "https://twitter.com/dominicusin"
-    icon: "twitter"
-  - name: "ORCID"
-    url: "https://orcid.org/0000-0002-7425-0526"
-    icon: "orcid"
-  - name: "Google Scholar"
-    url: "https://scholar.google.ru/citations?user=H6jV56gAAAAJ"
-    icon: "scholar"
-  - name: "Keybase"
-    url: "https://keybase.io/dominicusin"
-    icon: "keybase"
-
-# ============================================
-# SEO И АНАЛИТИКА
-# ============================================
-# Google Analytics (раскомментируйте и добавьте ID)
-# google_analytics: "UA-XXXXXXXXX-X"
-
-# Yandex Metrika (раскомментируйте и добавьте ID)
-# yandex_metrika: "XXXXXXXX"
-
-# Верификация
-# google_site_verification: "XXXXXXXXXXX"
-# yandex_verification: "XXXXXXXXXXX"
-
-# ============================================
-# ОПТИМИЗАЦИЯ И ПРОИЗВОДИТЕЛЬНОСТЬ
-# ============================================
-# Компрессия
+- name: GitHub
+  url: https://github.com/dominicusin
+  icon: github
+- name: Twitter
+  url: https://twitter.com/dominicusin
+  icon: twitter
+- name: ORCID
+  url: https://orcid.org/0000-0002-7425-0526
+  icon: orcid
+- name: Google Scholar
+  url: https://scholar.google.ru/citations?user=H6jV56gAAAAJ
+  icon: scholar
+- name: Keybase
+  url: https://keybase.io/dominicusin
+  icon: keybase
 sass:
   style: compressed
   sourcemap: never
-
-# Liquid опции
 liquid:
   error_mode: strict
   strict_filters: true
   strict_variables: false
-
-# Безопасность
 safe: true
 strict_front_matter: true
-
-# ============================================
-# ИСКЛЮЧЕНИЯ
-# ============================================
 exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor
-  - .bundle
-  - .sass-cache
-  - .jekyll-cache
-  - README.md
-  - LICENSE
-  - CONTRIBUTING.md
-  - Manifest.md
-  - .gitignore
-  - .git
-  - .github
-  - "*.log"
-  - package.json
-  - package-lock.json
-  - replit.md
-  - .replit
-
+- Gemfile
+- Gemfile.lock
+- node_modules
+- vendor
+- ".bundle"
+- ".sass-cache"
+- ".jekyll-cache"
+- README.md
+- LICENSE
+- CONTRIBUTING.md
+- Manifest.md
+- ".gitignore"
+- ".git"
+- ".github"
+- "*.log"
+- package.json
+- package-lock.json
+- replit.md
+- ".replit"
 include:
-  - _pages
-  - .htaccess
-  - .well-known
-
+- _pages
+- ".htaccess"
+- ".well-known"
 keep_files:
-  - .git
-  - .svn
-
-# ============================================
-# НАСТРОЙКИ РАЗРАБОТКИ
-# ============================================
-# Для локальной разработки
-# show_drafts: false
-# unpublished: false
-# future: false
-# watch: true
-# incremental: true
-# profile: true
-
-# ============================================
-# ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ
-# ============================================
-# RSS Feed
+- ".git"
+- ".svn"
 feed:
   path: feed.xml
   excerpt_only: false
-
-# Читаемость
 excerpt_separator: "<!--more-->"
-
-# Количество связанных постов
 lsi: false
 related_posts_limit: 3
-
-# Дата и время
 date_format: "%d.%m.%Y"
 time_format: "%H:%M"
-
-# Функции
 reading_time: true
 words_per_minute: 200
-
-# ============================================
-# WHITELIST (для GitHub Pages)
-# ============================================
 whitelist:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-  - jekyll-paginate
-  - jekyll-archives
+- jekyll-feed
+- jekyll-seo-tag
+- jekyll-sitemap
+- jekyll-paginate
+- jekyll-archives
