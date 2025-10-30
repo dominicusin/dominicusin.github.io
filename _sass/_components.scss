@@ -659,6 +659,204 @@
 }
 
 // ============================================
+// АРХИВНЫЕ СТРАНИЦЫ
+// ============================================
+
+.archive-page {
+  padding: $spacing-unit * 2 0;
+}
+
+.archive-header {
+  text-align: center;
+  margin-bottom: $spacing-unit * 3;
+  padding: $spacing-unit * 2;
+  background: linear-gradient(135deg, rgba(65, 88, 208, 0.05) 0%, rgba(200, 80, 192, 0.05) 100%);
+  @include border-radius(16px);
+}
+
+.archive-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: $spacing-unit;
+  font-size: 0.875rem;
+  color: $grey-color;
+  
+  a {
+    color: $brand-color;
+    text-decoration: none;
+    @include transition(color);
+    
+    &:hover {
+      color: $brand-color-dark;
+    }
+  }
+  
+  span:not(:last-child) {
+    color: $grey-color-light;
+  }
+}
+
+.archive-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 $spacing-unit;
+  color: $text-color;
+  
+  svg {
+    color: $brand-color;
+  }
+}
+
+.archive-description {
+  font-size: 1.125rem;
+  color: $grey-color;
+  margin: 0;
+}
+
+// Список постов (для tag и month архивов)
+.post-list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.post-list-item {
+  display: flex;
+  gap: $spacing-unit;
+  padding: $spacing-unit * 1.5;
+  margin-bottom: $spacing-unit;
+  background: white;
+  @include border-radius(12px);
+  border: 1px solid $border-color;
+  @include transition(all);
+  
+  &:hover {
+    border-color: $brand-color;
+    @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.1));
+    transform: translateY(-2px);
+  }
+}
+
+.post-list-date {
+  flex-shrink: 0;
+  width: 80px;
+  
+  time {
+    display: inline-block;
+    padding: 8px 16px;
+    background: $gradient-secondary;
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+    @include border-radius(8px);
+    text-align: center;
+  }
+}
+
+.post-list-content {
+  flex: 1;
+}
+
+.post-list-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 $spacing-unit / 2;
+  
+  a {
+    color: $text-color;
+    text-decoration: none;
+    @include transition(color);
+    
+    &:hover {
+      color: $brand-color;
+    }
+  }
+}
+
+.post-list-excerpt {
+  color: $grey-color;
+  margin: 0 0 $spacing-unit;
+  line-height: 1.6;
+}
+
+.post-list-meta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-unit;
+  font-size: 0.875rem;
+  color: $grey-color;
+  
+  svg {
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+  
+  .post-category {
+    padding: 4px 12px;
+    background: rgba(65, 88, 208, 0.1);
+    color: $brand-color;
+    @include border-radius(6px);
+    font-weight: 500;
+  }
+  
+  .post-tags {
+    display: flex;
+    gap: 8px;
+    
+    .tag {
+      color: $brand-color;
+      text-decoration: none;
+      @include transition(opacity);
+      
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+// Timeline для year архива
+.timeline-posts {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline-month {
+  margin-bottom: $spacing-unit * 3;
+  
+  &:not(:last-child) {
+    border-bottom: 2px solid $border-color;
+    padding-bottom: $spacing-unit * 2;
+  }
+}
+
+.timeline-month-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: $spacing-unit * 1.5;
+  color: $brand-color;
+  position: relative;
+  padding-left: $spacing-unit * 1.5;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 100%;
+    background: $gradient-secondary;
+    @include border-radius(2px);
+  }
+}
+
+// ============================================
 // МЕДИА-ЗАПРОСЫ ДЛЯ МОБИЛЬНЫХ
 // ============================================
 
@@ -685,5 +883,34 @@
   .btn-lg {
     padding: 14px 28px;
     font-size: 1rem;
+  }
+  
+  // Архивные страницы на мобильных
+  .archive-title {
+    font-size: 1.75rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .archive-breadcrumb {
+    flex-wrap: wrap;
+  }
+  
+  .post-list-item {
+    flex-direction: column;
+    gap: $spacing-unit / 2;
+  }
+  
+  .post-list-date {
+    width: auto;
+  }
+  
+  .post-list-title {
+    font-size: 1.25rem;
+  }
+  
+  .post-list-meta {
+    flex-wrap: wrap;
+    gap: $spacing-unit / 2;
   }
 }
