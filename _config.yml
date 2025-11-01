@@ -62,6 +62,7 @@ plugins:
 - jekyll-sitemap
 - jekyll-paginate
 - jekyll-archives
+- jekyll-gist
 markdown: kramdown
 kramdown:
   input: GFM
@@ -178,3 +179,4 @@ whitelist:
 - jekyll-sitemap
 - jekyll-paginate
 - jekyll-archives
+- jekyll-gist
