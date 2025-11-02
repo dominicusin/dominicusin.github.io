@@ -1,5 +1,5 @@
 ---
-title: Ya movies's list
+title: YA movies's list
 date: 2025-11-02 03:46:00 +02:00
 ---
 
