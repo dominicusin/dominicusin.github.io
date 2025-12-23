@@ -4,7 +4,9 @@ date: 2025-12-23 11:37:00 +02:00
 ---
 
 # Awesome Plan9
-(https://github.com/henesy/awesome-plan9.git)
+
+[https://github.com/henesy/awesome-plan9](https://github.com/henesy/awesome-plan9)
+
 A curated list of awesome Plan9 (and sometimes 9p) libraries and software.
 
 > Generally when referring to "Plan9" this document really means 9front.
