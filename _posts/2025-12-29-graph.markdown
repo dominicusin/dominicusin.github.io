@@ -1,0 +1,7 @@
+---
+title: Graph
+date: 2025-12-29 22:01:00 +02:00
+---
+
+
+{% include graph.html %}
