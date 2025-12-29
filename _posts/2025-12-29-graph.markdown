@@ -1,0 +1,502 @@
+---
+title: Graph
+date: 2025-12-29 21:51:00 +02:00
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Граф преобразований форматов</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        #controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(22, 22, 44, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        #controls h3 {
+            margin: 0 0 10px 0;
+            color: #4fc3f7;
+            font-size: 16px;
+        }
+        #controls label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        #controls input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        #search {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            background: #2a2a3e;
+            color: #eee;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        #network {
+            width: 100%;
+            height: 100vh;
+            border: none;
+        }
+        #legend {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(22, 22, 44, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        #legend h4 {
+            margin: 0 0 10px 0;
+            color: #4fc3f7;
+            font-size: 14px;
+        }
+        .legend-item {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 2px solid #444;
+        }
+        #info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(22, 22, 44, 0.95);
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 300px;
+            display: none;
+            z-index: 1001;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        #info h4 {
+            margin: 0 0 10px 0;
+            color: #4fc3f7;
+        }
+        .tool-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            margin: 2px;
+            background: #3a3a5e;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <h3>🔍 Фильтры</h3>
+        <input type="text" id="search" placeholder="Поиск формата...">
+        <label><input type="checkbox" id="showMarkup" checked> Языки разметки</label>
+        <label><input type="checkbox" id="showTeX" checked> TeX/LaTeX системы</label>
+        <label><input type="checkbox" id="showOffice" checked> Офисные форматы</label>
+        <label><input type="checkbox" id="showEbook" checked> Электронные книги</label>
+        <label><input type="checkbox" id="showScientific" checked> Научные форматы</label>
+        <label><input type="checkbox" id="showOutput" checked> Выходные форматы</label>
+    </div>
+    
+    <div id="info">
+        <h4 id="infoTitle"></h4>
+        <div id="infoContent"></div>
+    </div>
+    
+    <div id="legend">
+        <h4>Категории форматов</h4>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #64b5f6;"></div>
+            <span>Языки разметки</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #81c784;"></div>
+            <span>TeX/LaTeX</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ffb74d;"></div>
+            <span>Офисные форматы</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ba68c8;"></div>
+            <span>Электронные книги</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #f06292;"></div>
+            <span>Научные форматы</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #4dd0e1;"></div>
+            <span>Выходные форматы</span>
+        </div>
+    </div>
+    
+    <div id="network"></div>
+
+    <script>
+        // Определение узлов (форматов)
+        const nodes = new vis.DataSet([
+            // Языки разметки
+            {id: 'html', label: 'HTML', group: 'markup', title: 'HyperText Markup Language'},
+            {id: 'xhtml', label: 'XHTML', group: 'markup'},
+            {id: 'xml', label: 'XML', group: 'markup'},
+            {id: 'sgml', label: 'SGML', group: 'markup'},
+            {id: 'svg', label: 'SVG', group: 'markup'},
+            {id: 'mathml', label: 'MathML', group: 'markup'},
+            {id: 'docbook', label: 'DocBook', group: 'markup'},
+            {id: 'tei', label: 'TEI', group: 'markup'},
+            {id: 'dita', label: 'DITA', group: 'markup'},
+            {id: 'jats', label: 'JATS', group: 'scientific'},
+            
+            // Легковесные языки разметки
+            {id: 'markdown', label: 'Markdown', group: 'markup'},
+            {id: 'commonmark', label: 'CommonMark', group: 'markup'},
+            {id: 'rst', label: 'reStructuredText', group: 'markup'},
+            {id: 'asciidoc', label: 'AsciiDoc', group: 'markup'},
+            {id: 'orgmode', label: 'Org-mode', group: 'markup'},
+            {id: 'textile', label: 'Textile', group: 'markup'},
+            
+            // TeX системы
+            {id: 'tex', label: 'TeX', group: 'tex'},
+            {id: 'latex', label: 'LaTeX', group: 'tex'},
+            {id: 'context', label: 'ConTeXt', group: 'tex'},
+            {id: 'xelatex', label: 'XeLaTeX', group: 'tex'},
+            {id: 'lualatex', label: 'LuaLaTeX', group: 'tex'},
+            {id: 'typst', label: 'Typst', group: 'tex'},
+            
+            // Офисные форматы
+            {id: 'docx', label: 'DOCX', group: 'office'},
+            {id: 'doc', label: 'DOC', group: 'office'},
+            {id: 'odt', label: 'ODT', group: 'office'},
+            {id: 'rtf', label: 'RTF', group: 'office'},
+            
+            // Электронные книги
+            {id: 'epub', label: 'EPUB', group: 'ebook'},
+            {id: 'epub3', label: 'EPUB3', group: 'ebook'},
+            {id: 'mobi', label: 'MOBI', group: 'ebook'},
+            {id: 'azw3', label: 'AZW3', group: 'ebook'},
+            {id: 'fb2', label: 'FB2', group: 'ebook'},
+            
+            // Выходные форматы
+            {id: 'pdf', label: 'PDF', group: 'output'},
+            {id: 'pdfa', label: 'PDF/A', group: 'output'},
+            {id: 'ps', label: 'PostScript', group: 'output'},
+            
+            // Научные форматы
+            {id: 'bibtex', label: 'BibTeX', group: 'scientific'},
+            {id: 'biblatex', label: 'BibLaTeX', group: 'scientific'},
+            {id: 'csljson', label: 'CSL-JSON', group: 'scientific'},
+            {id: 'ipynb', label: 'Jupyter', group: 'scientific'},
+            {id: 'rmd', label: 'R Markdown', group: 'scientific'},
+            {id: 'qmd', label: 'Quarto', group: 'scientific'},
+            
+            // Структурированные данные
+            {id: 'json', label: 'JSON', group: 'markup'},
+            {id: 'yaml', label: 'YAML', group: 'markup'},
+        ]);
+
+        // Определение рёбер (преобразований)
+        const edges = new vis.DataSet([
+            // Pandoc конвертации (основной инструмент)
+            {from: 'markdown', to: 'html', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'latex', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'docx', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'epub', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'pdf', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'rst', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'asciidoc', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'docbook', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'tei', label: 'Pandoc', arrows: 'to'},
+            {from: 'markdown', to: 'jats', label: 'Pandoc', arrows: 'to'},
+            
+            {from: 'rst', to: 'html', label: 'Pandoc', arrows: 'to'},
+            {from: 'rst', to: 'latex', label: 'Pandoc', arrows: 'to'},
+            {from: 'rst', to: 'pdf', label: 'Pandoc', arrows: 'to'},
+            {from: 'rst', to: 'markdown', label: 'Pandoc', arrows: 'to'},
+            
+            {from: 'asciidoc', to: 'html', label: 'Pandoc', arrows: 'to'},
+            {from: 'asciidoc', to: 'docbook', label: 'Pandoc', arrows: 'to'},
+            {from: 'asciidoc', to: 'pdf', label: 'Pandoc', arrows: 'to'},
+            
+            {from: 'orgmode', to: 'html', label: 'Pandoc', arrows: 'to'},
+            {from: 'orgmode', to: 'latex', label: 'Pandoc', arrows: 'to'},
+            {from: 'orgmode', to: 'markdown', label: 'Pandoc', arrows: 'to'},
+            
+            {from: 'html', to: 'markdown', label: 'Pandoc', arrows: 'to'},
+            {from: 'html', to: 'latex', label: 'Pandoc', arrows: 'to'},
+            {from: 'html', to: 'docx', label: 'Pandoc', arrows: 'to'},
+            {from: 'html', to: 'epub', label: 'Pandoc', arrows: 'to'},
+            {from: 'html', to: 'pdf', label: 'Pandoc', arrows: 'to'},
+            
+            {from: 'latex', to: 'html', label: 'Pandoc', arrows: 'to'},
+            {from: 'latex', to: 'markdown', label: 'Pandoc', arrows: 'to'},
+            {from: 'latex', to: 'docx', label: 'Pandoc', arrows: 'to'},
+            {from: 'latex', to: 'pdf', label: 'LaTeX', arrows: 'to'},
+            
+            {from: 'docx', to: 'markdown', label: 'Pandoc', arrows: 'to'},
+            {from: 'docx', to: 'html', label: 'Pandoc', arrows: 'to'},
+            {from: 'docx', to: 'latex', label: 'Pandoc', arrows: 'to'},
+            {from: 'docx', to: 'pdf', label: 'Pandoc', arrows: 'to'},
+            {from: 'docx', to: 'epub', label: 'Pandoc', arrows: 'to'},
+            
+            {from: 'odt', to: 'docx', label: 'LibreOffice', arrows: 'to'},
+            {from: 'odt', to: 'pdf', label: 'LibreOffice', arrows: 'to'},
+            {from: 'odt', to: 'html', label: 'LibreOffice', arrows: 'to'},
+            
+            {from: 'rtf', to: 'docx', label: 'Pandoc', arrows: 'to'},
+            {from: 'rtf', to: 'html', label: 'Pandoc', arrows: 'to'},
+            
+            // XML преобразования через XSLT
+            {from: 'xml', to: 'html', label: 'XSLT', arrows: 'to'},
+            {from: 'xml', to: 'xhtml', label: 'XSLT', arrows: 'to'},
+            {from: 'docbook', to: 'html', label: 'XSLT', arrows: 'to'},
+            {from: 'docbook', to: 'pdf', label: 'XSLT+FOP', arrows: 'to'},
+            {from: 'docbook', to: 'epub', label: 'XSLT', arrows: 'to'},
+            {from: 'tei', to: 'html', label: 'XSLT', arrows: 'to'},
+            {from: 'tei', to: 'pdf', label: 'XSLT', arrows: 'to'},
+            {from: 'dita', to: 'html', label: 'XSLT', arrows: 'to'},
+            {from: 'dita', to: 'pdf', label: 'XSLT', arrows: 'to'},
+            {from: 'jats', to: 'html', label: 'XSLT', arrows: 'to'},
+            {from: 'jats', to: 'pdf', label: 'XSLT', arrows: 'to'},
+            
+            // TeX компиляция
+            {from: 'tex', to: 'pdf', label: 'pdfTeX', arrows: 'to'},
+            {from: 'tex', to: 'ps', label: 'dvips', arrows: 'to'},
+            {from: 'context', to: 'pdf', label: 'ConTeXt', arrows: 'to'},
+            {from: 'xelatex', to: 'pdf', label: 'XeTeX', arrows: 'to'},
+            {from: 'lualatex', to: 'pdf', label: 'LuaTeX', arrows: 'to'},
+            {from: 'typst', to: 'pdf', label: 'Typst', arrows: 'to'},
+            
+            // Электронные книги (Calibre)
+            {from: 'epub', to: 'mobi', label: 'Calibre', arrows: 'to'},
+            {from: 'epub', to: 'azw3', label: 'Calibre', arrows: 'to'},
+            {from: 'epub', to: 'pdf', label: 'Calibre', arrows: 'to'},
+            {from: 'mobi', to: 'epub', label: 'Calibre', arrows: 'to'},
+            {from: 'azw3', to: 'epub', label: 'Calibre', arrows: 'to'},
+            {from: 'fb2', to: 'epub', label: 'Calibre', arrows: 'to'},
+            {from: 'fb2', to: 'mobi', label: 'Calibre', arrows: 'to'},
+            
+            // Научные форматы
+            {from: 'ipynb', to: 'html', label: 'nbconvert', arrows: 'to'},
+            {from: 'ipynb', to: 'pdf', label: 'nbconvert', arrows: 'to'},
+            {from: 'ipynb', to: 'latex', label: 'nbconvert', arrows: 'to'},
+            {from: 'ipynb', to: 'markdown', label: 'nbconvert', arrows: 'to'},
+            
+            {from: 'rmd', to: 'html', label: 'knitr', arrows: 'to'},
+            {from: 'rmd', to: 'pdf', label: 'knitr', arrows: 'to'},
+            {from: 'rmd', to: 'docx', label: 'knitr', arrows: 'to'},
+            
+            {from: 'qmd', to: 'html', label: 'Quarto', arrows: 'to'},
+            {from: 'qmd', to: 'pdf', label: 'Quarto', arrows: 'to'},
+            {from: 'qmd', to: 'docx', label: 'Quarto', arrows: 'to'},
+            {from: 'qmd', to: 'epub', label: 'Quarto', arrows: 'to'},
+            
+            // Библиографические форматы
+            {from: 'bibtex', to: 'biblatex', label: 'biber', arrows: 'to'},
+            {from: 'biblatex', to: 'csljson', label: 'pandoc-citeproc', arrows: 'to'},
+            {from: 'bibtex', to: 'json', label: 'bibtool', arrows: 'to'},
+            
+            // Структурированные данные
+            {from: 'json', to: 'yaml', label: 'yq/jq', arrows: 'to'},
+            {from: 'yaml', to: 'json', label: 'yq', arrows: 'to'},
+            {from: 'xml', to: 'json', label: 'xmljson', arrows: 'to'},
+            {from: 'json', to: 'xml', label: 'xmljson', arrows: 'to'},
+            
+            // HTML в PDF
+            {from: 'html', to: 'pdf', label: 'wkhtmltopdf', arrows: 'to'},
+            
+            // PostScript
+            {from: 'ps', to: 'pdf', label: 'ps2pdf', arrows: 'to'},
+            {from: 'pdf', to: 'ps', label: 'pdftops', arrows: 'to'},
+            
+            // PDF/A
+            {from: 'pdf', to: 'pdfa', label: 'Ghostscript', arrows: 'to'},
+        ]);
+
+        // Настройка групп
+        const groups = {
+            markup: {color: {background: '#64b5f6', border: '#1976d2'}, font: {color: '#000'}},
+            tex: {color: {background: '#81c784', border: '#388e3c'}, font: {color: '#000'}},
+            office: {color: {background: '#ffb74d', border: '#f57c00'}, font: {color: '#000'}},
+            ebook: {color: {background: '#ba68c8', border: '#7b1fa2'}, font: {color: '#fff'}},
+            scientific: {color: {background: '#f06292', border: '#c2185b'}, font: {color: '#000'}},
+            output: {color: {background: '#4dd0e1', border: '#0097a7'}, font: {color: '#000'}}
+        };
+
+        // Настройка визуализации
+        const options = {
+            nodes: {
+                shape: 'box',
+                margin: 10,
+                widthConstraint: {maximum: 120},
+                font: {size: 14, face: 'Segoe UI'},
+                borderWidth: 2,
+                shadow: true
+            },
+            edges: {
+                arrows: {to: {enabled: true, scaleFactor: 0.5}},
+                color: {color: '#666', highlight: '#4fc3f7'},
+                font: {size: 10, color: '#aaa', face: 'Segoe UI'},
+                smooth: {type: 'curvedCW', roundness: 0.2},
+                width: 1.5
+            },
+            groups: groups,
+            physics: {
+                enabled: true,
+                barnesHut: {
+                    gravitationalConstant: -8000,
+                    centralGravity: 0.3,
+                    springLength: 150,
+                    springConstant: 0.04,
+                    damping: 0.09
+                },
+                stabilization: {iterations: 200}
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 100,
+                navigationButtons: true,
+                keyboard: true
+            }
+        };
+
+        // Создание сети
+        const container = document.getElementById('network');
+        const data = {nodes: nodes, edges: edges};
+        const network = new vis.Network(container, data, options);
+
+        // Фильтрация
+        const categoryMap = {
+            markup: ['html', 'xhtml', 'xml', 'sgml', 'svg', 'mathml', 'docbook', 'tei', 'dita', 
+                     'markdown', 'commonmark', 'rst', 'asciidoc', 'orgmode', 'textile', 'json', 'yaml'],
+            tex: ['tex', 'latex', 'context', 'xelatex', 'lualatex', 'typst'],
+            office: ['docx', 'doc', 'odt', 'rtf'],
+            ebook: ['epub', 'epub3', 'mobi', 'azw3', 'fb2'],
+            scientific: ['bibtex', 'biblatex', 'csljson', 'ipynb', 'rmd', 'qmd', 'jats'],
+            output: ['pdf', 'pdfa', 'ps']
+        };
+
+        function updateFilter() {
+            const showMarkup = document.getElementById('showMarkup').checked;
+            const showTeX = document.getElementById('showTeX').checked;
+            const showOffice = document.getElementById('showOffice').checked;
+            const showEbook = document.getElementById('showEbook').checked;
+            const showScientific = document.getElementById('showScientific').checked;
+            const showOutput = document.getElementById('showOutput').checked;
+            const searchText = document.getElementById('search').value.toLowerCase();
+
+            const visibleNodes = [];
+            nodes.forEach(node => {
+                let visible = false;
+                if (showMarkup && categoryMap.markup.includes(node.id)) visible = true;
+                if (showTeX && categoryMap.tex.includes(node.id)) visible = true;
+                if (showOffice && categoryMap.office.includes(node.id)) visible = true;
+                if (showEbook && categoryMap.ebook.includes(node.id)) visible = true;
+                if (showScientific && categoryMap.scientific.includes(node.id)) visible = true;
+                if (showOutput && categoryMap.output.includes(node.id)) visible = true;
+
+                if (searchText && !node.label.toLowerCase().includes(searchText)) {
+                    visible = false;
+                }
+
+                if (visible) visibleNodes.push(node.id);
+            });
+
+            nodes.forEach(node => {
+                nodes.update({id: node.id, hidden: !visibleNodes.includes(node.id)});
+            });
+
+            edges.forEach(edge => {
+                const visible = visibleNodes.includes(edge.from) && visibleNodes.includes(edge.to);
+                edges.update({id: edge.id, hidden: !visible});
+            });
+        }
+
+        document.getElementById('showMarkup').addEventListener('change', updateFilter);
+        document.getElementById('showTeX').addEventListener('change', updateFilter);
+        document.getElementById('showOffice').addEventListener('change', updateFilter);
+        document.getElementById('showEbook').addEventListener('change', updateFilter);
+        document.getElementById('showScientific').addEventListener('change', updateFilter);
+        document.getElementById('showOutput').addEventListener('change', updateFilter);
+        document.getElementById('search').addEventListener('input', updateFilter);
+
+        // Автоматический поиск кратчайшего пути
+        function findPath(fromId, toId) {
+            const visited = new Set();
+            const queue = [[fromId]];
+            
+            while (queue.length > 0) {
+                const path = queue.shift();
+                const current = path[path.length - 1];
+                
+                if (current === toId) return path;
+                if (visited.has(current)) continue;
+                visited.add(current);
+                
+                edges.forEach(edge => {
+                    if (edge.from === current && !visited.has(edge.to)) {
+                        queue.push([...path, edge.to]);
+                    }
+                });
+            }
+            return null;
+        }
+
+        // Информация о формате при клике
+        network.on("click", function(params) {
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                const node = nodes.get(nodeId);
+                const inEdges = edges.get({filter: e => e.to === nodeId});
+                const outEdges = edges.get({filter: e => e.from === nodeId});
+
+                let html = `<p><strong>Конвертация из ${node.label}:</strong></p><ul>`;
+                outEdges.forEach(e => {
+                    const target = nodes.get(e.to);
+                    html += `<li>${target.label} <span class="tool-badge">${e.label}</span></li>`;
+                });
+                html += '</ul>';
+
+                html += `<p><strong>Конвертация в ${node.label}:</strong></p><ul>`;
+                inEdges.forEach(e => {
+                    const source = nodes.get(e.from);
+                    html += `<li>${source.label} <span class="tool-badge">${e.label}</span></li>`;
+                });
+                html += '</ul>';
+
+                document.getElementById('infoTitle').textContent = node.label;
+                document.getElementById('infoContent').innerHTML = html;
+                document.getElementById('info').style.display = 'block';
+            } else {
+                document.getElementById('info').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
