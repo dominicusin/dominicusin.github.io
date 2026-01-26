@@ -1,38 +1,66 @@
-- name: Fetch Gists and write to disk
-  uses: actions/github-script@v6
-  env:
-    GITHUB_TOKEN: ${{ secrets.GIST_TOKEN }}
-  with:
-    script: |
-      const fs = require('fs');
-      const path = require('path');
+name: Sync Gists
 
-      const outDir = 'gists';
-      const username = 'dominicusin';
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
 
-      if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      const response = await github.request('GET /users/{username}/gists', {
-        username,
-        per_page: 100,
-        headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` }
-      });
-      const gists = response.data || [];
+      - name: Fetch Gists and write to disk
+        uses: actions/github-script@v6
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
 
-      for (const gist of gists) {
-        const gistDir = path.join(outDir, gist.id);
-        if (!fs.existsSync(gistDir)) fs.mkdirSync(gistDir, { recursive: true });
+            const outDir = 'gists';
+            const username = 'dominicusin';
 
-        for (const [filename, fileInfo] of Object.entries(gist.files || {})) {
-          try {
-            const raw = await github.request({
-              method: 'GET',
-              url: fileInfo.raw_url,
-              headers: { Authorization: `token ${process.env.GITHUB_TOKEN}` }
+            if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+
+            const resp = await github.request('GET /users/{username}/gists', {
+              username,
+              per_page: 100,
+              headers: { Authorization: `token ${process.env.GIST_TOKEN}` }
             });
-            fs.writeFileSync(path.join(gistDir, filename), raw.data, 'utf8');
-          } catch (err) {
-            core && core.warning && core.warning(`Failed to fetch ${fileInfo.raw_url}: ${err}`);
-          }
-        }
-      }
+            const gists = resp.data || [];
+
+            for (const gist of gists) {
+              const gistDir = path.join(outDir, gist.id);
+              if (!fs.existsSync(gistDir)) fs.mkdirSync(gistDir, { recursive: true });
+
+              for (const [filename, fileInfo] of Object.entries(gist.files || {})) {
+                try {
+                  const raw = await github.request({
+                    method: 'GET',
+                    url: fileInfo.raw_url,
+                    headers: { Authorization: `token ${process.env.GIST_TOKEN}` }
+                  });
+                  fs.writeFileSync(path.join(gistDir, filename), raw.data, 'utf8');
+                } catch (err) {
+                  core && core.warning && core.warning(`Failed to fetch ${fileInfo.raw_url}: ${err}`);
+                }
+              }
+            }
+
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: update gists"
+          commit_options: '--no-verify'
+          # choose the branch you want to update, e.g. main or master:
+          branch: main
+          file_pattern: 'gists/*'
+          repository: '.'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
+          
