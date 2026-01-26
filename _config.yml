@@ -1,182 +1,72 @@
----
-title: Domini's Blog
-timezone: Europe/Chisinau
-collections:
-  posts:
-    title: Posts
-    output: true
-  projects:
-    title: Projects
-    output: true
-    permalink: "/projects/:name/"
-  uploads:
-    title: Uploads
-    output: true
-defaults:
-- scope:
-    path: ''
-    type: posts
-  values:
-    layout: post
-    author: Domini
-    comments: false
-    share: true
-- scope:
-    path: ''
-    type: pages
-  values:
-    layout: page
-- scope:
-    path: ''
-    type: projects
-  values:
-    layout: project
-tagline: Промышленная инженерия • Системная инженерия • Data Science • AI
-description: Экспертный блог о промышленной и системной инженерии, науке о данных  и
-  искусственном интеллекте. Практические руководства, глубокая аналитика  и профессиональные
-  инструменты.
-url: https://dominicusin.github.io
-baseurl: ''
-enforce_ssl: dominicusin.github.io
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Engineering Blog
+email: contact@dominicu_sin.io
+description: >- # this means to ignore newlines until "baseurl:"
+  Blog about industrial engineering, systems engineering, and data science. 
+  Expert materials on key areas of knowledge and modern approaches.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://dominicusin.github.io" # the base hostname & protocol for your site
+twitter_username: dominicusin
+github_username:  dominicusin
+
+# Author information
 author:
-  name: Domini
-  email: transgregorial@gmail.com
-  bio: Эксперт в области промышленной инженерии, системной инженерии и науки о данных
-  avatar: "/assets/images/avatar.jpg"
-  location: Chișinău, Moldova
-  orcid: 0000-0002-7425-0526
-  researcherid: C-7449-2018
-  scholar: H6jV56gAAAAJ
+  name: Dominicus In
+  email: contact@dominicu_sin.io
   github: dominicusin
   twitter: dominicusin
-  linkedin: dominicusin
-  keybase: dominicusin
-lang: ru_RU
-locale: ru_RU
-encoding: utf-8
-theme: minima
-remote_theme: 
-plugins:
-- jekyll-feed
-- jekyll-seo-tag
-- jekyll-sitemap
-- jekyll-paginate
-- jekyll-archives
-- jekyll-gist
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-highlighter: rouge
-permalink: "/:year/:month/:title/"
-paginate: 12
-paginate_path: "/page/:num/"
-jekyll-archives:
-  enabled:
-  - categories
-  - tags
-  - year
-  - month
-  layouts:
-    category: category
-    tag: tag
-    year: year
-    month: month
-  permalinks:
-    category: "/category/:name/"
-    tag: "/tag/:name/"
-    year: "/:year/"
-    month: "/:year/:month/"
+  orcid: "0000-0002-7425-0526"
+
+# Navigation
 navigation:
-- name: Главная
-  url: "/"
-  icon: home
-- name: Статьи
-  url: "/archive/"
-  icon: article
-- name: Категории
-  url: "/categories/"
-  icon: folder
-- name: Теги
-  url: "/tags/"
-  icon: tag
-- name: О блоге
-  url: "/about/"
-  icon: info
-social:
-- name: GitHub
-  url: https://github.com/dominicusin
-  icon: github
-- name: Twitter
-  url: https://twitter.com/dominicusin
-  icon: twitter
-- name: ORCID
-  url: https://orcid.org/0000-0002-7425-0526
-  icon: orcid
-- name: Google Scholar
-  url: https://scholar.google.ru/citations?user=H6jV56gAAAAJ
-  icon: scholar
-- name: Keybase
-  url: https://keybase.io/dominicusin
-  icon: keybase
-sass:
-  style: compressed
-  sourcemap: never
-liquid:
-  error_mode: strict
-  strict_filters: true
-  strict_variables: false
-safe: true
-strict_front_matter: true
+  - name: Home
+    url: /
+  - name: About
+    url: /about/
+  - name: Archive
+    url: /archive/
+  - name: Categories
+    url: /categories/
+  - name: Tags
+    url: /tags/
+
+# SEO
+keywords: "industrial engineering, systems engineering, data science, blog, technology"
+lang: en
+locale: en_US
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
 exclude:
-- Gemfile
-- Gemfile.lock
-- node_modules
-- vendor
-- ".bundle"
-- ".sass-cache"
-- ".jekyll-cache"
-- README.md
-- LICENSE
-- CONTRIBUTING.md
-- Manifest.md
-- ".gitignore"
-- ".git"
-- ".github"
-- "*.log"
-- package.json
-- package-lock.json
-- replit.md
-- ".replit"
-include:
-- _pages
-- ".htaccess"
-- ".well-known"
-keep_files:
-- ".git"
-- ".svn"
-feed:
-  path: feed.xml
-  excerpt_only: false
-excerpt_separator: "<!--more-->"
-lsi: false
-related_posts_limit: 3
-date_format: "%d.%m.%Y"
-time_format: "%H:%M"
-reading_time: true
-words_per_minute: 200
-whitelist:
-- jekyll-feed
-- jekyll-seo-tag
-- jekyll-sitemap
-- jekyll-paginate
-- jekyll-archives
-- jekyll-gist
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - backups/
+  - build.js
+  - package.json
+  - package-lock.json
