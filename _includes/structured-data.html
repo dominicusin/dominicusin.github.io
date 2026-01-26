@@ -1,0 +1,265 @@
+<!-- Enhanced Structured Data for Blog Post -->
+{% if page.layout == 'post' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "{{ 'navigation.home' | t }}",
+          "item": "{{ site.url }}/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ page.title | escape }}",
+          "item": "{{ page.url | absolute_url }}"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "{{ page.title | escape }}",
+      "description": "{{ page.excerpt | strip_html | strip_newlines | truncate: 300 | escape }}",
+      "image": [
+        {% if page.image %}
+        {
+          "@type": "ImageObject",
+          "url": "{{ page.image | absolute_url }}",
+          "width": 1200,
+          "height": 630,
+          "caption": "{% if page.image_alt %}{{ page.image_alt | escape }}{% else %}{{ page.title | escape }}{% endif %}"
+        }
+        {% endif %}
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author.name | escape }}",
+        "url": "{{ site.url }}/about/",
+        "sameAs": [
+          "https://github.com/{{ site.author.github }}",
+          "https://twitter.com/{{ site.author.twitter }}",
+          {% if site.author.orcid %}"https://orcid.org/{{ site.author.orcid }}"{% endif %}
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title | escape }}",
+        "url": "{{ site.url }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ '/assets/images/logo.png' | absolute_url }}",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ page.url | absolute_url }}"
+      },
+      "wordCount": {{ page.content | number_of_words }},
+      "keywords": "{{ page.tags | join: ', ' | escape }}",
+      "inLanguage": "{{ site.lang }}",
+      "isAccessibleForFree": "True",
+      "articleSection": "{{ page.category | default: 'Technology' | escape }}",
+      {% if page.tags.size > 0 %}
+      "about": [
+        {% for tag in page.tags limit:5 %}
+        {
+          "@type": "Thing",
+          "name": "{{ tag | escape }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ],
+      {% endif %}
+      "url": "{{ page.url | absolute_url }}",
+      "potentialAction": {
+        "@type": "ReadAction",
+        "target": "{{ page.url | absolute_url }}"
+      }
+    }
+  ]
+}
+</script>
+{% endif %}
+
+<!-- Enhanced Structured Data for Homepage -->
+{% if page.url == '/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "{{ site.title | escape }}",
+      "description": "{{ site.description | escape }}",
+      "url": "{{ site.url }}",
+      "inLanguage": "{{ site.lang }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ site.author.name | escape }}",
+        "url": "{{ site.url }}/about/",
+        "sameAs": [
+          "https://github.com/{{ site.author.github }}",
+          "https://twitter.com/{{ site.author.twitter }}",
+          {% if site.author.orcid %}"https://orcid.org/{{ site.author.orcid }}"{% endif %}
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.title | escape }}",
+        "url": "{{ site.url }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ '/assets/images/logo.png' | absolute_url }}",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ site.url }}/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        },
+        {
+          "@type": "ReadAction",
+          "target": "{{ site.url }}/#recent-posts"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/{{ site.author.github }}",
+        "https://twitter.com/{{ site.author.twitter }}"
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "name": "{{ 'recent_posts.title' | t }}",
+      "description": "{{ 'recent_posts.subtitle' | t }}",
+      "url": "{{ site.url }}/#recent-posts",
+      "numberOfItems": {{ site.posts.size }},
+      "itemListElement": [
+        {% for post in site.posts limit:6 %}
+        {
+          "@type": "Article",
+          "position": {{ forloop.index }},
+          "name": "{{ post.title | escape }}",
+          "url": "{{ post.url | absolute_url }}",
+          "description": "{{ post.excerpt | strip_html | strip_newlines | truncate: 150 | escape }}",
+          "datePublished": "{{ post.date | date_to_xmlschema }}",
+          "image": {% if post.image %}"{{ post.image | absolute_url }}"{% else %}null{% endif %}
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "{{ site.url }}/categories/",
+      "name": "{{ 'navigation.categories' | t }}",
+      "url": "{{ site.url }}/categories/",
+      "description": "Browse articles by category"
+    },
+    {
+      "@type": "CollectionPage", 
+      "@id": "{{ site.url }}/tags/",
+      "name": "{{ 'navigation.tags' | t }}",
+      "url": "{{ site.url }}/tags/",
+      "description": "Browse articles by tags"
+    }
+  ]
+}
+</script>
+{% endif %}
+
+<!-- Structured Data for Category Pages -->
+{% if page.layout == 'category' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "{{ 'navigation.home' | t }}",
+          "item": "{{ site.url }}/"
+        },
+        {
+          "@type": "ListItem", 
+          "position": 2,
+          "name": "{{ 'navigation.categories' | t }}",
+          "item": "{{ site.url }}/categories/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ page.title | escape }}",
+          "item": "{{ page.url | absolute_url }}"
+        }
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "{{ page.url | absolute_url }}",
+      "name": "{{ page.title | escape }}",
+      "description": "All articles in {{ page.title | escape }} category",
+      "url": "{{ page.url | absolute_url }}",
+      "numberOfItems": {{ site.categories[page.title].size }},
+      "about": {
+        "@type": "Thing",
+        "name": "{{ page.title | escape }}"
+      }
+    }
+  ]
+}
+</script>
+{% endif %}
+
+<!-- Website Performance Monitoring -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{{ page.title | default: site.title | escape }}",
+  "description": "{{ page.excerpt | default: site.description | strip_html | strip_newlines | escape }}",
+  "url": "{{ page.url | absolute_url }}",
+  "inLanguage": "{{ site.lang }}",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "{{ site.title | escape }}",
+    "url": "{{ site.url }}"
+  },
+  "dateModified": "{{ site.time | date_to_xmlschema }}",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "{{ 'navigation.home' | t }}",
+        "item": "{{ site.url }}/"
+      }
+      {% if page.url != '/' %}
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ page.title | escape }}",
+        "item": "{{ page.url | absolute_url }}"
+      }
+      {% endif %}
+    ]
+  }
+}
+</script>

@@ -1,24 +1,52 @@
 /**
- * Service Worker для Progressive Web App функциональности
- * Кэширование ресурсов, оффлайн доступность и обновления
+ * Advanced Service Worker for Engineering Blog
+ * Caching strategies, offline support, and performance optimization
  */
 
-const CACHE_NAME = 'engineering-blog-v1';
-const STATIC_CACHE = 'static-cache-v1';
-const CONTENT_CACHE = 'content-cache-v1';
+const CACHE_VERSION = '2.0.0';
+const CACHE_NAME = `engineering-blog-${CACHE_VERSION}`;
+const STATIC_CACHE = `static-${CACHE_VERSION}`;
+const CONTENT_CACHE = `content-${CACHE_VERSION}`;
+const IMAGE_CACHE = `images-${CACHE_VERSION}`;
+const FONT_CACHE = `fonts-${CACHE_VERSION}`;
 
-// Список ресурсов для кэширования при установке
+// Cache durations (in seconds)
+const CACHE_DURATIONS = {
+  static: 30 * 24 * 60 * 60, // 30 days
+  content: 24 * 60 * 60,       // 1 day
+  images: 7 * 24 * 60 * 60,     // 7 days
+  fonts: 30 * 24 * 60 * 60      // 30 days
+};
+
+// Resources to cache immediately on install
 const STATIC_ASSETS = [
   '/',
   '/css/main.css',
+  '/css/critical.css',
+  '/js/main.js',
   '/js/i18n.js',
   '/js/interactive.js',
+  '/js/search.js',
+  '/js/images.js',
   '/assets/i18n/en.json',
   '/assets/i18n/ru.json',
   '/favicon.ico',
   '/favicon.svg',
   '/manifest.json'
 ];
+
+// Font assets for separate caching
+const FONT_ASSETS = [
+  '/assets/fonts/inter-variable.woff2',
+  '/assets/fonts/jetbrains-mono-variable.woff2'
+];
+
+// Network patterns
+const NETWORK_PATTERNS = {
+  static: /\.(css|js|json|ico|svg|woff2?)(\?.*)?$/,
+  images: /\.(jpg|jpeg|png|gif|webp|avif)(\?.*)?$/,
+  fonts: /\.(woff|woff2|ttf|eot)(\?.*)?$/
+};
 
 // Паттерны для кэширования контента
 const CONTENT_PATTERNS = [
@@ -99,52 +127,182 @@ self.addEventListener('fetch', (event) => {
 });
 
 /**
- * Обработка запросов
+ * Advanced request handling with multiple caching strategies
  */
 async function handleRequest(request) {
   const url = new URL(request.url);
+  const strategy = getCacheStrategy(url.pathname, request);
   
   try {
-    // 1. Проверить в кэше
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      // Для контентных запросов обновить в фоне
-      if (shouldUpdateInBackground(url.pathname)) {
-        updateCacheInBackground(request);
-      }
-      return cachedResponse;
+    switch (strategy) {
+      case 'networkFirst':
+        return await networkFirst(request, url);
+      
+      case 'staleWhileRevalidate':
+        return await staleWhileRevalidate(request, url);
+      
+      case 'cacheFirst':
+        return await cacheFirst(request, url);
+      
+      case 'networkOnly':
+        return await networkOnly(request);
+      
+      default:
+        return await staleWhileRevalidate(request, url);
     }
-    
-    // 2. Запросить из сети
+  } catch (error) {
+    console.error('SW: Request failed:', error);
+    return getFallbackResponse(request);
+  }
+}
+
+/**
+ * Network First Strategy - for dynamic content
+ */
+async function networkFirst(request, url) {
+  try {
     const networkResponse = await fetchWithTimeout(request);
     
-    // 3. Кэшировать ответ
+    // Cache successful network responses
     if (shouldCache(url.pathname, networkResponse)) {
       const cache = await getCacheForUrl(url.pathname);
       cache.put(request, networkResponse.clone());
     }
     
     return networkResponse;
-    
   } catch (error) {
-    console.error('SW: Network request failed:', error);
-    
-    // 4. Fallback strategies
-    return getFallbackResponse(request);
+    // Fallback to cache
+    const cachedResponse = await caches.match(request);
+    return cachedResponse || getNetworkError();
   }
 }
 
 /**
- * Получить соответствующий кэш для URL
+ * Cache First Strategy - for static assets
+ */
+async function cacheFirst(request, url) {
+  const cachedResponse = await caches.match(request);
+  
+  if (cachedResponse) {
+    // Update in background if stale
+    const isStale = await isCacheStale(cachedResponse, url.pathname);
+    if (isStale) {
+      updateCacheInBackground(request);
+    }
+    return cachedResponse;
+  }
+  
+  // Fallback to network
+  const networkResponse = await fetchWithTimeout(request);
+  
+  if (shouldCache(url.pathname, networkResponse)) {
+    const cache = await getCacheForUrl(url.pathname);
+    cache.put(request, networkResponse.clone());
+  }
+  
+  return networkResponse;
+}
+
+/**
+ * Stale While Revalidate Strategy - balanced approach
+ */
+async function staleWhileRevalidate(request, url) {
+  const cache = await getCacheForUrl(url.pathname);
+  const [cachedResponse] = await Promise.all([
+    cache.match(request),
+    fetchWithTimeout(request)
+  ]);
+  
+  // Return cached version immediately if available
+  if (cachedResponse) {
+    // Update cache in background
+    updateCacheInBackground(request);
+    return cachedResponse;
+  }
+  
+  // Return network response and cache it
+  if (cachedResponse) {
+    const cache = await getCacheForUrl(url.pathname);
+    cache.put(request, cachedResponse.clone());
+  }
+  
+  return cachedResponse;
+}
+
+/**
+ * Network Only Strategy - for always-fresh content
+ */
+async function networkOnly(request) {
+  return await fetchWithTimeout(request);
+}
+
+/**
+ * Determine appropriate cache based on URL pattern
  */
 async function getCacheForUrl(pathname) {
-  if (isStaticAsset(pathname)) {
+  if (NETWORK_PATTERNS.fonts.test(pathname)) {
+    return caches.open(FONT_CACHE);
+  } else if (NETWORK_PATTERNS.images.test(pathname)) {
+    return caches.open(IMAGE_CACHE);
+  } else if (NETWORK_PATTERNS.static.test(pathname)) {
     return caches.open(STATIC_CACHE);
   } else if (shouldCacheContent(pathname)) {
     return caches.open(CONTENT_CACHE);
   } else {
     return caches.open(CACHE_NAME);
   }
+}
+
+/**
+ * Determine cache strategy based on URL and request
+ */
+function getCacheStrategy(pathname, request) {
+  // Network first for dynamic content
+  if (pathname.includes('/search') || 
+      pathname.includes('/api/') ||
+      request.method !== 'GET') {
+    return 'networkFirst';
+  }
+  
+  // Cache first for static assets
+  if (NETWORK_PATTERNS.static.test(pathname) ||
+      NETWORK_PATTERNS.fonts.test(pathname)) {
+    return 'cacheFirst';
+  }
+  
+  // Network only for critical updates
+  if (pathname.includes('/feed.xml') ||
+      pathname.includes('/sitemap.xml')) {
+    return 'networkOnly';
+  }
+  
+  // Default to stale while revalidate
+  return 'staleWhileRevalidate';
+}
+
+/**
+ * Check if cached response is stale
+ */
+async function isCacheStale(response, pathname) {
+  if (!response || !response.headers) return false;
+  
+  const cacheTime = response.headers.get('sw-cache-time');
+  if (!cacheTime) return false;
+  
+  const age = Date.now() - parseInt(cacheTime);
+  const maxAge = CACHE_DURATIONS[getCacheType(pathname)] * 1000;
+  
+  return age > maxAge;
+}
+
+/**
+ * Get cache type for URL
+ */
+function getCacheType(pathname) {
+  if (NETWORK_PATTERNS.fonts.test(pathname)) return 'fonts';
+  if (NETWORK_PATTERNS.images.test(pathname)) return 'images';
+  if (NETWORK_PATTERNS.static.test(pathname)) return 'static';
+  return 'content';
 }
 
 /**

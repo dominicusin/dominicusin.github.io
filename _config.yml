@@ -49,6 +49,11 @@ keywords: "industrial engineering, systems engineering, data science, blog, tech
 lang: en
 locale: en_US
 
+# RSS Feed Configuration
+rss_posts: 50
+categories_rss: true
+tags_rss: true
+
 # Build settings
 markdown: kramdown
 theme: minima

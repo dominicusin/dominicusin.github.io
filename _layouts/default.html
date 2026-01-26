@@ -5,26 +5,56 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1, viewport-fit=cover">
   
-  <!-- SEO Meta Tags -->
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="author" content="{{ site.author.name }}">
-  <meta name="keywords" content="{% if page.tags %}{{ page.tags | array_to_sentence_string }}{% else %}{{ site.keywords }}{% endif %}">
+  <!-- Enhanced SEO Meta Tags -->
+  <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
+  <meta name="author" content="{{ site.author.name | escape }}">
+  <meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' | escape }}{% else %}{{ site.keywords | escape }}{% endif %}">
+  <meta name="robots" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow{% endif %}">
+  <meta name="googlebot" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow{% endif %}">
   
-  <!-- Open Graph -->
+  <!-- Language and Locale -->
+  <meta name="language" content="{{ site.lang }}">
+  <meta property="og:locale" content="{{ site.locale }}">
+  <link rel="alternate" hreflang="{{ site.lang }}" href="{{ page.url | absolute_url }}">
+  <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | replace: '/ru/', '/' }}">
+  <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | prepend: '/ru/' }}">
+  
+  <!-- Open Graph Enhanced -->
   <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
-  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}">
+  <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:site_name" content="{{ site.title }}">
-  {% if page.image %}
-  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  <meta property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/assets/images/og-default.jpg' | absolute_url }}{% endif %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{% if page.image_alt %}{{ page.image_alt | escape }}{% else %}{{ site.title | escape }}{% endif %}">
+  
+  {% if page.layout == 'post' %}
+  <meta property="article:section" content="{% if page.category %}{{ page.category | escape }}{% endif %}">
+  <meta property="article:tag" content="{{ page.tags | first | escape }}">
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:modified_time" content="{{ page.last_modified_at | default: page.date | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.author.name | escape }}">
   {% endif %}
   
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
+  <!-- Twitter Card Enhanced -->
+  <meta name="twitter:card" content="{% if page.image %}summary_large_image{% else %}summary{% endif %}">
   <meta name="twitter:site" content="@{{ site.author.twitter }}">
   <meta name="twitter:creator" content="@{{ site.author.twitter }}">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 200 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
+  <meta name="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/assets/images/og-default.jpg' | absolute_url }}{% endif %}">
+  <meta name="twitter:image:alt" content="{% if page.image_alt %}{{ page.image_alt | escape }}{% else %}{{ site.title | escape }}{% endif %}">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#4158D0">
+  <meta name="msapplication-TileColor" content="#4158D0">
+  <meta name="application-name" content="{{ site.title | escape }}">
+  <meta name="apple-mobile-web-app-title" content="{{ site.title | escape }}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
@@ -51,9 +81,31 @@
   <!-- Styles -->
   <link rel="stylesheet" href="{{ "/css/main.css" | absolute_url }}">
   
-  <!-- Preload critical resources -->
+  <!-- Critical CSS Inlined -->
+  <style>
+    {% include_relative css/critical.css %}
+  </style>
+  
+  <!-- Preconnect for external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <!-- Preload critical scripts -->
+  <link rel="preload" href="{{ "/js/main.js" | absolute_url }}" as="script">
   <link rel="preload" href="{{ "/js/i18n.js" | absolute_url }}" as="script">
-  <link rel="preload" href="{{ "/js/interactive.js" | absolute_url }}" as="script">
+  
+  <!-- DNS prefetch for non-critical resources -->
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//github.com">
+  
+  <!-- Font loading optimization -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
   
   <!-- Theme color -->
   <meta name="theme-color" content="#4158D0">
@@ -106,9 +158,39 @@
   
   {% include footer.html %}
   
-  <!-- Scripts -->
-  <script src="{{ "/js/i18n.js" | absolute_url }}"></script>
-  <script src="{{ "/js/interactive.js" | absolute_url }}"></script>
+  <!-- Structured Data -->
+  {% include structured-data.html %}
+  
+  <!-- Optimized Scripts -->
+  <script src="{{ "/js/main.js" | absolute_url }}" defer></script>
+  <script src="{{ "/js/i18n.js" | absolute_url }}" defer></script>
+  
+  <!-- Conditional Loading -->
+  <script>
+    // Load search module if needed
+    if (document.querySelector('[data-search]')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/search.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load images module if images present
+    if (document.querySelector('img[data-src], img[data-responsive]')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/images.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load interactive components for pages that need them
+    if (document.querySelector('.hero, .post-card, .topic-card')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/interactive.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  </script>
   
   <!-- Analytics -->
   {% if jekyll.environment == 'production' %}

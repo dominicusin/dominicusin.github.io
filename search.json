@@ -1,16 +1,31 @@
 ---
-layout: 
+layout: null
 ---
-
 [
   {% for post in site.posts %}
+    {% assign content = post.content | strip_html | strip_newlines %}
+    {% assign excerpt = post.excerpt | default: content | truncatewords: 50 %}
     {
       "title": {{ post.title | jsonify }},
-      "url": {{ post.url | prepend: site.baseurl | jsonify }},
-      "date": {{ post.date | date: "%B %-d, %Y" | jsonify }},
-      "content": {{ post.content | strip_html | truncatewords: 50 | jsonify }},
+      "excerpt": {{ excerpt | strip_html | truncate:200 | jsonify }},
+      "content": {{ content | truncate: 500 | jsonify }},
+      "url": {{ post.url | absolute_url | jsonify }},
+      "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+      "date_iso": {{ post.date | date_to_xmlschema | jsonify }},
+      "last_modified": {{ post.last_modified_at | default: post.date | date_to_xmlschema | jsonify }},
+      "reading_time": {{ post.reading_time | default: content | number_of_words | divided_by: 200 | jsonify }},
+      "categories": {{ post.categories | jsonify }},
       "tags": {{ post.tags | jsonify }},
-      "categories": {{ post.categories | jsonify }}
+      "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
+      "image_alt": {% if post.image_alt %}{{ post.image_alt | jsonify }}{% else %}null{% endif %},
+      "author": {
+        "name": {{ post.author | default: site.author.name | jsonify }},
+        "url": {{ site.url | append: '/about/' | jsonify }}
+      },
+      "word_count": {{ content | number_of_words | jsonify }},
+      "layout": {{ post.layout | jsonify }},
+      "lang": {{ site.lang | jsonify }},
+      "seo_score": {% assign score = 0 %}{% if post.title %}{% assign score = score | plus: 10 %}{% endif %}{% if post.excerpt %}{% assign score = score | plus: 5 %}{% endif %}{% if post.tags.size > 0 %}{% assign score = score | plus: 3 %}{% endif %}{% if post.image %}{% assign score = score | plus: 2 %}{% endif %}{{ score | jsonify }}
     }{% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]
