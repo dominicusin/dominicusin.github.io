@@ -1,11 +1,75 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_drafts/
+Disallow: /_includes/
+Disallow: /_layouts/
+Disallow: /_sass/
+Disallow: /assets/node_modules/
+Disallow: /.git/
+Disallow: /backup*/
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /feed.xml$
 
-Disallow: /assets/
-Disallow: /css/
-Disallow: /js/
-Disallow: /_site/
+# Allow specific directories and file types
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+Allow: /assets/i18n/
+Allow: /favicon.ico
+Allow: /favicon.svg
+Allow: /manifest.json
+Allow: /sw.js
 
+# Crawl delay for respectful crawling
 Crawl-delay: 1
 
+# Sitemap location
 Sitemap: https://dominicusin.github.io/sitemap.xml
+
+# Additional SEO directives
+# Host directive for Yandex
+Host: dominicusin.github.io
+
+# Clean URL parameters
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&ref&source /
+
+# Allow specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow AI/ML crawlers from accessing content-heavy pages
+User-agent: ChatGPT-User
+Disallow: /feed.xml
+Disallow: /search.json
+
+User-agent: GPTBot
+Disallow: /feed.xml
+Disallow: /search.json
+Allow: /
+
+User-agent: Google-Extended
+Disallow: /feed.xml
+Disallow: /search.json
+Allow: /
+
+# Block unwanted crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /

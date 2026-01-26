@@ -1,27 +1,99 @@
-<header class="site-header">
+<header class="site-header" role="banner">
   <div class="wrapper">
     <div class="header-content">
-      <a class="site-title" href="{{ site.baseurl }}/">
-        <span class="site-logo">{{ site.title }}</span>
+      <!-- Logo/Home link -->
+      <a class="site-title" href="{{ "/" | absolute_url }}" 
+         aria-label="{{ site.title | escape }} - {{ site.description | escape }}">
+        <span class="site-logo" data-i18n="site.title">{{ site.title }}</span>
       </a>
 
-      <nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger" class="menu-icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
-
-        <div class="trigger">
+      <!-- Desktop Navigation -->
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-desktop">
           {% for item in site.navigation %}
             <a class="page-link {% if page.url == item.url %}active{% endif %}" 
-               href="{{ item.url | prepend: site.baseurl }}">
+               href="{{ item.url | absolute_url }}"
+               data-i18n="navigation.{{ item.name | downcase | replace: ' ', '_' }}">
               {{ item.name }}
             </a>
           {% endfor %}
         </div>
+        
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" 
+                type="button" 
+                data-theme-toggle
+                aria-label="Toggle dark/light mode"
+                aria-pressed="false">
+          <span class="theme-icon-sun">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon-moon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-icon" 
+                type="button" 
+                aria-label="Toggle navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                data-aria-i18n="accessibility.open_menu">
+          <span class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="menu-text" data-i18n="navigation.menu">Menu</span>
+        </button>
       </nav>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+      <div class="mobile-menu-content">
+        {% for item in site.navigation %}
+          <a class="page-link {% if page.url == item.url %}active{% endif %}" 
+             href="{{ item.url | absolute_url }}"
+             data-i18n="navigation.{{ item.name | downcase | replace: ' ', '_' }}">
+            {{ item.name }}
+          </a>
+        {% endfor %}
+        
+        <!-- Theme Toggle in Mobile Menu -->
+        <button class="theme-toggle-mobile" 
+                type="button" 
+                data-theme-toggle
+                aria-label="Toggle dark/light mode">
+          <span class="theme-icon-sun">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+            </svg>
+          </span>
+          <span class="theme-text" data-i18n="theme.light">Light</span>
+          <span class="theme-icon-moon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="theme-text" data-i18n="theme.dark">Dark</span>
+        </button>
+      </div>
     </div>
   </div>
 </header>

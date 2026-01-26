@@ -7,29 +7,29 @@ layout: default
   <section class="hero" role="banner">
     <div class="hero-content">
       <h1 class="hero-title">
-        Добро пожаловать в
-        <span class="gradient-text">{{ site.title }}</span>
+        <span data-i18n="hero.welcome">Добро пожаловать в</span>
+        <span class="gradient-text" data-i18n="site.title">{{ site.title }}</span>
       </h1>
-      <p class="hero-description">{{ site.description | markdownify | strip_html }}</p>
+      <p class="hero-description" data-i18n="site.description">{{ site.description | markdownify | strip_html }}</p>
       
       <div class="hero-actions">
-        <a href="#recent-posts" class="btn btn-primary">Читать статьи</a>
-        <a href="/about/" class="btn btn-secondary">О блоге</a>
+        <a href="#recent-posts" class="btn btn-primary" data-i18n="hero.read_articles">Читать статьи</a>
+        <a href="/about/" class="btn btn-secondary" data-i18n="hero.about_blog">О блоге</a>
       </div>
       
       <!-- Статистика -->
       <div class="hero-stats">
         <div class="stat-item">
           <span class="stat-number">{{ site.posts.size }}</span>
-          <span class="stat-label">Статей</span>
+          <span class="stat-label" data-i18n="hero.articles">Статей</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">{{ site.categories.size }}</span>
-          <span class="stat-label">Категорий</span>
+          <span class="stat-label" data-i18n="hero.categories">Категорий</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">{{ site.tags.size }}</span>
-          <span class="stat-label">Тегов</span>
+          <span class="stat-label" data-i18n="hero.tags">Тегов</span>
         </div>
       </div>
     </div>
@@ -45,8 +45,8 @@ layout: default
   <!-- Recent Posts Section -->
   <section class="recent-posts" id="recent-posts">
     <div class="section-header">
-      <h2 class="section-title">Последние статьи</h2>
-      <p class="section-subtitle">
+      <h2 class="section-title" data-i18n="recent_posts.title">Последние статьи</h2>
+      <p class="section-subtitle" data-i18n="recent_posts.subtitle">
         Свежие материалы по промышленной инженерии, системной инженерии и науке о данных
       </p>
     </div>
@@ -121,7 +121,7 @@ layout: default
                 </div>
               {% endif %}
               
-              <a href="{{ post.url | prepend: site.baseurl }}" class="read-more" aria-label="Читать {{ post.title }}">
+              <a href="{{ post.url | prepend: site.baseurl }}" class="read-more" aria-label="Читать {{ post.title }}" data-i18n="recent_posts.read_more">
                 Читать далее
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -134,7 +134,7 @@ layout: default
       </div>
       
       <div class="view-all-posts">
-        <a href="/archive/" class="btn btn-primary btn-lg">
+        <a href="/archive/" class="btn btn-primary btn-lg" data-i18n="recent_posts.all_articles">
           Все статьи
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -148,8 +148,8 @@ layout: default
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
           <polyline points="14 2 14 8 20 8"></polyline>
         </svg>
-        <h3>Статей пока нет</h3>
-        <p>Скоро здесь появится интересный контент</p>
+        <h3 data-i18n="recent_posts.no_articles">Статей пока нет</h3>
+        <p data-i18n="recent_posts.coming_soon">Скоро здесь появится интересный контент</p>
       </div>
     {% endif %}
   </section>
@@ -157,8 +157,8 @@ layout: default
   <!-- Featured Topics Section -->
   <section class="featured-topics">
     <div class="section-header">
-      <h2 class="section-title">Основные направления</h2>
-      <p class="section-subtitle">
+      <h2 class="section-title" data-i18n="topics.title">Основные направления</h2>
+      <p class="section-subtitle" data-i18n="topics.subtitle">
         Экспертные материалы по ключевым областям знаний
       </p>
     </div>
@@ -171,16 +171,16 @@ layout: default
             <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
           </svg>
         </div>
-        <h3>Промышленная инженерия</h3>
-        <p>
+        <h3 data-i18n="topics.industrial_engineering">Промышленная инженерия</h3>
+        <p data-i18n="topics.industrial_description">
           Оптимизация производственных процессов, lean-методологии, 
           управление качеством и современные подходы к производству
         </p>
         <div class="topic-meta">
           {% assign industrial_posts = site.categories['Industrial Engineering'] | size %}
-          <span>{{ industrial_posts }} статей</span>
+          <span>{{ industrial_posts }} <span data-i18n="topics.articles_count">статей</span></span>
         </div>
-        <a href="/categories/industrial-engineering/" class="topic-link">
+        <a href="/categories/industrial-engineering/" class="topic-link" data-i18n="topics.learn_more">
           Подробнее
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -196,16 +196,16 @@ layout: default
             <path d="M12 1v6m0 6v6m9.07-12.07l-4.24 4.24m-5.66 5.66l-4.24 4.24M23 12h-6m-6 0H1m20.07 9.07l-4.24-4.24m-5.66-5.66l-4.24-4.24"></path>
           </svg>
         </div>
-        <h3>Системная инженерия</h3>
-        <p>
+        <h3 data-i18n="topics.systems_engineering">Системная инженерия</h3>
+        <p data-i18n="topics.systems_description">
           Проектирование сложных систем, архитектура программного обеспечения, 
           DevOps-практики и инфраструктурные решения
         </p>
         <div class="topic-meta">
           {% assign systems_posts = site.categories['Systems Engineering'] | size %}
-          <span>{{ systems_posts }} статей</span>
+          <span>{{ systems_posts }} <span data-i18n="topics.articles_count">статей</span></span>
         </div>
-        <a href="/categories/systems-engineering/" class="topic-link">
+        <a href="/categories/systems-engineering/" class="topic-link" data-i18n="topics.learn_more">
           Подробнее
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -222,16 +222,16 @@ layout: default
             <line x1="6" y1="20" x2="6" y2="14"></line>
           </svg>
         </div>
-        <h3>Data Science & AI</h3>
-        <p>
+        <h3 data-i18n="topics.data_science">Data Science & AI</h3>
+        <p data-i18n="topics.data_description">
           Машинное обучение, искусственный интеллект, анализ больших данных 
           и практическое применение DS-методов
         </p>
         <div class="topic-meta">
           {% assign data_posts = site.categories['Data Science'] | size %}
-          <span>{{ data_posts }} статей</span>
+          <span>{{ data_posts }} <span data-i18n="topics.articles_count">статей</span></span>
         </div>
-        <a href="/categories/data-science/" class="topic-link">
+        <a href="/categories/data-science/" class="topic-link" data-i18n="topics.learn_more">
           Подробнее
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -242,12 +242,12 @@ layout: default
     </div>
   </section>
 
-  <!-- Newsletter Section (опционально) -->
+  <!-- Newsletter Section -->
   <section class="newsletter-section">
     <div class="newsletter-container">
       <div class="newsletter-content">
-        <h2>Подписка на обновления</h2>
-        <p>Получайте уведомления о новых статьях и материалах</p>
+        <h2 data-i18n="newsletter.title">Подписка на обновления</h2>
+        <p data-i18n="newsletter.description">Получайте уведомления о новых статьях и материалах</p>
       </div>
       <div class="newsletter-form">
         <a href="/feed.xml" class="btn btn-primary">
@@ -256,7 +256,7 @@ layout: default
             <path d="M4 4a16 16 0 0 1 16 16"></path>
             <circle cx="5" cy="19" r="1"></circle>
           </svg>
-          RSS Feed
+          <span data-i18n="newsletter.rss_feed">RSS Feed</span>
         </a>
       </div>
     </div>

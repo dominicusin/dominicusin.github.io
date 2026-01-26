@@ -1,29 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1, viewport-fit=cover">
   
-  {% seo %}
+  <!-- SEO Meta Tags -->
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="author" content="{{ site.author.name }}">
+  <meta name="keywords" content="{% if page.tags %}{{ page.tags | array_to_sentence_string }}{% else %}{{ site.keywords }}{% endif %}">
   
-  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+  <!-- Open Graph -->
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  {% if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  {% endif %}
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@{{ site.author.twitter }}">
+  <meta name="twitter:creator" content="@{{ site.author.twitter }}">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  
+  <!-- Alternate language links -->
+  <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | replace: '/ru/', '/' }}">
+  <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | replace: '/', '/ru/' }}">
+  
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | absolute_url }}">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | absolute_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ "/favicon.svg" | absolute_url }}">
+  <link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | absolute_url }}">
   
-  <!-- Fonts -->
+  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ "/css/main.css" | absolute_url }}">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="{{ "/js/i18n.js" | absolute_url }}" as="script">
+  <link rel="preload" href="{{ "/js/interactive.js" | absolute_url }}" as="script">
+  
+  <!-- Theme color -->
+  <meta name="theme-color" content="#4158D0">
+  <meta name="msapplication-TileColor" content="#4158D0">
+  
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="{{ "/manifest.json" | absolute_url }}">
+  
+  <!-- Skip link for accessibility -->
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--brand-color, #4158D0);
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 10000;
+      border-radius: 4px;
+    }
+    .skip-link:focus {
+      top: 6px;
+    }
+  </style>
 </head>
 
-<body class="{% if page.layout %}layout-{{ page.layout }}{% endif %}">
+<body class="{% if page.layout %}layout-{{ page.layout }}{% endif %} no-js">
+  <script>
+    // Remove no-js class immediately
+    document.body.classList.remove('no-js');
+    document.body.classList.add('js');
+  </script>
+  
+  <!-- Skip to main content link -->
+  <a href="#main-content" class="skip-link" data-i18n="accessibility.skip_to_content">
+    Skip to Content
+  </a>
+  
   {% include header.html %}
   
-  <main class="page-content" aria-label="Content">
+  <!-- Breadcrumbs container -->
+  <div class="breadcrumbs" aria-label="Breadcrumb navigation"></div>
+  
+  <main id="main-content" class="page-content" aria-label="Content">
     <div class="wrapper">
       {{ content }}
     </div>
@@ -31,9 +106,31 @@
   
   {% include footer.html %}
   
+  <!-- Scripts -->
+  <script src="{{ "/js/i18n.js" | absolute_url }}"></script>
+  <script src="{{ "/js/interactive.js" | absolute_url }}"></script>
+  
   <!-- Analytics -->
   {% if jekyll.environment == 'production' %}
-    <!-- Add your analytics code here -->
+    <!-- Google Analytics or other analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
   {% endif %}
+  
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('{{ "/sw.js" | absolute_url }}')
+          .then(registration => console.log('SW registered'))
+          .catch(error => console.log('SW registration failed'));
+      });
+    }
+  </script>
 </body>
 </html>

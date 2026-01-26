@@ -1,0 +1,31 @@
+{
+  "name": "engineering-blog",
+  "version": "1.0.0",
+  "description": "Blog about industrial engineering, systems engineering, and data science",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "npm run build && bundle exec jekyll serve --livereload",
+    "serve": "bundle exec jekyll serve",
+    "minify": "npm run build",
+    "optimize": "npm run build",
+    "deploy": "npm run build && bundle exec jekyll build"
+  },
+  "keywords": [
+    "engineering",
+    "blog",
+    "jekyll",
+    "pwa",
+    "multilingual"
+  ],
+  "author": "Dominicus In",
+  "license": "MIT",
+  "devDependencies": {
+    "terser": "^5.19.0",
+    "cssnano": "^6.0.0",
+    "html-minifier": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
