@@ -127,7 +127,9 @@ function buildDevAssets() {
     'js/search.js',
     'js/images.js',
     'js/social-sharing.js',
-    'js/comments.js'
+    'js/comments.js',
+    'js/analytics.js',
+    'js/tags-categories.js'
   ];
   
   jsAssets.forEach(asset => {
@@ -161,7 +163,9 @@ function buildAssets() {
     { input: 'js/search.js', output: 'dist/js/search.min.js' },
     { input: 'js/images.js', output: 'dist/js/images.min.js' },
     { input: 'js/social-sharing.js', output: 'dist/js/social-sharing.min.js' },
-    { input: 'js/comments.js', output: 'dist/js/comments.min.js' }
+    { input: 'js/comments.js', output: 'dist/js/comments.min.js' },
+    { input: 'js/analytics.js', output: 'dist/js/analytics.min.js' },
+    { input: 'js/tags-categories.js', output: 'dist/js/tags-categories.min.js' }
   ];
   
   jsAssets.forEach(asset => {
@@ -201,7 +205,9 @@ function buildAssets() {
     { input: 'css/critical.css', output: 'dist/css/critical.min.css' },
     { input: 'css/comments.css', output: 'dist/css/comments.min.css' },
     { input: 'css/social-sharing.css', output: 'dist/css/social-sharing.min.css' },
-    { input: 'css/theme-manager.css', output: 'dist/css/theme-manager.min.css' }
+    { input: 'css/theme-manager.css', output: 'dist/css/theme-manager.min.css' },
+    { input: 'css/analytics.css', output: 'dist/css/analytics.min.css' },
+    { input: 'css/tags-categories.css', output: 'dist/css/tags-categories.min.css' }
   ];
   
   cssAssets.forEach(asset => {

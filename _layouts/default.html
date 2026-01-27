@@ -104,11 +104,15 @@
   <link rel="preload" href="{{ "/css/comments.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/social-sharing.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/theme-manager.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/analytics.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/tags-categories.css" | absolute_url }}" as="style">
   
   <!-- Load stylesheets -->
   <link rel="stylesheet" href="{{ "/css/comments.css" | absolute_url }}">
   <link rel="stylesheet" href="{{ "/css/social-sharing.css" | absolute_url }}">
   <link rel="stylesheet" href="{{ "/css/theme-manager.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/analytics.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/tags-categories.css" | absolute_url }}">
   
   <!-- DNS prefetch for non-critical resources -->
   <link rel="dns-prefetch" href="//www.google-analytics.com">
@@ -216,6 +220,22 @@
     if (document.querySelector('#comments')) {
       const script = document.createElement('script');
       script.src = '{{ "/js/comments.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load analytics system
+    if (document.querySelector('.post, .page')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/analytics.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load tags/categories system on archive pages
+    if (document.querySelector('.tag-category-system, .post-list')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/tags-categories.js" | absolute_url }}';
       script.defer = true;
       document.head.appendChild(script);
     }

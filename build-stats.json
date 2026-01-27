@@ -1,7 +1,17 @@
 {
-  "buildTime": "2026-01-27T04:27:08.812Z",
-  "totalSize": 113800,
+  "buildTime": "2026-01-27T04:46:06.877Z",
+  "totalSize": 154351,
   "files": [
+    {
+      "name": "css/analytics.min.c628ae89.css",
+      "size": 5117,
+      "sizeHuman": "5 KB"
+    },
+    {
+      "name": "css/analytics.min.css",
+      "size": 5117,
+      "sizeHuman": "5 KB"
+    },
     {
       "name": "css/comments.min.7a7b8386.css",
       "size": 6951,
@@ -43,6 +53,16 @@
       "sizeHuman": "4.47 KB"
     },
     {
+      "name": "css/tags-categories.min.230d32ca.css",
+      "size": 6743,
+      "sizeHuman": "6.58 KB"
+    },
+    {
+      "name": "css/tags-categories.min.css",
+      "size": 6743,
+      "sizeHuman": "6.58 KB"
+    },
+    {
       "name": "css/theme-manager.min.c3a75756.css",
       "size": 5395,
       "sizeHuman": "5.27 KB"
@@ -51,6 +71,11 @@
       "name": "css/theme-manager.min.css",
       "size": 5395,
       "sizeHuman": "5.27 KB"
+    },
+    {
+      "name": "js/analytics.min.js",
+      "size": 7359,
+      "sizeHuman": "7.19 KB"
     },
     {
       "name": "js/i18n.min.js",
@@ -86,6 +111,11 @@
       "name": "js/social-sharing.min.js",
       "size": 8156,
       "sizeHuman": "7.96 KB"
+    },
+    {
+      "name": "js/tags-categories.min.js",
+      "size": 9472,
+      "sizeHuman": "9.25 KB"
     },
     {
       "name": "js/theme-manager.min.js",
