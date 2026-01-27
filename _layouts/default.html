@@ -103,12 +103,15 @@
   
   <!-- Preload stylesheets -->
   <link rel="preload" href="{{ "/css/performance-optimizer.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/pwa.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/subscription.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/comments.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/social-sharing.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/theme-manager.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/analytics.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/tags-categories.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/about.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/subscribe.css" | absolute_url }}" as="style">
   <link rel="preload" href="{{ "/css/subscription.css" | absolute_url }}" as="style">
   
 <!-- Load stylesheets -->
@@ -187,6 +190,7 @@
   <!-- Optimized Scripts -->
   <script src="{{ "/js/main.js" | absolute_url }}" defer></script>
   <script src="{{ "/js/performance-optimizer.js" | absolute_url }}" defer></script>
+  <script src="{{ "/js/pwa.js" | absolute_url }}" defer></script>
   <script src="{{ "/js/theme-manager.js" | absolute_url }}" defer></script>
   <script src="{{ "/js/i18n.js" | absolute_url }}" defer></script>
   
@@ -252,6 +256,14 @@
     if (document.querySelector('.subscription-container, .floating-subscription')) {
       const script = document.createElement('script');
       script.src = '{{ "/js/subscription.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load PWA system
+    if (document.querySelector('.pwa-install-banner, .pwa-update-notification')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/pwa.js" | absolute_url }}';
       script.defer = true;
       document.head.appendChild(script);
     }
