@@ -1,0 +1,56 @@
+{
+  "buildTime": "2026-01-27T02:16:21.351Z",
+  "totalSize": 66134,
+  "files": [
+    {
+      "name": "css/critical.min.css",
+      "size": 2660,
+      "sizeHuman": "2.6 KB"
+    },
+    {
+      "name": "css/critical.min.ea77fca5.css",
+      "size": 2660,
+      "sizeHuman": "2.6 KB"
+    },
+    {
+      "name": "css/main.min.ba37945d.css",
+      "size": 7822,
+      "sizeHuman": "7.64 KB"
+    },
+    {
+      "name": "css/main.min.css",
+      "size": 7822,
+      "sizeHuman": "7.64 KB"
+    },
+    {
+      "name": "js/i18n.min.js",
+      "size": 5323,
+      "sizeHuman": "5.2 KB"
+    },
+    {
+      "name": "js/images.min.js",
+      "size": 6787,
+      "sizeHuman": "6.63 KB"
+    },
+    {
+      "name": "js/interactive.min.js",
+      "size": 10739,
+      "sizeHuman": "10.49 KB"
+    },
+    {
+      "name": "js/main.min.6fd1542d.js",
+      "size": 6382,
+      "sizeHuman": "6.23 KB"
+    },
+    {
+      "name": "js/main.min.js",
+      "size": 6382,
+      "sizeHuman": "6.23 KB"
+    },
+    {
+      "name": "js/search.min.js",
+      "size": 9557,
+      "sizeHuman": "9.33 KB"
+    }
+  ]
+}

@@ -57,8 +57,6 @@ tags_rss: true
 # Build settings
 markdown: kramdown
 theme: minima
-plugins:
-  - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -75,3 +73,50 @@ exclude:
   - build.js
   - package.json
   - package-lock.json
+  - dist/
+  - build-stats.json
+  - assets/i18n/
+
+# Performance optimizations
+sass:
+  style: compressed
+  sourcemap: never
+
+# Collections
+collections:
+  i18n:
+    output: true
+    permalink: /:collection/:name/
+
+# Liquid performance
+liquid:
+  error_mode: warn
+  strict_filters: false
+  strict_variables: false
+
+# Incremental build (for development)
+incremental: true
+
+# Future posts
+future: false
+unpublished: false
+
+# Plugins for optimization
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Dominicus In"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"

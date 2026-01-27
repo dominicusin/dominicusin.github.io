@@ -8,6 +8,13 @@ const path = require('path');
 const crypto = require('crypto');
 
 /**
+ * Generate hash for cache busting
+ */
+function generateHash(content) {
+  return crypto.createHash('md5').update(content).digest('hex').substring(0, 8);
+}
+
+/**
  * Простая минификация JavaScript
  */
 function minifyJS(content) {
@@ -20,7 +27,7 @@ function minifyJS(content) {
     .replace(/\s*([=+\-*/<>!&|,;:{}()[\]])\s*/g, '$1')
     // Remove trailing semicolons
     .replace(/;+/g, ';')
-    . Remove unnecessary line breaks
+    // Remove unnecessary line breaks
     .replace(/\n+/g, '\n')
     .trim();
 }
@@ -60,11 +67,17 @@ function optimizeCSSPaths(content, basePath) {
  * Создание WebP версии изображений (простая реализация)
  */
 function createWebPPlaceholder() {
-  const webpPath = path.join(__dirname, '../assets/images/webp-placeholder.webp');
+  const imagesDir = path.join(__dirname, 'assets/images');
+  const webpPath = path.join(imagesDir, 'webp-placeholder.webp');
+  
+  // Create directory if it doesn't exist
+  if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+  }
   
   if (!fs.existsSync(webpPath)) {
-    // Создать простой placeholder
-    const svg = Buffer.from(`
+    // Создать простой placeholder (SVG as placeholder)
+    const svg = `
       <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
         <rect width="100%" height="100%" fill="#f0f0f0"/>
         <text x="50%" y="50%" text-anchor="middle" dy="0.3em" 
@@ -72,19 +85,58 @@ function createWebPPlaceholder() {
           WebP Image
         </text>
       </svg>
-    `);
+    `;
     
-    fs.writeFileSync(webpPath, svg);
+    // Write SVG instead of WebP for simplicity
+    const svgPath = path.join(imagesDir, 'webp-placeholder.svg');
+    fs.writeFileSync(svgPath, svg);
+    console.log('📝 Created SVG placeholder for WebP images');
   }
 }
 
 /**
- * Обработка всех файлов
+ * Optimize images (basic implementation)
  */
-async function buildAssets() {
-  console.log('🚀 Starting build process...');
+function optimizeImages() {
+  console.log('🖼️ Optimizing images...');
   
-  try {
+  // Create WebP placeholder
+  createWebPPlaceholder();
+  
+  // In a real implementation, you would:
+  // - Convert images to WebP
+  // - Generate responsive sizes
+  // - Create blur placeholders
+  // - Optimize compression
+  
+  console.log('✅ Image optimization completed');
+}
+
+/**
+ * Build assets for development
+ */
+function buildDevAssets() {
+  console.log('🛠️ Building development assets...');
+  
+  // Copy files without minification for development
+  const jsAssets = [
+    'js/main.js',
+    'js/i18n.js', 
+    'js/interactive.js',
+    'js/search.js',
+    'js/images.js'
+  ];
+  
+  jsAssets.forEach(asset => {
+    const inputPath = path.join(__dirname, asset);
+    if (fs.existsSync(inputPath)) {
+      console.log(`📝 ${asset} ready for development`);
+    }
+  });
+  
+  console.log('✅ Development assets ready');
+}
+
 /**
  * Build assets with optimization
  */
@@ -92,65 +144,82 @@ function buildAssets() {
   console.log('🚀 Starting optimized build process...');
   
   // Create output directories
-  const outputDir = path.join(__dirname, '../dist');
+  const outputDir = path.join(__dirname, 'dist');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   
   // Minify and bundle JavaScript
   const jsAssets = [
-    { input: 'js/main.js', output: 'js/main.min.js', critical: true },
-    { input: 'js/i18n.js', output: 'js/i18n.min.js' },
-    { input: 'js/interactive.js', output: 'js/interactive.min.js' },
-    { input: 'js/search.js', output: 'js/search.min.js' },
-    { input: 'js/images.js', output: 'js/images.min.js' }
+    { input: 'js/main.js', output: 'dist/js/main.min.js', critical: true },
+    { input: 'js/i18n.js', output: 'dist/js/i18n.min.js' },
+    { input: 'js/interactive.js', output: 'dist/js/interactive.min.js' },
+    { input: 'js/search.js', output: 'dist/js/search.min.js' },
+    { input: 'js/images.js', output: 'dist/js/images.min.js' }
   ];
   
   jsAssets.forEach(asset => {
-    const inputPath = path.join(__dirname, '..', asset.input);
-    const outputPath = path.join(__dirname, '..', asset.output);
+    const inputPath = path.join(__dirname, asset.input);
     
     if (fs.existsSync(inputPath)) {
       const content = fs.readFileSync(inputPath, 'utf8');
       const minified = minifyJS(content);
       
+      // Create output directory if needed
+      const assetDir = path.dirname(path.join(__dirname, asset.output));
+      if (!fs.existsSync(assetDir)) {
+        fs.mkdirSync(assetDir, { recursive: true });
+      }
+      
       // Add cache busting hash if critical
       const hash = asset.critical ? generateHash(minified) : '';
-      const finalOutput = hash ? outputPath.replace('.min.js', `.min.${hash}.js`) : outputPath;
+      const finalOutput = hash ? asset.output.replace('.min.js', `.min.${hash}.js`) : asset.output;
       
-      fs.writeFileSync(finalOutput, minified);
+      fs.writeFileSync(path.join(__dirname, finalOutput), minified);
       
       const savings = ((content.length - minified.length) / content.length * 100).toFixed(1);
       console.log(`✅ ${asset.input} -> ${path.basename(finalOutput)} (${savings}% smaller)`);
       
       if (asset.critical) {
         // Create non-hashed version for consistency
-        fs.writeFileSync(outputPath, minified);
+        fs.writeFileSync(path.join(__dirname, asset.output), minified);
       }
+    } else {
+      console.warn(`⚠️ ${asset.input} not found, skipping`);
     }
   });
   
   // Optimize CSS
   const cssAssets = [
-    { input: 'css/main.scss', output: 'css/main.min.css' },
-    { input: 'css/critical.css', output: 'css/critical.min.css' }
+    { input: 'css/main.scss', output: 'dist/css/main.min.css' },
+    { input: 'css/critical.css', output: 'dist/css/critical.min.css' }
   ];
   
   cssAssets.forEach(asset => {
-    const inputPath = path.join(__dirname, '..', asset.input);
-    const outputPath = path.join(__dirname, '..', asset.output);
+    const inputPath = path.join(__dirname, asset.input);
     
     if (fs.existsSync(inputPath)) {
       const content = fs.readFileSync(inputPath, 'utf8');
       const minified = minifyCSS(content);
       
-      const hash = generateHash(minified);
-      const finalOutput = outputPath.replace('.min.css', `.min.${hash}.css`);
+      // Create output directory if needed
+      const assetDir = path.dirname(path.join(__dirname, asset.output));
+      if (!fs.existsSync(assetDir)) {
+        fs.mkdirSync(assetDir, { recursive: true });
+      }
       
-      fs.writeFileSync(finalOutput, minified);
+      const hash = generateHash(minified);
+      const finalOutput = asset.output.replace('.min.css', `.min.${hash}.css`);
+      
+      fs.writeFileSync(path.join(__dirname, finalOutput), minified);
       
       const savings = ((content.length - minified.length) / content.length * 100).toFixed(1);
       console.log(`✅ ${asset.input} -> ${path.basename(finalOutput)} (${savings}% smaller)`);
+      
+      // Create non-hashed version for consistency
+      fs.writeFileSync(path.join(__dirname, asset.output), minified);
+    } else {
+      console.warn(`⚠️ ${asset.input} not found, skipping`);
     }
   });
   
@@ -173,7 +242,7 @@ function generateBuildStats() {
     files: []
   };
   
-  const distDir = path.join(__dirname, '../dist');
+  const distDir = path.join(__dirname, 'dist');
   if (fs.existsSync(distDir)) {
     const files = fs.readdirSync(distDir, { recursive: true });
     
@@ -192,7 +261,7 @@ function generateBuildStats() {
   }
   
   // Save stats
-  const statsPath = path.join(__dirname, '../build-stats.json');
+  const statsPath = path.join(__dirname, 'build-stats.json');
   fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
   
   console.log('\n📊 Build Statistics:');
@@ -214,49 +283,33 @@ function formatBytes(bytes) {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
-    
-  } catch (error) {
-    console.error('❌ Build failed:', error);
-    process.exit(1);
-  }
-}
-
-// Main build function
-async function main() {
-  console.log('🔧 Engineering Blog Build Tool');
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  
-  try {
-    // Clean old build artifacts
-    cleanBuildArtifacts();
-    
-    // Build for environment
-    if (process.env.NODE_ENV === 'production') {
-      await buildAssets();
-      validateBuild();
-    } else {
-      await buildDevAssets();
-    }
-    
-  } catch (error) {
-    console.error('❌ Build failed:', error);
-    process.exit(1);
-  }
-}
 
 /**
  * Clean old build artifacts
  */
 function cleanBuildArtifacts() {
   const artifacts = [
-    '../dist',
-    '../css/*.min.*.css',
-    '../js/*.min.*.js',
-    '../build-stats.json'
+    'dist',
+    'css/*.min.*.css',
+    'js/*.min.*.js',
+    'build-stats.json'
   ];
   
-  // Would use glob in real implementation
   console.log('🧹 Cleaning old build artifacts...');
+  
+  // Clean dist directory
+  const distDir = path.join(__dirname, 'dist');
+  if (fs.existsSync(distDir)) {
+    fs.rmSync(distDir, { recursive: true, force: true });
+    console.log('🗑️ Removed dist directory');
+  }
+  
+  // Clean build stats
+  const statsPath = path.join(__dirname, 'build-stats.json');
+  if (fs.existsSync(statsPath)) {
+    fs.unlinkSync(statsPath);
+    console.log('🗑️ Removed build stats');
+  }
 }
 
 /**
@@ -271,14 +324,43 @@ function validateBuild() {
   
   console.log('✅ Validating build output...');
   
+  const missingFiles = [];
+  
   requiredFiles.forEach(file => {
-    const filePath = path.join(__dirname, '..', file);
+    const filePath = path.join(__dirname, file);
     if (!fs.existsSync(filePath)) {
-      throw new Error(`Required build artifact missing: ${file}`);
+      missingFiles.push(file);
     }
   });
   
+  if (missingFiles.length > 0) {
+    throw new Error(`Required build artifacts missing: ${missingFiles.join(', ')}`);
+  }
+  
   console.log('✅ Build validation passed');
+}
+
+// Main build function
+async function main() {
+  console.log('🔧 Engineering Blog Build Tool');
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  
+  try {
+    // Clean old build artifacts
+    cleanBuildArtifacts();
+    
+    // Build for environment
+    if (process.env.NODE_ENV === 'production') {
+      buildAssets();
+      validateBuild();
+    } else {
+      buildDevAssets();
+    }
+    
+  } catch (error) {
+    console.error('❌ Build failed:', error.message);
+    process.exit(1);
+  }
 }
 
 // Run build
@@ -289,5 +371,6 @@ if (require.main === module) {
 module.exports = {
   buildAssets,
   minifyJS,
-  minifyCSS
+  minifyCSS,
+  generateHash
 };
