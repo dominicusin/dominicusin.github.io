@@ -121,6 +121,7 @@ function buildDevAssets() {
   // Copy files without minification for development
   const jsAssets = [
     'js/main.js',
+    'js/performance-optimizer.js',
     'js/theme-manager.js',
     'js/i18n.js', 
     'js/interactive.js',
@@ -129,7 +130,8 @@ function buildDevAssets() {
     'js/social-sharing.js',
     'js/comments.js',
     'js/analytics.js',
-    'js/tags-categories.js'
+    'js/tags-categories.js',
+    'js/subscription.js'
   ];
   
   jsAssets.forEach(asset => {
@@ -157,6 +159,7 @@ function buildAssets() {
   // Minify and bundle JavaScript
   const jsAssets = [
     { input: 'js/main.js', output: 'dist/js/main.min.js', critical: true },
+    { input: 'js/performance-optimizer.js', output: 'dist/js/performance-optimizer.min.js' },
     { input: 'js/theme-manager.js', output: 'dist/js/theme-manager.min.js' },
     { input: 'js/i18n.js', output: 'dist/js/i18n.min.js' },
     { input: 'js/interactive.js', output: 'dist/js/interactive.min.js' },
@@ -165,7 +168,8 @@ function buildAssets() {
     { input: 'js/social-sharing.js', output: 'dist/js/social-sharing.min.js' },
     { input: 'js/comments.js', output: 'dist/js/comments.min.js' },
     { input: 'js/analytics.js', output: 'dist/js/analytics.min.js' },
-    { input: 'js/tags-categories.js', output: 'dist/js/tags-categories.min.js' }
+    { input: 'js/tags-categories.js', output: 'dist/js/tags-categories.min.js' },
+    { input: 'js/subscription.js', output: 'dist/js/subscription.min.js' }
   ];
   
   jsAssets.forEach(asset => {
@@ -203,6 +207,8 @@ function buildAssets() {
   const cssAssets = [
     { input: 'css/main.scss', output: 'dist/css/main.min.css' },
     { input: 'css/critical.css', output: 'dist/css/critical.min.css' },
+    { input: 'css/performance-optimizer.css', output: 'dist/css/performance-optimizer.min.css' },
+    { input: 'css/subscription.css', output: 'dist/css/subscription.min.css' },
     { input: 'css/comments.css', output: 'dist/css/comments.min.css' },
     { input: 'css/social-sharing.css', output: 'dist/css/social-sharing.min.css' },
     { input: 'css/theme-manager.css', output: 'dist/css/theme-manager.min.css' },

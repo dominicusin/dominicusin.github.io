@@ -1,6 +1,6 @@
 {
-  "buildTime": "2026-01-27T05:18:22.335Z",
-  "totalSize": 174179,
+  "buildTime": "2026-01-27T08:10:56.293Z",
+  "totalSize": 217513,
   "files": [
     {
       "name": "css/about.min.8b053805.css",
@@ -53,6 +53,16 @@
       "sizeHuman": "7.64 KB"
     },
     {
+      "name": "css/performance-optimizer.min.b186ad18.css",
+      "size": 4251,
+      "sizeHuman": "4.15 KB"
+    },
+    {
+      "name": "css/performance-optimizer.min.css",
+      "size": 4251,
+      "sizeHuman": "4.15 KB"
+    },
+    {
       "name": "css/social-sharing.min.90939adf.css",
       "size": 4581,
       "sizeHuman": "4.47 KB"
@@ -61,6 +71,16 @@
       "name": "css/social-sharing.min.css",
       "size": 4581,
       "sizeHuman": "4.47 KB"
+    },
+    {
+      "name": "css/subscription.min.6940f4b0.css",
+      "size": 8105,
+      "sizeHuman": "7.92 KB"
+    },
+    {
+      "name": "css/subscription.min.css",
+      "size": 8105,
+      "sizeHuman": "7.92 KB"
     },
     {
       "name": "css/tags-categories.min.230d32ca.css",
@@ -113,6 +133,11 @@
       "sizeHuman": "6.23 KB"
     },
     {
+      "name": "js/performance-optimizer.min.js",
+      "size": 8344,
+      "sizeHuman": "8.15 KB"
+    },
+    {
       "name": "js/search.min.js",
       "size": 9557,
       "sizeHuman": "9.33 KB"
@@ -121,6 +146,11 @@
       "name": "js/social-sharing.min.js",
       "size": 8156,
       "sizeHuman": "7.96 KB"
+    },
+    {
+      "name": "js/subscription.min.js",
+      "size": 10278,
+      "sizeHuman": "10.04 KB"
     },
     {
       "name": "js/tags-categories.min.js",

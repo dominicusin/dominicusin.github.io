@@ -82,6 +82,7 @@ incremental: true
 future: false
 unpublished: false
 plugins:
-- jekyll-feed
-- jekyll-sitemap
-- jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
