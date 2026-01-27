@@ -1,18 +1,47 @@
+
 ---
 title: About
 permalink: "/about/"
 layout: page
+subtitle: Learn more about Domini and this blog
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+# About Domini
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Welcome to my personal blog and digital space. I'm Domini, a passionate technologist with interests spanning across programming, system administration, cybersecurity, and the philosophical aspects of technology.
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+## What You'll Find Here
 
+This blog serves as a repository for my thoughts, discoveries, and curated collections on various technical topics:
 
-[jekyll-organization]: https://github.com/jekyll
+- **Programming Languages**: Deep dives into functional programming, Haskell, Clojure, and modern development practices
+- **System Administration**: Linux, DevOps, networking, and infrastructure management
+- **Security**: Cybersecurity research, privacy tools, and security best practices
+- **Technology Philosophy**: Reflections on the intersection of technology and human experience
+
+## Background
+
+I have extensive experience in:
+- System administration across various Unix-like systems
+- Programming in multiple languages including C++, Perl, Haskell, and modern web technologies
+- Database management and optimization
+- Network security and infrastructure
+
+## Philosophy
+
+> "I am not in search of trading my time for coins, but rather seeking a humble assembly where each soul is attuned to the collective pursuit, devoid of the need for guidance."
+
+I believe in the power of open source software, decentralized systems, and the importance of preserving digital privacy and freedom.
+
+## Contact
+
+- **Email**: [dominicusin@duck.com](mailto:dominicusin@duck.com)
+- **GitHub**: [@dominicusin](https://github.com/dominicusin)
+- **Twitter**: [@dominicusin](https://twitter.com/dominicusin)
+- **ORCID**: [0000-0002-7425-0526](https://orcid.org/0000-0002-7425-0526)
+## Technical Setup
+
+This site is built with Jekyll and hosted on GitHub Pages. The source code is available on [GitHub](https://github.com/dominicusin/dominicusin.github.io).
+
+---
+
