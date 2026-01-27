@@ -1,122 +1,87 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+---
 title: Engineering Blog
+timezone: UTC
+collections:
+  i18n:
+    title: I18n
+    output: true
+    permalink: "/:collection/:name/"
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
+defaults:
+- scope:
+    path: ''
+    type: posts
+  values:
+    layout: post
+    author: Dominicus In
+- scope:
+    path: ''
+    type: pages
+  values:
+    layout: page
 email: contact@dominicu_sin.io
-description: >- # this means to ignore newlines until "baseurl:"
-  Blog about industrial engineering, systems engineering, and data science. 
-  Expert materials on key areas of knowledge and modern approaches.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://dominicusin.github.io" # the base hostname & protocol for your site
+description: Blog about industrial engineering, systems engineering, and data science.  Expert
+  materials on key areas of knowledge and modern approaches.
+baseurl: ''
+url: https://dominicusin.github.io
 twitter_username: dominicusin
-github_username:  dominicusin
-
-# Author information
+github_username: dominicusin
 author:
   name: Dominicus In
   email: contact@dominicu_sin.io
   github: dominicusin
   twitter: dominicusin
-  orcid: "0000-0002-7425-0526"
-
-# Navigation
+  orcid: 0000-0002-7425-0526
 navigation:
-  - name: Home
-    url: /
-  - name: About
-    url: /about/
-  - name: Archive
-    url: /archive/
-  - name: Categories
-    url: /categories/
-  - name: Tags
-    url: /tags/
-
-# SEO
-keywords: "industrial engineering, systems engineering, data science, blog, technology"
+- name: Home
+  url: "/"
+- name: About
+  url: "/about/"
+- name: Archive
+  url: "/archive/"
+- name: Categories
+  url: "/categories/"
+- name: Tags
+  url: "/tags/"
+keywords: industrial engineering, systems engineering, data science, blog, technology
 lang: en
 locale: en_US
-
-# RSS Feed Configuration
 rss_posts: 50
 categories_rss: true
 tags_rss: true
-
-# Build settings
 markdown: kramdown
 theme: minima
-
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
 exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - backups/
-  - build.js
-  - package.json
-  - package-lock.json
-  - dist/
-  - build-stats.json
-  - assets/i18n/
-
-# Performance optimizations
+- Gemfile
+- Gemfile.lock
+- node_modules
+- vendor/bundle/
+- vendor/cache/
+- vendor/gems/
+- vendor/ruby/
+- backups/
+- build.js
+- package.json
+- package-lock.json
+- dist/
+- build-stats.json
+- assets/i18n/
 sass:
   style: compressed
   sourcemap: never
-
-# Collections
-collections:
-  i18n:
-    output: true
-    permalink: /:collection/:name/
-
-# Liquid performance
 liquid:
   error_mode: warn
   strict_filters: false
   strict_variables: false
-
-# Incremental build (for development)
 incremental: true
-
-# Future posts
 future: false
 unpublished: false
-
-# Plugins for optimization
 plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-      author: "Dominicus In"
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
+- jekyll-feed
+- jekyll-sitemap
+- jekyll-seo-tag

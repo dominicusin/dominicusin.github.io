@@ -1,6 +1,7 @@
 ---
-layout: null
+layout: 
 ---
+
 [
   {% for post in site.posts %}
     {% assign content = post.content | strip_html | strip_newlines %}
