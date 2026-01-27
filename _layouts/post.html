@@ -31,24 +31,30 @@ layout: default
   <footer class="post-footer">
     <div class="post-tags">
       {% if page.tags.size > 0 %}
-        <span class="tags-label">Tags:</span>
+        <span class="tags-label" data-i18n="post.tags">Tags:</span>
         {% for tag in page.tags %}
-          <span class="tag">{{ tag }}</span>
+          <a href="/tags/{{ tag | slugify }}/" class="tag">{{ tag }}</a>
         {% endfor %}
       {% endif %}
     </div>
     
+    <!-- Social Sharing -->
+    <div class="social-sharing"></div>
+    
+    <!-- Comments Section -->
+    <div id="comments"></div>
+    
     <div class="post-navigation">
       {% if page.previous.url %}
         <a class="prev-post" href="{{ page.previous.url | prepend: site.baseurl }}">
-          <span class="nav-label">← Previous</span>
+          <span class="nav-label" data-i18n="navigation.previous">← Previous</span>
           <span class="nav-title">{{ page.previous.title }}</span>
         </a>
       {% endif %}
       
       {% if page.next.url %}
         <a class="next-post" href="{{ page.next.url | prepend: site.baseurl }}">
-          <span class="nav-label">Next →</span>
+          <span class="nav-label" data-i18n="navigation.next">Next →</span>
           <span class="nav-title">{{ page.next.title }}</span>
         </a>
       {% endif %}

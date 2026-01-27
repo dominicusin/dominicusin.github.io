@@ -97,7 +97,18 @@
   
   <!-- Preload critical scripts -->
   <link rel="preload" href="{{ "/js/main.js" | absolute_url }}" as="script">
+  <link rel="preload" href="{{ "/js/theme-manager.js" | absolute_url }}" as="script">
   <link rel="preload" href="{{ "/js/i18n.js" | absolute_url }}" as="script">
+  
+  <!-- Preload stylesheets -->
+  <link rel="preload" href="{{ "/css/comments.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/social-sharing.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/theme-manager.css" | absolute_url }}" as="style">
+  
+  <!-- Load stylesheets -->
+  <link rel="stylesheet" href="{{ "/css/comments.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/social-sharing.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/theme-manager.css" | absolute_url }}">
   
   <!-- DNS prefetch for non-critical resources -->
   <link rel="dns-prefetch" href="//www.google-analytics.com">
@@ -164,6 +175,7 @@
   
   <!-- Optimized Scripts -->
   <script src="{{ "/js/main.js" | absolute_url }}" defer></script>
+  <script src="{{ "/js/theme-manager.js" | absolute_url }}" defer></script>
   <script src="{{ "/js/i18n.js" | absolute_url }}" defer></script>
   
   <!-- Conditional Loading -->
@@ -188,6 +200,22 @@
     if (document.querySelector('.hero, .post-card, .topic-card')) {
       const script = document.createElement('script');
       script.src = '{{ "/js/interactive.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load social sharing on posts
+    if (document.querySelector('.social-sharing')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/social-sharing.js" | absolute_url }}';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load comments on posts
+    if (document.querySelector('#comments')) {
+      const script = document.createElement('script');
+      script.src = '{{ "/js/comments.js" | absolute_url }}';
       script.defer = true;
       document.head.appendChild(script);
     }

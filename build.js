@@ -121,10 +121,13 @@ function buildDevAssets() {
   // Copy files without minification for development
   const jsAssets = [
     'js/main.js',
+    'js/theme-manager.js',
     'js/i18n.js', 
     'js/interactive.js',
     'js/search.js',
-    'js/images.js'
+    'js/images.js',
+    'js/social-sharing.js',
+    'js/comments.js'
   ];
   
   jsAssets.forEach(asset => {
@@ -152,10 +155,13 @@ function buildAssets() {
   // Minify and bundle JavaScript
   const jsAssets = [
     { input: 'js/main.js', output: 'dist/js/main.min.js', critical: true },
+    { input: 'js/theme-manager.js', output: 'dist/js/theme-manager.min.js' },
     { input: 'js/i18n.js', output: 'dist/js/i18n.min.js' },
     { input: 'js/interactive.js', output: 'dist/js/interactive.min.js' },
     { input: 'js/search.js', output: 'dist/js/search.min.js' },
-    { input: 'js/images.js', output: 'dist/js/images.min.js' }
+    { input: 'js/images.js', output: 'dist/js/images.min.js' },
+    { input: 'js/social-sharing.js', output: 'dist/js/social-sharing.min.js' },
+    { input: 'js/comments.js', output: 'dist/js/comments.min.js' }
   ];
   
   jsAssets.forEach(asset => {
@@ -192,7 +198,10 @@ function buildAssets() {
   // Optimize CSS
   const cssAssets = [
     { input: 'css/main.scss', output: 'dist/css/main.min.css' },
-    { input: 'css/critical.css', output: 'dist/css/critical.min.css' }
+    { input: 'css/critical.css', output: 'dist/css/critical.min.css' },
+    { input: 'css/comments.css', output: 'dist/css/comments.min.css' },
+    { input: 'css/social-sharing.css', output: 'dist/css/social-sharing.min.css' },
+    { input: 'css/theme-manager.css', output: 'dist/css/theme-manager.min.css' }
   ];
   
   cssAssets.forEach(asset => {

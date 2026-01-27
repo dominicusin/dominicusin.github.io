@@ -18,7 +18,7 @@
     "pwa",
     "multilingual"
   ],
-  "author": "Dominicus In",
+  "author": "DominicusIn",
   "license": "MIT",
   "devDependencies": {
     "terser": "^5.19.0",
