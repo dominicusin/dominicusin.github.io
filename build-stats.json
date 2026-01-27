@@ -1,7 +1,17 @@
 {
-  "buildTime": "2026-01-27T04:46:06.877Z",
-  "totalSize": 154351,
+  "buildTime": "2026-01-27T05:18:22.335Z",
+  "totalSize": 174179,
   "files": [
+    {
+      "name": "css/about.min.8b053805.css",
+      "size": 9914,
+      "sizeHuman": "9.68 KB"
+    },
+    {
+      "name": "css/about.min.css",
+      "size": 9914,
+      "sizeHuman": "9.68 KB"
+    },
     {
       "name": "css/analytics.min.c628ae89.css",
       "size": 5117,

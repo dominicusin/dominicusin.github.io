@@ -113,6 +113,7 @@
   <link rel="stylesheet" href="{{ "/css/theme-manager.css" | absolute_url }}">
   <link rel="stylesheet" href="{{ "/css/analytics.css" | absolute_url }}">
   <link rel="stylesheet" href="{{ "/css/tags-categories.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/about.css" | absolute_url }}">
   
   <!-- DNS prefetch for non-critical resources -->
   <link rel="dns-prefetch" href="//www.google-analytics.com">
@@ -238,6 +239,11 @@
       script.src = '{{ "/js/tags-categories.js" | absolute_url }}';
       script.defer = true;
       document.head.appendChild(script);
+    }
+    
+    // Load about page styles if needed
+    if (document.querySelector('.about-container')) {
+      // Already loaded via CSS preload
     }
   </script>
   

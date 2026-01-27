@@ -207,7 +207,8 @@ function buildAssets() {
     { input: 'css/social-sharing.css', output: 'dist/css/social-sharing.min.css' },
     { input: 'css/theme-manager.css', output: 'dist/css/theme-manager.min.css' },
     { input: 'css/analytics.css', output: 'dist/css/analytics.min.css' },
-    { input: 'css/tags-categories.css', output: 'dist/css/tags-categories.min.css' }
+    { input: 'css/tags-categories.css', output: 'dist/css/tags-categories.min.css' },
+    { input: 'css/about.css', output: 'dist/css/about.min.css' }
   ];
   
   cssAssets.forEach(asset => {
