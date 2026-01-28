@@ -1,0 +1,18 @@
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/racc-1.8.1/ext/racc/cparse
+/usr/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-t55kou sitelibdir\=./.gem.20260128-194345-t55kou clean
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-t55kou sitelibdir\=./.gem.20260128-194345-t55kou
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-t55kou sitelibdir\=./.gem.20260128-194345-t55kou install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20260128-194345-t55kou/racc
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-t55kou sitelibdir\=./.gem.20260128-194345-t55kou clean

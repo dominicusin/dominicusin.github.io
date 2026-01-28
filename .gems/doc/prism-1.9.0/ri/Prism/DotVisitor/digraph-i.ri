@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"digraph:ETI"Prism::DotVisitor#digraph;TI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"%The digraph that is being built.;T:
+@fileI"lib/prism/dot_visitor.rb;T:0@omit_headings_from_table_of_contents_below0F@I"Prism::DotVisitor;TcRDoc::NormalClass0

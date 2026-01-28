@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"url:ETI""Nokogiri::HTML5::Document#url;TI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"]Get the url name for this document, as passed into Document.parse, Document.read_io, or ;TI"Document.read_memory;T:
+@fileI"#lib/nokogiri/html5/document.rb;T:0@omit_headings_from_table_of_contents_below0F@I"Nokogiri::HTML5::Document;TcRDoc::NormalClass0

@@ -1,0 +1,10 @@
+U:RDoc::AnyMethod[iI"[]:ETI"Nokogiri::XML::NodeSet#[];TF:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[
+I"KElement reference - returns the node at +index+, or returns a NodeSet ;TI"Scontaining nodes starting at +start+ and continuing for +length+ elements, or ;TI"Qreturns a NodeSet containing nodes specified by +range+. Negative +indices+ ;TI"Rcount backward from the end of the +node_set+ (-1 is the last node). Returns ;TI"6nil if the +index+ (or +start+) are out of range.;T:
+@fileI" ext/nokogiri/xml_node_set.c;T:0@omit_headings_from_table_of_contents_below0I"µ[index] -> Node or nil
+[start, length] -> NodeSet or nil
+[range] -> NodeSet or nil
+slice(index) -> Node or nil
+slice(start, length) -> NodeSet or nil
+slice(range) -> NodeSet or nil
+;T0[[I"
+slice;T@	I"(p1, p2 = v2);T@FI"NodeSet;TcRDoc::NormalClass00

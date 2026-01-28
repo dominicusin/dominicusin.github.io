@@ -55,7 +55,7 @@ rss_posts: 50
 categories_rss: true
 tags_rss: true
 markdown: kramdown
-theme: minima
+remote_theme: minima
 exclude:
 - Gemfile
 - Gemfile.lock
@@ -81,7 +81,4 @@ liquid:
 incremental: true
 future: false
 unpublished: false
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
+

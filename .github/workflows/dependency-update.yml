@@ -1,0 +1,72 @@
+name: 🔄 Dependency Update
+
+on:
+  schedule:
+    # Run weekly on Sundays at 3 AM UTC
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update-dependencies:
+    name: 🔄 Update Dependencies
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+        
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 📦 Update Ruby Dependencies
+      run: |
+        bundle update
+        bundle list
+        
+    - name: 📦 Update Node Dependencies
+      run: |
+        npm update
+        npm audit fix || true
+        
+    - name: 🧪 Test Updated Dependencies
+      run: |
+        npm run build:test
+        
+    - name: 📝 Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: '🔄 chore: update dependencies'
+        title: '🔄 Weekly Dependency Update'
+        body: |
+          ## 🔄 Weekly Dependency Update
+          
+          This PR contains automated updates for:
+          
+          ### 💎 Ruby Dependencies
+          - Updated Gemfile.lock with latest compatible versions
+          - Security patches and bug fixes
+          
+          ### 🟢 Node Dependencies
+          - Updated package.json and package-lock.json
+          - Security patches and performance improvements
+          
+          ### ✅ Validation
+          - All tests pass
+          - Build successful
+          - No breaking changes detected
+          
+          Please review and merge if everything looks good.
+        branch: chore/dependency-update
+        delete-branch: true

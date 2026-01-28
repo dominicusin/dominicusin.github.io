@@ -1,0 +1,91 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{ site.url }}/#website",
+      "url": "{{ site.url }}/",
+      "name": "{{ site.title | default: site.name }}",
+      "description": "{{ site.description }}",
+      "inLanguage": ["en", "ru"],
+      "isAccessibleForFree": true,
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "{{ site.url }}#person",
+      "name": "{{ site.author.name | default: site.author }}",
+      "url": "{{ site.url }}/about/",
+      "sameAs": [
+        {% if site.social.github %}"https://github.com/{{ site.social.github }}"{% endif %}
+        {% if site.social.twitter %}"https://twitter.com/{{ site.social.twitter }}"{% endif %}
+        {% if site.social.linkedin %}"https://linkedin.com/in/{{ site.social.linkedin }}"{% endif %}
+      ],
+      "jobTitle": "{{ site.author.job_title | default: 'Software Engineer' }}",
+      "knowsAbout": [
+        "Software Engineering",
+        "System Architecture",
+        "Web Development",
+        "Performance Optimization",
+        "Progressive Web Apps",
+        "DevOps"
+      ]
+    },
+    {
+      "@type": "Blog",
+      "@id": "{{ site.url }}#blog",
+      "name": "{{ site.title | default: site.name }} Blog",
+      "description": "{{ site.description }}",
+      "url": "{{ site.url }}/",
+      "inLanguage": ["en", "ru"],
+      "isAccessibleForFree": true,
+      "publisher": {
+        "@id": "{{ site.url }}#person"
+      },
+      "blogPost": [
+        {% for post in site.posts limit:10 %}
+        {
+          "@type": "BlogPosting",
+          "@id": "{{ post.url | absolute_url }}#blogposting",
+          "url": "{{ post.url | absolute_url }}",
+          "name": "{{ post.title | xml_escape }}",
+          "headline": "{{ post.title | xml_escape }}",
+          "description": "{{ post.excerpt | strip_html | strip_newlines | xml_escape | truncate: 160 }}",
+          "datePublished": "{{ post.date | date_to_xmlschema }}",
+          "dateModified": "{{ post.last_modified_at | default: post.date | date_to_xmlschema }}",
+          "author": {
+            "@id": "{{ site.url }}#person"
+          },
+          "publisher": {
+            "@id": "{{ site.url }}#person"
+          },
+          "inLanguage": {{ post.lang | default: "en" }},
+          "isPartOf": {
+            "@type": "Blog",
+            "@id": "{{ site.url }}#blog"
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ post.url | absolute_url }}"
+          },
+          "wordCount": {{ post.content | number_of_words }},
+          "keywords": [
+            {% for tag in post.tags limit:5 %}"{{ tag | xml_escape }}"{% unless forloop.last %},{% endunless %}{% endfor %}
+          ],
+          "articleSection": "{{ post.category | default: 'Technology' }}",
+          "image": [
+            {% if post.image %}
+            "{{ post.image | absolute_url }}"
+            {% else %}
+            "{{ site.url }}/assets/images/default-blog-image.jpg"
+            {% endif %}
+          ]
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  ]
+}

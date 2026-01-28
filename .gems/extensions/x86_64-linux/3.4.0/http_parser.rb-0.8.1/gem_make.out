@@ -1,0 +1,19 @@
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+/usr/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-m8sy3o sitelibdir\=./.gem.20260128-194345-m8sy3o clean
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-m8sy3o sitelibdir\=./.gem.20260128-194345-m8sy3o
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.so
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-m8sy3o sitelibdir\=./.gem.20260128-194345-m8sy3o install
+/usr/bin/install -c -m 0755 ruby_http_parser.so ./.gem.20260128-194345-m8sy3o
+
+current directory: /home/domini/src/dominicusin.github.io/.gems/gems/http_parser.rb-0.8.1/ext/ruby_http_parser
+make DESTDIR\= sitearchdir\=./.gem.20260128-194345-m8sy3o sitelibdir\=./.gem.20260128-194345-m8sy3o clean

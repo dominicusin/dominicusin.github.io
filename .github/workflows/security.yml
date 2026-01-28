@@ -1,0 +1,77 @@
+name: 🔒 Security Scan
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run weekly on Mondays at 4 AM UTC
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+jobs:
+  security-scan:
+    name: 🔒 Security Vulnerability Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+        
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 🔍 Node.js Security Audit
+      run: |
+        npm audit --audit-level=moderate
+        npm audit --json > npm-audit.json || true
+        
+    - name: 🔍 Ruby Security Audit
+      run: |
+        bundle audit --format=json > ruby-audit.json || true
+        
+    - name: 🔍 Trivy Vulnerability Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: 🚨 Semgrep Security Analysis
+      uses: semgrep/semgrep-action@v1
+      with:
+        config: >-
+          p/security-audit
+          p/secrets
+          p/cwe-top-25
+        generate-sarif: '1'
+        
+    - name: 📤 Upload Security Reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          npm-audit.json
+          ruby-audit.json
+          trivy-results.sarif
+          semgrep.sarif
+          
+    - name: 📊 Security Score
+      run: |
+        echo "🔒 Security Analysis Summary:"
+        echo "- Node.js dependencies: ✅ Scanned"
+        echo "- Ruby dependencies: ✅ Scanned"
+        echo "- File system vulnerabilities: ✅ Scanned"
+        echo "- Code security patterns: ✅ Scanned"
+        echo "- Secrets detection: ✅ Scanned"

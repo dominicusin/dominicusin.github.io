@@ -1,0 +1,4 @@
+U:RDoc::AnyMethod[iI"vanilla_windows?:ETI".Jekyll::Utils::Platforms#vanilla_windows?;TF:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[
+I"-- ;TI"DAllows you to detect "real" Windows, or what we would consider ;TI"G"real" Windows.  That is, that we can pass the basic test and the ;TI"*/proc/version returns nothing to us. ;TI"--;T:
+@fileI""lib/jekyll/utils/platforms.rb;T:0@omit_headings_from_table_of_contents_below000[[I"really_windows?;To;;	[o;
+;	[I"-- ;TI"XXX: Remove in 4.0 ;TI"--;T;@;0I"();T@FI"Platforms;TcRDoc::NormalModule00
