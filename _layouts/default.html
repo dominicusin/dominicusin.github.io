@@ -17,8 +17,8 @@
   <meta name="language" content="{{ site.lang }}">
   <meta property="og:locale" content="{{ site.locale }}">
   <link rel="alternate" hreflang="{{ site.lang }}" href="{{ page.url | absolute_url }}">
-  <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | replace: '/ru/', '/' }}">
-  <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | prepend: '/ru/' }}">
+   <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | remove: '/ru/' }}">
+   <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | replace: '/', '/ru/' | prepend: '/' }}">
   
   <!-- Open Graph Enhanced -->
   <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
@@ -59,9 +59,9 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
   
-  <!-- Alternate language links -->
-  <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | replace: '/ru/', '/' }}">
-  <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | replace: '/', '/ru/' }}">
+   <!-- Alternate language links -->
+   <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | remove: '/ru/' }}">
+   <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | replace: '/', '/ru/' | prepend: '/' }}">
   
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | absolute_url }}">
