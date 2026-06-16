@@ -964,3 +964,286 @@
     font-size: 2rem;
   }
 }
+
+// ============================================
+// POST STYLES
+// ============================================
+
+.post {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Breadcrumbs
+.post-breadcrumbs {
+  margin-bottom: $spacing-unit;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:not(:last-child)::after {
+    content: '/';
+    color: $grey-color-light;
+  }
+
+  a {
+    color: $grey-color;
+    text-decoration: none;
+    @include transition(color);
+    background-image: none;
+
+    &:hover {
+      color: $brand-color;
+    }
+  }
+
+  &.active {
+    color: $grey-color-dark;
+    font-weight: 500;
+  }
+}
+
+// Post header
+.post-header {
+  margin-bottom: $spacing-unit * 2;
+}
+
+.post-title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: $spacing-unit;
+  color: $grey-color-dark;
+  letter-spacing: -0.02em;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.9375rem;
+  color: $grey-color;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  > * {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.post-date,
+.reading-time,
+.post-author {
+  color: $grey-color;
+}
+
+.post-categories {
+  display: flex;
+  gap: 8px;
+
+  .category {
+    display: inline-block;
+    padding: 4px 12px;
+    background: $gradient-secondary;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    @include border-radius(4px);
+    text-decoration: none;
+    background-image: none;
+
+    &:hover {
+      transform: translateY(-1px);
+      @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.3));
+    }
+  }
+}
+
+// Post content
+.post-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Post footer
+.post-footer {
+  margin-top: $spacing-unit * 3;
+  padding-top: $spacing-unit * 2;
+  border-top: 2px solid $grey-color-light;
+}
+
+.post-tags {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: $spacing-unit * 2;
+
+  .tags-label {
+    font-weight: 600;
+    color: $grey-color-dark;
+    flex-shrink: 0;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(65, 88, 208, 0.08);
+    color: $brand-color;
+    font-size: 0.875rem;
+    font-weight: 500;
+    @include border-radius(20px);
+    text-decoration: none;
+    @include transition(all);
+    background-image: none;
+
+    &:hover {
+      background: $brand-color;
+      color: white;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Post navigation
+.post-navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-unit;
+
+  @include media-query($on-palm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: $spacing-unit;
+  background: white;
+  border: 2px solid $grey-color-light;
+  @include border-radius(12px);
+  text-decoration: none;
+  @include transition(all);
+  background-image: none;
+
+  &:hover {
+    border-color: $brand-color;
+    @include box-shadow(0 8px 24px rgba(65, 88, 208, 0.1));
+    transform: translateY(-2px);
+
+    .nav-title {
+      color: $brand-color;
+    }
+  }
+
+  &.prev-post {
+    justify-content: flex-start;
+  }
+
+  &.next-post {
+    justify-content: flex-end;
+    text-align: right;
+  }
+}
+
+.nav-arrow {
+  font-size: 1.5rem;
+  color: $brand-color;
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $grey-color;
+}
+
+.nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $grey-color-dark;
+  @include transition(color);
+}
+
+// ============================================
+// POST MOBILE STYLES
+// ============================================
+
+@include media-query($on-palm) {
+  .post-title {
+    font-size: 1.75rem;
+  }
+
+  .post-meta {
+    gap: 12px;
+    font-size: 0.875rem;
+  }
+
+  .post-content {
+    font-size: 1rem;
+  }
+
+  .post-footer {
+    margin-top: $spacing-unit * 2;
+    padding-top: $spacing-unit;
+  }
+
+  .post-tags {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-link {
+    padding: $spacing-unit * 0.75;
+  }
+
+  .nav-title {
+    font-size: 0.9375rem;
+  }
+}

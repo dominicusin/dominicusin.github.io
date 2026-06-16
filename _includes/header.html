@@ -1,22 +1,25 @@
-<header class="site-header">
+<header class="site-header" role="banner">
   <div class="wrapper">
     <div class="header-content">
       <a class="site-title" href="{{ site.baseurl }}/">
         <span class="site-logo">{{ site.title }}</span>
       </a>
 
-      <nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger" class="menu-icon">
-          <span></span>
-          <span></span>
-          <span></span>
+      <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" aria-hidden="true" tabindex="-1" />
+        <label for="nav-trigger" class="menu-icon" aria-label="Toggle menu" role="button" tabindex="0">
+          <span class="menu-icon-line"></span>
+          <span class="menu-icon-line"></span>
+          <span class="menu-icon-line"></span>
+          <span class="sr-only">Menu</span>
         </label>
 
-        <div class="trigger">
+        <div class="trigger" role="menubar">
           {% for item in site.navigation %}
-            <a class="page-link {% if page.url == item.url %}active{% endif %}" 
-               href="{{ item.url | prepend: site.baseurl }}">
+            <a class="page-link {% if page.url == item.url %}active{% endif %}"
+               href="{{ item.url | prepend: site.baseurl }}"
+               role="menuitem"
+               {% if page.url == item.url %}aria-current="page"{% endif %}>
               {{ item.name }}
             </a>
           {% endfor %}

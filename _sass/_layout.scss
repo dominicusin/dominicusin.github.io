@@ -54,8 +54,15 @@
         width: 24px;
         height: 24px;
         position: relative;
+        padding: 4px;
 
-        span {
+        &:focus-visible {
+            outline: 2px solid $brand-color;
+            outline-offset: 2px;
+            @include border-radius(4px);
+        }
+
+        .menu-icon-line {
             display: block;
             width: 20px;
             height: 2px;

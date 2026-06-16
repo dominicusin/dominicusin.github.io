@@ -2,61 +2,155 @@
 layout: default
 ---
 
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<!-- BreadcrumbList Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": {{ site.url | append: site.baseurl | jsonify }}
+    },
+    {% if page.categories.size > 0 %}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ page.categories.first | jsonify }},
+      "item": {{ page.categories.first | slugify | prepend: '/category/' | prepend: site.baseurl | prepend: site.url | jsonify }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ page.title | jsonify }},
+      "item": {{ page.url | prepend: site.baseurl | prepend: site.url | jsonify }}
+    }
+    {% else %}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ page.title | jsonify }},
+      "item": {{ page.url | prepend: site.baseurl | prepend: site.url | jsonify }}
+    }
+    {% endif %}
+  ]
+}
+</script>
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <!-- Breadcrumbs -->
+  <nav class="post-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="{{ site.baseurl }}/" itemprop="item">
+          <span itemprop="name">Home</span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </li>
+      {% if page.categories.size > 0 %}
+      <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="{{ page.categories.first | slugify | prepend: '/category/' | prepend: site.baseurl }}" itemprop="item">
+          <span itemprop="name">{{ page.categories.first }}</span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </li>
+      {% endif %}
+      <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span itemprop="name">{{ page.title }}</span>
+        <meta itemprop="position" content="{% if page.categories.size > 0 %}3{% else %}2{% endif %}" />
+      </li>
+    </ol>
+  </nav>
+
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title }}</h1>
+
     <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished" class="post-date">
+      <time class="post-date dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
         {{ page.date | date: "%B %-d, %Y" }}
       </time>
-      {% if page.author %}
-        <span class="post-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <span itemprop="name">{{ page.author }}</span>
-        </span>
+
+      {% if site.reading_time %}
+      <span class="reading-time">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        {% assign words = content | number_of_words %}
+        {% assign minutes = words | divided_by: site.words_per_minute %}
+        {% if minutes == 0 %}1{% else %}{{ minutes }}{% endif %} min read
+      </span>
       {% endif %}
+
+      {% if page.author %}
+      <span class="post-author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span itemprop="name">{{ page.author }}</span>
+      </span>
+      {% endif %}
+
       {% if page.categories.size > 0 %}
-        <div class="post-categories">
-          {% for category in page.categories %}
-            <span class="category">{{ category }}</span>
-          {% endfor %}
-        </div>
+      <div class="post-categories">
+        {% for category in page.categories %}
+          <a href="{{ category | slugify | prepend: '/category/' | prepend: site.baseurl }}" class="category">{{ category }}</a>
+        {% endfor %}
+      </div>
       {% endif %}
     </div>
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <div class="post-content e-content" itemprop="articleBody">
     {{ content }}
   </div>
 
   <footer class="post-footer">
+    {% if page.tags.size > 0 %}
     <div class="post-tags">
-      {% if page.tags.size > 0 %}
-        <span class="tags-label">Tags:</span>
+      <span class="tags-label">Tags:</span>
+      <div class="tag-list">
         {% for tag in page.tags %}
-          <span class="tag">{{ tag }}</span>
+          <a href="{{ tag | slugify | prepend: '/tag/' | prepend: site.baseurl }}" class="tag">{{ tag }}</a>
         {% endfor %}
-      {% endif %}
+      </div>
     </div>
+    {% endif %}
 
     <div class="post-navigation">
       {% if page.previous.url %}
-        <a class="prev-post" href="{{ page.previous.url | prepend: site.baseurl }}">
-          <span class="nav-label">← Previous</span>
-          <span class="nav-title">{{ page.previous.title }}</span>
-        </a>
+      <a class="nav-link prev-post" href="{{ page.previous.url | prepend: site.baseurl }}" rel="prev">
+        <span class="nav-arrow">←</span>
+        <div class="nav-content">
+          <span class="nav-label">Previous</span>
+          <span class="nav-title">{{ page.previous.title | truncatewords: 8 }}</span>
+        </div>
+      </a>
       {% endif %}
 
       {% if page.next.url %}
-        <a class="next-post" href="{{ page.next.url | prepend: site.baseurl }}">
-          <span class="nav-label">Next →</span>
-          <span class="nav-title">{{ page.next.title }}</span>
-        </a>
+      <a class="nav-link next-post" href="{{ page.next.url | prepend: site.baseurl }}" rel="next">
+        <div class="nav-content">
+          <span class="nav-label">Next</span>
+          <span class="nav-title">{{ page.next.title | truncatewords: 8 }}</span>
+        </div>
+        <span class="nav-arrow">→</span>
+      </a>
       {% endif %}
     </div>
   </footer>
 </article>
 
-<!-- JSON-LD Structured Data for BlogPosting -->
+<!-- BlogPosting Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,7 +164,13 @@ layout: default
   {% endif %}
   "author": {
     "@type": "Person",
-    "name": {{ page.author | default: site.title | jsonify }}
+    "name": {{ page.author | default: site.author.name | jsonify }},
+    {% if site.author.orcid %}
+    "sameAs": [
+      "https://orcid.org/{{ site.author.orcid }}"
+    ],
+    {% endif %}
+    "url": {{ site.url | append: site.baseurl | append: '/about/' | jsonify }}
   },
   "publisher": {
     "@type": "Organization",
@@ -88,6 +188,8 @@ layout: default
   "url": {{ page.url | prepend: site.baseurl | prepend: site.url | jsonify }},
   {% if page.excerpt %}
   "description": {{ page.excerpt | strip_html | strip_newlines | truncate: 160 | jsonify }},
+  {% elsif site.description %}
+  "description": {{ site.description | jsonify }},
   {% endif %}
   {% if page.image %}
   "image": {{ page.image | prepend: site.baseurl | prepend: site.url | jsonify }},
@@ -95,6 +197,8 @@ layout: default
   {% if page.tags.size > 0 %}
   "keywords": {{ page.tags | join: ', ' | jsonify }},
   {% endif %}
-  "wordCount": {{ content | number_of_words | jsonify }}
+  "wordCount": {{ content | number_of_words | jsonify }},
+  "articleSection": {{ page.categories | first | default: 'Blog' | jsonify }},
+  "inLanguage": {{ site.lang | jsonify }}
 }
 </script>
