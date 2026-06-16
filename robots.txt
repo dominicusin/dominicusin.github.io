@@ -1,10 +1,8 @@
 User-agent: *
 Allow: /
 
-Disallow: /assets/
-Disallow: /css/
-Disallow: /js/
 Disallow: /_site/
+Disallow: /admin/
 
 Crawl-delay: 1
 

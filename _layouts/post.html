@@ -37,7 +37,7 @@ layout: default
         {% endfor %}
       {% endif %}
     </div>
-    
+
     <div class="post-navigation">
       {% if page.previous.url %}
         <a class="prev-post" href="{{ page.previous.url | prepend: site.baseurl }}">
@@ -45,7 +45,7 @@ layout: default
           <span class="nav-title">{{ page.previous.title }}</span>
         </a>
       {% endif %}
-      
+
       {% if page.next.url %}
         <a class="next-post" href="{{ page.next.url | prepend: site.baseurl }}">
           <span class="nav-label">Next →</span>
@@ -55,3 +55,46 @@ layout: default
     </div>
   </footer>
 </article>
+
+<!-- JSON-LD Structured Data for BlogPosting -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  {% if page.last_modified_at %}
+  "dateModified": {{ page.last_modified_at | date_to_xmlschema | jsonify }},
+  {% else %}
+  "dateModified": {{ page.date | date_to_xmlschema | jsonify }},
+  {% endif %}
+  "author": {
+    "@type": "Person",
+    "name": {{ page.author | default: site.title | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url | append: site.baseurl }}/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ page.url | prepend: site.baseurl | prepend: site.url | jsonify }}
+  },
+  "url": {{ page.url | prepend: site.baseurl | prepend: site.url | jsonify }},
+  {% if page.excerpt %}
+  "description": {{ page.excerpt | strip_html | strip_newlines | truncate: 160 | jsonify }},
+  {% endif %}
+  {% if page.image %}
+  "image": {{ page.image | prepend: site.baseurl | prepend: site.url | jsonify }},
+  {% endif %}
+  {% if page.tags.size > 0 %}
+  "keywords": {{ page.tags | join: ', ' | jsonify }},
+  {% endif %}
+  "wordCount": {{ content | number_of_words | jsonify }}
+}
+</script>

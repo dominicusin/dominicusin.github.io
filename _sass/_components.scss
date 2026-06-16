@@ -1,5 +1,9 @@
 // ============================================
-// КНОПКИ
+// COMPONENT STYLES
+// ============================================
+
+// ============================================
+// BUTTONS
 // ============================================
 
 .btn {
@@ -19,8 +23,8 @@
   @include transition(all, 0.3s, cubic-bezier(0.4, 0, 0.2, 1));
   position: relative;
   overflow: hidden;
-  
-  // Ripple эффект
+
+  // Ripple effect
   &::before {
     content: '';
     position: absolute;
@@ -34,32 +38,32 @@
     transition: width 0.6s ease, height 0.6s ease;
     will-change: width, height;
   }
-  
+
   &:hover::before {
     width: 300px;
     height: 300px;
   }
-  
+
   &:hover {
     transform: translateY(-2px);
     text-decoration: none;
   }
-  
+
   &:active {
     transform: translateY(0);
   }
-  
+
   &:focus-visible {
     outline: 3px solid rgba(65, 88, 208, 0.4);
     outline-offset: 3px;
   }
-  
+
   svg {
     width: 20px;
     height: 20px;
     @include transition(transform, 0.3s, ease);
   }
-  
+
   &:hover svg {
     transform: translateX(4px);
   }
@@ -69,7 +73,7 @@
   background: $gradient-secondary;
   color: white;
   @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.3));
-  
+
   &:hover {
     @include box-shadow(0 8px 24px rgba(65, 88, 208, 0.4));
     color: white;
@@ -80,7 +84,7 @@
   background: white;
   color: $brand-color;
   border: 2px solid $brand-color;
-  
+
   &:hover {
     background: $brand-color;
     color: white;
@@ -94,7 +98,7 @@
 }
 
 // ============================================
-// КАРТОЧКИ ПОСТОВ
+// POST CARDS
 // ============================================
 
 .post-grid {
@@ -114,15 +118,15 @@
   );
   position: relative;
   animation: fadeInUp 0.6s ease-out backwards;
-  
-  // Анимационная задержка для каскадного эффекта
+
+  // Animation delay for cascade effect
   @for $i from 1 through 6 {
     &:nth-child(#{$i}) {
       animation-delay: #{$i * 0.1}s;
     }
   }
-  
-  // Градиентная верхняя граница
+
+  // Gradient top border
   &::before {
     content: '';
     position: absolute;
@@ -135,7 +139,7 @@
     transform-origin: left;
     @include transition(transform, 0.4s, ease);
   }
-  
+
   &:hover {
     border-color: rgba(65, 88, 208, 0.2);
     transform: translateY(-8px);
@@ -143,11 +147,11 @@
       0 20px 50px rgba(65, 88, 208, 0.15),
       0 10px 20px rgba(65, 88, 208, 0.1)
     );
-    
+
     &::before {
       transform: scaleX(1);
     }
-    
+
     .post-card-image img {
       transform: scale(1.05);
     }
@@ -160,14 +164,14 @@
   height: 200px;
   overflow: hidden;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     @include transition(transform, 0.4s, ease);
   }
-  
+
   .post-card-category {
     position: absolute;
     top: 12px;
@@ -194,13 +198,13 @@
   margin-bottom: 12px;
   font-size: $small-font-size;
   color: $grey-color;
-  
+
   svg {
     width: 14px;
     height: 14px;
     stroke: currentColor;
   }
-  
+
   time,
   .reading-time {
     display: flex;
@@ -214,12 +218,12 @@
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 12px;
-  
+
   a {
     color: $grey-color-dark;
     @include transition(color, 0.3s, ease);
     background-image: none;
-    
+
     &:hover {
       color: $brand-color;
     }
@@ -238,7 +242,7 @@
   flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 16px;
-  
+
   .tag {
     display: inline-block;
     padding: 4px 10px;
@@ -248,7 +252,7 @@
     font-weight: 500;
     @include border-radius(12px);
     @include transition(all, 0.2s, ease);
-    
+
     &:hover {
       background: rgba(102, 126, 234, 0.15);
       transform: translateY(-1px);
@@ -264,16 +268,16 @@
   font-weight: 600;
   font-size: 0.875rem;
   background-image: none;
-  
+
   svg {
     width: 16px;
     height: 16px;
     @include transition(transform, 0.3s, ease);
   }
-  
+
   &:hover {
     color: $brand-color-dark;
-    
+
     svg {
       transform: translateX(4px);
     }
@@ -281,7 +285,7 @@
 }
 
 // ============================================
-// КАРТОЧКИ ТЕМАТИК
+// TOPIC CARDS
 // ============================================
 
 .topic-grid {
@@ -300,14 +304,14 @@
   overflow: hidden;
   text-align: center;
   animation: fadeInUp 0.6s ease-out backwards;
-  
+
   @for $i from 1 through 3 {
     &:nth-child(#{$i}) {
       animation-delay: #{($i + 6) * 0.1}s;
     }
   }
-  
-  // Градиентная верхняя граница
+
+  // Gradient top border
   &::before {
     content: '';
     position: absolute;
@@ -320,8 +324,8 @@
     transform-origin: left;
     @include transition(transform, 0.4s, ease);
   }
-  
-  // Декоративный фоновый круг
+
+  // Decorative background circle
   &::after {
     content: '';
     position: absolute;
@@ -338,30 +342,30 @@
     @include transition(transform, 0.5s, ease);
     border-radius: 50%;
   }
-  
+
   &:hover {
     border-color: rgba(65, 88, 208, 0.3);
     transform: translateY(-8px) scale(1.02);
     @include box-shadow(0 16px 40px rgba(65, 88, 208, 0.15));
-    
+
     &::before {
       transform: scaleX(1);
     }
-    
+
     &::after {
       transform: translate(-50%, -50%) scale(1);
     }
-    
+
     .topic-icon {
       transform: scale(1.1) rotate(5deg);
-      
+
       svg {
         stroke: $brand-color;
       }
     }
   }
-  
-  // Цветовые темы для разных карточек
+
+  // Color themes for different cards
   &[data-topic="industrial"] {
     &::after {
       background: radial-gradient(
@@ -371,7 +375,7 @@
       );
     }
   }
-  
+
   &[data-topic="systems"] {
     &::after {
       background: radial-gradient(
@@ -381,7 +385,7 @@
       );
     }
   }
-  
+
   &[data-topic="data"] {
     &::after {
       background: radial-gradient(
@@ -405,7 +409,7 @@
   @include transition(all, 0.3s, cubic-bezier(0.4, 0, 0.2, 1));
   position: relative;
   z-index: 1;
-  
+
   svg {
     stroke: $grey-color;
     @include transition(stroke, 0.3s, ease);
@@ -451,19 +455,19 @@
   position: relative;
   z-index: 1;
   background-image: none;
-  
+
   svg {
     width: 16px;
     height: 16px;
     @include transition(transform, 0.3s, ease);
   }
-  
+
   &:hover {
     background: $brand-color;
     color: white;
     transform: translateY(-2px);
     @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.3));
-    
+
     svg {
       transform: translateX(4px);
     }
@@ -471,7 +475,7 @@
 }
 
 // ============================================
-// СЕКЦИИ
+// SECTIONS
 // ============================================
 
 .section-header {
@@ -486,7 +490,7 @@
   margin-bottom: $spacing-unit * 0.5;
   position: relative;
   display: inline-block;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -497,6 +501,15 @@
     height: 4px;
     background: $gradient-secondary;
     @include border-radius(2px);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: $brand-color;
+    }
   }
 }
 
@@ -514,6 +527,78 @@
 }
 
 // ============================================
+// VIEW ALL BUTTON
+// ============================================
+
+.view-all-posts {
+  text-align: center;
+  margin-top: $spacing-unit * 2;
+}
+
+// ============================================
+// HERO STATS
+// ============================================
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-unit * 2;
+  margin-top: $spacing-unit * 2;
+
+  @include media-query($on-palm) {
+    gap: $spacing-unit;
+  }
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: $spacing-unit;
+  @include border-radius(12px);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  @include transition(all);
+  min-width: 120px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    @include box-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+  }
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+// ============================================
+// GRADIENT TEXT
+// ============================================
+
+.gradient-text {
+  @include gradient-text($gradient-accent);
+  font-weight: 800;
+}
+
+// ============================================
 // NEWSLETTER
 // ============================================
 
@@ -524,7 +609,7 @@
   @include border-radius(24px);
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -553,7 +638,7 @@
   gap: $spacing-unit * 2;
   position: relative;
   z-index: 1;
-  
+
   @include media-query($on-palm) {
     flex-direction: column;
     text-align: center;
@@ -562,14 +647,14 @@
 
 .newsletter-content {
   flex: 1;
-  
+
   h2 {
     color: white;
     font-size: 2rem;
     margin-bottom: $spacing-unit * 0.5;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   p {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1.125rem;
@@ -584,20 +669,20 @@
 .empty-state {
   text-align: center;
   padding: $spacing-unit * 4;
-  
+
   svg {
     width: 64px;
     height: 64px;
     stroke: $grey-color-light;
     margin-bottom: $spacing-unit;
   }
-  
+
   h3 {
     font-size: 1.5rem;
     color: $grey-color;
     margin-bottom: $spacing-unit * 0.5;
   }
-  
+
   p {
     color: $grey-color;
     font-size: 1.125rem;
@@ -605,61 +690,7 @@
 }
 
 // ============================================
-// VIEW ALL
-// ============================================
-
-.view-all-posts {
-  text-align: center;
-  margin-top: $spacing-unit * 2;
-}
-
-// ============================================
-// HERO STATS
-// ============================================
-
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: $spacing-unit * 2;
-  margin-top: $spacing-unit * 2;
-  
-  @include media-query($on-palm) {
-    gap: $spacing-unit;
-  }
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.stat-number {
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.stat-label {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-// ============================================
-// ГРАДИЕНТНЫЙ ТЕКСТ
-// ============================================
-
-.gradient-text {
-  @include gradient-text($gradient-accent);
-  font-weight: 800;
-}
-
-// ============================================
-// АРХИВНЫЕ СТРАНИЦЫ
+// ARCHIVE PAGES
 // ============================================
 
 .archive-page {
@@ -682,17 +713,17 @@
   margin-bottom: $spacing-unit;
   font-size: 0.875rem;
   color: $grey-color;
-  
+
   a {
     color: $brand-color;
     text-decoration: none;
     @include transition(color);
-    
+
     &:hover {
       color: $brand-color-dark;
     }
   }
-  
+
   span:not(:last-child) {
     color: $grey-color-light;
   }
@@ -707,7 +738,7 @@
   font-weight: 800;
   margin: 0 0 $spacing-unit;
   color: $text-color;
-  
+
   svg {
     color: $brand-color;
   }
@@ -719,7 +750,7 @@
   margin: 0;
 }
 
-// Список постов (для tag и month архивов)
+// Post list (for tag and month archives)
 .post-list {
   max-width: 900px;
   margin: 0 auto;
@@ -734,7 +765,7 @@
   @include border-radius(12px);
   border: 1px solid $border-color;
   @include transition(all);
-  
+
   &:hover {
     border-color: $brand-color;
     @include box-shadow(0 4px 12px rgba(65, 88, 208, 0.1));
@@ -745,7 +776,7 @@
 .post-list-date {
   flex-shrink: 0;
   width: 80px;
-  
+
   time {
     display: inline-block;
     padding: 8px 16px;
@@ -766,12 +797,12 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 $spacing-unit / 2;
-  
+
   a {
     color: $text-color;
     text-decoration: none;
     @include transition(color);
-    
+
     &:hover {
       color: $brand-color;
     }
@@ -790,12 +821,12 @@
   gap: $spacing-unit;
   font-size: 0.875rem;
   color: $grey-color;
-  
+
   svg {
     vertical-align: middle;
     margin-right: 4px;
   }
-  
+
   .post-category {
     padding: 4px 12px;
     background: rgba(65, 88, 208, 0.1);
@@ -803,16 +834,16 @@
     @include border-radius(6px);
     font-weight: 500;
   }
-  
+
   .post-tags {
     display: flex;
     gap: 8px;
-    
+
     .tag {
       color: $brand-color;
       text-decoration: none;
       @include transition(opacity);
-      
+
       &:hover {
         opacity: 0.7;
       }
@@ -820,7 +851,7 @@
   }
 }
 
-// Timeline для year архива
+// Timeline for year archive
 .timeline-posts {
   max-width: 900px;
   margin: 0 auto;
@@ -828,7 +859,7 @@
 
 .timeline-month {
   margin-bottom: $spacing-unit * 3;
-  
+
   &:not(:last-child) {
     border-bottom: 2px solid $border-color;
     padding-bottom: $spacing-unit * 2;
@@ -842,7 +873,7 @@
   color: $brand-color;
   position: relative;
   padding-left: $spacing-unit * 1.5;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -857,60 +888,79 @@
 }
 
 // ============================================
-// МЕДИА-ЗАПРОСЫ ДЛЯ МОБИЛЬНЫХ
+// MOBILE MEDIA QUERIES
 // ============================================
 
 @include media-query($on-palm) {
+  .post-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-unit / 1.5;
+  }
+
+  .topic-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-unit / 1.5;
+  }
+
   .post-card {
     &:hover {
       transform: translateY(-4px) scale(1.01);
     }
   }
-  
+
   .topic-card {
     padding: $spacing-unit * 1.5;
-    
+
     &:hover {
       transform: translateY(-4px) scale(1.01);
     }
   }
-  
+
   .btn {
     padding: 12px 24px;
     font-size: 0.9375rem;
   }
-  
+
   .btn-lg {
     padding: 14px 28px;
     font-size: 1rem;
   }
-  
-  // Архивные страницы на мобильных
+
+  // Archive pages on mobile
   .archive-title {
     font-size: 1.75rem;
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .archive-breadcrumb {
     flex-wrap: wrap;
   }
-  
+
   .post-list-item {
     flex-direction: column;
     gap: $spacing-unit / 2;
   }
-  
+
   .post-list-date {
     width: auto;
   }
-  
+
   .post-list-title {
     font-size: 1.25rem;
   }
-  
+
   .post-list-meta {
     flex-wrap: wrap;
     gap: $spacing-unit / 2;
+  }
+
+  .stat-item {
+    min-width: 100px;
+    padding: $spacing-unit * 0.75;
+  }
+
+  .stat-number {
+    font-size: 2rem;
   }
 }

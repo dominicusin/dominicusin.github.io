@@ -582,6 +582,29 @@ hr {
 }
 
 // ============================================
+// SKIP LINK (Accessibility)
+// ============================================
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px 16px;
+  background: $brand-color;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 10000;
+  @include border-radius(0 0 4px 0);
+  @include transition(top, 0.3s, ease);
+
+  &:focus {
+    top: 0;
+    color: white;
+  }
+}
+
+// ============================================
 // ACCESSIBILITY
 // ============================================
 
