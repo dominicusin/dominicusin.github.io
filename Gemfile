@@ -24,3 +24,6 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 # Lock `http_parser.rb\` gem to `v0.6.x\` on JRuby builds
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
+# Add faraday-retry to satisfy Faraday v2.0+ retry middleware warnings
+# This is optional but removes the runtime warning in Actions logs
+gem "faraday-retry"
