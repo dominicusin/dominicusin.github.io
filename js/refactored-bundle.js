@@ -87,6 +87,7 @@ var l=Object.freeze({PERFORMANCE:{DEBOUNCE_DELAY:300,THROTTLE_DELAY:100,SCROLL_T
             <p>No results found</p>
             <p>Try different keywords or browse categories</p>
           </div>
+          <div class="search-results-list" role="list"></div>
         </div>
       `;let t=document.querySelector(".site-header");t&&t.after(e)}this.searchInput=e.querySelector(".search-input"),this.searchResults=e.querySelector(".search-results"),this.clearButton=e.querySelector(".search-clear"),this.loadingIndicator=e.querySelector(".search-loading"),this.emptyState=e.querySelector(".search-empty")}async loadSearchIndex(){try{let e=await fetch("/search.json");if(!e.ok)throw new Error("Failed to load search index");let t=await e.json();this.posts=t.map(s=>({...s,title:s.title||"",content:s.content||"",excerpt:s.excerpt||"",url:s.url||"",date:s.date||"",tags:s.tags||[],categories:s.categories||[]})),typeof lunr!="undefined"&&this.initializeLunrIndex()}catch(e){console.error("Failed to load search index:",e),this.showSearchError()}}initializeLunrIndex(){this.searchIndex=lunr(function(){this.ref("id"),this.field("title",{boost:10}),this.field("excerpt",{boost:5}),this.field("content",{boost:1}),this.field("tags",{boost:8}),this.field("categories",{boost:8}),this.posts.forEach((e,t)=>{this.add({id:t,title:e.title,excerpt:e.excerpt,content:e.content,tags:e.tags.join(" "),categories:e.categories.join(" ")})})})}setupEventListeners(){if(!this.searchInput)return;let e=f(t=>this.performSearch(t),l.PERFORMANCE.DEBOUNCE_DELAY);this.searchInput.addEventListener("input",t=>{clearTimeout(this.debounceTimer),this.debounceTimer=setTimeout(()=>{e(t.target.value)},l.PERFORMANCE.DEBOUNCE_DELAY)}),this.clearButton&&this.clearButton.addEventListener("click",()=>this.clearSearch()),document.addEventListener("keydown",t=>{var s,i;t.altKey&&t.key==="s"&&(t.preventDefault(),(s=this.searchInput)==null||s.focus()),t.key==="Escape"&&((i=this.searchInput)!=null&&i.value)&&this.clearSearch()}),document.addEventListener("click",t=>{t.target.closest(".search-container")||this.hideResults()})}async performSearch(e){var i,n;if(!e||e.trim().length<2){this.hideResults(),(i=this.clearButton)==null||i.setAttribute("hidden","");return}this.showLoading(),(n=this.clearButton)==null||n.removeAttribute("hidden");let t=e.toLowerCase().trim();if(this.searchCache.has(t)){let a=this.searchCache.get(t);setTimeout(()=>this.displayResults(a,e),100);return}let s=[];try{this.searchIndex?s=this.searchIndex.search(e).map(c=>({...this.posts[c.ref],score:c.score,matches:this.getMatches(this.posts[c.ref],e)})):s=this.basicSearch(e),this.searchCache.set(t,s),this.displayResults(s,e)}catch(a){console.error("Search error:",a),this.showSearchError()}}basicSearch(e){let t=e.toLowerCase().split(/\s+/);return this.posts.map(s=>{let i=0,n=[];return t.forEach(a=>{let c=s.title.toLowerCase().indexOf(a);c!==-1&&(i+=10,n.push({field:"title",term:a,index:c}));let h=s.content.toLowerCase().indexOf(a);h!==-1&&(i+=1,n.push({field:"content",term:a,index:h})),s.tags.some(p=>p.toLowerCase().indexOf(a)!==-1)&&(i+=8,n.push({field:"tags",term:a}))}),{...s,score:i,matches:n}}).filter(s=>s.score>0).sort((s,i)=>i.score-s.score).slice(0,10)}getMatches(e,t){let s=[];return t.toLowerCase().split(/\s+/).forEach(n=>{let a=e.title.toLowerCase().indexOf(n);a!==-1&&s.push({field:"title",value:this.highlightText(e.title,a,n.length)});let c=e.excerpt.toLowerCase().indexOf(n);c!==-1&&s.push({field:"excerpt",value:this.highlightText(e.excerpt,c,n.length)})}),s}highlightText(e,t,s){return{before:e.substring(0,t),match:e.substring(t,t+s),after:e.substring(t+s)}}displayResults(e,t){if(this.hideLoading(),e.length===0){this.showEmptyState();return}let s=e.map((i,n)=>`
       <div class="search-result-item" role="article" tabindex="-1" data-index="${n}">
@@ -97,7 +98,7 @@ var l=Object.freeze({PERFORMANCE:{DEBOUNCE_DELAY:300,THROTTLE_DELAY:100,SCROLL_T
             </h3>
             <div class="search-result-meta">
               <time datetime="${i.date}" class="search-result-date">
-                ${k(i.date)}
+                ${S(i.date)}
               </time>
               ${i.categories.length>0?`
                 <span class="search-result-category">${i.categories[0]}</span>
@@ -116,10 +117,8 @@ var l=Object.freeze({PERFORMANCE:{DEBOUNCE_DELAY:300,THROTTLE_DELAY:100,SCROLL_T
           `:""}
         </a>
       </div>
-    `).join("");this.searchResults.innerHTML=`
-      <div class="search-results-list" role="list">
+    `).join("");this.searchResultsList.innerHTML=`
         ${s}
-      </div>
       <div class="search-results-footer">
         <p>${e.length} result${e.length!==1?"s":""} found</p>
       </div>

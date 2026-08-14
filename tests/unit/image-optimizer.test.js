@@ -265,7 +265,7 @@ describe('ImageOptimizer', () => {
       await optimizer.preloadImage(src);
 
       // Second preload should use cache
-      const result = await optimizer.preloadImage(src);
+      await optimizer.preloadImage(src);
       expect(optimizer.imageCache.has(src)).toBe(true);
     });
   });

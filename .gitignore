@@ -1,6 +1,10 @@
 ```
-# Dependencies
-node_modules/
+# Build artifacts
+build/
+dist/
+*.js.map
+*.min.js
+*.bundle.js
 
 # Logs and temp files
 *.log
@@ -10,6 +14,11 @@ node_modules/
 .env
 .env.local
 .env.
+
+# Environment
+.env
+.env.local
+.env.*
 
 # Editors
 .vscode/
@@ -53,7 +62,8 @@ __pycache__/
 # Coverage
 coverage/
 htmlcov/
-.coverage
+.pytest_cache/
+.mypy_cache/
 
 # System files
 .DS_Store
