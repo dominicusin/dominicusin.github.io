@@ -17,7 +17,7 @@ jobs:
   # 🔍 Quality Assurance & Testing
   test:
     name: 🔍 Test & Quality Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: 🧹 Clean up disk space
@@ -82,7 +82,7 @@ jobs:
   # 🏗️ Build & Optimization
   build:
     name: 🏗️ Build & Optimize
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: test
 
     steps:
@@ -150,7 +150,7 @@ jobs:
   # 🔒 Security & Compliance
   security:
     name: 🔒 Security Scan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: test
 
     steps:
@@ -186,7 +186,7 @@ jobs:
   # 📊 Performance Monitoring
   performance:
     name: 📊 Performance Monitoring
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
 
@@ -229,7 +229,7 @@ jobs:
   # 🔄 Health Check
   health-check:
     name: 🔄 Health Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
 
@@ -275,7 +275,7 @@ jobs:
   # 📬 Notifications
   notify:
     name: 📬 Send Notifications
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [build, performance, health-check]
     if: always() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
 
