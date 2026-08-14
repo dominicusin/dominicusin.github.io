@@ -35,24 +35,14 @@ jobs:
       run: |
         npm ci
         npm run build:production
-        
-    - name: 🚀 Start Jekyll Server
-      run: |
-        bundle exec jekyll serve --port 4000 --host 0.0.0.0 --detach &
-        sleep 10
-        
+
     - name: 🌐 Run Lighthouse CI
       uses: treosh/lighthouse-ci-action@v10
       with:
-        urls: |
-          http://localhost:4000
-          http://localhost:4000/about/
-          http://localhost:4000/categories/
-          http://localhost:4000/tags/
         configPath: './.lighthouserc.json'
         uploadArtifacts: true
         temporaryPublicStorage: true
-        
+
     - name: 📊 Performance Budget Check
       run: |
         # Check bundle sizes
