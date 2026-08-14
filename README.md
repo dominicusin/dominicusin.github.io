@@ -1,8 +1,8 @@
 # dominicusin.github.io - Engineering Blog v2.0
 
 [![Build Status](https://github.com/dominicusin/dominicusin.github.io/workflows/Jekyll%20CI/CD/badge.svg)](https://github.com/dominicusin/dominicusin.github.io/actions)
-[![Test Coverage](https://img.shields.io/badge/tests-17%2F17%20passed-brightgreen)](tests/run-tests.js)
-[![Bundle Size](https://img.shields.io/badge/bundle-68KB%20minified-blue)](js/refactored-bundle.js)
+[![Tests](https://img.shields.io/badge/tests-196%20passed-brightgreen)](tests/)
+[![Content Contract](https://img.shields.io/badge/Content%20Model-CI%20gated-blue)](docs/CONTENT_CONTRACT.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Modern, modular, and performant static blog built with Jekyll and ES6+ modules**
@@ -24,10 +24,10 @@ Domini's personal engineering blog featuring industrial engineering, systems eng
 - ♿ **Accessible** - WCAG 2.1 compliant, ARIA labels, keyboard navigation
 
 ### Technical Highlights
-- **ES6+ Modules** - Modern JavaScript with tree-shaking
-- **Bundled & Minified** - esbuild produces 68KB minified bundle
-- **100% Test Coverage** - 17/17 tests passing
-- **Zero Dependencies** - No external JS frameworks
+- **ES6+ Modules** - Modern JavaScript, bundled with esbuild into `js/refactored-bundle.js`
+- **Bundled & Minified** - esbuild production build (~15KB minified gzipped)
+- **Thorough Test Suite** - 179 Jest unit/integration tests + 17 smoke tests, all green in CI
+- **Content Model Contract** - every post is validated against `schema/post-metadata.schema.json` in CI (pre-merge gate); see `docs/CONTENT_CONTRACT.md`
 - **Progressive Enhancement** - Graceful degradation for older browsers
 
 ## 📁 Project Structure
@@ -53,19 +53,31 @@ Domini's personal engineering blog featuring industrial engineering, systems eng
 │   │   └── storage.js        # localStorage/sessionStorage wrappers
 │   └── index.js              # Main entry point
 ├── tests/                    # Test suite
-│   ├── run-tests.js          # Test runner
-│   └── unit/                 # Unit tests
+│   ├── run-tests.js          # Smoke test runner (Node)
+│   ├── unit/                 # Jest unit tests (i18n, search, theme, image, pwa, subscription, storage, analytics, helpers)
+│   ├── integration/          # Jest integration tests (module loading)
+│   ├── jest.config.cjs       # Jest config (jsdom)
+│   ├── babel.config.cjs      # Babel transform for ESM
+│   └── jest.setup.js         # jsdom polyfills
+├── schema/                   # Content Model
+│   └── post-metadata.schema.json # Formal post frontmatter contract (JSON Schema)
+├── scripts/                  # Build & CI tooling
+│   ├── ci-content-contract.cjs   # CI gate: validate changed posts + emit KG
+│   ├── validate-frontmatter.cjs  # Frontmatter validator/normalizer
+│   ├── ai-review.cjs             # AI pre-merge review
+│   └── build-knowledge-graph.cjs # JSON-LD Knowledge Graph generator
 ├── docs/                     # Documentation
 │   ├── ARCHITECTURE.md       # Architecture overview
 │   ├── TESTING.md            # Testing guide
+│   ├── CONTENT_CONTRACT.md   # Content Model + CI contract (Vector A)
 │   └── DEEP_REFACTORING_PLAN.md # Refactoring roadmap
 ├── js/                       # Built bundles
-│   └── refactored-bundle.js  # Production bundle (68KB minified)
+│   └── refactored-bundle.js  # Production bundle (esbuild, minified)
 ├── _layouts/                 # Jekyll layouts
 │   └── default.html          # Main layout with module loading
 ├── _includes/                # Reusable components
 ├── _posts/                   # Blog posts
-├── assets/                   # Static assets
+├── assets/                   # Static assets (incl. data/knowledge-graph.json, CI-generated)
 └── package.json              # Node.js dependencies & scripts
 ```
 
