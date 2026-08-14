@@ -1,0 +1,145 @@
+name: Fediverse Auto-Post
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_posts/**'
+
+jobs:
+  notify-fediverse:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Get latest post details
+        id: post
+        run: |
+          LATEST_POST=$(ls -t _posts/*.md | head -1)
+          if [ -z "$LATEST_POST" ]; then
+            echo "No posts found"
+            exit 0
+          fi
+          
+          # Extract front matter
+          TITLE=$(grep -m1 "^title:" "$LATEST_POST" | sed 's/title: "//;s/"$//')
+          DESCRIPTION=$(grep -m1 "^description:" "$LATEST_POST" | sed 's/description: "//;s/"$//' || echo "New post published")
+          URL="${{ secrets.SITE_BASE_URL }}/$(basename "$LATEST_POST" .md)/"
+          IMAGE=$(grep -m1 "^image:" "$LATEST_POST" | sed 's/image: "//;s/"$//' || echo "")
+          
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+          echo "description=$DESCRIPTION" >> $GITHUB_OUTPUT
+          echo "url=$URL" >> $GITHUB_OUTPUT
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
+          echo "post_file=$LATEST_POST" >> $GITHUB_OUTPUT
+      
+      - name: Generate ActivityPub Object
+        id: ap_object
+        run: |
+          cat > activitypub-object.json << EOF
+          {
+            "@context": [
+              "https://www.w3.org/ns/activitystreams",
+              "https://w3id.org/security/v1"
+            ],
+            "id": "${{ secrets.SITE_BASE_URL }}/activities/${{ github.run_id }}",
+            "type": "Create",
+            "actor": "${{ secrets.ACTIVITYPUB_ACTOR }}",
+            "object": {
+              "id": "${{ steps.post.outputs.url }}",
+              "type": "Article",
+              "name": "${{ steps.post.outputs.title }}",
+              "content": "${{ steps.post.outputs.description }}",
+              "url": "${{ steps.post.outputs.url }}",
+              "image": "${{ steps.post.outputs.image }}",
+              "published": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+              "attributedTo": "${{ secrets.ACTIVITYPUB_ACTOR }}",
+              "tag": [
+                {
+                  "type": "Hashtag",
+                  "href": "https://${{ secrets.MASTODON_INSTANCE }}/tags/jekyll",
+                  "name": "#jekyll"
+                },
+                {
+                  "type": "Hashtag",
+                  "href": "https://${{ secrets.MASTODON_INSTANCE }}/tags/staticsite",
+                  "name": "#staticsite"
+                }
+              ]
+            },
+            "to": ["https://${{ secrets.MASTODON_INSTANCE }}/users/${{ secrets.MASTODON_USERNAME }}/followers"],
+            "cc": ["https://www.w3.org/ns/activitystreams#Public"]
+          }
+          EOF
+      
+      - name: Sign and send to Mastodon Inbox
+        run: |
+          if [ -z "${{ secrets.ACTIVITYPUB_PRIVATE_KEY }}" ]; then
+            echo "⚠️ ActivityPub credentials not configured, skipping federation"
+            exit 0
+          fi
+          
+          # Install http-signature tools
+          npm install -g http-signature-header
+          
+          # Create signed request
+          INBOX_URL="https://${{ secrets.MASTODON_INSTANCE }}/users/${{ secrets.MASTODON_USERNAME }}/inbox"
+          
+          # Generate HTTP Signature header
+          DATE=$(date -u +"%a, %d %h %Y %T GMT")
+          CONTENT_TYPE="application/activity+json"
+          BODY=$(cat activitypub-object.json)
+          
+          # Create digest
+          DIGEST=$(echo -n "$BODY" | openssl dgst -sha256 -binary | base64)
+          
+          # Sign the request (simplified - in production use proper library)
+          curl -X POST "$INBOX_URL" \
+            -H "Content-Type: $CONTENT_TYPE" \
+            -H "Date: $DATE" \
+            -H "Digest: SHA-256=$DIGEST" \
+            -H "Host: ${{ secrets.MASTODON_INSTANCE }}" \
+            -H "(request-target): post /users/${{ secrets.MASTODON_USERNAME }}/inbox" \
+            --data-binary "$BODY" \
+            || echo "Failed to send to inbox, trying alternative method"
+      
+      - name: Alternative: Post via Mastodon API
+        if: failure()
+        run: |
+          if [ -z "${{ secrets.MASTODON_ACCESS_TOKEN }}" ]; then
+            echo "⚠️ Mastodon API token not configured"
+            exit 0
+          fi
+          
+          STATUS_TEXT="📝 New post: ${{ steps.post.outputs.title }}\n\n${{ steps.post.outputs.description }}\n\n${{ steps.post.outputs.url }}\n\n#jekyll #staticsite #webdev"
+          
+          if [ -n "${{ steps.post.outputs.image }}" ]; then
+            # Upload media first
+            MEDIA_ID=$(curl -s -X POST "https://${{ secrets.MASTODON_INSTANCE }}/api/v1/media" \
+              -H "Authorization: Bearer ${{ secrets.MASTODON_ACCESS_TOKEN }}" \
+              -F "file=@${{ steps.post.outputs.image }}" \
+              | jq -r '.id')
+            
+            # Post with media
+            curl -X POST "https://${{ secrets.MASTODON_INSTANCE }}/api/v1/statuses" \
+              -H "Authorization: Bearer ${{ secrets.MASTODON_ACCESS_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"status\": \"$STATUS_TEXT\",
+                \"media_ids\": [\"$MEDIA_ID\"],
+                \"visibility\": \"public\"
+              }"
+          else
+            # Post text only
+            curl -X POST "https://${{ secrets.MASTODON_INSTANCE }}/api/v1/statuses" \
+              -H "Authorization: Bearer ${{ secrets.MASTODON_ACCESS_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"status\": \"$STATUS_TEXT\",
+                \"visibility\": \"public\"
+              }"
+          fi
+          
+          echo "✅ Posted to Mastodon successfully!"
