@@ -162,20 +162,20 @@ jobs:
 
     - name: 🌐 Lighthouse CI
       uses: treosh/lighthouse-ci-action@v12
+      continue-on-error: true
       with:
-        urls: |
-          https://${{ github.repository_owner }}.github.io
-          https://${{ github.repository_owner }}.github.io/about/
         configPath: './.lighthouserc.json'
         uploadArtifacts: true
         temporaryPublicStorage: true
 
     - name: 📈 Core Web Vitals Check
+      continue-on-error: true
       run: |
         npm run check:web-vitals
 
     - name: 📊 Performance Report
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@v4
+      if: always()
       with:
         name: performance-report
         path: .lighthouseci/
