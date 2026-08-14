@@ -1,2 +1,13 @@
-Nothing should be ignored since only a README.md file was modified and no build artifacts, dependencies, or temporary files were detected in the changes.
-.env
+```
+# Dependencies
+node_modules/
+
+# Build artifacts
+build/
+
+# Environment
+.env.local
+
+# Editor/IDE
+.vscode/
+```

@@ -49,13 +49,17 @@ navigation:
 - name: Tags
   url: "/tags/"
 keywords: industrial engineering, systems engineering, data science, blog, technology
-lang: en
-locale: en_US
+lang: ru
+locale: ru_RU
 rss_posts: 50
 categories_rss: true
 tags_rss: true
 markdown: kramdown
 remote_theme: minima
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
 exclude:
 - Gemfile
 - Gemfile.lock
