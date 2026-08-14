@@ -1,25 +1,20 @@
-```javascript
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-dist/
+```
+# Build artifacts
 build/
-target/
-
-# Dependencies
-node_modules/
-venv/
-.venv/
-.env
-.env.local
-*.env.*
+dist/
+*.js.map
+*.min.js
+*.bundle.js
 
 # Logs and temp files
 *.log
 *.tmp
 *.swp
+
+# Environment
+.env
+.env.local
+.env.*
 
 # Editors
 .vscode/
@@ -29,6 +24,8 @@ venv/
 .coverage
 coverage/
 htmlcov/
+.pytest_cache/
+.mypy_cache/
 
 # OS generated files
 .DS_Store
