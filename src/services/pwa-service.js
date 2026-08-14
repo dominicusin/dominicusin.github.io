@@ -6,6 +6,7 @@
  */
 
 import { LocalStorage } from '../utils/storage.js';
+import { VectorStore } from './vector-store.js';
 
 /**
  * PWA Service Configuration
@@ -45,6 +46,7 @@ export class PWAService {
 
     this.elements = {};
     this.offlineQueue = [];
+    this.vectorStore = new VectorStore();
     
     // Bind methods
     this.handleOnline = this.handleOnline.bind(this);
@@ -69,6 +71,9 @@ export class PWAService {
     if (this.options.enableBackgroundSync) {
       this.setupBackgroundSync();
     }
+
+    // Warm the offline vector-search cache (IndexedDB) when online.
+    this.warmVectorCache();
 
     this.log('PWAService initialized');
   }
@@ -210,6 +215,40 @@ export class PWAService {
       this.log('Background Sync registered');
     } catch (error) {
       this.error('Background Sync registration failed', error);
+    }
+  }
+
+  /**
+   * Warm the offline vector-search cache.
+   * Fetches the search index, builds TF-IDF vectors for every post, and stores
+   * them in IndexedDB so semantic search keeps working offline. No-op when
+   * offline or when IndexedDB is unavailable (falls back to in-memory).
+   * @returns {Promise<void>}
+   */
+  async warmVectorCache() {
+    if (this.state.isOffline) return;
+    try {
+      const { VectorSearch } = await import('../modules/vector-search.js');
+      const response = await fetch('/search.json');
+      if (!response.ok) return;
+      const data = await response.json();
+      const posts = Array.isArray(data)
+        ? data
+        : (data.posts || data.entries || data.results || []);
+      if (!posts.length) return;
+
+      const vs = new VectorSearch(posts);
+      const records = posts.map((post, idx) => ({
+        id: String(idx),
+        url: post.url || '',
+        title: post.title || '',
+        vector: [...vs.documents[idx].vector.entries()],
+        post
+      }));
+      await this.vectorStore.bulkPut(records);
+      this.log('Vector search cache warmed', { count: records.length });
+    } catch (error) {
+      this.warn('Vector cache warm failed', error);
     }
   }
 

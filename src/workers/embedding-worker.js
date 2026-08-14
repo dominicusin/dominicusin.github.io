@@ -31,7 +31,7 @@ async function loadModel(options = {}) {
 
   try {
     // Dynamic import of ONNX Runtime Web
-    const { env, InferenceSession, Tensor } = await import('onnxruntime-web');
+    const { env, InferenceSession } = await import('onnxruntime-web');
 
     // Configure environment
     env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.16.0/dist/';
@@ -196,7 +196,7 @@ function normalizeVector(vector) {
 /**
  * Simple tokenizer (placeholder - use @xenova/transformers in production)
  */
-async function loadTokenizer(modelName) {
+async function loadTokenizer(_modelName) {
   // In production, use: const { AutoTokenizer } = await import('@xenova/transformers');
   // return await AutoTokenizer.from_pretrained(modelName);
   
@@ -248,7 +248,7 @@ function cosineSimilarity(vec1, vec2) {
  * Find most similar vectors from an index
  */
 function findSimilar(queryEmbedding, index, topK = 10) {
-  const scores = index.map((item, idx) => ({
+  const scores = index.map((item) => ({
     id: item.id,
     score: cosineSimilarity(queryEmbedding, item.embedding),
     metadata: item.metadata

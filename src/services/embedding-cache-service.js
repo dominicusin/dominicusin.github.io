@@ -178,7 +178,7 @@ export class EmbeddingCache {
     const now = Date.now();
     let expired = 0;
     
-    this.cache.forEach((entry, key) => {
+    this.cache.forEach((entry) => {
       if (now > entry.expiry) {
         expired++;
       }

@@ -5,6 +5,7 @@
 
 import { DEFAULT_CONFIG } from '../config/constants.js';
 import { debounce, createElement } from '../utils/helpers.js';
+import { VectorSearch } from './vector-search.js';
 
 /**
  * Search Engine - Client-side search with highlighting and performance optimization
@@ -123,9 +124,13 @@ export class SearchEngine {
         url: post.url || '',
         date: post.date || '',
         tags: post.tags || [],
-        categories: post.categories || []
+        categories: post.categories || [],
+        concepts: post.concepts || []
       }));
-      
+
+      // Build the lightweight vector index over the normalized Content Model.
+      this.vectorIndex = new VectorSearch(this.posts);
+
       // Initialize Lunr index if available
       if (typeof lunr !== 'undefined') {
         this.initializeLunrIndex();
@@ -160,6 +165,17 @@ export class SearchEngine {
         });
       });
     });
+  }
+
+  /**
+   * Semantic (vector) search over the Content Model.
+   * @param {string} query
+   * @param {Object} [opts]
+   * @returns {Array<{post: Object, score: number}>}
+   */
+  vectorSearch(query, opts = {}) {
+    if (!this.vectorIndex) return [];
+    return this.vectorIndex.search(query, opts);
   }
 
   /**
@@ -227,21 +243,30 @@ export class SearchEngine {
     if (this.searchCache.has(cacheKey)) {
       const cachedResults = this.searchCache.get(cacheKey);
       setTimeout(() => this.displayResults(cachedResults, query), 100);
-      return;
+      return cachedResults;
     }
     
     // Perform search
     let results = [];
-    
+
     try {
       if (this.searchIndex) {
-        // Use Lunr for advanced search
+        // Use Lunr for advanced search (online, full-text)
         const lunrResults = this.searchIndex.search(query);
         results = lunrResults.map(result => ({
           ...this.posts[result.ref],
           score: result.score,
           matches: this.getMatches(this.posts[result.ref], query)
         }));
+      } else if (this.vectorIndex) {
+        // Vector/semantic search (works offline from cached vectors)
+        results = this.vectorIndex
+          .search(query, { topK: 10 })
+          .map(r => ({
+            ...r.post,
+            score: r.score,
+            matches: this.getMatches(r.post, query)
+          }));
       } else {
         // Fallback to basic search
         results = this.basicSearch(query);
@@ -250,10 +275,12 @@ export class SearchEngine {
       // Cache results
       this.searchCache.set(cacheKey, results);
       this.displayResults(results, query);
+      return results;
       
     } catch (error) {
       console.error('Search error:', error);
       this.showSearchError();
+      return [];
     }
   }
 
@@ -349,7 +376,9 @@ export class SearchEngine {
    */
   displayResults(results, query) {
     this.hideLoading();
-    
+
+    if (!this.searchResults) return;
+
     if (results.length === 0) {
       this.showEmptyState();
       return;

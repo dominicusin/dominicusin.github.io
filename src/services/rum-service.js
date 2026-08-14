@@ -124,7 +124,7 @@ class RUMService {
     if (!('PerformanceObserver' in window)) return;
 
     let clsValue = 0;
-    let clsEntries = [];
+    const clsEntries = [];
 
     const clsObserver = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {

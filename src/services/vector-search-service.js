@@ -155,7 +155,7 @@ export class VectorSearchService {
       const missingEmbeddings = await this.generateEmbeddingsForMissing(missing, batchDelay);
       
       // Merge cached and new embeddings
-      return texts.map((t, i) => {
+      return texts.map(() => {
         const cachedIdx = cached.findIndex(c => c !== undefined);
         if (cached[cachedIdx]) return cached[cachedIdx];
         return missingEmbeddings.pop();
@@ -168,7 +168,7 @@ export class VectorSearchService {
   /**
    * Generate embeddings for texts not in cache
    */
-  async generateEmbeddingsForMissing(texts, batchDelay = 100) {
+  async generateEmbeddingsForMissing(texts, _batchDelay = 100) {
     return new Promise((resolve, reject) => {
       const handler = (event) => {
         if (event.data.type === 'EMBEDDINGS_RESULT') {

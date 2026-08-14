@@ -17,6 +17,7 @@ layout:
       "reading_time": {{ post.reading_time | default: content | number_of_words | divided_by: 200 | jsonify }},
       "categories": {{ post.categories | jsonify }},
       "tags": {{ post.tags | jsonify }},
+      "concepts": {{ post.concepts | default: emptyArray | jsonify }},
       "image": {% if post.image %}{{ post.image | absolute_url | jsonify }}{% else %}null{% endif %},
       "image_alt": {% if post.image_alt %}{{ post.image_alt | jsonify }}{% else %}null{% endif %},
       "author": {

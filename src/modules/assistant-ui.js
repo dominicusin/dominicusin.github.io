@@ -175,7 +175,6 @@ export class AssistantUI {
 
   handleCommand(command) {
     const cmd = command.toLowerCase().trim();
-    const args = cmd.split(' ').slice(1);
 
     switch (cmd) {
       case '/clear':

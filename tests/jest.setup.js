@@ -79,3 +79,81 @@ if (typeof window !== 'undefined' && window.HTMLElement) {
     window.HTMLElement.prototype.scrollIntoView = function () {};
   }
 }
+
+// Minimal in-memory IndexedDB polyfill (for vector-store tests).
+// Implements just enough of the IDB API (open / objectStore / get / put / getAll / clear).
+if (typeof global.indexedDB === 'undefined' && typeof window !== 'undefined') {
+  function makeStore(keyPath) {
+    const map = new Map();
+    const req = (val) => {
+      const r = { result: val, onsuccess: null, onerror: null };
+      setTimeout(() => { if (r.onsuccess) r.onsuccess({ target: { result: val } }); }, 0);
+      return r;
+    };
+    return {
+      keyPath,
+      put(record) {
+        const key = keyPath ? record[keyPath] : record.key;
+        map.set(key, record);
+        return req(undefined);
+      },
+      get(key) {
+        return req(map.has(key) ? map.get(key) : undefined);
+      },
+      getAll() {
+        return req([...map.values()]);
+      },
+      clear() {
+        map.clear();
+        return req(undefined);
+      }
+    };
+  }
+  class FakeIDB {
+    constructor() {
+      this.dbs = new Map();
+    }
+    open(name, version) {
+      const req = {
+        result: null,
+        error: null,
+        onsuccess: null,
+        onerror: null,
+        onupgradeneeded: null
+      };
+      setTimeout(() => {
+        let db = this.dbs.get(name);
+        if (!db || db.version < version) {
+          db = { name, version, stores: new Map(), objectStoreNames: { contains: (n) => db.stores.has(n) } };
+          db.createObjectStore = (storeName, opts) => {
+            const s = makeStore(opts && opts.keyPath);
+            db.stores.set(storeName, s);
+            return s;
+          };
+          db.transaction = (_storeName, _mode) => {
+            const tx = {
+              onsuccess: null,
+              onerror: null,
+              objectStore: (n) => {
+                if (!db.stores.has(n)) db.stores.set(n, makeStore('id'));
+                return db.stores.get(n);
+              }
+            };
+            // Fire success after the current synchronous store ops complete.
+            setTimeout(() => { if (tx.onsuccess) tx.onsuccess({ target: { result: undefined } }); }, 0);
+            return tx;
+          };
+          this.dbs.set(name, db);
+          if (req.onupgradeneeded) {
+            req.onupgradeneeded({ target: { result: db } });
+          }
+        }
+        req.result = db;
+        if (req.onsuccess) req.onsuccess();
+      }, 0);
+      return req;
+    }
+  }
+  global.indexedDB = new FakeIDB();
+  if (typeof window !== 'undefined') window.indexedDB = global.indexedDB;
+}
