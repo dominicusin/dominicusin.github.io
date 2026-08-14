@@ -484,35 +484,140 @@ class RUMService {
   }
 
   /**
-   * Flush metrics queue to server
+   * Flush metrics queue to server with retry logic and offline support
    */
-  async flush() {
+  async flush(isPageHide = false) {
     if (this.metricsQueue.length === 0) return;
 
     const metrics = [...this.metricsQueue];
-    this.metricsQueue = [];
+    
+    // For page hide, use sendBeacon for reliable delivery
+    if (isPageHide && navigator.sendBeacon) {
+      try {
+        const blob = new Blob([JSON.stringify(metrics)], { type: 'application/json' });
+        const sent = navigator.sendBeacon(this.endpoint, blob);
+        if (sent) {
+          this.metricsQueue = [];
+          console.log('[RUM] Metrics sent via sendBeacon:', metrics.length);
+        } else {
+          // Fallback to storing in IndexedDB
+          await this.storeMetricsOffline(metrics);
+        }
+      } catch (error) {
+        console.error('[RUM] sendBeacon failed:', error);
+        await this.storeMetricsOffline(metrics);
+      }
+      return;
+    }
 
+    // Normal flush with retry logic
+    this.metricsQueue = [];
+    
     try {
-      // In production, this would POST to your analytics endpoint
-      // For now, we'll update the local metrics.json structure
-      console.log('[RUM] Flushing metrics:', metrics.length);
-      
-      // Update aggregated metrics (simplified for demo)
-      await this.updateAggregatedMetrics(metrics);
+      await this.sendMetricsWithRetry(metrics);
     } catch (error) {
-      console.error('[RUM] Failed to flush metrics:', error);
-      // Re-queue metrics on failure
-      this.metricsQueue.unshift(...metrics);
+      console.error('[RUM] Failed to flush metrics after retries:', error);
+      // Store offline on permanent failure
+      await this.storeMetricsOffline(metrics);
     }
   }
 
   /**
-   * Update aggregated metrics file
+   * Send metrics with exponential backoff retry
+   */
+  async sendMetricsWithRetry(metrics, attempt = 1) {
+    try {
+      const response = await fetch(this.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ metrics, timestamp: Date.now() })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      console.log(`[RUM] Metrics flushed successfully: ${metrics.length}`);
+      
+      // Update aggregated metrics on success
+      await this.updateAggregatedMetrics(metrics);
+    } catch (error) {
+      if (attempt < this.maxRetries) {
+        const delay = Math.min(1000 * Math.pow(2, attempt), 10000);
+        console.log(`[RUM] Retry ${attempt}/${this.maxRetries} in ${delay}ms`);
+        
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return this.sendMetricsWithRetry(metrics, attempt + 1);
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  /**
+   * Store metrics in IndexedDB for offline sync
+   */
+  async storeMetricsOffline(metrics) {
+    if (!this.db || !this.enableOffline) {
+      console.warn('[RUM] Offline storage not available');
+      return;
+    }
+
+    try {
+      const transaction = this.db.transaction(['metrics'], 'readwrite');
+      const store = transaction.objectStore('metrics');
+      
+      for (const metric of metrics) {
+        store.put(metric);
+      }
+
+      await new Promise((resolve, reject) => {
+        transaction.oncomplete = resolve;
+        transaction.onerror = () => reject(transaction.error);
+      });
+
+      console.log(`[RUM] Stored ${metrics.length} metrics offline`);
+    } catch (error) {
+      console.error('[RUM] Failed to store metrics offline:', error);
+    }
+  }
+
+  /**
+   * Sync offline metrics when connection is restored
+   */
+  async syncOfflineMetrics() {
+    if (!this.db || !this.enableOffline) return;
+
+    try {
+      const transaction = this.db.transaction(['metrics'], 'readwrite');
+      const store = transaction.objectStore('metrics');
+      
+      const metrics = await new Promise((resolve, reject) => {
+        const request = store.getAll();
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+
+      if (metrics.length > 0) {
+        console.log(`[RUM] Syncing ${metrics.length} offline metrics`);
+        await this.sendMetricsWithRetry(metrics);
+        
+        // Clear synced metrics
+        const clearRequest = store.clear();
+        await new Promise((resolve, reject) => {
+          clearRequest.onsuccess = resolve;
+          clearRequest.onerror = () => reject(clearRequest.error);
+        });
+      }
+    } catch (error) {
+      console.error('[RUM] Failed to sync offline metrics:', error);
+    }
+  }
+
+  /**
+   * Update aggregated metrics with percentile data
    */
   async updateAggregatedMetrics(newMetrics) {
-    // This is a client-side simulation
-    // In production, this would be handled by a server endpoint
-    
     const storageKey = 'rum_aggregated_metrics';
     let aggregated = JSON.parse(localStorage.getItem(storageKey) || '{}');
     
@@ -520,11 +625,21 @@ class RUMService {
     if (!aggregated.current) {
       aggregated = {
         current: { lcp: 0, inp: 0, cls: 0 },
+        percentiles: {
+          lcp: { p75: 0, p95: 0, p99: 0 },
+          inp: { p75: 0, p95: 0, p99: 0 },
+          cls: { p75: 0, p95: 0, p99: 0 }
+        },
         trends: {
           dates: this.getLast7Days(),
           lcp: [],
           inp: [],
           cls: []
+        },
+        byDeviceClass: {
+          high: { lcp: 0, inp: 0, cls: 0, count: 0 },
+          medium: { lcp: 0, inp: 0, cls: 0, count: 0 },
+          low: { lcp: 0, inp: 0, cls: 0, count: 0 }
         },
         alerts: [],
         pageViews: {},
@@ -532,17 +647,29 @@ class RUMService {
       };
     }
 
-    // Update current values (simple average for demo)
+    // Update current values (weighted average)
     newMetrics.forEach(metric => {
       if (['lcp', 'inp', 'cls'].includes(metric.name)) {
         const count = aggregated.pageViews[metric.url] || 1;
         const oldValue = aggregated.current[metric.name] || 0;
         aggregated.current[metric.name] = ((oldValue * (count - 1)) + metric.value) / count;
+        
+        // Track by device class
+        const deviceClass = metric.deviceClass || 'medium';
+        if (aggregated.byDeviceClass[deviceClass]) {
+          const dc = aggregated.byDeviceClass[deviceClass];
+          dc[metric.name] = ((dc[metric.name] * dc.count) + metric.value) / (dc.count + 1);
+          dc.count++;
+        }
       }
       
       // Track page views
       aggregated.pageViews[metric.url] = (aggregated.pageViews[metric.url] || 0) + 1;
     });
+
+    // Update percentiles from current history
+    const percentiles = this.getPercentiles();
+    aggregated.percentiles = percentiles;
 
     // Update trends (simplified)
     if (newMetrics.some(m => m.name === 'lcp')) {
@@ -593,8 +720,73 @@ class RUMService {
     return {
       queued: this.metricsQueue.length,
       thresholds: this.thresholds,
-      initialized: this.initialized
+      initialized: this.initialized,
+      deviceClass: this.deviceClass,
+      percentiles: this.getPercentiles(),
+      historySize: {
+        lcp: this.metricHistory.lcp.length,
+        inp: this.metricHistory.inp.length,
+        cls: this.metricHistory.cls.length
+      }
     };
+  }
+
+  /**
+   * Get detailed analytics report
+   */
+  getAnalyticsReport() {
+    const percentiles = this.getPercentiles();
+    const aggregated = JSON.parse(localStorage.getItem('rum_aggregated_metrics') || '{}');
+    
+    return {
+      summary: {
+        current: aggregated.current || { lcp: 0, inp: 0, cls: 0 },
+        percentiles: percentiles,
+        deviceBreakdown: aggregated.byDeviceClass || {}
+      },
+      trends: aggregated.trends || {},
+      pageViews: aggregated.pageViews || {},
+      health: this.getHealthStatus(percentiles)
+    };
+  }
+
+  /**
+   * Get health status based on percentiles
+   */
+  getHealthStatus(percentiles) {
+    const getStatus = (value, thresholds) => {
+      if (value <= thresholds.good) return 'good';
+      if (value <= thresholds.warning) return 'warning';
+      return 'poor';
+    };
+
+    return {
+      lcp: getStatus(percentiles.lcp.p75, this.thresholds.lcp),
+      inp: getStatus(percentiles.inp.p75, this.thresholds.inp),
+      cls: getStatus(percentiles.cls.p75, this.thresholds.cls),
+      overall: this.calculateOverallScore(percentiles)
+    };
+  }
+
+  /**
+   * Calculate overall performance score (0-100)
+   */
+  calculateOverallScore(percentiles) {
+    const lcpScore = Math.max(0, 100 - (percentiles.lcp.p75 / 40));
+    const inpScore = Math.max(0, 100 - (percentiles.inp.p75 / 5));
+    const clsScore = Math.max(0, 100 - (percentiles.cls.p75 * 400));
+    
+    return Math.round((lcpScore + inpScore + clsScore) / 3);
+  }
+
+  /**
+   * Enable online sync after connection restored
+   */
+  enableOnlineSync() {
+    window.addEventListener('online', () => {
+      console.log('[RUM] Connection restored, syncing offline metrics...');
+      this.syncOfflineMetrics();
+    });
   }
 }
 
@@ -602,11 +794,14 @@ class RUMService {
 if (typeof window !== 'undefined') {
   window.rumService = new RUMService({
     sampleRate: 0.5, // Sample 50% of users
-    webhookUrl: window.env?.RUM_WEBHOOK_URL
+    webhookUrl: window.env?.RUM_WEBHOOK_URL,
+    enableOffline: true,
+    maxRetries: 3
   });
   
   document.addEventListener('DOMContentLoaded', () => {
     window.rumService.init();
+    window.rumService.enableOnlineSync();
   });
 }
 
