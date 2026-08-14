@@ -1,0 +1,61 @@
+{
+  "ai": {
+    "greeting": "Hello! I'm your AI assistant. How can I help you today?",
+    "placeholder": "Ask me anything...",
+    "status": {
+      "loading": "Loading model...",
+      "ready": "Ready to help",
+      "offline": "Offline mode"
+    },
+    "commands": {
+      "clear": "Clear conversation history",
+      "context": "Show current context",
+      "summary": "Summarize this page",
+      "help": "Show available commands",
+      "language": "Change language"
+    },
+    "responses": {
+      "noContext": "No specific context selected. I'll answer based on the current page.",
+      "cleared": "Conversation history cleared.",
+      "summarizing": "Summarizing content...",
+      "error": "Sorry, I encountered an error. Please try again.",
+      "thinking": "Thinking..."
+    },
+    "languages": {
+      "en": "English",
+      "ru": "Русский",
+      "es": "Español",
+      "fr": "Français",
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語"
+    }
+  },
+  "search": {
+    "placeholder": "Search with natural language...",
+    "modes": {
+      "keyword": "Keyword Search",
+      "vector": "Semantic Search",
+      "hybrid": "Hybrid Search"
+    },
+    "relevance": {
+      "high": "High Relevance",
+      "medium": "Medium Relevance",
+      "low": "Low Relevance"
+    },
+    "results": {
+      "found": "Found {{count}} results",
+      "none": "No results found",
+      "loading": "Searching..."
+    }
+  },
+  "common": {
+    "close": "Close",
+    "send": "Send",
+    "cancel": "Cancel",
+    "retry": "Retry",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}
