@@ -3,9 +3,13 @@
  * Optimization, minification, and production-ready assets
  */
 
-const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Generate hash for cache busting
@@ -386,11 +390,12 @@ async function main() {
 }
 
 // Run build
-if (require.main === module) {
+const isMainModule = process.argv[1] && process.argv[1].endsWith('build.js');
+if (isMainModule) {
   main();
 }
 
-module.exports = {
+export {
   buildAssets,
   minifyJS,
   minifyCSS,

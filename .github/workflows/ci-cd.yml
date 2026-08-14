@@ -10,7 +10,7 @@ on:
     - cron: '0 2 * * *'
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: '22'
   RUBY_VERSION: '3.1'
 
 jobs:
@@ -20,6 +20,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: 🧹 Clean up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
     - name: 📥 Checkout Repository
       uses: actions/checkout@v4
       with:
@@ -37,9 +49,9 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
 
-    - name: 📦 Install Dependencies
+    - name: 📦 Install Dependencies (Optimized)
       run: |
-        npm ci
+        npm ci --prefer-offline --no-audit --no-fund
         bundle install --jobs=4 --retry=3
 
     - name: 🔍 Validate HTML & CSS
@@ -75,6 +87,18 @@ jobs:
     needs: test
 
     steps:
+    - name: 🧹 Clean up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
     - name: 📥 Checkout Repository
       uses: actions/checkout@v4
 
@@ -90,9 +114,9 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
 
-    - name: 📦 Install Dependencies
+    - name: 📦 Install Dependencies (Optimized)
       run: |
-        npm ci
+        npm ci --prefer-offline --no-audit --no-fund
         bundle install --jobs=4 --retry=3
 
     - name: 🗂️ Cache Jekyll Dependencies
@@ -132,6 +156,18 @@ jobs:
     needs: test
 
     steps:
+    - name: 🧹 Clean up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
     - name: 📥 Checkout Repository
       uses: actions/checkout@v4
 
@@ -157,6 +193,18 @@ jobs:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
 
     steps:
+    - name: 🧹 Clean up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
     - name: 📥 Checkout Repository
       uses: actions/checkout@v4
 
@@ -188,6 +236,18 @@ jobs:
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
 
     steps:
+    - name: 🧹 Clean up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
     - name: 🌐 Site Health Check
       run: |
         # Check if site is accessible
