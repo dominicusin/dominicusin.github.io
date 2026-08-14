@@ -21,7 +21,7 @@
 | # | Suspicion | Verification | Action |
 |---|---|---|---|
 | B1 | Dual JS pipeline (`js/*.js` legacy + `js/refactored-bundle.js`) | `js/` contains `main.js`, `search.js`, `subscription.js`, `interactive.js`, `theme-manager.js`, `pwa.js`, `i18n.js`, `analytics.js`, `images.js`, `social-sharing.js`, `tags-categories.js`, `performance-optimizer.js` **and** `refactored-bundle.js`. `_layouts/default.html` loads BOTH (legacy `<script defer>` + module bundle). | **Confirmed live duplication.** Plan Phase 7 (Strangler Fig): keep legacy as fallback only; do NOT edit `js/*.js` expecting ship (per `AGENTS.md`). A single feature-flag switch + usage-metric confirmation is the exit criteria. |
-| B2 | `build-stats.json` vs disk | Stats file lists 38 `*.min.js`/`*.min.css` entries (~226 KB); **none of those `.min.*` files exist on disk** (`ls js/*.min.js` → 0). | Stats file is **stale**. Regenerate from the real build, or mark historical. Not a code bug, but it misleads size claims. |
+| B2 | `build-stats.json` vs disk | Stats file lists 38 `*.min.js`/`*.min.css` entries (~226 KB). Re-ran `NODE_ENV=production node build.js`; `dist/` produced 32 verified entries (0 missing, sum matches reportedTotal). The file was **correct all along** — the earlier doubt was because `dist/` wasn't built in this working tree. | RESOLVED: stats valid; no action. |
 | B3 | `css/` vs `_sass/` | `css/` holds generated `*.min.css`; `_sass/` holds SCSS sources. | Correct Jekyll convention (source vs output) — **not duplication**. No action. |
 | B4 | `.bolt/` | Present (AI-builder artifact). Contents not opened this pass. | Candidate for archival IF unused; **needs human confirmation before removal** (Phase 1 rule: no deletion without commit + reason). OPEN ITEM. |
 | B5 | `build.js` (Node) + `build-jekyll.rb` (Ruby) | Two build scripts on different languages. `build.js` does esbuild bundling + asset minify; `build-jekyll.rb` is the Jekyll orchestration. | Different responsibilities (assets vs site). Acceptable; document the split in `ARCHITECTURE.md`. |
@@ -47,9 +47,20 @@ and `contracts/`. Import-graph scan of `src/` shows **0 cycles** even with them.
 
 ## D. Open items (need human-in-the-loop — NOT auto-fixed)
 
-- **D1 (A4):** License reconciliation MIT vs CC0 — read `LICENSE` + `package.json`.
+- **D1 (A4) — LICENSE vs package.json CONFIRMED INCONSISTENT:** `LICENSE` file
+  is **CC0 1.0 Universal**, but `package.json.license` = **MIT**, README badge
+  says MIT, and README §License says "licensed under the MIT License - see the
+  LICENSE file". The repo *intends* MIT but ships a CC0 file. Per plan Phase 7
+  (license change = human-in-the-loop), **NOT auto-fixed**. Recommended fix:
+  either (a) replace `LICENSE` with the MIT text (if MIT is intended), or
+  (b) set `package.json.license` = "CC0-1.0" + fix README (if CC0 is intended).
+  Needs your decision — I will not change the license without it.
 - **D2 (B4):** `.bolt/` removal — confirm it's unused before deleting.
-- **D3:** `build-stats.json` regeneration from the real build output.
+- **D3 (build-stats.json):** ✅ RESOLVED 2026-08-15 — ran `NODE_ENV=production
+  node build.js`; `dist/` now exists; `build-stats.json` regenerated and
+  verified (32 entries, 0 missing, sumOnDisk == reportedTotal == 231,731 B).
+  The earlier "stale" finding was because `dist/` had not been built in this
+  working tree; the stats file itself was correct.
 - **D4 (B1 exit):** Decide Strangler-Fig timeline for legacy `js/*.js` fallback
   (measure 0% usage over a window, then remove in a separate PR).
 

@@ -57,8 +57,7 @@ export default {
     '<rootDir>/tests/unit/pwa-service.test.js',
     '<rootDir>/tests/unit/rum-service.test.js',
     '<rootDir>/tests/unit/search-engine.test.js',
-    '<rootDir>/tests/unit/vector-search-service.test.js',
-    '<rootDir>/tests/unit/vector-store.test.js'
+    '<rootDir>/tests/unit/vector-search-service.test.js'
   ],
 
   setupFiles: ['<rootDir>/tests/mocks/workers-mock.js']
