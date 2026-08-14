@@ -1,5 +1,17 @@
 # Комплексные рекомендации по улучшению Engineering Blog
 
+> ## ⚠️ ARCHIVED / HISTORICAL (2026-08-15)
+> This plan was written against an **earlier project layout** (`js/*.js`
+> legacy pipeline + a proposed TypeScript migration) that the current
+> repository has since superseded. The authoritative working agreement is now
+> **`AGENTS.md`** plus `docs/ARCHITECTURE.md`, which describe the live
+> `src/` + esbuild module pipeline and the quarantine of the broken PR #41
+> suites. Where this document conflicts with `AGENTS.md`, `AGENTS.md` wins.
+> The newer external `AGENTS_DEEP_REFACTORING_PLAN(3).md` and the executed
+> `docs/BASELINE_METRICS.md` / `docs/AUDIT_FINDINGS.md` are the active sources
+> of truth for the refactoring work. This file is retained for historical
+> context only.
+
 ## 📋 Резюме
 
 Этот документ содержит полный набор рекомендаций по глубокой переработке проекта Engineering Blog, включая рефакторинг, модуляризацию, тестирование, оптимизацию и документирование.

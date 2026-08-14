@@ -80,6 +80,49 @@ jobs:
       run: |
         npm run analyze:size
 
+  # 📊 Instrumented test-coverage gate (plan Phase 4.2)
+  # Measures REAL branch/line coverage with c8 (not the old pass-rate badge)
+  # and enforces a no-regression floor at the measured baseline. Thresholds are
+  # intentionally set just below the current measured numbers so the gate catches
+  # coverage drops; the project's §11 target is >=85% branch, reached once the
+  # Phase 4.4 E2E (Playwright) layer covers the DOM/network-bound services.
+  coverage:
+    name: 📊 Coverage Gate (c8)
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 📦 Install Dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: 📊 Run coverage (c8) with regression floor
+        run: |
+          npx c8 --reporter=text --reporter=lcov \
+            --all --include='src/**/*.js' \
+            --exclude='src/**/*.test.js' --exclude='src/workers/**' \
+            --check-coverage \
+            --lines 35 --branches 62 --functions 70 --statements 36 \
+            npx jest --config jest.config.js --coverage=false
+
+      - name: 📤 Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            coverage/lcov.info
+            lcov.info
+          if-no-files-found: ignore
+
   # 📜 Content Model & CI Contract (Vector A: Agent-driven Publishing Protocol)
   # Hard gate: changed posts MUST satisfy schema/post-metadata.schema.json.
   # Soft gate: AI pre-merge review (frontmatter/links/SEO) reported, non-fatal.

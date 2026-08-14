@@ -99,26 +99,33 @@ file supersedes them as the verified baseline.
 
 | Scope | % Stmts | % Branch | % Funcs | % Lines |
 |---|---|---|---|---|
-| **All files** | **34.95** | **62.18** | **70.31** | **34.95** |
+| **All files** | **36.74** | **63.07** | **72.34** | **36.74** |
 | `src/config` | 100 | 100 | 100 | 100 |
 | `src/core` (theme-manager) | 90.0 | 60.7 | 96 | 90.0 |
-| `src/utils` (helpers, storage) | 56.7 | 62.0 | 53.8 | 56.7 |
-| `src/modules` (mixed) | 48.7 | 60.7 | 71.9 | 48.7 |
-| `src/services` | 17.6 | 66.2 | 69.2 | 17.6 |
+| `src/utils` (helpers, storage) | 63 | 72 | 70 | 63 |
+| `src/modules` (mixed) | 49 | 61 | 72 | 49 |
+| `src/services` | 37 | 67 | 73 | 37 |
 | `src/agents` (link-repair-agent) | 0 | 0 | 0 | 0 |
+
+**Well-covered modules (newly added suites):** analytics-service 73%,
+embedding-cache-service 90%, prefetch 69%, vector-search 68%, bci-controller
+92%, eeg-adapter 92%, crdt-sync 60%, graph-sync 52%, webrtc-transport 48%,
+helpers 62%, storage 83%.
 
 **Zero-coverage modules (largest first) — the real test-debt surface:**
 `rum-service.js` (808), `vr-export-service.js` (637), `image-optimizer.js`
 (570), `social-sharing.js` (578), `vector-search-service.js` (573),
-`ai-i18n-service.js` (328), `embedding-cache.js` (561), `assistant-ui.js`
-(387), `pwa-service.js` (625), `vector-store.js` (137), `index.js` (217),
+`ai-i18n-service.js` (328), `embedding-cache.js` (561, **dead code — see
+AUDIT_FINDINGS §B6**), `assistant-ui.js` (387), `pwa-service.js` (625),
+`vector-store.js` (137, now 54% tested), `index.js` (217),
 `link-repair-agent.js` (414).
 
-**v4.0 modules (already covered):** bci-controller 91.8%, eeg-adapter 91.9%,
-crdt-sync 60.4%, graph-sync 51.6%, webrtc-transport 47.7%.
-
-**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 62.18%
-branch / 34.95% line — substantial gap. Raising the zero-coverage services
-(analytics, pwa, rum, vector-search, embedding-cache) is the highest-leverage
-next step.
+**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 63.07%
+branch / 36.74% line — substantial gap. The gap is concentrated in large
+DOM/network-bound services (rum, pwa, vr-export, image-optimizer,
+social-sharing, assistant-ui, ai-i18n, link-repair-agent) that have no jsdom
+test harness and require a browser/E2E (Playwright) layer to cover without
+faking. A CI coverage gate IS established (see todo/CI) enforcing the measured
+baseline + no-regression; reaching 85% requires the Phase 4.4 E2E layer, which
+is the next planned work and not yet built.
 
