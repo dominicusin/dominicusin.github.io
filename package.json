@@ -45,13 +45,14 @@
   "author": "DominicusIn",
   "license": "MIT",
   "devDependencies": {
-    "terser": "^5.19.0",
     "cssnano": "^6.0.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^8.57.0",
     "html-minifier": "^4.0.0",
     "html-validate": "^11.6.2",
+    "jsdoc": "^4.0.2",
     "lighthouse": "^13.4.1",
-    "eslint": "^8.57.0",
-    "jsdoc": "^4.0.2"
+    "terser": "^5.19.0"
   },
   "engines": {
     "node": ">=16.0.0"

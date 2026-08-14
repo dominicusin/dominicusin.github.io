@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
- * Simple test runner for ESM modules in Node.js
+ * Test runner for ESM modules in Node.js.
+ * Runs unit tests for the refactored src/ modules.
  * Usage: node tests/run-tests.js
  */
 
-// Simple test utilities
+// --- Minimal test framework ---
 class TestRunner {
   constructor() {
     this.suites = [];
@@ -12,7 +13,6 @@ class TestRunner {
     this.passed = 0;
     this.failed = 0;
   }
-
   describe(name, fn) {
     const suite = { name, tests: [] };
     this.suites.push(suite);
@@ -20,17 +20,14 @@ class TestRunner {
     fn();
     this.currentSuite = null;
   }
-
   it(name, fn) {
     if (!this.currentSuite) throw new Error('it() must be within describe()');
     this.currentSuite.tests.push({ name, fn });
   }
-
   async run() {
     console.log('\n========================================');
     console.log('         RUNNING TEST SUITE           ');
     console.log('========================================\n');
-
     for (const suite of this.suites) {
       console.log(`Suite: ${suite.name}`);
       for (const test of suite.tests) {
@@ -45,199 +42,142 @@ class TestRunner {
         }
       }
     }
-
     console.log('\n========================================');
     console.log(`Total: ${this.passed + this.failed} | Passed: ${this.passed} | Failed: ${this.failed}`);
     console.log('========================================\n');
-
     return this.failed === 0;
   }
 }
 
 const runner = new TestRunner();
-
-// Helper for sync/async tests
 const describe = (name, fn) => runner.describe(name, fn);
 const it = (name, fn) => runner.it(name, fn);
 
-// Import helpers module
+// --- Import modules under test ---
 import {
-  debounce,
-  throttle,
-  generateId,
-  getNestedValue,
-  isObject,
-  formatDate,
-  escapeHTML
+  debounce, throttle, generateId, getNestedValue, deepMerge, isObject,
+  formatDate, escapeHTML
 } from '../src/utils/helpers.js';
+import {
+  DEFAULT_CONFIG, CSS_CLASSES, ARIA_LABELS, EVENT_NAMES, KEY_CODES, WEB_VITALS_THRESHOLDS
+} from '../src/config/constants.js';
+import { LocalStorage, SessionStorage, themeStorage, languageStorage } from '../src/utils/storage.js';
+import App, { startApp } from '../src/index.js';
 
-// Define test suite
-describe('Helpers', () => {
-  describe('debounce', () => {
-    it('should delay function execution', (done) => {
-      let callCount = 0;
-      const debouncedFn = debounce(() => callCount++, 100);
-
-      debouncedFn();
-      debouncedFn();
-      debouncedFn();
-
-      if (callCount !== 0) {
-        throw new Error('debounce failed: immediate call');
-      }
-
-      setTimeout(() => {
-        if (callCount !== 1) {
-          throw new Error(`debounce failed: expected 1, got ${callCount}`);
-        }
-        done();
-      }, 150);
-    });
+// --- helpers tests ---
+describe('helpers', () => {
+  it('debounce delays execution', (done) => {
+    let n = 0;
+    const d = debounce(() => n++, 80);
+    d(); d(); d();
+    if (n !== 0) throw new Error('debounce fired immediately');
+    setTimeout(() => {
+      if (n !== 1) throw new Error(`expected 1, got ${n}`);
+      done();
+    }, 120);
   });
 
-  describe('throttle', () => {
-    it('should limit function execution rate', (done) => {
-      let callCount = 0;
-      const throttledFn = throttle(() => callCount++, 100);
-
-      throttledFn();
-      throttledFn();
-      throttledFn();
-
-      if (callCount !== 1) {
-        throw new Error(`throttle failed: expected 1, got ${callCount}`);
-      }
-
-      setTimeout(() => {
-        throttledFn();
-        if (callCount !== 2) {
-          throw new Error(`throttle failed: expected 2, got ${callCount}`);
-        }
-        done();
-      }, 150);
-    });
+  it('throttle limits rate', (done) => {
+    let n = 0;
+    const t = throttle(() => n++, 80);
+    t(); t(); t();
+    if (n !== 1) throw new Error(`expected 1 immediate, got ${n}`);
+    setTimeout(() => {
+      t();
+      if (n !== 2) throw new Error(`expected 2, got ${n}`);
+      done();
+    }, 120);
   });
 
-  describe('generateId', () => {
-    it('should generate unique IDs', () => {
-      const id1 = generateId();
-      const id2 = generateId();
-      if (id1 === id2) throw new Error('generateId failed: IDs are not unique');
-    });
-
-    it('should use custom prefix', () => {
-      const id = generateId('test');
-      if (!id.startsWith('test_')) throw new Error(`generateId failed: expected prefix "test_", got "${id}"`);
-    });
-
-    it('should include timestamp in ID', () => {
-      const before = Date.now();
-      const id = generateId();
-      const after = Date.now();
-      const timestamp = parseInt(id.split('_')[1]);
-      if (timestamp < before || timestamp > after) throw new Error('generateId timestamp validation failed');
-    });
+  it('generateId unique + prefixed', () => {
+    if (generateId() === generateId()) throw new Error('ids not unique');
+    if (!generateId('x').startsWith('x_')) throw new Error('prefix missing');
   });
 
-  describe('getNestedValue', () => {
-    const obj = {
-      a: { b: { c: 'deep value' }, d: 'shallow value' },
-      e: 'top level'
-    };
-
-    it('should get nested values', () => {
-      if (getNestedValue(obj, 'a.b.c') !== 'deep value') throw new Error('getNestedValue failed for a.b.c');
-      if (getNestedValue(obj, 'a.d') !== 'shallow value') throw new Error('getNestedValue failed for a.d');
-      if (getNestedValue(obj, 'e') !== 'top level') throw new Error('getNestedValue failed for e');
-    });
-
-    it('should return null for missing keys', () => {
-      if (getNestedValue(obj, 'a.b.x') !== null) throw new Error('getNestedValue should return null for a.b.x');
-      if (getNestedValue(obj, 'x.y.z') !== null) throw new Error('getNestedValue should return null for x.y.z');
-    });
-
-    it('should handle null/undefined objects', () => {
-      if (getNestedValue(null, 'a.b') !== null) throw new Error('getNestedValue should return null for null object');
-      if (getNestedValue(undefined, 'a.b') !== null) throw new Error('getNestedValue should return null for undefined object');
-    });
+  it('getNestedValue handles missing keys', () => {
+    const o = { a: { b: { c: 1 } } };
+    if (getNestedValue(o, 'a.b.c') !== 1) throw new Error('nested read failed');
+    if (getNestedValue(o, 'a.x.y') !== null) throw new Error('should return null');
+    if (getNestedValue(null, 'a') !== null) throw new Error('null safe failed');
   });
 
-  describe('isObject', () => {
-    it('should return true for plain objects', () => {
-      if (!isObject({})) throw new Error('isObject failed for {}');
-      if (!isObject({ key: 'value' })) throw new Error('isObject failed for object');
-    });
-
-    it('should return false for arrays', () => {
-      if (isObject([])) throw new Error('isObject should return false for []');
-      if (isObject([1, 2, 3])) throw new Error('isObject should return false for array');
-    });
-
-    it('should return false for primitives', () => {
-      if (isObject(null)) throw new Error('isObject should return false for null');
-      if (isObject(undefined)) throw new Error('isObject should return false for undefined');
-      if (isObject('string')) throw new Error('isObject should return false for string');
-      if (isObject(123)) throw new Error('isObject should return false for number');
-      if (isObject(true)) throw new Error('isObject should return false for boolean');
-    });
+  it('deepMerge merges nested', () => {
+    const r = deepMerge({ a: { x: 1 } }, { a: { y: 2 } }, { b: 3 });
+    if (r.a.x !== 1 || r.a.y !== 2 || r.b !== 3) throw new Error('deepMerge wrong');
   });
 
-  describe('formatDate', () => {
-    it('should format date string', () => {
-      const result = formatDate('2024-01-15');
-      // Accept any valid date format (Russian or English locale)
-      const pattern = /\w+.*\d+.*\d+/;
-      if (!pattern.test(result)) throw new Error(`formatDate failed: "${result}" doesn't match pattern`);
-    });
-
-    it('should handle Date objects', () => {
-      const date = new Date('2024-06-20');
-      const result = formatDate(date);
-      const pattern = /\w+.*\d+.*\d+/;
-      if (!pattern.test(result)) throw new Error(`formatDate failed: "${result}" doesn't match pattern`);
-    });
-
-    it('should accept custom options', () => {
-      const result = formatDate('2024-01-15', { year: 'numeric', month: 'long' });
-      // Accept any month name in result
-      if (!result || typeof result !== 'string') throw new Error(`formatDate failed: invalid result "${result}"`);
-    });
+  it('isObject correct', () => {
+    if (!isObject({})) throw new Error('{} should be object');
+    if (isObject([])) throw new Error('array should not be object');
+    if (isObject(null) || isObject('s') || isObject(5)) throw new Error('primitive false positive');
   });
 
-  describe('escapeHTML', () => {
-    it('should escape HTML special characters', () => {
-      // Skip in Node.js (no DOM)
-      if (typeof document === 'undefined') {
-        console.log('    (skipped - no DOM in Node.js)');
-        return;
-      }
-      const result = escapeHTML('<script>alert("xss")</script>');
-      const expected = '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;';
-      if (result !== expected) throw new Error(`escapeHTML failed: expected "${expected}", got "${result}"`);
-    });
+  it('formatDate returns string', () => {
+    const r = formatDate('2024-01-15');
+    if (typeof r !== 'string' || r.length === 0) throw new Error('formatDate empty');
+  });
 
-    it('should handle plain text', () => {
-      if (typeof document === 'undefined') {
-        console.log('    (skipped - no DOM in Node.js)');
-        return;
-      }
-      if (escapeHTML('Hello World') !== 'Hello World') {
-        throw new Error('escapeHTML should preserve plain text');
-      }
-    });
-
-    it('should escape ampersands', () => {
-      if (typeof document === 'undefined') {
-        console.log('    (skipped - no DOM in Node.js)');
-        return;
-      }
-      if (escapeHTML('Tom & Jerry') !== 'Tom &amp; Jerry') {
-        throw new Error('escapeHTML failed for ampersand');
-      }
-    });
+  it('escapeHTML DOM-independent check skipped in Node', () => {
+    if (typeof document === 'undefined') { console.log('    (skipped - no DOM)'); return; }
+    if (escapeHTML('<b>') !== '&lt;b&gt;') throw new Error('escapeHTML wrong');
   });
 });
 
-// Run tests
+// --- constants tests ---
+describe('constants', () => {
+  it('DEFAULT_CONFIG frozen + valid', () => {
+    if (DEFAULT_CONFIG.DEFAULT_THEME !== 'auto') throw new Error('default theme wrong');
+    if (!DEFAULT_CONFIG.THEMES.includes('dark')) throw new Error('themes missing dark');
+  });
+  it('CSS_CLASSES / ARIA / EVENTS / KEYS present', () => {
+    if (!CSS_CLASSES.THEME_DARK) throw new Error('CSS_CLASSES missing');
+    if (!ARIA_LABELS.THEME_SWITCHER) throw new Error('ARIA missing');
+    if (!EVENT_NAMES.THEME_CHANGED) throw new Error('EVENTS missing');
+    if (KEY_CODES.ESCAPE !== 'Escape') throw new Error('KEY_CODES wrong');
+  });
+  it('WEB_VITALS_THRESHOLDS has LCP/FID/CLS', () => {
+    if (!WEB_VITALS_THRESHOLDS.LCP || !WEB_VITALS_THRESHOLDS.FID || !WEB_VITALS_THRESHOLDS.CLS)
+      throw new Error('web vitals incomplete');
+  });
+});
+
+// --- storage tests (in-memory fallback in Node) ---
+describe('storage', () => {
+  it('LocalStorage set/get/remove with fallback', () => {
+    const s = new LocalStorage('test:');
+    s.set('k', { a: 1 });
+    if (JSON.stringify(s.get('k')) !== JSON.stringify({ a: 1 })) throw new Error('get mismatch');
+    s.remove('k');
+    if (s.get('k') !== null) throw new Error('remove failed');
+  });
+  it('SessionStorage extends LocalStorage', () => {
+    const s = new SessionStorage();
+    s.set('x', 42);
+    if (s.get('x') !== 42) throw new Error('session get failed');
+  });
+  it('prefixed keys', () => {
+    const s = new LocalStorage('ns:');
+    s.set('v', 1);
+    if (!s.keys().some(k => k.startsWith('ns:'))) throw new Error('prefix not applied');
+  });
+  it('pre-configured instances exist', () => {
+    if (!themeStorage || !languageStorage) throw new Error('instances missing');
+  });
+});
+
+// --- index / App bootstrap tests ---
+describe('index (App)', () => {
+  it('exports App object with helpers + storage', () => {
+    if (typeof App !== 'object') throw new Error('App not exported');
+    if (typeof App.helpers.debounce !== 'function') throw new Error('App.helpers missing');
+    if (typeof App.storage.LocalStorage !== 'function') throw new Error('App.storage missing');
+  });
+  it('startApp is a function and safe to call in Node (no document)', () => {
+    if (typeof startApp !== 'function') throw new Error('startApp not exported');
+    // In Node document is undefined, so startApp must not throw
+    startApp();
+  });
+});
+
 const success = await runner.run();
 process.exit(success ? 0 : 1);

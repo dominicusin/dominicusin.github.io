@@ -118,11 +118,55 @@ function optimizeImages() {
 }
 
 /**
+ * Bundle the refactored ES modules (src/) into a single browser-ready file.
+ * Uses esbuild for tree-shaking + minification. Falls back gracefully if esbuild
+ * is unavailable (legacy js/*.js remains the source of truth in that case).
+ * @param {boolean} minify - Whether to minify the output
+ */
+async function bundleModules(minify = true) {
+  const esbuild = path.join(__dirname, 'node_modules', 'esbuild', 'lib', 'main.js');
+  const inputFile = path.join(__dirname, 'src', 'index.js');
+  const outputFile = path.join(__dirname, 'js', 'refactored-bundle.js');
+
+  if (!fs.existsSync(inputFile)) {
+    console.warn('⚠️ src/index.js not found, skipping module bundle');
+    return;
+  }
+
+  try {
+    const esbuildMod = await import(esbuild);
+    await esbuildMod.build({
+      entryPoints: [inputFile],
+      bundle: true,
+      format: 'esm',
+      target: ['es2018'],
+      outfile: outputFile,
+      minify,
+      sourcemap: !minify,
+      legalComments: 'none',
+      logLevel: 'silent'
+    });
+    console.log(`✅ Bundled src/ -> ${path.basename(outputFile)}${minify ? ' (minified)' : ''}`);
+  } catch (err) {
+    // Fallback: produce a concatenated ESM bundle without tree-shaking
+    console.warn('⚠️ esbuild unavailable, writing unminified concatenated module');
+    const content = fs.readFileSync(inputFile, 'utf8');
+    const outDir = path.dirname(outputFile);
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(outputFile, content);
+  }
+}
+
+
+/**
  * Build assets for development
  */
 function buildDevAssets() {
   console.log('🛠️ Building development assets...');
-  
+
+  // Bundle refactored ESM modules (unminified for debugging)
+  bundleModules(false);
+
   // Copy files without minification for development
   const jsAssets = [
     'js/main.js',
@@ -252,7 +296,10 @@ function buildAssets() {
   
   // Optimize images (basic implementation)
   optimizeImages();
-  
+
+  // Bundle refactored ESM modules (minified + tree-shaken) into js/refactored-bundle.js
+  bundleModules(true);
+
   // Generate build stats
   generateBuildStats();
   

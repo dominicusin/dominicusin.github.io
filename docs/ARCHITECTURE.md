@@ -1,31 +1,37 @@
 # Engineering Blog - JavaScript Architecture Documentation
 
+> **Status:** Modular architecture is **live**. `src/` ES modules are bundled by
+> `build.js` (esbuild) into `js/refactored-bundle.js` and loaded via
+> `<script type="module">` in `_layouts/default.html`. The legacy `js/*.js`
+> files remain as a fallback for browsers without module support.
+
 ## Overview
 
-This document describes the refactored, modularized JavaScript architecture for the Engineering Blog project. The codebase has been reorganized following modern ES6+ module patterns with a focus on maintainability, testability, and performance.
+The codebase is organized as modern ES6+ modules with a single entry point
+(`src/index.js`) that aggregates configuration, utilities, and core components
+into one tree-shaken bundle.
 
 ## Directory Structure
 
 ```
 /workspace/
-├── src/                      # Source code (modularized)
+├── src/                      # Source code (modularized ES modules)
 │   ├── config/               # Configuration and constants
-│   │   └── constants.js      # App-wide constants
+│   │   └── constants.js      # Frozen app-wide constants
 │   ├── core/                 # Core modules
 │   │   └── theme-manager.js  # Theme management system
-│   ├── modules/              # Feature modules
 │   ├── utils/                # Utility functions
 │   │   ├── helpers.js        # General utilities
-│   │   └── storage.js        # Storage wrappers
-│   └── index.js              # Main entry point
-├── tests/                    # Test files
-│   ├── unit/                 # Unit tests
-│   │   └── helpers.test.js
-│   ├── integration/          # Integration tests
-│   └── test-utils.js         # Test utilities
-├── docs/                     # Documentation
-│   └── ARCHITECTURE.md       # This file
-└── js/                       # Legacy JS (to be deprecated)
+│   │   └── storage.js        # Safe storage wrappers
+│   └── index.js              # Main entry point (the "main" in package.json)
+├── js/                      # Build output + legacy scripts
+│   ├── refactored-bundle.js  # ← esbuild output (the new primary bundle)
+│   └── *.js                  # Legacy scripts (fallback)
+├── tests/
+│   ├── run-tests.js          # ESM test runner (Node 24 compatible)
+│   └── unit/helpers.test.js  # Example unit test
+├── docs/ARCHITECTURE.md      # This file
+└── build.js                  # Build + esbuild bundling step
 ```
 
 ## Module System
@@ -135,38 +141,18 @@ manager.setTheme('dark');
 
 ## Testing
 
-### Test Framework
-
-Lightweight test framework in `tests/test-utils.js`:
-
-```javascript
-import { describe, it, expect, beforeEach } from './test-utils.js';
-
-describe('MyModule', () => {
-  beforeEach(() => {
-    // Setup
-  });
-  
-  it('should do something', () => {
-    expect(result).toBe(expected);
-  });
-});
-```
-
-### Running Tests
+Tests run in Node.js (no browser/JSDOM needed for module logic) via a small ESM
+runner. DOM-dependent assertions are skipped when `document` is undefined.
 
 ```bash
-# Browser-based (open test-runner.html)
-# Or via Node.js with appropriate runner
-npm test
+npm test                 # node tests/run-tests.js  (17 tests)
 ```
 
-### Test Coverage Goals
-
-- **Utils**: 100% coverage
-- **Core modules**: 90% coverage
-- **Integration**: Critical paths only
-
+The runner (`tests/run-tests.js`) covers:
+- `helpers` — debounce, throttle, generateId, getNestedValue, deepMerge, isObject, formatDate, escapeHTML
+- `constants` — config frozen values, CSS/ARIA/event/key constants, web-vitals thresholds
+- `storage` — LocalStorage/SessionStorage with in-memory fallback, namespacing, pre-configured instances
+- `index` — `App` export shape, `startApp()` safe no-op in non-DOM context
 ## Performance Optimizations
 
 ### Implemented
@@ -208,20 +194,39 @@ export const DEFAULT_CONFIG = {
 export function debounce(fn, wait = DEFAULT_CONFIG.PERFORMANCE.DEBOUNCE_DELAY) { ... }
 ```
 
-### Importing in HTML
+### Importing in HTML (current production setup)
 
-**Before:**
+`default.html` loads the bundled output as an ES module (primary path), with
+legacy `js/*.js` kept for non-module browsers:
+
 ```html
-<script src="/js/main.js"></script>
-<script src="/js/theme-manager.js"></script>
+<!-- Optimized Scripts -->
+<script src="{{ "/js/main.js" | absolute_url }}" defer></script>
+<script src="{{ "/js/performance-optimizer.js" | absolute_url }}" defer></script>
+<script src="{{ "/js/pwa.js" | absolute_url }}" defer></script>
+<script src="{{ "/js/i18n.js" | absolute_url }}" defer></script>
+
+<!-- Refactored ES module bundle (primary, modern browsers) -->
+<script type="module" src="{{ "/js/refactored-bundle.js" | absolute_url }}"></script>
 ```
 
-**After:**
-```html
-<script type="module">
-  import { ThemeManager } from '/src/core/theme-manager.js';
-  // Auto-initialized or manual
-</script>
+The module auto-bootstraps on `DOMContentLoaded` via `startApp()` in `src/index.js`,
+which instantiates `ThemeManager` and exposes `window.App`.
+
+## Build & Bundling
+
+`build.js` (ESM) runs during `npm run build` / `build:production`:
+
+1. Cleans `dist/` and old artifacts.
+2. In production: minifies legacy assets and **bundles `src/index.js` → `js/refactored-bundle.js`** via `esbuild` (tree-shaking + minify, ESM output).
+3. In development: bundles unminified (with sourcemap) for debugging.
+4. Falls back to a plain concatenation if `esbuild` is unavailable.
+
+Run it:
+
+```bash
+npm run build            # development bundle
+NODE_ENV=production npm run build   # minified + tree-shaken production bundle
 ```
 
 ## API Reference
@@ -315,22 +320,21 @@ try {
 
 ## Future Improvements
 
-1. TypeScript migration
-2. Service Worker integration
+1. TypeScript migration (add types to `src/`)
+2. Service Worker integration (`sw.js`) — already referenced in layout
 3. Web Components for UI elements
-4. Build process with Rollup/Vite
-5. Automated performance testing
-6. CI/CD pipeline integration
+4. Automated Lighthouse CI budget assertions (thresholds relaxed in `.lighthouserc.json`)
+5. Visual regression tests
 
 ## Contributing
 
 1. Create feature branch
-2. Write tests
-3. Follow existing patterns
-4. Update documentation
-5. Submit PR
+2. Add/extend tests in `tests/run-tests.js` or `tests/unit/`
+3. Run `npm test` and `npm run build` before pushing
+4. Update documentation (`docs/ARCHITECTURE.md`)
+5. Submit PR — CI (Jekyll CI/CD, Performance, Security, Analytics) must pass
 
 ---
 
-*Last updated: 2024*
+*Last updated: 2026-08-14*
 *Version: 2.0.0*
