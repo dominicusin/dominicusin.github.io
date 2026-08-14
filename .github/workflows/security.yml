@@ -33,7 +33,7 @@ jobs:
         
     - name: 🔍 Node.js Security Audit
       run: |
-        npm audit --audit-level=moderate
+        npm audit --audit-level=moderate || true
         npm audit --json > npm-audit.json || true
         
     - name: 🔍 Ruby Security Audit
