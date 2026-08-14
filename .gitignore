@@ -1,4 +1,3 @@
-```
 # Dependencies
 node_modules/
 
@@ -39,8 +38,6 @@ htmlcov/
 
 # IDE
 .idea/
-*.swp
-*.swo
 
 # System
 .DS_Store

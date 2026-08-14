@@ -80,11 +80,45 @@ jobs:
       run: |
         npm run analyze:size
 
+  # 📜 Content Model & CI Contract (Vector A: Agent-driven Publishing Protocol)
+  # Hard gate: changed posts MUST satisfy schema/post-metadata.schema.json.
+  # Soft gate: AI pre-merge review (frontmatter/links/SEO) reported, non-fatal.
+  # Emits: assets/data/knowledge-graph.json (JSON-LD) for Vector Search / KG consumers.
+  content-contract:
+    name: 📜 Content Model Contract
+    runs-on: ubuntu-22.04
+    needs: test
+
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: 📦 Install Dependencies
+      run: npm ci --prefer-offline --no-audit --no-fund
+
+    - name: 📜 Validate Content Model & Run AI Review
+      run: node scripts/ci-content-contract.cjs
+
+    - name: 🕸️ Upload Knowledge Graph
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: knowledge-graph
+        path: assets/data/knowledge-graph.json
+        retention-days: 7
+
   # 🏗️ Build & Optimization
   build:
     name: 🏗️ Build & Optimize
     runs-on: ubuntu-22.04
-    needs: test
+    needs: [test, content-contract]
 
     steps:
     - name: 🧹 Clean up disk space
