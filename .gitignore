@@ -1,1 +1,34 @@
-(docs/DEEP_REFACTORING_PLAN.md, docs/TESTING.md, tests/unit/storage.test.js, RECOMMENDATIONS.md)
+```
+# Dependencies
+node_modules/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+build/
+target/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py.class
+.Python
+venv/
+.venv/
+.env
+.env.local
+```
