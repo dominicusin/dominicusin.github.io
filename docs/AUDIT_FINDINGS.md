@@ -53,7 +53,16 @@ and `contracts/`. Import-graph scan of `src/` shows **0 cycles** even with them.
 - **D4 (B1 exit):** Decide Strangler-Fig timeline for legacy `js/*.js` fallback
   (measure 0% usage over a window, then remove in a separate PR).
 
-## E. Phase 0/1 Definition-of-Done
+## F. Bugs found and fixed during testing (verified)
+
+- **F1 — `isObject()` returned operand instead of boolean.** `src/utils/helpers.js`
+  `isObject(null)` returned `null` and `isObject(undefined)` returned `undefined`
+  (short-circuit of `value && ...`), breaking any `=== false` comparison. Fixed
+  by coercing with `!!` (commit adds `tests/unit/helpers.test.js` which caught it;
+  fix is strictly safer — no caller relied on the non-boolean return, truthiness
+  is unchanged). Coverage of `helpers.js` raised 33% → 61.6% lines.
+
+## G. Phase 0/1 Definition-of-Done
 
 - [x] Every row in the duplication table is a **fact**, not a guess.
 - [x] Candidates-for-removal listed with rationale (B4, D-items).

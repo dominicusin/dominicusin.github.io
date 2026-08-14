@@ -106,7 +106,7 @@ export function deepMerge(target, ...sources) {
  * @returns {boolean} True if object
  */
 export function isObject(value) {
-  return value && typeof value === 'object' && !Array.isArray(value);
+  return !!(value && typeof value === 'object' && !Array.isArray(value));
 }
 
 /**
