@@ -154,9 +154,7 @@ npm test
 
 Expected output:
 ```
-========================================
 Total: 17 | Passed: 17 | Failed: 0
-========================================
 ```
 
 ## 📊 Bundle Analysis
