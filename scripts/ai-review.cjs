@@ -13,7 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const yaml = require('js-yaml');
 
 const POSTS_DIR = path.join(__dirname, '..', '_posts');
@@ -382,7 +382,7 @@ async function reviewPost(filePath) {
   // 5. Schema Validation (call external script)
   log(colors.cyan, '\n✅ Running schema validation...');
   try {
-    execSync(`node ${path.join(__dirname, 'validate-frontmatter.js')} "${filePath}"`, {
+    execFileSync('node', [path.join(__dirname, 'validate-frontmatter.js'), filePath], {
       stdio: 'pipe',
       encoding: 'utf8'
     });
