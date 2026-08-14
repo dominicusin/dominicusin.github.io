@@ -3,8 +3,6 @@
  * @module modules/subscription
  */
 
-import { DEFAULT_CONFIG } from '../config/constants.js';
-
 /**
  * Subscription System - Handles RSS and Email subscriptions
  */

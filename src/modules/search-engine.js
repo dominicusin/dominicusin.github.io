@@ -3,7 +3,7 @@
  * @module modules/search-engine
  */
 
-import { DEFAULT_CONFIG, CSS_CLASSES } from '../config/constants.js';
+import { DEFAULT_CONFIG } from '../config/constants.js';
 import { debounce, formatDate, createElement } from '../utils/helpers.js';
 
 /**

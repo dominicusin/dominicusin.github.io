@@ -5,7 +5,6 @@
 
 import { DEFAULT_CONFIG, CSS_CLASSES, ARIA_LABELS } from '../config/constants.js';
 import { LocalStorage } from '../utils/storage.js';
-import { getDeviceInfo } from '../utils/helpers.js';
 
 /**
  * Theme Manager - Handles theme switching and persistence
@@ -240,7 +239,7 @@ export class ThemeManager {
     const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
     if (!mediaQuery) return;
     
-    mediaQuery.addEventListener('change', (e) => {
+    mediaQuery.addEventListener('change', () => {
       if (this.currentTheme === 'auto') {
         this.applyTheme('auto');
       }
