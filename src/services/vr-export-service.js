@@ -368,7 +368,6 @@ export class KnowledgeGraphVRExporter {
       }
     }
 
-    const positionsArray = new Float32Array(positions);
     return {
       positions,
       normals,
@@ -480,13 +479,6 @@ export class KnowledgeGraphVRExporter {
    * Создание Accessor
    */
   createAccessor(bufferView, type, componentType, count, min, max) {
-    const typeCounts = {
-      'SCALAR': 1,
-      'VEC2': 2,
-      'VEC3': 3,
-      'VEC4': 4
-    };
-
     return {
       bufferView: bufferView,
       componentType: componentType === 'FLOAT' ? 5126 : 5123,

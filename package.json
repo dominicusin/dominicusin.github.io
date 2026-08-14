@@ -20,7 +20,7 @@
     "test:watch": "nodemon tests/run-tests.js",
     "test:coverage": "npx cpx 'src/**/*.js' coverage/src && echo 'Coverage: see coverage/ directory'",
     "validate": "html-validate _site/**/*.html || true",
-    "lint": "eslint src/**/*.js tests/**/*.js",
+    "lint": "eslint 'src/**/*.js' 'tests/**/*.js'",
     "lint:fix": "eslint src/**/*.js tests/**/*.js --fix",
     "audit": "npm audit",
     "audit:performance": "echo 'Performance audit skipped - use Lighthouse CI in GitHub Actions' || true",

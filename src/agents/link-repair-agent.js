@@ -175,7 +175,6 @@ export class LinkRepairAgent {
    */
   async findSimilarFiles(brokenLink) {
     const fileName = path.basename(brokenLink.link).split('.')[0];
-    const dirName = path.dirname(brokenLink.link);
     
     // Ищем файлы с похожими именами
     const allFiles = await glob('**/*.{md,html,njk,liquid}', {
