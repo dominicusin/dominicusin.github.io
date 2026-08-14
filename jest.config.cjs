@@ -1,15 +1,50 @@
-// Jest 29 config (CJS) — type:module project requires CJS config file.
+/**
+ * Jest Configuration for Engineering Blog v3.0
+ * Optimized for Edge AI, Web Workers, and Service Workers testing
+ */
+
 module.exports = {
   testEnvironment: 'jsdom',
   roots: ['<rootDir>/tests'],
-  testMatch: ['**/tests/**/*.test.js'],
+  testMatch: [
+    '**/tests/unit/**/*.test.js',
+    '**/tests/integration/**/*.test.js',
+    '**/tests/e2e/**/*.test.js',
+    '**/tests/a11y/**/*.test.js',
+    '**/tests/performance/**/*.test.js'
+  ],
   transform: {
-    '^.+\\.js$': ['babel-jest', { configFile: './babel.config.cjs' }]
+    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.mjs$': 'babel-jest'
   },
-  moduleFileExtensions: ['js', 'json'],
-  setupFilesAfterEnv: ['<rootDir>/tests/jest.setup.js'],
-  collectCoverageFrom: ['src/**/*.js'],
+  moduleNameMapper: {
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
+    '^@components/(.*)$': '<rootDir>/_includes/$1',
+    '^@scripts/(.*)$': '<rootDir>/scripts/$1',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+  collectCoverageFrom: [
+    'src/services/**/*.js',
+    'scripts/**/*.js',
+    '!src/services/worker-pool.js', // Workers tested separately
+    '!**/node_modules/**',
+    '!**/vendor/**'
+  ],
   coverageThreshold: {
-    global: { branches: 50, functions: 60, lines: 60, statements: 60 }
-  }
+    global: {
+      branches: 90,
+      functions: 95,
+      lines: 95,
+      statements: 95
+    }
+  },
+  testTimeout: 30000,
+  verbose: true,
+  collectCoverage: true,
+  coverageReporters: ['text', 'lcov', 'html'],
+  coverageDirectory: 'coverage',
+  
+  // Mock service workers and web workers
+  setupFiles: ['<rootDir>/tests/mocks/workers-mock.js']
 };
