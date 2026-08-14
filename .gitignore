@@ -1,56 +1,49 @@
 # Dependencies
 node_modules/
 
-# Build artifacts
-dist/
-build/
-target/
-build-stats.json
-
-# Generated content-model artifacts (produced by CI content-contract job)
-assets/data/
-
-# Python specific
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.py.class
-*.py.obj
-*.py.out
-*.py.dll
-*.py.so
-*.py.a
-
-# Virtual environments
-venv/
-.venv/
-env/
+# Editors
+.vscode/
 
 # Logs and temp files
 *.log
 *.tmp
-*.temp
+*.swp
 
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Environment variables
+# Environment
 .env
 .env.local
 *.env.*
 
-# Coverage reports
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build artifacts
+dist/
+build/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.out
+
+# Coverage
 coverage/
 htmlcov/
 .coverage
 
-# IDE specific
-.vscode/
+# IDE
 .idea/
 
-# Compression files
+# System
+.DS_Store
+Thumbs.db
+
+# Compressed files
 *.zip
 *.gz
 *.tar
@@ -58,3 +51,25 @@ htmlcov/
 *.bz2
 *.xz
 *.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+
+# Testing
+.mypy_cache/
+.pytest_cache/
+target/
+.gradle/
+```

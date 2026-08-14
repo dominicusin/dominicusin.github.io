@@ -1,0 +1,99 @@
+name: Deploy to IPFS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  issues: write
+  deployments: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+      
+      - name: Build site
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+      
+      - name: Setup IPFS Pinata CLI
+        run: |
+          npm install -g @pinatacloud/pinata-cli
+          echo "${{ secrets.PINATA_JWT }}" | pinata-cli login
+      
+      - name: Pin to IPFS
+        id: pinata
+        run: |
+          CID=$(pinata-cli add ./_site --pinata-metadata '{"name": "Jekyll Site Deployment", "keyvalues": {"branch": "${{ github.ref_name }}", "commit": "${{ github.sha }}"}}' | grep -oP '(?<=CID: ).*')
+          echo "cid=$CID" >> $GITHUB_OUTPUT
+          echo "$CID" > ipfs-cid.json
+      
+      - name: Upload CID artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipfs-cid
+          path: ipfs-cid.json
+      
+      - name: Update DNSLink (if configured)
+        if: env.CLOUDFLARE_API_TOKEN != null
+        run: |
+          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records/${{ secrets.CLOUDFLARE_DNS_RECORD_ID }}" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data "{\"data\":{\"link\":\"/ipfs/${{ steps.pinata.outputs.cid }}\"}}"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      
+      - name: Comment PR with IPFS link
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const cid = '${{ steps.pinata.outputs.cid }}';
+            const ipfsUrl = `https://gateway.ipfs.io/ipfs/${cid}`;
+            const previewUrl = `https://${{ secrets.PINATA_GATEWAY || 'gateway.pinata.cloud'}}/ipfs/${cid}`;
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🚀 IPFS Deployment Preview\n\n- **CID**: \`${cid}\`\n- **Public Gateway**: [View on IPFS](${ipfsUrl})\n- **Pinata Gateway**: [View on Pinata](${previewUrl})\n\n✅ Successfully pinned to IPFS!`
+            });
+      
+      - name: Create deployment status
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const cid = '${{ steps.pinata.outputs.cid }}';
+            const ipfsUrl = `https://gateway.ipfs.io/ipfs/${cid}`;
+            
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: context.payload.deployment?.id || 1,
+              state: 'success',
+              environment_url: ipfsUrl,
+              description: `Deployed to IPFS: ${cid}`,
+              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+              environment: 'ipfs-production'
+            });

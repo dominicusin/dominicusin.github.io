@@ -5,6 +5,131 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [3.0.0-beta] - 2025-01-21
+
+### Добавлено
+
+#### RUM Dashboard и Аналитика
+- **RUM Dashboard** (`docs/rum-dashboard.html`)
+  - Визуализация метрик Core Web Vitals (LCP, INP, CLS) за 7 дней
+  - Карточки с текущими P95 значениями и статусными индикаторами
+  - Графики трендов на Chart.js
+  - Распределение просмотров по страницам
+  - Секция алертов с временными метками
+  - Поддержка темной темы через prefers-color-scheme
+  - Адаптивный дизайн для мобильных устройств
+
+- **RUM Service** (`src/services/rum-service.js`)
+  - Автоматический сбор метрик через PerformanceObserver
+  - LCP (Largest Contentful Paint) отслеживание
+  - INP (Interaction to Next Paint) мониторинг взаимодействий
+  - CLS (Cumulative Layout Shift) детекция сдвигов макета
+  - Пакетная отправка метрик (настраиваемый batch size)
+  - Проверка порогов и автоматические алерты
+  - Интеграция с Slack/Discord вебхуками
+  - Sample rate для контроля объема данных
+
+- **Метрики файл** (`assets/rum/metrics.json`)
+  - Структура для агрегированных данных
+  - 7-дневные тренды
+  - Статистика просмотров страниц
+  - История алертов
+
+#### Децентрализованный деплой
+- **GitHub Actions: IPFS Deploy** (`.github/workflows/deploy-ipfs.yml`)
+  - Сборка Jekyll сайта
+  - Пиннинг на IPFS через Pinata CLI
+  - Сохранение CID в ipfs-cid.json
+  - Обновление DNSLink через Cloudflare API
+  - Комментарий в PR с ссылкой на превью
+  - Создание deployment status для main branch
+
+- **GitHub Actions: Fediverse Notify** (`.github/workflows/fediverse-notify.yml`)
+  - Триггер на новые посты в _posts/
+  - Генерация ActivityPub объекта (JSON-LD)
+  - HTTP Signature подписывание запросов
+  - Отправка в Mastodon/Pixelfed Inbox
+  - Резервный метод через Mastodon API
+  - Авто-постинг с OG-картинками и хештегами
+
+#### Документация
+- `docs/RUM_SETUP.md` - Полное руководство по настройке RUM
+  - Интерпретация метрик LCP/INP/CLS
+  - Настройка алертов в Slack/Discord
+  - Privacy considerations
+  - Troubleshooting guide
+
+- `docs/DECENTRALIZED_DEPLOY.md` - Обновлено
+  - Инструкция по Pinata/IPFS настройке
+  - ActivityPub ключи и HTTP Signatures
+  - Mastodon API токены
+  - DNSLink конфигурация
+
+- `docs/EDGE_AI_GUIDE.md` - Дополнено
+  - Матрица совместимости браузеров
+  - Требования к устройствам
+  - Инструкция по отключению для приватности
+
+### Изменено
+
+#### Edge AI оптимизации
+- Прогрессивная индексация с `requestIdleCallback`
+- Batch processing по 10 постов для неблокирующей отрисовки
+- Улучшенный caching с TTL и LRU eviction
+- Гибридный reranking (70% vector + 30% keyword)
+
+#### UI компоненты
+- Skeleton loaders для всех async операций
+- Улучшенные анимации появления виджетов
+- Оптимизированные transition для reduced-motion пользователей
+
+### Технические детали
+
+#### Зависимости
+- Chart.js 4.4.0 для визуализации метрик
+- ONNX Runtime Web для Edge AI инференса
+- @pinatacloud/pinata-cli для IPFS пиннинга
+
+#### Переменные окружения
+```bash
+# RUM алертинг
+RUM_WEBHOOK_URL=https://hooks.slack.com/services/...
+
+# IPFS деплой
+PINATA_JWT=eyJhbGc...
+PINATA_GATEWAY=gateway.pinata.cloud
+CLOUDFLARE_API_TOKEN=...
+CLOUDFLARE_ZONE_ID=...
+CLOUDFLARE_DNS_RECORD_ID=...
+
+# Fediverse
+ACTIVITYPUB_ACTOR=https://mastodon.social/users/yourname
+ACTIVITYPUB_PRIVATE_KEY=-----BEGIN PRIVATE KEY-----...
+MASTODON_INSTANCE=mastodon.social
+MASTODON_USERNAME=yourname
+MASTODON_ACCESS_TOKEN=...
+SITE_BASE_URL=https://your-site.com
+```
+
+### Planned (Future Releases)
+
+#### Авто-исправление битых ссылок
+- AI-агент для сканирования ссылок
+- Автоматическое создание PR с исправлениями
+- Предложения альтернативных URL
+
+#### Мультиязычность AI
+- Динамическая подгрузка языковых пакетов
+- Поддержка 10+ языков для ассистента
+- Авто-детект языка пользователя
+
+#### VR/AR Экспорт
+- Генерация 3D сцены Графа Знаний
+- Экспорт в glTF/WebXR форматы
+- Просмотр в VR-шлемах (Quest, Vision Pro)
+
+---
+
 ## [3.0.0-beta] - 2025-01-14
 
 ### Добавлено
