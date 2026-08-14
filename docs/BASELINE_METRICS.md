@@ -88,6 +88,37 @@ file supersedes them as the verified baseline.
 |---|---|---|
 | Bundle raw size | 89.5 KB | <25 KB (plan §5/§DEEP) — **not met**; needs code-splitting (Phase 5) |
 | Gzip bundle | 24.8 KB | ~20 KB |
-| Real branch coverage | **not measured** | ≥85% (Phase 4 TODO) |
+| Real branch coverage | **62.18%** (measured, §8) | ≥85% (Phase 4 TODO) |
 | `src/` import cycles | 0 | 0 (held) |
 | Lint errors | 0 | 0 (held) |
+
+## 8. Real test coverage (measured 2026-08-15 with `c8`)
+
+> Previously the README/badge implied "100% coverage". Verified: that was a
+> **pass-rate** claim. Instrumented coverage (`npm run test:coverage`) shows:
+
+| Scope | % Stmts | % Branch | % Funcs | % Lines |
+|---|---|---|---|---|
+| **All files** | **34.95** | **62.18** | **70.31** | **34.95** |
+| `src/config` | 100 | 100 | 100 | 100 |
+| `src/core` (theme-manager) | 90.0 | 60.7 | 96 | 90.0 |
+| `src/utils` (helpers, storage) | 56.7 | 62.0 | 53.8 | 56.7 |
+| `src/modules` (mixed) | 48.7 | 60.7 | 71.9 | 48.7 |
+| `src/services` | 17.6 | 66.2 | 69.2 | 17.6 |
+| `src/agents` (link-repair-agent) | 0 | 0 | 0 | 0 |
+
+**Zero-coverage modules (largest first) — the real test-debt surface:**
+`rum-service.js` (808), `vr-export-service.js` (637), `image-optimizer.js`
+(570), `social-sharing.js` (578), `vector-search-service.js` (573),
+`ai-i18n-service.js` (328), `embedding-cache.js` (561), `assistant-ui.js`
+(387), `pwa-service.js` (625), `vector-store.js` (137), `index.js` (217),
+`link-repair-agent.js` (414).
+
+**v4.0 modules (already covered):** bci-controller 91.8%, eeg-adapter 91.9%,
+crdt-sync 60.4%, graph-sync 51.6%, webrtc-transport 47.7%.
+
+**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 62.18%
+branch / 34.95% line — substantial gap. Raising the zero-coverage services
+(analytics, pwa, rum, vector-search, embedding-cache) is the highest-leverage
+next step.
+
