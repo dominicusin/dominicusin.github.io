@@ -194,7 +194,6 @@ class EmbeddingCacheService {
    */
   _crc32(data) {
     let crc = 0 ^ (-1);
-    const view = new DataView(data);
     const bytes = new Uint8Array(data);
     
     for (let i = 0; i < bytes.length; i++) {
