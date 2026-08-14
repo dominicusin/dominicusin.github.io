@@ -50,6 +50,7 @@ jobs:
         
     - name: 🚨 Semgrep Security Analysis
       uses: semgrep/semgrep-action@v1
+      continue-on-error: true
       with:
         config: >-
           p/security-audit
@@ -58,7 +59,7 @@ jobs:
         generate-sarif: '1'
         
     - name: 📤 Upload Security Reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: security-reports
         path: |

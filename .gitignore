@@ -1,13 +1,16 @@
-```
-# Dependencies
+_site
+.sass-cache
+.jekyll-metadata
+.jekyll-cache
+.env
+.bundle/
+vendor/
+Gemfile.lock
+.gems/
 node_modules/
+*.gem
+.thumbs.db
+.DS_Store
 
-# Build artifacts
-build/
-
-# Environment
-.env.local
-
-# Editor/IDE
-.vscode/
-```
+dist/
+build-stats.json
