@@ -264,6 +264,55 @@ export function getDeviceInfo() {
 }
 
 /**
+ * Get element selector (CSS path)
+ * @param {Element} element - DOM element
+ * @returns {string} CSS selector string
+ */
+export function getElementSelector(element) {
+  if (!element) return '';
+  
+  if (element.id) {
+    return `#${element.id}`;
+  }
+  
+  const parts = [];
+  let current = element;
+  
+  while (current && current.nodeType === Node.ELEMENT_NODE) {
+    let selector = current.nodeName.toLowerCase();
+    
+    if (current.id) {
+      selector = `#${current.id}`;
+      parts.unshift(selector);
+      break;
+    } else {
+      if (current.className) {
+        const classes = current.className.split(' ').filter(Boolean).slice(0, 2);
+        if (classes.length) {
+          selector += '.' + classes.join('.');
+        }
+      }
+      
+      const parent = current.parentElement;
+      if (parent) {
+        const siblings = Array.from(parent.children).filter(
+          child => child.nodeName === current.nodeName
+        );
+        if (siblings.length > 1) {
+          const index = siblings.indexOf(current) + 1;
+          selector += `:nth-of-type(${index})`;
+        }
+      }
+    }
+    
+    parts.unshift(selector);
+    current = current.parentElement;
+  }
+  
+  return parts.join(' > ');
+}
+
+/**
  * Format date for display
  * @param {string|Date} dateString - Date string or Date object
  * @param {Object} options - Intl.DateTimeFormat options
