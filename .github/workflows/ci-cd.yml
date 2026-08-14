@@ -118,7 +118,7 @@ jobs:
         npm run report:build
 
     - name: 📦 Upload Build Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: site-build
         path: _site/
@@ -174,7 +174,7 @@ jobs:
         npm run check:web-vitals
 
     - name: 📊 Performance Report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: performance-report
         path: .lighthouseci/
