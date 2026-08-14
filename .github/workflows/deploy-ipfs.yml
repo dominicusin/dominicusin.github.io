@@ -36,25 +36,28 @@ jobs:
           JEKYLL_ENV: production
       
       - name: Setup IPFS Pinata CLI
+        if: ${{ secrets.PINATA_JWT != '' }}
         run: |
           npm install -g @pinatacloud/pinata-cli
           echo "${{ secrets.PINATA_JWT }}" | pinata-cli login
       
       - name: Pin to IPFS
         id: pinata
+        if: ${{ secrets.PINATA_JWT != '' }}
         run: |
           CID=$(pinata-cli add ./_site --pinata-metadata '{"name": "Jekyll Site Deployment", "keyvalues": {"branch": "${{ github.ref_name }}", "commit": "${{ github.sha }}"}}' | grep -oP '(?<=CID: ).*')
           echo "cid=$CID" >> $GITHUB_OUTPUT
           echo "$CID" > ipfs-cid.json
       
       - name: Upload CID artifact
+        if: ${{ secrets.PINATA_JWT != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: ipfs-cid
           path: ipfs-cid.json
       
       - name: Update DNSLink (if configured)
-        if: env.CLOUDFLARE_API_TOKEN != null
+        if: ${{ secrets.PINATA_JWT != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
         run: |
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records/${{ secrets.CLOUDFLARE_DNS_RECORD_ID }}" \
             -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \

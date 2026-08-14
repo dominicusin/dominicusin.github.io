@@ -183,6 +183,20 @@ export function startApp() {
       window.pwaService = App.pwa;
     });
   }
+
+  // Initialize Prefetch Service (Knowledge-Graph driven predictive prefetch, Vector D)
+  if (!App.prefetch) {
+    import('./services/prefetch.js').then(({ PrefetchService }) => {
+      App.prefetch = new PrefetchService({
+        graphUrl: '/assets/data/knowledge-graph.json',
+        enabled: window.prefetchEnabled !== false
+      });
+      App.prefetch.init().then((ok) => {
+        if (ok) App.prefetch.observeLinks(document);
+        window.prefetchService = App.prefetch;
+      }).catch(() => {});
+    }).catch(() => {});
+  }
   
   // Expose for debugging / legacy interop
   window.App = App;
