@@ -1,0 +1,29 @@
+source "https://rubygems.org"
+
+gem "github-pages", "~> 232"
+
+# Plugins
+group :jekyll_plugins do
+  gem "jekyll-feed", "~> 0.12"
+  gem "jekyll-archives"
+  gem "jekyll-seo-tag", "~> 2.8"
+  gem "jekyll-sitemap", "~> 1.4"
+  gem "jekyll-paginate", "~> 1.1"
+  gem "jekyll-gist"
+end
+
+# Windows and JRuby does not include zoneinfo files
+platforms :mingw, :x64_mingw, :mswin, :jruby do
+  gem "tzinfo", ">= 1", "< 3"
+  gem "tzinfo-data"
+end
+
+# Performance-booster for watching directories on Windows
+gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
+
+# Lock `http_parser.rb\` gem to `v0.6.x\` on JRuby builds
+gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
+
+# Add faraday-retry to satisfy Faraday v2.0+ retry middleware warnings
+# This is optional but removes the runtime warning in Actions logs
+gem "faraday-retry"

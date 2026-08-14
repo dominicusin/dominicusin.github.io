@@ -1,0 +1,58 @@
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <div class="header-content">
+      <!-- Logo/Home link -->
+      <a class="site-title" href="{{ "/" | absolute_url }}" 
+         aria-label="{{ site.title | escape }} - {{ site.description | escape }}">
+        <span class="site-logo" data-i18n="site.title">{{ site.title }}</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="site-nav" role="navigation" aria-label="Основная навигация">
+        <div class="nav-desktop">
+          {% for item in site.navigation %}
+            <a class="page-link {% if page.url == item.url %}active{% endif %}" 
+               href="{{ item.url | absolute_url }}"
+               data-i18n="navigation.{{ item.name | downcase | replace: ' ', '_' }}">
+              {{ item.name }}
+            </a>
+          {% endfor %}
+        </div>
+        
+        <!-- Theme Toggle -->
+        <div class="theme-toggle theme-toggle--header"></div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-icon" 
+                type="button" 
+                aria-label="Переключить меню навигации"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+                data-aria-i18n="accessibility.open_menu">
+          <span class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="menu-text" data-i18n="navigation.menu">Меню</span>
+        </button>
+      </nav>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Мобильная навигация">
+      <div class="mobile-menu-content">
+        {% for item in site.navigation %}
+          <a class="page-link {% if page.url == item.url %}active{% endif %}" 
+             href="{{ item.url | absolute_url }}"
+             data-i18n="navigation.{{ item.name | downcase | replace: ' ', '_' }}">
+            {{ item.name }}
+          </a>
+        {% endfor %}
+        
+        <!-- Theme Toggle in Mobile Menu -->
+        <div class="theme-toggle theme-toggle--compact mobile-theme-toggle"></div>
+      </div>
+    </div>
+  </div>
+</header>

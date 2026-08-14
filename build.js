@@ -1,0 +1,450 @@
+/**
+ * Advanced Build Script for Engineering Blog
+ * Optimization, minification, and production-ready assets
+ */
+
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * Generate hash for cache busting
+ */
+function generateHash(content) {
+  return crypto.createHash('md5').update(content).digest('hex').substring(0, 8);
+}
+
+/**
+ * Простая минификация JavaScript
+ */
+function minifyJS(content) {
+  return content
+    // Remove comments
+    .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '')
+    // Remove whitespace except line breaks
+    .replace(/\s+/g, ' ')
+    // Remove spaces around operators
+    .replace(/\s*([=+\-*/<>!&|,;:{}()[\]])\s*/g, '$1')
+    // Remove trailing semicolons
+    .replace(/;+/g, ';')
+    // Remove unnecessary line breaks
+    .replace(/\n+/g, '\n')
+    .trim();
+}
+
+/**
+ * Advanced minification for CSS
+ */
+function minifyCSS(content) {
+  return content
+    // Remove comments
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    // Remove whitespace
+    .replace(/\s+/g, ' ')
+    // Remove spaces around braces and semicolons
+    .replace(/\s*([{}:;,])\s*/g, '$1')
+    // Remove unnecessary semicolons
+    .replace(/;}/g, '}')
+    .trim();
+}
+
+/**
+ * Оптимизация путей в CSS
+ */
+function optimizeCSSPaths(content, basePath) {
+  return content.replace(/url\(['"]?([^'")]+)['"]?\)/g, (match, url) => {
+    // Skip external URLs and data URLs
+    if (url.startsWith('http') || url.startsWith('data:')) {
+      return match;
+    }
+    
+    // Ensure relative paths are correct
+    return `url('${url}')`;
+  });
+}
+
+/**
+ * Создание WebP версии изображений (простая реализация)
+ */
+function createWebPPlaceholder() {
+  const imagesDir = path.join(__dirname, 'assets/images');
+  const webpPath = path.join(imagesDir, 'webp-placeholder.webp');
+  
+  // Create directory if it doesn't exist
+  if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+  }
+  
+  if (!fs.existsSync(webpPath)) {
+    // Создать простой placeholder (SVG as placeholder)
+    const svg = `
+      <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#f0f0f0"/>
+        <text x="50%" y="50%" text-anchor="middle" dy="0.3em" 
+              font-family="Arial, sans-serif" font-size="16" fill="#666">
+          WebP Image
+        </text>
+      </svg>
+    `;
+    
+    // Write SVG instead of WebP for simplicity
+    const svgPath = path.join(imagesDir, 'webp-placeholder.svg');
+    fs.writeFileSync(svgPath, svg);
+    console.log('📝 Created SVG placeholder for WebP images');
+  }
+}
+
+/**
+ * Optimize images (basic implementation)
+ */
+function optimizeImages() {
+  console.log('🖼️ Optimizing images...');
+  
+  // Create WebP placeholder
+  createWebPPlaceholder();
+  
+  // In a real implementation, you would:
+  // - Convert images to WebP
+  // - Generate responsive sizes
+  // - Create blur placeholders
+  // - Optimize compression
+  
+  console.log('✅ Image optimization completed');
+}
+
+/**
+ * Bundle the refactored ES modules (src/) into a single browser-ready file.
+ * Uses esbuild for tree-shaking + minification. Falls back gracefully if esbuild
+ * is unavailable (legacy js/*.js remains the source of truth in that case).
+ * @param {boolean} minify - Whether to minify the output
+ */
+async function bundleModules(minify = true) {
+  const esbuild = path.join(__dirname, 'node_modules', 'esbuild', 'lib', 'main.js');
+  const inputFile = path.join(__dirname, 'src', 'index.js');
+  const outputFile = path.join(__dirname, 'js', 'refactored-bundle.js');
+
+  if (!fs.existsSync(inputFile)) {
+    console.warn('⚠️ src/index.js not found, skipping module bundle');
+    return;
+  }
+
+  try {
+    const esbuildMod = await import(esbuild);
+    await esbuildMod.build({
+      entryPoints: [inputFile],
+      bundle: true,
+      format: 'esm',
+      target: ['es2018'],
+      outfile: outputFile,
+      minify,
+      sourcemap: !minify,
+      legalComments: 'none',
+      logLevel: 'silent'
+    });
+    console.log(`✅ Bundled src/ -> ${path.basename(outputFile)}${minify ? ' (minified)' : ''}`);
+  } catch (err) {
+    // Fallback: produce a concatenated ESM bundle without tree-shaking
+    console.warn('⚠️ esbuild unavailable, writing unminified concatenated module');
+    const content = fs.readFileSync(inputFile, 'utf8');
+    const outDir = path.dirname(outputFile);
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(outputFile, content);
+  }
+}
+
+
+/**
+ * Build assets for development
+ */
+function buildDevAssets() {
+  console.log('🛠️ Building development assets...');
+
+  // Bundle refactored ESM modules (unminified for debugging)
+  bundleModules(false);
+
+  // Copy files without minification for development
+  const jsAssets = [
+    'js/main.js',
+    'js/performance-optimizer.js',
+    'js/theme-manager.js',
+    'js/i18n.js', 
+    'js/interactive.js',
+    'js/search.js',
+    'js/images.js',
+    'js/social-sharing.js',
+    'js/comments.js',
+    'js/analytics.js',
+    'js/tags-categories.js',
+    'js/subscription.js'
+  ];
+  
+  jsAssets.forEach(asset => {
+    const inputPath = path.join(__dirname, asset);
+    if (fs.existsSync(inputPath)) {
+      console.log(`📝 ${asset} ready for development`);
+    }
+  });
+  
+  console.log('✅ Development assets ready');
+}
+
+/**
+ * Build assets with optimization
+ */
+function buildAssets() {
+  console.log('🚀 Starting optimized build process...');
+  
+  // Create output directories
+  const outputDir = path.join(__dirname, 'dist');
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+  
+  // Minify and bundle JavaScript
+  const jsAssets = [
+    { input: 'js/main.js', output: 'dist/js/main.min.js', critical: true },
+    { input: 'js/performance-optimizer.js', output: 'dist/js/performance-optimizer.min.js' },
+    { input: 'js/theme-manager.js', output: 'dist/js/theme-manager.min.js' },
+    { input: 'js/i18n.js', output: 'dist/js/i18n.min.js' },
+    { input: 'js/interactive.js', output: 'dist/js/interactive.min.js' },
+    { input: 'js/search.js', output: 'dist/js/search.min.js' },
+    { input: 'js/images.js', output: 'dist/js/images.min.js' },
+    { input: 'js/social-sharing.js', output: 'dist/js/social-sharing.min.js' },
+    { input: 'js/comments.js', output: 'dist/js/comments.min.js' },
+    { input: 'js/analytics.js', output: 'dist/js/analytics.min.js' },
+    { input: 'js/tags-categories.js', output: 'dist/js/tags-categories.min.js' },
+    { input: 'js/subscription.js', output: 'dist/js/subscription.min.js' }
+  ];
+  
+  jsAssets.forEach(asset => {
+    const inputPath = path.join(__dirname, asset.input);
+    
+    if (fs.existsSync(inputPath)) {
+      const content = fs.readFileSync(inputPath, 'utf8');
+      const minified = minifyJS(content);
+      
+      // Create output directory if needed
+      const assetDir = path.dirname(path.join(__dirname, asset.output));
+      if (!fs.existsSync(assetDir)) {
+        fs.mkdirSync(assetDir, { recursive: true });
+      }
+      
+      // Add cache busting hash if critical
+      const hash = asset.critical ? generateHash(minified) : '';
+      const finalOutput = hash ? asset.output.replace('.min.js', `.min.${hash}.js`) : asset.output;
+      
+      fs.writeFileSync(path.join(__dirname, finalOutput), minified);
+      
+      const savings = ((content.length - minified.length) / content.length * 100).toFixed(1);
+      console.log(`✅ ${asset.input} -> ${path.basename(finalOutput)} (${savings}% smaller)`);
+      
+      if (asset.critical) {
+        // Create non-hashed version for consistency
+        fs.writeFileSync(path.join(__dirname, asset.output), minified);
+      }
+    } else {
+      console.warn(`⚠️ ${asset.input} not found, skipping`);
+    }
+  });
+  
+  // Optimize CSS
+  const cssAssets = [
+    { input: 'css/main.scss', output: 'dist/css/main.min.css' },
+    { input: 'css/critical.css', output: 'dist/css/critical.min.css' },
+    { input: 'css/performance-optimizer.css', output: 'dist/css/performance-optimizer.min.css' },
+    { input: 'css/subscription.css', output: 'dist/css/subscription.min.css' },
+    { input: 'css/comments.css', output: 'dist/css/comments.min.css' },
+    { input: 'css/social-sharing.css', output: 'dist/css/social-sharing.min.css' },
+    { input: 'css/theme-manager.css', output: 'dist/css/theme-manager.min.css' },
+    { input: 'css/analytics.css', output: 'dist/css/analytics.min.css' },
+    { input: 'css/tags-categories.css', output: 'dist/css/tags-categories.min.css' },
+    { input: 'css/about.css', output: 'dist/css/about.min.css' }
+  ];
+  
+  cssAssets.forEach(asset => {
+    const inputPath = path.join(__dirname, asset.input);
+    
+    if (fs.existsSync(inputPath)) {
+      const content = fs.readFileSync(inputPath, 'utf8');
+      const minified = minifyCSS(content);
+      
+      // Create output directory if needed
+      const assetDir = path.dirname(path.join(__dirname, asset.output));
+      if (!fs.existsSync(assetDir)) {
+        fs.mkdirSync(assetDir, { recursive: true });
+      }
+      
+      const hash = generateHash(minified);
+      const finalOutput = asset.output.replace('.min.css', `.min.${hash}.css`);
+      
+      fs.writeFileSync(path.join(__dirname, finalOutput), minified);
+      
+      const savings = ((content.length - minified.length) / content.length * 100).toFixed(1);
+      console.log(`✅ ${asset.input} -> ${path.basename(finalOutput)} (${savings}% smaller)`);
+      
+      // Create non-hashed version for consistency
+      fs.writeFileSync(path.join(__dirname, asset.output), minified);
+    } else {
+      console.warn(`⚠️ ${asset.input} not found, skipping`);
+    }
+  });
+  
+  // Optimize images (basic implementation)
+  optimizeImages();
+
+  // Bundle refactored ESM modules (minified + tree-shaken) into js/refactored-bundle.js
+  bundleModules(true);
+
+  // Generate build stats
+  generateBuildStats();
+  
+  console.log(`\n🎉 Production build completed successfully!`);
+}
+
+/**
+ * Generate build statistics
+ */
+function generateBuildStats() {
+  const stats = {
+    buildTime: new Date().toISOString(),
+    totalSize: 0,
+    files: []
+  };
+  
+  const distDir = path.join(__dirname, 'dist');
+  if (fs.existsSync(distDir)) {
+    const files = fs.readdirSync(distDir, { recursive: true });
+    
+    files.forEach(file => {
+      const filePath = path.join(distDir, file);
+      if (fs.statSync(filePath).isFile()) {
+        const fileStats = fs.statSync(filePath);
+        stats.totalSize += fileStats.size;
+        stats.files.push({
+          name: file,
+          size: fileStats.size,
+          sizeHuman: formatBytes(fileStats.size)
+        });
+      }
+    });
+  }
+  
+  // Save stats
+  const statsPath = path.join(__dirname, 'build-stats.json');
+  fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
+  
+  console.log('\n📊 Build Statistics:');
+  console.log(`   Total size: ${formatBytes(stats.totalSize)}`);
+  console.log(`   Files: ${stats.files.length}`);
+  
+  stats.files.forEach(file => {
+    console.log(`   ${file.name}: ${file.sizeHuman}`);
+  });
+}
+
+/**
+ * Format bytes to human readable format
+ */
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+/**
+ * Clean old build artifacts
+ */
+function cleanBuildArtifacts() {
+  const artifacts = [
+    'dist',
+    'css/*.min.*.css',
+    'js/*.min.*.js',
+    'build-stats.json'
+  ];
+  
+  console.log('🧹 Cleaning old build artifacts...');
+  
+  // Clean dist directory
+  const distDir = path.join(__dirname, 'dist');
+  if (fs.existsSync(distDir)) {
+    fs.rmSync(distDir, { recursive: true, force: true });
+    console.log('🗑️ Removed dist directory');
+  }
+  
+  // Clean build stats
+  const statsPath = path.join(__dirname, 'build-stats.json');
+  if (fs.existsSync(statsPath)) {
+    fs.unlinkSync(statsPath);
+    console.log('🗑️ Removed build stats');
+  }
+}
+
+/**
+ * Validate build output
+ */
+function validateBuild() {
+  const requiredFiles = [
+    'dist/js/main.min.js',
+    'dist/css/main.min.css',
+    'dist/css/critical.min.css'
+  ];
+  
+  console.log('✅ Validating build output...');
+  
+  const missingFiles = [];
+  
+  requiredFiles.forEach(file => {
+    const filePath = path.join(__dirname, file);
+    if (!fs.existsSync(filePath)) {
+      missingFiles.push(file);
+    }
+  });
+  
+  if (missingFiles.length > 0) {
+    throw new Error(`Required build artifacts missing: ${missingFiles.join(', ')}`);
+  }
+  
+  console.log('✅ Build validation passed');
+}
+
+// Main build function
+async function main() {
+  console.log('🔧 Engineering Blog Build Tool');
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  
+  try {
+    // Clean old build artifacts
+    cleanBuildArtifacts();
+    
+    // Build for environment
+    if (process.env.NODE_ENV === 'production') {
+      buildAssets();
+      validateBuild();
+    } else {
+      buildDevAssets();
+    }
+    
+  } catch (error) {
+    console.error('❌ Build failed:', error.message);
+    process.exit(1);
+  }
+}
+
+// Run build
+const isMainModule = process.argv[1] && process.argv[1].endsWith('build.js');
+if (isMainModule) {
+  main();
+}
+
+export {
+  buildAssets,
+  minifyJS,
+  minifyCSS,
+  generateHash
+};

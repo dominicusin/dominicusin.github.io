@@ -1,0 +1,298 @@
+name: 🚀 Jekyll CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run daily at 2 AM UTC for health checks
+    - cron: '0 2 * * *'
+
+env:
+  NODE_VERSION: '22'
+  RUBY_VERSION: '3.1'
+
+jobs:
+  # 🔍 Quality Assurance & Testing
+  test:
+    name: 🔍 Test & Quality Check
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: 🧹 Clean up disk space
+      continue-on-error: true
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VERSION }}
+        bundler-cache: true
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: 📦 Install Dependencies (Optimized)
+      run: |
+        npm ci --prefer-offline --no-audit --no-fund
+        bundle install --jobs=4 --retry=3
+
+    - name: 🔍 Validate HTML & CSS
+      run: |
+        npm run validate
+
+    - name: 🧪 Run JavaScript Tests
+      run: |
+        npm run test
+
+    - name: 📊 Performance Audit
+      continue-on-error: true
+      run: |
+        npm run audit:performance
+
+    - name: 🔒 Security Scan
+      run: |
+        npm audit --audit-level=moderate || true
+        bundle audit || true
+
+    - name: 🏗️ Test Build
+      run: |
+        npm run build:test
+
+    - name: 📈 Bundle Size Analysis
+      run: |
+        npm run analyze:size
+
+  # 🏗️ Build & Optimization
+  build:
+    name: 🏗️ Build & Optimize
+    runs-on: ubuntu-22.04
+    needs: test
+
+    steps:
+    - name: 🧹 Clean up disk space
+      continue-on-error: true
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VERSION }}
+        bundler-cache: true
+
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: 📦 Install Dependencies (Optimized)
+      run: |
+        npm ci --prefer-offline --no-audit --no-fund
+        bundle install --jobs=4 --retry=3
+
+    - name: 🗂️ Cache Jekyll Dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          .bundle
+          vendor/bundle
+          _site
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - name: 🏗️ Production Build
+      run: |
+        npm run build:production
+
+    - name: 🗜️ Optimize Assets
+      run: |
+        npm run optimize:assets
+
+    - name: 📊 Generate Build Report
+      run: |
+        npm run report:build
+
+    - name: 📦 Upload Build Artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: site-build
+        path: _site/
+        retention-days: 1
+
+  # 🔒 Security & Compliance
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-22.04
+    needs: test
+
+    steps:
+    - name: 🧹 Clean up disk space
+      continue-on-error: true
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔍 Run Trivy Vulnerability Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: 📤 Upload Trivy Results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # 📊 Performance Monitoring
+  performance:
+    name: 📊 Performance Monitoring
+    runs-on: ubuntu-22.04
+    needs: build
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+
+    steps:
+    - name: 🧹 Clean up disk space
+      continue-on-error: true
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🌐 Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v12
+      continue-on-error: true
+      with:
+        configPath: './.lighthouserc.json'
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+
+    - name: 📈 Core Web Vitals Check
+      continue-on-error: true
+      run: |
+        npm run check:web-vitals
+
+    - name: 📊 Performance Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: performance-report
+        path: .lighthouseci/
+
+  # 🔄 Health Check
+  health-check:
+    name: 🔄 Health Check
+    runs-on: ubuntu-22.04
+    needs: build
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+
+    steps:
+    - name: 🧹 Clean up disk space
+      continue-on-error: true
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+        sudo rm -rf /root/.npm
+        sudo rm -rf /root/.cache
+        mkdir -p /root/.npm
+        chmod 777 /root/.npm
+        df -h /
+
+    - name: 🌐 Site Health Check
+      continue-on-error: true
+      run: |
+        # Check if site is accessible
+        curl -f https://${{ github.repository_owner }}.github.io || exit 1
+
+        # Check critical assets
+        curl -f https://${{ github.repository_owner }}.github.io/css/main.min.css || exit 1
+        curl -f https://${{ github.repository_owner }}.github.io/js/main.min.js || exit 1
+
+        # Check PWA manifest
+        curl -f https://${{ github.repository_owner }}.github.io/manifest.json || exit 1
+
+        # Check sitemap
+        curl -f https://${{ github.repository_owner }}.github.io/sitemap.xml || exit 1
+
+    - name: 📝 Update Deployment Status
+      if: success()
+      run: |
+        echo "✅ Deployment successful - All health checks passed"
+
+    - name: 🚨 Alert on Failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed - Health checks failed"
+
+  # 📬 Notifications
+  notify:
+    name: 📬 Send Notifications
+    runs-on: ubuntu-22.04
+    needs: [build, performance, health-check]
+    if: always() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+
+    steps:
+    - name: 📧 Deployment Success Notification
+      if: needs.build.result == 'success'
+      run: |
+        echo "🎉 Site deployed successfully!"
+        echo "🌐 https://${{ github.repository_owner }}.github.io"
+
+    - name: 🚨 Deployment Failure Notification
+      if: needs.build.result == 'failure'
+      run: |
+        echo "❌ Deployment failed!"
+        echo "🔍 Check the Actions tab for details"

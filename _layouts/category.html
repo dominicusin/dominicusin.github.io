@@ -1,0 +1,95 @@
+---
+layout: default
+---
+
+<div class="archive-page category-archive">
+  <header class="archive-header">
+    <div class="archive-breadcrumb">
+      <a href="/">Главная</a>
+      <span>/</span>
+      <a href="/categories/">Категории</a>
+      <span>/</span>
+      <span>{{ page.title }}</span>
+    </div>
+    
+    <h1 class="archive-title">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+      </svg>
+      {{ page.title }}
+    </h1>
+    
+    <p class="archive-description">
+      {% assign posts_count = page.posts | size %}
+      {{ posts_count }} {% if posts_count == 1 %}статья{% elsif posts_count < 5 %}статьи{% else %}статей{% endif %} в этой категории
+    </p>
+  </header>
+
+  {% if page.posts %}
+    <div class="post-grid">
+      {% for post in page.posts %}
+        <article class="post-card">
+          <div class="post-card-content">
+            <div class="post-card-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {{ post.date | date: "%d.%m.%Y" }}
+              </time>
+              
+              <span class="reading-time">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                {{ post.content | number_of_words | divided_by: 200 }} мин
+              </span>
+            </div>
+            
+            <h3 class="post-card-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            
+            {% if post.excerpt %}
+              <p class="post-card-excerpt">
+                {{ post.excerpt | strip_html | truncatewords: 25 }}
+              </p>
+            {% endif %}
+            
+            {% if post.tags.size > 0 %}
+              <div class="post-card-tags">
+                {% for tag in post.tags limit:3 %}
+                  <span class="tag">#{{ tag }}</span>
+                {% endfor %}
+                {% if post.tags.size > 3 %}
+                  <span class="tag">+{{ post.tags.size | minus: 3 }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+            
+            <a href="{{ post.url | relative_url }}" class="read-more">
+              Читать далее
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+      </svg>
+      <h3>Статей пока нет</h3>
+      <p>В этой категории еще нет опубликованных статей</p>
+    </div>
+  {% endif %}
+</div>

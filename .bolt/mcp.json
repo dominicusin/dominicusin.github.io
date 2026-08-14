@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "notion": {
+      "enabled": true
+    },
+    "linear": {
+      "enabled": true
+    },
+    "miro": {
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,90 @@
+---
+title: Migrate a code repository from SourceForge (SVN) to Github (GIT)
+date: 2017-07-28 20:29:00 +03:00
+---
+
+Migrate a code repository from SourceForge (SVN) to Github (GIT)
+================================================================
+
+To do a migration you will need a system that allows you to install Ruby, Ruby Gems and Git. We are running the entire process on a CentOS 6 box (YMMV).  
+  
+**Preparation**
+> *   Install svn2git. Need to be administrator or have sudo rights.  
+>     *   Install the following libraries svn, git, git-svn, ruby and rubygems  
+        `yum install svn git git-svn ruby rubygems`
+>     *   Install svn2git  
+        `gem install svn2git`
+>     *   Also check that you can run svn2git (i.e. svn2git is in the PATH). If it is not run the following command  
+        `ln -s /usr/lib/ruby/gems/1.8/gems/svn2git-2.2.1/bin/svn2git /usr/bin/svn2git`
+
+> *   Fix up steps. **Skip this step**. You only need to come back to this if you have issues in the installation/implementation.
+>     *   FIX1: Issue with running command `git config --local svn.authorsfile {path-to-authors-file}`. The issue here is that some "git config" installations cannot interpret the --local parameter.  
+>         *   Locate the file migration.rb  
+        `may be located in /usr/lib/ruby/gems/1.8/gems/svn2git-2.2.1/lib/svn2git/migration.rb`
+>         *   look for any line that has the text "--local" and delete it so:  
+        `run_command("git config <b>--local</b> svn.authorsfile #{authors}") unless authors.nil?` 
+        will change to (note: you are just deleting the "--local" parameter only):
+        `run_command("git config svn.authorsfile #{authors}") unless authors.nil?`
+>     *   FIX2: Issue with Use of uninitialized value $u
+>         *   When you get the error is may look like this  
+        `Use of uninitialized value $u in substitution (s///) at /usr/lib/git-core/git-svn line 1728.`  
+        `Use of uninitialized value $u in concatenation (.) or string at /usr/lib/git-core/git-svn line 1728.`  
+        `refs/remotes/svn/trunk: '#############################' not found in ''`
+>         *   Locate the git-svn perl script  
+        `may be located in ``/usr/libexec/git-core/git-svn`
+>         *   Go to the line (in the example above #1728) and change the following lines:  
+        `$u =~ s!^\Q$url\E(/|$)!! or die`  
+        &nbsp;`"$refname: '$url' not found in '$u'\n";` 
+        to
+        `if(!$u) {`  
+        &nbsp;&nbsp;&nbsp;&nbsp;`$u = $pathname;`  
+        `} else {`  
+        &nbsp;&nbsp;&nbsp;&nbsp;`$u =~ s!^\Q$url\E(/|$)!! or die`  
+        &nbsp;&nbsp;&nbsp;&nbsp;`"$refname: '$url' not found in '$u'\n";`  
+        `}`
+  
+**Installation Steps**
+> *   In your home directory create a folder and give it a name that related to the project  
+        `mkdir ~/myproject_svn`
+> *   Go to the directory you just created  
+        `cd ~/myproject_svn`
+> *   Copy the project from sourceforge using rsync  
+        `$ rsync -av {project name}.svn.sourceforge.net::svn/{project name}/* .`  
+        `e.g. $ rsync -av myproject.svn.sourceforge.net::svn/myproject/* .`
+> *   Generate the authors list from the SVN repository (this list can be placed in any folder, so I put it in the home directory)  
+        `$ svn log -q https://myproject.svn.sourceforge.net/svnroot/myproject | awk -F '|' '/^r/ {sub("^ ", "", $2); sub(" $", "", $2); print $2" = "$2" <"$2">"}' | sort -u > ~/authors.txt`
+> *   What you get as an authors file should look like this:  
+        `somebody1 = somebody1 <somebody1>`  
+        `somebody2 = somebody2 <somebody2>`  
+        `....`
+> *   Simply replace the last two fields with the appropriate entries like this:  
+        `somebody1 = John Doe <john.doe@test.com>`  
+        `somebody2 = John Alexender <alex@smellyfoot.org>`  
+        `....`
+> *   Create a new directory for the Git repository and initialize it  
+        `mkdir ~/myproject`  
+        `cd ~/myproject`  
+        `git init`
+> *   Run the svn2git command while in the git repository directory you just created  
+        `$ svn2git file:///home/mickymouse/myproject_svn/ --authors ~/authors.txt -v` 
+        if your trunk, branches and tags are not in the root folder of your SVN repository, you will need to specify them like this:
+        `$ svn2git file:///home/mickymouse/myproject_svn/ --trunk {path/to/trunk} --branches {path/to/branches} --tags {path/to/tags} --authors ~/authors.txt -v`  
+        `e.g. $ svn2git file:///home/mickymouse/myproject_svn/ --trunk sparql/trunk --branches sparql/branches --tags sparql/tags --authors ~/authors.txt -v` 
+
+>       For other ways you can run the svn2git command check here: [https://github.com/nirvdrum/svn2git/blob/master/README.markdown](https://github.com/nirvdrum/svn2git/blob/master/README.markdown).  
+>       Note:   
+>       The -v is used so that you can see a better description of your errors  
+>       1\. If you get an error that has to do with this command: `git config --local svn.authorsfile {path-to-authors-file}`, see FIX1 in the Preparation section above.  
+>       2\. If you get an error that has to do with this command: `Use of uninitialized value $u`, see FIX2 in Preparation section above.  
+> *   If you want to check that the number of commits in the new git repo is the same as the SVN repo, run the following commands.  
+        `$ svn log -q | grep '^r[0-9]' | wc -l (count subversion revisions) `  
+        `$ git log --oneline | wc -l (count git commits)`
+> *   Create the Github repository online and add the remote information to your local repository and push the code to Github.  
+        `$ git remote add origin https://github.com/user/repo.git# Set a new remote`
+        and verify by running the following:  
+        `$ git remote -v# Verify new remote`  
+        `# origin https://github.com/user/repo.git (fetch)`  
+        `# origin https://github.com/user/repo.git (push)`
+> *   That is it. Something else that might be nice to do is redirect all the user that go to SourceForge to the new git repository.
+>     *   Log into SourceForge and go to **Project Admin -> Feature Settings**.
+>     *   Select **Manage **next to Subversion and go to Non-SF.net Resource (Active). This page allows you to leave a short message and a link to the new project page.

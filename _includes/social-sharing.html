@@ -1,0 +1,222 @@
+<!-- Social Sharing Component -->
+<div class="social-sharing">
+  <div class="share-buttons">
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ page.url | absolute_url | url_encode }}&via={{ site.twitter_username | default: '' }}" 
+       class="share-button share-twitter" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Twitter/X">
+      <span class="share-icon">𝕏</span>
+      <span class="share-text">Twitter</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}&title={{ page.title | url_encode }}" 
+       class="share-button share-linkedin" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on LinkedIn">
+      <span class="share-icon">💼</span>
+      <span class="share-text">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | url_encode }}" 
+       class="share-button share-facebook" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Facebook">
+      <span class="share-icon">📘</span>
+      <span class="share-text">Facebook</span>
+    </a>
+
+    <!-- Reddit -->
+    <a href="https://reddit.com/submit?url={{ page.url | absolute_url | url_encode }}&title={{ page.title | url_encode }}" 
+       class="share-button share-reddit" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Reddit">
+      <span class="share-icon">🤖</span>
+      <span class="share-text">Reddit</span>
+    </a>
+
+    <!-- Hacker News -->
+    <a href="https://news.ycombinator.com/submitlink?u={{ page.url | absolute_url | url_encode }}&t={{ page.title | url_encode }}" 
+       class="share-button share-hackernews" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Hacker News">
+      <span class="share-icon">🍊</span>
+      <span class="share-text">Hacker News</span>
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-button share-copy" 
+            onclick="copyToClipboard('{{ page.url | absolute_url }}', this)"
+            title="Copy link to clipboard">
+      <span class="share-icon">📋</span>
+      <span class="share-text">Copy</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function copyToClipboard(text, button) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopySuccess(button);
+    }).catch(() => {
+      fallbackCopy(text, button);
+    });
+  } else {
+    fallbackCopy(text, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  textArea.style.top = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    document.execCommand('copy');
+    showCopySuccess(button);
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    showCopyError(button);
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+function showCopySuccess(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Copied!';
+  button.classList.add('copied');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('copied');
+  }, 2000);
+}
+
+function showCopyError(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Error!';
+  button.classList.add('error');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('error');
+  }, 2000);
+}
+</script>
+
+<style>
+.social-sharing {
+  margin: 2rem 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.share-button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.share-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.share-button.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.share-button.error {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.share-twitter:hover {
+  background: #1da1f2;
+  color: white;
+  border-color: #1da1f2;
+}
+
+.share-linkedin:hover {
+  background: #0077b5;
+  color: white;
+  border-color: #0077b5;
+}
+
+.share-facebook:hover {
+  background: #1877f2;
+  color: white;
+  border-color: #1877f2;
+}
+
+.share-reddit:hover {
+  background: #ff4500;
+  color: white;
+  border-color: #ff4500;
+}
+
+.share-hackernews:hover {
+  background: #ff6600;
+  color: white;
+  border-color: #ff6600;
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-text {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .share-button {
+    justify-content: center;
+  }
+}
+</style>

@@ -1,0 +1,90 @@
+---
+layout: default
+---
+
+<div class="archive-page year-archive">
+  <header class="archive-header">
+    <div class="archive-breadcrumb">
+      <a href="/">Главная</a>
+      <span>/</span>
+      <a href="/archive/">Архив</a>
+      <span>/</span>
+      <span>{{ page.date | date: "%Y" }}</span>
+    </div>
+    
+    <h1 class="archive-title">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      Архив за {{ page.date | date: "%Y" }} год
+    </h1>
+    
+    <p class="archive-description">
+      {% assign posts_count = page.posts | size %}
+      {{ posts_count }} {% if posts_count == 1 %}публикация{% elsif posts_count < 5 %}публикации{% else %}публикаций{% endif %}
+    </p>
+  </header>
+
+  {% if page.posts %}
+    <div class="timeline-posts">
+      {% assign posts_by_month = page.posts | group_by_exp: "post", "post.date | date: '%B %Y'" %}
+      
+      {% for month_group in posts_by_month %}
+        <div class="timeline-month">
+          <h2 class="timeline-month-title">
+            {{ month_group.name | replace: "January", "Январь" | replace: "February", "Февраль" | replace: "March", "Март" | replace: "April", "Апрель" | replace: "May", "Май" | replace: "June", "Июнь" | replace: "July", "Июль" | replace: "August", "Август" | replace: "September", "Сентябрь" | replace: "October", "Октябрь" | replace: "November", "Ноябрь" | replace: "December", "Декабрь" }}
+          </h2>
+          
+          <div class="post-list">
+            {% for post in month_group.items %}
+              <article class="post-list-item">
+                <div class="post-list-date">
+                  <time datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date: "%d" }}
+                  </time>
+                </div>
+                
+                <div class="post-list-content">
+                  <h3 class="post-list-title">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                  </h3>
+                  
+                  {% if post.excerpt %}
+                    <p class="post-list-excerpt">
+                      {{ post.excerpt | strip_html | truncatewords: 20 }}
+                    </p>
+                  {% endif %}
+                  
+                  <div class="post-list-meta">
+                    {% if post.categories.size > 0 %}
+                      <span class="post-category">{{ post.categories.first }}</span>
+                    {% endif %}
+                    {% if post.tags.size > 0 %}
+                      <span class="post-tags">
+                        {% for tag in post.tags limit:2 %}
+                          #{{ tag }}
+                        {% endfor %}
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+      </svg>
+      <h3>Публикаций нет</h3>
+      <p>В этом году еще нет публикаций</p>
+    </div>
+  {% endif %}
+</div>

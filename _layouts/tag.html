@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<div class="archive-page tag-archive">
+  <header class="archive-header">
+    <div class="archive-breadcrumb">
+      <a href="/">Главная</a>
+      <span>/</span>
+      <a href="/tags/">Теги</a>
+      <span>/</span>
+      <span>{{ page.title }}</span>
+    </div>
+    
+    <h1 class="archive-title">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+      </svg>
+      #{{ page.title }}
+    </h1>
+    
+    <p class="archive-description">
+      {% assign posts_count = page.posts | size %}
+      {{ posts_count }} {% if posts_count == 1 %}статья{% elsif posts_count < 5 %}статьи{% else %}статей{% endif %} с этим тегом
+    </p>
+  </header>
+
+  {% if page.posts %}
+    <div class="post-list">
+      {% for post in page.posts %}
+        <article class="post-list-item">
+          <div class="post-list-date">
+            <time datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%d.%m.%Y" }}
+            </time>
+          </div>
+          
+          <div class="post-list-content">
+            <h2 class="post-list-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h2>
+            
+            {% if post.excerpt %}
+              <p class="post-list-excerpt">
+                {{ post.excerpt | strip_html | truncatewords: 30 }}
+              </p>
+            {% endif %}
+            
+            <div class="post-list-meta">
+              {% if post.categories.size > 0 %}
+                <span class="post-category">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  {{ post.categories.first }}
+                </span>
+              {% endif %}
+              
+              <span class="post-reading-time">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                {{ post.content | number_of_words | divided_by: 200 }} мин
+              </span>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+      </svg>
+      <h3>Статей пока нет</h3>
+      <p>С этим тегом еще нет опубликованных статей</p>
+    </div>
+  {% endif %}
+</div>
