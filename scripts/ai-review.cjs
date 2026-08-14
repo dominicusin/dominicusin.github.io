@@ -60,10 +60,19 @@ function extractFrontmatter(content) {
 
 // Helper: Count words in markdown body
 function countWords(markdown) {
-  // Remove code blocks, comments, and frontmatter
-  const cleaned = markdown
-    .replace(/```[\s\S]*?```/g, '') // Code blocks
-    .replace(/<!--[\s\S]*?-->/g, '') // Comments
+  // Remove code blocks first
+  let cleaned = markdown
+    .replace(/```[\s\S]*?```/g, ''); // Code blocks
+
+  // Remove comments repeatedly to avoid incomplete multi-character sanitization
+  let previous;
+  do {
+    previous = cleaned;
+    cleaned = cleaned.replace(/<!--[\s\S]*?-->/g, ''); // Comments
+  } while (cleaned !== previous);
+
+  // Remove markdown syntax and normalize whitespace
+  cleaned = cleaned
     .replace(/^[>#*\-\d\.:\[\]()"'_~`]/gm, '') // Markdown syntax
     .replace(/\s+/g, ' ')
     .trim();
