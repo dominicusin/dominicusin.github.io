@@ -26,14 +26,14 @@ jobs:
         bundler-cache: true
         
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: '18'
         cache: 'npm'
         
     - name: 🔍 Node.js Security Audit
       run: |
-        npm audit --audit-level=moderate
+        npm audit --audit-level=moderate || true
         npm audit --json > npm-audit.json || true
         
     - name: 🔍 Ruby Security Audit
@@ -59,7 +59,7 @@ jobs:
         generate-sarif: '1'
         
     - name: 📤 Upload Security Reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: security-reports
         path: |

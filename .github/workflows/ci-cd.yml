@@ -32,7 +32,7 @@ jobs:
         bundler-cache: true
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
@@ -84,7 +84,7 @@ jobs:
         bundler-cache: true
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
@@ -118,7 +118,7 @@ jobs:
         npm run report:build
 
     - name: 📦 Upload Build Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: site-build
         path: _site/
@@ -160,7 +160,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: 🌐 Lighthouse CI
-      uses: treosh/lighthouse-ci-action@v10
+      uses: treosh/lighthouse-ci-action@v12
       with:
         urls: |
           https://${{ github.repository_owner }}.github.io
@@ -174,7 +174,7 @@ jobs:
         npm run check:web-vitals
 
     - name: 📊 Performance Report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: performance-report
         path: .lighthouseci/

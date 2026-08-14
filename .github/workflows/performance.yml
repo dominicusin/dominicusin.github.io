@@ -26,7 +26,7 @@ jobs:
         bundler-cache: true
         
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: '18'
         cache: 'npm'
@@ -37,7 +37,7 @@ jobs:
         npm run build:production
 
     - name: 🌐 Run Lighthouse CI
-      uses: treosh/lighthouse-ci-action@v10
+      uses: treosh/lighthouse-ci-action@v12
       with:
         configPath: './.lighthouserc.json'
         uploadArtifacts: true
@@ -83,7 +83,7 @@ jobs:
         echo "- SEO: Target > 90"
         
     - name: 📤 Upload Performance Reports
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: lighthouse-reports
         path: .lighthouseci/
