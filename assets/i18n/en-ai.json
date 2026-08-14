@@ -1,0 +1,58 @@
+{
+  "assistant": {
+    "greeting": "Hello! How can I help you today?",
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "loading": "Thinking...",
+    "error": "Sorry, something went wrong. Please try again.",
+    "offline": "AI Assistant is offline. Check your connection.",
+    "ready": "AI Assistant is ready"
+  },
+  "commands": {
+    "clear": "Clear chat history",
+    "context": "Show current context",
+    "summary": "Summarize conversation",
+    "help": "Show available commands",
+    "language": "Change language",
+    "export": "Export conversation"
+  },
+  "search": {
+    "placeholder": "Search with natural language...",
+    "modes": {
+      "keyword": "Keyword",
+      "vector": "Vector",
+      "hybrid": "Hybrid"
+    },
+    "results": "Results",
+    "noResults": "No results found",
+    "relevance": "Relevance",
+    "searching": "Searching..."
+  },
+  "status": {
+    "loading": "Loading model...",
+    "ready": "Ready",
+    "offline": "Offline",
+    "processing": "Processing..."
+  },
+  "menu": {
+    "summarize": "Summarize this page",
+    "explain": "Explain this concept",
+    "findRelated": "Find related content",
+    "translate": "Translate to...",
+    "copy": "Copy response",
+    "regenerate": "Regenerate response"
+  },
+  "errors": {
+    "network": "Network error. Please check your connection.",
+    "modelLoad": "Failed to load AI model.",
+    "timeout": "Request timeout. Please try again.",
+    "quota": "Quota exceeded. Try again later."
+  },
+  "accessibility": {
+    "openChat": "Open AI Assistant chat",
+    "closeChat": "Close chat",
+    "sendMessage": "Send message",
+    "attachment": "Attachment",
+    "newMessage": "New message received"
+  }
+}
