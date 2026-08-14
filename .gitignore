@@ -14,7 +14,7 @@ venv/
 .venv/
 .env
 .env.local
-.env.*
+*.env.*
 
 # Logs and temp files
 *.log
