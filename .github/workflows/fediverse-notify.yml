@@ -6,6 +6,9 @@ on:
     paths:
       - '_posts/**'
 
+permissions:
+  contents: read
+
 jobs:
   notify-fediverse:
     runs-on: ubuntu-latest
