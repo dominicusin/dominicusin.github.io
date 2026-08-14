@@ -1,33 +1,93 @@
 ```
-# Build artifacts
-build/
-dist/
-*.js.map
-*.min.js
-*.bundle.js
+# Dependencies
+node_modules/
 
 # Logs and temp files
 *.log
 *.tmp
-*.swp
 
 # Environment
 .env
 .env.local
-.env.*
+.env.
 
 # Editors
 .vscode/
 .idea/
 
-# Coverage and testing
-.coverage
+# Build artifacts
+dist/
+build/
+target/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Compression
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+
+# Coverage
 coverage/
 htmlcov/
-.pytest_cache/
-.mypy_cache/
+.coverage
 
-# OS generated files
+# System files
 .DS_Store
 Thumbs.db
+
+# IDE and editor specific
+*.swp
+*.swo
+*.tmp
+
+# Package manager
+package-lock.json
+yarn.lock
+
+# Testing
+.nyc_output/
+coverage/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Runtime
+*.so
+*.dll
+*.dylib
+
+# Cache directories
+.hugo_build.lock
+.jekyll-cache/
+.sass-cache/
+
+# OS generated files
+ehthumbs.db
+Icon?
 ```
