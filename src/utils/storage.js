@@ -15,7 +15,7 @@ export function isLocalStorageAvailable() {
     localStorage.setItem(test, test);
     localStorage.removeItem(test);
     return true;
-  } catch (e) {
+  } catch {} {
     return false;
   }
 }
@@ -30,7 +30,7 @@ export function isSessionStorageAvailable() {
     sessionStorage.setItem(test, test);
     sessionStorage.removeItem(test);
     return true;
-  } catch (e) {
+  } catch {} {
     return false;
   }
 }
@@ -82,7 +82,7 @@ export class LocalStorage {
       } catch {
         return item;
       }
-    } catch (error) {
+    } catch {} {
       console.error(`Error reading from localStorage: ${error}`);
       return defaultValue;
     }
@@ -112,7 +112,7 @@ export class LocalStorage {
       }
       
       return true;
-    } catch (error) {
+    } catch {} {
       console.error(`Error writing to localStorage: ${error}`);
       return false;
     }
@@ -133,7 +133,7 @@ export class LocalStorage {
         this.memory.delete(prefixedKey);
       }
       return true;
-    } catch (error) {
+    } catch {} {
       console.error(`Error removing from localStorage: ${error}`);
       return false;
     }
@@ -162,7 +162,7 @@ export class LocalStorage {
         this.memory.clear();
       }
       return true;
-    } catch (error) {
+    } catch {} {
       console.error(`Error clearing localStorage: ${error}`);
       return false;
     }
@@ -181,7 +181,7 @@ export class LocalStorage {
       return this.prefix 
         ? allKeys.filter(k => k.startsWith(this.prefix))
         : allKeys;
-    } catch (error) {
+    } catch {} {
       console.error(`Error getting keys from localStorage: ${error}`);
       return [];
     }
@@ -194,7 +194,7 @@ export class LocalStorage {
   length() {
     try {
       return this.available ? localStorage.length : this.memory.size;
-    } catch (error) {
+    } catch {} {
       console.error(`Error getting localStorage length: ${error}`);
       return 0;
     }
@@ -238,7 +238,7 @@ export class SessionStorage extends LocalStorage {
       } catch {
         return item;
       }
-    } catch (error) {
+    } catch {} {
       console.error(`Error reading from sessionStorage: ${error}`);
       return defaultValue;
     }
@@ -263,7 +263,7 @@ export class SessionStorage extends LocalStorage {
       }
       
       return true;
-    } catch (error) {
+    } catch {} {
       console.error(`Error writing to sessionStorage: ${error}`);
       return false;
     }
@@ -284,7 +284,7 @@ export class SessionStorage extends LocalStorage {
         this.memory.delete(prefixedKey);
       }
       return true;
-    } catch (error) {
+    } catch {} {
       console.error(`Error removing from sessionStorage: ${error}`);
       return false;
     }
@@ -313,7 +313,7 @@ export class SessionStorage extends LocalStorage {
         this.memory.clear();
       }
       return true;
-    } catch (error) {
+    } catch {} {
       console.error(`Error clearing sessionStorage: ${error}`);
       return false;
     }
@@ -332,7 +332,7 @@ export class SessionStorage extends LocalStorage {
       return this.prefix 
         ? allKeys.filter(k => k.startsWith(this.prefix))
         : allKeys;
-    } catch (error) {
+    } catch {} {
       console.error(`Error getting keys from sessionStorage: ${error}`);
       return [];
     }
@@ -345,7 +345,7 @@ export class SessionStorage extends LocalStorage {
   length() {
     try {
       return this.available ? sessionStorage.length : this.memory.size;
-    } catch (error) {
+    } catch {} {
       console.error(`Error getting sessionStorage length: ${error}`);
       return 0;
     }

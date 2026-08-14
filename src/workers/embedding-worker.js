@@ -67,7 +67,7 @@ function _checkWebGL() {
     if (!canvas) return false;
     const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
     return !!gl;
-  } catch (e) {
+  } catch {} {
     return false;
   }
 }
@@ -206,7 +206,7 @@ async function loadModel(options = {}) {
     if (selected === 'webgl' || selected === 'webgpu') {
       try {
         env.backends.onnx.webgl.contextAttributes = { alpha: false };
-      } catch (e) { /* backend-specific config may not exist */ }
+      } catch {} { /* backend-specific config may not exist */ }
     }
 
     // Load tokenizer (simplified - in production use @xenova/transformers)
@@ -239,7 +239,7 @@ async function loadModel(options = {}) {
     });
 
     return { success: true, backend: selected };
-  } catch (error) {
+  } catch {} {
     console.error('Failed to load model:', error);
     // Recovery: reset state so a later attempt can retry
     session = null;
@@ -506,7 +506,7 @@ self.onmessage = async (event) => {
             type: 'EMBEDDINGS_RESULT',
             payload: { embeddings, count: embeddings.length, requestId }
           });
-        } catch (e) {
+        } catch {} {
           _rejectRequest(requestId, e);
           throw e;
         }
@@ -548,7 +548,7 @@ self.onmessage = async (event) => {
         console.warn(`Unknown message type: ${type}`);
         self.postMessage({ type: 'ERROR', payload: { error: `Unknown type: ${type}`, requestId } });
     }
-  } catch (error) {
+  } catch {} {
     // Recovery: report the failure with the request id for upstream retry
     self.postMessage({
       type: 'ERROR',

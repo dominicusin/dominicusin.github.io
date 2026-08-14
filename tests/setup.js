@@ -151,8 +151,7 @@ global.BroadcastChannel = class BroadcastChannel {
 };
 
 // Mock fetch with intelligent mocking
-const originalFetch = global.fetch;
-global.fetch = jest.fn((url, options = {}) => {
+global.fetch = jest.fn((url, _options = {}) => {
   // Default mock implementation
   return Promise.resolve({
     ok: true,
@@ -182,6 +181,14 @@ global.cancelIdleCallback = global.cancelIdleCallback || clearTimeout;
 
 // Mock sendBeacon
 global.navigator.sendBeacon = jest.fn(() => true);
+
+// Base document setup for axe-core (jsdom has no <title>/lang by default).
+// Without this, document-level a11y rules (document-title, html-has-lang)
+// fail on every axe.run against the otherwise-empty jsdom document.
+if (typeof document !== 'undefined') {
+  document.documentElement.setAttribute('lang', 'en');
+  if (!document.title) document.title = 'Engineering Blog Test';
+}
 
 // Utility functions for tests
 global.testUtils = {

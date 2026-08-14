@@ -290,7 +290,7 @@ export class SocialSharing {
             url: this.shareData.url
           });
           this._trackShare('web_share');
-        } catch (error) {
+        } catch {} {
           if (error.name !== 'AbortError') {
             console.error('Web share failed:', error);
           }
@@ -407,7 +407,7 @@ export class SocialSharing {
       });
 
       this._updateShareCountsUI();
-    } catch (error) {
+    } catch {} {
       console.warn('Failed to load share counts:', error);
       this._hideShareCounts();
     }
@@ -484,7 +484,7 @@ export class SocialSharing {
 
       // Track event
       this._trackShare('clipboard');
-    } catch (error) {
+    } catch {} {
       // Fallback for older browsers
       const textarea = document.createElement('textarea');
       textarea.value = this.shareData.url;
@@ -497,7 +497,7 @@ export class SocialSharing {
         document.execCommand('copy');
         this._showToast('Link copied to clipboard!');
         this._trackShare('clipboard');
-      } catch (err) {
+      } catch {} {
         this._showToast('Failed to copy link');
       }
 

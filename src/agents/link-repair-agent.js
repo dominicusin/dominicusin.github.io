@@ -98,7 +98,7 @@ export class LinkRepairAgent {
       
       this.linkCache.set(cacheKey, isValid);
       return isValid;
-    } catch (error) {
+    } catch {} {
       this.linkCache.set(cacheKey, false);
       return false;
     }
@@ -357,7 +357,7 @@ export class LinkRepairAgent {
         confidence: fix.confidence,
         commitSha: commit.commit.sha
       };
-    } catch (error) {
+    } catch {} {
       console.error(`Failed to apply fix for ${filePath}:`, error.message);
       return null;
     }

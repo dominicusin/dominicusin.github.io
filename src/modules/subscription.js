@@ -310,7 +310,7 @@ export class SubscriptionSystem {
       }
 
       window.history.replaceState({}, document.title, window.location.pathname);
-    } catch (error) {
+    } catch {
       this.showStatusMessage('subscription.network_error', 'error');
     }
   }
@@ -337,7 +337,7 @@ export class SubscriptionSystem {
       }
 
       window.history.replaceState({}, document.title, window.location.pathname);
-    } catch (error) {
+    } catch {
       this.showStatusMessage('subscription.network_error', 'error');
     }
   }
@@ -360,7 +360,7 @@ export class SubscriptionSystem {
       }, 2000);
 
       this.trackSubscription('rss_copy');
-    } catch (error) {
+    } catch {} {
       console.error('Failed to copy RSS URL:', error);
       this.showStatusMessage('subscription.copy_error', 'error');
     }

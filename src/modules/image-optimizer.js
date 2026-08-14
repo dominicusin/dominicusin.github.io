@@ -114,7 +114,7 @@ export class ImageOptimizer {
       if (typeof canvas.toDataURL !== 'function') return false;
       const dataUrl = canvas.toDataURL('image/webp');
       return dataUrl.indexOf('data:image/webp') === 0;
-    } catch (e) {
+    } catch {} {
       // JSDOM doesn't support toDataURL with webp
       return false;
     }
@@ -251,7 +251,7 @@ export class ImageOptimizer {
       };
 
       tempImg.src = src;
-    } catch (error) {
+    } catch {} {
       console.error('Failed to load image:', error);
       this._handleImageError(img);
     }

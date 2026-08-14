@@ -51,7 +51,6 @@ describe('Accessibility Tests', () => {
       
       createTestDocument(html);
       
-      const modal = document.getElementById('modal');
       const firstBtn = document.getElementById('first-btn');
       const lastBtn = document.getElementById('last-btn');
       
@@ -72,7 +71,6 @@ describe('Accessibility Tests', () => {
       
       createTestDocument(html);
       
-      const modal = document.getElementById('modal');
       const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
       
       document.dispatchEvent(escapeEvent);
@@ -452,7 +450,6 @@ describe('Accessibility Tests', () => {
       createTestDocument(html);
       
       const buttons = document.querySelectorAll('button');
-      const link = document.querySelector('a');
       
       buttons[0].focus();
       expect(document.activeElement).toBe(buttons[0]);

@@ -11,7 +11,7 @@ export class MockWebWorker {
     this.terminated = false;
   }
 
-  postMessage(message, transfer) {
+  postMessage(message, _transfer) {
     if (this.terminated) {
       throw new Error('Worker has been terminated');
     }
@@ -95,8 +95,8 @@ export const mockServiceWorker = {
     return registration;
   },
 
-  async getRegistration(clientUrl) {
-    for (const [url, registration] of this.registrations.entries()) {
+  async getRegistration(_clientUrl) {
+    for (const [, registration] of this.registrations.entries()) {
       if (!clientUrl || clientUrl.startsWith(registration.scope)) {
         return registration;
       }

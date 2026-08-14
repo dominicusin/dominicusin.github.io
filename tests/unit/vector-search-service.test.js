@@ -56,7 +56,7 @@ describe('VectorSearchService', () => {
       Object.defineProperty(navigator, 'hardwareConcurrency', { value: 8, configurable: true });
       Object.defineProperty(navigator, 'deviceMemory', { value: 8, configurable: true });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       
       expect(deviceInfo.logicalCores).toBe(8);
       expect(deviceInfo.memoryGB).toBe(8);
@@ -69,7 +69,7 @@ describe('VectorSearchService', () => {
     test('should classify low-end devices correctly', () => {
       Object.defineProperty(navigator, 'deviceMemory', { value: 1, configurable: true });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       
       expect(deviceInfo.isLowEnd).toBe(true);
     });
@@ -78,7 +78,7 @@ describe('VectorSearchService', () => {
       Object.defineProperty(navigator, 'deviceMemory', { value: 16, configurable: true });
       Object.defineProperty(navigator, 'hardwareConcurrency', { value: 16, configurable: true });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       
       expect(deviceInfo.isLowEnd).toBe(false);
     });
@@ -89,7 +89,7 @@ describe('VectorSearchService', () => {
         configurable: true 
       });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       
       expect(deviceInfo.isMobile).toBe(true);
     });
@@ -100,7 +100,7 @@ describe('VectorSearchService', () => {
       Object.defineProperty(navigator, 'deviceMemory', { value: 8, configurable: true });
       Object.defineProperty(navigator, 'gpu', { value: {}, configurable: true });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       const backend = vectorService._selectBackend();
       
       expect(backend).toBe('webgpu');
@@ -110,7 +110,7 @@ describe('VectorSearchService', () => {
       Object.defineProperty(navigator, 'deviceMemory', { value: 8, configurable: true });
       Object.defineProperty(navigator, 'gpu', { value: null, configurable: true });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       const backend = vectorService._selectBackend();
       
       expect(backend).toMatch(/webgl|wasm/);
@@ -119,7 +119,7 @@ describe('VectorSearchService', () => {
     test('should select WASM for low-end devices', () => {
       Object.defineProperty(navigator, 'deviceMemory', { value: 1, configurable: true });
       
-      const deviceInfo = vectorService.detectDeviceCapabilities();
+      vectorService.detectDeviceCapabilities();
       const backend = vectorService._selectBackend();
       
       expect(backend).toBe('wasm');
@@ -228,7 +228,7 @@ describe('VectorSearchService', () => {
       const texts = Array.from({ length: 10 }, (_, i) => `Text ${i}`);
       
       // Mock worker response
-      const mockEmbeddings = texts.map(() => Array(384).fill(0.1));
+      texts.map(() => Array(384).fill(0.1));
       
       const embeddings = await vectorService.generateEmbeddingsBatch(texts);
       
@@ -275,7 +275,6 @@ describe('VectorSearchService', () => {
       const embedding = Array(384).fill(0.3);
       
       // Mock worker to return embedding
-      const originalPostMessage = vectorService.worker?.postMessage;
       if (vectorService.worker) {
         vectorService.worker.postMessage = function(msg) {
           setTimeout(() => {

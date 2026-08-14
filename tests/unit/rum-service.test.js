@@ -244,7 +244,6 @@ describe('RUMService', () => {
       global.fetch.mockRejectedValueOnce(new Error('Network error'));
       global.fetch.mockResolvedValueOnce({ ok: true, status: 200 });
       
-      const metric = { type: 'LCP', value: 2000, id: 'test-1' };
       rumService.retryCounts.set('test-1', 0);
       
       await rumService.flushMetrics();
@@ -255,7 +254,6 @@ describe('RUMService', () => {
     test('should stop retrying after max retries', async () => {
       global.fetch.mockRejectedValue(new Error('Persistent network error'));
       
-      const metric = { type: 'LCP', value: 2000, id: 'test-2' };
       rumService.retryCounts.set('test-2', 5); // Already exceeded max
       
       await rumService.flushMetrics();
