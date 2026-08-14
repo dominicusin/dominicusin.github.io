@@ -1,108 +1,184 @@
 /**
- * @fileoverview Unit tests for PrefetchService (Knowledge-Graph driven prefetch).
- * Fully offline: injects a fake document + fetch, no real network.
+ * Unit tests for src/services/prefetch.js (plan Phase 4.1 — Vector D
+ * predictive prefetch). The module is explicitly designed for testing via
+ * injectable _doc/_fetch and a pure _buildAdjacency().
  */
-import { PrefetchService } from '../../src/services/prefetch.js';
+import { PrefetchService } from '@services/prefetch.js';
+
+const GRAPH = {
+  nodes: [
+    { id: 1, url: '/a' },
+    { id: 2, url: '/b' },
+    { id: 3, url: '/c' }
+  ],
+  edges: [
+    { source: 1, target: 2, strength: 0.9 },
+    { source: 1, target: 3, strength: 0.3 },
+    { source: 2, target: 3, strength: 0.5 }
+  ]
+};
 
 function makeDoc() {
   const links = [];
   const doc = {
-    location: { href: 'https://example.com/2026/01/post-a/' },
+    location: { href: 'https://blog.test/a', pathname: '/a' },
     head: { appendChild: (el) => links.push(el) },
     documentElement: {},
-    createElement: (tag) => ({ tagName: tag, rel: '', href: '', as: '' }),
+    createElement: () => ({ rel: '', href: '', as: '' }),
     querySelectorAll: () => [],
-    IntersectionObserver: undefined
+    IntersectionObserver: null
   };
-  doc._links = links;
   return doc;
 }
 
-const SAMPLE_GRAPH = {
-  nodes: [
-    { id: 'a', type: 'post', url: '/2026/01/post-a/' },
-    { id: 'b', type: 'post', url: '/2026/01/post-b/' },
-    { id: 'c', type: 'post', url: '/2026/01/post-c/' }
-  ],
-  edges: [
-    { source: 'a', target: 'b', strength: 3 },
-    { source: 'a', target: 'c', strength: 1 }
-  ]
-};
-
-function fakeFetch(graph) {
-  return async (_url) => ({
-    ok: true,
-    json: async () => graph
-  });
-}
-
-describe('PrefetchService', () => {
-  test('_buildAdjacency builds undirected, weight-sorted neighbours', () => {
+describe('PrefetchService._buildAdjacency', () => {
+  test('builds undirected, deduped, weight-sorted adjacency', () => {
     const svc = new PrefetchService();
-    const adj = svc._buildAdjacency(SAMPLE_GRAPH);
-    const a = adj.get('/2026/01/post-a/');
-    expect(a).toHaveLength(2);
-    // strongest edge first
-    expect(a[0].url).toBe('/2026/01/post-b/');
-    expect(a[0].weight).toBe(3);
-    // undirected: b sees a
-    expect(adj.get('/2026/01/post-b/')[0].url).toBe('/2026/01/post-a/');
+    const adj = svc._buildAdjacency(GRAPH);
+    expect(adj.get('/a').map((e) => e.url)).toEqual(['/b', '/c']); // 0.9 then 0.3
+    expect(adj.get('/b').map((e) => e.url)).toEqual(['/a', '/c']);
   });
 
-  test('_buildAdjacency handles empty/malformed graph', () => {
+  test('falls back to empty map on malformed graph', () => {
     const svc = new PrefetchService();
     expect(svc._buildAdjacency(null).size).toBe(0);
-    expect(svc._buildAdjacency({ nodes: [], edges: [] }).size).toBe(0);
-    expect(svc._buildAdjacency({ nodes: 'x', edges: 'y' }).size).toBe(0);
+    expect(svc._buildAdjacency({}).size).toBe(0);
+    expect(svc._buildAdjacency({ nodes: [], edges: 'x' }).size).toBe(0);
   });
 
-  test('init loads graph, resolves current url, builds adjacency', async () => {
-    const doc = makeDoc();
-    const svc = new PrefetchService({ _doc: doc, _fetch: fakeFetch(SAMPLE_GRAPH) });
-    const ok = await svc.init();
-    expect(ok).toBe(true);
-    expect(svc.graphLoaded).toBe(true);
-    expect(svc.adjacency.size).toBe(3);
+  test('skips edges with missing node urls', () => {
+    const svc = new PrefetchService();
+    const adj = svc._buildAdjacency({
+      nodes: [{ id: 1, url: '/a' }], // node 2 missing
+      edges: [{ source: 1, target: 2, strength: 1 }]
+    });
+    expect(adj.get('/a')).toBeUndefined();
   });
+});
 
-  test('init returns false when fetch fails (offline-safe)', async () => {
-    const doc = makeDoc();
-    const failingFetch = async () => ({ ok: false, json: async () => ({}) });
-    const svc = new PrefetchService({ _doc: doc, _fetch: failingFetch });
+describe('PrefetchService.init', () => {
+  test('returns false when disabled', async () => {
+    const svc = new PrefetchService({ enabled: false });
     expect(await svc.init()).toBe(false);
   });
 
-  test('getRelated returns top-N sorted by weight', () => {
-    const doc = makeDoc();
-    const svc = new PrefetchService({ _doc: doc, _fetch: fakeFetch(SAMPLE_GRAPH) });
-    svc.adjacency = svc._buildAdjacency(SAMPLE_GRAPH);
-    svc.currentUrl = '/2026/01/post-a/';
-    const related = svc.getRelated();
-    expect(related).toHaveLength(2);
-    expect(related[0].url).toBe('/2026/01/post-b/');
+  test('returns false without doc/fetch', async () => {
+    const svc = new PrefetchService({ _doc: null, _fetch: null });
+    expect(await svc.init()).toBe(false);
   });
 
-  test('prefetch injects <link rel="prefetch"> and dedups', () => {
-    const doc = makeDoc();
-    const svc = new PrefetchService({ _doc: doc });
-    const scheduled1 = svc.prefetch('/2026/01/post-b/');
-    expect(scheduled1).toBe(true);
-    expect(doc._links).toHaveLength(1);
-    expect(doc._links[0].rel).toBe('prefetch');
-    // immediate duplicate is deduped (still inflight window)
-    const scheduled2 = svc.prefetch('/2026/01/post-b/');
-    expect(scheduled2).toBe(false);
-    expect(doc._links).toHaveLength(1);
+  test('returns false on non-ok response', async () => {
+    const svc = new PrefetchService({
+      _doc: makeDoc(),
+      _fetch: async () => ({ ok: false, status: 404 })
+    });
+    expect(await svc.init()).toBe(false);
   });
 
-  test('prefetchRelated schedules at most maxPrefetch links', () => {
-    const doc = makeDoc();
-    const svc = new PrefetchService({ _doc: doc, maxPrefetch: 1 });
-    svc.adjacency = svc._buildAdjacency(SAMPLE_GRAPH);
-    svc.currentUrl = '/2026/01/post-a/';
-    const n = svc.prefetchRelated();
-    expect(n).toBe(1);
-    expect(doc._links).toHaveLength(1);
+  test('loads graph, builds adjacency, sets currentUrl', async () => {
+    const svc = new PrefetchService({
+      _doc: makeDoc(),
+      _fetch: async () => ({ ok: true, json: async () => GRAPH })
+    });
+    expect(await svc.init()).toBe(true);
+    expect(svc.graphLoaded).toBe(true);
+    expect(svc.currentUrl).toBe('/a');
+    expect(svc.adjacency.get('/a')).toBeDefined();
+  });
+
+  test('respects save-data', async () => {
+    const conn = { saveData: true };
+    Object.defineProperty(global.navigator, 'connection', { configurable: true, value: conn });
+    const svc = new PrefetchService({
+      _doc: makeDoc(),
+      _fetch: async () => ({ ok: true, json: async () => GRAPH }),
+      respectSaveData: true
+    });
+    expect(await svc.init()).toBe(false);
+    delete global.navigator.connection;
+  });
+});
+
+describe('PrefetchService.getRelated / prefetchRelated', () => {
+  let svc;
+  beforeEach(async () => {
+    svc = new PrefetchService({
+      _doc: makeDoc(),
+      _fetch: async () => ({ ok: true, json: async () => GRAPH }),
+      maxPrefetch: 2
+    });
+    await svc.init();
+  });
+
+  test('getRelated returns sorted top-N', () => {
+    expect(svc.getRelated('/a').map((e) => e.url)).toEqual(['/b', '/c']);
+    expect(svc.getRelated('/a', 1).map((e) => e.url)).toEqual(['/b']);
+  });
+
+  test('getRelated for unknown url returns []', () => {
+    expect(svc.getRelated('/zzz')).toEqual([]);
+  });
+
+  test('prefetchRelated schedules capped count', async () => {
+    const svc2 = new PrefetchService({
+      _doc: makeDoc(),
+      _fetch: async () => ({ ok: true, json: async () => GRAPH }),
+      maxPrefetch: 5,
+      respectSaveData: false
+    });
+    await svc2.init();
+    expect(svc2.prefetchRelated('/a', 5)).toBe(2); // exactly 2 related exist
+  });
+});
+
+describe('PrefetchService.prefetch', () => {
+  let svc;
+  let doc;
+  beforeEach(async () => {
+    doc = makeDoc();
+    svc = new PrefetchService({
+      _doc: doc,
+      _fetch: async () => ({ ok: true, json: async () => GRAPH }),
+      concurrency: 1,
+      respectSaveData: false
+    });
+    await svc.init();
+  });
+
+  test('injects a <link rel=prefetch> and returns true', () => {
+    const appended = [];
+    doc.head.appendChild = (el) => appended.push(el);
+    expect(svc.prefetch('/b')).toBe(true);
+    expect(appended[0].rel).toBe('prefetch');
+    expect(appended[0].href).toBe('/b');
+    expect(svc._inflight.has('/b')).toBe(true);
+  });
+
+  test('returns false for empty url', () => {
+    expect(svc.prefetch('')).toBe(false);
+  });
+
+  test('dedupes already-scheduled urls', () => {
+    svc.prefetch('/b');
+    expect(svc.prefetch('/b')).toBe(false);
+  });
+
+  test('respects concurrency limit', () => {
+    expect(svc.prefetch('/b')).toBe(true); // inflight=1 == concurrency=1
+    expect(svc.prefetch('/c')).toBe(false); // blocked by concurrency
+  });
+});
+
+describe('PrefetchService.destroy', () => {
+  test('clears state without throwing', async () => {
+    const svc = new PrefetchService({
+      _doc: makeDoc(),
+      _fetch: async () => ({ ok: true, json: async () => GRAPH })
+    });
+    await svc.init();
+    svc.prefetch('/b');
+    expect(() => svc.destroy()).not.toThrow();
+    expect(svc._inflight.size).toBe(0);
+    expect(svc._scheduled.size).toBe(0);
   });
 });

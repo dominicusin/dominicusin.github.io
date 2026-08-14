@@ -479,5 +479,33 @@ describe('AnalyticsService', () => {
         expect(analytics.getINPRating(800)).toBe('poor');
       });
     });
+
+    describe('sendToServer retry / failure handling (added coverage)', () => {
+      test('retries then succeeds after a transient failure', async () => {
+        global.fetch
+          .mockRejectedValueOnce(new Error('fail1'))
+          .mockResolvedValueOnce({ ok: true, status: 200 });
+        await analytics.sendToServer([{ type: 'x' }]);
+        expect(global.fetch).toHaveBeenCalledTimes(2);
+      });
+
+      test('throws after exhausting retry attempts', async () => {
+        global.fetch.mockRejectedValue(new Error('always'));
+        await expect(analytics.sendToServer([{ type: 'x' }])).rejects.toThrow('always');
+        expect(global.fetch).toHaveBeenCalledTimes(analytics.options.retryAttempts);
+      });
+
+      test('throws on non-ok HTTP response (after retries)', async () => {
+        global.fetch.mockResolvedValue({ ok: false, status: 500 });
+        await expect(analytics.sendToServer([{ type: 'x' }])).rejects.toThrow('HTTP 500');
+      });
+
+      test('flushEvents re-queues events when sendToServer throws', async () => {
+        global.fetch.mockRejectedValue(new Error('network'));
+        analytics.addEvent({ type: 'a' });
+        await analytics.flushEvents();
+        expect(analytics.events).toHaveLength(1);
+      });
+    });
   });
 });

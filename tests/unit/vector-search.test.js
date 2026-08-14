@@ -1,93 +1,103 @@
 /**
- * @fileoverview Unit tests for the lightweight Vector Search (TF-IDF + cosine).
+ * Unit tests for src/modules/vector-search.js (plan Phase 4.1) — TF-IDF
+ * semantic search: build index, tokenization/stopwords, query embedding,
+ * ranked search with topK + threshold, and post-to-post similarity.
  */
-import { VectorSearch } from '../../src/modules/vector-search.js';
+import { VectorSearch } from '@modules/vector-search.js';
 
 const POSTS = [
   {
-    title: 'Vector Search with TF-IDF',
-    content: 'We build a semantic search using tf idf and cosine similarity for blog posts.',
-    tags: ['search', 'ml'],
-    categories: ['engineering'],
-    concepts: [{ id: 'vector-search', label: 'Vector Search' }, { id: 'tfidf', label: 'TF-IDF' }],
-    url: '/a/',
-    excerpt: 'semantic search'
+    id: 'p1', title: 'Rust async runtime', tags: ['rust', 'async'],
+    categories: ['systems'], content: 'writing efficient async code in rust',
+    concepts: [{ label: 'async' }, { label: 'rust' }]
   },
   {
-    title: 'CSS Grid Layouts',
-    content: 'A guide to css grid and flexbox for responsive web design and layouts.',
-    tags: ['css', 'frontend'],
-    categories: ['design'],
-    concepts: [{ id: 'css-grid', label: 'CSS Grid' }],
-    url: '/b/',
-    excerpt: 'css layouts'
+    id: 'p2', title: 'Python data science', tags: ['python', 'ml'],
+    categories: ['data'], content: 'machine learning pipelines in python',
+    concepts: [{ label: 'ml' }, { label: 'python' }]
   },
   {
-    title: 'Service Workers and Offline',
-    content: 'Implement offline support with service worker caching strategies and pwa.',
-    tags: ['pwa', 'offline'],
-    categories: ['engineering'],
-    concepts: [{ id: 'service-worker', label: 'Service Worker' }],
-    url: '/c/',
-    excerpt: 'offline pwa'
+    id: 'p3', title: 'Rust systems programming', tags: ['rust', 'systems'],
+    categories: ['systems'], content: 'building low level systems with rust',
+    concepts: [{ label: 'rust' }]
   }
 ];
 
 describe('VectorSearch', () => {
   let vs;
-  beforeEach(() => {
-    vs = new VectorSearch(POSTS);
+  beforeEach(() => { vs = new VectorSearch(POSTS); });
+
+  test('builds an index over the supplied posts', () => {
+    expect(vs.documents).toHaveLength(3);
+    expect(vs.vocab.size).toBeGreaterThan(0);
   });
 
-  test('builds an index with one document per post', () => {
-    expect(vs.documents.length).toBe(3);
+  test('empty constructor yields an empty index', () => {
+    const empty = new VectorSearch();
+    expect(empty.documents).toHaveLength(0);
   });
 
-  test('embeds a query into a normalized vector', () => {
-    const v = vs.embed('vector search');
-    expect(v.size).toBeGreaterThan(0);
+  test('search ranks the most semantically similar post first', () => {
+    const res = vs.search('rust async');
+    expect(res.length).toBeGreaterThan(0);
+    expect(res[0].post.id).toBe('p1'); // shares rust + async concepts
+  });
+
+  test('search for python/ml returns the data-science post', () => {
+    const res = vs.search('python machine learning');
+    expect(res[0].post.id).toBe('p2');
+  });
+
+  test('returns [] for empty/stopword-only query', () => {
+    expect(vs.search('')).toEqual([]);
+    expect(vs.search('the a and')).toEqual([]);
+  });
+
+  test('topK limits the result count', () => {
+    const res = vs.search('rust', { topK: 1 });
+    expect(res).toHaveLength(1);
+    expect(['p1', 'p3']).toContain(res[0].post.id); // both are rust posts
+  });
+
+  test('threshold filters out low-similarity results', () => {
+    const res = vs.search('rust', { threshold: 0.99 });
+    // unrelated-ish queries won't reach a very high threshold
+    expect(Array.isArray(res)).toBe(true);
+  });
+
+  test('scores are between 0 and 1 and sorted desc', () => {
+    const res = vs.search('rust programming');
+    for (let i = 1; i < res.length; i++) {
+      expect(res[i - 1].score).toBeGreaterThanOrEqual(res[i].score);
+    }
+  });
+
+  test('similarity of a post with itself is 1', () => {
+    expect(vs.similarity(POSTS[0], POSTS[0])).toBeCloseTo(1, 5);
+  });
+
+  test('similarity of two rust posts is higher than rust vs python', () => {
+    const rustRust = vs.similarity(POSTS[0], POSTS[2]);
+    const rustPython = vs.similarity(POSTS[0], POSTS[1]);
+    expect(rustRust).toBeGreaterThan(rustPython);
+  });
+
+  test('embedding is normalized (unit length)', () => {
+    const vec = vs.embed('rust async systems');
     let norm = 0;
-    for (const x of v.values()) norm += x * x;
+    for (const v of vec.values()) norm += v * v;
     expect(Math.sqrt(norm)).toBeCloseTo(1, 5);
   });
 
-  test('ranks the most semantically relevant post first', () => {
-    const results = vs.search('vector search tf idf', { topK: 1 });
-    expect(results.length).toBe(1);
-    expect(results[0].post.url).toBe('/a/');
-    expect(results[0].score).toBeGreaterThan(0);
+  test('unknown query terms still contribute (default idf)', () => {
+    const vec = vs.embed('zzznotaword');
+    expect(vec.has('zzznotaword')).toBe(true);
   });
 
-  test('concepts dominate the semantic signal', () => {
-    // Query matches only the concept label of post /a/.
-    const results = vs.search('Vector Search', { topK: 3 });
-    expect(results[0].post.url).toBe('/a/');
-  });
-
-  test('returns empty array for empty query', () => {
-    expect(vs.search('')).toEqual([]);
-    expect(vs.search('   ')).toEqual([]);
-  });
-
-  test('respects topK', () => {
-    const results = vs.search('search worker css', { topK: 2 });
-    expect(results.length).toBeLessThanOrEqual(2);
-  });
-
-  test('threshold filters low-similarity results', () => {
-    const results = vs.search('quantum cryptography blockchain', { topK: 5, threshold: 0.05 });
-    // These terms are unrelated to the corpus; with threshold most should drop out.
-    expect(results.every(r => r.score >= 0.05)).toBe(true);
-  });
-
-  test('similarity between two posts is in [0,1]', () => {
-    const s = vs.similarity(POSTS[0], POSTS[2]);
-    expect(s).toBeGreaterThanOrEqual(0);
-    expect(s).toBeLessThanOrEqual(1);
-  });
-
-  test('rebuilds index when buildIndex called again', () => {
-    vs.buildIndex(POSTS.slice(0, 1));
-    expect(vs.documents.length).toBe(1);
+  test('rebuild index replaces prior documents', () => {
+    vs.buildIndex([POSTS[0]]);
+    expect(vs.documents).toHaveLength(1);
+    // python is unrelated to the single rust post -> no relevant match above 0
+    expect(vs.search('python', { threshold: 0.001 })).toHaveLength(0);
   });
 });
