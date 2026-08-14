@@ -375,8 +375,8 @@ export class ThemeManager {
   }
 }
 
-// Auto-initialize
-if (typeof document !== 'undefined') {
+// Auto-initialize (browser environment only)
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
     window.themeManager = new ThemeManager({
       container: '.theme-toggle',
@@ -385,3 +385,6 @@ if (typeof document !== 'undefined') {
     });
   });
 }
+
+// Export for module usage
+export default ThemeManager;

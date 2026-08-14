@@ -563,13 +563,15 @@ export class SocialSharing {
   }
 }
 
-// Auto-initialize
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+// Auto-initialize (browser environment only)
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      window.socialSharing = new SocialSharing();
+    });
+  } else {
     window.socialSharing = new SocialSharing();
-  });
-} else {
-  window.socialSharing = new SocialSharing();
+  }
 }
 
 // Export for module usage
