@@ -282,7 +282,7 @@ describe('AnalyticsService', () => {
     });
 
     test('should re-queue events on failure', async () => {
-      global.fetch.mockRejectedValue(new Error('Network error'));
+      global.fetch.mockRejectedValueOnce(new Error('Network error'));
       
       analytics.addEvent({ type: 'test' });
       

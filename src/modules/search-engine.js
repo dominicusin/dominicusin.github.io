@@ -73,21 +73,17 @@ export class SearchEngine {
             <p>No results found</p>
             <p>Try different keywords or browse categories</p>
           </div>
-          <div class="search-results-list" role="list"></div>
         </div>
       `;
       
       const header = document.querySelector('.site-header');
       if (header) {
         header.after(searchContainer);
-      } else if (document.body) {
-        document.body.appendChild(searchContainer);
       }
     }
     
     this.searchInput = searchContainer.querySelector('.search-input');
     this.searchResults = searchContainer.querySelector('.search-results');
-    this.searchResultsList = searchContainer.querySelector('.search-results-list');
     this.clearButton = searchContainer.querySelector('.search-clear');
     this.loadingIndicator = searchContainer.querySelector('.search-loading');
     this.emptyState = searchContainer.querySelector('.search-empty');
@@ -372,8 +368,10 @@ export class SearchEngine {
       </div>
     `).join('');
     
-    this.searchResultsList.innerHTML = `
+    this.searchResults.innerHTML = `
+      <div class="search-results-list" role="list">
         ${resultsHTML}
+      </div>
       <div class="search-results-footer">
         <p>${results.length} result${results.length !== 1 ? 's' : ''} found</p>
       </div>
@@ -451,16 +449,6 @@ export class SearchEngine {
   }
 
   /**
-   * Format a date string for display (delegates to helpers.formatDate).
-   * @param {string|Date} dateString - Date to format
-   * @param {Object} options - Intl options
-   * @returns {string} Formatted date
-   */
-  formatDate(dateString, options = {}) {
-    return formatDate(dateString, options);
-  }
-
-  /**
    * Show loading state
    */
   showLoading() {
@@ -481,7 +469,7 @@ export class SearchEngine {
   showEmptyState() {
     this.hideLoading();
     this.emptyState?.removeAttribute('hidden');
-    this.searchResultsList.innerHTML = '';
+    this.searchResults.innerHTML = '';
   }
 
   /**
@@ -495,7 +483,7 @@ export class SearchEngine {
    * Hide search results
    */
   hideResults() {
-    this.searchResultsList.innerHTML = '';
+    this.searchResults.innerHTML = '';
     this.hideEmptyState();
     this.hideLoading();
     
@@ -520,7 +508,7 @@ export class SearchEngine {
    */
   showSearchError() {
     this.hideLoading();
-    this.searchResultsList.innerHTML = `
+    this.searchResults.innerHTML = `
       <div class="search-error">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"></circle>
@@ -565,13 +553,11 @@ export class SearchEngine {
 
 // Auto-initialize
 if (typeof document !== 'undefined') {
-  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        window.searchEngine = new SearchEngine();
-      });
-    } else {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
       window.searchEngine = new SearchEngine();
-    }
+    });
+  } else {
+    window.searchEngine = new SearchEngine();
   }
 }

@@ -157,9 +157,7 @@ describe('SearchEngine', () => {
       searchEngine = new SearchEngine();
       
       const formatted = searchEngine.formatDate('2024-06-15');
-      // Locale-independent assertions: year, month-day present
-      expect(formatted).toContain('2024');
-      expect(formatted).toMatch(/\d{1,2}/);
+      expect(formatted).toMatch(/\w+ \d+, \d+/);
     });
   });
   
@@ -254,8 +252,8 @@ describe('SearchEngine', () => {
       // Should not throw
       await searchEngine.performSearch('');
       await searchEngine.performSearch('a'); // Too short
-
-      expect(searchEngine.searchResultsList.innerHTML).toBe('');
+      
+      expect(searchEngine.searchResults.innerHTML).toBe('');
     });
   });
 });

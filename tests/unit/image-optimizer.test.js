@@ -295,8 +295,6 @@ describe('ImageOptimizer', () => {
       // Create wrapper div to simulate parent
       const wrapper = document.createElement('div');
       wrapper.style.width = '800px';
-      // jsdom doesn't compute layout; emulate a resolved container width
-      Object.defineProperty(wrapper, 'offsetWidth', { value: 800, configurable: true });
       wrapper.appendChild(img);
       document.body.appendChild(wrapper);
 
