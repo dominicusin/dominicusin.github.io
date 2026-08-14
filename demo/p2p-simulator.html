@@ -29,76 +29,95 @@
 
   <div class="controls">
     <input id="article-title" placeholder="New article title…" />
-    <button class="alt" onclick="addToPeer(0)">Add to Peer 1</button>
-    <button class="alt" onclick="addToPeer(1)">Add to Peer 2</button>
-    <button class="alt" onclick="addToPeer(2)">Add to Peer 3</button>
-    <button class="danger" onclick="partitionPeer(1)">Disconnect Peer 2</button>
-    <button onclick="reconnectAll()">Reconnect All</button>
+    <button class="alt" onclick="addArticle()">Add Article (broadcast)</button>
+    <span class="status">Open this page in another tab → peers sync via WebRTC. BCI: simulated mental state scrolls the page.</span>
   </div>
 
   <div class="grid">
-    <div class="peer"><h2>Peer 1</h2><div class="nodes" id="peer-0">{}</div></div>
-    <div class="peer"><h2>Peer 2</h2><div class="nodes" id="peer-1">{}</div></div>
-    <div class="peer"><h2>Peer 3</h2><div class="nodes" id="peer-2">{}</div></div>
+    <div class="peer"><h2>Local Peer</h2><div class="nodes" id="peer-local">{}</div></div>
   </div>
 
   <div class="log" id="log"></div>
 
-  <!-- In a real deployment these would be separate iframes / browser tabs.
-       For the single-page demo we run three GraphSync instances on one bus. -->
+  <!-- Each browser tab is a real peer. Open this file in 2-3 tabs to see
+       live WebRTC convergence across tabs; the BCI simulator scrolls via
+       simulated mental state. -->
   <script type="module">
-    import { GraphSync, MemoryTransport } from '/src/modules/graph-sync.js';
-    import GraphCRDT from '/src/modules/crdt-sync.js';
+    import { GraphSync } from '/src/modules/graph-sync.js';
+    import { GraphCRDT } from '/src/modules/crdt-sync.js';
+    import { WebRTCTransport } from '/src/modules/webrtc-transport.js';
+    import { BCIController, INTENTS } from '/src/modules/bci-controller.js';
 
-    const bus = new MemoryTransport();
-    const peers = [0, 1, 2].map((i) =>
-      new GraphSync('peer-' + i, new GraphCRDT('peer-' + i), bus)
-    );
-    const connected = new Set(['0-1', '1-2', '0-2']); // full mesh
+    // Real cross-tab P2P signaling via BroadcastChannel (same origin).
+    // Each tab is a peer; open this file in 2-3 tabs to see live convergence.
+    function makeSignaling(myId) {
+      const ch = new BroadcastChannel('graph-sync-demo');
+      const handlers = [];
+      ch.onmessage = (e) => {
+        const msg = e.data;
+        if (msg && msg.from !== myId) handlers.forEach((h) => h(msg));
+      };
+      return {
+        send(toId, msg) { ch.postMessage({ ...msg, from: myId, to: toId }); },
+        onMessage(cb) { handlers.push(cb); }
+      };
+    }
+
+    const myId = 'peer-' + Math.random().toString(36).slice(2, 7);
+    const transport = new WebRTCTransport(myId, { signaling: makeSignaling(myId) });
+    const bus = { /* WebRTCTransport is itself the bus */ };
+
+    // GraphSync needs a bus with register/onMessage/send/broadcast.
+    // WebRTCTransport implements that interface; adapt it for GraphSync.
+    const sync = new GraphSync(myId, new GraphCRDT(myId), {
+      send: (to, msg) => transport.send(to, msg),
+      broadcast: (msg) => transport.broadcast(msg),
+      onMessage: (cb) => transport.onMessage((m) => cb(m))
+    });
 
     function log(msg) {
       const el = document.getElementById('log');
-      el.textContent = '> ' + msg + '\n' + el.textContent;
+      el.textContent = '[' + myId + '] ' + msg + '\n' + el.textContent;
     }
 
     function render() {
-      peers.forEach((p, i) => {
-        document.getElementById('peer-' + i).textContent = JSON.stringify(p.getState(), null, 1);
-      });
+      document.getElementById('peer-local').textContent = JSON.stringify(sync.getState(), null, 1);
     }
 
-    function connectAll() {
-      peers.forEach((p) => {
-        peers.forEach((q) => { if (p !== q) p.connect(q.id); });
-      });
+    // Connect to any peer we hear about; discover via announce.
+    transport.onMessage((msg) => {
+      if (msg.data && msg.data.type === 'hello') {
+        sync.connect(msg.from);
+      } else {
+        sync.mergeRemote(msg);
+      }
       render();
-    }
+    });
+    // announce presence
+    setTimeout(() => transport.broadcast({ type: 'hello' }), 300);
 
-    window.addToPeer = (idx) => {
+    window.addArticle = () => {
       const title = document.getElementById('article-title').value || ('Article-' + Date.now());
       const id = 'a' + Math.floor(Math.random() * 1e6);
-      peers[idx].updateNode(id, { title });
-      log('Peer ' + (idx + 1) + ' added "' + title + '" → broadcast');
+      sync.updateNode(id, { title });
+      log('added "' + title + '" → broadcast to peers');
       render();
     };
+    window.addToPeer = window.addArticle; // single-peer UI: this tab IS the peer
 
-    window.partitionPeer = (idx) => {
-      // simulate network partition: stop that peer receiving broadcasts
-      connected.delete('0-' + idx); connected.delete('1-' + idx); connected.delete('2-' + idx);
-      bus._partitioned = bus._partitioned || new Set();
-      bus._partitioned.add(idx);
-      log('Peer ' + (idx + 1) + ' partitioned (offline)');
+    // --- BCI neuro-control: scroll the article list via mental state ---
+    const bci = new BCIController({ debounceMs: 1200 });
+    bci.onIntent = (d) => {
+      if (d.intent === INTENTS.SCROLL_UP) window.scrollBy(0, -120);
+      else if (d.intent === INTENTS.SCROLL_DOWN) window.scrollBy(0, 120);
+      else if (d.intent === INTENTS.SELECT) log('BCI: SELECT intent detected (focus)');
+      log('BCI intent: ' + d.intent + ' (conf ' + d.confidence.toFixed(2) + ')');
     };
+    bci.start();
+    window.addEventListener('beforeunload', () => bci.stop());
 
-    window.reconnectAll = () => {
-      bus._partitioned = new Set();
-      log('All peers reconnected → CRDT merge');
-      connectAll();
-    };
-
-    // initial mesh connection (bypasses partition flag)
-    connectAll();
-    log('Demo ready. Add articles and watch all 3 peers converge.');
+    log('Peer ' + myId + ' ready. Open this page in another tab to sync via WebRTC.');
+    render();
   </script>
 </body>
 </html>

@@ -1,0 +1,55 @@
+name: Deploy DAO to Sepolia
+
+on:
+  workflow_dispatch:
+    inputs:
+      network:
+        description: 'Target network (sepolia | goerli)'
+        required: false
+        default: 'sepolia'
+  push:
+    branches: [main]
+    paths: ['contracts/**', 'hardhat.config.cjs', 'scripts/deploy-dao.cjs', 'package*.json']
+
+jobs:
+  deploy:
+    name: Deploy DAO contracts
+    runs-on: ubuntu-latest
+    # Hard requirement: a funded wallet private key must be supplied as a
+    # repository secret. Without it we fail loudly rather than fake a deploy.
+    env:
+      DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+      SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --legacy-peer-deps
+
+      - name: Guard — require deploy secrets
+        run: |
+          if [ -z "$DEPLOY_PRIVATE_KEY" ] || [ -z "$SEPOLIA_RPC_URL" ]; then
+            echo "::error::DEPLOY_PRIVATE_KEY and SEPOLIA_RPC_URL secrets are required to deploy."
+            echo "Add them under Settings > Secrets before running this workflow."
+            exit 1
+          fi
+
+      - name: Compile
+        run: npx hardhat compile
+
+      - name: Deploy to target network
+        env:
+          # workflow_dispatch input is operator-controlled, not attacker PR/issue
+          # content; still constrain to an allowlist for safety.
+          NETWORK: ${{ github.event.inputs.network }}
+        run: |
+          NET="${NETWORK:-sepolia}"
+          case "$NET" in
+            sepolia|goerli) ;;
+            *) echo "::error::unsupported network '$NET'"; exit 1 ;;
+          esac
+          npx hardhat run scripts/deploy-dao.cjs --network "$NET"

@@ -15,6 +15,17 @@ module.exports = {
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false
+    },
+    // Sepolia / Goerli are driven by CI/CD secrets (no hardcoded keys).
+    // Provide DEPLOY_PRIVATE_KEY + SEPOLIA_RPC_URL (or GOERLI_RPC_URL) as
+    // environment variables when running `hardhat run --network sepolia`.
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL || '',
+      accounts: process.env.DEPLOY_PRIVATE_KEY ? [process.env.DEPLOY_PRIVATE_KEY] : []
+    },
+    goerli: {
+      url: process.env.GOERLI_RPC_URL || '',
+      accounts: process.env.DEPLOY_PRIVATE_KEY ? [process.env.DEPLOY_PRIVATE_KEY] : []
     }
   },
   paths: {
