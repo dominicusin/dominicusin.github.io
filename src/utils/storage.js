@@ -96,16 +96,23 @@ export class LocalStorage {
    */
   set(key, value) {
     const prefixedKey = this._getKey(key);
-    
+
+    // Storing `undefined` is equivalent to removing the key so that a
+    // subsequent get() returns the documented default (null) instead of the
+    // string "undefined".
+    if (value === undefined) {
+      return this.remove(key);
+    }
+
     try {
       const serialized = typeof value === 'string' ? value : JSON.stringify(value);
-      
+
       if (this.available) {
         localStorage.setItem(prefixedKey, serialized);
       } else {
         this.memory.set(prefixedKey, serialized);
       }
-      
+
       return true;
     } catch (error) {
       console.error(`Error writing to localStorage: ${error}`);

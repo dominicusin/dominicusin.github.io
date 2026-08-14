@@ -24,7 +24,7 @@ export class ThemeManager {
       ...options
     };
     
-    this.storage = new LocalStorage(this.options.storageKey);
+    this.storage = new LocalStorage('');
     this.currentTheme = this.getStoredTheme() || this.options.defaultTheme;
     this.container = null;
     
@@ -104,7 +104,7 @@ export class ThemeManager {
    * @returns {string|null} Stored theme
    */
   getStoredTheme() {
-    return this.storage.get('theme');
+    return this.storage.get(DEFAULT_CONFIG.STORAGE.THEME);
   }
   
   /**
@@ -112,7 +112,7 @@ export class ThemeManager {
    * @param {string} theme - Theme to store
    */
   storeTheme(theme) {
-    this.storage.set('theme', theme);
+    this.storage.set(DEFAULT_CONFIG.STORAGE.THEME, theme);
   }
   
   /**
@@ -257,6 +257,7 @@ export class ThemeManager {
     }
     
     this.currentTheme = theme;
+    this.storeTheme(theme);
     this.applyTheme(theme);
     this.updateActiveState();
     this.announceThemeChange(theme);

@@ -8,8 +8,8 @@
 ## Overview
 
 The codebase is organized as modern ES6+ modules with a single entry point
-(`src/index.js`) that aggregates configuration, utilities, and core components
-into one tree-shaken bundle.
+(`src/index.js`) that aggregates config, utilities, core, feature modules, and
+services into one tree-shaken bundle (`js/refactored-bundle.js`).
 
 ## Directory Structure
 
@@ -21,23 +21,28 @@ into one tree-shaken bundle.
 │   ├── core/                 # Core modules
 │   │   └── theme-manager.js  # Theme management system
 │   ├── modules/              # Feature modules
-│   │   ├── search-engine.js  # Search functionality
 │   │   ├── i18n.js           # Internationalization
-│   │   └── subscription.js   # Subscription system
+│   │   ├── image-optimizer.js# Responsive/WebP/lazy images
+│   │   ├── search-engine.js   # Client-side search
+│   │   ├── social-sharing.js  # Social share widgets
+│   │   └── subscription.js    # Newsletter subscription
+│   ├── services/             # Cross-cutting services
+│   │   ├── analytics-service.js  # Analytics + Core Web Vitals
+│   │   └── pwa-service.js        # Service worker / PWA
 │   ├── utils/                # Utility functions
 │   │   ├── helpers.js        # General utilities
 │   │   └── storage.js        # Storage wrappers
-│   └── index.js              # Main entry point
-├── tests/                    # Test files
-│   ├── unit/                 # Unit tests
-│   │   ├── helpers.test.js
-│   │   ├── theme-manager.test.js
-│   │   └── search-engine.test.js
-│   ├── integration/          # Integration tests
-│   └── test-utils.js         # Test utilities
-├── docs/                     # Documentation
-│   └── ARCHITECTURE.md       # This file
-└── js/                       # Legacy JS (to be deprecated)
+│   └── index.js              # Main entry point (the "main" in package.json)
+├── js/                      # Build output + legacy scripts
+│   ├── refactored-bundle.js  # ← esbuild output (the new primary bundle)
+│   └── *.js                  # Legacy scripts (fallback)
+├── tests/                   # Test files
+│   ├── run-tests.js          # Lightweight ESM smoke runner
+│   ├── jest.setup.js         # jsdom polyfills for tests
+│   ├── test-utils.js         # Jest globals shim for legacy tests
+│   └── unit/                 # Jest unit tests (5 suites, 148 tests)
+├── docs/ARCHITECTURE.md      # This file
+└── build.js                  # Build + esbuild bundling step
 ```
 
 ## Module System
@@ -140,25 +145,71 @@ manager.setTheme('dark');
 **Features:**
 - Light/Dark/Auto themes
 - System preference detection
-- localStorage persistence
+- localStorage persistence (key `blog-theme`)
 - ARIA accessibility
 - Keyboard navigation
 - Analytics integration
 
+### 4. Feature Modules (`src/modules/`)
+
+| Module | Responsibility |
+|--------|----------------|
+| `i18n.js` | Internationalisation: language switching, `data-i18n` key binding, `window.t()` helper |
+| `image-optimizer.js` | Responsive `srcset`, WebP negotiation, IntersectionObserver lazy-loading, blur placeholders, error fallback |
+| `search-engine.js` | Client-side JSON-index search: UI build, keyboard nav, result rendering, empty/error states |
+| `social-sharing.js` | Share-button widgets (Twitter, Facebook, LinkedIn, copy-link) |
+| `subscription.js` | Newsletter subscription widget with email verification flow |
+
+### 5. Services (`src/services/`)
+
+| Service | Responsibility |
+|---------|----------------|
+| `analytics-service.js` | Event queue with retry + sampling, Core Web Vitals (`web-vitals` shim), scroll depth, SPA-ready `track()` API |
+| `pwa-service.js` | Service-worker registration, install/update banners, offline support |
+
+All feature modules and services are instantiated by `startApp()` in `src/index.js`
+each wrapped in `safeInit()` so one failing module never blocks the rest of the app.
+Each module also keeps its own standalone `DOMContentLoaded` auto-init guarded by
+`typeof document/window !== 'undefined'` for direct `<script>` usage.
+
 ## Testing
 
-Tests run in Node.js (no browser/JSDOM needed for module logic) via a small ESM
-runner. DOM-dependent assertions are skipped when `document` is undefined.
+The project uses **two complementary test layers**:
+
+### 1. Lightweight ESM smoke runner (`tests/run-tests.js`)
+Runs in bare Node.js (no DOM) — perfect for CI `test` jobs and module-logic checks.
+DOM-dependent assertions are skipped when `document` is undefined.
 
 ```bash
-npm test                 # node tests/run-tests.js  (17 tests)
+npm run test:smoke       # node tests/run-tests.js  (17 tests)
 ```
 
-The runner (`tests/run-tests.js`) covers:
-- `helpers` — debounce, throttle, generateId, getNestedValue, deepMerge, isObject, formatDate, escapeHTML
-- `constants` — config frozen values, CSS/ARIA/event/key constants, web-vitals thresholds
-- `storage` — LocalStorage/SessionStorage with in-memory fallback, namespacing, pre-configured instances
-- `index` — `App` export shape, `startApp()` safe no-op in non-DOM context
+Covers: `helpers` (debounce, throttle, generateId, getNestedValue, deepMerge,
+isObject, formatDate RU/EN, escapeHTML), `constants` (frozen config, CSS/ARIA/event
+constants, web-vitals thresholds), `storage` (LocalStorage/SessionStorage with
+in-memory fallback, namespacing), and `index` (`App` export shape + `startApp()`
+safe no-op in non-DOM context).
+
+### 2. Jest unit suites (`tests/unit/*.test.js`)
+Full unit coverage in a jsdom browser environment with polyfills for
+IntersectionObserver, matchMedia, fetch, requestIdleCallback, Image load events,
+and `scrollIntoView`. Config: `jest.config.cjs` + `babel.config.cjs`.
+
+```bash
+npm run test:unit        # jest --config jest.config.cjs  (5 suites, 148 tests)
+npm run test:coverage    # with coverage report
+```
+
+Suites: `helpers`, `storage`, `theme-manager`, `search-engine`,
+`analytics-service`, `image-optimizer` — covering config merge, storage
+persistence, theme switching + persistence, search UI/keyboard nav, analytics
+queuing/retry, and responsive/lazy image loading.
+
+### Run everything
+
+```bash
+npm test                 # = test:smoke && test:unit
+```
 ## Performance Optimizations
 
 ### Implemented
@@ -217,7 +268,10 @@ legacy `js/*.js` kept for non-module browsers:
 ```
 
 The module auto-bootstraps on `DOMContentLoaded` via `startApp()` in `src/index.js`,
-which instantiates `ThemeManager` and exposes `window.App`.
+which instantiates **all** modules (ThemeManager, I18nManager, ImageOptimizer,
+SearchEngine, SocialSharing, SubscriptionSystem, AnalyticsService, PWAService) —
+each wrapped in `safeInit()` so a single module failure never breaks the page.
+The `App` registry and every instance are exposed on `window.App`.
 
 ## Build & Bundling
 
@@ -327,10 +381,10 @@ try {
 ## Future Improvements
 
 1. TypeScript migration (add types to `src/`)
-2. Service Worker integration (`sw.js`) — already referenced in layout
-3. Web Components for UI elements
-4. Automated Lighthouse CI budget assertions (thresholds relaxed in `.lighthouserc.json`)
-5. Visual regression tests
+2. Visual regression tests
+3. Add interaction/component tests for social-sharing, subscription, pwa services
+4. Expand Jest coverage to the remaining modules (i18n, social-sharing, subscription, pwa-service) — currently 6 of 11 modules have dedicated suites
+5. Bundle-size CI budget assertion on `js/refactored-bundle.js`
 
 ## Contributing
 

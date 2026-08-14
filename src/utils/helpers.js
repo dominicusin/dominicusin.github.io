@@ -391,6 +391,35 @@ export function createElement(tag, attributes = {}, content = '') {
   } else if (content instanceof Element) {
     element.appendChild(content);
   }
-  
+
   return element;
+}
+
+/**
+ * Build a best-effort CSS selector for an element (used for analytics targets).
+ * @param {Element} element - Target element
+ * @returns {string} CSS selector identifying the element
+ */
+export function getElementSelector(element) {
+  if (!element || !element.tagName) return 'unknown';
+  if (element.id) return `#${element.id}`;
+
+  const parts = [element.tagName.toLowerCase()];
+  if (element.className && typeof element.className === 'string') {
+    const cls = element.className.trim().split(/\s+/).filter(Boolean)[0];
+    if (cls) parts.push(`.${cls}`);
+  }
+
+  // Add nth-child within parent for disambiguation
+  if (element.parentElement) {
+    const siblings = Array.from(element.parentElement.children).filter(
+      (c) => c.tagName === element.tagName
+    );
+    if (siblings.length > 1) {
+      const index = siblings.indexOf(element) + 1;
+      parts.push(`:nth-of-type(${index})`);
+    }
+  }
+
+  return parts.join('');
 }
