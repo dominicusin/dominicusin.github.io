@@ -26,7 +26,7 @@ jobs:
         bundler-cache: true
         
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v7
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
@@ -59,7 +59,7 @@ jobs:
         generate-sarif: '1'
         
     - name: 📤 Upload Security Reports
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@v4
       with:
         name: security-reports
         path: |

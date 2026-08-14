@@ -45,7 +45,7 @@ jobs:
         bundler-cache: true
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v7
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -110,7 +110,7 @@ jobs:
         bundler-cache: true
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v7
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -143,7 +143,7 @@ jobs:
         npm run report:build
 
     - name: 📦 Upload Build Artifacts
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@v4
       with:
         name: site-build
         path: _site/
