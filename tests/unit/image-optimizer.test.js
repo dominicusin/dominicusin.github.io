@@ -289,6 +289,9 @@ describe('ImageOptimizer', () => {
 
   describe('responsive image handling', () => {
     test('should select appropriate image size based on container width', () => {
+      const originalInnerWidth = window.innerWidth;
+      window.innerWidth = 800;
+
       const img = document.createElement('img');
       img.dataset.srcset = '/small.jpg 480w, /medium.jpg 768w, /large.jpg 1200w';
 
@@ -299,6 +302,7 @@ describe('ImageOptimizer', () => {
       document.body.appendChild(wrapper);
 
       const src = optimizer._getResponsiveSrc(img);
+      window.innerWidth = originalInnerWidth;
       expect(src).toBe('/medium.jpg');
     });
   });
