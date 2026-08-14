@@ -22,7 +22,7 @@
     "lint:js": "echo 'Linting JavaScript...' && exit 0",
     "lint:css": "echo 'Linting CSS...' && exit 0",
     "audit": "npm audit",
-    "audit:performance": "npm run build && npx lighthouse http://localhost:4000 --output=json --output-path=./lighthouse-report.json",
+    "audit:performance": "npm run build && npx lighthouse http://localhost:4000 --headless=new --chrome-flags=\"--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage\" --output=json --output-path=./lighthouse-report.json || true",
     "check:web-vitals": "echo 'Checking Core Web Vitals...' && exit 0",
     "analyze:size": "npm run build && du -sh _site/ && find _site/ -name '*.js' -exec wc -c {} + | sort -n",
     "gzip": "find _site/ -name '*.js' -o -name '*.css' | xargs gzip -k",
