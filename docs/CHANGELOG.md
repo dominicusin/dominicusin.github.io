@@ -5,6 +5,120 @@
 Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/),
 версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
 
+## [3.1.0-beta] - 2026-01-15
+
+### Добавлено
+
+#### 🔗 AI Link Repair Agent
+- **Link Repair Agent** (`src/agents/link-repair-agent.js`)
+  - Автоматическое сканирование markdown и HTML файлов на битые ссылки
+  - AI-генерация предложений по исправлению с оценкой уверенности (confidence score)
+  - Поиск похожих файлов через Levenshtein distance алгоритм
+  - Автоматическое создание Pull Request с исправлениями
+  - Поддержка dry-run режима для тестирования
+  - Интеграция с GitHub API для коммитов и PR
+  
+- **GitHub Actions: Link Repair** (`.github/workflows/link-repair.yml`)
+  - Еженедельное автоматическое сканирование (каждый понедельник)
+  - Ручной запуск через workflow_dispatch
+  - Настройка минимального порога уверенности (min_confidence)
+  - Загрузка результатов сканирования как артефактов
+  - Авто-комментарии в созданных PR со статистикой
+
+- **Документация**
+  - Встроенные комментарии в коде с примерами использования
+  - CLI usage инструкция
+
+#### 🌐 Мультиязычность AI-Ассистента
+- **AI i18n Service** (`src/services/ai-i18n-service.js`)
+  - Динамическая подгрузка языковых пакетов по требованию
+  - Авто-детекция языка браузера (navigator.language)
+  - Fallback цепочка для недостающих переводов
+  - Кэширование загруженных пакетов (Map-based cache)
+  - Поддержка параметров в переводах (`{{count}}`)
+  - События смены языка (`ai-language-changed`)
+  - Экспорт/импорт пользовательских пакетов
+  - Генерация шаблонов для новых языков
+
+- **Языковые пакеты** (`assets/i18n/`)
+  - `en-ai.json` - English (полный)
+  - `ru-ai.json` - Русский (полный)
+  - `es-ai.json` - Español (базовый)
+  - `fr-ai.json` - Français (базовый)
+  - Поддержка 7+ языков: en, ru, es, fr, de, zh, ja, ko, pt, it, ar, hi
+
+- **Документация**
+  - `docs/MULTILINGUAL_AI_GUIDE.md` - Полное руководство по мультиязычности
+    - Архитектура системы
+    - Примеры интеграции (Vanilla JS, React)
+    - SEO и мета-теги для многоязычных страниц
+    - Оптимизация производительности (preload, prefetch)
+    - Troubleshooting guide
+
+#### 🥽 VR/AR Export
+- **VR Export Service** (`src/services/vr-export-service.js`)
+  - Генерация glTF 2.0 сцены из Графа Знаний
+  - Бинарный GLB экспорт (оптимизированный формат)
+  - Force-directed layout алгоритм для 3D расстановки узлов
+  - Геометрия: сферы для узлов, цилиндры для связей
+  - PBR материалы с настраиваемыми цветами
+  - WebXR совместимость
+  - Конфигурируемые параметры:
+    - nodeRadius, edgeWidth, sceneScale
+    - forceStrength, linkDistance, charge
+    - layoutType (force/circular)
+
+- **GitHub Actions: VR Export** (`.github/workflows/vr-export.yml`)
+  - Автоматический экспорт при обновлении knowledge-graph.json
+  - Настройка качества (low/medium/high)
+  - Выбор формата (glb/gltf/both)
+  - Деплой на GitHub Pages в `/vr` директорию
+  - Создание релизов с VR файлами
+  - Загрузка артефактов с 30-дневным хранением
+
+- **Документация**
+  - `docs/VR_AR_EXPORT_GUIDE.md` - Полное руководство по VR/AR экспорту
+    - Поддерживаемые форматы и устройства
+    - Программный API примеры
+    - Инструкция по просмотру (Oculus Quest, HTC Vive, Pico)
+    - WebXR viewer интеграция
+    - Параметры оптимизации для мобильных/desktop VR
+    - Ограничения и troubleshooting
+    - GitHub Actions интеграция
+
+### Изменено
+
+#### Обновленная документация
+- **CHANGELOG.md** - Дополнен секциями для v3.1.0-beta
+- **DECENTRALIZED_DEPLOY.md** - Добавлена информация о VR export workflow
+- **EDGE_AI_GUIDE.md** - Упомянута интеграция с мультиязычностью
+
+### Технические детали
+
+#### Зависимости
+- @octokit/rest для GitHub API интеграции
+- glob для паттерн-матчинга файлов
+- ONNX Runtime Web (обновлено)
+- Chart.js 4.4.0 (без изменений)
+
+#### Переменные окружения
+```bash
+# Link Repair Agent
+GITHUB_TOKEN=ghp_...  # Токен с правами contents:write, pull-requests:write
+REPO_OWNER=username
+REPO_NAME=repo-name
+
+# VR Export (опционально)
+EXPORT_QUALITY=medium  # low/medium/high
+EXPORT_FORMAT=glb      # glb/gltf/both
+```
+
+#### Breaking Changes
+- Нет обратно несовместимых изменений
+- Все новые функции являются аддонами к существующей функциональности
+
+---
+
 ## [3.0.0-beta] - 2025-01-21
 
 ### Добавлено

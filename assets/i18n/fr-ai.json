@@ -1,0 +1,61 @@
+{
+  "ai": {
+    "greeting": "Bonjour! Je suis votre assistant IA. Comment puis-je vous aider aujourd'hui?",
+    "placeholder": "Posez-moi n'importe quelle question...",
+    "status": {
+      "loading": "Chargement du modèle...",
+      "ready": "Prêt à aider",
+      "offline": "Mode hors ligne"
+    },
+    "commands": {
+      "clear": "Effacer l'historique de conversation",
+      "context": "Afficher le contexte actuel",
+      "summary": "Résumer cette page",
+      "help": "Afficher les commandes disponibles",
+      "language": "Changer de langue"
+    },
+    "responses": {
+      "noContext": "Aucun contexte spécifique sélectionné. Je répondrai en fonction de la page actuelle.",
+      "cleared": "Historique de conversation effacé.",
+      "summarizing": "Résumé du contenu...",
+      "error": "Désolé, j'ai rencontré une erreur. Veuillez réessayer.",
+      "thinking": "En réflexion..."
+    },
+    "languages": {
+      "en": "English",
+      "ru": "Русский",
+      "es": "Español",
+      "fr": "Français",
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語"
+    }
+  },
+  "search": {
+    "placeholder": "Rechercher en langage naturel...",
+    "modes": {
+      "keyword": "Recherche par mots-clés",
+      "vector": "Recherche sémantique",
+      "hybrid": "Recherche hybride"
+    },
+    "relevance": {
+      "high": "Haute pertinence",
+      "medium": "Pertinence moyenne",
+      "low": "Faible pertinence"
+    },
+    "results": {
+      "found": "{{count}} résultats trouvés",
+      "none": "Aucun résultat trouvé",
+      "loading": "Recherche en cours..."
+    }
+  },
+  "common": {
+    "close": "Fermer",
+    "send": "Envoyer",
+    "cancel": "Annuler",
+    "retry": "Réessayer",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès"
+  }
+}
