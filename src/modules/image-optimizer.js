@@ -9,6 +9,14 @@
 'use strict';
 
 /**
+ * Get device pixel ratio safely for SSR/Node environments
+ * @returns {number} Device pixel ratio or 1
+ */
+function getDevicePixelRatio() {
+  return typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1;
+}
+
+/**
  * Image optimization configuration
  * @type {Object}
  */
@@ -38,7 +46,7 @@ const CONFIG = {
   // Responsive image settings
   responsive: {
     enabled: true,
-    devicePixelRatio: window.devicePixelRatio || 1
+    devicePixelRatio: getDevicePixelRatio()
   }
 };
 
@@ -540,13 +548,15 @@ export class ImageOptimizer {
   }
 }
 
-// Auto-initialize
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+// Auto-initialize (browser environment only)
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      window.imageOptimizer = new ImageOptimizer();
+    });
+  } else {
     window.imageOptimizer = new ImageOptimizer();
-  });
-} else {
-  window.imageOptimizer = new ImageOptimizer();
+  }
 }
 
 // Export for module usage

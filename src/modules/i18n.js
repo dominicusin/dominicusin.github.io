@@ -316,8 +316,11 @@ export class I18nManager {
   }
 }
 
-// Auto-initialize
-if (typeof document !== 'undefined') {
+// Auto-initialize (browser environment only)
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   window.i18n = new I18nManager();
   window.t = (key, params) => window.i18n.t(key, params);
 }
+
+// Export for module usage
+export default I18nManager;
