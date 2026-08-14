@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Graph P2P Sync Demo — v4.0</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #0d1117; color: #c9d1d9; }
+    header { padding: 12px 20px; background: #161b22; border-bottom: 1px solid #30363d; }
+    h1 { font-size: 18px; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px; }
+    .peer { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+    .peer h2 { font-size: 14px; margin: 0 0 8px; }
+    .peer .nodes { min-height: 120px; font-size: 12px; line-height: 1.5; }
+    .controls { padding: 0 16px 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    button { background: #238636; color: #fff; border: 0; border-radius: 6px; padding: 8px 12px; cursor: pointer; }
+    button.alt { background: #1f6feb; }
+    button.danger { background: #da3633; }
+    input { padding: 8px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #c9d1d9; }
+    .log { padding: 8px 16px; font-size: 11px; color: #8b949e; max-height: 120px; overflow: auto; }
+    .status { font-size: 11px; color: #8b949e; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧠 Knowledge Graph — P2P CRDT Sync Demo (v4.0)</h1>
+    <div class="status">3 isolated peers · WebRTC DataChannel mesh · GraphCRDT convergence</div>
+  </header>
+
+  <div class="controls">
+    <input id="article-title" placeholder="New article title…" />
+    <button class="alt" onclick="addToPeer(0)">Add to Peer 1</button>
+    <button class="alt" onclick="addToPeer(1)">Add to Peer 2</button>
+    <button class="alt" onclick="addToPeer(2)">Add to Peer 3</button>
+    <button class="danger" onclick="partitionPeer(1)">Disconnect Peer 2</button>
+    <button onclick="reconnectAll()">Reconnect All</button>
+  </div>
+
+  <div class="grid">
+    <div class="peer"><h2>Peer 1</h2><div class="nodes" id="peer-0">{}</div></div>
+    <div class="peer"><h2>Peer 2</h2><div class="nodes" id="peer-1">{}</div></div>
+    <div class="peer"><h2>Peer 3</h2><div class="nodes" id="peer-2">{}</div></div>
+  </div>
+
+  <div class="log" id="log"></div>
+
+  <!-- In a real deployment these would be separate iframes / browser tabs.
+       For the single-page demo we run three GraphSync instances on one bus. -->
+  <script type="module">
+    import { GraphSync, MemoryTransport } from '/src/modules/graph-sync.js';
+    import GraphCRDT from '/src/modules/crdt-sync.js';
+
+    const bus = new MemoryTransport();
+    const peers = [0, 1, 2].map((i) =>
+      new GraphSync('peer-' + i, new GraphCRDT('peer-' + i), bus)
+    );
+    const connected = new Set(['0-1', '1-2', '0-2']); // full mesh
+
+    function log(msg) {
+      const el = document.getElementById('log');
+      el.textContent = '> ' + msg + '\n' + el.textContent;
+    }
+
+    function render() {
+      peers.forEach((p, i) => {
+        document.getElementById('peer-' + i).textContent = JSON.stringify(p.getState(), null, 1);
+      });
+    }
+
+    function connectAll() {
+      peers.forEach((p) => {
+        peers.forEach((q) => { if (p !== q) p.connect(q.id); });
+      });
+      render();
+    }
+
+    window.addToPeer = (idx) => {
+      const title = document.getElementById('article-title').value || ('Article-' + Date.now());
+      const id = 'a' + Math.floor(Math.random() * 1e6);
+      peers[idx].updateNode(id, { title });
+      log('Peer ' + (idx + 1) + ' added "' + title + '" → broadcast');
+      render();
+    };
+
+    window.partitionPeer = (idx) => {
+      // simulate network partition: stop that peer receiving broadcasts
+      connected.delete('0-' + idx); connected.delete('1-' + idx); connected.delete('2-' + idx);
+      bus._partitioned = bus._partitioned || new Set();
+      bus._partitioned.add(idx);
+      log('Peer ' + (idx + 1) + ' partitioned (offline)');
+    };
+
+    window.reconnectAll = () => {
+      bus._partitioned = new Set();
+      log('All peers reconnected → CRDT merge');
+      connectAll();
+    };
+
+    // initial mesh connection (bypasses partition flag)
+    connectAll();
+    log('Demo ready. Add articles and watch all 3 peers converge.');
+  </script>
+</body>
+</html>

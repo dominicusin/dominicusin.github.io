@@ -20,6 +20,8 @@ export default {
   },
   moduleNameMapper: {
     '^@services/(.*)$': '<rootDir>/src/services/$1',
+    '^@modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
     '^@components/(.*)$': '<rootDir>/_includes/$1',
     '^@scripts/(.*)$': '<rootDir>/scripts/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'

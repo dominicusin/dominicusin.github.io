@@ -63,3 +63,6 @@ __pycache__/
 *.tar.zst
 
 ```
+# Hardhat build artifacts
+artifacts_hardhat/
+cache_hardhat/
