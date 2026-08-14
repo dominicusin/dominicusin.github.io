@@ -19,6 +19,12 @@ on:
 jobs:
   generate-vr-scene:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      statuses: write
+      actions: read
     
     steps:
       - name: Checkout repository
