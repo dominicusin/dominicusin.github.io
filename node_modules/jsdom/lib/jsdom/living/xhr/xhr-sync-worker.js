@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable no-process-exit */
 const util = require("util");
 const { JSDOM } = require("../../../..");
 const { READY_STATES } = require("./xhr-utils");

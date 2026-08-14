@@ -110,10 +110,6 @@ describe('ThemeManager', () => {
       });
       
       // Simulate media query change
-      const event = new CustomEvent('change', { 
-        detail: { matches: true } 
-      });
-      
       setTimeout(() => {
         expect(manager.getResolvedTheme()).toBeDefined();
         done();
@@ -123,7 +119,7 @@ describe('ThemeManager', () => {
   
   describe('UI rendering', () => {
     it('should render theme toggle buttons', () => {
-      const manager = new ThemeManager({ container: '.theme-toggle' });
+      new ThemeManager({ container: '.theme-toggle' });
       const buttons = container.querySelectorAll('.theme-btn');
       
       expect(buttons.length).toBeGreaterThan(0);
@@ -139,7 +135,7 @@ describe('ThemeManager', () => {
     });
     
     it('should handle keyboard navigation', () => {
-      const manager = new ThemeManager({ container: '.theme-toggle' });
+      new ThemeManager({ container: '.theme-toggle' });
       const buttons = Array.from(container.querySelectorAll('.theme-btn'));
       
       // Focus first button
@@ -166,7 +162,7 @@ describe('ThemeManager', () => {
     });
     
     it('should have proper ARIA labels', () => {
-      const manager = new ThemeManager({ container: '.theme-toggle' });
+      new ThemeManager({ container: '.theme-toggle' });
       const toggleContainer = container.querySelector('.theme-toggle-container');
       
       expect(toggleContainer.getAttribute('role')).toBe('group');
