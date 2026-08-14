@@ -26,6 +26,9 @@
     "audit:performance": "npm run build && npx lighthouse http://localhost:4000 --headless=new --chrome-flags=\"--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage\" --output=json --output-path=./lighthouse-report.json || true",
     "check:web-vitals": "echo 'Checking Core Web Vitals...' && exit 0",
     "analyze:size": "npm run build && du -sh _site/ && find _site/ -name '*.js' -exec wc -c {} + | sort -n",
+    "report:build": "npm run build && echo 'Build report generated' && [ -f build-stats.json ] && cat build-stats.json || echo 'No build stats available'",
+    "benchmark": "echo 'Running benchmarks...' && npm run analyze:size",
+    "size-check": "echo 'Checking bundle sizes...' && du -sh _site/ | head -5",
     "clean": "rm -rf _site/ .bundle/ vendor/bundle/ coverage/",
     "docs": "jsdoc src -d docs/api",
     "precommit": "npm run lint && npm run test"
