@@ -174,8 +174,6 @@ export class ImageOptimizer {
     }
 
     // Set dimensions to prevent layout shift
-    const width = img.dataset.width || img.width || '100%';
-    const height = img.dataset.height || img.height || 'auto';
     placeholder.style.paddingBottom = img.dataset.aspectRatio || '0';
 
     // Insert before image
