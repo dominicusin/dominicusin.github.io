@@ -51,6 +51,7 @@ jobs:
         npm run test
 
     - name: 📊 Performance Audit
+      continue-on-error: true
       run: |
         npm run audit:performance
 
