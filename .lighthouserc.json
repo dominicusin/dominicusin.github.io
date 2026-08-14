@@ -1,12 +1,11 @@
 {
   "ci": {
     "collect": {
+      "staticDistDir": "./_site",
       "url": [
         "http://localhost:4000",
         "http://localhost:4000/about/"
       ],
-      "startServerCommand": "bundle exec jekyll serve --port 4000 --host 0.0.0.0",
-      "startServerReadyPattern": "Server running\\.\\.\\.",
       "chromeFlags": ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
     },
     "assert": {
