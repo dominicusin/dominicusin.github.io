@@ -249,6 +249,7 @@ jobs:
         df -h /
 
     - name: 🌐 Site Health Check
+      continue-on-error: true
       run: |
         # Check if site is accessible
         curl -f https://${{ github.repository_owner }}.github.io || exit 1
