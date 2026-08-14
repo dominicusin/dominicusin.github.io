@@ -1,0 +1,279 @@
+name: 🚀 Jekyll CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run daily at 2 AM UTC for health checks
+    - cron: '0 2 * * *'
+
+env:
+  NODE_VERSION: '18'
+  RUBY_VERSION: '3.1'
+
+jobs:
+  # 🔍 Quality Assurance & Testing
+  test:
+    name: 🔍 Test & Quality Check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VERSION }}
+        bundler-cache: true
+        
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        npm ci
+        bundle install --jobs=4 --retry=3
+        
+    - name: 🔍 Validate HTML & CSS
+      run: |
+        npm run validate
+        
+    - name: 🧪 Run JavaScript Tests
+      run: |
+        npm run test
+        
+    - name: 📊 Performance Audit
+      run: |
+        npm run audit:performance
+        
+    - name: 🔒 Security Scan
+      run: |
+        npm audit --audit-level=moderate
+        bundle audit
+        
+    - name: 🏗️ Test Build
+      run: |
+        npm run build:test
+        
+    - name: 📈 Bundle Size Analysis
+      run: |
+        npm run analyze:size
+
+  # 🏗️ Build & Optimization
+  build:
+    name: 🏗️ Build & Optimize
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 💎 Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VERSION }}
+        bundler-cache: true
+        
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        npm ci
+        bundle install --jobs=4 --retry=3
+        
+    - name: 🗂️ Cache Jekyll Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          .bundle
+          vendor/bundle
+          _site
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+          
+    - name: 🏗️ Production Build
+      run: |
+        npm run build:production
+        
+    - name: 🗜️ Optimize Assets
+      run: |
+        npm run optimize:assets
+        
+    - name: 📊 Generate Build Report
+      run: |
+        npm run report:build
+        
+    - name: 📦 Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: site-build
+        path: _site/
+        retention-days: 1
+
+  # 🔒 Security & Compliance
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🔍 Run Trivy Vulnerability Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: 📤 Upload Trivy Results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # 🚀 Deploy to GitHub Pages
+  deploy:
+    name: 🚀 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [test, build, security]
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 📦 Download Build Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: site-build
+        path: _site/
+        
+    - name: 🔧 Setup Pages
+      uses: actions/configure-pages@v3
+      
+    - name: 📊 Upload Build Metrics
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-metrics
+        path: |
+          build-report.json
+          bundle-analysis.json
+          
+    - name: 🚀 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
+        force_orphan: true
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: '🚀 Auto-deploy: ${{ github.event.head_commit.message }}'
+        
+    - name: 🌐 Purge CDN Cache
+      run: |
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          --data '{"purge_everything":true}'
+      if: env.CLOUDFLARE_API_TOKEN != ''
+
+  # 📊 Performance Monitoring
+  performance:
+    name: 📊 Performance Monitoring
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🌐 Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        urls: |
+          https://${{ github.repository_owner }}.github.io
+          https://${{ github.repository_owner }}.github.io/about/
+        configPath: './.lighthouserc.json'
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+        
+    - name: 📈 Core Web Vitals Check
+      run: |
+        npm run check:web-vitals
+        
+    - name: 📊 Performance Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-report
+        path: .lighthouseci/
+
+  # 🔄 Health Check
+  health-check:
+    name: 🔄 Health Check
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 🌐 Site Health Check
+      run: |
+        # Check if site is accessible
+        curl -f https://${{ github.repository_owner }}.github.io || exit 1
+        
+        # Check critical assets
+        curl -f https://${{ github.repository_owner }}.github.io/css/main.min.css || exit 1
+        curl -f https://${{ github.repository_owner }}.github.io/js/main.min.js || exit 1
+        
+        # Check PWA manifest
+        curl -f https://${{ github.repository_owner }}.github.io/manifest.json || exit 1
+        
+        # Check sitemap
+        curl -f https://${{ github.repository_owner }}.github.io/sitemap.xml || exit 1
+        
+    - name: 📝 Update Deployment Status
+      if: success()
+      run: |
+        echo "✅ Deployment successful - All health checks passed"
+        
+    - name: 🚨 Alert on Failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed - Health checks failed"
+
+  # 📬 Notifications
+  notify:
+    name: 📬 Send Notifications
+    runs-on: ubuntu-latest
+    needs: [deploy, performance, health-check]
+    if: always() && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+    
+    steps:
+    - name: 📧 Deployment Success Notification
+      if: needs.deploy.result == 'success'
+      run: |
+        echo "🎉 Site deployed successfully!"
+        echo "🌐 https://${{ github.repository_owner }}.github.io"
+        
+    - name: 🚨 Deployment Failure Notification
+      if: needs.deploy.result == 'failure'
+      run: |
+        echo "❌ Deployment failed!"
+        echo "🔍 Check the Actions tab for details"

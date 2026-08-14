@@ -1,0 +1,99 @@
+name: 📊 Performance Monitoring
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run daily at 1 AM UTC
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    name: 🌐 Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 💎 Setup Ruby & Build Site
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+        
+    - name: 🟢 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 📦 Install Dependencies & Build
+      run: |
+        npm ci
+        npm run build:production
+        
+    - name: 🚀 Start Jekyll Server
+      run: |
+        bundle exec jekyll serve --port 4000 --host 0.0.0.0 --detach &
+        sleep 10
+        
+    - name: 🌐 Run Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        urls: |
+          http://localhost:4000
+          http://localhost:4000/about/
+          http://localhost:4000/categories/
+          http://localhost:4000/tags/
+        configPath: './.lighthouserc.json'
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+        
+    - name: 📊 Performance Budget Check
+      run: |
+        # Check bundle sizes
+        echo "📊 Bundle Size Analysis:"
+        find _site/js -name "*.min.js" -exec wc -c {} + | sort -n
+        find _site/css -name "*.min.css" -exec wc -c {} + | sort -n
+        
+        # Performance budget validation
+        JS_BUDGET=250000  # 250KB
+        CSS_BUDGET=50000  # 50KB
+        
+        for file in _site/js/*.min.js; do
+          size=$(wc -c < "$file")
+          if [ $size -gt $JS_BUDGET ]; then
+            echo "❌ JavaScript budget exceeded: $file ($(($size/1024))KB)"
+            exit 1
+          else
+            echo "✅ JavaScript within budget: $file ($(($size/1024))KB)"
+          fi
+        done
+        
+        for file in _site/css/*.min.css; do
+          size=$(wc -c < "$file")
+          if [ $size -gt $CSS_BUDGET ]; then
+            echo "❌ CSS budget exceeded: $file ($(($size/1024))KB)"
+            exit 1
+          else
+            echo "✅ CSS within budget: $file ($(($size/1024))KB)"
+          fi
+        done
+        
+    - name: 📈 Core Web Vitals Report
+      run: |
+        echo "📈 Core Web Vitals Summary:"
+        echo "- Performance: Target > 90"
+        echo "- Accessibility: Target > 95"
+        echo "- Best Practices: Target > 90"
+        echo "- SEO: Target > 90"
+        
+    - name: 📤 Upload Performance Reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: lighthouse-reports
+        path: .lighthouseci/

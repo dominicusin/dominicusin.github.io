@@ -1,14 +1,14 @@
 ---
-title: Domini's Blog
-timezone: Europe/Chisinau
+title: Engineering Blog
+timezone: UTC
 collections:
+  i18n:
+    title: I18n
+    output: true
+    permalink: "/:collection/:name/"
   posts:
     title: Posts
     output: true
-  projects:
-    title: Projects
-    output: true
-    permalink: "/projects/:name/"
   uploads:
     title: Uploads
     output: true
@@ -18,165 +18,67 @@ defaults:
     type: posts
   values:
     layout: post
-    author: Domini
-    comments: false
-    share: true
+    author: Dominicus In
 - scope:
     path: ''
     type: pages
   values:
     layout: page
-- scope:
-    path: ''
-    type: projects
-  values:
-    layout: project
-tagline: Промышленная инженерия • Системная инженерия • Data Science • AI
-description: Экспертный блог о промышленной и системной инженерии, науке о данных  и
-  искусственном интеллекте. Практические руководства, глубокая аналитика  и профессиональные
-  инструменты.
-url: https://dominicusin.github.io
+email: contact@dominicu_sin.io
+description: Blog about industrial engineering, systems engineering, and data science.  Expert
+  materials on key areas of knowledge and modern approaches.
 baseurl: ''
-enforce_ssl: dominicusin.github.io
+url: https://dominicusin.github.io
+twitter_username: dominicusin
+github_username: dominicusin
 author:
-  name: Domini
-  email: transgregorial@gmail.com
-  bio: Эксперт в области промышленной инженерии, системной инженерии и науки о данных
-  avatar: "/assets/images/avatar.jpg"
-  location: Chișinău, Moldova
-  orcid: 0000-0002-7425-0526
-  researcherid: C-7449-2018
-  scholar: H6jV56gAAAAJ
+  name: Dominicus In
+  email: contact@dominicu_sin.io
   github: dominicusin
   twitter: dominicusin
-  linkedin: dominicusin
-  keybase: dominicusin
-lang: ru_RU
-locale: ru_RU
-encoding: utf-8
-theme: minima
-remote_theme: 
-plugins:
-- jekyll-feed
-- jekyll-seo-tag
-- jekyll-sitemap
-- jekyll-paginate
-- jekyll-archives
-- jekyll-gist
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-highlighter: rouge
-permalink: "/:year/:month/:title/"
-paginate: 12
-paginate_path: "/page/:num/"
-jekyll-archives:
-  enabled:
-  - categories
-  - tags
-  - year
-  - month
-  layouts:
-    category: category
-    tag: tag
-    year: year
-    month: month
-  permalinks:
-    category: "/category/:name/"
-    tag: "/tag/:name/"
-    year: "/:year/"
-    month: "/:year/:month/"
+  orcid: 0000-0002-7425-0526
 navigation:
-- name: Главная
+- name: Home
   url: "/"
-  icon: home
-- name: Статьи
-  url: "/archive/"
-  icon: article
-- name: Категории
-  url: "/categories/"
-  icon: folder
-- name: Теги
-  url: "/tags/"
-  icon: tag
-- name: О блоге
+- name: About
   url: "/about/"
-  icon: info
-social:
-- name: GitHub
-  url: https://github.com/dominicusin
-  icon: github
-- name: Twitter
-  url: https://twitter.com/dominicusin
-  icon: twitter
-- name: ORCID
-  url: https://orcid.org/0000-0002-7425-0526
-  icon: orcid
-- name: Google Scholar
-  url: https://scholar.google.ru/citations?user=H6jV56gAAAAJ
-  icon: scholar
-- name: Keybase
-  url: https://keybase.io/dominicusin
-  icon: keybase
-sass:
-  style: compressed
-  sourcemap: never
-liquid:
-  error_mode: strict
-  strict_filters: true
-  strict_variables: false
-safe: true
-strict_front_matter: true
+- name: Archive
+  url: "/archive/"
+- name: Categories
+  url: "/categories/"
+- name: Tags
+  url: "/tags/"
+keywords: industrial engineering, systems engineering, data science, blog, technology
+lang: en
+locale: en_US
+rss_posts: 50
+categories_rss: true
+tags_rss: true
+markdown: kramdown
+remote_theme: minima
 exclude:
 - Gemfile
 - Gemfile.lock
 - node_modules
-- vendor
-- ".bundle"
-- ".sass-cache"
-- ".jekyll-cache"
-- README.md
-- LICENSE
-- CONTRIBUTING.md
-- Manifest.md
-- ".gitignore"
-- ".git"
-- ".github"
-- "*.log"
+- vendor/bundle/
+- vendor/cache/
+- vendor/gems/
+- vendor/ruby/
+- backups/
+- build.js
 - package.json
 - package-lock.json
-- replit.md
-- ".replit"
-include:
-- _pages
-- ".htaccess"
-- ".well-known"
-keep_files:
-- ".git"
-- ".svn"
-feed:
-  path: feed.xml
-  excerpt_only: false
-excerpt_separator: "<!--more-->"
-lsi: false
-related_posts_limit: 3
-date_format: "%d.%m.%Y"
-time_format: "%H:%M"
-reading_time: true
-words_per_minute: 200
-whitelist:
-- jekyll-feed
-- jekyll-seo-tag
-- jekyll-sitemap
-- jekyll-paginate
-- jekyll-archives
-- jekyll-gist
+- dist/
+- build-stats.json
+- assets/i18n/
+sass:
+  style: compressed
+  sourcemap: never
+liquid:
+  error_mode: warn
+  strict_filters: false
+  strict_variables: false
+incremental: true
+future: false
+unpublished: false
+

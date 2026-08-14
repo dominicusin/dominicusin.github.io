@@ -1,0 +1,59 @@
+{
+  "site": {
+    "title": "Engineering Blog",
+    "description": "Blog about industrial engineering, systems engineering, and data science",
+    "author": "Dominicus In"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "archive": "Archive",
+    "categories": "Categories",
+    "tags": "Tags"
+  },
+  "hero": {
+    "welcome": "Welcome to",
+    "read_articles": "Read Articles",
+    "about_blog": "About Blog",
+    "articles": "Articles",
+    "categories": "Categories",
+    "tags": "Tags"
+  },
+  "recent_posts": {
+    "title": "Recent Articles",
+    "subtitle": "Latest materials on industrial engineering, systems engineering, and data science",
+    "read_more": "Read More",
+    "all_articles": "All Articles",
+    "min_read": "min read",
+    "no_articles": "No articles yet",
+    "coming_soon": "Interesting content coming soon"
+  },
+  "topics": {
+    "title": "Main Directions",
+    "subtitle": "Expert materials on key areas of knowledge",
+    "industrial_engineering": "Industrial Engineering",
+    "industrial_description": "Production process optimization, lean methodologies, quality management and modern production approaches",
+    "systems_engineering": "Systems Engineering", 
+    "systems_description": "Complex systems design, software architecture, DevOps practices and infrastructure solutions",
+    "data_science": "Data Science & AI",
+    "data_description": "Machine learning, artificial intelligence, big data analytics and practical application of DS methods",
+    "learn_more": "Learn More",
+    "articles_count": "articles"
+  },
+  "newsletter": {
+    "title": "Subscribe to Updates",
+    "description": "Get notifications about new articles and materials",
+    "rss_feed": "RSS Feed"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "theme": "Theme based on",
+    "powered_by": "Powered by"
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to Content",
+    "open_menu": "Open Menu",
+    "close_menu": "Close Menu",
+    "language_switcher": "Language Switcher"
+  }
+}
