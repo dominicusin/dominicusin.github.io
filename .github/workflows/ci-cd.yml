@@ -211,6 +211,22 @@ jobs:
       run: |
         npm run build:production
 
+    - name: 📏 Bundle-size budget gate (plan Phase 5)
+      run: |
+        BUDGET=102400  # 100 KiB ceiling (current ~89.5 KiB raw + headroom)
+        BUNDLE=js/refactored-bundle.js
+        if [ ! -f "$BUNDLE" ]; then
+          echo "::error::Bundle $BUNDLE not found — build may have failed."
+          exit 1
+        fi
+        SIZE=$(wc -c < "$BUNDLE")
+        echo "Bundle $BUNDLE = $SIZE bytes (budget $BUDGET)"
+        if [ "$SIZE" -gt "$BUDGET" ]; then
+          echo "::error::Bundle size $SIZE exceeds budget $BUDGET. Consider code-splitting heavy deps (e.g. lazy-load Lunr.js)."
+          exit 1
+        fi
+        echo "Bundle within budget ✅"
+
     - name: 🗜️ Optimize Assets
       run: |
         npm run optimize:assets
