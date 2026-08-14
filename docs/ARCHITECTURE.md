@@ -14,13 +14,18 @@ This document describes the refactored, modularized JavaScript architecture for 
 │   ├── core/                 # Core modules
 │   │   └── theme-manager.js  # Theme management system
 │   ├── modules/              # Feature modules
+│   │   ├── search-engine.js  # Search functionality
+│   │   ├── i18n.js           # Internationalization
+│   │   └── subscription.js   # Subscription system
 │   ├── utils/                # Utility functions
 │   │   ├── helpers.js        # General utilities
 │   │   └── storage.js        # Storage wrappers
 │   └── index.js              # Main entry point
 ├── tests/                    # Test files
 │   ├── unit/                 # Unit tests
-│   │   └── helpers.test.js
+│   │   ├── helpers.test.js
+│   │   ├── theme-manager.test.js
+│   │   └── search-engine.test.js
 │   ├── integration/          # Integration tests
 │   └── test-utils.js         # Test utilities
 ├── docs/                     # Documentation
