@@ -1,75 +1,27 @@
-# Dependencies
-node_modules/
+```
+# Build artifacts
+dist/
+build/
+*.min.css
+*.min.js
+*.min.*.css
+*.min.*.js
 
-# Editors
-.vscode/
+# Source maps
+*.map
 
-# Logs and temp files
-*.log
+# Temporary files
 *.tmp
-*.swp
+*.temp
+
+# Logs
+*.log
 
 # Environment
 .env
 .env.local
-*.env.*
+.env.*
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Build artifacts
-dist/
-build/
-*.o
-*.obj
-*.exe
-*.dll
-*.so
-*.a
-*.out
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# IDE
-.idea/
-
-# System
-.DS_Store
-Thumbs.db
-
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.zst
-
-# Testing
-.mypy_cache/
-.pytest_cache/
-target/
-.gradle/
+# Dependencies
+node_modules/
 ```
