@@ -106,9 +106,12 @@ export class ImageOptimizer {
    */
   _checkWebPSupport() {
     try {
+      if (typeof document === 'undefined') return false;
       const canvas = document.createElement('canvas');
       canvas.width = 1;
       canvas.height = 1;
+      // jsdom does not implement toDataURL for webp and throws; guard it
+      if (typeof canvas.toDataURL !== 'function') return false;
       const dataUrl = canvas.toDataURL('image/webp');
       return dataUrl.indexOf('data:image/webp') === 0;
     } catch (e) {
@@ -261,7 +264,7 @@ export class ImageOptimizer {
    * @private
    */
   _getOptimizedSrc(img) {
-    let src = img.dataset.src || img.src;
+    const src = img.dataset.src || img.src;
     if (!src) return null;
 
     // Handle WebP based on support
@@ -503,13 +506,17 @@ export class ImageOptimizer {
       }
 
       const img = new Image();
-      img.onload = () =>
-        resolve({
+      img.onload = () => {
+        const meta = {
           src,
           width: img.width,
           height: img.height,
           aspectRatio: img.width / img.height
-        });
+        };
+        this.imageCache.set(src, meta);
+        this.loadedImages.add(src);
+        resolve(meta);
+      };
       img.onerror = reject;
       img.src = src;
     });

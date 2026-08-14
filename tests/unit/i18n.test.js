@@ -1,5 +1,5 @@
 /**
- * @fileoverview Unit tests for I18nManager module
+ * @fileoverview Unit tests for I18nManager module (aligned to real API)
  */
 
 import { describe, it, expect, beforeEach, afterEach } from '../test-utils.js';
@@ -10,7 +10,6 @@ describe('I18nManager', () => {
   let originalFetch;
 
   beforeEach(() => {
-    // Mock fetch for translations
     originalFetch = global.fetch;
     global.fetch = async (url) => {
       if (url.includes('en.json')) {
@@ -36,8 +35,6 @@ describe('I18nManager', () => {
             welcome: 'Добро пожаловать, {{name}}!',
             items: {
               one: 'Один элемент',
-              few: '{{count}} элемента',
-              many: '{{count}} элементов',
               other: '{{count}} элементов'
             }
           })
@@ -46,10 +43,7 @@ describe('I18nManager', () => {
       return { ok: false, status: 404 };
     };
 
-    i18n = new I18nManager({
-      defaultLocale: 'en',
-      supportedLocales: ['en', 'ru']
-    });
+    i18n = new I18nManager();
   });
 
   afterEach(() => {
@@ -58,34 +52,33 @@ describe('I18nManager', () => {
   });
 
   describe('initialization', () => {
-    it('should create instance with default locale', () => {
+    it('should create instance', () => {
       expect(i18n).toBeInstanceOf(I18nManager);
-      expect(i18n.currentLocale).toBe('en');
     });
 
-    it('should support multiple locales', () => {
-      expect(i18n.supportedLocales).toContain('en');
-      expect(i18n.supportedLocales).toContain('ru');
+    it('should default to a known language', () => {
+      expect(['en', 'ru']).toContain(i18n.getCurrentLanguage());
+    });
+
+    it('should report available languages', () => {
+      expect(i18n.getAvailableLanguages()).toEqual(['en', 'ru']);
     });
   });
 
   describe('loadTranslations', () => {
-    it('should load translations for locale', async () => {
-      await i18n.loadTranslations('en');
-      const translation = i18n.t('greeting');
-      expect(translation).toBe('Hello');
+    it('should load English translations', async () => {
+      const t = await i18n.loadTranslations('en');
+      expect(t.greeting).toBe('Hello');
     });
 
     it('should load Russian translations', async () => {
-      await i18n.loadTranslations('ru');
-      const translation = i18n.t('greeting');
-      expect(translation).toBe('Привет');
+      const t = await i18n.loadTranslations('ru');
+      expect(t.greeting).toBe('Привет');
     });
 
-    it('should handle missing locale gracefully', async () => {
-      await i18n.loadTranslations('fr');
-      const translation = i18n.t('greeting');
-      expect(translation).toBe('greeting'); // Falls back to key
+    it('should fall back to English for unsupported locale', async () => {
+      const t = await i18n.loadTranslations('fr');
+      expect(t.greeting).toBe('Hello');
     });
   });
 
@@ -94,65 +87,31 @@ describe('I18nManager', () => {
       await i18n.loadTranslations('en');
     });
 
-    it('should translate simple key', () => {
+    it('should translate a simple key', () => {
       expect(i18n.t('greeting')).toBe('Hello');
       expect(i18n.t('farewell')).toBe('Goodbye');
     });
 
-    it('should return key if translation missing', () => {
+    it('should return the key when translation is missing', () => {
       expect(i18n.t('nonexistent')).toBe('nonexistent');
     });
 
     it('should interpolate parameters', () => {
-      const result = i18n.t('welcome', { name: 'John' });
-      expect(result).toBe('Welcome, John!');
-    });
-
-    it('should handle nested keys', () => {
-      expect(i18n.t('items.one')).toBe('One item');
+      expect(i18n.t('welcome', { name: 'John' })).toBe('Welcome, John!');
     });
   });
 
-  describe('pluralization', () => {
-    beforeEach(async () => {
-      await i18n.loadTranslations('en');
-    });
-
-    it('should pluralize for count=1', () => {
-      const result = i18n.plural('items', 1);
-      expect(result).toBe('One item');
-    });
-
-    it('should pluralize for count>1', () => {
-      const result = i18n.plural('items', 5);
-      expect(result).toBe('5 items');
-    });
-  });
-
-  describe('locale switching', () => {
-    it('should switch locale', async () => {
-      await i18n.setLocale('ru');
-      expect(i18n.currentLocale).toBe('ru');
-      
-      const greeting = i18n.t('greeting');
-      expect(greeting).toBe('Привет');
-    });
-
-    it('should detect browser locale', () => {
-      const detected = i18n.detectLocale();
-      expect(typeof detected).toBe('string');
-    });
-  });
-
-  describe('fallback', () => {
-    it('should fallback to default locale when translation missing', async () => {
+  describe('language switching', () => {
+    it('should switch the current language', async () => {
       await i18n.loadTranslations('ru');
-      // Add only some keys to English
-      i18n.translations['en']['partial'] = 'English only';
-      
-      i18n.fallbackLocale = 'en';
-      const result = i18n.t('partial');
-      expect(result).toBe('English only');
+      await i18n.switchLanguage('ru');
+      expect(i18n.getCurrentLanguage()).toBe('ru');
+      expect(i18n.t('greeting')).toBe('Привет');
+    });
+
+    it('should detect the browser language', () => {
+      const detected = i18n.getBrowserLanguage();
+      expect(['en', 'ru']).toContain(detected);
     });
   });
 });

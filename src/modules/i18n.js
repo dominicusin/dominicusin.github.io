@@ -14,10 +14,10 @@ export class I18nManager {
    * Create I18nManager instance
    */
   constructor() {
+    this.storage = new LocalStorage(DEFAULT_CONFIG.STORAGE.LANGUAGE);
     this.currentLang = this.getStoredLanguage() || this.getBrowserLanguage();
     this.translations = {};
     this.isLoaded = false;
-    this.storage = new LocalStorage(DEFAULT_CONFIG.STORAGE.LANGUAGE);
 
     this.init();
   }

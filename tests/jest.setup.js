@@ -63,10 +63,9 @@ if (typeof window !== 'undefined' && window.HTMLImageElement) {
   Object.defineProperty(window.HTMLImageElement.prototype, 'src', {
     set(value) {
       this.setAttribute('src', value);
-      // Defer so onload handlers attached after assignment still run
-      setTimeout(() => {
-        this.dispatchEvent(new window.Event('load'));
-      }, 0);
+      // Fire load synchronously so onload handlers run within the same tick
+      // (jsdom never fires native load events for images).
+      this.dispatchEvent(new window.Event('load'));
     },
     get() {
       return this.getAttribute('src') || '';
