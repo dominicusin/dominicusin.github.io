@@ -1,16 +1,53 @@
-_site
-.sass-cache
-.jekyll-metadata
-.jekyll-cache
-.env
-.bundle/
-vendor/
-Gemfile.lock
-.gems/
+```
+# Dependencies
 node_modules/
-*.gem
-.thumbs.db
-.DS_Store
 
+# Build artifacts
 dist/
-build-stats.json
+build/
+target/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py.class
+.Python
+env/
+venv/
+.venv/
+.ENV
+.env
+.env.local
+.env.*
+.envrc
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+*.coverage
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.mypy_cache/
+.pytest_cache/
+.nyc_output/
+istanbul/
+```
