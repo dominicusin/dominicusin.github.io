@@ -1,45 +1,45 @@
-```
 # Dependencies
 node_modules/
 
-# Environment variables
+# Editors
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
 .env
 .env.local
-.env.*
-
-# Build artifacts
-dist/
-build/
-target/
+*.env.*
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.Python
-env/
-venv/
-.venv/
-.ENV
-.python-version
 
-# Logs
-*.log
+# Build artifacts
+dist/
+build/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.out
 
 # Coverage
-.coverage
 coverage/
 htmlcov/
+.coverage
 
 # IDE
-.vscode/
 .idea/
-*.swp
-*.swo
-*.tmp
 
-# OS
+# System
 .DS_Store
 Thumbs.db
 
@@ -66,4 +66,10 @@ Thumbs.db
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+
+# Testing
+.mypy_cache/
+.pytest_cache/
+target/
+.gradle/
 ```

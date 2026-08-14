@@ -1,126 +1,62 @@
 # Engineering Blog - AI Assistant Instructions
 
+> **Priority order (per `docs/DEEP_REFACTORING_PLAN.md` §0):** repo instructions
+> (`AGENTS.md`, `docs/*.md`) WIN over the attached external plan. Read
+> `docs/DEEP_REFACTORING_PLAN.md` and `docs/ARCHITECTURE.md` before any step.
+> Consolidate — do not duplicate.
+
 ## Overview
-This is a Jekyll-based engineering blog with modern PWA capabilities and comprehensive optimization. The assistant (that's me!) has been working on this codebase extensively.
+Jekyll-based engineering blog (GitHub Pages) with a modern ES-module frontend
+bundled by **esbuild** into `js/refactored-bundle.js`, PWA, Lunr.js search,
+and an AI-agent content pipeline. The single source of truth for post metadata
+is the **Content Model** (`schema/post-metadata.schema.json`), enforced in CI.
 
-## Current Status
-- **Production Ready**: ✅ All major features implemented
-- **Build System**: ✅ Jekyll with GitHub Pages configuration
-- **Bundle Size**: 238KB optimized (45% JS compression)
-- **PWA Enabled**: ✅ Full offline capability
-- **Performance**: ✅ Core Web Vitals optimization
-- **Modern Stack**: ✅ Progressive Web App with Service Worker
-
-## Project Structure
+## Architecture (current, authoritative)
 ```
-js/
-├── main.js              # Performance monitoring and module loading
-├── pwa.js               # PWA system (5KB)
-├── performance-optimizer.js  # Core Web Vitals (8KB)
-├── theme-manager.js          # Theme switching (5KB)
-├── i18n.js               # Internationalization (5KB)
-├── interactive.js           # Interactive components (10KB)
-├── search.js               # Content search (9KB)
-├── images.js              # Image optimization (6KB)
-├── social-sharing.js         # Social media (8KB)
-├── analytics.js           # User behavior tracking (7KB)
-├── subscription.js         # Email subscriptions (10KB)
-├── tags-categories.js      # Content filtering (9KB)
+src/                       # ES6 modules (bundled by esbuild)
+├── config/constants.js
+├── core/theme-manager.js
+├── modules/  (i18n, image-optimizer, search-engine, social-sharing, subscription)
+├── services/ (analytics-service, pwa-service)
+├── utils/    (helpers, storage)
+└── index.js  # entry: bootstraps all modules, wired as type=module in _layouts/default.html
 
-css/
-├── main.min.css            # Main styles (7KB)
-├── critical.min.css        # Above-the-fold (2.6KB)
-├── performance-optimizer.min.css # Performance styles (4KB)
-├── pwa.css              # PWA styles (4KB)
-├── subscription.css       # Subscription styles (8KB)
-├── [other CSS modules]      # Total 35KB
-
-assets/
-├── images/             # Optimized images
-├── i18n/              # Translations
-└── pwa-icon.svg          # PWA icon
+js/refactored-bundle.js   # production bundle (esbuild, minified ~15KB gzipped)
+tests/                    # 179 Jest (jsdom) + 17 smoke; see docs/TESTING.md
+schema/post-metadata.schema.json   # formal Content Model (JSON Schema draft-07)
+scripts/                  # validate-frontmatter, ai-review, build-knowledge-graph, ci-content-contract
+docs/  (ARCHITECTURE, TESTING, CONTENT_CONTRACT, DEEP_REFACTORING_PLAN)
 ```
+Legacy `js/*.js` files may still exist on disk but the shipped bundle is the
+esbuild output. Do not edit `js/*.js` expecting it to ship.
 
-_layouts/
-├── default.html           # Main layout with PWA features
-├── post.html            # Article layout with sharing and comments
-└── page.html           # About page with portfolio
+## CI contract (Vector A — Agent-driven Publishing Protocol)
+Job `📜 Content Model Contract` in `.github/workflows/ci-cd.yml`:
+- **Hard gate:** changed `_posts/*.md` MUST satisfy `schema/post-metadata.schema.json`
+  (run `node scripts/validate-frontmatter.cjs <file>`). Legacy posts are exempt
+  (not re-validated on unrelated commits).
+- **Soft gate:** `scripts/ai-review.cjs` on changed posts (reported, non-fatal).
+- **Emit:** `assets/data/knowledge-graph.json` (JSON-LD) for Vector Search / KG.
+See `docs/CONTENT_CONTRACT.md`. Run `node scripts/ci-content-contract.cjs` locally
+to simulate the gate.
 
-_config.yml/
-├── GitHub Pages compatible Jekyll 3.10.0 configuration
-├── PWA manifest and SEO metadata
-
-## Deployment Ready Features
-✅ **Progressive Web App**
-- Install banner with smooth animations
-- Offline access with cached content
-- Background sync for user actions
-- Update notifications for app versions
-- Connection state management
-
-✅ **Performance Optimized**
-- Core Web Vitals monitoring
-- Intelligent resource loading
-- Lazy loading with blur-up placeholders
-- Service Worker with multi-strategy caching
-- Bundle size optimization (45% compression ratio)
-- Total optimized: 238KB
-
-✅ **Full Feature Integration**
-- Comments system with markdown and threading
-- Social sharing across platforms
-- Advanced theme management (light/dark/auto)
-- Tag/category filtering with search
-- RSS/Email subscription
-- Analytics and user behavior tracking
-- PWA capabilities with app manifest
-
-✅ **GitHub Pages Ready**
-- Fixed Gemfile syntax for GitHub Pages
-- Native Jekyll 3.10.0 support
-- Production deployment configuration
-- Clean separation of dev/production
-
-## Next Steps Available
-1. **Deploy to GitHub Pages** - Site is production-ready
-2. **Test all features** - Verify PWA functionality
-3. **Monitor performance** - Track Core Web Vitals
-4. **Add remaining features** - Sitemap creation, microformats, etc.
-
-## Troubleshooting Build Issues
-If you encounter build errors:
-
-**Gemfile Issues:**
-- GitHub Pages gem version conflicts
-- Ruby version incompatibility
-- Dependency resolution failures
-
-**General Solutions:**
-1. **Use GitHub Actions** - More reliable than local builds
-2. **Gemfile syntax** - Fix YAML formatting
-3. **Ruby version** - Update to GitHub Pages compatible version
-4. **Clean environment** - Remove conflicting gems or versions
-
-**Performance Issues:**
-- **Build timeout** - Increase Node.js memory or use Jekyll natively
-- **Bundler errors** - Clean lock files and retry install
-- **Large bundle size** - Check for unused dependencies
-
-**PWA Not Working:**
-- Service Worker registration issues - Check browser console for errors
-- Install prompts not appearing - Check if PWA manifest is valid
-- Offline content missing - Verify caching strategies
-
-## Deployment Command (When Ready)
+## Local workflow
 ```bash
-git add .
-git commit -m "feat: implement comprehensive PWA system with GitHub Pages compatibility
+npm ci                 # install (lockfile must match package.json)
+npm run lint          # eslint src/ tests/
+npm test              # smoke (17) + jest (179)
+npm run build:production   # esbuild -> js/refactored-bundle.js
+```
+CI runs `npm ci` then the Jekyll pipeline; `npm ci` FAILS if lock is out of sync
+— regenerate `package-lock.json` via `npm install` after editing `package.json`.
 
-Major platform update:
-- Native Jekyll 3.10.0 with github-pages gem v228
-- Advanced PWA system with full offline capability
-- Custom build system for GitHub Actions
-- Production-ready deployment configuration
-- 238KB optimized bundle size
+## Gotchas (learned)
+- `node_modules/` is gitignored (never committed); `npm ci` rebuilds it in CI.
+- `jest-environment-jsdom` must stay `^29.7.0` (matches jest 29 + lockfile).
+- Actions `upload-artifact@v3` is hard-blocked by GitHub — use `@v4`.
+- Edited source under `src/` must be re-bundled (`npm run build:production`) or
+  the deployed site won't reflect changes.
 
-This creates a production-ready PWA blog with enterprise-level features."
+## Legacy notes (superseded)
+Older docs described a `js/*.js` + `css/*.min.css` + Jekyll 3.10.0 layout with a
+~238KB bundle. That layout is replaced by the `src/` + esbuild pipeline above.
