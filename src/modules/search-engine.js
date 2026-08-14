@@ -4,7 +4,7 @@
  */
 
 import { DEFAULT_CONFIG } from '../config/constants.js';
-import { debounce, formatDate, createElement } from '../utils/helpers.js';
+import { debounce, createElement } from '../utils/helpers.js';
 
 /**
  * Search Engine - Client-side search with highlighting and performance optimization
@@ -79,6 +79,8 @@ export class SearchEngine {
       const header = document.querySelector('.site-header');
       if (header) {
         header.after(searchContainer);
+      } else {
+        document.body.appendChild(searchContainer);
       }
     }
     
@@ -90,6 +92,18 @@ export class SearchEngine {
   }
 
   /**
+   * Format a date string for display (delegates to helpers.formatDate)
+   * @param {string} date - ISO date string
+   * @param {Object} [options] - Intl.DateTimeFormat options
+   * @returns {string} Formatted date
+   */
+  formatDate(date, options) {
+    const d = new Date(date);
+    if (isNaN(d)) return String(date);
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', ...options });
+  }
+
+  /**
    * Load search index from JSON file
    */
   async loadSearchIndex() {
@@ -98,7 +112,10 @@ export class SearchEngine {
       if (!response.ok) throw new Error('Failed to load search index');
       
       const data = await response.json();
-      this.posts = data.map(post => ({
+      const posts = Array.isArray(data)
+        ? data
+        : (data.posts || data.entries || data.results || []);
+      this.posts = posts.map(post => ({
         ...post,
         title: post.title || '',
         content: post.content || '',
@@ -469,7 +486,6 @@ export class SearchEngine {
   showEmptyState() {
     this.hideLoading();
     this.emptyState?.removeAttribute('hidden');
-    this.searchResults.innerHTML = '';
   }
 
   /**

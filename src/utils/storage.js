@@ -98,6 +98,11 @@ export class LocalStorage {
     const prefixedKey = this._getKey(key);
     
     try {
+      if (value === undefined) {
+        this.remove(key);
+        return true;
+      }
+
       const serialized = typeof value === 'string' ? value : JSON.stringify(value);
       
       if (this.available) {
