@@ -47,14 +47,12 @@ and `contracts/`. Import-graph scan of `src/` shows **0 cycles** even with them.
 
 ## D. Open items (need human-in-the-loop — NOT auto-fixed)
 
-- **D1 (A4) — LICENSE vs package.json CONFIRMED INCONSISTENT:** `LICENSE` file
-  is **CC0 1.0 Universal**, but `package.json.license` = **MIT**, README badge
-  says MIT, and README §License says "licensed under the MIT License - see the
-  LICENSE file". The repo *intends* MIT but ships a CC0 file. Per plan Phase 7
-  (license change = human-in-the-loop), **NOT auto-fixed**. Recommended fix:
-  either (a) replace `LICENSE` with the MIT text (if MIT is intended), or
-  (b) set `package.json.license` = "CC0-1.0" + fix README (if CC0 is intended).
-  Needs your decision — I will not change the license without it.
+- **D1 (A4) — LICENSE vs package.json: ✅ RESOLVED 2026-08-15 (decision: MIT).**
+  Confirmed `LICENSE` was **CC0 1.0** while `package.json.license` = **MIT**,
+  README badge + README §License said MIT. Per plan Phase 7 the license change
+  needed human confirmation; user chose **MIT**. Replaced `LICENSE` content with
+  the standard MIT text (Copyright (c) 2026 DominicusIn). Repo is now internally
+  consistent: `LICENSE` = MIT, `package.json.license` = MIT, README = MIT.
 - **D2 (B4):** `.bolt/` removal — confirm it's unused before deleting.
 - **D3 (build-stats.json):** ✅ RESOLVED 2026-08-15 — ran `NODE_ENV=production
   node build.js`; `dist/` now exists; `build-stats.json` regenerated and
@@ -84,4 +82,4 @@ and `contracts/`. Import-graph scan of `src/` shows **0 cycles** even with them.
 - [x] Every row in the duplication table is a **fact**, not a guess.
 - [x] Candidates-for-removal listed with rationale (B4, D-items).
 - [x] No file deleted/changed during audit (measurement only).
-- [ ] Human confirms D1–D4 before any deletion or license change.
+- [x] Human confirmed D1 (MIT) and D3 (build-stats) — resolved; D2 (.bolt/) and D4 (Strangler-Fig timeline) remain open.
