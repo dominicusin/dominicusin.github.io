@@ -7,10 +7,9 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 /**
  * Generate hash for cache busting
@@ -437,8 +436,11 @@ async function main() {
   }
 }
 
-// Main entry point - run when executed directly
-main();
+// Run build
+const isMainModule = process.argv[1] && process.argv[1].endsWith('build.js');
+if (isMainModule) {
+  main();
+}
 
 export {
   buildAssets,

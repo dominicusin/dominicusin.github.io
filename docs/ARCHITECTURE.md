@@ -20,18 +20,24 @@ into one tree-shaken bundle.
 │   │   └── constants.js      # Frozen app-wide constants
 │   ├── core/                 # Core modules
 │   │   └── theme-manager.js  # Theme management system
+│   ├── modules/              # Feature modules
+│   │   ├── search-engine.js  # Search functionality
+│   │   ├── i18n.js           # Internationalization
+│   │   └── subscription.js   # Subscription system
 │   ├── utils/                # Utility functions
 │   │   ├── helpers.js        # General utilities
-│   │   └── storage.js        # Safe storage wrappers
-│   └── index.js              # Main entry point (the "main" in package.json)
-├── js/                      # Build output + legacy scripts
-│   ├── refactored-bundle.js  # ← esbuild output (the new primary bundle)
-│   └── *.js                  # Legacy scripts (fallback)
-├── tests/
-│   ├── run-tests.js          # ESM test runner (Node 24 compatible)
-│   └── unit/helpers.test.js  # Example unit test
-├── docs/ARCHITECTURE.md      # This file
-└── build.js                  # Build + esbuild bundling step
+│   │   └── storage.js        # Storage wrappers
+│   └── index.js              # Main entry point
+├── tests/                    # Test files
+│   ├── unit/                 # Unit tests
+│   │   ├── helpers.test.js
+│   │   ├── theme-manager.test.js
+│   │   └── search-engine.test.js
+│   ├── integration/          # Integration tests
+│   └── test-utils.js         # Test utilities
+├── docs/                     # Documentation
+│   └── ARCHITECTURE.md       # This file
+└── js/                       # Legacy JS (to be deprecated)
 ```
 
 ## Module System
