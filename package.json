@@ -41,7 +41,7 @@
   "devDependencies": {
     "terser": "^5.19.0",
     "cssnano": "^6.0.0",
-    "html-minifier": "^4.1.0",
+    "html-minifier": "^4.0.0",
     "html-validate": "^8.0.0",
     "lighthouse": "^11.0.0"
   },

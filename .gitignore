@@ -1,2 +1,16 @@
-Nothing should be ignored since only a README.md file was modified and no build artifacts, dependencies, or temporary files were detected in the changes.
+_site
+.sass-cache
+.jekyll-metadata
+.jekyll-cache
 .env
+.bundle/
+vendor/
+Gemfile.lock
+.gems/
+node_modules/
+*.gem
+.thumbs.db
+.DS_Store
+
+dist/
+build-stats.json
