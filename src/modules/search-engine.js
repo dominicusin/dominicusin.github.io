@@ -179,6 +179,63 @@ export class SearchEngine {
   }
 
   /**
+   * Unified search dispatcher for the Semantic Search UI.
+   * @param {string} query
+   * @param {Object} [opts]
+   * @param {'hybrid'|'vector'|'keyword'} [opts.mode='hybrid']
+   * @param {number} [opts.limit=10]
+   * @returns {Array<{url,title,excerpt,date,category,score:number}>}
+   */
+  search(query, opts = {}) {
+    const { mode = 'hybrid', limit = 10 } = opts;
+    const q = (query || '').trim();
+    if (q.length < 2) return [];
+
+    const withCategory = (post, score) => ({
+      ...post,
+      category: Array.isArray(post.categories) ? post.categories[0] : (post.category || ''),
+      score
+    });
+
+    const keywordResults = () => {
+      if (this.searchIndex) {
+        return this.searchIndex.search(q)
+          .map(r => withCategory(this.posts[r.ref], r.score));
+      }
+      return this.basicSearch(q).map(p => withCategory(p, p.score || 0));
+    };
+
+    if (mode === 'vector') {
+      if (!this.vectorIndex) return [];
+      return this.vectorIndex.search(q, { topK: limit })
+        .map(r => withCategory(r.post, r.score));
+    }
+
+    if (mode === 'keyword') {
+      return keywordResults().slice(0, limit);
+    }
+
+    // hybrid: merge keyword + vector, normalize combined score to 0..1
+    const merged = new Map();
+    for (const r of keywordResults()) {
+      merged.set(r.url, { ...r, score: (r.score || 0) * 0.5 });
+    }
+    if (this.vectorIndex) {
+      for (const r of this.vectorIndex.search(q, { topK: limit })) {
+        const existing = merged.get(r.post.url);
+        if (existing) existing.score += r.score * 0.5;
+        else merged.set(r.post.url, withCategory(r.post, r.score * 0.5));
+      }
+    }
+    const values = [...merged.values()];
+    const maxScore = values.reduce((m, r) => Math.max(m, r.score || 0), 0);
+    if (maxScore > 0) values.forEach(r => { r.score = (r.score || 0) / maxScore; });
+    return values
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
+  }
+
+  /**
    * Setup event listeners
    */
   setupEventListeners() {

@@ -324,9 +324,4 @@ export class SearchUI {
   }
 }
 
-// Auto-initialize if element exists
-if (document.getElementById('semantic-search-modal')) {
-  window.semanticSearchUI = new SearchUI();
-}
-
 export default SearchUI;

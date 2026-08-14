@@ -112,12 +112,37 @@ export function startApp() {
   }
   
   // Initialize Search Engine
-  if (!App.searchEngine && document.querySelector('[data-search]')) {
+  if (!App.searchEngine && (document.querySelector('[data-search]') || document.getElementById('semantic-search-modal'))) {
     App.searchEngine = new SearchEngine();
     window.searchEngine = App.searchEngine;
   }
+
+  // Initialize Semantic Search UI (wired to the live SearchEngine)
+  if (!App.semanticSearch && document.getElementById('semantic-search-modal') && App.searchEngine) {
+    import('./modules/search-ui.js').then(({ SearchUI }) => {
+      App.semanticSearch = new SearchUI({ searchService: App.searchEngine });
+      window.semanticSearchUI = App.semanticSearch;
+      // Update footer index info once the search index is loaded
+      App.searchEngine.loadSearchIndex().then(() => {
+        const count = App.searchEngine.posts ? App.searchEngine.posts.length : 0;
+        App.semanticSearch.updateIndexInfo(count);
+      }).catch(() => {});
+    });
+  }
   
-  // Initialize Social Sharing
+  // Semantic search trigger: open modal on button click or Alt+K
+  const openTriggers = document.querySelectorAll('[data-open-semantic-search]');
+  openTriggers.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('open-semantic-search'));
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.altKey && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      document.dispatchEvent(new CustomEvent('open-semantic-search'));
+    }
+  });
   if (!App.socialSharing && document.querySelector('.social-sharing')) {
     App.socialSharing = new SocialSharing();
     window.socialSharing = App.socialSharing;
