@@ -62,6 +62,12 @@ and `contracts/`. Import-graph scan of `src/` shows **0 cycles** even with them.
   fix is strictly safer — no caller relied on the non-boolean return, truthiness
   is unchanged). Coverage of `helpers.js` raised 33% → 61.6% lines.
 
+- **F2 — `LocalStorage.length()` returns GLOBAL localStorage count**, not the
+  namespaced count. `keys()`/`clear()` are prefix-scoped but `length()` uses
+  `localStorage.length`. Documented quirk (not changed — could be a behavior
+  change for callers); covered by `tests/unit/storage.test.js` with a
+  non-fragile `>=` assertion.
+
 ## G. Phase 0/1 Definition-of-Done
 
 - [x] Every row in the duplication table is a **fact**, not a guess.
