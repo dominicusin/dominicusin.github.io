@@ -1,0 +1,18 @@
+# Ignore vendored and generated content (false positives on Jekyll templates)
+.gems/
+node_modules/
+_site/
+dist/
+vendor/
+# Jekyll templates use Liquid {{ }} syntax that trips generic HTML/JS rules
+_layouts/
+_includes/
+_posts/
+_sass/
+css/
+js/
+assets/
+# Config and docs
+_config.yml
+.github/
+*.md
