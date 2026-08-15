@@ -45,7 +45,7 @@ canonifyURLs = false
   showLanguageSelector = true
   # Replace with a real external form provider endpoint (Buttondown) at cutover.
   # See layouts/partials/custom/subscription.html
-  externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/YOUR_USERNAME"
+  externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/dominicusin" 
   giscus = { repo = "dominicusin/dominicusin.github.io", repoId = "MDEwOlJlcG9zaXRvcnk0NjQ1OTg0OQ==", category = "Announcements", categoryId = "DIC_kwDOAsTryc4CRUZ_", mapping = "pathname", reactionsEnabled = true, commentCount = true, inputPosition = "bottom", lang = "ru", loading = "lazy" }
 
 [params.footer]
