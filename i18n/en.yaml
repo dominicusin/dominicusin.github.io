@@ -53,3 +53,7 @@ a11y_language_switcher: "Language Switcher"
 subscribe_title: "Subscribe"
 subscribe_desc: "New posts to your inbox. No spam."
 subscribe_button: "Subscribe"
+
+# Search (Blowfish built-in)
+search_input_placeholder: "Search the site…"
+search_close_button_title: "Close search"

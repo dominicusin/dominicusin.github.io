@@ -40,6 +40,8 @@ canonifyURLs = false
 [params]
   colorScheme = "dark"
   defaultTheme = "auto"
+  # Built-in client-side search (Blowfish loads index.json + Fuse.js)
+  enableSearch = true
   description = "Engineering blog & decentralized web notes by Dominicus In."
   showDarkModeToggle = true
   showLanguageSelector = true
