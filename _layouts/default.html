@@ -67,11 +67,55 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="{{ '/css/tailwind.css' | absolute_url }}">
-
+  
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  
+  <!-- Preload critical scripts -->
+  <link rel="preload" href="{{ "/js/main.js" | absolute_url }}" as="script">
+  <link rel="preload" href="{{ "/js/performance-optimizer.js" | absolute_url }}" as="script">
+  <link rel="preload" href="{{ "/js/theme-manager.js" | absolute_url }}" as="script">
+  <link rel="preload" href="{{ "/js/i18n.js" | absolute_url }}" as="script">
+  <link rel="preload" href="{{ "/css/hero-redesign.css" | absolute_url }}" as="style">
+  
+  <!-- Preload stylesheets -->
+  <link rel="preload" href="{{ "/css/performance-optimizer.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/pwa.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/subscription.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/comments.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/social-sharing.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/theme-manager.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/analytics.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/tags-categories.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/about.css" | absolute_url }}" as="style">
+  <link rel="preload" href="{{ "/css/subscribe.css" | absolute_url }}" as="style">
+  <link rel="stylesheet" href="{{ "/css/hero-redesign.css" | absolute_url }}">
+  <link rel="preload" href="{{ "/css/subscription.css" | absolute_url }}" as="style">
+  
+<!-- Load stylesheets -->
+  <link rel="stylesheet" href="{{ "/css/performance-optimizer.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/subscription.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/comments.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/social-sharing.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/theme-manager.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/analytics.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/tags-categories.css" | absolute_url }}">
+  <link rel="stylesheet" href="{{ "/css/about.css" | absolute_url }}">
+  
+  <!-- DNS prefetch for non-critical resources -->
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//github.com">
+  
+  <!-- Font loading optimization -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
+  
+  <!-- Theme color -->
+  <meta name="theme-color" content="#4158D0">
+  <meta name="msapplication-TileColor" content="#4158D0">
+  
   <!-- Manifest for PWA -->
   <link rel="manifest" href="{{ '/manifest.json' | absolute_url }}">
 </head>
