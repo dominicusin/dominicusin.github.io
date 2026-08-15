@@ -3,42 +3,133 @@ layout: default
 ---
 
 <div class="home">
-  <!-- Hero Section -->
-  <section class="hero" role="banner">
+  <!-- Hero Section - Redesigned -->
+  <section class="hero hero--redesigned" role="banner">
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1 class="hero-title">
-        <span data-i18n="hero.welcome">Добро пожаловать в</span>
-        <span class="gradient-text" data-i18n="site.title">{{ site.title }}</span>
-      </h1>
-      <p class="hero-description" data-i18n="site.description">{{ site.description | markdownify | strip_html }}</p>
-      
-      <div class="hero-actions">
-        <a href="#recent-posts" class="btn btn-primary" data-i18n="hero.read_articles">Читать статьи</a>
-        <a href="/about/" class="btn btn-secondary" data-i18n="hero.about_blog">О блоге</a>
+      <div class="hero-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span>Engineering & AI Blog</span>
       </div>
       
-      <!-- Статистика -->
-      <div class="hero-stats">
-        <div class="stat-item">
-          <span class="stat-number">{{ site.posts.size }}</span>
-          <span class="stat-label" data-i18n="hero.articles">Статей</span>
+      <h1 class="hero-title hero-title--animated">
+        <span class="title-line" data-i18n="hero.welcome">Промышленная инженерия</span>
+        <span class="title-line gradient-text" data-i18n="site.title">{{ site.title }}</span>
+        <span class="title-line">и Искусственный Интеллект</span>
+      </h1>
+      
+      <p class="hero-description hero-description--enhanced" data-i18n="site.description">
+        {{ site.description | markdownify | strip_html }}
+      </p>
+      
+      <div class="hero-cta-group">
+        <div class="hero-actions">
+          <a href="#recent-posts" class="btn btn-primary btn-glow" data-i18n="hero.read_articles">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            <span data-i18n="hero.read_articles">Читать статьи</span>
+          </a>
+          <a href="/about/" class="btn btn-secondary btn-outline" data-i18n="hero.about_blog">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4"/>
+              <path d="M12 8h.01"/>
+            </svg>
+            <span data-i18n="hero.about_blog">О блоге</span>
+          </a>
         </div>
-        <div class="stat-item">
-          <span class="stat-number">{{ site.categories.size }}</span>
+        
+        <!-- Quick Links -->
+        <div class="hero-quick-links">
+          <a href="/categories/" class="quick-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+            </svg>
+            Категории
+          </a>
+          <a href="/archive/" class="quick-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="1 4 1 10 7 10"/>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+            </svg>
+            Архив
+          </a>
+          <a href="/tags/" class="quick-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
+            </svg>
+            Теги
+          </a>
+        </div>
+      </div>
+      
+      <!-- Enhanced Statistics -->
+      <div class="hero-stats hero-stats--modern">
+        <div class="stat-item stat-item--card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+          </div>
+          <span class="stat-number stat-number--animated" data-target="{{ site.posts.size }}">{{ site.posts.size }}</span>
+          <span class="stat-label" data-i18n="hero.articles">Публикаций</span>
+          <div class="stat-indicator stat-indicator--active"></div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item stat-item--card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <span class="stat-number stat-number--animated" data-target="{{ site.categories.size }}">{{ site.categories.size }}</span>
           <span class="stat-label" data-i18n="hero.categories">Категорий</span>
+          <div class="stat-indicator stat-indicator--active"></div>
         </div>
-        <div class="stat-item">
-          <span class="stat-number">{{ site.tags.size }}</span>
+        <div class="stat-divider"></div>
+        <div class="stat-item stat-item--card">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+              <line x1="7" y1="7" x2="7.01" y2="7"/>
+            </svg>
+          </div>
+          <span class="stat-number stat-number--animated" data-target="{{ site.tags.size }}">{{ site.tags.size }}</span>
           <span class="stat-label" data-i18n="hero.tags">Тегов</span>
+          <div class="stat-indicator stat-indicator--active"></div>
         </div>
       </div>
     </div>
     
-    <!-- Анимированный фон -->
-    <div class="hero-background">
-      <div class="hero-shape hero-shape-1"></div>
-      <div class="hero-shape hero-shape-2"></div>
-      <div class="hero-shape hero-shape-3"></div>
+    <!-- Enhanced Animated Background -->
+    <div class="hero-background hero-background--particles">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+      <div class="gradient-orb gradient-orb-1"></div>
+      <div class="gradient-orb gradient-orb-2"></div>
+      <div class="gradient-orb gradient-orb-3"></div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <span class="scroll-text">Листайте вниз</span>
     </div>
   </section>
 
