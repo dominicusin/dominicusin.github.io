@@ -16,7 +16,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const yaml = require('js-yaml');
 
-const POSTS_DIR = path.join(__dirname, '..', '_posts');
+const POSTS_DIR = path.join(__dirname, '..', 'content', 'blog');
 const SITE_URL = 'https://dominicusin.github.io';
 
 // Configuration

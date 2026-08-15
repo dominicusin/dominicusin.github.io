@@ -20,7 +20,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const POSTS_RE = /^_posts\/.*\.(md|markdown)$/;
+const POSTS_RE = /^content\/blog\/.*\.(md|markdown)$/;
 
 function runGit(args) {
   try {
@@ -40,9 +40,9 @@ function getChangedPosts() {
   if (!out) {
     // Fallback: all posts (ensures gate still runs if git is unavailable)
     console.log('⚠️  Could not determine changed files; falling back to all posts.');
-    return fs.readdirSync(path.join(ROOT, '_posts'))
+    return fs.readdirSync(path.join(ROOT, 'content', 'blog'))
       .filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
-      .map(f => path.join('_posts', f));
+      .map(f => path.join('content', 'blog', f));
   }
   return out.split('\n').filter(line => POSTS_RE.test(line.trim())).map(l => l.trim());
 }
