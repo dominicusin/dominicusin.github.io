@@ -27,7 +27,7 @@ disableKinds = ["RSS"] # RSS enabled explicitly per-language below
 canonifyURLs = false
 
 [permalinks]
-  posts = "/:year/:month/:day/:slug/"
+  blog = "/:year/:month/:day/:slug/"
   people = "/people/:slug/"
   domini = "/domini/:slug/"
 

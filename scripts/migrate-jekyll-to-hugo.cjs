@@ -14,7 +14,7 @@ const yaml = require('js-yaml');
 
 const ROOT = path.resolve(__dirname, '..');
 const SRC_DIR = path.join(ROOT, '_posts');
-const OUT_DIR = path.join(ROOT, 'content', 'posts');
+const OUT_DIR = path.join(ROOT, 'content', 'blog');
 
 // Fields we deliberately drop (Jekyll-only / layout hints Hugo ignores).
 const DROP_KEYS = new Set(['layout', 'permalink', 'published', 'excerpt_separator']);
