@@ -77,6 +77,11 @@ canonifyURLs = false
   showImages = true
   imagesMaxCount = 3
 
+[params.twitter]
+  # Enable Twitter/X summary cards (Blowfish renders them when set).
+  card = "summary_large_image"
+  site = "@dominicusin"
+
 [taxonomies]
   tag = "tags"
   category = "categories"
