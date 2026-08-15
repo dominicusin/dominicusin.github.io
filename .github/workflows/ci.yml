@@ -69,20 +69,17 @@ jobs:
         with:
           path: '_site/'
 
-  deploy:
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    
-    permissions:
-      pages: write
-      id-token: write
-    
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  # NOTE: Jekyll deploy to GitHub Pages is intentionally DISABLED (Phase 5 of
+  # docs/SSG_MIGRATION_PLAN.md, variant A). Hugo (hugo.yml) is now the single
+  # Pages publisher. This workflow still builds Jekyll for CI validation only.
+  # To re-enable Jekyll publishing, restore the `deploy` job below:
+  #   deploy:
+  #     needs: build
+  #     if: github.ref == 'refs/heads/main'
+  #     runs-on: ubuntu-latest
+  #     permissions: { pages: write, id-token: write }
+  #     environment: { name: github-pages, url: ${{ steps.deployment.outputs.page_url }} }
+  #     steps:
+  #       - name: Deploy to GitHub Pages
+  #         id: deployment
+  #         uses: actions/deploy-pages@v4

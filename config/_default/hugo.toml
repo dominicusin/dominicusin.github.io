@@ -16,8 +16,8 @@ summaryLength = 25
     [markup.goldmark.renderer]
       unsafe = true
 
-# Use the Blowfish theme (git submodule at themes/blowfish).
-theme = "blowfish"
+# Use the Blowfish theme (git submodule at themes/blowfish) — declared in
+# config/_default/config.toml so Hugo picks it up reliably.
 
 # Disable Hugo's default taxonomy pluralization surprises; keep standard.
 pluralizeListTitles = false
@@ -33,9 +33,9 @@ canonifyURLs = false
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
-  section = ["HTML", "RSS", "JSON"]
-  taxonomy = ["HTML", "RSS", "JSON"]
-  term = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  term = ["HTML", "RSS"]
 
 [params]
   colorScheme = "dark"
@@ -61,6 +61,7 @@ canonifyURLs = false
   showPagination = true
   showRelatedContent = true
   showTaxonomies = true
+  showComments = true
   relatedContentLimit = 3
 
 [params.list]
