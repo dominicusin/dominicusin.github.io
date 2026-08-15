@@ -18,7 +18,7 @@ jobs:
       # Шаг 1: Клонирование вашего репозитория
       # Это необходимо, чтобы Action мог вносить изменения в код
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Шаг 2: Синхронизация Gists
       # Используется готовый Action 'exuanbo/gists-sync-action'
