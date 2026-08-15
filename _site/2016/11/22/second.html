@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" class="bg-background">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Prevent theme flash: apply stored/preferred theme before paint -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('blog-theme');
+        var theme = stored || 'dark';
+        if (theme === 'auto') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
+  <title>List of favourite movies | Engineering Blog</title>
+  <meta name="description" content="комедии">
+  <meta name="author" content="Dominicus In">
+  <meta name="keywords" content="">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="ru">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="List of favourite movies">
+  <meta property="og:description" content="комедии">
+  <meta property="og:url" content="https://dominicusin.github.io/2016/11/22/second.html">
+  <meta property="og:site_name" content="Engineering Blog">
+  <meta property="og:image" content="https://dominicusin.github.io/assets/images/og-default.jpg">
+
+  
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dominicusin">
+  <meta name="twitter:title" content="List of favourite movies">
+  <meta name="twitter:description" content="комедии">
+
+  <meta name="theme-color" content="#0a0c11">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dominicusin.github.io/2016/11/22/second.html">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Engineering Blog" href="https://dominicusin.github.io/feed.xml">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://dominicusin.github.io/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="https://dominicusin.github.io/favicon.ico">
+  <link rel="apple-touch-icon" href="https://dominicusin.github.io/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://dominicusin.github.io/css/tailwind.css">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="https://dominicusin.github.io/manifest.json">
+</head>
+
+<body class="layout-default min-h-screen flex flex-col no-js">
+  <script>
+    document.body.classList.remove('no-js');
+    document.body.classList.add('js');
+  </script>
+
+  <!-- Skip to main content link -->
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+     data-i18n="accessibility.skip_to_content">Skip to Content</a>
+
+  <header class="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md" role="banner">
+  <div class="container-wide flex h-16 items-center justify-between gap-4">
+    <!-- Logo/Home link -->
+    <a class="site-title group flex items-center gap-2.5" href="https://dominicusin.github.io/"
+       aria-label="Engineering Blog - Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface font-mono text-sm font-bold text-primary">DI</span>
+      <span class="site-logo font-mono text-sm font-semibold tracking-tight text-foreground" data-i18n="site.title">Engineering Blog</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="site-nav flex items-center gap-1" role="navigation" aria-label="Основная навигация">
+      <div class="nav-desktop hidden items-center gap-1 md:flex">
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/"
+             data-i18n="navigation.home">
+            Home
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/about/"
+             data-i18n="navigation.about">
+            About
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/archive/"
+             data-i18n="navigation.archive">
+            Archive
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/categories/"
+             data-i18n="navigation.categories">
+            Categories
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/tags/"
+             data-i18n="navigation.tags">
+            Tags
+          </a>
+        
+      </div>
+
+      <div class="mx-1 hidden h-5 w-px bg-border md:block"></div>
+
+      <!-- Semantic Search trigger (Vector B) -->
+      <button class="search-trigger" type="button" aria-label="Открыть семантический поиск" data-open-semantic-search>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <span class="hidden sm:inline" data-i18n="navigation.search">Поиск</span>
+        <kbd class="search-trigger__kbd">Alt K</kbd>
+      </button>
+
+      <!-- Theme Toggle (rendered by theme-manager JS) -->
+      <div class="theme-toggle theme-toggle--header"></div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle inline-flex h-9 w-9 items-center justify-center rounded-lg border bg-surface text-muted transition-colors hover:text-foreground md:hidden"
+              type="button"
+              aria-label="Переключить меню навигации"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              data-mobile-toggle>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden border-t bg-surface md:!hidden" role="navigation" aria-label="Мобильная навигация" data-mobile-menu>
+    <div class="container-wide flex flex-col gap-1 py-4">
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/"
+           data-i18n="navigation.home">
+          Home
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/about/"
+           data-i18n="navigation.about">
+          About
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/archive/"
+           data-i18n="navigation.archive">
+          Archive
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/categories/"
+           data-i18n="navigation.categories">
+          Categories
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/tags/"
+           data-i18n="navigation.tags">
+          Tags
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('[data-mobile-toggle]');
+    var menu = document.querySelector('[data-mobile-menu]');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  })();
+</script>
+
+
+  <!-- Semantic Search Modal (Vector B UI) -->
+  <!-- Semantic Search Modal -->
+<div id="semantic-search-modal" class="ai-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="ai-modal__overlay" data-close-modal></div>
+  <div class="ai-modal__container">
+    <div class="ai-modal__header">
+      <h2 id="modal-title" class="ai-modal__title">
+        <svg class="ai-modal__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+        </svg>
+        Semantic Search
+      </h2>
+      <button class="ai-modal__close" data-close-modal aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-modal__body">
+      <!-- Search Mode Toggle -->
+      <div class="search-mode-toggle">
+        <button class="mode-btn active" data-mode="hybrid" title="Hybrid Search (Keyword + Vector)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Hybrid
+        </button>
+        <button class="mode-btn" data-mode="vector" title="Vector Search (Semantic)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Vector
+        </button>
+        <button class="mode-btn" data-mode="keyword" title="Keyword Search (Traditional)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8M8 12h8M8 16h4"></path>
+          </svg>
+          Keyword
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          id="semantic-search-input" 
+          class="search-input" 
+          placeholder="Ask in natural language... (e.g., 'How do I optimize React performance?')"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="search-status" id="search-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Ready</span>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div class="search-results" id="search-results">
+        <!-- Skeleton loader -->
+        <div class="results-skeleton" id="results-skeleton" hidden>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+        </div>
+
+        <!-- Results will be injected here -->
+        <div class="results-placeholder" id="results-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <p>Enter your query to find semantically relevant content</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-modal__footer">
+      <div class="search-info">
+        <span class="info-label">Model:</span>
+        <span class="info-value" id="model-info">all-MiniLM-L6-v2</span>
+        <span class="info-divider">|</span>
+        <span class="info-label">Index:</span>
+        <span class="info-value" id="index-info">0 posts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Result Item Template (for JS rendering) -->
+<template id="result-item-template">
+  <article class="search-result-item">
+    <div class="result-header">
+      <h3 class="result-title"></h3>
+      <div class="relevance-badge">
+        <span class="relevance-score"></span>
+        <span class="relevance-label">Relevance</span>
+      </div>
+    </div>
+    <p class="result-excerpt"></p>
+    <div class="result-meta">
+      <span class="result-date"></span>
+      <span class="result-category"></span>
+    </div>
+    <a class="result-link" href="#">Read more →</a>
+  </article>
+</template>
+
+
+  <main id="main-content" class="flex-1" aria-label="Content">
+    <h1 id="комедии"><strong>комедии</strong></h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/820220/"> !!Cюрприз / De Surprise </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/55057/">La totale! </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/60285/">боги сошли с ума </a>http://www.kinopoisk.ru/film/182416/</p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/55035/">Прекрасная зеленая / La belle verte</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/321842/">предложение</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/261668/">золото дураков</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/256498/">Смерть на похоронах / Death at a Funeral </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/77596/">Хороший год / A Good Year </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/271878/">Красный отель /L’auberge rouge </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/6898/">Мышиная охота / Mousehunt </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/455105/">Храбрые перцем / Your Highness </a></p>
+  </li>
+</ol>
+
+<h1 id="болливуд">болливуд</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/883370/">Безмолвие / Nirbaak</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/280562/">Звёздочки на земле Taare Zameen Par </a></p>
+  </li>
+</ol>
+
+<h1 id="аля-лондон">аля Лондон</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/3775/">На грани / The Edge</a></li>
+</ol>
+
+<h1 id="о-животных">о животных</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/22907/">Медведь / L’ours</a></li>
+</ol>
+
+<h1 id="притчи">притчи</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/93220/">Сладкий фильм Sweet Movie</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/5206/">Машинист El Maquinista</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/462/">Быть Джоном Малковичем / Being John Malkovich </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/81397/">Ложь Gojitmal</a></p>
+  </li>
+  <li>
+    <p>(!Ким Ки Дук / Kim Ki Duk!)</p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/264700/">Я всегда хотел быть гангстером / J’ai toujours rêvé d’être un gangster</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/648731/">Столетний старик, который вылез в окно и исчез / Hundraåringen som klev ut genom fönstret och försvann</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/41323/">Замок  Балабанова</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/7295/">Трюкач / The Stunt Man </a>
+вообще с отулом плохих фильмов не видал</p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/44574/">Город Зеро </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/41509/">Болдинская осень</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/263978/">Простые вещи</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/41124/">Дети чугунных богов</a></p>
+  </li>
+</ol>
+
+<h1 id="боевик">боевик</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/25323/">Убийца сёгуна Shogun Assassin </a></li>
+</ol>
+
+<h1 id="мистика">“мистика”</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/87161/">!!!!!! Мирный воин    </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/1827/">Другие ипостаси / Altered States </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/13904/">Колдовство / The Craft </a></p>
+  </li>
+  <li>
+    <p><a href="http://kino.sampo.ru/entity/4982">Пророчество Селесты / The Celestine Prophecy </a></p>
+  </li>
+</ol>
+
+<h1 id="хулиганские">хулиганские</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/20938/"> Вальсирующие / Les valseuses </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/9485/video/">Кен Парк / Ken Park</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/6384/">Детки / Kids </a></p>
+  </li>
+</ol>
+
+<h1 id="сказки">сказки</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/255316/">Скачок во времени / A Wrinkle in Time </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/808175/">Страшные сказки / Il racconto dei racconti </a></p>
+  </li>
+</ol>
+
+<h1 id="кроненберг">кроненберг</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/8853/">Видеодром / Videodrome </a></li>
+</ol>
+
+<h1 id="братишкиbritish">братишки(british)</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/90827/">Keeping Mum</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/416199/">   </a><a href="https://www.kinopoisk.ru/film/58673/">Нежная мишень<br />
+Cible émouvante</a><a href="http://www.kinopoisk.ru/film/416199/">      Дикая штучка Wild Target </a></p>
+  </li>
+</ol>
+
+<h1 id="мульт">мульт</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/49062/">Освободите Джимми Slipp Jimmy fri </a></li>
+</ol>
+
+<h2 id="рене-лалу">(!Рене Лалу!)</h2>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/134741/">Дикая планета / La planète sauvage </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/464183/">Кот раввина / Le chat du rabbin </a></p>
+  </li>
+</ol>
+
+<h1 id="мальчишеские">мальчишеские</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/18973/">! Револьвер / Revolver </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/15641/">Кровавый четверг / Thursday </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/361/">Бойцовский клуб / Fight Club</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/522/">Карты, деньги, два ствола /Lock, Stock and Two Smoking Barrels</a></p>
+  </li>
+</ol>
+
+<h1 id="фантастика">фантастика</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/2702/">Враг мой / Enemy Mine</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/45488/">Через тернии к звездам </a></p>
+  </li>
+</ol>
+
+<h1 id="приключения">приключения</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/6515/">Ремо Уильямс: Приключение начинается / Remo Williams: The Adventure Begins</a></li>
+</ol>
+
+<h1 id="документальный">документальный</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/674243/">Счастливые люди </a></li>
+</ol>
+
+<h1 id="сериалы">сериалы</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/277675/">Северная сторона / Northern Exposure </a></li>
+</ol>
+
+<h1 id="медитативные">медитативные</h1>
+
+<p>Qatsi trilogy Годфри Реджио</p>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/7328/">«Койяанискаци» (1983)</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/7325/">«Поваккаци» (1988)</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/18297/">«Накойкаци» (2002)</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/252659/">Пепел и снег Ashes and Snow </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/82424/">Стеклянное сердце Herz aus Glas </a></p>
+  </li>
+</ol>
+
+<h1 id="исторические">исторические</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/405952/">Агора Agora</a></li>
+</ol>
+
+<h1 id="китайское">китайское</h1>
+
+<ol>
+  <li><a href="http://www.kinopoisk.ru/film/378/">Крадущийся тигр, затаившийся дракон Wo hu cang long </a></li>
+</ol>
+
+<h1 id="антиутопии">антиутопии</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/95444/">Гаррисон Бержерон (ТВ) Harrison Bergeron</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/470998/">Метропия Metropia</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/7776/">Альфавиль Alphaville, une étrange aventure de Lemmy Caution</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/37476/">Ultraviolet </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/77426/">Эон Флакс Æon Flux</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/66171/">Сексмиссия Seksmisja</a></p>
+  </li>
+</ol>
+
+<h1 id="дополнения">дополнения</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/471921/">власть убийц </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/635772/">игра в имитацию </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/397667/">остров проклятых</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/4440/">убей меня нежно</a>  (о доверии)</p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/17663/">третья персона </a></p>
+  </li>
+  <li>
+    <p><a href="https://www.kinopoisk.ru/film/17663/">соблазн </a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/702/">часы </a></p>
+  </li>
+</ol>
+
+<h1 id="шикарная-актерская-игра">шикарная актерская игра</h1>
+
+<ol>
+  <li>
+    <p><a href="http://www.kinopoisk.ru/film/427908/">ужин в четыре руки</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.kinopoisk.ru/film/702/">Часы</a></p>
+  </li>
+</ol>
+
+<p><a href="https://www.kinopoisk.ru/film/746480/">Маленькая смерть The Little Death</a></p>
+
+<p><a href="https://www.kinopoisk.ru/film/596215/">Бесконечно белый медведь<br />
+Infinitely Polar Bear</a></p>
+
+  </main>
+
+  <footer class="mt-24 border-t bg-surface">
+  <div class="container-wide py-14">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface-2 font-mono text-sm font-bold text-primary">DI</span>
+          <span class="font-mono text-sm font-semibold text-foreground">Engineering Blog</span>
+        </div>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.
+</p>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Connect</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          
+          <li>
+            <a href="https://github.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://orcid.org/0000-0002-7425-0526" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <span class="font-mono text-xs">ORCID</span>
+              <span>0000-0002-7425-0526</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Subscribe</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href="/feed.xml" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              RSS Feed
+            </a>
+          </li>
+          <li>
+            <a href="/archive/" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground" data-i18n="recent_posts.all_articles">Все статьи</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-subtle sm:flex-row">
+      <p>&copy; 2026 Engineering Blog. All rights reserved.</p>
+      <p class="font-mono">Built with Jekyll · Tailwind CSS</p>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Structured Data -->
+  <!-- Enhanced Structured Data for Blog Post -->
+
+
+<!-- Enhanced Structured Data for Homepage -->
+
+
+<!-- Structured Data for Category Pages -->
+
+
+<!-- Website Performance Monitoring -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "List of favourite movies",
+  "description": "комедии",
+  "url": "https://dominicusin.github.io/2016/11/22/second.html",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Engineering Blog",
+    "url": "https://dominicusin.github.io"
+  },
+  "dateModified": "2026-08-15T01:01:47+00:00",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "navigation.home",
+        "item": "https://dominicusin.github.io/"
+      }
+      
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "List of favourite movies",
+        "item": "https://dominicusin.github.io/2016/11/22/second.html"
+      }
+      
+    ]
+  }
+}
+</script>
+
+  <!-- Refactored ES module bundle -->
+  <script type="module" src="https://dominicusin.github.io/js/refactored-bundle.js"></script>
+
+  <!-- Analytics -->
+  
+
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://dominicusin.github.io/sw.js')
+          .then(() => console.log('SW registered'))
+          .catch(() => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>

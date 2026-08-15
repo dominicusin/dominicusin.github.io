@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" class="bg-background">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Prevent theme flash: apply stored/preferred theme before paint -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('blog-theme');
+        var theme = stored || 'dark';
+        if (theme === 'auto') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
+  <title>Linux System Administrator(DevOp) Interview Questions | Engineering Blog</title>
+  <meta name="description" content="Linux System Administrator/DevOp Interview Questions">
+  <meta name="author" content="Dominicus In">
+  <meta name="keywords" content="">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="ru">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Linux System Administrator(DevOp) Interview Questions">
+  <meta property="og:description" content="Linux System Administrator/DevOp Interview Questions">
+  <meta property="og:url" content="https://dominicusin.github.io/2017/05/28/Interview.html">
+  <meta property="og:site_name" content="Engineering Blog">
+  <meta property="og:image" content="https://dominicusin.github.io/assets/images/og-default.jpg">
+
+  
+  <meta property="article:published_time" content="2017-05-28T22:03:00+00:00">
+  <meta property="article:modified_time" content="2017-05-28T22:03:00+00:00">
+  <meta property="article:author" content="Dominicus In">
+  
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dominicusin">
+  <meta name="twitter:title" content="Linux System Administrator(DevOp) Interview Questions">
+  <meta name="twitter:description" content="Linux System Administrator/DevOp Interview Questions">
+
+  <meta name="theme-color" content="#0a0c11">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dominicusin.github.io/2017/05/28/Interview.html">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Engineering Blog" href="https://dominicusin.github.io/feed.xml">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://dominicusin.github.io/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="https://dominicusin.github.io/favicon.ico">
+  <link rel="apple-touch-icon" href="https://dominicusin.github.io/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://dominicusin.github.io/css/tailwind.css">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="https://dominicusin.github.io/manifest.json">
+</head>
+
+<body class="layout-post min-h-screen flex flex-col no-js">
+  <script>
+    document.body.classList.remove('no-js');
+    document.body.classList.add('js');
+  </script>
+
+  <!-- Skip to main content link -->
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+     data-i18n="accessibility.skip_to_content">Skip to Content</a>
+
+  <header class="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md" role="banner">
+  <div class="container-wide flex h-16 items-center justify-between gap-4">
+    <!-- Logo/Home link -->
+    <a class="site-title group flex items-center gap-2.5" href="https://dominicusin.github.io/"
+       aria-label="Engineering Blog - Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface font-mono text-sm font-bold text-primary">DI</span>
+      <span class="site-logo font-mono text-sm font-semibold tracking-tight text-foreground" data-i18n="site.title">Engineering Blog</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="site-nav flex items-center gap-1" role="navigation" aria-label="Основная навигация">
+      <div class="nav-desktop hidden items-center gap-1 md:flex">
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/"
+             data-i18n="navigation.home">
+            Home
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/about/"
+             data-i18n="navigation.about">
+            About
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/archive/"
+             data-i18n="navigation.archive">
+            Archive
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/categories/"
+             data-i18n="navigation.categories">
+            Categories
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/tags/"
+             data-i18n="navigation.tags">
+            Tags
+          </a>
+        
+      </div>
+
+      <div class="mx-1 hidden h-5 w-px bg-border md:block"></div>
+
+      <!-- Semantic Search trigger (Vector B) -->
+      <button class="search-trigger" type="button" aria-label="Открыть семантический поиск" data-open-semantic-search>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <span class="hidden sm:inline" data-i18n="navigation.search">Поиск</span>
+        <kbd class="search-trigger__kbd">Alt K</kbd>
+      </button>
+
+      <!-- Theme Toggle (rendered by theme-manager JS) -->
+      <div class="theme-toggle theme-toggle--header"></div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle inline-flex h-9 w-9 items-center justify-center rounded-lg border bg-surface text-muted transition-colors hover:text-foreground md:hidden"
+              type="button"
+              aria-label="Переключить меню навигации"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              data-mobile-toggle>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden border-t bg-surface md:!hidden" role="navigation" aria-label="Мобильная навигация" data-mobile-menu>
+    <div class="container-wide flex flex-col gap-1 py-4">
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/"
+           data-i18n="navigation.home">
+          Home
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/about/"
+           data-i18n="navigation.about">
+          About
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/archive/"
+           data-i18n="navigation.archive">
+          Archive
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/categories/"
+           data-i18n="navigation.categories">
+          Categories
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/tags/"
+           data-i18n="navigation.tags">
+          Tags
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('[data-mobile-toggle]');
+    var menu = document.querySelector('[data-mobile-menu]');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  })();
+</script>
+
+
+  <!-- Semantic Search Modal (Vector B UI) -->
+  <!-- Semantic Search Modal -->
+<div id="semantic-search-modal" class="ai-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="ai-modal__overlay" data-close-modal></div>
+  <div class="ai-modal__container">
+    <div class="ai-modal__header">
+      <h2 id="modal-title" class="ai-modal__title">
+        <svg class="ai-modal__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+        </svg>
+        Semantic Search
+      </h2>
+      <button class="ai-modal__close" data-close-modal aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-modal__body">
+      <!-- Search Mode Toggle -->
+      <div class="search-mode-toggle">
+        <button class="mode-btn active" data-mode="hybrid" title="Hybrid Search (Keyword + Vector)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Hybrid
+        </button>
+        <button class="mode-btn" data-mode="vector" title="Vector Search (Semantic)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Vector
+        </button>
+        <button class="mode-btn" data-mode="keyword" title="Keyword Search (Traditional)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8M8 12h8M8 16h4"></path>
+          </svg>
+          Keyword
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          id="semantic-search-input" 
+          class="search-input" 
+          placeholder="Ask in natural language... (e.g., 'How do I optimize React performance?')"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="search-status" id="search-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Ready</span>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div class="search-results" id="search-results">
+        <!-- Skeleton loader -->
+        <div class="results-skeleton" id="results-skeleton" hidden>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+        </div>
+
+        <!-- Results will be injected here -->
+        <div class="results-placeholder" id="results-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <p>Enter your query to find semantically relevant content</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-modal__footer">
+      <div class="search-info">
+        <span class="info-label">Model:</span>
+        <span class="info-value" id="model-info">all-MiniLM-L6-v2</span>
+        <span class="info-divider">|</span>
+        <span class="info-label">Index:</span>
+        <span class="info-value" id="index-info">0 posts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Result Item Template (for JS rendering) -->
+<template id="result-item-template">
+  <article class="search-result-item">
+    <div class="result-header">
+      <h3 class="result-title"></h3>
+      <div class="relevance-badge">
+        <span class="relevance-score"></span>
+        <span class="relevance-label">Relevance</span>
+      </div>
+    </div>
+    <p class="result-excerpt"></p>
+    <div class="result-meta">
+      <span class="result-date"></span>
+      <span class="result-category"></span>
+    </div>
+    <a class="result-link" href="#">Read more →</a>
+  </article>
+</template>
+
+
+  <main id="main-content" class="flex-1" aria-label="Content">
+    <!-- Structured Data for Blog Post -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://dominicusin.github.io/2017/05/28/Interview.html#blogposting",
+  "url": "https://dominicusin.github.io/2017/05/28/Interview.html",
+  "name": "Linux System Administrator(DevOp) Interview Questions",
+  "headline": "Linux System Administrator(DevOp) Interview Questions",
+  "description": "Linux System Administrator/DevOp Interview Questions",
+  "datePublished": "2017-05-28T22:03:00+00:00",
+  "dateModified": "2017-05-28T22:03:00+00:00",
+  "author": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In",
+    "url": "https://dominicusin.github.io/about/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In"
+  },
+  "inLanguage": en,
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "https://dominicusin.github.io#blog"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://dominicusin.github.io/2017/05/28/Interview.html"
+  },
+  "wordCount": 1851,
+  "keywords": [
+    
+  ],
+  "articleSection": "Technology",
+  "image": [
+    
+    "https://dominicusin.github.io/assets/images/default-blog-image.jpg"
+    
+  ],
+  "thumbnailUrl": "https://dominicusin.github.io/assets/images/default-blog-image.jpg",
+  "genre": [
+    
+  ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Software Engineering"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Web Development"
+    }
+  ],
+  "mentions": [
+    
+  ]
+}
+</script>
+
+<!-- Article Header -->
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      
+      
+      <time class="post-date" datetime="2017-05-28T22:03:00+00:00">
+        May 28, 2017
+        
+      </time>
+      
+      
+      <span class="post-author">by Dominicus In</span>
+      
+    </div>
+    
+    <h1 class="post-title">Linux System Administrator(DevOp) Interview Questions</h1>
+    
+    
+    
+    
+    <p class="post-excerpt"><h1 id="linux-system-administratordevop-interview-questions">Linux System Administrator/DevOp Interview Questions</h1>
+</p>
+    
+  </header>
+
+  <!-- Table of Contents -->
+  
+
+  <!-- Article Content -->
+  <div class="post-content">
+    <h1 id="linux-system-administratordevop-interview-questions">Linux System Administrator/DevOp Interview Questions</h1>
+
+<p>A collection of linux sysadmin/devop interview questions. Feel free to contribute via pull requests, issues or email messages.</p>
+
+<h2 id="table-of-contents"><a name="toc">Table of Contents</a></h2>
+
+<ol>
+  <li><a href="#contributors">Contributors</a></li>
+  <li><a href="#general">General Questions</a></li>
+  <li><a href="#simple">Simple Linux Questions</a></li>
+  <li><a href="#medium">Medium Linux Questions</a></li>
+  <li><a href="#hard">Hard Linux Questions</a></li>
+  <li><a href="#expert">Expert Linux Questions</a></li>
+  <li><a href="#network">Networking Questions</a></li>
+  <li><a href="#devop">DevOp Questions</a></li>
+  <li><a href="#fun">Fun Questions</a></li>
+  <li><a href="#demo">Demo Time</a></li>
+  <li><a href="#references">Other Great References</a></li>
+</ol>
+
+<p>####<a href="#toc">[⬆]</a> <a name="contributors">Contributors:</a></p>
+
+<ul>
+  <li><a href="https://github.com/moregeek">moregeek</a></li>
+  <li><a href="https://github.com/typhonius">typhonius</a></li>
+  <li>martin</li>
+  <li><a href="https://github.com/negesti">negesti</a></li>
+  <li>peter</li>
+  <li><a href="https://github.com/andreashappe">andreashappe</a></li>
+  <li><a href="https://github.com/quatrix">quatrix</a></li>
+  <li><a href="https://github.com/biyanisuraj">biyanisuraj</a></li>
+</ul>
+
+<p>The majority of the questions were collected from:</p>
+
+<ul>
+  <li>https://github.com/gurmeet1109/docgurmeet/tree/master/InterviewQuestionsSamples</li>
+  <li>https://github.com/kylejohnson/linux-sysadmin-interview-questions/blob/master/test.md</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="general">General Questions:</a></p>
+
+<ul>
+  <li>What did you learn yesterday/this week?</li>
+  <li>Talk about your preferred development/administration environment. (OS, Editor, Browsers, Tools etc.)</li>
+  <li>Tell me about the last major Linux project you finished.</li>
+  <li>Tell me about the biggest mistake you’ve made in [some recent time period] and how you would do it differently today. What did you learn from this experience?</li>
+  <li>Why we must choose you?</li>
+  <li>What function does DNS play on a network?</li>
+  <li>What is HTTP?</li>
+  <li>What is an HTTP proxy and how does it work?</li>
+  <li>Describe briefly how HTTPS works.</li>
+  <li>What is SMTP? Give the basic scenario of how a mail message is delivered via SMTP!</li>
+  <li>What is RAID? What is RAID0, RAID1, RAID5, RAID10?</li>
+  <li>What is a level 0 backup? What is an incremental backup?</li>
+  <li>Describe the general file system hierarchy of a Linux system.</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="simple">Simple Linux Questions:</a></p>
+
+<ul>
+  <li>What is the name and the UID of the administrator user?</li>
+  <li>How to list all files, including hidden one, in a directory?</li>
+  <li>What is the Unix/Linux command to remove a directory and its contents?</li>
+  <li>Which command will show you free/used memory? Does free memory exist on Linux?</li>
+  <li>How to search for the string “my konfi is the best” in files of a directory recursively?</li>
+  <li>How to connect to a remote server or what is SSH?</li>
+  <li>How to get all environment variables and how can you use them?</li>
+  <li>I get “command not found” for <code class="language-plaintext highlighter-rouge">ifconfig -a</code>. What can be wrong?</li>
+  <li>What happens if I type TAB-TAB?</li>
+  <li>What command will show the available disk space on the Unix/Linux system?</li>
+  <li>What command is used to lookup DNS records?</li>
+  <li>What Unix/Linux commands will alter a files ownership, files permissions?</li>
+  <li>What does <code class="language-plaintext highlighter-rouge">chmod +x FILENAME</code>do?</li>
+  <li>What does the permission 0750 on a file mean?</li>
+  <li>What does the permission 0750 on a directory mean?</li>
+  <li>How to add a new system user without login permissions?</li>
+  <li>How to add/remove a group from a user?</li>
+  <li>What is a bash alias?</li>
+  <li>How do you set the mail address of the root/a user?</li>
+  <li>What does CTRL-c do?</li>
+  <li>What is in /etc/services?</li>
+  <li>How to redirect STDOUT and STDERR in bash? (&gt; /dev/null 2&gt;&amp;1)</li>
+  <li>What is the difference between UNIX and Linux</li>
+  <li>What is the difference between Telnet and SSH?</li>
+  <li>Explain the three load averages and what do they indicate</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="medium">Medium Linux Questions:</a></p>
+
+<ul>
+  <li>What do the following commands do?</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code></li>
+  <li><code class="language-plaintext highlighter-rouge">awk</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tr</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cut</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tac</code></li>
+  <li><code class="language-plaintext highlighter-rouge">curl</code></li>
+  <li><code class="language-plaintext highlighter-rouge">wget</code></li>
+  <li><code class="language-plaintext highlighter-rouge">watch</code></li>
+  <li><code class="language-plaintext highlighter-rouge">tail</code></li>
+  <li>What does a <code class="language-plaintext highlighter-rouge">&amp;</code> after a command do?</li>
+  <li>What does <code class="language-plaintext highlighter-rouge">&amp; disown</code> after a command do?</li>
+  <li>What is a packet filter and how does it work?</li>
+  <li>What is swap and what is it used for?</li>
+  <li>What is an A record, an NS record, a PTR record, a CNAME record, an MX record?</li>
+  <li>Are there any other RRs and what are they used for?</li>
+  <li>What is a Split-Horizon DNS?</li>
+  <li>What is the sticky bit?</li>
+  <li>What is the difference between hardlinks and symlinks? What happens when you remove the source to a symlink/hardlink?</li>
+  <li>What is an inode and what fields are stored in an inode?</li>
+  <li>Howto force/trigger a file system check on next reboot?</li>
+  <li>What is SNMP and what is it used for?</li>
+  <li>What is a runlevel and how to get the current runlevel?</li>
+  <li>What is SSH port forwarding?</li>
+  <li>What is the difference between local and remote port forwarding?</li>
+  <li>What steps to add a user to a system without using useradd/adduser?</li>
+  <li>What is MAJOR and MINOR numbers of special files?</li>
+  <li>Describe a scenario when you get a “filesystem is full” error, but ‘df’ shows there is free space.</li>
+  <li>Describe a scenario when deleting a file, but ‘df’ not showing the space being freed.</li>
+  <li>Describe how ‘ps’ works.</li>
+  <li>What happens to a child process that dies and has no parent process to wait for it and what’s bad about this?</li>
+  <li>How to know which process listens on a specific port?</li>
+  <li>You run a bash script and you want to see its output on your terminal and save it to a file at the same time. How could you do it?</li>
+  <li>Explain what echo “1” &gt; /proc/sys/net/ipv4/ip_forward does.</li>
+  <li>Describe briefly the steps you need to take in order to create and install a valid certificate for the site https://foo.example.com.</li>
+  <li>Can you have several HTTPS virtual hosts sharing the same IP?</li>
+  <li>What is a wildcard certificate?</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="hard">Hard Linux Questions:</a></p>
+
+<ul>
+  <li>What is the difference between processes and threads?</li>
+  <li>What is a tunnel and how you can bypass a http proxy?</li>
+  <li>What is the difference between IDS and IPS?</li>
+  <li>What shortcuts do you use on a regular basis?</li>
+  <li>What is the Linux Standard Base?</li>
+  <li>What is an atomic operation?</li>
+  <li>Your freshly configured http server is not running after a restart, what can you do?</li>
+  <li>What kind of keys are in ~/.ssh/authorized_keys and what it is this file used for?</li>
+  <li>I’ve added my public ssh key into authorized_keys but I’m still getting a password prompt, what can be wrong?</li>
+  <li>Did you ever create RPM’s, DEB’s or solaris pkg’s?</li>
+  <li>What does <code class="language-plaintext highlighter-rouge">:(){ :|:&amp; };:</code> do on your system and why you would care about that?</li>
+  <li>How trace system call and signal?</li>
+  <li>What’s happening when the Linux kernel is starting the OOM killer, how does it choose which process to kill first.</li>
+  <li>Describe the linux boot process with as much detail as possible, starting from when the system is powered on and ending when you get a prompt.</li>
+  <li>What’s a chroot jail?</li>
+  <li>When trying to umount a directory it says it’s busy, how to find out which PID holds the directory?</li>
+  <li>What’s LD_PRELOAD and when it’s used?</li>
+  <li>You run a binary and nothing happens, how do you debug what’s doing?</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="expert">Expert Linux Questions:</a></p>
+
+<ul>
+  <li>A running process gets <code class="language-plaintext highlighter-rouge">EAGAIN: Resource temporarily unavailable</code> on reading a socket. How you can close this bad socket/file descriptor without killing the process?</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="network">Networking Questions:</a></p>
+
+<ul>
+  <li>What is localhost and why would <code class="language-plaintext highlighter-rouge">ping localhost</code> fail?</li>
+  <li>What is the similarity between “ping” &amp; “traceroute” ? How is traceroute able to find the hops.</li>
+  <li>What command is used to show all open ports and/or socket connections on a machine?</li>
+  <li>Is 300.168.0.123 a valid IPv4 address?</li>
+  <li>Which IP ranges/subnets are “private” or “non-routable” (RFC 1918)?</li>
+  <li>What is a VLAN?</li>
+  <li>What is ARP and what is it used for?</li>
+  <li>What is the difference between TCP and UDP?</li>
+  <li>What is the purpose of a default gateway?</li>
+  <li>What command is used to show the route table for a machine?</li>
+  <li>A TCP connection on a network can be uniquely defined by 4 things. What are those things?</li>
+  <li>When a client running a web browser connects to a web server, what is the source port and what is the destination port of the connection?</li>
+  <li>How do you add an IPv6 address to a specific interface?</li>
+  <li>You have added an IPv4 and IPv6 address to interface eth0. A ping to the v4 address is working but a ping to the v6 address gives yout the response <code class="language-plaintext highlighter-rouge">sendmsg: operation not permitted</code>. What could be wrong?</li>
+  <li>What is SNAT and when should be used?</li>
+  <li>Explain how could you ssh login into a Linux system that DROPs all new incomming packets using a SSH tunnel.</li>
+  <li>What “netns” feature of “ip” package is used for? Briefly explain the mechanism of it’s work. How FreeBSD analog of this is called?</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="devop">DevOp Questions:</a></p>
+
+<ul>
+  <li>Can you describe your workflow when you create a script?</li>
+  <li>What is GIT?</li>
+  <li>What is a dynamically/statically linked file?</li>
+  <li>What does “configure &amp;&amp; make &amp;&amp; make install”?</li>
+  <li>What is puppet/chef/ansible used for?</li>
+  <li>How do you create a new mysql user?</li>
+  <li>How do you create a new postgres user?</li>
+  <li>What is a virtual IP address? What is a cluster?</li>
+  <li>How print the strings of printable characters in files?</li>
+  <li>How look shared library dependencies?</li>
+  <li>What is Automake and Autoconf?</li>
+  <li>./configure shows an error that libfoobar is missing on your system, how could you fix this, what could be wrong?</li>
+  <li>Advantages/disadvantages of script vs compiled program.</li>
+  <li>What is the difference between fork and thread? And parent and child process in fork system call?</li>
+  <li>What’s the relationship between continuous delivery and DevOps?</li>
+  <li>What are the important aspects of a system of continous integration and deployment?</li>
+  <li>Can CEPH filesystem be utilised using Filesystem in User Space (FUSE) API? (yes/no)</li>
+  <li></li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="fun">Fun Questions:</a></p>
+
+<ul>
+  <li>A careless sysadmin executes the following command: <code class="language-plaintext highlighter-rouge">chmod 444 /bin/chmod</code> - what do you do to fix this?</li>
+  <li>I’ve lost my root password, what can I do?</li>
+  <li>I’ve rebooted a remote server but after 10 minutes I’m still not able to ssh into it, what can be wrong?</li>
+  <li>If you were stuck on a desert island with only 5 command-line utilities, which would you choose?</li>
+  <li>You come across a random computer and it appears to be a command console for the universe. What is the first thing you type?</li>
+  <li>Tell me about a creative way that you’ve used SSH?</li>
+  <li>You have deleted by error a running script, what could you do to restore it?</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="demo">Demo Time:</a></p>
+
+<ul>
+  <li>Unpack test.tar.gz without man pages or google.</li>
+  <li>Remove all “*.pyc” files from testdir recursively?</li>
+  <li>Search for “my konfu is the best” in all *.py files.</li>
+  <li>Replace the occurrence of “my konfu is the best” with “I’m a linux jedi master” in all *.txt files.</li>
+  <li>:interrobang: more on files … cut, tr, awk …</li>
+  <li>Test if port 443 on a machine with IP address X.X.X.X is reachable.</li>
+  <li>Get http://myinternal.webserver.local/test.html via telnet.</li>
+  <li>How to send an email without a mail client, just on the command line?</li>
+  <li>Write a <code class="language-plaintext highlighter-rouge">get_prim</code> method in python/perl/bash/pseudo.</li>
+  <li>Find all files which have been accessed within the last 30 days.</li>
+  <li>Explain the following command <code class="language-plaintext highlighter-rouge">(date ; ps -ef | awk ‘{print $1}’ | sort | uniq | wc -l ) &gt;&gt; Activity.log</code></li>
+  <li>Write a script to list all the differences between two directories.</li>
+  <li>Write a program in any language you choose, to reverse a file.</li>
+  <li>In a log file with contents as <code class="language-plaintext highlighter-rouge">&lt;TIME&gt; : [MESSAGE] : [ERROR_NO] - Human readable text</code> display summary/count of specific error numbers that occured every hour or a specific hour</li>
+</ul>
+
+<p>####<a href="#toc">[⬆]</a> <a name="references">Other Great References:</a></p>
+
+<p>Some questions are ‘borrowed’ from other great references like:</p>
+
+<ul>
+  <li>https://github.com/darcyclarke/Front-end-Developer-Interview-Questions</li>
+  <li>https://github.com/kylejohnson/linux-sysadmin-interview-questions/blob/master/test.md</li>
+  <li>https://github.com/gurmeet1109/docgurmeet/tree/master/InterviewQuestionsSamples</li>
+  <li>http://slideshare.net/kavyasri790693/linux-admin-interview-questions</li>
+</ul>
+
+  </div>
+
+  <!-- Article Footer -->
+  <footer class="post-footer">
+    
+
+    <div class="post-navigation">
+      
+      <a href="/2016/12/01/rieziumie.html" class="nav-link nav-prev" rel="prev">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-title">Curriculum Vitae</span>
+      </a>
+      
+      
+      
+      <a href="/2017/06/07/OnionShare.html" class="nav-link nav-next" rel="next">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-title">OnionShare</span>
+      </a>
+      
+    </div>
+
+    <!-- Social Sharing -->
+    
+    <div class="social-sharing">
+      <h4>Share this article</h4>
+      <!-- Social Sharing Component -->
+<div class="social-sharing">
+  <div class="share-buttons">
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/intent/tweet?text=Linux+System+Administrator%28DevOp%29+Interview+Questions&url=https%3A%2F%2Fdominicusin.github.io%2F2017%2F05%2F28%2FInterview.html&via=dominicusin" 
+       class="share-button share-twitter" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Twitter/X">
+      <span class="share-icon">𝕏</span>
+      <span class="share-text">Twitter</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdominicusin.github.io%2F2017%2F05%2F28%2FInterview.html&title=Linux+System+Administrator%28DevOp%29+Interview+Questions" 
+       class="share-button share-linkedin" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on LinkedIn">
+      <span class="share-icon">💼</span>
+      <span class="share-text">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdominicusin.github.io%2F2017%2F05%2F28%2FInterview.html" 
+       class="share-button share-facebook" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Facebook">
+      <span class="share-icon">📘</span>
+      <span class="share-text">Facebook</span>
+    </a>
+
+    <!-- Reddit -->
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fdominicusin.github.io%2F2017%2F05%2F28%2FInterview.html&title=Linux+System+Administrator%28DevOp%29+Interview+Questions" 
+       class="share-button share-reddit" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Reddit">
+      <span class="share-icon">🤖</span>
+      <span class="share-text">Reddit</span>
+    </a>
+
+    <!-- Hacker News -->
+    <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fdominicusin.github.io%2F2017%2F05%2F28%2FInterview.html&t=Linux+System+Administrator%28DevOp%29+Interview+Questions" 
+       class="share-button share-hackernews" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Hacker News">
+      <span class="share-icon">🍊</span>
+      <span class="share-text">Hacker News</span>
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-button share-copy" 
+            onclick="copyToClipboard('https://dominicusin.github.io/2017/05/28/Interview.html', this)"
+            title="Copy link to clipboard">
+      <span class="share-icon">📋</span>
+      <span class="share-text">Copy</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function copyToClipboard(text, button) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopySuccess(button);
+    }).catch(() => {
+      fallbackCopy(text, button);
+    });
+  } else {
+    fallbackCopy(text, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  textArea.style.top = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    document.execCommand('copy');
+    showCopySuccess(button);
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    showCopyError(button);
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+function showCopySuccess(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Copied!';
+  button.classList.add('copied');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('copied');
+  }, 2000);
+}
+
+function showCopyError(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Error!';
+  button.classList.add('error');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('error');
+  }, 2000);
+}
+</script>
+
+<style>
+.social-sharing {
+  margin: 2rem 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.share-button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.share-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.share-button.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.share-button.error {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.share-twitter:hover {
+  background: #1da1f2;
+  color: white;
+  border-color: #1da1f2;
+}
+
+.share-linkedin:hover {
+  background: #0077b5;
+  color: white;
+  border-color: #0077b5;
+}
+
+.share-facebook:hover {
+  background: #1877f2;
+  color: white;
+  border-color: #1877f2;
+}
+
+.share-reddit:hover {
+  background: #ff4500;
+  color: white;
+  border-color: #ff4500;
+}
+
+.share-hackernews:hover {
+  background: #ff6600;
+  color: white;
+  border-color: #ff6600;
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-text {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .share-button {
+    justify-content: center;
+  }
+}
+</style>
+    </div>
+    
+  </footer>
+
+  <!-- Related Posts -->
+  
+  <section class="related-posts">
+    <h3>Related Articles</h3>
+    <div class="post-grid">
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2026/08/14/deep-refactoring-plan/">Deep Refactoring Plan: A Comprehensive Guide</a></h4>
+          <time datetime="2026-08-14T07:00:00+00:00">August 14, 2026</time>
+        </header>
+        
+        <p>Deep Refactoring Plan: A Comprehensive Guide
+</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/29/graph.html">Graph</a></h4>
+          <time datetime="2025-12-29T20:01:00+00:00">December 29, 2025</time>
+        </header>
+        
+        <p>
+
+
+
+    
+        Filters
+        
+         Markup Languages
+         TeX/LaTeX
+         Office Formats
+         E-boo...</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/23/awesome-plan9.html">Awesome Plan9</a></h4>
+          <time datetime="2025-12-23T09:37:00+00:00">December 23, 2025</time>
+        </header>
+        
+        <p>Awesome Plan9
+</p>
+        
+      </article>
+      
+    </div>
+  </section>
+  
+
+  <!-- Comments Section -->
+  
+  <section class="comments-section">
+    <h3>Comments</h3>
+    <!-- Comments Section -->
+<div class="comments-section">
+  <div id="disqus_thread" data-disqus-shortname=""></div>
+  
+  <noscript>
+    <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+  </noscript>
+  
+  <!-- Alternative comment systems can be added here -->
+  <div class="alternative-comments" style="display: none;">
+    <h4>Comments</h4>
+    <p>Join the discussion on this post:</p>
+    
+    <!-- GitHub Issues as comments -->
+    
+    
+    <!-- Manual comment form -->
+    <form class="comment-form" action="#" method="post" onsubmit="handleCommentSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email (optional)</label>
+        <input type="email" id="email" name="email">
+      </div>
+      
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Post Comment</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Disqus integration
+if (window.DISQUS) {
+  DISQUS.reset({
+    reload: true,
+    config: function () {
+      this.page.identifier = "/2017/05/28/Interview.html";
+      this.page.url = "https://dominicusin.github.io/2017/05/28/Interview.html";
+    }
+  });
+} else {
+  const disqus_config = function () {
+    this.page.url = "https://dominicusin.github.io/2017/05/28/Interview.html";
+    this.page.identifier = "/2017/05/28/Interview.html";
+  };
+  
+  (function() {
+    const d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+}
+
+// Fallback comment handler
+function handleCommentSubmit(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const comment = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    comment: formData.get('comment'),
+    page: "/2017/05/28/Interview.html",
+    timestamp: new Date().toISOString()
+  };
+  
+  // Store comment locally (in a real implementation, send to server)
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  comments.push(comment);
+  localStorage.setItem('comments', JSON.stringify(comments));
+  
+  // Show success message
+  showCommentSuccess();
+  
+  // Reset form
+  event.target.reset();
+}
+
+function showCommentSuccess() {
+  const message = document.createElement('div');
+  message.className = 'comment-success';
+  message.textContent = 'Thank you for your comment! It will appear after moderation.';
+  
+  const form = document.querySelector('.comment-form');
+  form.parentNode.insertBefore(message, form);
+  
+  setTimeout(() => {
+    message.remove();
+  }, 5000);
+}
+
+// Load stored comments if Disqus is not available
+if (!window.DISQUS && !document.querySelector('#disqus_thread script')) {
+  setTimeout(() => {
+    const altComments = document.querySelector('.alternative-comments');
+    if (altComments) {
+      altComments.style.display = 'block';
+      loadStoredComments();
+    }
+  }, 2000);
+}
+
+function loadStoredComments() {
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  const pageComments = comments.filter(c => c.page === "/2017/05/28/Interview.html");
+  
+  if (pageComments.length > 0) {
+    const commentsContainer = document.createElement('div');
+    commentsContainer.className = 'stored-comments';
+    
+    pageComments.forEach(comment => {
+      const commentElement = createCommentElement(comment);
+      commentsContainer.appendChild(commentElement);
+    });
+    
+    const altComments = document.querySelector('.alternative-comments');
+    altComments.appendChild(commentsContainer);
+  }
+}
+
+function createCommentElement(comment) {
+  const element = document.createElement('div');
+  element.className = 'stored-comment';
+  element.innerHTML = `
+    <div class="comment-header">
+      <strong>${comment.name}</strong>
+      <span class="comment-date">${new Date(comment.timestamp).toLocaleDateString()}</span>
+    </div>
+    <div class="comment-body">${comment.comment}</div>
+  `;
+  return element;
+}
+</script>
+
+<style>
+.comments-section {
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-primary);
+}
+
+#disqus_thread {
+  margin-bottom: 2rem;
+}
+
+.alternative-comments {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-primary);
+  border-radius: 0.375rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.submit-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.comment-success {
+  background: #10b981;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stored-comments {
+  margin-top: 2rem;
+}
+
+.stored-comment {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.comment-body {
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.github-comments {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.github-comments a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #24292e;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.github-comments a:hover {
+  background: #30363d;
+}
+
+@media (max-width: 768px) {
+  .comment-form {
+    padding: 1rem;
+  }
+  
+  .comments-section {
+    padding: 1rem 0;
+  }
+}
+</style>
+  </section>
+  
+</article>
+
+<!-- Structured Data for Comments -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Comment",
+  "url": "https://dominicusin.github.io/2017/05/28/Interview.html#comments",
+  "about": {
+    "@type": "BlogPosting",
+    "@id": "https://dominicusin.github.io/2017/05/28/Interview.html#blogposting"
+  },
+  "discussionUrl": "https://dominicusin.github.io/2017/05/28/Interview.html#comments",
+  "author": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  }
+}
+</script>
+
+
+<!-- Structured Data for BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://dominicusin.github.io"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://dominicusin.github.io/"
+    },
+    
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Linux System Administrator(DevOp) Interview Questions",
+      "item": "https://dominicusin.github.io/2017/05/28/Interview.html"
+    }
+    
+  ]
+}
+</script>
+  </main>
+
+  <footer class="mt-24 border-t bg-surface">
+  <div class="container-wide py-14">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface-2 font-mono text-sm font-bold text-primary">DI</span>
+          <span class="font-mono text-sm font-semibold text-foreground">Engineering Blog</span>
+        </div>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.
+</p>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Connect</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          
+          <li>
+            <a href="https://github.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://orcid.org/0000-0002-7425-0526" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <span class="font-mono text-xs">ORCID</span>
+              <span>0000-0002-7425-0526</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Subscribe</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href="/feed.xml" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              RSS Feed
+            </a>
+          </li>
+          <li>
+            <a href="/archive/" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground" data-i18n="recent_posts.all_articles">Все статьи</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-subtle sm:flex-row">
+      <p>&copy; 2026 Engineering Blog. All rights reserved.</p>
+      <p class="font-mono">Built with Jekyll · Tailwind CSS</p>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Structured Data -->
+  <!-- Enhanced Structured Data for Blog Post -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "navigation.home",
+          "item": "https://dominicusin.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Linux System Administrator(DevOp) Interview Questions",
+          "item": "https://dominicusin.github.io/2017/05/28/Interview.html"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "Linux System Administrator(DevOp) Interview Questions",
+      "description": "Linux System Administrator/DevOp Interview Questions",
+      "image": [
+        
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Dominicus In",
+        "url": "https://dominicusin.github.io/about/",
+        "sameAs": [
+          "https://github.com/dominicusin",
+          "https://twitter.com/dominicusin",
+          "https://orcid.org/0000-0002-7425-0526"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Engineering Blog",
+        "url": "https://dominicusin.github.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://dominicusin.github.io/assets/images/logo.png",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "datePublished": "2017-05-28T22:03:00+00:00",
+      "dateModified": "2017-05-28T22:03:00+00:00",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://dominicusin.github.io/2017/05/28/Interview.html"
+      },
+      "wordCount": 1851,
+      "keywords": "",
+      "inLanguage": "ru",
+      "isAccessibleForFree": "True",
+      "articleSection": "Technology",
+      
+      "url": "https://dominicusin.github.io/2017/05/28/Interview.html",
+      "potentialAction": {
+        "@type": "ReadAction",
+        "target": "https://dominicusin.github.io/2017/05/28/Interview.html"
+      }
+    }
+  ]
+}
+</script>
+
+
+<!-- Enhanced Structured Data for Homepage -->
+
+
+<!-- Structured Data for Category Pages -->
+
+
+<!-- Website Performance Monitoring -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Linux System Administrator(DevOp) Interview Questions",
+  "description": "Linux System Administrator/DevOp Interview Questions",
+  "url": "https://dominicusin.github.io/2017/05/28/Interview.html",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Engineering Blog",
+    "url": "https://dominicusin.github.io"
+  },
+  "dateModified": "2026-08-15T01:01:47+00:00",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "navigation.home",
+        "item": "https://dominicusin.github.io/"
+      }
+      
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Linux System Administrator(DevOp) Interview Questions",
+        "item": "https://dominicusin.github.io/2017/05/28/Interview.html"
+      }
+      
+    ]
+  }
+}
+</script>
+
+  <!-- Refactored ES module bundle -->
+  <script type="module" src="https://dominicusin.github.io/js/refactored-bundle.js"></script>
+
+  <!-- Analytics -->
+  
+
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://dominicusin.github.io/sw.js')
+          .then(() => console.log('SW registered'))
+          .catch(() => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>

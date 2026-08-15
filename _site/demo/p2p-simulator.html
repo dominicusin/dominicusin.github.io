@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knowledge Graph P2P Sync Demo — v4.0</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #0d1117; color: #c9d1d9; }
+    header { padding: 12px 20px; background: #161b22; border-bottom: 1px solid #30363d; }
+    h1 { font-size: 18px; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px; }
+    .peer { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; }
+    .peer h2 { font-size: 14px; margin: 0 0 8px; }
+    .peer .nodes { min-height: 120px; font-size: 12px; line-height: 1.5; }
+    .controls { padding: 0 16px 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    button { background: #238636; color: #fff; border: 0; border-radius: 6px; padding: 8px 12px; cursor: pointer; }
+    button.alt { background: #1f6feb; }
+    button.danger { background: #da3633; }
+    input { padding: 8px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #c9d1d9; }
+    .log { padding: 8px 16px; font-size: 11px; color: #8b949e; max-height: 120px; overflow: auto; }
+    .status { font-size: 11px; color: #8b949e; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧠 Knowledge Graph — P2P CRDT Sync Demo (v4.0)</h1>
+    <div class="status">3 isolated peers · WebRTC DataChannel mesh · GraphCRDT convergence</div>
+  </header>
+
+  <div class="controls">
+    <input id="article-title" placeholder="New article title…" />
+    <button class="alt" onclick="addArticle()">Add Article (broadcast)</button>
+    <span class="status">Open this page in another tab → peers sync via WebRTC. BCI: simulated mental state scrolls the page.</span>
+  </div>
+
+  <div class="grid">
+    <div class="peer"><h2>Local Peer</h2><div class="nodes" id="peer-local">{}</div></div>
+  </div>
+
+  <div class="log" id="log"></div>
+
+  <!-- Each browser tab is a real peer. Open this file in 2-3 tabs to see
+       live WebRTC convergence across tabs; the BCI simulator scrolls via
+       simulated mental state. -->
+  <script type="module">
+    import { GraphSync } from '/src/modules/graph-sync.js';
+    import { GraphCRDT } from '/src/modules/crdt-sync.js';
+    import { WebRTCTransport } from '/src/modules/webrtc-transport.js';
+    import { BCIController, INTENTS } from '/src/modules/bci-controller.js';
+
+    // Real cross-tab P2P signaling via BroadcastChannel (same origin).
+    // Each tab is a peer; open this file in 2-3 tabs to see live convergence.
+    function makeSignaling(myId) {
+      const ch = new BroadcastChannel('graph-sync-demo');
+      const handlers = [];
+      ch.onmessage = (e) => {
+        const msg = e.data;
+        if (msg && msg.from !== myId) handlers.forEach((h) => h(msg));
+      };
+      return {
+        send(toId, msg) { ch.postMessage({ ...msg, from: myId, to: toId }); },
+        onMessage(cb) { handlers.push(cb); }
+      };
+    }
+
+    const myId = 'peer-' + Math.random().toString(36).slice(2, 7);
+    const transport = new WebRTCTransport(myId, { signaling: makeSignaling(myId) });
+    const bus = { /* WebRTCTransport is itself the bus */ };
+
+    // GraphSync needs a bus with register/onMessage/send/broadcast.
+    // WebRTCTransport implements that interface; adapt it for GraphSync.
+    const sync = new GraphSync(myId, new GraphCRDT(myId), {
+      send: (to, msg) => transport.send(to, msg),
+      broadcast: (msg) => transport.broadcast(msg),
+      onMessage: (cb) => transport.onMessage((m) => cb(m))
+    });
+
+    function log(msg) {
+      const el = document.getElementById('log');
+      el.textContent = '[' + myId + '] ' + msg + '\n' + el.textContent;
+    }
+
+    function render() {
+      document.getElementById('peer-local').textContent = JSON.stringify(sync.getState(), null, 1);
+    }
+
+    // Connect to any peer we hear about; discover via announce.
+    transport.onMessage((msg) => {
+      if (msg.data && msg.data.type === 'hello') {
+        sync.connect(msg.from);
+      } else {
+        sync.mergeRemote(msg);
+      }
+      render();
+    });
+    // announce presence
+    setTimeout(() => transport.broadcast({ type: 'hello' }), 300);
+
+    window.addArticle = () => {
+      const title = document.getElementById('article-title').value || ('Article-' + Date.now());
+      const id = 'a' + Math.floor(Math.random() * 1e6);
+      sync.updateNode(id, { title });
+      log('added "' + title + '" → broadcast to peers');
+      render();
+    };
+    window.addToPeer = window.addArticle; // single-peer UI: this tab IS the peer
+
+    // --- BCI neuro-control: scroll the article list via mental state ---
+    const bci = new BCIController({ debounceMs: 1200 });
+    bci.onIntent = (d) => {
+      if (d.intent === INTENTS.SCROLL_UP) window.scrollBy(0, -120);
+      else if (d.intent === INTENTS.SCROLL_DOWN) window.scrollBy(0, 120);
+      else if (d.intent === INTENTS.SELECT) log('BCI: SELECT intent detected (focus)');
+      log('BCI intent: ' + d.intent + ' (conf ' + d.confidence.toFixed(2) + ')');
+    };
+    bci.start();
+    window.addEventListener('beforeunload', () => bci.stop());
+
+    log('Peer ' + myId + ' ready. Open this page in another tab to sync via WebRTC.');
+    render();
+  </script>
+</body>
+</html>

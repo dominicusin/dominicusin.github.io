@@ -1,0 +1,3589 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" class="bg-background">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Prevent theme flash: apply stored/preferred theme before paint -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('blog-theme');
+        var theme = stored || 'dark';
+        if (theme === 'auto') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
+  <title>AI | Engineering Blog</title>
+  <meta name="description" content="conversational AI - All-in-one tools - AI Search Engine - writing tools - video tools - audio tools - images tools - commerce &amp;amp; marketing tools - design ...">
+  <meta name="author" content="Dominicus In">
+  <meta name="keywords" content="">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="ru">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI">
+  <meta property="og:description" content="conversational AI - All-in-one tools - AI Search Engine - writing tools - video tools - audio tools - images tools - commerce &amp;amp; marketing tools - design ...">
+  <meta property="og:url" content="https://dominicusin.github.io/2025/03/14/ai.html">
+  <meta property="og:site_name" content="Engineering Blog">
+  <meta property="og:image" content="https://dominicusin.github.io/assets/images/og-default.jpg">
+
+  
+  <meta property="article:published_time" content="2025-03-14T13:43:00+00:00">
+  <meta property="article:modified_time" content="2025-03-14T13:43:00+00:00">
+  <meta property="article:author" content="Dominicus In">
+  
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dominicusin">
+  <meta name="twitter:title" content="AI">
+  <meta name="twitter:description" content="conversational AI - All-in-one tools - AI Search Engine - writing tools - video tools - audio tools - images tools - commerce &amp;amp; marketing tools - design tools - Coding tools - color tools - mis...">
+
+  <meta name="theme-color" content="#0a0c11">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dominicusin.github.io/2025/03/14/ai.html">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Engineering Blog" href="https://dominicusin.github.io/feed.xml">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://dominicusin.github.io/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="https://dominicusin.github.io/favicon.ico">
+  <link rel="apple-touch-icon" href="https://dominicusin.github.io/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://dominicusin.github.io/css/tailwind.css">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="https://dominicusin.github.io/manifest.json">
+</head>
+
+<body class="layout-post min-h-screen flex flex-col no-js">
+  <script>
+    document.body.classList.remove('no-js');
+    document.body.classList.add('js');
+  </script>
+
+  <!-- Skip to main content link -->
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+     data-i18n="accessibility.skip_to_content">Skip to Content</a>
+
+  <header class="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md" role="banner">
+  <div class="container-wide flex h-16 items-center justify-between gap-4">
+    <!-- Logo/Home link -->
+    <a class="site-title group flex items-center gap-2.5" href="https://dominicusin.github.io/"
+       aria-label="Engineering Blog - Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface font-mono text-sm font-bold text-primary">DI</span>
+      <span class="site-logo font-mono text-sm font-semibold tracking-tight text-foreground" data-i18n="site.title">Engineering Blog</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="site-nav flex items-center gap-1" role="navigation" aria-label="Основная навигация">
+      <div class="nav-desktop hidden items-center gap-1 md:flex">
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/"
+             data-i18n="navigation.home">
+            Home
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/about/"
+             data-i18n="navigation.about">
+            About
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/archive/"
+             data-i18n="navigation.archive">
+            Archive
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/categories/"
+             data-i18n="navigation.categories">
+            Categories
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/tags/"
+             data-i18n="navigation.tags">
+            Tags
+          </a>
+        
+      </div>
+
+      <div class="mx-1 hidden h-5 w-px bg-border md:block"></div>
+
+      <!-- Semantic Search trigger (Vector B) -->
+      <button class="search-trigger" type="button" aria-label="Открыть семантический поиск" data-open-semantic-search>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <span class="hidden sm:inline" data-i18n="navigation.search">Поиск</span>
+        <kbd class="search-trigger__kbd">Alt K</kbd>
+      </button>
+
+      <!-- Theme Toggle (rendered by theme-manager JS) -->
+      <div class="theme-toggle theme-toggle--header"></div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle inline-flex h-9 w-9 items-center justify-center rounded-lg border bg-surface text-muted transition-colors hover:text-foreground md:hidden"
+              type="button"
+              aria-label="Переключить меню навигации"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              data-mobile-toggle>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden border-t bg-surface md:!hidden" role="navigation" aria-label="Мобильная навигация" data-mobile-menu>
+    <div class="container-wide flex flex-col gap-1 py-4">
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/"
+           data-i18n="navigation.home">
+          Home
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/about/"
+           data-i18n="navigation.about">
+          About
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/archive/"
+           data-i18n="navigation.archive">
+          Archive
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/categories/"
+           data-i18n="navigation.categories">
+          Categories
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/tags/"
+           data-i18n="navigation.tags">
+          Tags
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('[data-mobile-toggle]');
+    var menu = document.querySelector('[data-mobile-menu]');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  })();
+</script>
+
+
+  <!-- Semantic Search Modal (Vector B UI) -->
+  <!-- Semantic Search Modal -->
+<div id="semantic-search-modal" class="ai-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="ai-modal__overlay" data-close-modal></div>
+  <div class="ai-modal__container">
+    <div class="ai-modal__header">
+      <h2 id="modal-title" class="ai-modal__title">
+        <svg class="ai-modal__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+        </svg>
+        Semantic Search
+      </h2>
+      <button class="ai-modal__close" data-close-modal aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-modal__body">
+      <!-- Search Mode Toggle -->
+      <div class="search-mode-toggle">
+        <button class="mode-btn active" data-mode="hybrid" title="Hybrid Search (Keyword + Vector)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Hybrid
+        </button>
+        <button class="mode-btn" data-mode="vector" title="Vector Search (Semantic)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Vector
+        </button>
+        <button class="mode-btn" data-mode="keyword" title="Keyword Search (Traditional)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8M8 12h8M8 16h4"></path>
+          </svg>
+          Keyword
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          id="semantic-search-input" 
+          class="search-input" 
+          placeholder="Ask in natural language... (e.g., 'How do I optimize React performance?')"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="search-status" id="search-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Ready</span>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div class="search-results" id="search-results">
+        <!-- Skeleton loader -->
+        <div class="results-skeleton" id="results-skeleton" hidden>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+        </div>
+
+        <!-- Results will be injected here -->
+        <div class="results-placeholder" id="results-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <p>Enter your query to find semantically relevant content</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-modal__footer">
+      <div class="search-info">
+        <span class="info-label">Model:</span>
+        <span class="info-value" id="model-info">all-MiniLM-L6-v2</span>
+        <span class="info-divider">|</span>
+        <span class="info-label">Index:</span>
+        <span class="info-value" id="index-info">0 posts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Result Item Template (for JS rendering) -->
+<template id="result-item-template">
+  <article class="search-result-item">
+    <div class="result-header">
+      <h3 class="result-title"></h3>
+      <div class="relevance-badge">
+        <span class="relevance-score"></span>
+        <span class="relevance-label">Relevance</span>
+      </div>
+    </div>
+    <p class="result-excerpt"></p>
+    <div class="result-meta">
+      <span class="result-date"></span>
+      <span class="result-category"></span>
+    </div>
+    <a class="result-link" href="#">Read more →</a>
+  </article>
+</template>
+
+
+  <main id="main-content" class="flex-1" aria-label="Content">
+    <!-- Structured Data for Blog Post -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://dominicusin.github.io/2025/03/14/ai.html#blogposting",
+  "url": "https://dominicusin.github.io/2025/03/14/ai.html",
+  "name": "AI",
+  "headline": "AI",
+  "description": "conversational AI - All-in-one tools - AI Search Engine - writing tools - video tools - audio tools - images tools - commerce &amp;amp; marketing tools - des...",
+  "datePublished": "2025-03-14T13:43:00+00:00",
+  "dateModified": "2025-03-14T13:43:00+00:00",
+  "author": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In",
+    "url": "https://dominicusin.github.io/about/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In"
+  },
+  "inLanguage": en,
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "https://dominicusin.github.io#blog"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://dominicusin.github.io/2025/03/14/ai.html"
+  },
+  "wordCount": 9166,
+  "keywords": [
+    
+  ],
+  "articleSection": "Technology",
+  "image": [
+    
+    "https://dominicusin.github.io/assets/images/default-blog-image.jpg"
+    
+  ],
+  "thumbnailUrl": "https://dominicusin.github.io/assets/images/default-blog-image.jpg",
+  "genre": [
+    
+  ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Software Engineering"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Web Development"
+    }
+  ],
+  "mentions": [
+    
+  ]
+}
+</script>
+
+<!-- Article Header -->
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      
+      
+      <time class="post-date" datetime="2025-03-14T13:43:00+00:00">
+        March 14, 2025
+        
+      </time>
+      
+      
+      <span class="post-author">by Dominicus In</span>
+      
+    </div>
+    
+    <h1 class="post-title">AI</h1>
+    
+    
+    
+    
+    <p class="post-excerpt"><p><a href="#conversational-ai">conversational AI</a> - <a href="#all-in-one-tools">All-in-one tools</a> - <a href="#ai-search-engine">AI Search Engine</a> - <a href="#writing-tools">writing tools</a> - <a href="#video-tools">video tools</a> - <a href="#audio-tools">audio tools</a> - <a href="#images-tools">images tools</a> - <a href="#commerce--marketing-tools">commerce &amp; marketing tools</a> - <a href="#design-tools">design tools</a> - <a href="#coding-tools">Coding tools</a> - <a href="#color-tools">color tools</a> - <a href="#miscellaneous">miscellaneous</a></p>
+</p>
+    
+  </header>
+
+  <!-- Table of Contents -->
+  
+
+  <!-- Article Content -->
+  <div class="post-content">
+    <p><a href="#conversational-ai">conversational AI</a> - <a href="#all-in-one-tools">All-in-one tools</a> - <a href="#ai-search-engine">AI Search Engine</a> - <a href="#writing-tools">writing tools</a> - <a href="#video-tools">video tools</a> - <a href="#audio-tools">audio tools</a> - <a href="#images-tools">images tools</a> - <a href="#commerce--marketing-tools">commerce &amp; marketing tools</a> - <a href="#design-tools">design tools</a> - <a href="#coding-tools">Coding tools</a> - <a href="#color-tools">color tools</a> - <a href="#miscellaneous">miscellaneous</a></p>
+
+<ol>
+  <li>
+    <p><a href="https://chat.mistral.ai/chat">Mistral</a></p>
+  </li>
+  <li>
+    <p><a href="https://chatgpt.com/">ChatGPT</a></p>
+  </li>
+  <li>
+    <p><a href="https://gemini.google.com/app">Gemini</a></p>
+  </li>
+  <li>
+    <p><a href="https://chat.qwen.ai/">Qwen</a></p>
+  </li>
+  <li>
+    <p><a href="https://chat.deepseek.com/">DeepSeek</a></p>
+  </li>
+  <li>
+    <p><a href="https://grok.com/">Grok</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.meta.ai/">Meta</a></p>
+  </li>
+  <li>
+    <p><a href="https://poe.com/">Poe</a></p>
+  </li>
+  <li>
+    <p><a href="https://console.groq.com/playground">GroqCloud</a></p>
+  </li>
+  <li>
+    <p><a href="https://pi.ai/talk">Pi, your personal AI</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.perplexity.ai/">Perplexity</a></p>
+  </li>
+  <li>
+    <p><a href="https://claude.ai/new">Claude</a></p>
+  </li>
+  <li>
+    <p><a href="https://deepai.org/">DeepAI</a></p>
+  </li>
+  <li>
+    <p><a href="https://app.writesonic.com/ru">Writesonic</a></p>
+  </li>
+  <li>
+    <p><a href="https://agentgpt.reworkd.ai/">AgentGPT</a></p>
+  </li>
+  <li>
+    <p><a href="https://you.com/">You.com workplace productivity</a></p>
+  </li>
+  <li>
+    <p><a href="https://elicit.com/">Elicit: Research Assistant</a></p>
+  </li>
+  <li>
+    <p><a href="https://character.ai/">character.ai</a></p>
+  </li>
+  <li>
+    <p><a href="https://copilot.microsoft.com/chats/j1hbweM5VidxTCfm5htKa">Microsoft Copilot</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.phind.com/">Phind</a></p>
+  </li>
+  <li>
+    <p><a href="https://iask.ai/">iAsk  Answer Engine</a></p>
+  </li>
+  <li>
+    <p><a href="https://flawlessly.ai/app">Flawlessly   Grammar Checker</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.chatpdf.com/">ChatPDF</a></p>
+  </li>
+  <li>
+    <p><a href="https://anonchatgpt.com/">AnonChatGPT</a></p>
+  </li>
+  <li>
+    <p><a href="https://bagoodex.io/chat">Bagoodex</a></p>
+  </li>
+  <li>
+    <p><a href="https://otter.ai/home">Otter Voice Meeting Notes</a></p>
+  </li>
+</ol>
+
+<p>#</p>
+
+<p><a href="#conversational-ai">conversational AI</a> - <a href="#all-in-one-tools">All-in-one tools</a> - <a href="#ai-search-engine">AI Search Engine</a> - <a href="#writing-tools">writing tools</a> - <a href="#video-tools">video tools</a> - <a href="#audio-tools">audio tools</a> - <a href="#images-tools">images tools</a> - <a href="#commerce--marketing-tools">commerce &amp; marketing tools</a> - <a href="#design-tools">design tools</a> - <a href="#coding-tools">Coding tools</a> - <a href="#color-tools">color tools</a> - <a href="#miscellaneous">miscellaneous</a></p>
+
+<h2 id="conversational-ai">conversational AI</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Awesome</th>
+      <th>Description</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://chat.openai.com/">ChatGPT</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://gemini.google.com/">Google Gemini</a></td>
+      <td>Gemini gives you direct access to Google AI. Get help with writing, planning, learning, and more.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://poe.com/">Poe</a></td>
+      <td>Fast, Helpful AI Chat</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://chat.d-id.com/">Chat D-ID</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://cloud.google.com/dialogflow/">Dialogflow</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.ibm.com/products/watson-assistant/">Watson Assistant</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://dev.botframework.com/">Microsoft Bot Framework</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://rasa.com/">Rasa</a></td>
+      <td>Conversational AI Platform</td>
+      <td>Superior Customer Experiences Start Here</td>
+    </tr>
+    <tr>
+      <td><a href="https://botpress.com/">botpress</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://hellotars.com/">TARS</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://landbot.io/ai/">Landbot AI</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://snatchbot.me/">SnatchBot</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.botstar.com/">Botstar</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://askyourpdf.com/">Ask Your PDF</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.perplexity.ai/">perplexity</a></td>
+      <td>Where knowledge begins</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://hints.so/">Hints</a></td>
+      <td>AI Assistant that integrates with any software to perform tasks on your behalf</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://chatspot.ai/">ChatSpot</a></td>
+      <td>ChatSpot = ChatGPT + the power of HubSpot CRM</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://askthee.vercel.app/">AskThee?</a></td>
+      <td>Ever wanted to ask a question to a big thinker, artist or scientist? now is your chance.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.user.com/en/ai-chat/">Ai Chat from User.com</a></td>
+      <td>Automate your customer support instantly with AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.chatpdf.com/">ChatPDF</a></td>
+      <td>Chat with any PDF!</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.chatbase.co/">Chatbase</a></td>
+      <td>Train ChatGPT on your data and add it to your website</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://huberman.rile.yt/">Huberman AI</a></td>
+      <td>Use AI to explore the wisdom of The Huberman Lab.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://aiintern.io/">ai intern</a></td>
+      <td>With AI Intern skip the grind and focus on the big picture.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.chatbotui.com/">Chatbot UI</a></td>
+      <td>Chatbot UI is an open source clone of OpenAI’s ChatGPT UI.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.usechannel.com/">Channel</a></td>
+      <td>Ask any data question, in plain English.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://wonderchat.io/">wonderchat</a></td>
+      <td>Instantly build an AI chatbot with your knowledge base</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://monica.im/">Monica</a></td>
+      <td>YOUR CHATGPT POWERED AI ASSISTANT ON ALL WEBSITES</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://alicent.ai/">alicent</a></td>
+      <td>A Gorgeous Extension for ChatGPT</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://godmode.space/">godmode</a></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.pagelines.com/">PageLines</a></td>
+      <td>AI Agents to Enhance Your Website</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="all-in-one-tools">All-in-one tools</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Awesome</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.airops.com/">airOps</a></td>
+      <td>Deploy task-specific AI where you need it most with AirOps Apps. Install and configure in minutes, scalable, and available everywhere.</td>
+    </tr>
+    <tr>
+      <td><a href="https://huggingface.co/">Hugging Face</a></td>
+      <td>The AI community building the future.</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.fotor.com/">fotor</a></td>
+      <td>Online photo editor for everyone</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.kittl.com/">Kittl</a></td>
+      <td>Speed up your workflows with Kittl’s AI-powered design tools and gain instant access to a ton of stunning illustrations, fonts, photos, icons, and textures.</td>
+    </tr>
+    <tr>
+      <td><a href="https://clipdrop.co/">clipdrop</a></td>
+      <td>Create stunning visuals in seconds</td>
+    </tr>
+    <tr>
+      <td><a href="https://replicate.com/">Replicate</a></td>
+      <td>Machine learning doesn’t need to be so hard.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ai-search-engine">AI Search Engine</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Awesome</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.phind.com/">phind</a></td>
+      <td>The AI search engine for developers.</td>
+    </tr>
+    <tr>
+      <td><a href="https://you.com/">you</a></td>
+      <td>The AI Search Engine You Control</td>
+    </tr>
+    <tr>
+      <td><a href="https://iask.ai/">iAsk.AI</a></td>
+      <td>Ask AI Questions – Free AI Search Engine</td>
+    </tr>
+    <tr>
+      <td><a href="https://komo.ai/">komo</a></td>
+      <td>Komo search - Ai Search &amp; Explore</td>
+    </tr>
+    <tr>
+      <td><a href="https://andisearch.com/">Andi</a></td>
+      <td>Welcome to the next generation of search using the power of AI</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="writing-tools">writing tools</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Awesome</th>
+      <th>Description</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.jounce.ai/">Jounce</a></td>
+      <td>Free AI copywriting and artwork for marketers</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://writerly.ai/">writerly</a></td>
+      <td>Writerly artificial intelligence (AI)</td>
+      <td>helps the most innovative businesses, teams, and creators produce hyper-relevant, SEO optimized content in seconds.</td>
+    </tr>
+    <tr>
+      <td><a href="https://cohesive.so/">Cohesive</a></td>
+      <td>Create magical content with the most powerful AI editor</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.grammarly.com/">grammarly</a></td>
+      <td>Compose bold, clear, mistake-free writing with Grammarly’s AI-powered writing assistant.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.copy.ai/">copy ai</a></td>
+      <td>Write better marketing copy and content with AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.jasper.ai/">jasper AI</a></td>
+      <td>Jasper - AI Copywriting &amp; Content Generation for Teams</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.markcopy.ai/">markcopy ai</a></td>
+      <td>Write Content 10x Faster</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://rytr.me/">rytr</a></td>
+      <td>Rytr - Best AI Writer, Content Generator &amp; Writing Assistant</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://simplified.com/ai-writer/">simplified ai-writer</a></td>
+      <td>Write Instant Marketing Copy with the Free AI Copywriting Generator</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.frase.io/">frase</a></td>
+      <td>Frase</td>
+      <td>Best SEO Content Optimization Tool &amp; AI Writer</td>
+    </tr>
+    <tr>
+      <td><a href="https://requstory.com/">requstory</a></td>
+      <td>WRITE BETTER USER STORIES.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.marketmuse.com/">marketmuse</a></td>
+      <td>AI Content Planning and Optimization Software</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.wordtune.com/">wordtune</a></td>
+      <td>Your thoughts in words</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://inferkit.com/">inferkit</a></td>
+      <td>InferKit offers a web interface and API for AI–based text generators. Whether you’re a novelist looking for inspiration, or an app developer, there’s something for you.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://goose.ai/">goose ai</a></td>
+      <td>Fully managed NLP-as-a-Service delivered via API, at 30% the cost. It’s time to migrate.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://writesonic.com/">writesonic</a></td>
+      <td>Writesonic - Best AI Writer, Copywriting &amp; Paraphrasing Tool</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://textcortex.com/">textcortex</a></td>
+      <td>One AI Tool To Write All Your Content</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://ideasai.com/">ideas AI</a></td>
+      <td>Ideas on this page are 100% generated by OpenAI’s GPT-3, an artifically intelligent deep learning model, without human involvement, and trained by you and 1,399,670+ other people who liked or disliked ideas.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.sudowrite.com/">sudowrite</a></td>
+      <td>Bust writer’s block with our magical writing AI.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.ghostwrite.rip/">GhostWrite</a></td>
+      <td>More time for the conversations that matter to you.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://nichesss.com/">nichesss</a></td>
+      <td>Write anything 10x faster.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.flowrite.com/">flowrite</a></td>
+      <td>Flowrite helps you write your daily emails and messages 5x faster across Google Chrome.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://chibi.ai/">chibi ai</a></td>
+      <td>Now anyone can have a writing assistant.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://copysmith.ai/">copysmith</a></td>
+      <td>Copysmith is the AI content creation solution for Enterprise &amp; eCommerce</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://copymatic.ai/">copymatic ai</a></td>
+      <td>Generate Content &amp; Copy In Seconds with AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.hypotenuse.ai/">hypotenuse</a></td>
+      <td>Let AI write your content in seconds. Without writer’s block.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.longshot.ai/">longshot ai</a></td>
+      <td>Create blogs that humans and search engines love using Artificial Intelligence</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://unbounce.com/product/smart-copy/">unbounce smart copy</a></td>
+      <td>Wherever You Type, Smart Copy Writes</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.scalenut.com/">scalenut</a></td>
+      <td>Tell Better Stories at Scale</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.neuraltext.com/">NeuralText</a></td>
+      <td>NeuralText - AI Writing Assistant and tools for SEO</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.closerscopy.com/">closerscopy</a></td>
+      <td>AI Copywriting Robot - ClosersCopy</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://inkforall.com/">inkforall</a></td>
+      <td>INK – World’s Best AI Content Assistant for Marketing &amp; SEO</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.peppertype.ai/">peppertype</a></td>
+      <td>Create Quality Content Faster</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://ai-writer.com/">ai-writer</a></td>
+      <td>AI-Writer is the most accurate content generation platform, using state-of-the-art AI writing models to generate articles from just a headline.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://getgenie.ai/">GetGenie</a></td>
+      <td>The WordPress AI SuperApp for Content &amp; SEO</td>
+      <td>GetGenie</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.articleforge.com/">Article Forge</a></td>
+      <td>High quality, AI content generator - Article Forge</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://prowritingaid.com/">ProWritingAid</a></td>
+      <td>ProWritingAid: AI Writing Assistant Software</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://quillbot.com/">QuillBot</a></td>
+      <td>QuillBot’s AI-powered paraphrasing tool will enhance your writing</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://writerzen.net/">WriterZen</a></td>
+      <td>Proficient SEO Content Workflow Software</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.writecream.com/">Writecream</a></td>
+      <td>Writecream - Best AI Writer &amp; Content Generator - Writecream</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.outranking.io/">outranking</a></td>
+      <td>Outranking helps content teams achieve predictable content success with AI assistance.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.lately.ai/">lately</a></td>
+      <td>Spend 84% Less Time Writing Content</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://wordai.com/">wordai</a></td>
+      <td>10x Your Content Output With AI.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.craftly.ai/">craftly</a></td>
+      <td>Changing the way the world writes.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://seo.ai/">SEO AI</a></td>
+      <td>The #1 AI Writer For SEO</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://contentatscale.ai/">content at scale</a></td>
+      <td>AI Content Generator for Quality SEO Long Form Blog Posts</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://jenni.ai/">jenni</a></td>
+      <td>Supercharge your writing with jenni AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://taskade.com/">Taskade</a></td>
+      <td>AI outlining and mind mapping tool for teams with real-time editing and chat.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://wordkraft.ai/">wordkraft</a></td>
+      <td>Create High-Quality Content Instantly With AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://merlin.foyer.work/">merlin</a></td>
+      <td>Open AI’s GPT powered extension to use anywhere!</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.kickresume.com/en/">kickresume</a></td>
+      <td>Let artificial intelligence write your resume.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://aiseo.ai/">AISEO</a></td>
+      <td>AISEO - AI writing assistant, Copywriting &amp; Paraphrasing Tool</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://yaara.ai/">yaara.ai</a></td>
+      <td>The Future Of Writing is Finally Here</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://chatgptwriter.ai/">ChatGPT Writer</a></td>
+      <td>Free Chrome extension to generate entire emails and messages using ChatGPT AI. All sites are supported and enhanced support for Gmail.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://focusflow.ai/">FocusFlow</a></td>
+      <td>Track your daily progress, highlights, and improvements in just 20 seconds.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://novelai.net/">NovelAI</a></td>
+      <td>The AI Storyteller</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://narrato.io/">narrato</a></td>
+      <td>AI Content Creation and Collaboration Platform</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://writeme.ai/">WriteMe</a></td>
+      <td>WriteMe.ai - Ai Writer - Content Writing Assistant &amp; Creator</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.getmagical.com/ai">Magical AI</a></td>
+      <td>Call on Magical AI to do all the work stuff you hate doing. Create messages from scratch, update forms instantly, and automate annoying tasks—anywhere, anytime.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://bearly.ai/">Bearly</a></td>
+      <td>Bearly makes you 10x faster by adding the state of the art AI to your workflow. Reading, writing, and content creation all one shortcut away.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.stealthgpt.ai/">StealthGPT</a></td>
+      <td>Write Using AI, Get Human Written Results</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://resumeworded.com/">resume worded</a></td>
+      <td>Improve your resume and LinkedIn profile</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://detangle.ai/">detangle</a></td>
+      <td>Summarize any video, audio or text</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://usemelville.com/">melville</a></td>
+      <td>Create amazing show notes 10x faster with AI.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.swellai.com/">Swell AI</a></td>
+      <td>Automate writing podcast show notes, articles, social posts and more.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.scalenut.com/">Scalenut</a></td>
+      <td>Scalenut: AI powered SEO and Content Marketing Platform</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://sheetplus.ai/">Sheet+</a></td>
+      <td>Write Google Sheets &amp; Excel formulas 10x faster with AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://finalscout.com/">FinalScout</a></td>
+      <td>ChatGPT-Powered Email Finding &amp; Outreach at Scale</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.hyperwriteai.com/">HyperWrite</a></td>
+      <td>Your personal AI writing assistant</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://maker.ai/">maker.ai</a></td>
+      <td>Generate written &amp; visual content in seconds through cutting-edge artificial intelligence. Make magical conten</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://thundercontent.com/">Thundercontent</a></td>
+      <td>Create any content with Artificial Intelligence in minutes</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://autowrite.app/">Autowrite app</a></td>
+      <td>Create Human-like Search Engine Optimized Articles</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.postgeniusapp.com/">postGenius</a></td>
+      <td>Generate your next post using chatGPT</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://postwise.ai/">postwise</a></td>
+      <td>Write Viral Tweets in Seconds</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://writesparkle.ai/">WriteSparkle</a></td>
+      <td>Discover AI-Driven Brilliance, streamline your content creation process by seamlessly integrating Writesparkle with your favorite tools and platforms.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://flawlessly.ai/">flawlessly ai</a></td>
+      <td>Flawlessly.Ai transforms your spelling, grammar, tone, and style into professional text in seconds.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://pdfpeer.com/">PDFPeer</a></td>
+      <td>Engage with your PDFs: summarize, ask questions, and simplify tasks!</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="video-tools">video tools</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Awesome</th>
+      <th>Description</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.deepbrain.io/aistudios">Deepbrain ai - ai studios</a></td>
+      <td>Create AI-generated videos using basic text instantly</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.supercreator.ai/">Supercreator.ai</a></td>
+      <td>Create short form videos 10x faster using artificial intelligence</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.veed.io/">veed io</a></td>
+      <td>VEED - Edit, Record &amp; Livestream Video - Online</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://runwayml.com/">runway</a></td>
+      <td>Everything you need to make content, fast.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://fliki.ai/">Fliki</a></td>
+      <td>Turn text into videos with AI voices</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.synthesia.io/">synthesia</a></td>
+      <td>Create videos from plain text in minutes</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.descript.com/">descript</a></td>
+      <td>All-in-one video &amp; audio editing, as easy as a doc.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://typecast.ai/">typecast ai</a></td>
+      <td>Video creation made simple with AI voices and avatars</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.bhuman.ai/">bhuman ai</a></td>
+      <td>Produce a single video and personalize it for thousands of recipients. Deliver over any channel and measure results instantly.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://jellysmack.com/">Jellysmack</a></td>
+      <td>Creator Content Amplification &amp; Solutions</td>
+      <td>Jellysmack</td>
+    </tr>
+    <tr>
+      <td><a href="https://plask.ai/">plask</a></td>
+      <td>AI-powered Mocap Animation Tool</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.rokoko.com/products/video/">Rokoko video</a></td>
+      <td>Rokoko Video Free AI motion capture</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.topazlabs.com/topaz-video-ai/">Topaz Video AI</a></td>
+      <td>Production-grade AI models for professional use cases</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.steve.ai/">Steve AI</a></td>
+      <td>Free AI Video Maker App</td>
+      <td>Online Video Making Software Tool</td>
+    </tr>
+    <tr>
+      <td><a href="https://elai.io/">elai</a></td>
+      <td>Create AI videos from just text.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://pictory.ai/">pictory</a></td>
+      <td>Video Marketing Made EASY</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://lumen5.com/">Lumen5</a></td>
+      <td>Lumen5 - Video Maker</td>
+      <td>Create Videos Online in Minutes</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.wisecut.video/">wisecut</a></td>
+      <td>Wisecut</td>
+      <td>Automatic Video Editor</td>
+    </tr>
+    <tr>
+      <td><a href="https://synths.video/">synths video</a></td>
+      <td>Convert articles into video in 1-click</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://invideo.io/">invideo</a></td>
+      <td>Create publish-worthy videos on day one</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.gliacloud.com/en/">GliaCloud</a></td>
+      <td>Generate videos from news content, social posts, live sport events, and statistical data in minutes!</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://synthesys.io/ai-video/">synthesys</a></td>
+      <td>Transform Your Text to a Realistic Virtual Video</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.beey.io/en/">beey</a></td>
+      <td>Beey.io – Beey automatically converts your audio and video files to text.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.papercup.com/">papercup</a></td>
+      <td>AI Powered Dubbing</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.heyfriday.ai/home/">Friday</a></td>
+      <td>Less Writing, More Inspiration.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.movio.la/">Movio</a></td>
+      <td>Create Engaging Videos 10x Faster with AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.clip.fm/">clip.fm</a></td>
+      <td>Turn podcasts into viral clips with one click.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.d-id.com/">D-ID</a></td>
+      <td>Digital People Text-to-Video</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://vidyo.ai/">vidyo.ai</a></td>
+      <td>Make short videos from long ones instantly</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.rephrase.ai/studio/">Rephrase Studio</a></td>
+      <td>Rephrase Studio is a self-serve text-to-video generation platform that eliminates the complexity of video production, enabling you to create professional-looking videos at scale.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://alpha.genmo.ai/">Genmo</a></td>
+      <td>Go beyond 2D. Create videos from text with AI.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://riverside.fm/">riverside</a></td>
+      <td>Automatically transcribe your audio and video recordings in seconds with our AI-powered technology. It’s accurate, reliable, and supports more than 100 languages.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://zoomscape.ai/">Zoomscape.ai</a></td>
+      <td>Create stunning Zoom backgrounds with AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://morise.ai/">Morise.ai</a></td>
+      <td>You make the videos, AI will make them go viral</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.rask.ai/">Rask</a></td>
+      <td>Localize videos. Fast. Fun. With AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.heygen.com/">HeyGen</a></td>
+      <td>CREATE ENGAGING VIDEOS 10X FASTER WITH AI</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://2short.ai/">2short.ai</a></td>
+      <td>Elevate your YT content with AI generated shorts</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://eightify.app/">Eightify</a></td>
+      <td>YouTube summaries powered by ChatGPT</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="audio-tools">audio tools</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Awesome</th>
+      <th>Description</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://podcast.adobe.com/">Adobe Podcast</a></td>
+      <td>AI-powered audio recording and editing, all on the web</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://play.ht/">play ht</a></td>
+      <td>AI powered text to voice generator</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://murf.ai/">Murf AI</a></td>
+      <td>AI Voice Generator: Versatile Text to Speech Software</td>
+      <td>Murf AI</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.resemble.ai/">resemble ai</a></td>
+      <td>Your Complete Generative Voice AI Toolkit</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://wellsaidlabs.com/">wellsaid</a></td>
+      <td>Convert text to voice in real time</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.voicemod.net/">voicemod</a></td>
+      <td>Free Real-Time Voice Changer</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.assemblyai.com/">assemblyai</a></td>
+      <td>Transcribe and understand audio with a single AI-powered API</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://songdonkey.ai/">songdonkey</a></td>
+      <td>Extract vocals and instruments with artificial intelligence</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://krisp.ai/">krisp ai</a></td>
+      <td>Krisp’s AI removes background voices, noises and echo from all your calls, giving you peace of mind.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://aloud.area120.google.com/">aloud</a></td>
+      <td>Aloud - dubbing for everyone</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.listnr.tech/">listnr</a></td>
+      <td>Generate realistic Text to Speech (TTS) audio using our AI Voice Generator with the best synthetic voices.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://www.lovo.ai/">lovo</a></td>
+      <td>LOVO AI</td>
+      <td>Free Text to Speech Online with Natural Voices</td>
+    </tr>
+    <tr>
+      <td><a href="https://speechelo.com/">speechelo</a></td>
+      <td>Instantly Generate Voice from Text 100% Human-Sounding voiceover with only 3 clicks!</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://bigspeak.ai/">bigspeak</a></td>
+      <td>Generate English speech from text</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://speechify.com/">speechify</a></td>
+      <td>Power through docs, articles, PDFs, email — anything you read — by listening with our leading text-to-speech reader.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><a href="https://sonix.ai/">sonix ai</a></td>
+      <td>Automatically convert audio and video to text: Fast, Accurate, &amp; Affordable</td>
+      <td>Sonix</td>
+    </tr>
+    <tr>
+      <td>[speak ai](https:</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="awesome-ai-tools-">Awesome AI Tools <a href="https://awesome.re"><img src="https://awesome.re/badge-flat.svg" alt="Awesome" /></a></h1>
+
+<blockquote>
+  <p>A curated list of Artificial Intelligence Top Tools</p>
+
+  <p>Feel free to contribute and also submit your AI tools on <a href="https://altern.ai/?utm_source=awesomeaitools">altern.ai</a> for free</p>
+</blockquote>
+
+<p>Welcome to Awesome AI Tools! Dive into my curated list of AI list, featuring top generative ai tools and LLMs. Eager to contribute or feature your product? Send a PR to this repo—it’s free! Join my growing AI list of products and stay on the edge of innovation.</p>
+
+<p>We publish regular updates of this repo in the <a href="http://newsletter.altern.ai">Altern Newsletter</a>. <a href="http://newsletter.altern.ai">Subscribe</a> for the latest AI news and discover the best AI tools.</p>
+
+<h2 id="contents">Contents</h2>
+
+<ul>
+  <li>
+    <p><a href="#editors-choice">🌟 Editor’s Choice</a></p>
+  </li>
+  <li>
+    <p><a href="#text">📝 AI Text</a></p>
+  </li>
+  <li>
+    <p><a href="#code">👩‍💻 Code with AI</a></p>
+  </li>
+  <li>
+    <p><a href="#image">🖼️ Generative AI Images </a></p>
+  </li>
+  <li>
+    <p><a href="#video">📽️ Generative AI Video</a></p>
+  </li>
+  <li>
+    <p><a href="#audio">🎶 Generative AI Audio</a></p>
+
+    <ul>
+      <li>
+        <p><a href="#ai-voice-cloning">Voice Cloning</a></p>
+      </li>
+      <li>
+        <p><a href="#ai-music-generation">Music Generation</a></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="#marketing-ai-tools">🎯 AI Tools for Marketing</a></p>
+  </li>
+  <li>
+    <p><a href="#phone-calls">📞 AI Phone Call Agents</a></p>
+  </li>
+  <li>
+    <p><a href="#other">🎒 Other AI Tools</a></p>
+  </li>
+  <li>
+    <p><a href="#learning-resources">👩‍🏫 Learning resources</a></p>
+  </li>
+</ul>
+
+<h2 id="editors-choice">Editor’s Choice</h2>
+
+<ul>
+  <li>
+    <p><a href="https://theresanai.com">There’s an AI</a> - List of best AI Tools</p>
+  </li>
+  <li>
+    <p><a href="https://vizard.ai/?via=the-marketing-newsletter">Vizard AI</a> - Create social-ready videos with AI instantly</p>
+  </li>
+  <li>
+    <p><a href="https://affiliate.notion.so/9po6cx7rvdr6-4y5a7">Notion AI</a> - Just ask Q&amp;A, and find the info you need in seconds. Get help writing and brainstorming in Notion, not in a separate browser tab.</p>
+  </li>
+  <li>
+    <p><a href="https://get.murf.ai/v8i9to5ad4oq">Murf AI</a> - Create voiceover with the most lifelike AI voices.</p>
+  </li>
+  <li>
+    <p><a href="https://try.sanebox.com/yzkpe5s68xk2">SaneBox</a> - an email management software as a service that integrates with IMAP and Exchange Web Services email accounts.</p>
+  </li>
+  <li>
+    <p><a href="https://get.meetgeek.ai/zmrnb5xlyfs9">MeetGeek</a> - an AI meeting assistant that automatically video records, transcribes, summarizes, and provides the key points from every meeting.</p>
+  </li>
+</ul>
+
+<h2 id="text">Text</h2>
+
+<h3 id="models">Models</h3>
+
+<blockquote>
+  <p><em>More complete list of AI Models: <a href="https://github.com/dariubs/awesome-ai-models">Awesome AI Models</a></em></p>
+</blockquote>
+
+<ul>
+  <li>
+    <p><a href="https://openai.com/api/">OpenAI API</a> - OpenAI’s API provides access to GPT-3 and GPT-4 models, which performs a wide variety of natural language tasks, and Codex, which translates natural language to code.</p>
+  </li>
+  <li>
+    <p><a href="https://www.deepmind.com/blog/language-modelling-at-scale-gopher-ethical-considerations-and-retrieval">Gopher</a> - Gopher by DeepMind is a 280 billion parameter language model.</p>
+  </li>
+  <li>
+    <p><a href="https://huggingface.co/facebook/opt-350m">OPT</a> - Open Pretrained Transformers (OPT) by Facebook is a suite of decoder-only pre-trained transformers. <a href="https://ai.facebook.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/">Announcement</a>. <a href="https://opt.alpa.ai/">OPT-175B text generation</a> hosted by Alpa.</p>
+  </li>
+  <li>
+    <p><a href="https://huggingface.co/docs/transformers/model_doc/bloom">Bloom</a> - BLOOM by Hugging Face is a model similar to GPT-3 that has been trained on 46 different languages and 13 programming languages. #opensource</p>
+  </li>
+  <li>
+    <p><a href="https://ai.facebook.com/blog/large-language-model-llama-meta-ai/">LLaMA</a> - A foundational, 65-billion-parameter large language model by Meta. #opensource</p>
+  </li>
+  <li>
+    <p><a href="https://ai.meta.com/llama/">Llama 2</a> - The next generation of Meta’s open source large language model. #opensource</p>
+  </li>
+  <li>
+    <p><a href="https://claude.ai/">Claude 3</a> - Talk to Claude, an AI assistant from Anthropic.</p>
+  </li>
+  <li>
+    <p><a href="https://lmsys.org/blog/2023-03-30-vicuna/">Vicuna-13B</a> - An open-source chatbot trained by fine-tuning LLaMA on user-shared conversations collected from ShareGPT.</p>
+  </li>
+  <li>
+    <p><a href="https://huggingface.co/stabilityai/StableBeluga1-Delta">Stable Beluga</a> - A finetuned LLamma 65B model</p>
+  </li>
+  <li>
+    <p><a href="https://huggingface.co/stabilityai/StableBeluga2">Stable Beluga 2</a> - A finetuned LLamma2 70B model</p>
+  </li>
+  <li>
+    <p><a href="https://altern.ai/ai/gpt-4o-mini">GPT-4o Mini</a> - <em><a href="https://altern.ai/ai/gpt-4o-mini">Review on Altern</a></em> - Advancing cost-efficient intelligence</p>
+  </li>
+</ul>
+
+<h3 id="chatbots">Chatbots</h3>
+
+<ul>
+  <li>
+    <p><a href="https://chatgpt.com">ChatGPT</a> - <em><a href="https://theresanai.com/chatgpt">reviews</a></em> - ChatGPT by OpenAI is a large language model that interacts in a conversational way.</p>
+  </li>
+  <li>
+    <p><a href="https://www.bing.com/chat">Bing Chat</a> - <em><a href="https://altern.ai/product/bing_chat">reviews</a></em> - A conversational AI language model powered by Microsoft Bing.</p>
+  </li>
+  <li>
+    <p><a href="https://gemini.google.com">Gemini</a> - <em><a href="https://altern.ai/product/gemini">reviews</a></em> - An experimental AI chatbot by Google, powered by the LaMDA model.</p>
+  </li>
+  <li>
+    <p><a href="https://character.ai/">Character.AI</a> - <em><a href="https://altern.ai/product/character-ai">reviews</a></em> - Character.AI lets you create characters and chat to them.</p>
+  </li>
+  <li>
+    <p><a href="https://www.chatpdf.com/">ChatPDF</a> - <em><a href="https://altern.ai/product/chatpdf">reviews</a></em> - Chat with any PDF.</p>
+  </li>
+  <li>
+    <p><a href="https://writesonic.com/chat">ChatSonic</a> - <em><a href="https://altern.ai/product/chatsonic">reviews</a></em> - An AI-powered assistant that enables text and image creation.</p>
+  </li>
+  <li>
+    <p><a href="https://www.phind.com/">Phind</a> - <em><a href="https://altern.ai/product/phind">reviews</a></em> - Phind is an intelligent search engine and assistant for programmers. Phind is smart enough to proactively ask you questions to clarify its assumptions and to browse the web (or your codebase) when it needs additional context. With our new VS Code extension.</p>
+  </li>
+  <li>
+    <p><a href="https://tiledesk.com/">Tiledesk</a> - <em><a href="https://altern.ai/product/tiledesk">reviews</a></em> - Open-source LLM-enabled no-code chatbot development framework. Design, test and launch your flows on all your channels in minutes.</p>
+  </li>
+  <li>
+    <p><a href="https://aicamp.so/">AICamp</a> - <em><a href="#">reviews</a></em> - ChatGPT for Teams</p>
+  </li>
+</ul>
+
+<h3 id="search-engines">Search engines</h3>
+
+<ul>
+  <li>
+    <p><a href="https://kazimir.ai/">Kazimir.ai</a> - A search engine designed to search AI-generated images.</p>
+  </li>
+  <li>
+    <p><a href="https://www.perplexity.ai/">Perplexity AI</a> - AI powered search tools.</p>
+  </li>
+  <li>
+    <p><a href="https://metaphor.systems/">Metaphor</a> - Language model powered search.</p>
+  </li>
+  <li>
+    <p><a href="https://phind.com/">Phind</a> - AI-based search engine.</p>
+  </li>
+  <li>
+    <p><a href="https://you.com/">You.com</a> - A search engine built on AI that provides users with a customized search experience while keeping their data 100% private.</p>
+  </li>
+  <li>
+    <p><a href="https://komo.ai/">Komo AI</a> - An AI based Search engine which responses quick and short answers.</p>
+  </li>
+  <li>
+    <p><a href="https://telborg.com/">Telborg</a> - AI for Climate Research, with data exclusively from governments, international institutions and companies.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/memfreeme/memfree">MemFree</a> - Open Source Hybrid AI Search Engine, Instantly Get Accurate Answers from the Internet, Bookmarks, Notes, and Docs</p>
+  </li>
+</ul>
+
+<h3 id="local-search-engines">Local search engines</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/imartinez/privateGPT">privateGPT</a> - Ask questions to your documents without an internet connection, using the power of LLMs.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/StanGirard/quivr">quivr</a> - Dump all your files and chat with it using your generative AI second brain using LLMs &amp; embeddings.</p>
+  </li>
+</ul>
+
+<h3 id="writing-assistants">Writing assistants</h3>
+
+<p><em>For a more complete list of AI writing assistants visit: <a href="https://github.com/xaramore/awesome-ai-writing">Awesome AI Writing</a></em></p>
+
+<ul>
+  <li>
+    <p><a href="https://www.jasper.ai/">Jasper</a> - Create content faster with artificial intelligence.</p>
+  </li>
+  <li>
+    <p><a href="https://www.compose.ai/">Compose AI</a> - Compose AI is a free Chrome extension that cuts your writing time by 40% with AI-powered autocompletion.</p>
+  </li>
+  <li>
+    <p><a href="https://rytr.me/">Rytr</a> - Rytr is an AI writing assistant that helps you create high-quality content.</p>
+  </li>
+  <li>
+    <p><a href="https://www.wordtune.com/">wordtune</a> - Personal writing assistant.</p>
+  </li>
+  <li>
+    <p><a href="https://hyperwriteai.com/">HyperWrite</a> - HyperWrite helps you write with confidence and get your work done faster from idea to final draft.</p>
+  </li>
+  <li>
+    <p><a href="https://mynexusai.com/">Nexus AI</a> - Nexus AI is a generative cutting-edge AI Platform for writing, coding, voiceovers, research, image creation and beyond.</p>
+  </li>
+  <li>
+    <p><a href="https://www.gomoonbeam.com/">Moonbeam</a> - Better blogs in a fraction of the time.</p>
+  </li>
+  <li>
+    <p><a href="https://www.copy.ai/">copy.ai</a> - Write better marketing copy and content with AI.</p>
+  </li>
+  <li>
+    <p><a href="https://anyword.com/">Anyword</a> - Anyword’s AI writing assistant generates effective copy for anyone.</p>
+  </li>
+  <li>
+    <p><a href="https://contenda.co/">Contenda</a> - Create the content your audience wants, from content you’ve already made.</p>
+  </li>
+  <li>
+    <p><a href="https://www.hypotenuse.ai/">Hypotenuse AI</a> - Turn a few keywords into original, insightful articles, product descriptions and social media copy.</p>
+  </li>
+  <li>
+    <p><a href="https://www.lavender.ai/">Lavender</a> - Lavender email assistant helps you get more replies in less time.</p>
+  </li>
+  <li>
+    <p><a href="https://lex.page/">Lex</a> - A word processor with artificial intelligence baked in, so you can write faster.</p>
+  </li>
+  <li>
+    <p><a href="https://jenni.ai/">Jenni</a> - Jenni is the ultimate writing assistant that saves you hours of ideation and writing time.</p>
+  </li>
+  <li>
+    <p><a href="https://www.writewithlaika.com/">LAIKA</a> - LAIKA trains an artificial intelligence on your own writing to create a personalised creative partner-in-crime.</p>
+  </li>
+  <li>
+    <p><a href="https://quillbot.com">QuillBot</a> - AI-powered paraphrasing tool.</p>
+  </li>
+  <li>
+    <p><a href="https://postwise.ai/">Postwise</a> - Write tweets, schedule posts and grow your following using AI.</p>
+  </li>
+  <li>
+    <p><a href="https://copysmith.ai/">Copysmith</a> - AI content creation solution for Enterprise &amp; eCommerce.</p>
+  </li>
+  <li>
+    <p><a href="https://www.yomu.ai">Yomu</a> - AI writing assistant for students and academics.</p>
+  </li>
+  <li>
+    <p><a href="https://listomatic.app">Listomatic</a> - Free and fully configurable real estate listing description generator.</p>
+  </li>
+  <li>
+    <p><a href="https://quickcreator.io">Quick Creator</a> - SEO-Optimized Blog platform powered by AI.</p>
+  </li>
+  <li>
+    <p><a href="https://telborg.com/">Telborg</a> - Write a high-quality first draft on any Climate topic in minutes</p>
+  </li>
+  <li>
+    <p><a href="https://dittto.ai">Dittto.ai</a> - Fix your hero copy with an AI trained on top SaaS websites.</p>
+  </li>
+  <li>
+    <p><a href="https://pulsepost.io/">PulsePost</a> - AI writer that Auto Publishes to your own website</p>
+  </li>
+  <li>
+    <p><a href="https://www.shyeditor.com">Shy Editor</a> - A modern AI-assisted writing environment for all types of prose.</p>
+  </li>
+  <li>
+    <p><a href="https://www.deepl.com/write">DeepL Write</a> - AI writing tool that improves written communication.</p>
+  </li>
+</ul>
+
+<h3 id="chatgpt-extensions">ChatGPT extensions</h3>
+
+<ul>
+  <li>
+    <p><a href="https://www.gistai.tech?utm_source=tool_directory&amp;utm_medium=post&amp;utm_campaign=launch">Gist AI</a> - ChatGPT-powered free Summarizer for Websites, YouTube and PDF.</p>
+  </li>
+  <li>
+    <p><a href="https://chrome.google.com/webstore/detail/webchatgpt-chatgpt-with-i/lpfemeioodjbpieminkklglpmhlngfcn">WebChatGPT</a> - Augment your ChatGPT prompts with relevant results from the web.</p>
+  </li>
+  <li>
+    <p><a href="https://workspace.google.com/marketplace/app/gpt_for_sheets_and_docs/677318054654">GPT for Sheets and Docs</a> - ChatGPT extension for Google Sheets and Google Docs.</p>
+  </li>
+  <li>
+    <p><a href="https://chrome.google.com/webstore/detail/youtube-summary-with-chat/nmmicjeknamkfloonkhhcjmomieiodli">YouTube Summary with ChatGPT</a> - Use ChatGPT to summarize YouTube videos.</p>
+  </li>
+  <li>
+    <p><a href="https://chrome.google.com/webstore/detail/chatgpt-prompt-genius/jjdnakkfjnnbbckhifcfchagnpofjffo">ChatGPT Prompt Genius</a> - Discover, share, import, and use the best prompts for ChatGPT &amp; save your chat history locally.</p>
+  </li>
+  <li>
+    <p><a href="https://chrome.google.com/webstore/detail/chatgpt-for-search-engine/feeonheemodpkdckaljcjogdncpiiban">ChatGPT for Search Engines</a> - Display ChatGPT response alongside Google, Bing, and DuckDuckGo search results.</p>
+  </li>
+  <li>
+    <p><a href="https://sharegpt.com/">ShareGPT</a> - Share your ChatGPT conversations and explore conversations shared by others.</p>
+  </li>
+  <li>
+    <p><a href="https://merlin.foyer.work/">Merlin</a> - ChatGPT Plus extension on all websites.</p>
+  </li>
+  <li>
+    <p><a href="https://chatgptwriter.ai/">ChatGPT Writer</a> - Generate entire emails and messages using ChatGPT AI.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/TiesdeKok/chat-gpt-jupyter-extension">ChatGPT for Jupyter</a> - Add various helper functions in Jupyter Notebooks and Jupyter Lab, powered by ChatGPT.</p>
+  </li>
+  <li>
+    <p><a href="https://www.editgpt.app/">editGPT</a> - Easily proofread, edit, and track changes to your content in chatGPT.</p>
+  </li>
+  <li>
+    <p><a href="https://www.chatbotui.com/">Chatbot UI</a> - An open source ChatGPT UI. <a href="https://github.com/mckaywrigley/chatbot-ui">Source code</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://www.forefront.ai/">Forefront</a> - A Better ChatGPT Experience.</p>
+  </li>
+  <li>
+    <p><a href="https://chromewebstore.google.com/detail/ai-character-for-gpt/daoeioifimkjegafelcaljboknjkkohh">AI Character for GPT</a> - One click to curate AI chatbot, including ChatGPT, Google Bard to improve AI responses.</p>
+  </li>
+</ul>
+
+<h3 id="productivity">Productivity</h3>
+
+<ul>
+  <li>
+    <p><a href="https://mem.ai/">Mem</a> - Mem is the world’s first AI-powered workspace that’s personalized to you. Amplify your creativity, automate the mundane, and stay organized automatically.</p>
+  </li>
+  <li>
+    <p><a href="https://www.taskade.com/">Taskade</a> -  Build, train, and deploy autonomous AI agents for task management, team collaboration, and workflow automation—all within a unified workspace.</p>
+  </li>
+  <li>
+    <p><a href="https://www.notion.so/product/ai">Notion AI</a> - Write better, more efficient notes and docs.</p>
+  </li>
+  <li>
+    <p><a href="https://nekton.ai">Nekton AI</a> - Automate your workflows with AI. Describe your workflows step by step in plain language.</p>
+  </li>
+  <li>
+    <p><a href="https://elephas.app/?ref=mahseema-awesome-ai-tools">Elephas</a> - Personal AI writing assistant for the Mac.</p>
+  </li>
+  <li>
+    <p><a href="https://lemmy.co/?ref=mahseema-awesome-ai-tools">Lemmy</a> - Autonomous AI Assistant for Work.</p>
+  </li>
+  <li>
+    <p><a href="https://bettersheets.co/google-sheets-formula-generator?ref=mahseema-awesome-ai-tools">Google Sheets Formula Generator</a> - Forget about frustrating formulas in Google Sheets.</p>
+  </li>
+  <li>
+    <p><a href="https://createeasily.com/?ref=mahseema-awesome-ai-tools">CreateEasily</a> - Free speech-to-text tool for content creators that accurately transcribes audio &amp; video files up to 2GB.</p>
+  </li>
+  <li>
+    <p><a href="https://aipdf.ai">aiPDF</a> - The most advanced AI document assistant</p>
+  </li>
+  <li>
+    <p><a href="https://www.summarywithai.com/">Summary With AI</a> - Summarize any long PDF with AI. Comprehensive summaries using information from all pages of a document.</p>
+  </li>
+  <li>
+    <p><a href="https://getemil.io?ref=mahseema-awesome-ai-tools">Emilio</a> - Stop drowning in emails - Emilio prioritizes and automates your email, saving 60% of your time</p>
+  </li>
+  <li>
+    <p><a href="https://pieces.app/">Pieces</a> - AI-enabled productivity tool designed to supercharge developer efficiency,with an on-device copilot that helps capture, enrich, and reuse useful materials, streamline collaboration, and solve complex problems through a contextual understanding of dev workflow</p>
+  </li>
+  <li>
+    <p><a href="https://huntr.co/product/ai-resume-builder/?ref=mahseema-awesome-ai-tools">Huntr AI Resume Builder</a> - Craft the perfect resume, with a little help from AI. Huntr’s customizable AI Resume Builder will help you craft a well-written, ATS-friendly resume to help you land more interviews.</p>
+  </li>
+  <li>
+    <p><a href="https://copilot.us/apps/chat-with-pdf">Chat With PDF by Copilot.us</a> - An AI app that enables dialogue with PDF documents, supporting interactions with multiple files simultaneously through language models.</p>
+  </li>
+  <li>
+    <p><a href="https://www.getrecall.ai/">Recall</a> - Summarize Anything, Forget Nothing</p>
+  </li>
+  <li>
+    <p><a href="https://interview.talently.ai/?utm_source=mahseema-awesome-ai-tool&amp;utm_medium=c_and_p&amp;utm_campaign=tool-listing">Talently AI</a> - An Al interviewer that conducts live, conversational interviews and gives real-time evaluations to effortlessly identify top performers and scale your recruitment process.</p>
+  </li>
+  <li>
+    <p><a href="https://wwww.tailortask.ai">TailorTask</a> - Automate any boring and repetitive task, without having to learn a new tool</p>
+  </li>
+  <li>
+    <p><a href="https://anki-decks.com">AnkiDecks AI</a> - Create Flashcards 10x faster. Generate Anki Flashcards from any File or Text with AI.</p>
+  </li>
+  <li>
+    <p><a href="https://www.aiforgoogleslides.com/">AI for Google Slides</a> - AI presentation maker for Google Slides</p>
+  </li>
+  <li>
+    <p><a href="https://far.site/">FARSITE</a> - AI-powered Compliance Software for U.S. Government Contractors</p>
+  </li>
+  <li>
+    <p><a href="https://gosh.app">GOSH</a> - Free AI Price Tracker - Track any price of any product at any store using AI</p>
+  </li>
+  <li>
+    <p><a href="https://pomodoro.tools">Pomodoro Timer Tools</a> - Minimal AI-Driven Pomodoro Timer App</p>
+  </li>
+  <li>
+    <p><a href="https://www.nurgo-software.com/products/brainsoup">BrainSoup</a> Multi-agent &amp; multi-LLM native client where AIs can remember, react to events, use tools, leverage local and external resources, and work together autonomously.</p>
+  </li>
+  <li>
+    <p><a href="https://mindpal.space/">MindPal</a> - Build your AI Second Brain with a team of AI agents and multi-agent workflow</p>
+  </li>
+</ul>
+
+<h3 id="meeting-assistants">Meeting assistants</h3>
+
+<ul>
+  <li>
+    <p><a href="https://otter.ai/">Otter.ai</a> - A meeting assistant that records audio, writes notes, automatically captures slides, and generates summaries.</p>
+  </li>
+  <li>
+    <p><a href="https://www.cogram.com/">Cogram</a> - Cogram takes automatic notes in virtual meetings and identifies action items.</p>
+  </li>
+  <li>
+    <p><a href="https://www.sybill.ai/">Sybill</a> - Sybill generates summaries of sales calls, including next steps, pain points and areas of interest, by combining transcript and emotion-based insights.</p>
+  </li>
+  <li>
+    <p><a href="https://www.loopinhq.com/">Loopin AI</a> - Loopin is a collaborative meeting workspace that not only enables you to record, transcribe &amp; summaries meetings using AI, but also enables you to auto-organise meeting notes on top of your calendar.</p>
+  </li>
+</ul>
+
+<h3 id="academia">Academia</h3>
+
+<ul>
+  <li>
+    <p><a href="https://elicit.org/">Elicit</a> - Elicit uses language models to help you automate research workflows, like parts of literature review.</p>
+  </li>
+  <li>
+    <p><a href="https://www.genei.io/">genei</a> - Summarise academic articles in seconds and save 80% on your research times.</p>
+  </li>
+  <li>
+    <p><a href="https://www.explainpaper.com/">Explainpaper</a> - A better way to read academic papers. Upload a paper, highlight confusing text, get an explanation.</p>
+  </li>
+  <li>
+    <p><a href="https://galactica.org/">Galactica</a> - A large language model for science. Can summarize academic literature, solve math problems, generate Wiki articles, write scientific code, annotate molecules and proteins, and more. <a href="https://github.com/paperswithcode/galai">Model API</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://consensus.app/search/">Consensus</a> - Consensus is a search engine that uses AI to find answers in scientific research.</p>
+  </li>
+  <li>
+    <p><a href="https://www.sourcely.net/">Sourcely</a> - Academic Citation Finding Tool with AI</p>
+  </li>
+  <li>
+    <p><a href="https://scispace.com/">SciSpace</a> - AI Chat for scientific PDFs.</p>
+  </li>
+</ul>
+
+<h3 id="customer-support">Customer Support</h3>
+
+<ul>
+  <li>
+    <p><a href="https://sitegpt.ai/?ref=mahseema-awesome-ai-tools">SiteGPT</a> - Make AI your expert customer support agent.</p>
+  </li>
+  <li>
+    <p><a href="https://gpthelp.ai/?ref=mahseema-awesome-ai-tools">GPTHelp.ai</a> - ChatGPT for your website / AI customer support chatbot.</p>
+  </li>
+  <li>
+    <p><a href="https://sitespeak.ai">SiteSpeakAI</a> - Automate your customer support with AI.</p>
+  </li>
+  <li>
+    <p><a href="https://www.dearai.online">Dear AI</a> - Supercharge Customer Services and boost sales with AI Chatbot.</p>
+  </li>
+  <li>
+    <p><a href="https://inlinehelp.com">Inline Help</a> - Answer customer questions before they ask</p>
+  </li>
+  <li>
+    <p><a href="https://www.aidbase.ai">Aidbase</a> - AI-Powered Support for your SaaS startup.</p>
+  </li>
+</ul>
+
+<h3 id="other-text-generators">Other text generators</h3>
+
+<ul>
+  <li>
+    <p><a href="https://www.emailtriager.com/">EmailTriager</a> - Use AI to automatically draft email replies in the background.</p>
+  </li>
+  <li>
+    <p><a href="https://www.aipoemgenerator.org">AI Poem Generator</a> - AI Poem Generator writes a beautiful rhyming poem for you on any subject, given a text prompt.</p>
+  </li>
+  <li>
+    <p><a href="https://neverjobless.com/?ref=mahseema-awesome-ai-tools">Never Jobless LinkedIn Message Generator</a> - Maximize Your Interview Chances with AI-Powered LinkedIn Messaging.</p>
+  </li>
+</ul>
+
+<h3 id="developer-tools">Developer tools</h3>
+
+<ul>
+  <li>
+    <p><a href="https://ollama.com/">Ollama</a> -  Load and run large LLMs locally to use in your terminal or build your apps.</p>
+  </li>
+  <li>
+    <p><a href="https://cohere.ai/">co:here</a> - Cohere provides access to advanced Large Language Models and NLP tools.</p>
+  </li>
+  <li>
+    <p><a href="https://haystack.deepset.ai/">Haystack</a> - A framework for building NLP applications (e.g. agents, semantic search, question-answering) with language models.</p>
+  </li>
+  <li>
+    <p><a href="https://keploy.io/">Keploy</a> - Open source Tool for converting user traffic to Test Cases and Data Stubs.</p>
+  </li>
+  <li>
+    <p><a href="https://langchain.com/">LangChain</a> - A framework for developing applications powered by language models.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/nomic-ai/gpt4all">gpt4all</a> - A chatbot trained on a massive collection of clean assistant data including code, stories, and dialogue.</p>
+  </li>
+  <li>
+    <p><a href="https://lmql.ai/">LMQL</a> - LMQL is a query language for large language models.</p>
+  </li>
+  <li>
+    <p><a href="https://www.llamaindex.ai/">LlamaIndex</a> - A data framework for building LLM applications over external data.</p>
+  </li>
+  <li>
+    <p><a href="https://langfuse.com/">Langfuse</a> - Open-source LLM engineering platform that helps teams collaboratively debug, analyze, and iterate on their LLM applications. <a href="https://github.com/langfuse/langfuse">#opensource</a></p>
+  </li>
+  <li>
+    <p><a href="https://phoenix.arize.com/">Phoenix</a> - Open-source tool for ML observability that runs in your notebook environment, by Arize. Monitor and fine-tune LLM, CV, and tabular models.</p>
+  </li>
+  <li>
+    <p><a href="https://www.predictionguard.com/">Prediction Guard</a> - Seamlessly integrate private, controlled, and compliant Large Language Models (LLM) functionality.</p>
+  </li>
+  <li>
+    <p><a href="https://portkey.ai/">Portkey</a> - Full-stack LLMOps platform to monitor, manage, and improve LLM-based apps.</p>
+  </li>
+  <li>
+    <p><a href="https://status.portkey.ai/">OpenAI Downtime Monitor</a> - Free tool that tracks API uptime and latencies for various OpenAI models and other LLM providers.</p>
+  </li>
+  <li>
+    <p><a href="https://chatwithcloud.ai/">ChatWithCloud</a> - CLI allowing you to interact with AWS Cloud using human language inside your Terminal.</p>
+  </li>
+  <li>
+    <p><a href="https://singlebase.cloud">SinglebaseCloud</a> - AI-powered backend platform with Vector DB, DocumentDB, Auth, and more to speed up app development.</p>
+  </li>
+  <li>
+    <p><a href="https://www.getmaxim.ai/">Maxim AI</a> - A generative AI evaluation and observability platform, empowering modern AI teams to ship products with quality, reliability, and speed.</p>
+  </li>
+  <li>
+    <p><a href="https://www.wordware.ai">Wordware</a> - A web-hosted IDE where non-technical domain experts work with AI Engineers to build task-specific AI agents. It approaches prompting as a new programming language rather than low/no-code blocks.</p>
+  </li>
+  <li>
+    <p><a href="https://coderabbit.ai/">CodeRabbit</a> - An AI-powered code review tool that helps developers improve code quality and productivity.</p>
+  </li>
+  <li>
+    <p><a href="https://www.pagerly.io">Pagerly</a> - Your Operations Co-pilot on Slack/Teams. It assists and prompts oncall with relevant information to debug issues.</p>
+  </li>
+  <li>
+    <p><a href="https://hexabot.ai">Hexabot</a> - A Open-source No-Code tool to build your AI Chatbot / Agent (multi-lingual, multi-channel, LLM, NLU, + ability to develop custom extensions)</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/plandex-ai/plandex">Plandex</a> - Open source, terminal-based AI programming engine for complex tasks.</p>
+  </li>
+  <li>
+    <p><a href="https://aimlapi.com/?utm_source=github\+of\+altern.ai">AI/ML API</a> - AI/ML API gives developers access to 100+ AI models with one API.</p>
+  </li>
+</ul>
+
+<h2 id="code">Code</h2>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/features/copilot">GitHub Copilot</a> - GitHub Copilot uses the OpenAI Codex to suggest code and entire functions in real-time, right from your editor.</p>
+  </li>
+  <li>
+    <p><a href="https://platform.openai.com/docs/guides/code/">OpenAI Codex</a> - An AI system by OpenAI that translates natural language to code.</p>
+  </li>
+  <li>
+    <p><a href="https://blog.replit.com/ai">Ghostwriter</a> - An AI-powered pair programmer by Replit.</p>
+  </li>
+  <li>
+    <p><a href="https://aws.amazon.com/codewhisperer/">Amazon CodeWhisperer</a> - Build applications faster with the ML-powered coding companion.</p>
+  </li>
+  <li>
+    <p><a href="https://www.tabnine.com/">tabnine</a> - Code faster with whole-line &amp; full-function code completions.</p>
+  </li>
+  <li>
+    <p><a href="https://stenography.dev/">Stenography</a> - Automatic code documentation.</p>
+  </li>
+  <li>
+    <p><a href="https://mintlify.com/">Mintlify</a> - AI powered documentation writer.</p>
+  </li>
+  <li>
+    <p><a href="https://debuild.app/">Debuild</a> - AI-powered low-code tool for web apps.</p>
+  </li>
+  <li>
+    <p><a href="https://www.ai2sql.io/">AI2sql</a> - With AI2sql, engineers and non-engineers can easily write efficient, error-free SQL queries without knowing SQL.</p>
+  </li>
+  <li>
+    <p><a href="https://www.codium.ai/">CodiumAI</a> - With CodiumAI, you get non-trivial tests suggested right inside your IDE, so you stay confident when you push.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/Codium-ai/pr-agent">PR-Agent</a> - AI-powered tool for automated PR analysis, feedback, suggestions, and more.</p>
+  </li>
+  <li>
+    <p><a href="https://mutable.ai/">MutableAI</a> - AI Accelerated Software Development.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/ravenscroftj/turbopilot">TurboPilot</a> - A self-hosted copilot clone that uses the library behind llama.cpp to run the 6 billion parameter Salesforce Codegen model in 4 GB of RAM.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/ricklamers/gpt-code-ui">GPT-Code UI</a> - An open-source implementation of OpenAI’s ChatGPT Code interpreter.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/geekan/MetaGPT">MetaGPT</a> - The Multi-Agent Framework: Given one line Requirement, return PRD, Design, Tasks, Repo</p>
+  </li>
+  <li>
+    <p><a href="https://marblism.com">Marblism</a> - Generate a SaaS boilerplate from a prompt.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/codeintegrity-ai/mutahunter">MutahunterAI</a> - Accelerate developer productivity and code security with our open-source AI.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/mathiscode/ai-kernel-explorer">AI Kernel Explorer</a> - Explore the Linux kernel source code with AI-generated summaries.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/clidey/whodb">WhoDB</a> - SQL/NoSQL/Graph/Cache/Object data explorer with AI-powered chat + other useful features</p>
+  </li>
+</ul>
+
+<h2 id="image">Image</h2>
+
+<p><em>For a more complete list of AI Image tools visit: <a href="https://github.com/mahseema/awesome-ai-tools/blob/main/IMAGE.md">Best Image AI Tools</a> or <a href="https://github.com/xaramore/awesome-ai-image">Awesome AI Image</a></em></p>
+
+<h3 id="models-1">Models</h3>
+
+<ul>
+  <li>
+    <p><a href="https://openai.com/dall-e-2/">DALL·E 2</a> - DALL·E 2 by OpenAI is a new AI system that can create realistic images and art from a description in natural language.</p>
+  </li>
+  <li>
+    <p><a href="https://huggingface.co/CompVis/stable-diffusion-v1-4">Stable Diffusion</a> - Stable Diffusion by Stability AI is a state-of-the-art text-to-image model that generates images from text. #opensource</p>
+  </li>
+  <li>
+    <p><a href="https://www.midjourney.com/">Midjourney</a> - Midjourney is an independent research lab exploring new mediums of thought and expanding the imaginative powers of the human species.</p>
+  </li>
+  <li>
+    <p><a href="https://imagen.research.google/">Imagen</a> - Imagen by Google is a text-to-image diffusion model with an unprecedented degree of photorealism and a deep level of language understanding.</p>
+  </li>
+  <li>
+    <p><a href="https://ai.facebook.com/blog/greater-creative-control-for-ai-image-generation/">Make-A-Scene</a> - Make-A-Scene by Meta is a multimodal generative AI method puts creative control in the hands of people who use it by allowing them to describe and illustrate their vision through both text descriptions and freeform sketches.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/XingangPan/DragGAN">DragGAN</a> - Drag Your GAN: Interactive Point-based Manipulation on the Generative Image Manifold.</p>
+  </li>
+  <li>
+    <p><a href="https://www.canva.com/">Canva</a> - Generate and Edit your Pictures with the help of AI</p>
+  </li>
+</ul>
+
+<h3 id="services">Services</h3>
+
+<ul>
+  <li>
+    <p><a href="https://www.craiyon.com/">Craiyon</a> - Craiyon, formerly DALL-E mini, is an AI model that can draw images from any text prompt.</p>
+  </li>
+  <li>
+    <p><a href="https://beta.dreamstudio.ai/">DreamStudio</a> - DreamStudio is an easy-to-use interface for creating images using the Stable Diffusion image generation model.</p>
+  </li>
+  <li>
+    <p><a href="https://www.artbreeder.com/">Artbreeder</a> - Artbreeder is a new type of creative tool that empowers users creativity by making it easier to collaborate and explore.</p>
+  </li>
+  <li>
+    <p><a href="http://gaugan.org/gaugan2/">GauGAN2</a> - GauGAN2 is a robust tool for creating photorealistic art using a combination of words and drawings since it integrates segmentation mapping, inpainting, and text-to-image production in a single model.</p>
+  </li>
+  <li>
+    <p><a href="https://www.magiceraser.io/">Magic Eraser</a> - Remove unwanted things from images in seconds.</p>
+  </li>
+  <li>
+    <p><a href="https://magicstudio.com/imagine">Imagine by Magic Studio</a> - A tool by Magic Studio that let’s you express yourself by just describing what’s on your mind.</p>
+  </li>
+  <li>
+    <p><a href="https://www.getalpaca.io/">Alpaca</a> - Stable Diffusion Photoshop plugin.</p>
+  </li>
+  <li>
+    <p><a href="https://www.patience.ai/">Patience.ai</a> - Patience.ai is an app for creating images with Stable Diffusion, a cutting-edge AI developed by Stability.AI.</p>
+  </li>
+  <li>
+    <p><a href="https://www.genshare.io/">GenShare</a> - Generate art in seconds for free. Own and share what you create. A multimedia generative studio, democratizing design and creativity.</p>
+  </li>
+  <li>
+    <p><a href="https://playgroundai.com/">Playground AI</a> - Playground AI is a free-to-use online AI image creator. Use it to create art, social media posts, presentations, posters, videos, logos and more.</p>
+  </li>
+  <li>
+    <p><a href="https://pixelz.ai/">Pixelz AI Art Generator</a> - Pixelz AI Art Generator enables you to create incredible art from text. Stable Diffusion, CLIP Guided Diffusion &amp; PXL·E realistic algorithms available.</p>
+  </li>
+  <li>
+    <p><a href="https://www.modyfi.io/">modyfi</a> - The image editor you’ve always wanted. AI-powered creative tools in your browser. Real-time collaboration.</p>
+  </li>
+  <li>
+    <p><a href="https://www.ponzu.ai/">Ponzu</a> - Ponzu is your free AI logo generator. Build your brand with creatively designed logos in seconds, using only your imagination.</p>
+  </li>
+  <li>
+    <p><a href="https://www.photoroom.com/">PhotoRoom</a> - Create product and portrait pictures using only your phone. Remove background, change background and showcase products.</p>
+  </li>
+  <li>
+    <p><a href="https://avatarai.me/">Avatar AI</a> - Create your own AI-generated avatars.</p>
+  </li>
+  <li>
+    <p><a href="https://clipdrop.co/">ClipDrop</a> - Create professional visuals without a photo studio, powered by <a href="https://stability.ai/">stability.ai</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://prisma-ai.com/lensa">Lensa</a> - An all-in-one image editing app that includes the generation of personalized avatars using Stable Diffusion.</p>
+  </li>
+  <li>
+    <p><a href="https://rundiffusion.com/">RunDiffusion</a> - Cloud-based workspace for creating AI-generated art.</p>
+  </li>
+  <li>
+    <p><a href="https://generated.photos/human-generator">Human Generator</a> - AI generator or realistic looking photos of humans.</p>
+  </li>
+  <li>
+    <p><a href="https://vectorart.ai">VectorArt.ai</a> - Create vector images with AI.</p>
+  </li>
+  <li>
+    <p><a href="https://www.stockphotoai.net/?ref=mahseema-awesome-ai-tools">StockPhotoAI.net</a> - Great stock photos, made for you.</p>
+  </li>
+  <li>
+    <p><a href="https://roomreinvented.com">Room Reinvented</a> - Transform your room effortlessly with Room Reinvented! Upload a photo and let AI create over 30 stunning interior styles. Elevate your space today.</p>
+  </li>
+  <li>
+    <p><a href="https://gensbot.com">Gensbot</a> - Gensbot uses AI to craft personalised printed merchandise. One prompt creates one unique product to fit your needs.</p>
+  </li>
+  <li>
+    <p><a href="https://www.plantphotoai.com/">PlantPhotoAI</a> - free AI-generated plant images</p>
+  </li>
+  <li>
+    <p><a href="https://republiclabs.ai/">RepublicLabs.AI</a> - multi-model simultaneous generation from a single prompt, fully unrestricted and packed with the latest greatest AI models.</p>
+  </li>
+  <li>
+    <p><a href="https://www.blackheadshots.com">Black Headshots</a> - AI headshots generator for black professionals</p>
+  </li>
+  <li>
+    <p><a href="https://pixvify.com/">Pixvify AI</a> - Free realistic AI photo generator platform</p>
+  </li>
+  <li>
+    <p><a href="https://www.pawtrait.art/">Pawtrait</a> - AI Pet Portraits</p>
+  </li>
+  <li>
+    <p><a href="https://icoloring.ai">iColoring</a> - Free AI Coloring Pages Generator</p>
+  </li>
+  <li>
+    <p><a href="https://suitmeup.pictures/">Suit me Up</a> - Generate pictures of you wearing a suit with AI.</p>
+  </li>
+  <li>
+    <p><a href="https://aiphotoforge.com/">AI Photo Forge</a> - A Telegram bot to generate AI pictures of you.</p>
+  </li>
+</ul>
+
+<h3 id="graphic-design">Graphic design</h3>
+
+<ul>
+  <li>
+    <p><a href="https://brandmark.io/">Brandmark</a> - AI-based logo design tool.</p>
+  </li>
+  <li>
+    <p><a href="https://gamma.app/">Gamma</a> - Create beautiful presentations and webpages with none of the formatting and design work.</p>
+  </li>
+  <li>
+    <p><a href="https://designer.microsoft.com/">Microsoft Designer</a> - Stunning designs in a flash.</p>
+  </li>
+  <li>
+    <p><a href="https://svgstud.io/">SVGStud.io</a> - AI-based SVG Generation and Semantic Seach</p>
+  </li>
+</ul>
+
+<h3 id="image-libraries">Image libraries</h3>
+
+<ul>
+  <li>
+    <p><a href="https://lexica.art/">Lexica</a> - Stable Diffusion search engine.</p>
+  </li>
+  <li>
+    <p><a href="https://libraire.ai/">Libraire</a> - The largest library of AI-generated images.</p>
+  </li>
+  <li>
+    <p><a href="https://www.krea.ai/">KREA</a> - Explore millions of AI-generated images and create collections of prompts. Featuring Stable Diffusion generations.</p>
+  </li>
+  <li>
+    <p><a href="https://openart.ai/">OpenArt</a> - Search 10M+ of prompts, and generate AI art via Stable Diffusion, DALL·E 2.</p>
+  </li>
+  <li>
+    <p><a href="https://app.phygital.plus/">Phygital</a> - Built-in templates for generating or editing any pictures. Moreover, you can create your own design.</p>
+  </li>
+  <li>
+    <p><a href="https://www.canva.com/ai-image-generator/">Canva</a> - Generating AI Images.</p>
+  </li>
+</ul>
+
+<h3 id="model-libraries">Model libraries</h3>
+
+<ul>
+  <li>
+    <p><a href="https://civitai.com/">Civitai</a> - Community-driven AI model sharing tool.</p>
+  </li>
+  <li>
+    <p><a href="https://rentry.org/sdmodels">Stable Diffusion Models</a> - A comprehensive list of Stable Diffusion checkpoints on rentry.org.</p>
+  </li>
+</ul>
+
+<h3 id="stable-diffusion-resources">Stable Diffusion resources</h3>
+
+<ul>
+  <li>
+    <p><a href="https://stablehorde.net/">Stable Horde</a> - A crowdsourced distributed cluster of Stable Diffusion workers.</p>
+  </li>
+  <li>
+    <p><a href="https://diffusiondb.com/">DiffusionDB</a> - A list of all public apps, developer tools, guides and plugins for Stable Diffusion. <a href="https://airtable.com/shr0HlBwbw3nZ8Ht3/tblxOCylXV8ynh7ti">Airtable version</a>.</p>
+  </li>
+  <li>
+    <p><a href="https://publicprompts.art/">PublicPrompts</a> - A collection of free prompts for Stable Diffusion.</p>
+  </li>
+  <li>
+    <p><a href="https://stableboost.ai/">Stableboost</a> - Stableboost is a Stable Diffusion WebUI that lets you quickly generate a lot of images so you can find the perfect ones.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/huggingface/diffusion-models-class">Hugging Face Diffusion Models Course</a> - Python materials for the online course on diffusion models by <a href="https://github.com/huggingface">@huggingface</a>.</p>
+  </li>
+</ul>
+
+<h2 id="video">Video</h2>
+
+<ul>
+  <li>
+    <p><a href="https://runwayml.com/">RunwayML</a> - Magical AI tools, realtime collaboration, precision editing, and more. Your next-generation content creation suite.</p>
+  </li>
+  <li>
+    <p><a href="https://www.synthesia.io/">Synthesia</a> - Create videos from plain text in minutes.</p>
+  </li>
+  <li>
+    <p><a href="https://www.rephrase.ai/">Rephrase AI</a> - Rephrase’s technology enables hyper-personalized video creation at scale that drive engagement and business efficiencies.</p>
+  </li>
+  <li>
+    <p><a href="https://hourone.ai/">Hour One</a> - Turn text into video, featuring virtual presenters, automatically.</p>
+  </li>
+  <li>
+    <p><a href="https://www.d-id.com/">D-ID</a> - Create and interact with talking avatars at the touch of a button.</p>
+  </li>
+  <li>
+    <p><a href="https://shortgen.video/">ShortVideoGen</a> - Create short videos with audio using text prompts.</p>
+  </li>
+  <li>
+    <p><a href="https://clipwing.pro/">Clipwing</a> - A tool for cutting long videos into dozens of short clips.</p>
+  </li>
+  <li>
+    <p><a href="https://recast.studio">Recast Studio</a> - AI powered podcast marketing assistant.</p>
+  </li>
+  <li>
+    <p><a href="https://www.basedlabs.ai/">Based AI</a> - AI Intuitive Interface for Video creating</p>
+  </li>
+</ul>
+
+<h3 id="animation">Animation</h3>
+
+<h2 id="audio">Audio</h2>
+
+<h3 id="ai-voice-cloning">AI Voice Cloning</h3>
+
+<p><em>You can also find more comprehensive list on <a href="https://github.com/xaramore/awesome-ai-music">Awesome AI Music</a> and <a href="https://theresanai.com/category/voice-cloning">There’s an AI AI Voice Cloning list</a></em></p>
+
+<ul>
+  <li>
+    <p><a href="https://www.descript.com/overdub">Descript Overdub</a> - <a href="https://theresanai.com/descript-overdub">Review</a> - Seamlessly integrates with Descript’s transcription and editing tools, ideal for content creators needing quick voiceovers.</p>
+  </li>
+  <li>
+    <p><a href="https://www.respeecher.com/">Respeecher</a> - <a href="https://theresanai.com/respeecher">Review</a> -  A professional tool widely used in the entertainment industry to create emotion-rich, realistic voice clones.</p>
+  </li>
+  <li>
+    <p><a href="https://elevenlabs.io/">ElevenLabs</a> - <a href="https://theresanai.com/elevenlabs">Review</a> - Known for ultra-realistic voice cloning and emotion modeling, setting a new standard in AI-driven voice synthesis.</p>
+  </li>
+  <li>
+    <p><a href="https://www.resemble.ai/">Resemble AI</a> - <a href="https://theresanai.com/resemble-ai">Review</a> - Offers real-time voice synthesis with customization options, making it versatile for both developers and creatives.</p>
+  </li>
+  <li>
+    <p><a href="https://murf.ai/">Murf AI</a> - <a href="https://theresanai.com/murf">Review</a> - User-friendly platform for quick, high-quality voiceovers, favored for commercial and marketing applications.</p>
+  </li>
+  <li>
+    <p><a href="https://www.ispeech.org/">iSpeech</a> - <a href="https://theresanai.com/ispeech">Review</a> - A versatile solution for corporate applications with support for a wide array of languages and voices.</p>
+  </li>
+  <li>
+    <p><a href="https://www.veritone.com/solutions/voice/">Veritone Voice</a> - <a href="https://theresanai.com/veritone-voice">Review</a> - Focuses on maintaining brand consistency with highly customizable voice cloning used in media and entertainment.</p>
+  </li>
+  <li>
+    <p><a href="https://azure.microsoft.com/en-us/services/cognitive-services/text-to-speech/">Microsoft Azure Neural TTS</a> - Review - Scalable and highly customizable, ideal for integration into enterprise applications.</p>
+  </li>
+  <li>
+    <p><a href="https://www.wellsaidlabs.com/">WellSaid Labs</a> - <a href="https://theresanai.com/wellsaid-labs">Review</a> - Gaining traction for its natural-sounding voiceovers, particularly in corporate training and e-learning.</p>
+  </li>
+  <li>
+    <p><a href="https://www.lovo.ai/">Lovo.ai</a> - <a href="https://theresanai.com/lovo-ai">Review</a> - A compelling choice for creative professionals, especially useful in ads and explainer videos.</p>
+  </li>
+  <li>
+    <p><a href="https://zenmic.com">Zenmic.com</a> -  An app to generate podcast eposode ( script + Audio ) using AI.</p>
+  </li>
+</ul>
+
+<h3 id="ai-music-generators">AI Music Generators</h3>
+
+<p><em>You can also find  more comprehensive list on <a href="https://theresanai.com/category/music-generation">There’s an AI AI Music Generation Tools list</a></em></p>
+
+<ul>
+  <li>
+    <p><a href="https://www.splashpro.com">Splash Pro</a> - <a href="https://theresanai.com/splash-pro">Review</a> - A versatile platform offering intuitive music creation tools for all skill levels.</p>
+  </li>
+  <li>
+    <p><a href="https://www.aiva.ai">AIVA</a> - <a href="https://theresanai.com/aiva">Review</a> - AI composer specializing in classical and cinematic music creation.</p>
+  </li>
+  <li>
+    <p><a href="https://www.mubert.com">Mubert</a> - <a href="https://theresanai.com/mubert">Review</a> - Real-time generative music tailored for different use cases.</p>
+  </li>
+  <li>
+    <p><a href="https://soundraw.io">Soundraw</a> - <a href="https://theresanai.com/soundraw">Review</a> - Allows users to customize music compositions based on mood and style.</p>
+  </li>
+  <li>
+    <p><a href="https://www.beatoven.ai">Beatoven.ai</a> - <a href="https://theresanai.com/beatoven-ai">Review</a> - AI-driven music generation focused on evoking specific emotions.</p>
+  </li>
+  <li>
+    <p><a href="https://www.boomy.com">Boomy</a> - <a href="https://theresanai.com/boomy">Review</a> - Democratizes music creation with quick track generation and monetization.</p>
+  </li>
+  <li>
+    <p><a href="https://www.ecrettmusic.com">Ecrett Music</a> - <a href="https://theresanai.com/ecrett-music">Review</a> - Designed for video creators, offering royalty-free music.</p>
+  </li>
+  <li>
+    <p><a href="https://www.loudly.com">Loudly</a> - <a href="https://theresanai.com/loudly">Review</a> - Combines AI music generation with a social platform for collaboration.</p>
+  </li>
+  <li>
+    <p><a href="https://www.soundful.com">Soundful</a> - <a href="https://theresanai.com/soundful">Review</a> - High-quality, royalty-free music for content creators.</p>
+  </li>
+</ul>
+
+<h3 id="marketing-ai-tools">Marketing AI Tools</h3>
+
+<p>*You can also find  more comprehensive list on <em><a href="https://github.com/mahseema/awesome-ai-tools/blob/main/marketing.md">Marketing List</a></em></p>
+
+<ul>
+  <li>
+    <p><strong><a href="https://www.jasper.ai/">Jasper AI</a></strong> - AI-powered tool for generating marketing content like blogs, emails, and ad copy.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.mutinyhq.com/">Mutiny</a></strong> - Personalization platform to improve website conversions using AI.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://clearbit.com/">Clearbit</a></strong> - Lead enrichment and data intelligence platform.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.theseventhsense.com/">Seventh Sense</a></strong> - AI tool for email send time optimization.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.smartly.io/">Smartly.io</a></strong> - Automates social media ad creation and optimization.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.adzooma.com/">Adzooma</a></strong> - AI-powered PPC campaign management platform.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.phrasee.co/">Phrasee</a></strong> - AI tool that generates optimized marketing copy.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.crimsonhexagon.com/">Crimson Hexagon</a></strong> - AI-based social media sentiment analysis platform.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.marketmuse.com/">MarketMuse</a></strong> - SEO content optimization platform using AI.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.chatfuel.com/">Chatfuel</a></strong> - AI-driven chatbot for automating customer engagement on Messenger.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://logicballs.com/">LogicBalls</a></strong> - An AI-powered writing tool to create any type of content and supercharge your productivity.</p>
+  </li>
+  <li>
+    <p><strong><a href="https://www.getrupert.com/">Rupert AI</a></strong> - AI tools for designers and marketers</p>
+  </li>
+  <li>
+    <p><strong><a href="https://personaforce.ai/">PersonaForce</a></strong> - Create and chat with AI buyer personas for smarter marketing</p>
+  </li>
+</ul>
+
+<h3 id="phone-calls">Phone Calls</h3>
+
+<ul>
+  <li>
+    <p><a href="https://aicaller.io/?ref=v">AICaller.io</a> - AICaller is a simple-to-use automated bulk calling solution that uses the latest Generative AI technology to trigger phone calls for you and get things done. It can do things like lead qualification, data gathering over phone calls, and much more. It comes with a powerful API, low cost pricing and free trial.</p>
+  </li>
+  <li>
+    <p><a href="https://cald.ai">Cald.ai</a> - AI based calling agents for outbound and inbound phone calls.</p>
+  </li>
+  <li>
+    <p><a href="https://heyrosie.com/">Rosie</a> - AI Phone Answering Service</p>
+  </li>
+</ul>
+
+<h3 id="speech">Speech</h3>
+
+<ul>
+  <li>
+    <p><a href="https://beta.elevenlabs.io/">Eleven Labs</a> - AI voice generator.</p>
+  </li>
+  <li>
+    <p><a href="https://www.resemble.ai/">Resemble AI</a> - AI voice generator and voice cloning for text to speech.</p>
+  </li>
+  <li>
+    <p><a href="https://wellsaidlabs.com/">WellSaid</a> - Convert text to voice in real time.</p>
+  </li>
+  <li>
+    <p><a href="https://play.ht/">Play.ht</a> - AI Voice Generator. Generate realistic Text to Speech voice over online with AI. Convert text to audio.</p>
+  </li>
+  <li>
+    <p><a href="https://coqui.ai/">Coqui</a> - Generative AI for Voice.</p>
+  </li>
+  <li>
+    <p><a href="https://podcast.ai/">podcast.ai</a> - A podcast that is entirely generated by artificial intelligence, powered by Play.ht text-to-voice AI.</p>
+  </li>
+  <li>
+    <p><a href="https://vallex-demo.github.io/">VALL-E X</a> - A cross-lingual neural codec language model for cross-lingual speech synthesis.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/neonbjb/tortoise-tts">TorToiSe</a> - A multi-voice text-to-speech system trained with an emphasis on quality. #opensource</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/suno-ai/bark">Bark</a> - A transformer-based text-to-audio model. #opensource</p>
+  </li>
+  <li>
+    <p><a href="https://custompod.io">CustomPod.io</a> - Generate daily news podcasts only on the topics you care about.</p>
+  </li>
+</ul>
+
+<h3 id="music">Music</h3>
+
+<ul>
+  <li>
+    <p><a href="https://www.harmonai.org/">Harmonai</a> - We are a community-driven organization releasing open-source generative audio tools to make music production more accessible and fun for everyone.</p>
+  </li>
+  <li>
+    <p><a href="https://mubert.com/">Mubert</a> - A royalty-free music ecosystem for content creators, brands and developers.</p>
+  </li>
+  <li>
+    <p><a href="https://google-research.github.io/seanet/musiclm/examples/">MusicLM</a> - A model by Google Research for generating high-fidelity music from text descriptions.</p>
+  </li>
+</ul>
+
+<h2 id="other">Other</h2>
+
+<ul>
+  <li>
+    <p><a href="https://www.taranify.com">Taranify</a> - Using AI, Taranify finds you Spotify playlists, Netflix shows, Books &amp; Foods you’d enjoy when you don’t exactly know what you want.</p>
+  </li>
+  <li>
+    <p><a href="https://diagram.com/">Diagram</a> - Magical new ways to design products.</p>
+  </li>
+  <li>
+    <p><a href="https://promptbase.com/">PromptBase</a> - A marketplace for buying and selling quality prompts for DALL·E, GPT-3, Midjourney, Stable Diffusion.</p>
+  </li>
+  <li>
+    <p><a href="https://thisimagedoesnotexist.com/">This Image Does Not Exist</a> - Test your ability to tell if an image is human or computer generated.</p>
+  </li>
+  <li>
+    <p><a href="https://haveibeentrained.com/">Have I Been Trained?</a> - Check if your image has been used to train popular AI art models.</p>
+  </li>
+  <li>
+    <p><a href="https://aidungeon.io/">AI Dungeon</a> - A text-based adventure-story game you direct (and star in) while the AI brings it to life.</p>
+  </li>
+  <li>
+    <p><a href="https://www.clickable.so/">Clickable</a> - Generate ads in seconds with AI. Beautiful, brand-consistent, and highly converting ads for all marketing channels.</p>
+  </li>
+  <li>
+    <p><a href="https://scale.com/spellbook">Scale Spellbook</a> - Build, compare, and deploy large language model apps with Scale Spellbook.</p>
+  </li>
+  <li>
+    <p><a href="https://www.scenario.com/">Scenario</a> - AI-generated gaming assets.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/danielgross/teleprompter">Teleprompter</a> - An on-device AI for your meetings that listens to you and makes charismatic quote suggestions.</p>
+  </li>
+  <li>
+    <p><a href="https://finchat.io/">FinChat</a> - Using AI, FinChat generates answers to questions about public companies and investors.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/bigscience-workshop/petals">Petals</a> - BitTorrent style platform for running AI models in a distributed way.</p>
+  </li>
+  <li>
+    <p><a href="https://shotstack.io/product/workflows/">Shotstack Workflows</a> - No-code, automation workflow tool for building Generative AI media applications.</p>
+  </li>
+  <li>
+    <p><a href="https://aispect.io/?ref=mahseema-awesome-ai-tools">Aispect</a> - New way to experience events.</p>
+  </li>
+  <li>
+    <p><a href="https://www.presspulse.ai/?ref=mahseema-awesome-ai-tools">PressPulse AI</a> - Get personalized media coverage leads every morning.</p>
+  </li>
+  <li>
+    <p><a href="https://gummysearch.com/?ref=mahseema-awesome-ai-tools">GummySearch</a> - AI-based customer research via Reddit. Discover problems to solve, sentiment on current solutions, and people who want to buy your product.</p>
+  </li>
+  <li>
+    <p><a href="https://taplio.com/?ref=mahseema-awesome-ai-tools">Taplio</a> - The all-in-one, AI-powered LinkedIn tool.</p>
+  </li>
+  <li>
+    <p><a href="https://promptpal.net">PromptPal</a> - Search for prompts and bots, then use them with your favorite AI. All in one place.</p>
+  </li>
+  <li>
+    <p><a href="https://fairytailai.com/">FairyTailAI</a> - Personalized bedtime story generator</p>
+  </li>
+  <li>
+    <p><a href="https://www.namepepper.com/free-tools/ai-content-prompt-tool">Myriad</a> - Scale your content creation and get the best writing from ChatGPT, Copilot, and other AIs. Build and fine-tune prompts for any kind of content, from long-form to ads and email.</p>
+  </li>
+  <li>
+    <p><a href="https://www.gradgpt.com/">GradGPT</a> - AI tools to simplify college applications. Review applications, draft essays, find universities and requirements and more.</p>
+  </li>
+  <li>
+    <p><a href="https://codetoflow.com">Code to Flow</a> - Visualize, Analyze, and Understand Your Code flow. Turn Code into Interactive Flowcharts with AI. Simplify Complex Logic Instantly.</p>
+  </li>
+  <li>
+    <p><a href="https://ai-flow.net/">AI-Flow</a> - Connect multiple AI models easily.</p>
+  </li>
+  <li>
+    <p><a href="https://architecturehelper.com">Architecture Helper</a> - Analyze any building architecture, and generate your own custom styles, in seconds.</p>
+  </li>
+  <li>
+    <p><a href="https://vocalreplica.com/">VocalReplica</a> - AI-Powered Vocal and Instrumental Isolation for Your Favorite Tracks</p>
+  </li>
+  <li>
+    <p><a href="https://aiweddingtoast.com">AI Wedding Toast</a> - Generate a personalized wedding speech with AI</p>
+  </li>
+  <li>
+    <p><a href="https://www.interviews.chat/">Interviews Chat</a> - Your Personal Interview Prep &amp; Copilot</p>
+  </li>
+  <li>
+    <p><a href="https://contextdata.ai/">Context Data</a> - Data Processing &amp; ETL infrastructure for Generative AI applications</p>
+  </li>
+  <li>
+    <p><a href="https://www.getezjobs.com/">ezJobs</a> - Automated job search and applications</p>
+  </li>
+  <li>
+    <p><a href="https://www.getwhys.io/compass">Compass</a> - AI driven answers to SaaS research questions</p>
+  </li>
+  <li>
+    <p><a href="https://adon-web.awakast.com/en/recruiter/">Adon AI</a> - CV screening automation and blind CV generator, AI backed ATS</p>
+  </li>
+  <li>
+    <p><a href="https://persuva.ai">Persuva</a> - Persuva is the AI-driven platform to create persuasive, high-converting ad copy at scale.</p>
+  </li>
+  <li>
+    <p><a href="https://interviewsolver.com">Interview Solver</a> - Ace your live coding interviews with our AI Copilot</p>
+  </li>
+  <li>
+    <p><a href="https://socialsonic.com">Socialsonic</a> - AI LinkedIn Coach: Personalized content, trends &amp; scheduling.</p>
+  </li>
+  <li>
+    <p><a href="https://www.napkin.ai/">Napkin</a> - Napkin turns your text into visuals so sharing your ideas is quick and effective.</p>
+  </li>
+  <li>
+    <p><a href="https://www.examsamur.ai/">Exam Samurai</a> - AI Exam Generator</p>
+  </li>
+  <li>
+    <p><a href="https://aiwatermarkremover.io/">AI Watermark Remover</a> - Remove watermarks from images and videos.</p>
+  </li>
+  <li>
+    <p><a href="https://aisaver.io">AISaver</a> - Collection of AI Powered Video and Photo Tools</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/av/harbor">Harbor</a> - run LLM backends, APIs, frontends, and services with one command</p>
+  </li>
+  <li>
+    <p><a href="https://easytolearn.io">LangMagic</a> - Learn languages from native content.</p>
+  </li>
+  <li>
+    <p><a href="https://fynk.com/">fynk</a> - AI powered contract management software</p>
+  </li>
+  <li>
+    <p><a href="https://looksmax.ai">LooksMax AI</a> - Find out how hot you are using AI</p>
+  </li>
+</ul>
+
+<h2 id="learning-resources">Learning resources</h2>
+
+<ul>
+  <li>
+    <p><a href="https://learnprompting.org/">Learn Prompting</a> - A free, open-source course on communicating with artificial intelligence.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/dair-ai/Prompt-Engineering-Guide">Prompt Engineering Guide</a> - Guide and resources for prompt engineering.</p>
+  </li>
+  <li>
+    <p><a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/">ChatGPT prompt engineering for developers</a> - A short course by Isa Fulford (OpenAI) and Andrew Ng (DeepLearning.AI).</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/openai/openai-cookbook">OpenAI Cookbook</a> - Examples and guides for using the OpenAI API.</p>
+  </li>
+  <li>
+    <p><a href="https://www.youtube.com/@RobertMilesAI">Robert Miles AI Safety</a> - Youtube channel about AI safety</p>
+  </li>
+</ul>
+
+<h2 id="learn-ai-free">Learn AI free</h2>
+
+<h3 id="machine-learning">Machine Learning</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/mrdbourke/machine-learning-roadmap">Roadmap</a> - A roadmap connecting many of the most important concepts in machine learning, how to learn them, and what tools to use to perform them.</p>
+  </li>
+  <li>
+    <p><a href="https://www.coursera.org/learn/machine-learning">Andrew Ng’s Machine Learning at Stanford University</a> -  Ng’s gentle introduction to machine learning course is perfect for engineers who want a foundational overview of key concepts in the field.</p>
+  </li>
+  <li>
+    <p><a href="https://www.udacity.com/course/intro-to-machine-learning--ud120">Sebastian Thrun’s Introduction To Machine Learning</a> - robust introduction to the subject and also the foundation for a Data Analyst “nanodegree” certification sponsored by Facebook and MongoDB.</p>
+  </li>
+  <li>
+    <p><a href="https://www.scaler.com/blog/category/artificial-intelligence-machine-learning/">AI and Machine Learning Roadmaps</a> - Roadmaps featuring essential concepts, learning methods, and the tools to put them into practice.</p>
+  </li>
+  <li>
+    <p><a href="https://www.appliedaicourse.com/blog/how-to-learn-artificial-intelligence-ai/">How To Learn Artificial Intelligence (AI)?</a> - provides a step-by-step guide for beginners to understand and develop AI skills. It covers foundational topics like programming (Python), mathematics, and machine learning, progressing to advanced concepts such as deep learning and neural networks.</p>
+  </li>
+</ul>
+
+<h3 id="deep-learning">Deep Learning</h3>
+
+<ul>
+  <li>
+    <p><a href="https://medium.com/kaggle-blog">Geoffrey Hinton’s Neural Networks For Machine Learning </a>- it is now removed from cousrea but still check these list</p>
+  </li>
+  <li>
+    <p><a href="https://www.fast.ai/">Jeremy Howard’s Fast.ai &amp; Data Institute Certificates</a> - The in-person certificate courses are not free, but all of the content is available on Fast.ai as MOOCs.</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pratham5368/coursera-deep-learning-specialization">coursera-deep-learning-specialization</a> - Notes, programming assignments and quizzes from all courses within the Coursera Deep Learning specialization offered by deeplearning.ai</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/pratham5368/Tecnologies-I-Learn/tree/main/31-pytorch">tensorflow</a> - all important notes to learn pytorch with all the examples in google colab</p>
+  </li>
+</ul>
+
+<h2 id="nvidia-platform-extensions">NVIDIA Platform Extensions</h2>
+
+<ul>
+  <li><a href="https://docs.omniverse.nvidia.com/extensions/latest/ext_animal-explorer.html#installation">NVIDIA Omniverse AI Animal Explorer Extension</a> - AI Animal Explorer is an Omniverse extension that enables creators to quickly prototype unique 3D animal meshes.</li>
+</ul>
+
+<h2 id="related-awesome-lists">Related Awesome Lists</h2>
+
+<ul>
+  <li>
+    <p><a href="https://altern.ai">Altern</a> - Find Best AI Tools</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/dariubs/awesome-ai-models">Awesome AI Models</a> - A curated list of top AI models and LLMs</p>
+  </li>
+  <li>
+    <p><a href="https://theresanai.com">There’s An AI</a> - Frontpage of AI</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/mahseema/aibooks">Awesome AI Books</a> - Curated List of Top AI and ML Books</p>
+  </li>
+  <li>
+    <p><a href="https://productivity.directory/category/ai">AI for Productivity</a> - Curated List of AI Apps for productivity</p>
+  </li>
+  <li>
+    <p><a href="https://productivity.directory/category/workflow-automation">Workflow Automation Softwares</a> - Curated List of Workflow Automation Apps And Tools</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/dariubs/awesome-workflow-automation">Awesome Workflow Automation</a> - Curated List of Workflow Automation Apps And Tools</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/marketingtoolslist/awesome-marketing">Awesome Marketing</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/xaramore/awesome-ai-seo">Awesome AI SEO</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/sarahdanesh/awesome-ai-marketing">Awesome AI Marketing</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/xaramore/awesome-ai-music">Awesome AI Music</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/xaramore/awesome-ai-image">Awesome AI Image</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/xaramore/awesome-ai-video">Awesome AI Video</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/xaramore/awesome-ai-writing">Awesome AI Writing</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/jamesmurdza/awesome-ai-devtools">Awesome AI-Powered Developer Tools</a> - Curated list of AI-powered developer tools.</p>
+  </li>
+</ul>
+
+  </div>
+
+  <!-- Article Footer -->
+  <footer class="post-footer">
+    
+
+    <div class="post-navigation">
+      
+      <a href="/gist/2025/03/11/gist-gistfile1txt.html" class="nav-link nav-prev" rel="prev">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-title">gistfile1 txt</span>
+      </a>
+      
+      
+      
+      <a href="/gist/2025/03/27/gist-eds.html" class="nav-link nav-next" rel="next">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-title">ed's</span>
+      </a>
+      
+    </div>
+
+    <!-- Social Sharing -->
+    
+    <div class="social-sharing">
+      <h4>Share this article</h4>
+      <!-- Social Sharing Component -->
+<div class="social-sharing">
+  <div class="share-buttons">
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/intent/tweet?text=AI&url=https%3A%2F%2Fdominicusin.github.io%2F2025%2F03%2F14%2Fai.html&via=dominicusin" 
+       class="share-button share-twitter" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Twitter/X">
+      <span class="share-icon">𝕏</span>
+      <span class="share-text">Twitter</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdominicusin.github.io%2F2025%2F03%2F14%2Fai.html&title=AI" 
+       class="share-button share-linkedin" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on LinkedIn">
+      <span class="share-icon">💼</span>
+      <span class="share-text">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdominicusin.github.io%2F2025%2F03%2F14%2Fai.html" 
+       class="share-button share-facebook" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Facebook">
+      <span class="share-icon">📘</span>
+      <span class="share-text">Facebook</span>
+    </a>
+
+    <!-- Reddit -->
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fdominicusin.github.io%2F2025%2F03%2F14%2Fai.html&title=AI" 
+       class="share-button share-reddit" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Reddit">
+      <span class="share-icon">🤖</span>
+      <span class="share-text">Reddit</span>
+    </a>
+
+    <!-- Hacker News -->
+    <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fdominicusin.github.io%2F2025%2F03%2F14%2Fai.html&t=AI" 
+       class="share-button share-hackernews" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Hacker News">
+      <span class="share-icon">🍊</span>
+      <span class="share-text">Hacker News</span>
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-button share-copy" 
+            onclick="copyToClipboard('https://dominicusin.github.io/2025/03/14/ai.html', this)"
+            title="Copy link to clipboard">
+      <span class="share-icon">📋</span>
+      <span class="share-text">Copy</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function copyToClipboard(text, button) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopySuccess(button);
+    }).catch(() => {
+      fallbackCopy(text, button);
+    });
+  } else {
+    fallbackCopy(text, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  textArea.style.top = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    document.execCommand('copy');
+    showCopySuccess(button);
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    showCopyError(button);
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+function showCopySuccess(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Copied!';
+  button.classList.add('copied');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('copied');
+  }, 2000);
+}
+
+function showCopyError(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Error!';
+  button.classList.add('error');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('error');
+  }, 2000);
+}
+</script>
+
+<style>
+.social-sharing {
+  margin: 2rem 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.share-button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.share-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.share-button.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.share-button.error {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.share-twitter:hover {
+  background: #1da1f2;
+  color: white;
+  border-color: #1da1f2;
+}
+
+.share-linkedin:hover {
+  background: #0077b5;
+  color: white;
+  border-color: #0077b5;
+}
+
+.share-facebook:hover {
+  background: #1877f2;
+  color: white;
+  border-color: #1877f2;
+}
+
+.share-reddit:hover {
+  background: #ff4500;
+  color: white;
+  border-color: #ff4500;
+}
+
+.share-hackernews:hover {
+  background: #ff6600;
+  color: white;
+  border-color: #ff6600;
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-text {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .share-button {
+    justify-content: center;
+  }
+}
+</style>
+    </div>
+    
+  </footer>
+
+  <!-- Related Posts -->
+  
+  <section class="related-posts">
+    <h3>Related Articles</h3>
+    <div class="post-grid">
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2026/08/14/deep-refactoring-plan/">Deep Refactoring Plan: A Comprehensive Guide</a></h4>
+          <time datetime="2026-08-14T07:00:00+00:00">August 14, 2026</time>
+        </header>
+        
+        <p>Deep Refactoring Plan: A Comprehensive Guide
+</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/29/graph.html">Graph</a></h4>
+          <time datetime="2025-12-29T20:01:00+00:00">December 29, 2025</time>
+        </header>
+        
+        <p>
+
+
+
+    
+        Filters
+        
+         Markup Languages
+         TeX/LaTeX
+         Office Formats
+         E-boo...</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/23/awesome-plan9.html">Awesome Plan9</a></h4>
+          <time datetime="2025-12-23T09:37:00+00:00">December 23, 2025</time>
+        </header>
+        
+        <p>Awesome Plan9
+</p>
+        
+      </article>
+      
+    </div>
+  </section>
+  
+
+  <!-- Comments Section -->
+  
+  <section class="comments-section">
+    <h3>Comments</h3>
+    <!-- Comments Section -->
+<div class="comments-section">
+  <div id="disqus_thread" data-disqus-shortname=""></div>
+  
+  <noscript>
+    <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+  </noscript>
+  
+  <!-- Alternative comment systems can be added here -->
+  <div class="alternative-comments" style="display: none;">
+    <h4>Comments</h4>
+    <p>Join the discussion on this post:</p>
+    
+    <!-- GitHub Issues as comments -->
+    
+    
+    <!-- Manual comment form -->
+    <form class="comment-form" action="#" method="post" onsubmit="handleCommentSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email (optional)</label>
+        <input type="email" id="email" name="email">
+      </div>
+      
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Post Comment</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Disqus integration
+if (window.DISQUS) {
+  DISQUS.reset({
+    reload: true,
+    config: function () {
+      this.page.identifier = "/2025/03/14/ai.html";
+      this.page.url = "https://dominicusin.github.io/2025/03/14/ai.html";
+    }
+  });
+} else {
+  const disqus_config = function () {
+    this.page.url = "https://dominicusin.github.io/2025/03/14/ai.html";
+    this.page.identifier = "/2025/03/14/ai.html";
+  };
+  
+  (function() {
+    const d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+}
+
+// Fallback comment handler
+function handleCommentSubmit(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const comment = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    comment: formData.get('comment'),
+    page: "/2025/03/14/ai.html",
+    timestamp: new Date().toISOString()
+  };
+  
+  // Store comment locally (in a real implementation, send to server)
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  comments.push(comment);
+  localStorage.setItem('comments', JSON.stringify(comments));
+  
+  // Show success message
+  showCommentSuccess();
+  
+  // Reset form
+  event.target.reset();
+}
+
+function showCommentSuccess() {
+  const message = document.createElement('div');
+  message.className = 'comment-success';
+  message.textContent = 'Thank you for your comment! It will appear after moderation.';
+  
+  const form = document.querySelector('.comment-form');
+  form.parentNode.insertBefore(message, form);
+  
+  setTimeout(() => {
+    message.remove();
+  }, 5000);
+}
+
+// Load stored comments if Disqus is not available
+if (!window.DISQUS && !document.querySelector('#disqus_thread script')) {
+  setTimeout(() => {
+    const altComments = document.querySelector('.alternative-comments');
+    if (altComments) {
+      altComments.style.display = 'block';
+      loadStoredComments();
+    }
+  }, 2000);
+}
+
+function loadStoredComments() {
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  const pageComments = comments.filter(c => c.page === "/2025/03/14/ai.html");
+  
+  if (pageComments.length > 0) {
+    const commentsContainer = document.createElement('div');
+    commentsContainer.className = 'stored-comments';
+    
+    pageComments.forEach(comment => {
+      const commentElement = createCommentElement(comment);
+      commentsContainer.appendChild(commentElement);
+    });
+    
+    const altComments = document.querySelector('.alternative-comments');
+    altComments.appendChild(commentsContainer);
+  }
+}
+
+function createCommentElement(comment) {
+  const element = document.createElement('div');
+  element.className = 'stored-comment';
+  element.innerHTML = `
+    <div class="comment-header">
+      <strong>${comment.name}</strong>
+      <span class="comment-date">${new Date(comment.timestamp).toLocaleDateString()}</span>
+    </div>
+    <div class="comment-body">${comment.comment}</div>
+  `;
+  return element;
+}
+</script>
+
+<style>
+.comments-section {
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-primary);
+}
+
+#disqus_thread {
+  margin-bottom: 2rem;
+}
+
+.alternative-comments {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-primary);
+  border-radius: 0.375rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.submit-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.comment-success {
+  background: #10b981;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stored-comments {
+  margin-top: 2rem;
+}
+
+.stored-comment {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.comment-body {
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.github-comments {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.github-comments a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #24292e;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.github-comments a:hover {
+  background: #30363d;
+}
+
+@media (max-width: 768px) {
+  .comment-form {
+    padding: 1rem;
+  }
+  
+  .comments-section {
+    padding: 1rem 0;
+  }
+}
+</style>
+  </section>
+  
+</article>
+
+<!-- Structured Data for Comments -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Comment",
+  "url": "https://dominicusin.github.io/2025/03/14/ai.html#comments",
+  "about": {
+    "@type": "BlogPosting",
+    "@id": "https://dominicusin.github.io/2025/03/14/ai.html#blogposting"
+  },
+  "discussionUrl": "https://dominicusin.github.io/2025/03/14/ai.html#comments",
+  "author": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  }
+}
+</script>
+
+
+<!-- Structured Data for BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://dominicusin.github.io"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://dominicusin.github.io/"
+    },
+    
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "AI",
+      "item": "https://dominicusin.github.io/2025/03/14/ai.html"
+    }
+    
+  ]
+}
+</script>
+  </main>
+
+  <footer class="mt-24 border-t bg-surface">
+  <div class="container-wide py-14">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface-2 font-mono text-sm font-bold text-primary">DI</span>
+          <span class="font-mono text-sm font-semibold text-foreground">Engineering Blog</span>
+        </div>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.
+</p>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Connect</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          
+          <li>
+            <a href="https://github.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://orcid.org/0000-0002-7425-0526" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <span class="font-mono text-xs">ORCID</span>
+              <span>0000-0002-7425-0526</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Subscribe</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href="/feed.xml" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              RSS Feed
+            </a>
+          </li>
+          <li>
+            <a href="/archive/" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground" data-i18n="recent_posts.all_articles">Все статьи</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-subtle sm:flex-row">
+      <p>&copy; 2026 Engineering Blog. All rights reserved.</p>
+      <p class="font-mono">Built with Jekyll · Tailwind CSS</p>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Structured Data -->
+  <!-- Enhanced Structured Data for Blog Post -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "navigation.home",
+          "item": "https://dominicusin.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI",
+          "item": "https://dominicusin.github.io/2025/03/14/ai.html"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "AI",
+      "description": "conversational AI - All-in-one tools - AI Search Engine - writing tools - video tools - audio tools - images tools - commerce &amp;amp; marketing tools - design tools - Coding tools - color tools - miscellaneous",
+      "image": [
+        
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Dominicus In",
+        "url": "https://dominicusin.github.io/about/",
+        "sameAs": [
+          "https://github.com/dominicusin",
+          "https://twitter.com/dominicusin",
+          "https://orcid.org/0000-0002-7425-0526"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Engineering Blog",
+        "url": "https://dominicusin.github.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://dominicusin.github.io/assets/images/logo.png",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "datePublished": "2025-03-14T13:43:00+00:00",
+      "dateModified": "2025-03-14T13:43:00+00:00",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://dominicusin.github.io/2025/03/14/ai.html"
+      },
+      "wordCount": 9166,
+      "keywords": "",
+      "inLanguage": "ru",
+      "isAccessibleForFree": "True",
+      "articleSection": "Technology",
+      
+      "url": "https://dominicusin.github.io/2025/03/14/ai.html",
+      "potentialAction": {
+        "@type": "ReadAction",
+        "target": "https://dominicusin.github.io/2025/03/14/ai.html"
+      }
+    }
+  ]
+}
+</script>
+
+
+<!-- Enhanced Structured Data for Homepage -->
+
+
+<!-- Structured Data for Category Pages -->
+
+
+<!-- Website Performance Monitoring -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "AI",
+  "description": "conversational AI - All-in-one tools - AI Search Engine - writing tools - video tools - audio tools - images tools - commerce &amp;amp; marketing tools - design tools - Coding tools - color tools - miscellaneous",
+  "url": "https://dominicusin.github.io/2025/03/14/ai.html",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Engineering Blog",
+    "url": "https://dominicusin.github.io"
+  },
+  "dateModified": "2026-08-15T01:01:47+00:00",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "navigation.home",
+        "item": "https://dominicusin.github.io/"
+      }
+      
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "AI",
+        "item": "https://dominicusin.github.io/2025/03/14/ai.html"
+      }
+      
+    ]
+  }
+}
+</script>
+
+  <!-- Refactored ES module bundle -->
+  <script type="module" src="https://dominicusin.github.io/js/refactored-bundle.js"></script>
+
+  <!-- Analytics -->
+  
+
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://dominicusin.github.io/sw.js')
+          .then(() => console.log('SW registered'))
+          .catch(() => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>

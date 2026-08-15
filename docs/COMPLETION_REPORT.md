@@ -10,14 +10,14 @@ session; items the plan gates behind human approval are marked **DEFERRED**
 | # | Criterion | Status | Evidence |
 |---|---|---|---|
 | A1 | Lint clean (eslint 9 flat) | ✅ | `npm run lint` → exit 0 |
-| A2 | Unit tests pass | ✅ | jest **248 passed / 248** (19 suites) |
+| A2 | Unit tests pass | ✅ | jest **277 passed / 277** (21 suites) |
 | A3 | Smart-contract tests pass | ✅ | hardhat **9 passing / 9** |
 | A4 | DAO security audit | ✅ | `node scripts/audit-dao.cjs` → PASSED |
 | A5 | Production build valid | ✅ | `NODE_ENV=production node build.js` → 32 entries, sum 231,731 B verified |
 | A6 | Bundle within budget | ✅ | 89,487 B ≤ 100 KiB ceiling (CI gate pass) |
 | A7 | Branch protection on `main` | ✅ | `gh api …/protection` → checks `test`,`build`; force-push off |
-| A8 | Coverage **measured** (instrumented) | ✅ | c8: lines 36.74% / branch 63.07% / funcs 72.34% |
-| A9 | Coverage **gate established** in CI | ✅ | `coverage` job with `--check-coverage` floor in ci-cd.yml |
+| A8 | Coverage **measured** (instrumented) | ✅ | c8: lines 41.93% / branch 64.07% / funcs 72.15% |
+| A9 | Coverage **gate established** in CI | ✅ | `coverage` job with `--check-coverage` floor (lines 41 / branch 64 / funcs 72) in ci-cd.yml |
 | A10 | a11y (axe) + security in CI | ✅ | present in `test` job + `security.yml` (npm audit, Semgrep, bundle audit) |
 
 ## B. Documentation & governance
@@ -37,7 +37,7 @@ session; items the plan gates behind human approval are marked **DEFERRED**
 
 | # | Criterion | Status | Why |
 |---|---|---|---|
-| C1 | **≥85% branch coverage** | ❌ PARTIAL | Measured 63.07% branch. Gap is in large DOM/network-bound services (rum 808 LOC, vr-export 637, pwa 625, image-optimizer 570, social-sharing 578, assistant-ui 387, ai-i18n 328, link-repair-agent 414) that have **no jsdom/E2E harness**. Reaching 85% requires the plan's Phase 4.4 Playwright layer, which is **not yet built**. The gate is established at a no-regression floor instead of the aspirational 85%. |
+| C1 | **≥85% branch coverage** | ❌ PARTIAL | Measured **64.07%** branch / 41.93% line (lifted from 63.07%/36.74% this session by adding suites for `ai-i18n-service` 73% and `link-repair-agent` 79% on top of the website redesign PR #42). `vector-search-service` has a rewritten unit suite that is **quarantined** in jest.config.js (its import-time Worker is not jsdom-safe), so that module stays ~0% in CI. Remaining gap is in large DOM/network-bound services (rum 808 LOC, vr-export 637, pwa 625, image-optimizer 570, social-sharing 578, assistant-ui 387, `index.js` 217) with no jsdom/E2E harness. Reaching 85% requires the plan's Phase 4.4 Playwright layer, **not yet built**. The gate is a no-regression floor (lines 41 / branch 64 / funcs 72) instead of the aspirational 85%. |
 | C2 | Code-splitting of heavy deps | ❌ DEFERRED | Lazy-loading Lunr.js / i18n is a behavior-affecting change to `index.js` bootstrap → gated behind human sign-off (Phase 7). The **budget gate** is in place; the split itself is documented as the remediation path. |
 | C3 | `logger.js` / `errors.js` / barrel files | ❌ DEFERRED | Creating them without refactoring ~20 modules to import them would add **dead code** (violating the no-dead-code principle just documented). Deferred to a dedicated, behavior-preserving refactor branch. |
 | C4 | Legacy `js/*.js` removal (Strangler-Fig) | ❌ DEFERRED | Behavior-affecting; requires a usage-measurement window + feature flag. Procedure defined in `docs/OPERATIONS.md`. |

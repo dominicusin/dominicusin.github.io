@@ -10,7 +10,7 @@ on:
     - cron: '0 2 * * *'
 
 env:
-  NODE_VERSION: '22'
+  NODE_VERSION: '24'
   RUBY_VERSION: '3.1'
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
         df -h /
 
     - name: 📥 Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
@@ -45,7 +45,7 @@ jobs:
         bundler-cache: true
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -92,12 +92,12 @@ jobs:
     needs: test
     steps:
       - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -110,12 +110,12 @@ jobs:
             --all --include='src/**/*.js' \
             --exclude='src/**/*.test.js' --exclude='src/workers/**' \
             --check-coverage \
-            --lines 35 --branches 62 --functions 70 --statements 36 \
+            --lines 41 --branches 64 --functions 72 --statements 41 \
             npx jest --config jest.config.js --coverage=false
 
       - name: 📤 Upload coverage report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: |
@@ -134,12 +134,12 @@ jobs:
 
     steps:
     - name: 📥 Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -151,7 +151,7 @@ jobs:
 
     - name: 🕸️ Upload Knowledge Graph
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: knowledge-graph
         path: assets/data/knowledge-graph.json
@@ -178,7 +178,7 @@ jobs:
         df -h /
 
     - name: 📥 Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: 💎 Setup Ruby
       uses: ruby/setup-ruby@v1
@@ -187,7 +187,7 @@ jobs:
         bundler-cache: true
 
     - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -197,7 +197,7 @@ jobs:
         bundle install --jobs=4 --retry=3
 
     - name: 🗂️ Cache Jekyll Dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: |
           .bundle
@@ -236,7 +236,7 @@ jobs:
         npm run report:build
 
     - name: 📦 Upload Build Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: site-build
         path: _site/
@@ -263,7 +263,7 @@ jobs:
         df -h /
 
     - name: 📥 Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: 🔍 Run Trivy Vulnerability Scanner
       uses: aquasecurity/trivy-action@master
@@ -301,7 +301,7 @@ jobs:
         df -h /
 
     - name: 📥 Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: 🌐 Lighthouse CI
       uses: treosh/lighthouse-ci-action@v12
@@ -317,7 +317,7 @@ jobs:
         npm run check:web-vitals
 
     - name: 📊 Performance Report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: performance-report
