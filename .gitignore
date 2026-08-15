@@ -1,44 +1,59 @@
 ```
+# Build artifacts
+build/
+dist/
+*.o
+*.obj
+*.out
+
 # Dependencies
 node_modules/
+vendor/
 
-# Test coverage
-coverage/
-.nyc_output/
-.jest/
-
-# Logs
+# Logs and temporary files
 *.log
+*.tmp
+*.swp
 
-# Environment variables
+# Environment
 .env
 .env.local
 *.env.*
 
-# IDE files
+# Editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS generated files
+# OS specific
 .DS_Store
 Thumbs.db
 
-# Build artifacts
-dist/
-build/
-target/
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
 
-# Python cache
+# Python specific
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+.Python
+*.so
 
-# Temporary files
-*.tmp
-*.temp
+# JavaScript specific
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Compressed files
+# Compiled CSS/JS
+*.min.css
+*.min.js
+*.bundle.js
+
+# Compression files
 *.zip
 *.gz
 *.tar
@@ -61,8 +76,4 @@ __pycache__/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-
 ```
-# Hardhat build artifacts
-artifacts_hardhat/
-cache_hardhat/

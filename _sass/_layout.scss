@@ -364,16 +364,16 @@
  */
 .hero {
     text-align: center;
-    padding: $spacing-unit * 3.5 $spacing-unit;
-    background: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
-    background-size: 300% 300%;
-    animation: gradientShift 20s ease infinite;
+    padding: $spacing-unit * 4 $spacing-unit;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 25%, #a855f7 50%, #ec4899 75%, #f43f5e 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     color: white;
-    margin: (-$spacing-unit) (-$spacing-unit) $spacing-unit * 2.5;
-    @include border-radius(0 0 32px 32px);
+    margin: (-$spacing-unit) (-$spacing-unit) $spacing-unit * 3;
+    @include border-radius(0 0 40px 40px);
     position: relative;
     overflow: hidden;
-    @include box-shadow(0 10px 40px rgba(65, 88, 208, 0.2));
+    @include box-shadow(0 20px 60px rgba(79, 70, 229, 0.3));
 
     &::before {
         content: '';
@@ -382,9 +382,12 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-        animation: float 20s ease-in-out infinite;
+        background: 
+            radial-gradient(circle at 15% 30%, rgba(99, 102, 241, 0.2) 0%, transparent 40%),
+            radial-gradient(circle at 85% 70%, rgba(236, 72, 153, 0.2) 0%, transparent 40%),
+            radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+        animation: float 25s ease-in-out infinite;
+        filter: blur(40px);
     }
 
     &::after {
@@ -393,8 +396,8 @@
         bottom: -2px;
         left: 0;
         right: 0;
-        height: 150px;
-        background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+        height: 180px;
+        background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
         pointer-events: none;
     }
 }
@@ -487,39 +490,38 @@
 .hero-shape {
     position: absolute;
     @include border-radius(50%);
-    filter: blur(60px);
-    opacity: 0.3;
-    animation: floatShape 20s ease-in-out infinite;
+    filter: blur(80px);
+    opacity: 0.25;
+    animation: floatShape 25s ease-in-out infinite;
 
     &-1 {
-        width: 300px;
-        height: 300px;
-        background: rgba(255, 204, 112, 0.4);
-        top: -100px;
-        right: -100px;
+        width: 400px;
+        height: 400px;
+        background: rgba(99, 102, 241, 0.3);
+        top: -150px;
+        right: -150px;
         animation-delay: 0s;
     }
 
     &-2 {
-        width: 400px;
-        height: 400px;
-        background: rgba(200, 80, 192, 0.3);
-        bottom: -150px;
-        left: -100px;
-        animation-delay: -7s;
+        width: 500px;
+        height: 500px;
+        background: rgba(236, 72, 153, 0.25);
+        bottom: -200px;
+        left: -150px;
+        animation-delay: -8s;
     }
 
     &-3 {
-        width: 250px;
-        height: 250px;
-        background: rgba(65, 88, 208, 0.4);
+        width: 350px;
+        height: 350px;
+        background: rgba(168, 85, 247, 0.3);
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        animation-delay: -14s;
+        animation-delay: -16s;
     }
 }
-
 @keyframes floatShape {
     0%, 100% {
         transform: translate(0, 0) scale(1);
