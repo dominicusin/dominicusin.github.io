@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" class="bg-background">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Prevent theme flash: apply stored/preferred theme before paint -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('blog-theme');
+        var theme = stored || 'dark';
+        if (theme === 'auto') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
+  <title>Prepare my Windows workstation | Engineering Blog</title>
+  <meta name="description" content="Prepare my Windows workstation">
+  <meta name="author" content="Dominicus In">
+  <meta name="keywords" content="">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="ru">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Prepare my Windows workstation">
+  <meta property="og:description" content="Prepare my Windows workstation">
+  <meta property="og:url" content="https://dominicusin.github.io/2017/11/05/Winworkstation.html">
+  <meta property="og:site_name" content="Engineering Blog">
+  <meta property="og:image" content="https://dominicusin.github.io/assets/images/og-default.jpg">
+
+  
+  <meta property="article:published_time" content="2017-11-05T23:27:00+00:00">
+  <meta property="article:modified_time" content="2017-11-05T23:27:00+00:00">
+  <meta property="article:author" content="Dominicus In">
+  
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dominicusin">
+  <meta name="twitter:title" content="Prepare my Windows workstation">
+  <meta name="twitter:description" content="Prepare my Windows workstation">
+
+  <meta name="theme-color" content="#0a0c11">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dominicusin.github.io/2017/11/05/Winworkstation.html">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Engineering Blog" href="https://dominicusin.github.io/feed.xml">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://dominicusin.github.io/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="https://dominicusin.github.io/favicon.ico">
+  <link rel="apple-touch-icon" href="https://dominicusin.github.io/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://dominicusin.github.io/css/tailwind.css">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="https://dominicusin.github.io/manifest.json">
+</head>
+
+<body class="layout-post min-h-screen flex flex-col no-js">
+  <script>
+    document.body.classList.remove('no-js');
+    document.body.classList.add('js');
+  </script>
+
+  <!-- Skip to main content link -->
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+     data-i18n="accessibility.skip_to_content">Skip to Content</a>
+
+  <header class="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md" role="banner">
+  <div class="container-wide flex h-16 items-center justify-between gap-4">
+    <!-- Logo/Home link -->
+    <a class="site-title group flex items-center gap-2.5" href="https://dominicusin.github.io/"
+       aria-label="Engineering Blog - Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface font-mono text-sm font-bold text-primary">DI</span>
+      <span class="site-logo font-mono text-sm font-semibold tracking-tight text-foreground" data-i18n="site.title">Engineering Blog</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="site-nav flex items-center gap-1" role="navigation" aria-label="Основная навигация">
+      <div class="nav-desktop hidden items-center gap-1 md:flex">
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/"
+             data-i18n="navigation.home">
+            Home
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/about/"
+             data-i18n="navigation.about">
+            About
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/archive/"
+             data-i18n="navigation.archive">
+            Archive
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/categories/"
+             data-i18n="navigation.categories">
+            Categories
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/tags/"
+             data-i18n="navigation.tags">
+            Tags
+          </a>
+        
+      </div>
+
+      <div class="mx-1 hidden h-5 w-px bg-border md:block"></div>
+
+      <!-- Semantic Search trigger (Vector B) -->
+      <button class="search-trigger" type="button" aria-label="Открыть семантический поиск" data-open-semantic-search>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <span class="hidden sm:inline" data-i18n="navigation.search">Поиск</span>
+        <kbd class="search-trigger__kbd">Alt K</kbd>
+      </button>
+
+      <!-- Theme Toggle (rendered by theme-manager JS) -->
+      <div class="theme-toggle theme-toggle--header"></div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle inline-flex h-9 w-9 items-center justify-center rounded-lg border bg-surface text-muted transition-colors hover:text-foreground md:hidden"
+              type="button"
+              aria-label="Переключить меню навигации"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              data-mobile-toggle>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden border-t bg-surface md:!hidden" role="navigation" aria-label="Мобильная навигация" data-mobile-menu>
+    <div class="container-wide flex flex-col gap-1 py-4">
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/"
+           data-i18n="navigation.home">
+          Home
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/about/"
+           data-i18n="navigation.about">
+          About
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/archive/"
+           data-i18n="navigation.archive">
+          Archive
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/categories/"
+           data-i18n="navigation.categories">
+          Categories
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/tags/"
+           data-i18n="navigation.tags">
+          Tags
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('[data-mobile-toggle]');
+    var menu = document.querySelector('[data-mobile-menu]');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  })();
+</script>
+
+
+  <!-- Semantic Search Modal (Vector B UI) -->
+  <!-- Semantic Search Modal -->
+<div id="semantic-search-modal" class="ai-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="ai-modal__overlay" data-close-modal></div>
+  <div class="ai-modal__container">
+    <div class="ai-modal__header">
+      <h2 id="modal-title" class="ai-modal__title">
+        <svg class="ai-modal__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+        </svg>
+        Semantic Search
+      </h2>
+      <button class="ai-modal__close" data-close-modal aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-modal__body">
+      <!-- Search Mode Toggle -->
+      <div class="search-mode-toggle">
+        <button class="mode-btn active" data-mode="hybrid" title="Hybrid Search (Keyword + Vector)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Hybrid
+        </button>
+        <button class="mode-btn" data-mode="vector" title="Vector Search (Semantic)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Vector
+        </button>
+        <button class="mode-btn" data-mode="keyword" title="Keyword Search (Traditional)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8M8 12h8M8 16h4"></path>
+          </svg>
+          Keyword
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          id="semantic-search-input" 
+          class="search-input" 
+          placeholder="Ask in natural language... (e.g., 'How do I optimize React performance?')"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="search-status" id="search-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Ready</span>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div class="search-results" id="search-results">
+        <!-- Skeleton loader -->
+        <div class="results-skeleton" id="results-skeleton" hidden>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+        </div>
+
+        <!-- Results will be injected here -->
+        <div class="results-placeholder" id="results-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <p>Enter your query to find semantically relevant content</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-modal__footer">
+      <div class="search-info">
+        <span class="info-label">Model:</span>
+        <span class="info-value" id="model-info">all-MiniLM-L6-v2</span>
+        <span class="info-divider">|</span>
+        <span class="info-label">Index:</span>
+        <span class="info-value" id="index-info">0 posts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Result Item Template (for JS rendering) -->
+<template id="result-item-template">
+  <article class="search-result-item">
+    <div class="result-header">
+      <h3 class="result-title"></h3>
+      <div class="relevance-badge">
+        <span class="relevance-score"></span>
+        <span class="relevance-label">Relevance</span>
+      </div>
+    </div>
+    <p class="result-excerpt"></p>
+    <div class="result-meta">
+      <span class="result-date"></span>
+      <span class="result-category"></span>
+    </div>
+    <a class="result-link" href="#">Read more →</a>
+  </article>
+</template>
+
+
+  <main id="main-content" class="flex-1" aria-label="Content">
+    <!-- Structured Data for Blog Post -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://dominicusin.github.io/2017/11/05/Winworkstation.html#blogposting",
+  "url": "https://dominicusin.github.io/2017/11/05/Winworkstation.html",
+  "name": "Prepare my Windows workstation",
+  "headline": "Prepare my Windows workstation",
+  "description": "Prepare my Windows workstation",
+  "datePublished": "2017-11-05T23:27:00+00:00",
+  "dateModified": "2017-11-05T23:27:00+00:00",
+  "author": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In",
+    "url": "https://dominicusin.github.io/about/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In"
+  },
+  "inLanguage": en,
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "https://dominicusin.github.io#blog"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://dominicusin.github.io/2017/11/05/Winworkstation.html"
+  },
+  "wordCount": 2608,
+  "keywords": [
+    
+  ],
+  "articleSection": "Technology",
+  "image": [
+    
+    "https://dominicusin.github.io/assets/images/default-blog-image.jpg"
+    
+  ],
+  "thumbnailUrl": "https://dominicusin.github.io/assets/images/default-blog-image.jpg",
+  "genre": [
+    
+  ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Software Engineering"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Web Development"
+    }
+  ],
+  "mentions": [
+    
+  ]
+}
+</script>
+
+<!-- Article Header -->
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      
+      
+      <time class="post-date" datetime="2017-11-05T23:27:00+00:00">
+        November 05, 2017
+        
+      </time>
+      
+      
+      <span class="post-author">by Dominicus In</span>
+      
+    </div>
+    
+    <h1 class="post-title">Prepare my Windows workstation</h1>
+    
+    
+    
+    
+    <p class="post-excerpt"><h1 id="prepare-my-windows-workstation">Prepare my Windows workstation</h1>
+</p>
+    
+  </header>
+
+  <!-- Table of Contents -->
+  
+
+  <!-- Article Content -->
+  <div class="post-content">
+    <h1 id="prepare-my-windows-workstation">Prepare my Windows workstation</h1>
+
+<h2 id="identification">Identification</h2>
+
+<ul>
+  <li>Name: HP Z210 Convertible Minitower Base Model Workstation</li>
+  <li>Model #: XM856AV</li>
+  <li>Serial #: CZC13941PV</li>
+</ul>
+
+<h3 id="windows-10-light">Windows 10 “Light”</h3>
+
+<p><a href="https://www.microsoft.com/en-us/software-download/windows10">Download Windows 10 ISO tool from Microsoft</a></p>
+
+<p>Windows phone activation: <code class="language-plaintext highlighter-rouge">slui.exe 4</code></p>
+
+<p><a href="https://fix10.isleaked.com/">Settings / Privacy</a></p>
+
+<p>Reinstall all Apps:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Get-AppxPackage</span><span class="w"> </span><span class="nt">-AllUsers</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kr">Foreach</span><span class="w"> </span><span class="p">{</span><span class="n">Add-AppxPackage</span><span class="w"> </span><span class="nt">-DisableDevelopmentMode</span><span class="w"> </span><span class="nt">-Register</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">InstallLocation</span><span class="si">)</span><span class="s2">\AppXManifest.xml"</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Remove an App:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Get-AppxPackage</span><span class="w"> </span><span class="o">*</span><span class="nx">skypeapp</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Remove-AppxPackage</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">:: Determines how long the system waits for services to stop after notifying the service that the system is shutting down</span>
+<span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\SYSTEM\CurrentControlSet\Control"</span> <span class="na">/v </span><span class="s2">"WaitToKillServiceTimeout"</span> <span class="na">/d </span><span class="m">20000</span> <span class="na">/f
+
+</span><span class="c">:: Remove Windows Spying</span>
+<span class="c">:: https://github.com/Nummer/Destroy-Windows-10-Spying</span>
+
+<span class="c">:: Remove all built-in Apps</span>
+<span class="c">:: http://www.thewindowsclub.com/ultimate-windows-tweaker-4-windows-10</span>
+
+<span class="c">:: Remove OneDrive</span>
+<span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\Software\Policies\Microsoft\Windows"</span> <span class="na">/v </span><span class="s2">"DisableFileSyncNGSC"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">1</span> <span class="na">/f
+</span><span class="nb">taskkill</span> <span class="na">/f /im </span><span class="kd">OneDrive</span><span class="err">.exe</span>
+<span class="nv">%SystemRoot%</span>\SysWOW64\OneDriveSetup.exe <span class="na">/uninstall
+</span><span class="nb">rd</span> <span class="s2">"</span><span class="nv">%UserProfile%</span><span class="s2">\OneDrive"</span> <span class="na">/Q /S
+</span><span class="nb">rd</span> <span class="s2">"</span><span class="nv">%LocalAppData%</span><span class="s2">\Microsoft\OneDrive"</span> <span class="na">/Q /S
+</span><span class="nb">rd</span> <span class="s2">"</span><span class="nv">%ProgramData%</span><span class="s2">\Microsoft OneDrive"</span> <span class="na">/Q /S
+</span><span class="nb">rd</span> <span class="s2">"C:\OneDriveTemp"</span> <span class="na">/Q /S
+</span><span class="nb">reg</span> <span class="kd">DELETE</span> <span class="s2">"HKCR\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"</span> <span class="na">/f
+</span><span class="nb">reg</span> <span class="kd">DELETE</span> <span class="s2">"HKCR\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}"</span> <span class="na">/f
+
+</span><span class="c">:: Remove Defender</span>
+<span class="c">:: Open Task Manager, select Startup tab, right click on "Windows Defender notification icon", click Disable</span>
+<span class="c">:: GPO: Computer Configuration &gt; Administrative Templates &gt; Windows Components &gt; Windows Defender</span>
+<span class="c">:: reg QUERY "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /d 1 /f</span>
+<span class="c">:: C:\Program Files\Windows Defender\MSASCui.exe</span>
+<span class="c">:: https://www.raymond.cc/blog/how-to-disable-uninstall-or-remove-windows-defender-in-vista/</span>
+<span class="s2">"C:\Program Files\Windows Defender\mpcmdrun"</span> <span class="na">-removedefinitions -all
+</span><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\SOFTWARE\Policies\Microsoft\Windows Defender"</span> <span class="na">/v </span><span class="s2">"DisableAntiSpyware"</span> <span class="na">/T </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">1</span> <span class="na">/f
+</span><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\SYSTEM\CurrentControlSet\Services\SecurityHealthService"</span> <span class="na">/v </span><span class="s2">"Start"</span> <span class="na">/d </span><span class="m">3</span> <span class="na">/f
+</span><span class="nb">shutdown</span> <span class="na">/t </span><span class="m">0</span> <span class="na">/r
+</span><span class="c">:: Reboot to KNOPPIX (hit F8-F8-F8)</span>
+    <span class="kd">ntfs</span><span class="o">-</span><span class="m">3</span><span class="kd">g</span>.real <span class="na">/dev/sda</span><span class="m">1</span> <span class="na">/mnt
+    </span><span class="kd">mv</span> <span class="s2">"/mnt/Program Files/Windows Defender"</span> <span class="s2">"/mnt/Program Files/_Windows Defender"</span>
+    :: <span class="kd">Dummy</span> <span class="kd">file</span> <span class="kd">to</span> <span class="kd">prevent</span> <span class="kd">folder</span> <span class="kd">recreation</span>
+    <span class="nb">touch</span> <span class="s2">"/mnt/Program Files/Windows Defender"</span>
+<span class="c">:: @FIXME Remove services, drivers: WdFilter.sys, WdNisDrv.sys</span>
+<span class="c">rem sc delete WinDefend</span>
+<span class="c">rem sc delete WdNisSvc</span>
+
+<span class="c">:: Disable SSDP Discovery service (enumerates UPnP devices)</span>
+<span class="nb">sc</span> <span class="kd">stop</span> <span class="kd">SSDPSRV</span>
+<span class="nb">sc</span> <span class="kd">config</span> <span class="kd">SSDPSRV</span> <span class="nb">start</span><span class="o">=</span> <span class="kd">disabled</span>
+
+<span class="c">:: Disable Remote Registry service</span>
+<span class="nb">sc</span> <span class="kd">stop</span> <span class="kd">RemoteRegistry</span>
+<span class="nb">sc</span> <span class="kd">config</span> <span class="kd">RemoteRegistry</span> <span class="nb">start</span><span class="o">=</span> <span class="kd">disabled</span>
+
+<span class="c">:: Check drivers</span>
+<span class="c">:: http://www.nirsoft.net/utils/driverview.html</span>
+<span class="nb">sc</span> <span class="nb">query</span> <span class="nb">type</span><span class="o">=</span> <span class="kd">driver</span> <span class="o">|</span> <span class="nb">find</span> <span class="s2">"_NAME:"</span>
+
+<span class="c">:: https://www.devside.net/wamp-server/opening-up-port-80-for-apache-to-use-on-windows</span>
+<span class="c">rem netsh http show urlacl | find "Reserved URL"</span>
+<span class="c">rem netsh http show servicestate</span>
+<span class="c">rem net stop HTTP</span>
+<span class="c">rem sc config HTTP start= disabled</span>
+
+<span class="c">:: Check missing files</span>
+<span class="kd">Autoruns</span><span class="err">.exe</span>
+
+<span class="c">:: https://support.microsoft.com/en-us/kb/929833</span>
+<span class="nb">sfc</span> <span class="na">/VERIFYONLY
+</span><span class="c">rem sfc /SCANNOW</span>
+</code></pre></div></div>
+
+<p><a href="https://msdn.microsoft.com/en-us/library/dd939837.aspx">Windows 10 version 1607 Error code: 0x8024200D WU_E_UH_NEEDANOTHERDOWNLOAD</a></p>
+
+<h3 id="hardware-related-software">Hardware related software</h3>
+
+<h4 id="bios-update">BIOS update</h4>
+
+<p><a href="http://h20564.www2.hp.com/hpsc/swd/public/readIndex?sp4ts.oid=5053200&amp;swLangOid=8&amp;swEnvOid=4059">HP Support</a></p>
+
+<h4 id="applications">Applications</h4>
+
+<ul>
+  <li><a href="http://www.intel.com/support/detect.htm">Intel® Driver Update Utility</a></li>
+  <li><a href="http://www.cpuid.com/softwares/cpu-z.html">CPUZ</a> Disable monitoring</li>
+  <li><a href="http://www.cpuid.com/softwares/hwmonitor.html">HWMonitor</a></li>
+  <li><a href="http://www.passmark.com/products/diskcheckup.htm">S.M.A.R.T. status viewer</a></li>
+  <li><a href="http://www8.hp.com/us/en/ads/clientmanagement/drivers-bios.html">HP SoftPaq Download Manager</a></li>
+  <li><a href="http://www8.hp.com/us/en/campaigns/hpsupportassistant/hpsupport.html">HP Support Assistant</a></li>
+  <li><a href="http://support.ts.fujitsu.com/DeskUpdate/">Fujitsu DeskUpdate</a></li>
+  <li><a href="https://support.lenovo.com/us/en/documents/tvsu-update">Lenovo ThinkVantage System Update</a></li>
+  <li><a href="http://www.nvidia.com/Download/Find.aspx?lang=en-us&amp;QNF=1">NVIDIA QFE driver</a> (Quadro New Feature)</li>
+  <li><a href="http://www.microsoft.com/en-us/download/details.aspx?id=35">DirectX</a></li>
+</ul>
+
+<h3 id="windows-settings">Windows settings</h3>
+
+<h4 id="drive-labels">Drive labels</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">label</span> <span class="kd">C</span>: <span class="kd">system</span>
+<span class="nb">label</span> <span class="kd">E</span>: <span class="kd">data</span>
+</code></pre></div></div>
+
+<h4 id="boot-display">Boot display</h4>
+
+<p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff542202%28v=vs.85%29.aspx">BCDEdit /set reference</a></p>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">bcdedit</span> <span class="na">/set </span><span class="kd">quietboot</span> <span class="na">on</span>
+<span class="nb">bcdedit</span> <span class="na">/set </span><span class="kd">sos</span> <span class="na">on</span>
+</code></pre></div></div>
+
+<h4 id="hibernation">Hibernation</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">powercfg</span> <span class="na">-h on</span>
+<span class="c">:: powercfg -h off</span>
+<span class="nb">powercfg</span>.cpl
+<span class="c">:: Power button: shutdown, Sleep button: hibernate</span>
+<span class="c">:: Hibernate command: shutdown /t 0 /f /h</span>
+</code></pre></div></div>
+
+<h4 id="disable-windows-key-combinations-user">Disable Windows key combinations (user)</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"</span> <span class="na">/v </span><span class="s2">"NoWinKeys"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">1</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<p>https://support.microsoft.com/help/12445/windows-keyboard-shortcuts</p>
+
+<h4 id="show-known-file-extensions-user">Show known file extensions (user)</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"</span> <span class="na">/v </span><span class="s2">"HideFileExt"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">0</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<h4 id="dont-display-delete-confirmation-user">Don’t display delete confirmation (user)</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer"</span> <span class="na">/v </span><span class="s2">"ConfirmFileDelete"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">0</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<h4 id="disable-ntfs-last-access-update">Disable NTFS last access update</h4>
+
+<p>If you have spinning drives.</p>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKCU\SYSTEM\CurrentControlSet\Control\FileSystem"</span> <span class="na">/v </span><span class="s2">"NtfsDisableLastAccessUpdate"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">0</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<h4 id="disable-terminal-server-aka-remote-assistance">Disable Terminal Server aka. remote assistance</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server"</span> <span class="na">/v </span><span class="s2">"fDenyTSConnections"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">1</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<h4 id="show-analogue-clock">Show analogue clock</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ImmersiveShell"</span> <span class="na">/v </span><span class="s2">"UseWin32TrayClockExperience"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">1</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<h4 id="untrusted-font-blocking-in-ie">Untrusted Font Blocking in IE</h4>
+
+<p>gpedit.msc / Administrative Templates / System / Mitigation Options / Untrusted Font Blocking / “Do not block untrusted fonts”</p>
+
+<h4 id="settings-commands">Settings commands</h4>
+
+<p><a href="https://msdn.microsoft.com/en-us/library/ee330741(VS.85).aspx#DefaultPrograms">Control Panel Items</a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>All  shell:::{ED7BA470-8E54-465E-825C-99712043E01C}
+Battery Saver  ms-settings:batterysaver
+Battery Saver Settings  ms-settings:batterysaver-settings
+Battery use  ms-settings:batterysaver-usagedetails
+Bluetooth  ms-settings:bluetooth
+Colors  ms-settings:colors
+Data Usage  ms-settings:datausage
+Date and Time  ms-settings:dateandtime
+Closed Captioning  ms-settings:easeofaccess-closedcaptioning
+High Contrast  ms-settings:easeofaccess-highcontrast
+Magnifier  ms-settings:easeofaccess-magnifier
+Narrator  ms-settings:easeofaccess-narrator
+Keyboard  ms-settings:easeofaccess-keyboard
+Mouse  ms-settings:easeofaccess-mouse
+Other Options (Ease of Access)  ms-settings:easeofaccess-otheroptions
+Lockscreen  ms-settings:lockscreen
+* Offline maps  ms-settings:maps
+Airplane mode  ms-settings:network-airplanemode
+Proxy  ms-settings:network-proxy
+VPN  ms-settings:network-vpn
+* Notifications &amp; actions  ms-settings:notifications
+* Account info  ms-settings:privacy-accountinfo
+Calendar  ms-settings:privacy-calendar
+Contacts  ms-settings:privacy-contacts
+Other Devices  ms-settings:privacy-customdevices
+* Feedback  ms-settings:privacy-feedback
+* Location  ms-settings:privacy-location
+Messaging  ms-settings:privacy-messaging
+Microphone  ms-settings:privacy-microphone
+Motion  ms-settings:privacy-motion
+Radios  ms-settings:privacy-radios
+Speech, inking, &amp; typing  ms-settings:privacy-speechtyping
+Camera  ms-settings:privacy-webcam
+Region &amp; language  ms-settings:regionlanguage
+Speech  ms-settings:speech
+* Windows Update  ms-settings:windowsupdate
+Work access  ms-settings:workplace
+Connected devices  ms-settings:connecteddevices
+For developers  ms-settings:developers
+Display  ms-settings:display
+Mouse &amp; touchpad  ms-settings:mousetouchpad
+Cellular  ms-settings:network-cellular
+Dial-up  ms-settings:network-dialup
+DirectAccess  ms-settings:network-directaccess
+* Ethernet  ms-settings:network-ethernet
+Mobile hotspot  ms-settings:network-mobilehotspot
+* Wi-Fi  ms-settings:network-wifi
+Manage Wi-Fi Settings  ms-settings:network-wifisettings
+* Optional features  ms-settings:optionalfeatures
+Family &amp; other users  ms-settings:otherusers
+* Personalization  ms-settings:personalization
+Backgrounds  ms-settings:personalization-background
+Colors  ms-settings:personalization-colors
+Start  ms-settings:personalization-start
+Power &amp; sleep  ms-settings:powersleep
+Proximity  ms-settings:proximity
+Display  ms-settings:screenrotation
+Sign-in options  ms-settings:signinoptions
+Storage Sense  ms-settings:storagesense
+Themes  ms-settings:themes
+Typing  ms-settings:typing
+Tablet mode  ms-settings://tabletmode/
+* Privacy  ms-settings:privacy
+
+* Computer Management  compmgmt.msc
+* Windows Features  OptionalFeatures.exe (Add HyperV)
+* System Properties  SystemPropertiesAdvanced.exe
+* System Performance SystemPropertiesPerformance.exe (Disable animations)
+* Remote Desktop (RDP) SystemPropertiesRemote.exe
+* Security Center  wscui.cpl
+* Firewall  Firewall.cpl
+* Power Settings  powercfg.cpl
+* Certificate Manager  certmgr.msc
+* Mouse  main.cpl (Disable mouse shadow)
+* Time and Date  timedate.cpl (Analogue clock)
+
+* Task View shell:::{3080F90E-D7AD-11D9-BD98-0000947B0257} (Virtual desktops)
+</code></pre></div></div>
+
+<p>See also: http://ss64.com/nt/shell.html and <code class="language-plaintext highlighter-rouge">utl\shell-commands.cmd</code> for <code class="language-plaintext highlighter-rouge">shell::</code> commands.</p>
+
+<h4 id="time">Time</h4>
+
+<p>Check RTC: https://toolbox.googleapps.com/apps/browserinfo/</p>
+
+<h4 id="network-and-isp">Network and ISP</h4>
+
+<ul>
+  <li>IPv6 connectivity</li>
+  <li>DNS resolvers</li>
+  <li>NTP server</li>
+  <li>Blocked SMTP port (25/TCP)</li>
+  <li><a href="https://spoofer.caida.org/">BCP38 Spoofer</a></li>
+</ul>
+
+<h4 id="fonts">Fonts</h4>
+
+<ul>
+  <li>https://github.com/andreberg/Meslo-Font/releases (LGS=line gap small, DZ=dotted zero)</li>
+  <li>http://www.fontsquirrel.com/fonts/open-sans</li>
+</ul>
+
+<p>Usage in cmd.exe:</p>
+
+<p>@FIXME <code class="language-plaintext highlighter-rouge">HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Console\TrueTypeFont</code> <code class="language-plaintext highlighter-rouge">000</code>=<code class="language-plaintext highlighter-rouge">Meslo LG M DZ Regular</code></p>
+
+<h4 id="cursors">Cursors</h4>
+
+<ul>
+  <li>Windows built-in “Large inverted”</li>
+  <li>See folder: <code class="language-plaintext highlighter-rouge">cursor OS X Yosemite for Windows/</code></li>
+  <li><a href="http://www.deviantart.com/art/Google-Chrome-OS-Pointers-W-I-P-324618673">Chrome OS</a></li>
+  <li><a href="http://mercury21.deviantart.com/art/New-Mac-OS-X-Cursor-97810609">OS X Yosemite</a></li>
+</ul>
+
+<h3 id="windows-updates">Windows Updates</h3>
+
+<p>Disable reboot after update</p>
+
+<p>Task Scheduler Library / Microsoft / Windows / UpdateOchestrator / Reboot right-click / Disable</p>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">reg</span> <span class="kd">ADD</span> <span class="s2">"HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"</span> <span class="na">/v </span><span class="s2">"NoAutoRebootWithLoggedOnUsers"</span> <span class="na">/t </span><span class="kd">REG_DWORD</span> <span class="na">/d </span><span class="m">1</span> <span class="na">/f
+</span></code></pre></div></div>
+
+<p><a href="https://www.foolishit.com/free-tech-tools/amphetamines/">Amphetamines</a></p>
+
+<p><a href="http://superuser.com/a/1006199">chmod -x MusNotification.exe</a></p>
+
+<p><a href="http://forum.ru-board.com/topic.cgi?forum=5&amp;topic=48142#2">Windows Update MiniTool</a></p>
+
+<h3 id="applications-1">Applications</h3>
+
+<ul>
+  <li><a href="http://memory.dataram.com/products-and-services/software/ramdisk/ramdisk-releases">Dataram RAMDisk</a></li>
+  <li><a href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">Visual C++ Redist 2013</a></li>
+  <li><a href="https://www.meinbergglobal.com/english/sw/ntp.htm">Precise time for Windows</a> (ntpd)</li>
+  <li><a href="http://www.r2.com.au/page/products/download/startup-delayer/">Startup Delayer 64</a></li>
+  <li><a href="http://www.paralint.com/projects/notifu/#Download">Notifu</a></li>
+  <li><a href="http://keypirinha.com/">Keypirinha</a>
+    <ul>
+      <li><a href="https://github.com/psistorm/keypirinha-systemcommands">System Commands</a></li>
+    </ul>
+  </li>
+  <li><a href="https://getsharex.com/">ShareX</a></li>
+  <li><a href="https://github.com/cbucher/console/wiki">ConsoleZ</a></li>
+  <li><a href="https://github.com/ffMathy/Shapeshifter/releases">Shapeshifter</a></li>
+  <li><a href="https://caret.io/">Caret Premium Markdown Editor</a></li>
+  <li><a href="https://github.com/samhocevar/wincompose">WinCompose</a></li>
+  <li><a href="http://www.7-zip.org/download.html">7-zip 64</a></li>
+  <li><a href="http://mirror.szepe.net/software/">CCleaner 64</a></li>
+  <li><a href="https://www.hitmanpro.com/en/alert.aspx">HitmanPro.Alert</a> Second opinion behavioral based Anti-Malware, <a href="https://www.wilderssecurity.com/threads/hitmanpro-alert-beta.394398/">beta</a></li>
+  <li><a href="https://usa.kaspersky.com/free-virus-scan">Kaspersky Security Scan</a></li>
+  <li><a href="http://www.herdprotect.com/installers/herdProtectScan_Portable.exe">herdProtect</a> Portable</li>
+  <li><a href="http://mattmahoney.net/dc/zpaq.html">zpaq 64</a></li>
+  <li><a href="http://libbsc.com/">bsc 64</a></li>
+  <li><a href="https://hubic.com/en/downloads">hubiC client</a></li>
+  <li><a href="http://www.ghisler.com/amazons3.php">Total Commander 64</a></li>
+  <li><a href="http://www.irfanview.com/64bit.htm">IrfanView 64</a></li>
+  <li><a href="http://thehive.xbee.net/index.php?module=pages&amp;func=display&amp;pageid=11#Downloads">DiffImg</a></li>
+  <li><a href="https://sourceforge.net/projects/mpcbe/files/MPC-BE/">Media Player Classic - BE</a></li>
+  <li><a href="http://mirror.szepe.net/software">latest Skype</a>
+    <ul>
+      <li><a href="https://github.com/dlehn/Skype-Utility-Project/releases">Skype Utility Project</a></li>
+      <li><a href="http://www.skype.com/go/getskype-full">Skype official full installer</a></li>
+      <li>Portable: <code class="language-plaintext highlighter-rouge">Skype.exe /datapath:"path\to\profiles" /removable</code></li>
+      <li>During call: Call / Call Technical Info</li>
+    </ul>
+  </li>
+  <li>@TODO <a href="http://tinyssh.org/faq.html">tinyssh on Cygwin</a></li>
+  <li><a href="http://chromium.woolyss.com/">Chromium 64 / NIK stable / No sync / Archive</a>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">--safebrowsing-disable-auto-update --lang=en-US --no-proxy-server --disable-translate --disk-cache-size=1</code></li>
+      <li>https://fpdownload.adobe.com/pub/flashplayer/latest/help/install_flash_player_ppapi.exe</li>
+      <li>https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm</li>
+      <li>https://chrome.google.com/webstore/detail/tag-assistant-by-google/kejbdjndbnbjgmefkgdddjlbokphdefk</li>
+      <li>https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna</li>
+      <li>https://chrome.google.com/webstore/detail/fb-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc</li>
+      <li>https://chrome.google.com/webstore/detail/seoquake/akdgnmcogleenhbclghghlkkdndkjdjc</li>
+      <li>https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg</li>
+      <li>https://chrome.google.com/webstore/detail/project-naptha/molncoemjfmpgdkbdlbjmhlcgniigdnf</li>
+    </ul>
+  </li>
+  <li><a href="http://www.uvnc.com/downloads/ultravnc.html">UltraVNC 64</a> Listen on port 5500</li>
+  <li><a href="http://www.uvnc.com/docs/uvnc-sc.html">UltraVNC SC</a></li>
+  <li><a href="https://www.teamviewer.com/en/download/windows.aspx">TeamViewer full version</a></li>
+  <li><a href="https://wordpress.org/support/rss/topic/graphics-for-polylang">Meneré</a> Feedly reader</li>
+  <li>todotxt winui, cli</li>
+  <li><a href="https://www.libreoffice.org/download/libreoffice-fresh/?type=win-x86_64&amp;lang=hu">Libre Office 64</a></li>
+  <li><a href="https://musescore.org/hu/let%C3%B6lt%C3%A9s">MuseScore 32</a></li>
+  <li><a href="http://www.miranda-ng.org/en/downloads/">Miranda NG 64</a> SkypeWeb protocol</li>
+  <li><a href="http://www.partha.com/">GIMP 64</a></li>
+  <li><a href="http://www.partha.com/">Inkspace 64</a></li>
+  <li><a href="http://www.rw-designer.com/image-editor">RealWolrd Paint</a></li>
+  <li>Adobe PSE</li>
+  <li><a href="http://www.tracker-software.com/product/pdf-xchange-viewer">PDF-XChange Viewer</a></li>
+  <li><a href="http://www.somepdf.com/downloads.html">Some PDF Images Extract</a></li>
+  <li><a href="https://obsproject.com/download">Open Broadcaster Software</a></li>
+  <li><a href="http://www.brianapps.net/sizer/">Sizer</a></li>
+</ul>
+
+<p>Also on http://mirror.szepe.net/software/</p>
+
+<h3 id="alert-on-event-log-errors">Alert on Event log errors</h3>
+
+<p>Scheduled task import: <code class="language-plaintext highlighter-rouge">Task-Event log alert.xml</code></p>
+
+<p>Exclude “DistributedCOM 10016”</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;Suppress</span> <span class="na">Path=</span><span class="s">"Application"</span><span class="nt">&gt;</span>*[System[(EventID=10016)]]<span class="nt">&lt;/Suppress&gt;</span>
+    <span class="nt">&lt;Suppress</span> <span class="na">Path=</span><span class="s">"Security"</span><span class="nt">&gt;</span>*[System[(EventID=10016)]]<span class="nt">&lt;/Suppress&gt;</span>
+    <span class="nt">&lt;Suppress</span> <span class="na">Path=</span><span class="s">"Setup"</span><span class="nt">&gt;</span>*[System[(EventID=10016)]]<span class="nt">&lt;/Suppress&gt;</span>
+    <span class="nt">&lt;Suppress</span> <span class="na">Path=</span><span class="s">"System"</span><span class="nt">&gt;</span>*[System[(EventID=10016)]]<span class="nt">&lt;/Suppress&gt;</span>
+    <span class="nt">&lt;Suppress</span> <span class="na">Path=</span><span class="s">"ForwardedEvents"</span><span class="nt">&gt;</span>*[System[(EventID=10016)]]<span class="nt">&lt;/Suppress&gt;</span>
+</code></pre></div></div>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wevtutil</span> <span class="kd">qe</span> <span class="kd">Application</span> <span class="s2">"/q:*[System[(Level=1  or Level=2 or Level=3)]]"</span> <span class="na">/f</span><span class="nl">:text</span> <span class="na">/rd</span><span class="nl">:true</span> <span class="na">/c</span>:1
+<span class="nb">wevtutil</span> <span class="kd">qe</span> <span class="kd">Security</span> <span class="s2">"/q:*[System[(Level=1  or Level=2 or Level=3)]]"</span> <span class="na">/f</span><span class="nl">:text</span> <span class="na">/rd</span><span class="nl">:true</span> <span class="na">/c</span>:1
+<span class="nb">wevtutil</span> <span class="kd">qe</span> <span class="kd">Setup</span> <span class="s2">"/q:*[System[(Level=1  or Level=2 or Level=3)]]"</span> <span class="na">/f</span><span class="nl">:text</span> <span class="na">/rd</span><span class="nl">:true</span> <span class="na">/c</span>:1
+<span class="nb">wevtutil</span> <span class="kd">qe</span> <span class="kd">System</span> <span class="s2">"/q:*[System[(Level=1  or Level=2 or Level=3)]]"</span> <span class="na">/f</span><span class="nl">:text</span> <span class="na">/rd</span><span class="nl">:true</span> <span class="na">/c</span>:1
+<span class="nb">wevtutil</span> <span class="kd">qe</span> <span class="kd">ForwardedEvents</span> <span class="s2">"/q:*[System[(Level=1  or Level=2 or Level=3)]]"</span> <span class="na">/f</span><span class="nl">:text</span> <span class="na">/rd</span><span class="nl">:true</span> <span class="na">/c</span>:1
+</code></pre></div></div>
+
+<h3 id="google-chrome-portable-64-bit">Google Chrome portable 64 bit</h3>
+
+<ol>
+  <li>http://portableapps.com/apps/internet/google_chrome_portable / <strong>64 bit</strong></li>
+  <li>Extract with 7-Zip File Manager</li>
+  <li><code class="language-plaintext highlighter-rouge">find "DownloadURL=" App\AppInfo\installer.ini</code></li>
+  <li><code class="language-plaintext highlighter-rouge">wget %DownloadURL%</code></li>
+  <li><code class="language-plaintext highlighter-rouge">7za e *_chrome_installer.exe</code></li>
+  <li><code class="language-plaintext highlighter-rouge">7za x chrome.7z</code></li>
+</ol>
+
+<h3 id="virtualize-windows-applications">Virtualize Windows applications</h3>
+
+<ul>
+  <li>http://www.cameyo.com/ (Windows Server)</li>
+  <li>https://www.rollapp.com/ (Ubuntu)</li>
+  <li>https://turbo.net/ (WINE)</li>
+</ul>
+
+<h3 id="usrbin-on-windows">/usr/bin on Windows</h3>
+
+<p>Create folder and prepend to PATH</p>
+
+<p>Prepend: <code class="language-plaintext highlighter-rouge">%SystemDrive%\usr\bin;</code></p>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nv">%SystemDrive%</span>\usr\bin
+<span class="kd">SystemPropertiesAdvanced</span><span class="err">.exe</span>
+</code></pre></div></div>
+
+<h3 id="wget">Wget</h3>
+
+<p>Binary: https://eternallybored.org/misc/wget/</p>
+
+<p>Mozilla CA certificate store: https://curl.haxx.se/ca/cacert.pem</p>
+
+<h5 id="ca-download">CA download</h5>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">:: Download deb package from https://packages.debian.org/stable/all/ca-certificates/download</span>
+<span class="m">7</span><span class="kd">za</span> <span class="kd">e</span> <span class="na">-t</span># <span class="s2">"./ca-certificates_*_all.deb"</span> <span class="s2">"4.xz"</span>
+<span class="m">7</span><span class="kd">za</span> <span class="kd">e</span> <span class="s2">"4.xz"</span>
+<span class="m">7</span><span class="kd">za</span> <span class="kd">e</span> <span class="na">-o</span>.\bundle <span class="s2">"4"</span> <span class="s2">".\usr\share\ca-certificates\mozilla\*.crt"</span>
+<span class="nb">type</span> <span class="s2">".\bundle\*.crt"</span> <span class="o">&gt;</span> <span class="s2">"C:\usr\bin\ca-certificates.crt"</span>
+<span class="nb">del</span> <span class="na">/Q </span><span class="s2">"ca-certificates_*_all.deb"</span> <span class="s2">"4.xz"</span> <span class="s2">"4"</span> <span class="s2">"bundle"</span>
+</code></pre></div></div>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">## C:\usr\bin\.wgetrc
+</span><span class="w">
+</span><span class="py">ca-certificate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">C:/usr/bin/ca-certificates.crt</span>
+<span class="py">content-disposition</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">on</span>
+<span class="c">#default: ca-certificate = c:/ssl/ssl/cert.pem
+#http_proxy = http://192.168.2.161:8080/
+#server_response = on
+#verbose = on
+</span></code></pre></div></div>
+
+<h5 id="replace-microsoft-ca-certificates">Replace Microsoft CA certificates</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget <span class="nt">-nv</span> <span class="nt">-O-</span> https://curl.haxx.se/ca/cacert.pem <span class="se">\</span>
+    | <span class="nb">csplit</span> <span class="nt">--suppress-matched</span> <span class="nt">--elide-empty-files</span> <span class="nt">--silent</span> <span class="nt">-f</span> <span class="s2">"ca-"</span> <span class="nt">-b</span> <span class="s2">"%03d.crt"</span> - <span class="s1">'/^$/'</span> <span class="s1">'{*}'</span>
+<span class="nb">rm</span> <span class="nt">-f</span> ca-000.crt
+unix2dos <span class="k">*</span>.crt
+</code></pre></div></div>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">:: Certificates / Computer account</span>
+<span class="kd">mmc</span>
+
+<span class="kd">FOR</span> <span class="vm">%%C</span> <span class="kd">IN</span> <span class="o">(</span><span class="kd">ca</span><span class="o">*</span>.crt<span class="o">)</span> <span class="kd">DO</span> <span class="o">(</span>
+    <span class="nb">certutil</span> <span class="na">-addstore </span><span class="s2">"Root"</span> <span class="s2">"</span><span class="vm">%%C</span><span class="s2">"</span>
+    <span class="kd">IF</span> <span class="kd">ERRORLEVEL</span> <span class="m">1</span> <span class="kd">PAUSE</span>
+<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="openssl">OpenSSL</h3>
+
+<p>https://indy.fulgan.com/SSL/ ZIP: <code class="language-plaintext highlighter-rouge">openssl-*-x64_86-win64.zip</code> <code class="language-plaintext highlighter-rouge">C:\usr\openssl\</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">echo CAfile = C:/usr/bin/cacert.pem&gt; C:\usr\openssl\openssl.cnf</code></p>
+
+<h3 id="keepass">KeePass</h3>
+
+<p>Binary: http://keepass.info/download.html <code class="language-plaintext highlighter-rouge">C:\usr\keepass\</code></p>
+
+<p>Tools / Options / Security / Enter Master Key on Secure Desktop <code class="language-plaintext highlighter-rouge">cacls auth-data.kdbx /P PC\User:F</code></p>
+
+<p>Tools / Options / Advanced tab / Automatically save database on exit and workspace locking</p>
+
+<p>Tools / Options / Integration tab / URL overrides…</p>
+
+<ul>
+  <li>lftp: <code class="language-plaintext highlighter-rouge">cmd://cmd.exe /C "echo lftp -e 'set ftp:ssl-allow 0;' -u '{USERNAME},{PASSWORD}' ftp://{BASE:HOST} &amp;&amp; pause"</code></li>
+  <li>sshp: <code class="language-plaintext highlighter-rouge">cmd://putty.exe -ssh -P {BASE:PORT} {USERNAME}@{BASE:RMVSCM}</code></li>
+  <li>rdp:  <code class="language-plaintext highlighter-rouge">cmd://mstsc.exe /v:{BASE:RMVSCM}</code></li>
+</ul>
+
+<h4 id="plugins">Plugins</h4>
+
+<p><code class="language-plaintext highlighter-rouge">C:\usr\keepass\Plugins\</code></p>
+
+<ul>
+  <li><a href="http://lechnology.com/software/keeagent/#download">KeeAgent</a> (SSH agent)</li>
+  <li><a href="https://bitbucket.org/devinmartin/keeotp/downloads">KeeOtp</a> (TOTP 2FA)</li>
+  <li><a href="https://readablepassphrase.codeplex.com/releases">Readable Passphrase Generator</a> (XKCD-style passwords)</li>
+  <li>
+    <ul>
+      <li><a href="http://keepass.info/plugins.html#ioprotocolext">IOProtocolExt</a> (SCP, SFTP, FTPS)</li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li><a href="https://bitbucket.org/devinmartin/keecloud/downloads">KeeCloud</a> (S3, Azure Blob, Dropbox)</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="qr-code-reader-with-webcam">QR code reader with webcam</h4>
+
+<p><a href="http://www.bcwebcam.de/en/index.html">bcWebCam</a> .NET</p>
+
+<h3 id="putty">Putty</h3>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> \usr\bin
+<span class="nb">wget</span> <span class="na">-nv -N </span><span class="kd">http</span>://the.earth.li/<span class="o">~</span><span class="kd">sgtatham</span><span class="na">/putty/latest/x</span><span class="m">86</span><span class="na">/putty</span>.exe
+<span class="nb">wget</span> <span class="na">-nv -N </span><span class="kd">http</span>://the.earth.li/<span class="o">~</span><span class="kd">sgtatham</span><span class="na">/putty/latest/x</span><span class="m">86</span><span class="na">/pscp</span>.exe
+<span class="nb">wget</span> <span class="na">-nv -N </span><span class="kd">http</span>://the.earth.li/<span class="o">~</span><span class="kd">sgtatham</span><span class="na">/putty/latest/x</span><span class="m">86</span><span class="na">/puttygen</span>.exe
+<span class="nb">wget</span> <span class="na">-nv -N </span><span class="kd">https</span>://github.com/altercation/solarized/raw/master/putty<span class="na">-colors-solarized/solarized</span>_dark.reg
+<span class="nb">wget</span> <span class="na">-nv -N </span><span class="kd">https</span>://github.com/altercation/solarized/raw/master/putty<span class="na">-colors-solarized/solarized</span>_light.reg
+</code></pre></div></div>
+
+<p>Alternatives</p>
+
+<ul>
+  <li>https://puttytray.goeswhere.com/ PuTTYtray</li>
+  <li>http://www.fosshub.com/KiTTY.html (Cygterm)</li>
+  <li>http://www.extraputty.com/download.php</li>
+  <li>https://github.com/Maximus5/ConEmu/releases</li>
+</ul>
+
+<h3 id="firefox-developer-edition">Firefox Developer Edition</h3>
+
+<p>See: <a href="./ff-dev/">ff-dev</a></p>
+
+<p><a href="http://www.adobe.com/hu/products/flashplayer/distribution3.html">Flash player</a></p>
+
+<p>Bookmarks for Launchy: <code class="language-plaintext highlighter-rouge">browser.bookmarks.autoExportHTML = true</code></p>
+
+<p>Fullscreen screenshot: Shift + F2 <code class="language-plaintext highlighter-rouge">screenshot --fullpage --clipboard</code></p>
+
+<p>Web Developer extension: https://addons.mozilla.org/en-US/firefox/addon/web-developer/</p>
+
+<h3 id="keypirinha">Keypirinha</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Profile\User\Keypirinha.ini</code></p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[app]</span><span class="w">
+</span><span class="py">launch_at_startup</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">yes</span>
+<span class="py">hotkey_run</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">Alt+F1</span>
+<span class="w">
+</span><span class="nn">[gui]</span><span class="w">
+</span><span class="py">always_on_top</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">yes</span>
+<span class="py">hide_on_focus_lost</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">immediate</span>
+<span class="py">retain_last_search</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">yes</span>
+<span class="py">escape_always_closes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">yes</span>
+<span class="py">show_on_taskbar</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">no</span>
+<span class="py">show_scores</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">no</span>
+<span class="py">show_history_hits</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">no</span>
+</code></pre></div></div>
+
+<h3 id="virtualization">Virtualization</h3>
+
+<ul>
+  <li>Hyper-V: enable in BIOS, <code class="language-plaintext highlighter-rouge">bcdedit /set hypervisorlaunchtype Auto</code> , <code class="language-plaintext highlighter-rouge">virtmgmt.msc</code></li>
+  <li><a href="https://www.vmware.com/products/player/playerpro-evaluation.html">VMware Workstation Player</a></li>
+  <li><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox installer</a></li>
+</ul>
+
+<h3 id="desktop-malware-cleaning">Desktop malware cleaning</h3>
+
+<ul>
+  <li>
+    <p>HitmanPro.Alert &amp; herdProtect</p>
+  </li>
+  <li><a href="http://www.novirusthanks.org/">NoVirusThanks tools</a></li>
+  <li><a href="https://www.foolishit.com/cryptoprevent-malware-prevention/">CryptoPrevent</a></li>
+  <li><a href="https://toolslib.net/downloads/viewdownload/1-adwcleaner/">AdwCleaner</a></li>
+  <li><a href="https://www.malwarebytes.org/antimalware/">Malwarebytes Anti-Malware</a></li>
+  <li><a href="https://zemana.com/en-US/Download">Zemana AntiMalware</a></li>
+  <li><a href="http://www.bitdefender.com/solutions/adware-removal-tool-for-pc.html">Bitdefender Adware Removal Tool</a></li>
+  <li>
+    <p><a href="http://klocmansoftware.weebly.com/">Bulk Crap Uninstaller</a> <a href="https://github.com/Klocman/Bulk-Crap-Uninstaller">BCUninstaller source</a></p>
+  </li>
+  <li><a href="https://www.malwarebytes.com/antirootkit/">Malwarebytes Anti-Rootkit Beta</a></li>
+  <li><a href="https://usa.kaspersky.com/downloads/TDSSKiller">Kaspersky TDSSKiller</a></li>
+  <li>https://www.sophos.com/products/free-tools/sophos-anti-rootkit.aspx</li>
+  <li>https://www.barkly.com/stackhackr</li>
+</ul>
+
+<h3 id="cygwin">Cygwin</h3>
+
+<h4 id="create-vdisk-in-diskpart">Create vdisk in <code class="language-plaintext highlighter-rouge">diskpart</code></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rem In cmd.exe:  mkdir C:\cygwin2
+
+create vdisk file="e:\cygwin64.vhd" maximum=20000
+attach vdisk
+create partition primary
+assign mount="C:\cygwin2"
+format label="Cygwin2" quick
+</code></pre></div></div>
+
+<h4 id="cygwin-64-bit-setup"><a href="https://cygwin.com/setup-x86_64.exe">Cygwin 64 bit setup</a></h4>
+
+<pre><code class="language-diskpart">:: Cygwin vdisk script --- cyg-disk.dpt ---
+
+select vdisk file="e:\cygwin64.vhd"
+attach vdisk
+
+rem select vdisk file="e:\cygwin64.vhd"
+rem detach vdisk
+</code></pre>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">:: Mount Cygwin vdisk --- cygpart-mount.cmd ---</span>
+@diskpart <span class="na">/s </span><span class="s2">"C:\usr\bin\cyg-disk.dpt"</span>
+</code></pre></div></div>
+
+<h4 id="shortcut-target">Shortcut target</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">:: Start Cygwin terminal</span>
+<span class="kd">C</span>:\cygwin2\bin\mintty.exe <span class="na">-i /Cygwin-Terminal</span>.ico <span class="o">-</span>
+</code></pre></div></div>
+
+<h4 id="associate-dpt-extension">Associate .dpt extension</h4>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ftype</span> <span class="kd">DiskPartScript</span><span class="o">=</span><span class="nb">diskpart.exe</span> <span class="na">/s </span><span class="err">%</span><span class="m">1</span>
+<span class="nb">assoc</span> .dpt<span class="o">=</span><span class="kd">DiskPartScript</span>
+</code></pre></div></div>
+
+<h4 id="install-apt-cyg">Install apt-cyg</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget <span class="nt">-nv</span> <span class="nt">-P</span> /usr/local/sbin <span class="s2">"https://github.com/transcode-open/apt-cyg/raw/master/apt-cyg"</span>
+<span class="nb">chmod</span> +x /usr/local/sbin/apt-cyg
+</code></pre></div></div>
+
+<h4 id="cygwinx-xwin">Cygwin/X (XWin)</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">xorg-server</code></li>
+  <li><code class="language-plaintext highlighter-rouge">xinit</code></li>
+</ul>
+
+<p>Application example: <code class="language-plaintext highlighter-rouge">fontforge</code></p>
+
+<p>Connect to remote X11: <code class="language-plaintext highlighter-rouge">cygwin$ ssh -CXY user@example.com</code></p>
+
+<p>Also: https://sourceforge.net/projects/vcxsrv/</p>
+
+<h2 id="backup-steps">Backup steps</h2>
+
+<ol>
+  <li>Run <code class="language-plaintext highlighter-rouge">backup-workstation.cmd</code> on Windows shutdown</li>
+  <li>Have <a href="https://hubic.com/en/downloads">hubiC client</a> back it up daily, keep 10 versions</li>
+</ol>
+
+<h2 id="remove-unused-drivers-yearly">Remove unused drivers @yearly</h2>
+
+<div class="language-batch highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">set</span> <span class="s2">"DEVMGR_SHOW_NONPRESENT_DEVICES=1"</span>
+<span class="kd">devmgmt</span>.msc
+<span class="c">:: View / Show hidden devices</span>
+</code></pre></div></div>
+
+<h2 id="computer-shops">Computer shops</h2>
+
+<ul>
+  <li>http://www.mindenolcso.hu/hasznalt-szamitogep.html</li>
+  <li>http://www.mindenolcso.hu/hasznalt-monitor.html</li>
+  <li>http://www.marseus.hu/hu/memoria/szerver/</li>
+  <li>http://microstore.hu/index.php?manufacturer_id[]=503&amp;path=20_94&amp;route=product%2Fcategory</li>
+</ul>
+
+  </div>
+
+  <!-- Article Footer -->
+  <footer class="post-footer">
+    
+
+    <div class="post-navigation">
+      
+      <a href="/2017/08/31/nedaigne.html" class="nav-link nav-prev" rel="prev">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-title">nedaigne</span>
+      </a>
+      
+      
+      
+      <a href="/2017/11/08/links.html" class="nav-link nav-next" rel="next">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-title">Some interesting links</span>
+      </a>
+      
+    </div>
+
+    <!-- Social Sharing -->
+    
+    <div class="social-sharing">
+      <h4>Share this article</h4>
+      <!-- Social Sharing Component -->
+<div class="social-sharing">
+  <div class="share-buttons">
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/intent/tweet?text=Prepare+my+Windows+workstation&url=https%3A%2F%2Fdominicusin.github.io%2F2017%2F11%2F05%2FWinworkstation.html&via=dominicusin" 
+       class="share-button share-twitter" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Twitter/X">
+      <span class="share-icon">𝕏</span>
+      <span class="share-text">Twitter</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdominicusin.github.io%2F2017%2F11%2F05%2FWinworkstation.html&title=Prepare+my+Windows+workstation" 
+       class="share-button share-linkedin" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on LinkedIn">
+      <span class="share-icon">💼</span>
+      <span class="share-text">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdominicusin.github.io%2F2017%2F11%2F05%2FWinworkstation.html" 
+       class="share-button share-facebook" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Facebook">
+      <span class="share-icon">📘</span>
+      <span class="share-text">Facebook</span>
+    </a>
+
+    <!-- Reddit -->
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fdominicusin.github.io%2F2017%2F11%2F05%2FWinworkstation.html&title=Prepare+my+Windows+workstation" 
+       class="share-button share-reddit" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Reddit">
+      <span class="share-icon">🤖</span>
+      <span class="share-text">Reddit</span>
+    </a>
+
+    <!-- Hacker News -->
+    <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fdominicusin.github.io%2F2017%2F11%2F05%2FWinworkstation.html&t=Prepare+my+Windows+workstation" 
+       class="share-button share-hackernews" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Hacker News">
+      <span class="share-icon">🍊</span>
+      <span class="share-text">Hacker News</span>
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-button share-copy" 
+            onclick="copyToClipboard('https://dominicusin.github.io/2017/11/05/Winworkstation.html', this)"
+            title="Copy link to clipboard">
+      <span class="share-icon">📋</span>
+      <span class="share-text">Copy</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function copyToClipboard(text, button) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopySuccess(button);
+    }).catch(() => {
+      fallbackCopy(text, button);
+    });
+  } else {
+    fallbackCopy(text, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  textArea.style.top = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    document.execCommand('copy');
+    showCopySuccess(button);
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    showCopyError(button);
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+function showCopySuccess(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Copied!';
+  button.classList.add('copied');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('copied');
+  }, 2000);
+}
+
+function showCopyError(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Error!';
+  button.classList.add('error');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('error');
+  }, 2000);
+}
+</script>
+
+<style>
+.social-sharing {
+  margin: 2rem 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.share-button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.share-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.share-button.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.share-button.error {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.share-twitter:hover {
+  background: #1da1f2;
+  color: white;
+  border-color: #1da1f2;
+}
+
+.share-linkedin:hover {
+  background: #0077b5;
+  color: white;
+  border-color: #0077b5;
+}
+
+.share-facebook:hover {
+  background: #1877f2;
+  color: white;
+  border-color: #1877f2;
+}
+
+.share-reddit:hover {
+  background: #ff4500;
+  color: white;
+  border-color: #ff4500;
+}
+
+.share-hackernews:hover {
+  background: #ff6600;
+  color: white;
+  border-color: #ff6600;
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-text {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .share-button {
+    justify-content: center;
+  }
+}
+</style>
+    </div>
+    
+  </footer>
+
+  <!-- Related Posts -->
+  
+  <section class="related-posts">
+    <h3>Related Articles</h3>
+    <div class="post-grid">
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2026/08/14/deep-refactoring-plan/">Deep Refactoring Plan: A Comprehensive Guide</a></h4>
+          <time datetime="2026-08-14T07:00:00+00:00">August 14, 2026</time>
+        </header>
+        
+        <p>Deep Refactoring Plan: A Comprehensive Guide
+</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/29/graph.html">Graph</a></h4>
+          <time datetime="2025-12-29T20:01:00+00:00">December 29, 2025</time>
+        </header>
+        
+        <p>
+
+
+
+    
+        Filters
+        
+         Markup Languages
+         TeX/LaTeX
+         Office Formats
+         E-boo...</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/23/awesome-plan9.html">Awesome Plan9</a></h4>
+          <time datetime="2025-12-23T09:37:00+00:00">December 23, 2025</time>
+        </header>
+        
+        <p>Awesome Plan9
+</p>
+        
+      </article>
+      
+    </div>
+  </section>
+  
+
+  <!-- Comments Section -->
+  
+  <section class="comments-section">
+    <h3>Comments</h3>
+    <!-- Comments Section -->
+<div class="comments-section">
+  <div id="disqus_thread" data-disqus-shortname=""></div>
+  
+  <noscript>
+    <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+  </noscript>
+  
+  <!-- Alternative comment systems can be added here -->
+  <div class="alternative-comments" style="display: none;">
+    <h4>Comments</h4>
+    <p>Join the discussion on this post:</p>
+    
+    <!-- GitHub Issues as comments -->
+    
+    
+    <!-- Manual comment form -->
+    <form class="comment-form" action="#" method="post" onsubmit="handleCommentSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email (optional)</label>
+        <input type="email" id="email" name="email">
+      </div>
+      
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Post Comment</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Disqus integration
+if (window.DISQUS) {
+  DISQUS.reset({
+    reload: true,
+    config: function () {
+      this.page.identifier = "/2017/11/05/Winworkstation.html";
+      this.page.url = "https://dominicusin.github.io/2017/11/05/Winworkstation.html";
+    }
+  });
+} else {
+  const disqus_config = function () {
+    this.page.url = "https://dominicusin.github.io/2017/11/05/Winworkstation.html";
+    this.page.identifier = "/2017/11/05/Winworkstation.html";
+  };
+  
+  (function() {
+    const d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+}
+
+// Fallback comment handler
+function handleCommentSubmit(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const comment = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    comment: formData.get('comment'),
+    page: "/2017/11/05/Winworkstation.html",
+    timestamp: new Date().toISOString()
+  };
+  
+  // Store comment locally (in a real implementation, send to server)
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  comments.push(comment);
+  localStorage.setItem('comments', JSON.stringify(comments));
+  
+  // Show success message
+  showCommentSuccess();
+  
+  // Reset form
+  event.target.reset();
+}
+
+function showCommentSuccess() {
+  const message = document.createElement('div');
+  message.className = 'comment-success';
+  message.textContent = 'Thank you for your comment! It will appear after moderation.';
+  
+  const form = document.querySelector('.comment-form');
+  form.parentNode.insertBefore(message, form);
+  
+  setTimeout(() => {
+    message.remove();
+  }, 5000);
+}
+
+// Load stored comments if Disqus is not available
+if (!window.DISQUS && !document.querySelector('#disqus_thread script')) {
+  setTimeout(() => {
+    const altComments = document.querySelector('.alternative-comments');
+    if (altComments) {
+      altComments.style.display = 'block';
+      loadStoredComments();
+    }
+  }, 2000);
+}
+
+function loadStoredComments() {
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  const pageComments = comments.filter(c => c.page === "/2017/11/05/Winworkstation.html");
+  
+  if (pageComments.length > 0) {
+    const commentsContainer = document.createElement('div');
+    commentsContainer.className = 'stored-comments';
+    
+    pageComments.forEach(comment => {
+      const commentElement = createCommentElement(comment);
+      commentsContainer.appendChild(commentElement);
+    });
+    
+    const altComments = document.querySelector('.alternative-comments');
+    altComments.appendChild(commentsContainer);
+  }
+}
+
+function createCommentElement(comment) {
+  const element = document.createElement('div');
+  element.className = 'stored-comment';
+  element.innerHTML = `
+    <div class="comment-header">
+      <strong>${comment.name}</strong>
+      <span class="comment-date">${new Date(comment.timestamp).toLocaleDateString()}</span>
+    </div>
+    <div class="comment-body">${comment.comment}</div>
+  `;
+  return element;
+}
+</script>
+
+<style>
+.comments-section {
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-primary);
+}
+
+#disqus_thread {
+  margin-bottom: 2rem;
+}
+
+.alternative-comments {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-primary);
+  border-radius: 0.375rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.submit-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.comment-success {
+  background: #10b981;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stored-comments {
+  margin-top: 2rem;
+}
+
+.stored-comment {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.comment-body {
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.github-comments {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.github-comments a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #24292e;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.github-comments a:hover {
+  background: #30363d;
+}
+
+@media (max-width: 768px) {
+  .comment-form {
+    padding: 1rem;
+  }
+  
+  .comments-section {
+    padding: 1rem 0;
+  }
+}
+</style>
+  </section>
+  
+</article>
+
+<!-- Structured Data for Comments -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Comment",
+  "url": "https://dominicusin.github.io/2017/11/05/Winworkstation.html#comments",
+  "about": {
+    "@type": "BlogPosting",
+    "@id": "https://dominicusin.github.io/2017/11/05/Winworkstation.html#blogposting"
+  },
+  "discussionUrl": "https://dominicusin.github.io/2017/11/05/Winworkstation.html#comments",
+  "author": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  }
+}
+</script>
+
+
+<!-- Structured Data for BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://dominicusin.github.io"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://dominicusin.github.io/"
+    },
+    
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Prepare my Windows workstation",
+      "item": "https://dominicusin.github.io/2017/11/05/Winworkstation.html"
+    }
+    
+  ]
+}
+</script>
+  </main>
+
+  <footer class="mt-24 border-t bg-surface">
+  <div class="container-wide py-14">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface-2 font-mono text-sm font-bold text-primary">DI</span>
+          <span class="font-mono text-sm font-semibold text-foreground">Engineering Blog</span>
+        </div>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.
+</p>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Connect</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          
+          <li>
+            <a href="https://github.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://orcid.org/0000-0002-7425-0526" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <span class="font-mono text-xs">ORCID</span>
+              <span>0000-0002-7425-0526</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Subscribe</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href="/feed.xml" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              RSS Feed
+            </a>
+          </li>
+          <li>
+            <a href="/archive/" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground" data-i18n="recent_posts.all_articles">Все статьи</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-subtle sm:flex-row">
+      <p>&copy; 2026 Engineering Blog. All rights reserved.</p>
+      <p class="font-mono">Built with Jekyll · Tailwind CSS</p>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Structured Data -->
+  <!-- Enhanced Structured Data for Blog Post -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "navigation.home",
+          "item": "https://dominicusin.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Prepare my Windows workstation",
+          "item": "https://dominicusin.github.io/2017/11/05/Winworkstation.html"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "Prepare my Windows workstation",
+      "description": "Prepare my Windows workstation",
+      "image": [
+        
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Dominicus In",
+        "url": "https://dominicusin.github.io/about/",
+        "sameAs": [
+          "https://github.com/dominicusin",
+          "https://twitter.com/dominicusin",
+          "https://orcid.org/0000-0002-7425-0526"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Engineering Blog",
+        "url": "https://dominicusin.github.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://dominicusin.github.io/assets/images/logo.png",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "datePublished": "2017-11-05T23:27:00+00:00",
+      "dateModified": "2017-11-05T23:27:00+00:00",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://dominicusin.github.io/2017/11/05/Winworkstation.html"
+      },
+      "wordCount": 2608,
+      "keywords": "",
+      "inLanguage": "ru",
+      "isAccessibleForFree": "True",
+      "articleSection": "Technology",
+      
+      "url": "https://dominicusin.github.io/2017/11/05/Winworkstation.html",
+      "potentialAction": {
+        "@type": "ReadAction",
+        "target": "https://dominicusin.github.io/2017/11/05/Winworkstation.html"
+      }
+    }
+  ]
+}
+</script>
+
+
+<!-- Enhanced Structured Data for Homepage -->
+
+
+<!-- Structured Data for Category Pages -->
+
+
+<!-- Website Performance Monitoring -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Prepare my Windows workstation",
+  "description": "Prepare my Windows workstation",
+  "url": "https://dominicusin.github.io/2017/11/05/Winworkstation.html",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Engineering Blog",
+    "url": "https://dominicusin.github.io"
+  },
+  "dateModified": "2026-08-15T01:01:47+00:00",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "navigation.home",
+        "item": "https://dominicusin.github.io/"
+      }
+      
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Prepare my Windows workstation",
+        "item": "https://dominicusin.github.io/2017/11/05/Winworkstation.html"
+      }
+      
+    ]
+  }
+}
+</script>
+
+  <!-- Refactored ES module bundle -->
+  <script type="module" src="https://dominicusin.github.io/js/refactored-bundle.js"></script>
+
+  <!-- Analytics -->
+  
+
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://dominicusin.github.io/sw.js')
+          .then(() => console.log('SW registered'))
+          .catch(() => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>

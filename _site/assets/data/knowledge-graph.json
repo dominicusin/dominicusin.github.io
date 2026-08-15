@@ -1,0 +1,289 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Concept": "skos:Concept",
+    "label": "skos:prefLabel",
+    "relation": "skos:broader",
+    "occurrences": {
+      "@id": "occurrence",
+      "@container": "@set"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://dominicusin.github.io",
+      "@type": "WebSite",
+      "name": "Dominicus Sin Blog",
+      "description": "Knowledge graph of concepts and articles",
+      "totalPosts": 1,
+      "totalConcepts": 4,
+      "generatedAt": "2026-08-14T09:51:43.664Z"
+    },
+    {
+      "@id": "https://dominicusin.github.io/2026/08/14/deep-refactoring-plan/",
+      "@type": "BlogPosting",
+      "headline": "Deep Refactoring Plan: A Comprehensive Guide",
+      "datePublished": "2026-08-14T10:00:00+03:00",
+      "articleSection": [
+        "architecture",
+        "refactoring"
+      ],
+      "keywords": [
+        "ai-agents",
+        "technical-debt",
+        "best-practices",
+        "ci-cd"
+      ],
+      "author": {
+        "@type": "Person",
+        "@id": "#/people/dominicus"
+      },
+      "about": [
+        {
+          "@id": "#/concepts/strangler-fig-pattern"
+        },
+        {
+          "@id": "#/concepts/dependency-injection"
+        },
+        {
+          "@id": "#/concepts/technical-debt"
+        },
+        {
+          "@id": "#/concepts/ci-cd-pipeline"
+        }
+      ]
+    },
+    {
+      "@id": "#/concepts/strangler-fig-pattern",
+      "@type": "Concept",
+      "prefLabel": "Strangler Fig Pattern",
+      "definition": "Concept \"Strangler Fig Pattern\" referenced in dominicusin.github.io",
+      "occurrence": [
+        {
+          "@type": "Occurrence",
+          "inPost": {
+            "@id": "https://dominicusin.github.io/2026/08/14/deep-refactoring-plan/"
+          },
+          "relationType": "defines"
+        }
+      ]
+    },
+    {
+      "@id": "#/concepts/dependency-injection",
+      "@type": "Concept",
+      "prefLabel": "Dependency Injection",
+      "definition": "Concept \"Dependency Injection\" referenced in dominicusin.github.io",
+      "occurrence": [
+        {
+          "@type": "Occurrence",
+          "inPost": {
+            "@id": "https://dominicusin.github.io/2026/08/14/deep-refactoring-plan/"
+          },
+          "relationType": "implements"
+        }
+      ]
+    },
+    {
+      "@id": "#/concepts/technical-debt",
+      "@type": "Concept",
+      "prefLabel": "Technical Debt",
+      "definition": "Concept \"Technical Debt\" referenced in dominicusin.github.io",
+      "occurrence": [
+        {
+          "@type": "Occurrence",
+          "inPost": {
+            "@id": "https://dominicusin.github.io/2026/08/14/deep-refactoring-plan/"
+          },
+          "relationType": "references"
+        }
+      ]
+    },
+    {
+      "@id": "#/concepts/ci-cd-pipeline",
+      "@type": "Concept",
+      "prefLabel": "CI/CD Pipeline",
+      "definition": "Concept \"CI/CD Pipeline\" referenced in dominicusin.github.io",
+      "occurrence": [
+        {
+          "@type": "Occurrence",
+          "inPost": {
+            "@id": "https://dominicusin.github.io/2026/08/14/deep-refactoring-plan/"
+          },
+          "relationType": "extends"
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "2026-08-14-deep-refactoring-plan",
+      "type": "post",
+      "label": "Deep Refactoring Plan: A Comprehensive Guide",
+      "url": "/2026/08/14/deep-refactoring-plan/"
+    },
+    {
+      "id": "strangler-fig-pattern",
+      "type": "concept",
+      "label": "Strangler Fig Pattern"
+    },
+    {
+      "id": "dependency-injection",
+      "type": "concept",
+      "label": "Dependency Injection"
+    },
+    {
+      "id": "technical-debt",
+      "type": "concept",
+      "label": "Technical Debt"
+    },
+    {
+      "id": "ci-cd-pipeline",
+      "type": "concept",
+      "label": "CI/CD Pipeline"
+    }
+  ],
+  "edges": [
+    {
+      "source": "2026-08-14-deep-refactoring-plan",
+      "target": "strangler-fig-pattern",
+      "relation": "defines",
+      "type": "references"
+    },
+    {
+      "source": "strangler-fig-pattern",
+      "target": "2026-08-14-deep-refactoring-plan",
+      "relation": "is_defined_in",
+      "type": "referenced_by"
+    },
+    {
+      "source": "2026-08-14-deep-refactoring-plan",
+      "target": "dependency-injection",
+      "relation": "implements",
+      "type": "references"
+    },
+    {
+      "source": "dependency-injection",
+      "target": "2026-08-14-deep-refactoring-plan",
+      "relation": "is_implemented_in",
+      "type": "referenced_by"
+    },
+    {
+      "source": "2026-08-14-deep-refactoring-plan",
+      "target": "technical-debt",
+      "relation": "references",
+      "type": "references"
+    },
+    {
+      "source": "technical-debt",
+      "target": "2026-08-14-deep-refactoring-plan",
+      "relation": "is_referenced_by",
+      "type": "referenced_by"
+    },
+    {
+      "source": "2026-08-14-deep-refactoring-plan",
+      "target": "ci-cd-pipeline",
+      "relation": "extends",
+      "type": "references"
+    },
+    {
+      "source": "ci-cd-pipeline",
+      "target": "2026-08-14-deep-refactoring-plan",
+      "relation": "is_extended_by",
+      "type": "referenced_by"
+    },
+    {
+      "source": "strangler-fig-pattern",
+      "target": "dependency-injection",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "dependency-injection",
+      "target": "strangler-fig-pattern",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "strangler-fig-pattern",
+      "target": "technical-debt",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "technical-debt",
+      "target": "strangler-fig-pattern",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "strangler-fig-pattern",
+      "target": "ci-cd-pipeline",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "ci-cd-pipeline",
+      "target": "strangler-fig-pattern",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "dependency-injection",
+      "target": "technical-debt",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "technical-debt",
+      "target": "dependency-injection",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "dependency-injection",
+      "target": "ci-cd-pipeline",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "ci-cd-pipeline",
+      "target": "dependency-injection",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "technical-debt",
+      "target": "ci-cd-pipeline",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    },
+    {
+      "source": "ci-cd-pipeline",
+      "target": "technical-debt",
+      "relation": "co_occurs_with",
+      "type": "semantic_link",
+      "strength": 1
+    }
+  ],
+  "metadata": {
+    "totalPosts": 1,
+    "totalConcepts": 4,
+    "totalEdges": 20,
+    "generatedAt": "2026-08-14T09:51:43.664Z",
+    "version": "1.0.0"
+  }
+}

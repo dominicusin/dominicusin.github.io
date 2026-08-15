@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" class="bg-background">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Prevent theme flash: apply stored/preferred theme before paint -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('blog-theme');
+        var theme = stored || 'dark';
+        if (theme === 'auto') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
+  <title>Google Interview Questions | Engineering Blog</title>
+  <meta name="description" content="##Google Interview Questions: Product Marketing Manager  Why do you want to join Google?– Because I want to create tools for others to learn, for free. I did...">
+  <meta name="author" content="Dominicus In">
+  <meta name="keywords" content="">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="ru">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Google Interview Questions">
+  <meta property="og:description" content="##Google Interview Questions: Product Marketing Manager  Why do you want to join Google?– Because I want to create tools for others to learn, for free. I did...">
+  <meta property="og:url" content="https://dominicusin.github.io/2018/02/25/google-interview-questions.html">
+  <meta property="og:site_name" content="Engineering Blog">
+  <meta property="og:image" content="https://dominicusin.github.io/assets/images/og-default.jpg">
+
+  
+  <meta property="article:published_time" content="2018-02-25T18:25:00+00:00">
+  <meta property="article:modified_time" content="2018-02-25T18:25:00+00:00">
+  <meta property="article:author" content="Dominicus In">
+  
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dominicusin">
+  <meta name="twitter:title" content="Google Interview Questions">
+  <meta name="twitter:description" content="##Google Interview Questions: Product Marketing Manager  Why do you want to join Google?– Because I want to create tools for others to learn, for free. I didn’t have a lot of money when growing up ...">
+
+  <meta name="theme-color" content="#0a0c11">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dominicusin.github.io/2018/02/25/google-interview-questions.html">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Engineering Blog" href="https://dominicusin.github.io/feed.xml">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="https://dominicusin.github.io/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="https://dominicusin.github.io/favicon.ico">
+  <link rel="apple-touch-icon" href="https://dominicusin.github.io/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://dominicusin.github.io/css/tailwind.css">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="https://dominicusin.github.io/manifest.json">
+</head>
+
+<body class="layout-post min-h-screen flex flex-col no-js">
+  <script>
+    document.body.classList.remove('no-js');
+    document.body.classList.add('js');
+  </script>
+
+  <!-- Skip to main content link -->
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+     data-i18n="accessibility.skip_to_content">Skip to Content</a>
+
+  <header class="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md" role="banner">
+  <div class="container-wide flex h-16 items-center justify-between gap-4">
+    <!-- Logo/Home link -->
+    <a class="site-title group flex items-center gap-2.5" href="https://dominicusin.github.io/"
+       aria-label="Engineering Blog - Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface font-mono text-sm font-bold text-primary">DI</span>
+      <span class="site-logo font-mono text-sm font-semibold tracking-tight text-foreground" data-i18n="site.title">Engineering Blog</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="site-nav flex items-center gap-1" role="navigation" aria-label="Основная навигация">
+      <div class="nav-desktop hidden items-center gap-1 md:flex">
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/"
+             data-i18n="navigation.home">
+            Home
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/about/"
+             data-i18n="navigation.about">
+            About
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/archive/"
+             data-i18n="navigation.archive">
+            Archive
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/categories/"
+             data-i18n="navigation.categories">
+            Categories
+          </a>
+        
+          <a class="nav-link "
+             href="https://dominicusin.github.io/tags/"
+             data-i18n="navigation.tags">
+            Tags
+          </a>
+        
+      </div>
+
+      <div class="mx-1 hidden h-5 w-px bg-border md:block"></div>
+
+      <!-- Semantic Search trigger (Vector B) -->
+      <button class="search-trigger" type="button" aria-label="Открыть семантический поиск" data-open-semantic-search>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
+        <span class="hidden sm:inline" data-i18n="navigation.search">Поиск</span>
+        <kbd class="search-trigger__kbd">Alt K</kbd>
+      </button>
+
+      <!-- Theme Toggle (rendered by theme-manager JS) -->
+      <div class="theme-toggle theme-toggle--header"></div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle inline-flex h-9 w-9 items-center justify-center rounded-lg border bg-surface text-muted transition-colors hover:text-foreground md:hidden"
+              type="button"
+              aria-label="Переключить меню навигации"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              data-mobile-toggle>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden border-t bg-surface md:!hidden" role="navigation" aria-label="Мобильная навигация" data-mobile-menu>
+    <div class="container-wide flex flex-col gap-1 py-4">
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/"
+           data-i18n="navigation.home">
+          Home
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/about/"
+           data-i18n="navigation.about">
+          About
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/archive/"
+           data-i18n="navigation.archive">
+          Archive
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/categories/"
+           data-i18n="navigation.categories">
+          Categories
+        </a>
+      
+        <a class="rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground "
+           href="https://dominicusin.github.io/tags/"
+           data-i18n="navigation.tags">
+          Tags
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('[data-mobile-toggle]');
+    var menu = document.querySelector('[data-mobile-menu]');
+    if (!toggle || !menu) return;
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('hidden') === false;
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  })();
+</script>
+
+
+  <!-- Semantic Search Modal (Vector B UI) -->
+  <!-- Semantic Search Modal -->
+<div id="semantic-search-modal" class="ai-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="ai-modal__overlay" data-close-modal></div>
+  <div class="ai-modal__container">
+    <div class="ai-modal__header">
+      <h2 id="modal-title" class="ai-modal__title">
+        <svg class="ai-modal__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+        </svg>
+        Semantic Search
+      </h2>
+      <button class="ai-modal__close" data-close-modal aria-label="Close modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-modal__body">
+      <!-- Search Mode Toggle -->
+      <div class="search-mode-toggle">
+        <button class="mode-btn active" data-mode="hybrid" title="Hybrid Search (Keyword + Vector)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Hybrid
+        </button>
+        <button class="mode-btn" data-mode="vector" title="Vector Search (Semantic)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          Vector
+        </button>
+        <button class="mode-btn" data-mode="keyword" title="Keyword Search (Traditional)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8M8 12h8M8 16h4"></path>
+          </svg>
+          Keyword
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          id="semantic-search-input" 
+          class="search-input" 
+          placeholder="Ask in natural language... (e.g., 'How do I optimize React performance?')"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="search-status" id="search-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Ready</span>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div class="search-results" id="search-results">
+        <!-- Skeleton loader -->
+        <div class="results-skeleton" id="results-skeleton" hidden>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+          <div class="skeleton-item"></div>
+        </div>
+
+        <!-- Results will be injected here -->
+        <div class="results-placeholder" id="results-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <p>Enter your query to find semantically relevant content</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-modal__footer">
+      <div class="search-info">
+        <span class="info-label">Model:</span>
+        <span class="info-value" id="model-info">all-MiniLM-L6-v2</span>
+        <span class="info-divider">|</span>
+        <span class="info-label">Index:</span>
+        <span class="info-value" id="index-info">0 posts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Result Item Template (for JS rendering) -->
+<template id="result-item-template">
+  <article class="search-result-item">
+    <div class="result-header">
+      <h3 class="result-title"></h3>
+      <div class="relevance-badge">
+        <span class="relevance-score"></span>
+        <span class="relevance-label">Relevance</span>
+      </div>
+    </div>
+    <p class="result-excerpt"></p>
+    <div class="result-meta">
+      <span class="result-date"></span>
+      <span class="result-category"></span>
+    </div>
+    <a class="result-link" href="#">Read more →</a>
+  </article>
+</template>
+
+
+  <main id="main-content" class="flex-1" aria-label="Content">
+    <!-- Structured Data for Blog Post -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html#blogposting",
+  "url": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html",
+  "name": "Google Interview Questions",
+  "headline": "Google Interview Questions",
+  "description": "##Google Interview Questions: Product Marketing Manager  Why do you want to join Google?– Because I want to create tools for others to learn, for free. I did...",
+  "datePublished": "2018-02-25T18:25:00+00:00",
+  "dateModified": "2018-02-25T18:25:00+00:00",
+  "author": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In",
+    "url": "https://dominicusin.github.io/about/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "https://dominicusin.github.io#person",
+    "name": "Dominicus In"
+  },
+  "inLanguage": en,
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "https://dominicusin.github.io#blog"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html"
+  },
+  "wordCount": 4299,
+  "keywords": [
+    
+  ],
+  "articleSection": "Technology",
+  "image": [
+    
+    "https://dominicusin.github.io/assets/images/default-blog-image.jpg"
+    
+  ],
+  "thumbnailUrl": "https://dominicusin.github.io/assets/images/default-blog-image.jpg",
+  "genre": [
+    
+  ],
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Software Engineering"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Web Development"
+    }
+  ],
+  "mentions": [
+    
+  ]
+}
+</script>
+
+<!-- Article Header -->
+<article class="post">
+  <header class="post-header">
+    <div class="post-meta">
+      
+      
+      <time class="post-date" datetime="2018-02-25T18:25:00+00:00">
+        February 25, 2018
+        
+      </time>
+      
+      
+      <span class="post-author">by Dominicus In</span>
+      
+    </div>
+    
+    <h1 class="post-title">Google Interview Questions</h1>
+    
+    
+    
+    
+    <p class="post-excerpt"><p>##Google Interview Questions: Product Marketing Manager</p>
+<ul>
+  <li>Why do you want to join Google?
+– Because I want to create tools for others to learn, for free. I didn’t have a lot of money when growing up so I didn’t get access to the same books, computers and resources that others had which caused money, I want to help ensure that others can learn on the same playing field regardless of their families wealth status or location.</li>
+  <li>What do you know about Google’s product and technology?
+– A lot actually, I am a beta tester for numerous products, I use most of the Google tools such as: Search, Gmaill, Drive, Reader, Calendar, G+, YouTube, Web Master Tools, Keyword tools, Analytics etc.</li>
+  <li>If you are Product Manager for Google’s Adwords, how do you plan to market this?</li>
+  <li>What would you say during an AdWords or AdSense product seminar?</li>
+  <li>Who are Google’s competitors, and how does Google compete with them?
+– Google competes on numerous fields:
+— Search: Baidu, Bing, Duck Duck Go
+— Ads: Microsoft, Facebook, Comcast, Newspapers
+— Social: Facebook and Twitter
+— Mobile: Apple, Microsoft, RIM
+— Desktop Operating System: Apple, Microsoft, Ubuntu, Fedora
+— Office Suite: Microsoft, Open Office, Zoho
+— TV: Apple, Microsoft, Samsung Smart TV
+— Cable Internet: Comcast, Verizon, Time Warner, Quest/Century Link
+— Online Videos: Vimeo, self hosted video, Apple/iTunes, Netflix, Amazon VOD
+— Hardware: Apple, Nokia, Microsoft, HTC, Samsung, Acer, Vizio
+— Music: Apple/iTunes, Amazon MP3, Not direct competition: Pandora, Mog, Last.fm
+— Browsers: Microsoft IE, Firefox, Apple Safari, Opera</li>
+</ul>
+</p>
+    
+  </header>
+
+  <!-- Table of Contents -->
+  
+
+  <!-- Article Content -->
+  <div class="post-content">
+    <p>##Google Interview Questions: Product Marketing Manager</p>
+<ul>
+  <li>Why do you want to join Google?
+– Because I want to create tools for others to learn, for free. I didn’t have a lot of money when growing up so I didn’t get access to the same books, computers and resources that others had which caused money, I want to help ensure that others can learn on the same playing field regardless of their families wealth status or location.</li>
+  <li>What do you know about Google’s product and technology?
+– A lot actually, I am a beta tester for numerous products, I use most of the Google tools such as: Search, Gmaill, Drive, Reader, Calendar, G+, YouTube, Web Master Tools, Keyword tools, Analytics etc.</li>
+  <li>If you are Product Manager for Google’s Adwords, how do you plan to market this?</li>
+  <li>What would you say during an AdWords or AdSense product seminar?</li>
+  <li>
+    <p>Who are Google’s competitors, and how does Google compete with them?
+– Google competes on numerous fields:
+— Search: Baidu, Bing, Duck Duck Go
+— Ads: Microsoft, Facebook, Comcast, Newspapers
+— Social: Facebook and Twitter
+— Mobile: Apple, Microsoft, RIM
+— Desktop Operating System: Apple, Microsoft, Ubuntu, Fedora
+— Office Suite: Microsoft, Open Office, Zoho
+— TV: Apple, Microsoft, Samsung Smart TV
+— Cable Internet: Comcast, Verizon, Time Warner, Quest/Century Link
+— Online Videos: Vimeo, self hosted video, Apple/iTunes, Netflix, Amazon VOD
+— Hardware: Apple, Nokia, Microsoft, HTC, Samsung, Acer, Vizio
+— Music: Apple/iTunes, Amazon MP3, Not direct competition: Pandora, Mog, Last.fm
+— Browsers: Microsoft IE, Firefox, Apple Safari, Opera</p>
+  </li>
+  <li>Have you ever used Google’s products? Gmail?
+– Yes, I use at least 10 Google products everyday:
+— Gmail
+— Google Search
+— Google Drive
+— Android
+— Calendar
+— Google+
+— Google Reader
+— Chrome
+— Google Voice
+— YouTube</li>
+  <li>What’s a creative way of marketing Google’s brand name and product?
+– Show the power of Google’s beam tool by playing phone tag from one side of the country (USA) to the other
+– Travel around the world and communicate with every language by using Google Translate
+– More Television commercials since most people just don’t know about the products / features that Google offers and the TV is still the most used device which almost everyone has.</li>
+  <li>If you are the product marketing manager for Google’s Gmail product, how do you plan to market it so as to achieve 100 million customers in 6 months?</li>
+  <li>How much money you think Google makes daily from Gmail ads?</li>
+  <li>Name a piece of technology you’ve read about recently. Now tell me your own creative execution for an ad for that product.</li>
+  <li>Say an advertiser makes $0.10 every time someone clicks on their ad. Only 20% of people who visit the site click on their ad. How many people need to - visit the site for the advertiser to make $20?</li>
+  <li>Estimate the number of students who are college seniors, attend four-year schools, and graduate with a job in the United States every year.</li>
+</ul>
+
+<p>##Google Interview Questions: Product Manager</p>
+<ul>
+  <li>How would you boost the GMail subscription base?</li>
+  <li>What is the most efficient way to sort a million integers?</li>
+  <li>How would you re-position Google’s offerings to counteract competitive threats from Microsoft?</li>
+  <li>How many golf balls can fit in a school bus?</li>
+  <li>You are shrunk to the height of a nickel and your mass is proportionally reduced so as to maintain your original density. You are then thrown into an empty glass blender. The blades will start moving in 60 seconds. What do you do?</li>
+  <li>How much should you charge to wash all the windows in Seattle?</li>
+  <li>How would you find out if a machine’s stack grows up or down in memory?</li>
+  <li>Explain a database in three sentences to your eight-year-old nephew.</li>
+  <li>How many times a day does a clock’s hands overlap?</li>
+  <li>You have to get from point A to point B. You don’t know if you can get there. What would you do?</li>
+  <li>Imagine you have a closet full of shirts. It’s very hard to find a shirt. So what can you do to organize your shirts for easy retrieval?</li>
+  <li>Every man in a village of 100 married couples has cheated on his wife. Every wife in the village instantly knows when a man other than her husband has cheated, but does not know when her own husband has. The village has a law that does not allow for adultery. Any wife who can prove that her husband is unfaithful must kill him that very day. The women of the village would never disobey this law. One day, the queen of the village visits and announces that at least one husband has been unfaithful. What happens?</li>
+  <li>In a country in which people only want boys, every family continues to have children until they have a boy. If they have a girl, they have another child. If they have a boy, they stop. What is the proportion of boys to girls in the country?</li>
+  <li>If the probability of observing a car in 30 minutes on a highway is 0.95, what is the probability of observing a car in 10 minutes (assuming constant default probability)?</li>
+  <li>If you look at a clock and the time is 3:15, what is the angle between the hour and the minute hands? (The answer to this is not zero!)</li>
+  <li>Four people need to cross a rickety rope bridge to get back to their camp at night. Unfortunately, they only have one flashlight and it only has enough light left for seventeen minutes. The bridge is too dangerous to cross without a flashlight, and it’s only strong enough to support two people at any given time. Each of the campers walks at a different speed. One can cross the bridge in 1 minute, another in 2 minutes, the third in 5 minutes, and the slow poke takes 10 minutes to cross. How do the campers make it across in 17 minutes?</li>
+  <li>You are at a party with a friend and 10 people are present including you and the friend. your friend makes you a wager that for every person you find that has the same birthday as you, you get $1; for every person he finds that does not have the same birthday as you, he gets $2. would you accept the wager?</li>
+  <li>How many piano tuners are there in the entire world?</li>
+  <li>You have eight balls all of the same size. 7 of them weigh the same, and one of them weighs slightly more. How can you find the ball that is heavier by using a balance and only two weighings?</li>
+  <li>You have five pirates, ranked from 5 to 1 in descending order. The top pirate has the right to propose how 100 gold coins should be divided among them. But the others get to vote on his plan, and if fewer than half agree with him, he gets killed. How should he allocate the gold in order to maximize his share but live to enjoy it? (Hint: One pirate ends up with 98 percent of the gold.)</li>
+  <li>You are given 2 eggs. You have access to a 100-story building. Eggs can be very hard or very fragile means it may break if dropped from the first floor or may not even break if dropped from 100th floor. Both eggs are identical. You need to figure out the highest floor of a 100-story building an egg can be dropped without breaking. The question is how many drops you need to make. You are allowed to break 2 eggs in the process.</li>
+  <li>Describe a technical problem you had and how you solved it.</li>
+  <li>How would you design a simple search engine?</li>
+  <li>Design an evacuation plan for San Francisco.</li>
+  <li>There’s a latency problem in South Africa. Diagnose it.</li>
+  <li>What are three long term challenges facing Google?</li>
+  <li>Name three non-Google websites that you visit often and like. What do you like about the user interface and design? Choose one of the three sites and comment on what new feature or project you would work on. How would you design it?</li>
+  <li>If there is only one elevator in the building, how would you change the design? How about if there are only two elevators in the building?</li>
+  <li>How many vacuum’s are made per year in USA?</li>
+</ul>
+
+<p>##Google Interview Questions: Software Engineer</p>
+<ul>
+  <li>Why are manhole covers round?
+– Man hole covers are round because it is the only shape that cannot fit within itself.
+– Circles are the shape which requires the least amount of material to fit a full size man/woman
+– Circular tubes are the strongest to hold off the forces of the earth, hence cause the man hole to be circular</li>
+  <li>What is the difference between a mutex and a semaphore? Which one would you use to protect access to an increment operation?</li>
+  <li>A man pushed his car to a hotel and lost his fortune. What happened?
+– He didn’t own the hotel on the monopoly board.</li>
+  <li>Explain the significance of “dead beef”.</li>
+  <li>Write a C program which measures the the speed of a context switch on a UNIX/Linux system.</li>
+  <li>Given a function which produces a random integer in the range 1 to 5, write a function which produces a random integer in the range 1 to 7.</li>
+  <li>Describe the algorithm for a depth-first graph traversal.</li>
+  <li>Design a class library for writing card games.</li>
+  <li>You need to check that your friend, Bob, has your correct phone number, but you cannot ask him directly. You must write a the question on a card which and give it to Eve who will take the card to Bob and return the answer to you. What must you write on the card, besides the question, to ensure Bob can encode the message so that Eve cannot read your phone number?</li>
+  <li>How are cookies passed in the HTTP protocol?</li>
+  <li>Design the SQL database tables for a car rental database.</li>
+  <li>Write a regular expression which matches a email address.</li>
+  <li>Write a function f(a, b) which takes two character string arguments and returns a string containing only the characters found in both strings in the order of a. Write a version which is order N-squared and one which is order N.</li>
+  <li>You are given a the source to a application which is crashing when run. After running it 10 times in a debugger, you find it never crashes in the same place. The application is single threaded, and uses only the C standard library. What programming errors could be causing this crash? How would you test each one?</li>
+  <li>Explain how congestion control works in the TCP protocol.</li>
+  <li>In Java, what is the difference between final, finally, and finalize?</li>
+  <li>What is multithreaded programming? What is a deadlock?</li>
+  <li>Write a function (with helper functions if needed) called to Excel that takes an excel column value (A,B,C,D…AA,AB,AC,… AAA..) and returns a corresponding integer value (A=1,B=2,… AA=26..).</li>
+  <li>You have a stream of infinite queries (ie: real time Google search queries that people are entering). Describe how you would go about finding a good estimate of 1000 samples from this never ending set of data and then write code for it.</li>
+  <li>Tree search algorithms. Write BFS and DFS code, explain run time and space requirements. Modify the code to handle trees with weighted edges and loops with BFS and DFS, make the code print out path to goal state.</li>
+  <li>You are given a list of numbers. When you reach the end of the list you will come back to the beginning of the list (a circular list). Write the most efficient algorithm to find the minimum # in this list. Find any given # in the list. The numbers in the list are always increasing but you don’t know where the circular list begins, ie: 38, 40, 55, 89, 6, 13, 20, 23, 36.</li>
+  <li>Describe the data structure that is used to manage memory. (stack)</li>
+  <li>What’s the difference between local and global variables?</li>
+  <li>If you have 1 million integers, how would you sort them efficiently? (modify a specific sorting algorithm to solve this)</li>
+  <li>In Java, what is the difference between static, final, and const. (if you don’t know Java they will ask something similar for C or C++).</li>
+  <li>Talk about your class projects or work projects (pick something easy)… then describe how you could make them more efficient (in terms of algorithms).</li>
+  <li>Suppose you have an NxN matrix of positive and negative integers. Write some code that finds the sub-matrix with the maximum sum of its elements.</li>
+  <li>Write some code to reverse a string.</li>
+  <li>Implement division (without using the divide operator, obviously).</li>
+  <li>Write some code to find all permutations of the letters in a particular string.</li>
+  <li>What method would you use to look up a word in a dictionary?</li>
+  <li>Imagine you have a closet full of shirts. It’s very hard to find a shirt. So what can you do to organize your shirts for easy retrieval?</li>
+  <li>You have eight balls all of the same size. 7 of them weigh the same, and one of them weighs slightly more. How can you fine the ball that is heavier by using a balance and only two weighings?</li>
+  <li>What is the C-language command for opening a connection with a foreign host over the internet?</li>
+  <li>Design and describe a system/application that will most efficiently produce a report of the top 1 million Google search requests. These are the particulars: 1) You are given 12 servers to work with. They are all dual-processor machines with 4Gb of RAM, 4x400GB hard drives and networked together.(Basically, nothing more than high-end PC’s) 2) The log data has already been cleaned for you. It consists of 100 Billion log lines, broken down into 12 320 GB files of 40-byte search terms per line. 3) You can use only custom written applications or available free open-source software.</li>
+  <li>There is an array A[N] of N numbers. You have to compose an array Output[N] such that Output[i] will be equal to multiplication of all the elements of A[N] except A[i]. For example Output[0] will be multiplication of A[1] to A[N-1] and Output[1] will be multiplication of A[0] and from A[2] to A[N-1]. Solve it without division operator and in O(n).</li>
+  <li>There is a linked list of numbers of length N. N is very large and you don’t know N. You have to write a function that will return k random numbers from the list. Numbers should be completely random. Hint: 1. Use random function rand() (returns a number between 0 and 1) and irand() (return either 0 or 1) 2. It should be done in O(n).</li>
+  <li>Find or determine non existence of a number in a sorted list of N numbers where the numbers range over M, M» N and N large enough to span multiple disks. Algorithm to beat O(log n) bonus points for constant time algorithm.</li>
+  <li>You are given a game of Tic Tac Toe. You have to write a function in which you pass the whole game and name of a player. The function will return whether the player has won the game or not. First you to decide which data structure you will use for the game. You need to tell the algorithm first and then need to write the code. Note: Some position may be blank in the game। So your data structure should consider this condition also.</li>
+  <li>You are given an array [a1 To an] and we have to construct another array [b1 To bn] where bi = a1<em>a2</em>…*an/ai. you are allowed to use only constant space and the time complexity is O(n). No divisions are allowed.</li>
+  <li>How do you put a Binary Search Tree in an array in a efficient manner. Hint :: If the node is stored at the ith position and its children are at 2i and 2i+1(I mean level order wise)Its not the most efficient way.</li>
+  <li>How do you find out the fifth maximum element in an Binary Search Tree in efficient manner. Note: You should not use use any extra space. i.e sorting - - Binary Search Tree and storing the results in an array and listing out the fifth element.</li>
+  <li>Given a Data Structure having first n integers and next n chars. A = i1 i2 i3 … iN c1 c2 c3 … cN.Write an in-place algorithm to rearrange the elements of the array ass A = i1 c1 i2 c2 … in cn</li>
+  <li>Given two sequences of items, find the items whose absolute number increases or decreases the most when comparing one sequence with the other by reading the sequence only once.</li>
+  <li>Given That One of the strings is very very long , and the other one could be of various sizes. Windowing will result in O(N+M) solution but could it be better? May be NlogM or even better?</li>
+  <li>How many lines can be drawn in a 2D plane such that they are equidistant from 3 non-collinear points?</li>
+  <li>Let’s say you have to construct Google maps from scratch and guide a person standing on Gateway of India (Mumbai) to India Gate(Delhi). How do you do the same?</li>
+  <li>Given that you have one string of length N and M small strings of length L. How do you efficiently find the occurrence of each small string in the larger one?</li>
+  <li>Given a binary tree, programmatically you need to prove it is a binary search tree.</li>
+  <li>You are given a small sorted list of numbers, and a very very long sorted list of numbers – so long that it had to be put on a disk in different blocks. - How would you find those short list numbers in the bigger one?</li>
+  <li>Suppose you have given N companies, and we want to eventually merge them into one big company. How many ways are theres to merge?</li>
+  <li>Given a file of 4 billion 32-bit integers, how to find one that appears at least twice?</li>
+  <li>Write a program for displaying the ten most frequent words in a file such that your program should be efficient in all complexity measures.</li>
+  <li>Design a stack. We want to push, pop, and also, retrieve the minimum element in constant time.</li>
+  <li>Given a set of coin denominators, find the minimum number of coins to give a certain amount of change.</li>
+  <li>Given an array, i) find the longest continuous increasing subsequence. ii) find the longest increasing subsequence.</li>
+  <li>Suppose we have N companies, and we want to eventually merge them into one big company. How many ways are there to merge?</li>
+  <li>Write a function to find the middle node of a single link list.</li>
+  <li>Given two binary trees, write a compare function to check if they are equal or not. Being equal means that they have the same value and same structure.</li>
+  <li>Implement put/get methods of a fixed size cache with LRU replacement algorithm.</li>
+  <li>You are given with three sorted arrays ( in ascending order), you are required to find a triplet ( one element from each array) such that distance is minimum.</li>
+  <li>Distance is defined like this : If a[i], b[j] and c[k] are three elements then distance=max(abs(a[i]-b[j]),abs(a[i]-c[k]),abs(b[j]-c[k]))” Please give a solution in O(n) time complexity</li>
+  <li>How does C++ deal with constructors and deconstructors of a class and its child class?</li>
+  <li>Write a function that flips the bits inside a byte (either in C++ or Java). Write an algorithm that take a list of n words, and an integer m, and retrieves the mth most frequent word in that list.</li>
+  <li>What’s 2 to the power of 64?</li>
+  <li>Given that you have one string of length N and M small strings of length L. How do you efficiently find the occurrence of each small string in the larger one?</li>
+  <li>How do you find out the fifth maximum element in an Binary Search Tree in efficient manner.</li>
+  <li>Suppose we have N companies, and we want to eventually merge them into one big company. How many ways are there to merge?</li>
+  <li>There is linked list of millions of node and you do not know the length of it. Write a function which will return a random number from the list.</li>
+  <li>You need to check that your friend, Bob, has your correct phone number, but you cannot ask him directly. You must write a the question on a card which and give it to Eve who will take the card to Bob and return the answer to you. What must you write on the card, besides the question, to ensure Bob can encode the message so that Eve cannot read your phone number?</li>
+  <li>How long it would take to sort 1 trillion numbers? Come up with a good estimate.</li>
+  <li>Order the functions in order of their asymptotic performance: 1) 2^n 2) n^100 3) n! 4) n^n</li>
+  <li>There are some data represented by(x,y,z). Now we want to find the Kth least data. We say (x1, y1, z1) &gt; (x2, y2, z2) when value(x1, y1, z1) &gt; value(x2, y2, z2) where value(x,y,z) = (2^x)<em>(3^y)</em>(5^z). Now we can not get it by calculating value(x,y,z) or through other indirect calculations as lg(value(x,y,z)). How to solve it?</li>
+  <li>How many degrees are there in the angle between the hour and minute hands of a clock when the time is a quarter past three?</li>
+  <li>Given an array whose elements are sorted, return the index of a the first occurrence of a specific integer. Do this in sub-linear time. I.e. do not just go through each element searching for that element.</li>
+  <li>Given two linked lists, return the intersection of the two lists: i.e. return a list containing only the elements that occur in both of the input lists.</li>
+  <li>What’s the difference between a hashtable and a hashmap?</li>
+  <li>If a person dials a sequence of numbers on the telephone, what possible words/strings can be formed from the letters associated with those numbers?</li>
+  <li>How would you reverse the image on an n by n matrix where each pixel is represented by a bit?</li>
+  <li>Create a fast cached storage mechanism that, given a limitation on the amount of cache memory, will ensure that only the least recently used items are discarded when the cache memory is reached when inserting a new item. It supports 2 functions: String get(T t) and void put(String k, T t).</li>
+  <li>Create a cost model that allows Google to make purchasing decisions on to compare the cost of purchasing more RAM memory for their servers vs. buying more disk space.</li>
+  <li>Design an algorithm to play a game of Frogger and then code the solution. The object of the game is to direct a frog to avoid cars while crossing a busy road. You may represent a road lane via an array. Generalize the solution for an N-lane road.</li>
+  <li>What sort would you use if you had a large data set on disk and a small amount of ram to work with?</li>
+  <li>What sort would you use if you required tight max time bounds and wanted highly regular performance.</li>
+  <li>How would you store 1 million phone numbers?</li>
+  <li>Design a 2D dungeon crawling game. It must allow for various items in the maze – walls, objects, and computer-controlled characters. (The focus was on the class structures, and how to optimize the experience for the user as s/he travels through the dungeon.)</li>
+  <li>What is the size of the C structure below on a 32-bit system? On a 64-bit?
+struct foo {</li>
+</ul>
+
+<p>char a;
+char* b;
+};</p>
+
+<p>##Google Interview: Software Engineer in Test</p>
+<ul>
+  <li>Efficiently implement 3 stacks in a single array.</li>
+  <li>Given an array of integers which is circularly sorted, how do you find a given integer.</li>
+  <li>Write a program to find depth of binary search tree without using recursion.</li>
+  <li>Find the maximum rectangle (in terms of area) under a histogram in linear time.</li>
+  <li>Most phones now have full keyboards. Before there there three letters mapped to a number button. Describe how you would go about implementing spelling and word suggestions as people type.</li>
+  <li>Describe recursive mergesort and its runtime. Write an iterative version in C++/Java/Python.</li>
+  <li>How would you determine if someone has won a game of tic-tac-toe on a board of any size?</li>
+  <li>Given an array of numbers, replace each number with the product of all the numbers in the array except the number itself <em>without</em> using division.</li>
+  <li>Create a cache with fast look up that only stores the N most recently accessed items.</li>
+  <li>How to design a search engine? If each document contains a set of keywords, and is associated with a numeric attribute, how to build indices?</li>
+  <li>Given two files that has list of words (one per line), write a program to show the intersection.</li>
+  <li>What kind of data structure would you use to index annagrams of words? e.g. if there exists the word “top” in the database, the query for “pot” should list that.</li>
+</ul>
+
+<p>##Google Interview: Quantitative Compensation Analyst</p>
+<ul>
+  <li>What is the yearly standard deviation of a stock given the monthly standard deviation?</li>
+  <li>How many resumes does Google receive each year for software engineering?</li>
+  <li>Anywhere in the world, where would you open up a new Google office and how would you figure out compensation for all the employees at this new office?</li>
+  <li>What is the probability of breaking a stick into 3 pieces and forming a triangle?</li>
+  <li>Google Interview: Engineering Manager</li>
+  <li>You’re the captain of a pirate ship, and your crew gets to vote on how the gold is divided up. If fewer than half of the pirates agree with you, you die. How do you recommend apportioning the gold in such a way that you get a good share of the booty, but still survive?</li>
+</ul>
+
+<p>##Google Interview: AdWords Associate</p>
+<ul>
+  <li>How would you work with an advertiser who was not seeing the benefits of the AdWords relationship due to poor conversions?</li>
+  <li>How would you deal with an angry or frustrated advertisers on the phone?</li>
+</ul>
+
+  </div>
+
+  <!-- Article Footer -->
+  <footer class="post-footer">
+    
+
+    <div class="post-navigation">
+      
+      <a href="/2018/02/03/russia-it-podcast.html" class="nav-link nav-prev" rel="prev">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-title">it-podcast</span>
+      </a>
+      
+      
+      
+      <a href="/2018/11/08/my-favorite-movies.html" class="nav-link nav-next" rel="next">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-title">My favorite movies</span>
+      </a>
+      
+    </div>
+
+    <!-- Social Sharing -->
+    
+    <div class="social-sharing">
+      <h4>Share this article</h4>
+      <!-- Social Sharing Component -->
+<div class="social-sharing">
+  <div class="share-buttons">
+    <!-- Twitter/X -->
+    <a href="https://twitter.com/intent/tweet?text=Google+Interview+Questions&url=https%3A%2F%2Fdominicusin.github.io%2F2018%2F02%2F25%2Fgoogle-interview-questions.html&via=dominicusin" 
+       class="share-button share-twitter" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Twitter/X">
+      <span class="share-icon">𝕏</span>
+      <span class="share-text">Twitter</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdominicusin.github.io%2F2018%2F02%2F25%2Fgoogle-interview-questions.html&title=Google+Interview+Questions" 
+       class="share-button share-linkedin" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on LinkedIn">
+      <span class="share-icon">💼</span>
+      <span class="share-text">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdominicusin.github.io%2F2018%2F02%2F25%2Fgoogle-interview-questions.html" 
+       class="share-button share-facebook" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Facebook">
+      <span class="share-icon">📘</span>
+      <span class="share-text">Facebook</span>
+    </a>
+
+    <!-- Reddit -->
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fdominicusin.github.io%2F2018%2F02%2F25%2Fgoogle-interview-questions.html&title=Google+Interview+Questions" 
+       class="share-button share-reddit" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Reddit">
+      <span class="share-icon">🤖</span>
+      <span class="share-text">Reddit</span>
+    </a>
+
+    <!-- Hacker News -->
+    <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fdominicusin.github.io%2F2018%2F02%2F25%2Fgoogle-interview-questions.html&t=Google+Interview+Questions" 
+       class="share-button share-hackernews" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       title="Share on Hacker News">
+      <span class="share-icon">🍊</span>
+      <span class="share-text">Hacker News</span>
+    </a>
+
+    <!-- Copy Link -->
+    <button class="share-button share-copy" 
+            onclick="copyToClipboard('https://dominicusin.github.io/2018/02/25/google-interview-questions.html', this)"
+            title="Copy link to clipboard">
+      <span class="share-icon">📋</span>
+      <span class="share-text">Copy</span>
+    </button>
+  </div>
+</div>
+
+<script>
+function copyToClipboard(text, button) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopySuccess(button);
+    }).catch(() => {
+      fallbackCopy(text, button);
+    });
+  } else {
+    fallbackCopy(text, button);
+  }
+}
+
+function fallbackCopy(text, button) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-999999px';
+  textArea.style.top = '-999999px';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    document.execCommand('copy');
+    showCopySuccess(button);
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    showCopyError(button);
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+function showCopySuccess(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Copied!';
+  button.classList.add('copied');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('copied');
+  }, 2000);
+}
+
+function showCopyError(button) {
+  const originalText = button.querySelector('.share-text').textContent;
+  button.querySelector('.share-text').textContent = 'Error!';
+  button.classList.add('error');
+  
+  setTimeout(() => {
+    button.querySelector('.share-text').textContent = originalText;
+    button.classList.remove('error');
+  }, 2000);
+}
+</script>
+
+<style>
+.social-sharing {
+  margin: 2rem 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.share-button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.share-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.share-button.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.share-button.error {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.share-twitter:hover {
+  background: #1da1f2;
+  color: white;
+  border-color: #1da1f2;
+}
+
+.share-linkedin:hover {
+  background: #0077b5;
+  color: white;
+  border-color: #0077b5;
+}
+
+.share-facebook:hover {
+  background: #1877f2;
+  color: white;
+  border-color: #1877f2;
+}
+
+.share-reddit:hover {
+  background: #ff4500;
+  color: white;
+  border-color: #ff4500;
+}
+
+.share-hackernews:hover {
+  background: #ff6600;
+  color: white;
+  border-color: #ff6600;
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.share-text {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .share-button {
+    justify-content: center;
+  }
+}
+</style>
+    </div>
+    
+  </footer>
+
+  <!-- Related Posts -->
+  
+  <section class="related-posts">
+    <h3>Related Articles</h3>
+    <div class="post-grid">
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2026/08/14/deep-refactoring-plan/">Deep Refactoring Plan: A Comprehensive Guide</a></h4>
+          <time datetime="2026-08-14T07:00:00+00:00">August 14, 2026</time>
+        </header>
+        
+        <p>Deep Refactoring Plan: A Comprehensive Guide
+</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/29/graph.html">Graph</a></h4>
+          <time datetime="2025-12-29T20:01:00+00:00">December 29, 2025</time>
+        </header>
+        
+        <p>
+
+
+
+    
+        Filters
+        
+         Markup Languages
+         TeX/LaTeX
+         Office Formats
+         E-boo...</p>
+        
+      </article>
+      
+      <article class="related-post-card">
+        <header>
+          <h4><a href="/2025/12/23/awesome-plan9.html">Awesome Plan9</a></h4>
+          <time datetime="2025-12-23T09:37:00+00:00">December 23, 2025</time>
+        </header>
+        
+        <p>Awesome Plan9
+</p>
+        
+      </article>
+      
+    </div>
+  </section>
+  
+
+  <!-- Comments Section -->
+  
+  <section class="comments-section">
+    <h3>Comments</h3>
+    <!-- Comments Section -->
+<div class="comments-section">
+  <div id="disqus_thread" data-disqus-shortname=""></div>
+  
+  <noscript>
+    <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+  </noscript>
+  
+  <!-- Alternative comment systems can be added here -->
+  <div class="alternative-comments" style="display: none;">
+    <h4>Comments</h4>
+    <p>Join the discussion on this post:</p>
+    
+    <!-- GitHub Issues as comments -->
+    
+    
+    <!-- Manual comment form -->
+    <form class="comment-form" action="#" method="post" onsubmit="handleCommentSubmit(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email (optional)</label>
+        <input type="email" id="email" name="email">
+      </div>
+      
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Post Comment</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Disqus integration
+if (window.DISQUS) {
+  DISQUS.reset({
+    reload: true,
+    config: function () {
+      this.page.identifier = "/2018/02/25/google-interview-questions.html";
+      this.page.url = "https://dominicusin.github.io/2018/02/25/google-interview-questions.html";
+    }
+  });
+} else {
+  const disqus_config = function () {
+    this.page.url = "https://dominicusin.github.io/2018/02/25/google-interview-questions.html";
+    this.page.identifier = "/2018/02/25/google-interview-questions.html";
+  };
+  
+  (function() {
+    const d = document, s = d.createElement('script');
+    s.src = 'https://.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+}
+
+// Fallback comment handler
+function handleCommentSubmit(event) {
+  event.preventDefault();
+  
+  const formData = new FormData(event.target);
+  const comment = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    comment: formData.get('comment'),
+    page: "/2018/02/25/google-interview-questions.html",
+    timestamp: new Date().toISOString()
+  };
+  
+  // Store comment locally (in a real implementation, send to server)
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  comments.push(comment);
+  localStorage.setItem('comments', JSON.stringify(comments));
+  
+  // Show success message
+  showCommentSuccess();
+  
+  // Reset form
+  event.target.reset();
+}
+
+function showCommentSuccess() {
+  const message = document.createElement('div');
+  message.className = 'comment-success';
+  message.textContent = 'Thank you for your comment! It will appear after moderation.';
+  
+  const form = document.querySelector('.comment-form');
+  form.parentNode.insertBefore(message, form);
+  
+  setTimeout(() => {
+    message.remove();
+  }, 5000);
+}
+
+// Load stored comments if Disqus is not available
+if (!window.DISQUS && !document.querySelector('#disqus_thread script')) {
+  setTimeout(() => {
+    const altComments = document.querySelector('.alternative-comments');
+    if (altComments) {
+      altComments.style.display = 'block';
+      loadStoredComments();
+    }
+  }, 2000);
+}
+
+function loadStoredComments() {
+  const comments = JSON.parse(localStorage.getItem('comments') || '[]');
+  const pageComments = comments.filter(c => c.page === "/2018/02/25/google-interview-questions.html");
+  
+  if (pageComments.length > 0) {
+    const commentsContainer = document.createElement('div');
+    commentsContainer.className = 'stored-comments';
+    
+    pageComments.forEach(comment => {
+      const commentElement = createCommentElement(comment);
+      commentsContainer.appendChild(commentElement);
+    });
+    
+    const altComments = document.querySelector('.alternative-comments');
+    altComments.appendChild(commentsContainer);
+  }
+}
+
+function createCommentElement(comment) {
+  const element = document.createElement('div');
+  element.className = 'stored-comment';
+  element.innerHTML = `
+    <div class="comment-header">
+      <strong>${comment.name}</strong>
+      <span class="comment-date">${new Date(comment.timestamp).toLocaleDateString()}</span>
+    </div>
+    <div class="comment-body">${comment.comment}</div>
+  `;
+  return element;
+}
+</script>
+
+<style>
+.comments-section {
+  margin: 2rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-primary);
+}
+
+#disqus_thread {
+  margin-bottom: 2rem;
+}
+
+.alternative-comments {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  margin-top: 2rem;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--border-primary);
+  border-radius: 0.375rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.submit-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #1d4ed8;
+}
+
+.comment-success {
+  background: #10b981;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stored-comments {
+  margin-top: 2rem;
+}
+
+.stored-comment {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.comment-body {
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.github-comments {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.github-comments a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #24292e;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.github-comments a:hover {
+  background: #30363d;
+}
+
+@media (max-width: 768px) {
+  .comment-form {
+    padding: 1rem;
+  }
+  
+  .comments-section {
+    padding: 1rem 0;
+  }
+}
+</style>
+  </section>
+  
+</article>
+
+<!-- Structured Data for Comments -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Comment",
+  "url": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html#comments",
+  "about": {
+    "@type": "BlogPosting",
+    "@id": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html#blogposting"
+  },
+  "discussionUrl": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html#comments",
+  "author": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Engineering Blog"
+  }
+}
+</script>
+
+
+<!-- Structured Data for BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://dominicusin.github.io"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://dominicusin.github.io/"
+    },
+    
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Google Interview Questions",
+      "item": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html"
+    }
+    
+  ]
+}
+</script>
+  </main>
+
+  <footer class="mt-24 border-t bg-surface">
+  <div class="container-wide py-14">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-8 w-8 items-center justify-center rounded-lg border bg-surface-2 font-mono text-sm font-bold text-primary">DI</span>
+          <span class="font-mono text-sm font-semibold text-foreground">Engineering Blog</span>
+        </div>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-muted">Blog about industrial engineering, systems engineering, and data science.  Expert materials on key areas of knowledge and modern approaches.
+</p>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Connect</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          
+          <li>
+            <a href="https://github.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://twitter.com/dominicusin" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+              </svg>
+              <span>dominicusin</span>
+            </a>
+          </li>
+          
+          
+          <li>
+            <a href="https://orcid.org/0000-0002-7425-0526" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <span class="font-mono text-xs">ORCID</span>
+              <span>0000-0002-7425-0526</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-mono text-xs uppercase tracking-[0.2em] text-subtle">Subscribe</h3>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href="/feed.xml" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              RSS Feed
+            </a>
+          </li>
+          <li>
+            <a href="/archive/" class="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground" data-i18n="recent_posts.all_articles">Все статьи</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-3 border-t pt-6 text-xs text-subtle sm:flex-row">
+      <p>&copy; 2026 Engineering Blog. All rights reserved.</p>
+      <p class="font-mono">Built with Jekyll · Tailwind CSS</p>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Structured Data -->
+  <!-- Enhanced Structured Data for Blog Post -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "navigation.home",
+          "item": "https://dominicusin.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Google Interview Questions",
+          "item": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "Google Interview Questions",
+      "description": "##Google Interview Questions: Product Marketing Manager  Why do you want to join Google?– Because I want to create tools for others to learn, for free. I didn’t have a lot of money when growing up so I didn’t get access to the same books, computers and resources that others had which caused money...",
+      "image": [
+        
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Dominicus In",
+        "url": "https://dominicusin.github.io/about/",
+        "sameAs": [
+          "https://github.com/dominicusin",
+          "https://twitter.com/dominicusin",
+          "https://orcid.org/0000-0002-7425-0526"
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Engineering Blog",
+        "url": "https://dominicusin.github.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://dominicusin.github.io/assets/images/logo.png",
+          "width": 600,
+          "height": 60
+        }
+      },
+      "datePublished": "2018-02-25T18:25:00+00:00",
+      "dateModified": "2018-02-25T18:25:00+00:00",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html"
+      },
+      "wordCount": 4299,
+      "keywords": "",
+      "inLanguage": "ru",
+      "isAccessibleForFree": "True",
+      "articleSection": "Technology",
+      
+      "url": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html",
+      "potentialAction": {
+        "@type": "ReadAction",
+        "target": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html"
+      }
+    }
+  ]
+}
+</script>
+
+
+<!-- Enhanced Structured Data for Homepage -->
+
+
+<!-- Structured Data for Category Pages -->
+
+
+<!-- Website Performance Monitoring -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Google Interview Questions",
+  "description": "##Google Interview Questions: Product Marketing Manager  Why do you want to join Google?– Because I want to create tools for others to learn, for free. I didn’t have a lot of money when growing up so I didn’t get access to the same books, computers and resources that others had which caused money, I want to help ensure that others can learn on the same playing field regardless of their families wealth status or location.  What do you know about Google’s product and technology?– A lot actually, I am a beta tester for numerous products, I use most of the Google tools such as: Search, Gmaill, Drive, Reader, Calendar, G+, YouTube, Web Master Tools, Keyword tools, Analytics etc.  If you are Product Manager for Google’s Adwords, how do you plan to market this?  What would you say during an AdWords or AdSense product seminar?  Who are Google’s competitors, and how does Google compete with them?– Google competes on numerous fields:— Search: Baidu, Bing, Duck Duck Go— Ads: Microsoft, Facebook, Comcast, Newspapers— Social: Facebook and Twitter— Mobile: Apple, Microsoft, RIM— Desktop Operating System: Apple, Microsoft, Ubuntu, Fedora— Office Suite: Microsoft, Open Office, Zoho— TV: Apple, Microsoft, Samsung Smart TV— Cable Internet: Comcast, Verizon, Time Warner, Quest/Century Link— Online Videos: Vimeo, self hosted video, Apple/iTunes, Netflix, Amazon VOD— Hardware: Apple, Nokia, Microsoft, HTC, Samsung, Acer, Vizio— Music: Apple/iTunes, Amazon MP3, Not direct competition: Pandora, Mog, Last.fm— Browsers: Microsoft IE, Firefox, Apple Safari, Opera",
+  "url": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html",
+  "inLanguage": "ru",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Engineering Blog",
+    "url": "https://dominicusin.github.io"
+  },
+  "dateModified": "2026-08-15T01:01:47+00:00",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "navigation.home",
+        "item": "https://dominicusin.github.io/"
+      }
+      
+      ,
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Google Interview Questions",
+        "item": "https://dominicusin.github.io/2018/02/25/google-interview-questions.html"
+      }
+      
+    ]
+  }
+}
+</script>
+
+  <!-- Refactored ES module bundle -->
+  <script type="module" src="https://dominicusin.github.io/js/refactored-bundle.js"></script>
+
+  <!-- Analytics -->
+  
+
+  <!-- Service Worker for PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://dominicusin.github.io/sw.js')
+          .then(() => console.log('SW registered'))
+          .catch(() => console.log('SW registration failed'));
+      });
+    }
+  </script>
+</body>
+</html>
