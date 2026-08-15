@@ -20,11 +20,10 @@ jobs:
   generate-vr-scene:
     runs-on: ubuntu-latest
     permissions:
+      # VR export builds a GLB/GLTF artifact and (on tags) a GitHub release.
+      # It does NOT deploy to Pages — hugo.yml is the sole Pages publisher.
+      # Least-privilege: only contents:write is needed (release + commit comment).
       contents: write
-      pages: write
-      id-token: write
-      statuses: write
-      actions: read
     
     steps:
       - name: Checkout repository
