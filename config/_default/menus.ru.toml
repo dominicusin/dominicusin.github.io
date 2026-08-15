@@ -1,0 +1,35 @@
+# Main menu (ru). Blowfish renders config/_default/menus.<lang>.toml.
+[[main]]
+  name = "Главная"
+  pageRef = "/"
+  weight = 10
+
+[[main]]
+  name = "Об авторе"
+  pageRef = "/about/"
+  weight = 20
+
+[[main]]
+  name = "Архив"
+  pageRef = "/posts/"
+  weight = 30
+
+[[main]]
+  name = "Категории"
+  pageRef = "/categories/"
+  weight = 40
+
+[[main]]
+  name = "Теги"
+  pageRef = "/tags/"
+  weight = 50
+
+[[main]]
+  name = "Люди"
+  pageRef = "/people/"
+  weight = 60
+
+[[main]]
+  name = "Domini"
+  pageRef = "/domini/"
+  weight = 70

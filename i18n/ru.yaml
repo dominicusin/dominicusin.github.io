@@ -1,0 +1,56 @@
+# Hugo i18n (ru) — migrated from assets/i18n/ru.json (variant A).
+# Flat key structure as required by Hugo's i18n system.
+
+site_title: "Технический блог"
+site_description: "Блог о промышленной инженерии, системной инженерии и науке о данных"
+site_author: "Доминик"
+
+nav_home: "Главная"
+nav_about: "О блоге"
+nav_archive: "Архив"
+nav_categories: "Категории"
+nav_tags: "Теги"
+
+hero_welcome: "Добро пожаловать в"
+hero_read_articles: "Читать статьи"
+hero_about_blog: "О блоге"
+hero_articles: "Статей"
+hero_categories: "Категорий"
+hero_tags: "Тегов"
+
+recent_title: "Последние статьи"
+recent_subtitle: "Свежие материалы по промышленной инженерии, системной инженерии и науке о данных"
+recent_read_more: "Читать далее"
+recent_all_articles: "Все статьи"
+recent_min_read: "мин"
+recent_no_articles: "Статей пока нет"
+recent_coming_soon: "Скоро здесь появится интересный контент"
+
+topics_title: "Основные направления"
+topics_subtitle: "Экспертные материалы по ключевым областям знаний"
+topics_industrial: "Промышленная инженерия"
+topics_industrial_desc: "Оптимизация производственных процессов, lean-методологии, управление качеством и современные подходы к производству"
+topics_systems: "Системная инженерия"
+topics_systems_desc: "Проектирование сложных систем, архитектура ПО, DevOps-практики и инфраструктурные решения"
+topics_data_science: "Data Science & AI"
+topics_data_science_desc: "Машинное обучение, искусственный интеллект, анализ больших данных и практическое применение DS-методов"
+topics_learn_more: "Подробнее"
+topics_articles_count: "статей"
+
+newsletter_title: "Подписка на обновления"
+newsletter_description: "Получайте уведомления о новых статьях и материалах"
+newsletter_rss_feed: "RSS Feed"
+
+footer_copyright: "Все права защищены"
+footer_theme: "Тема основана на"
+footer_powered_by: "Работает на"
+
+a11y_skip_to_content: "Перейти к содержимому"
+a11y_open_menu: "Открыть меню"
+a11y_close_menu: "Закрыть меню"
+a11y_language_switcher: "Переключатель языка"
+
+# Custom keys for layouts/partials/subscription.html
+subscribe_title: "Подписаться"
+subscribe_desc: "Новые посты на вашу почту. Без спама."
+subscribe_button: "Подписаться"

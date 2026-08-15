@@ -1,0 +1,55 @@
+# Hugo i18n (en) — migrated from assets/i18n/en.json (variant A).
+
+site_title: "Engineering Blog"
+site_description: "Blog about industrial engineering, systems engineering, and data science"
+site_author: "Dominicus In"
+
+nav_home: "Home"
+nav_about: "About"
+nav_archive: "Archive"
+nav_categories: "Categories"
+nav_tags: "Tags"
+
+hero_welcome: "Welcome to"
+hero_read_articles: "Read Articles"
+hero_about_blog: "About Blog"
+hero_articles: "Articles"
+hero_categories: "Categories"
+hero_tags: "Tags"
+
+recent_title: "Recent Articles"
+recent_subtitle: "Latest materials on industrial engineering, systems engineering, and data science"
+recent_read_more: "Read More"
+recent_all_articles: "All Articles"
+recent_min_read: "min read"
+recent_no_articles: "No articles yet"
+recent_coming_soon: "Interesting content coming soon"
+
+topics_title: "Main Directions"
+topics_subtitle: "Expert materials on key areas of knowledge"
+topics_industrial: "Industrial Engineering"
+topics_industrial_desc: "Production process optimization, lean methodologies, quality management and modern production approaches"
+topics_systems: "Systems Engineering"
+topics_systems_desc: "Complex systems design, software architecture, DevOps practices and infrastructure solutions"
+topics_data_science: "Data Science & AI"
+topics_data_science_desc: "Machine learning, artificial intelligence, big data analytics and practical application of DS methods"
+topics_learn_more: "Learn More"
+topics_articles_count: "articles"
+
+newsletter_title: "Subscribe to Updates"
+newsletter_description: "Get notifications about new articles and materials"
+newsletter_rss_feed: "RSS Feed"
+
+footer_copyright: "All rights reserved"
+footer_theme: "Theme based on"
+footer_powered_by: "Powered by"
+
+a11y_skip_to_content: "Skip to Content"
+a11y_open_menu: "Open Menu"
+a11y_close_menu: "Close Menu"
+a11y_language_switcher: "Language Switcher"
+
+# Custom keys for layouts/partials/subscription.html
+subscribe_title: "Subscribe"
+subscribe_desc: "New posts to your inbox. No spam."
+subscribe_button: "Subscribe"

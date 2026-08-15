@@ -1,0 +1,16 @@
+# Hugo multilingual configuration (variant A — preserve en/ru).
+# Maps the legacy assets/i18n/{en,ru}.json (8 keys each) into Hugo i18n.
+
+[languages.ru]
+  languageName = "Русский"
+  weight = 1
+  contentDir = "content"
+  [languages.ru.params]
+    defaultTheme = "auto"
+
+[languages.en]
+  languageName = "English"
+  weight = 2
+  contentDir = "content"
+  [languages.en.params]
+    defaultTheme = "auto"
