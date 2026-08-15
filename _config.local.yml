@@ -1,0 +1,9 @@
+# Local-preview overrides only (NOT used in CI/GitHub Pages).
+# Drops the remote theme and gist plugin that aren't installed in the sandbox.
+remote_theme: null
+theme: null
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-archives

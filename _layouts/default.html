@@ -1,201 +1,111 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="{{ site.lang | default: 'ru' }}" data-theme="dark" class="bg-background">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1, viewport-fit=cover">
-  
-  <!-- Enhanced SEO Meta Tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- Prevent theme flash: apply stored/preferred theme before paint -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('blog-theme');
+        var theme = stored || 'dark';
+        if (theme === 'auto') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.classList.add('theme-' + theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
   <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
   <meta name="author" content="{{ site.author.name | escape }}">
   <meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' | escape }}{% else %}{{ site.keywords | escape }}{% endif %}">
   <meta name="robots" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow{% endif %}">
-  <meta name="googlebot" content="{% if page.noindex %}noindex, nofollow{% else %}index, follow{% endif %}">
-  
-  <!-- Language and Locale -->
   <meta name="language" content="{{ site.lang }}">
   <meta property="og:locale" content="{{ site.locale }}">
-  <link rel="alternate" hreflang="{{ site.lang }}" href="{{ page.url | absolute_url }}">
-   <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | remove: '/ru/' }}">
-   <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | replace: '/', '/ru/' | prepend: '/' }}">
-  
-  <!-- Open Graph Enhanced -->
+
+  <!-- Open Graph -->
   <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
   <meta property="og:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}">
   <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:site_name" content="{{ site.title | escape }}">
   <meta property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/assets/images/og-default.jpg' | absolute_url }}{% endif %}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{% if page.image_alt %}{{ page.image_alt | escape }}{% else %}{{ site.title | escape }}{% endif %}">
-  
+
   {% if page.layout == 'post' %}
-  <meta property="article:section" content="{% if page.category %}{{ page.category | escape }}{% endif %}">
-  <meta property="article:tag" content="{{ page.tags | first | escape }}">
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
   <meta property="article:modified_time" content="{{ page.last_modified_at | default: page.date | date_to_xmlschema }}">
   <meta property="article:author" content="{{ site.author.name | escape }}">
   {% endif %}
-  
-  <!-- Twitter Card Enhanced -->
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="{% if page.image %}summary_large_image{% else %}summary{% endif %}">
   <meta name="twitter:site" content="@{{ site.author.twitter }}">
-  <meta name="twitter:creator" content="@{{ site.author.twitter }}">
   <meta name="twitter:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}">
   <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 200 | escape }}{% else %}{{ site.description | escape }}{% endif %}">
-  <meta name="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/assets/images/og-default.jpg' | absolute_url }}{% endif %}">
-  <meta name="twitter:image:alt" content="{% if page.image_alt %}{{ page.image_alt | escape }}{% else %}{{ site.title | escape }}{% endif %}">
-  
-  <!-- Additional SEO -->
-  <meta name="theme-color" content="#4158D0">
-  <meta name="msapplication-TileColor" content="#4158D0">
-  <meta name="application-name" content="{{ site.title | escape }}">
-  <meta name="apple-mobile-web-app-title" content="{{ site.title | escape }}">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
+
+  <meta name="theme-color" content="#0a0c11">
+
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-  
-   <!-- Alternate language links -->
-   <link rel="alternate" hreflang="en" href="{{ page.url | absolute_url | remove: '/ru/' }}">
-   <link rel="alternate" hreflang="ru" href="{{ page.url | absolute_url | replace: '/', '/ru/' | prepend: '/' }}">
-  
+
   <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | absolute_url }}">
-  
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
+
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | absolute_url }}">
-  <link rel="icon" type="image/svg+xml" href="{{ "/favicon.svg" | absolute_url }}">
-  <link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | absolute_url }}">
-  
-  <!-- Preconnect for performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+  <link rel="icon" type="image/svg+xml" href="{{ '/favicon.svg' | absolute_url }}">
+  <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | absolute_url }}">
+  <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | absolute_url }}">
+
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="{{ "/css/main.css" | absolute_url }}">
-  
-  <!-- Critical CSS Inlined -->
-  <style>
-    /* Critical CSS for above-the-fold content */
-    html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff}main{display:block}img{max-width:100%;height:auto;border:0}.site-header{background-color:#fff;border-bottom:1px solid #e1e5e9;padding:1rem 0}.site-title{font-size:1.5rem;font-weight:700;color:#4158D0;text-decoration:none;margin:0}.site-nav{margin:1rem 0}.site-nav a{color:#333;text-decoration:none;padding:0.5rem 1rem;border-radius:4px;transition:background-color 0.2s}.site-nav a:hover,.site-nav a:focus{background-color:#f0f0f0}.page-content{max-width:1200px;margin:0 auto;padding:2rem 1rem}.wrapper{max-width:800px;margin:0 auto}.post-list{list-style:none;padding:0;margin:0}.post-list li{margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid #e1e5e9}.post-title{font-size:1.75rem;font-weight:700;margin:0 0 0.5rem 0}.post-title a{color:#333;text-decoration:none}.post-title a:hover,.post-title a:focus{color:#4158D0}.post-meta{font-size:0.875rem;color:#666;margin-bottom:1rem}.post-excerpt{margin:1rem 0;color:#555;line-height:1.6}.hero{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:4rem 2rem;text-align:center;border-radius:8px;margin-bottom:3rem}.hero h1{font-size:2.5rem;font-weight:800;margin:0 0 1rem 0}.hero p{font-size:1.25rem;margin:0;opacity:0.9}@media (max-width:768px){.hero{padding:2rem 1rem}.hero h1{font-size:2rem}.hero p{font-size:1.125rem}.page-content{padding:1rem}.site-title{font-size:1.25rem}}@media (prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}}
-  </style>
-  
-  <!-- Preconnect for external resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Preload critical fonts -->
-  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
-  
-  <!-- Preload critical scripts -->
-  <link rel="preload" href="{{ "/js/main.js" | absolute_url }}" as="script">
-  <link rel="preload" href="{{ "/js/performance-optimizer.js" | absolute_url }}" as="script">
-  <link rel="preload" href="{{ "/js/theme-manager.js" | absolute_url }}" as="script">
-  <link rel="preload" href="{{ "/js/i18n.js" | absolute_url }}" as="script">
-  
-  <!-- Preload stylesheets -->
-  <link rel="preload" href="{{ "/css/performance-optimizer.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/pwa.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/subscription.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/comments.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/social-sharing.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/theme-manager.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/analytics.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/tags-categories.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/about.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/subscribe.css" | absolute_url }}" as="style">
-  <link rel="preload" href="{{ "/css/subscription.css" | absolute_url }}" as="style">
-  
-<!-- Load stylesheets -->
-  <link rel="stylesheet" href="{{ "/css/performance-optimizer.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/subscription.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/comments.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/social-sharing.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/theme-manager.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/analytics.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/tags-categories.css" | absolute_url }}">
-  <link rel="stylesheet" href="{{ "/css/about.css" | absolute_url }}">
-  
-  <!-- DNS prefetch for non-critical resources -->
-  <link rel="dns-prefetch" href="//www.google-analytics.com">
-  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-  <link rel="dns-prefetch" href="//github.com">
-  
-  <!-- Font loading optimization -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
-  
-  <!-- Theme color -->
-  <meta name="theme-color" content="#4158D0">
-  <meta name="msapplication-TileColor" content="#4158D0">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ '/css/tailwind.css' | absolute_url }}">
+
   <!-- Manifest for PWA -->
-  <link rel="manifest" href="{{ "/manifest.json" | absolute_url }}">
-  
-  <!-- Skip link for accessibility -->
-  <style>
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 6px;
-      background: var(--brand-color, #4158D0);
-      color: white;
-      padding: 8px;
-      text-decoration: none;
-      z-index: 10000;
-      border-radius: 4px;
-    }
-    .skip-link:focus {
-      top: 6px;
-    }
-  </style>
+  <link rel="manifest" href="{{ '/manifest.json' | absolute_url }}">
 </head>
 
-<body class="{% if page.layout %}layout-{{ page.layout }}{% endif %} no-js">
+<body class="{% if page.layout %}layout-{{ page.layout }}{% endif %} min-h-screen flex flex-col no-js">
   <script>
-    // Remove no-js class immediately
     document.body.classList.remove('no-js');
     document.body.classList.add('js');
   </script>
-  
+
   <!-- Skip to main content link -->
-  <a href="#main-content" class="skip-link" data-i18n="accessibility.skip_to_content">
-    Skip to Content
-  </a>
-  
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-fg"
+     data-i18n="accessibility.skip_to_content">Skip to Content</a>
+
   {% include header.html %}
-  
+
   <!-- Semantic Search Modal (Vector B UI) -->
   {% include semantic-search-modal.html %}
-  
-  <!-- Breadcrumbs container -->
-  <div class="breadcrumbs" aria-label="Breadcrumb navigation"></div>
-  
-  <main id="main-content" class="page-content" aria-label="Content">
-    <div class="wrapper">
-      {{ content }}
-    </div>
+
+  <main id="main-content" class="flex-1" aria-label="Content">
+    {{ content }}
   </main>
-  
+
   {% include footer.html %}
-  
+
   <!-- Structured Data -->
   {% include structured-data.html %}
-  
-  <!-- Refactored ES module bundle (primary, modern browsers) - includes all modules -->
-  <script type="module" src="{{ "/js/refactored-bundle.js" | absolute_url }}"></script>
-  
+
+  <!-- Refactored ES module bundle -->
+  <script type="module" src="{{ '/js/refactored-bundle.js' | absolute_url }}"></script>
+
   <!-- Analytics -->
   {% if jekyll.environment == 'production' %}
-    <!-- Google Analytics or other analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -204,14 +114,14 @@
       gtag('config', 'GA_MEASUREMENT_ID');
     </script>
   {% endif %}
-  
+
   <!-- Service Worker for PWA -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('{{ "/sw.js" | absolute_url }}')
-          .then(registration => console.log('SW registered'))
-          .catch(error => console.log('SW registration failed'));
+        navigator.serviceWorker.register('{{ '/sw.js' | absolute_url }}')
+          .then(() => console.log('SW registered'))
+          .catch(() => console.log('SW registration failed'));
       });
     }
   </script>

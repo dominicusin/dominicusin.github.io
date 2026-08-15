@@ -1,0 +1,362 @@
+/* Performance Optimizer Styles */
+.lazy-loading {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lazy-loaded {
+  opacity: 1;
+}
+
+.lazy-error {
+  opacity: 0.7;
+  filter: grayscale(100%);
+  position: relative;
+}
+
+.lazy-error::after {
+  content: '⚠️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+/* Placeholder for lazy images */
+.lazy-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Performance optimized class */
+.performance-optimized {
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  
+  /* Optimize rendering */
+  backface-visibility: hidden;
+  perspective: 1000px;
+  
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+/* Smooth scrolling for supported browsers */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Optimize images for CLS */
+img[data-src] {
+  background-color: #f8f9fa;
+  color: #666;
+  display: block;
+  
+  /* Prevent layout shift */
+  aspect-ratio: attr(width) / attr(height);
+  max-width: 100%;
+  height: auto;
+  
+  /* Loading indicator */
+  position: relative;
+}
+
+img[data-src]:not(.lazy-loaded) {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+img.lazy-loaded {
+  filter: blur(0);
+}
+
+/* Font optimization */
+.performance-optimized body {
+  font-display: swap;
+  
+  /* Enable font sub-pixel rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Reduced motion optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .lazy-loading {
+    animation: none;
+    background: #f0f0f0;
+  }
+  
+  .performance-optimized {
+    transform: none;
+    scroll-behavior: auto;
+  }
+  
+  img.lazy-loaded {
+    filter: none;
+    transition: none;
+  }
+}
+
+/* Dark theme lazy loading */
+[data-theme="dark"] .lazy-loading {
+  background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
+}
+
+[data-theme="dark"] img[data-src] {
+  background-color: #2a2a2a;
+  color: #aaa;
+}
+
+[data-theme="dark"] .lazy-error {
+  opacity: 0.5;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .lazy-loading {
+    animation-duration: 2s;
+  }
+  
+  img.lazy-loaded {
+    transition-duration: 0.2s;
+  }
+}
+
+/* Print styles */
+@media print {
+  .lazy-loading {
+    opacity: 1;
+    animation: none;
+    background: transparent;
+    filter: none;
+  }
+  
+  .lazy-error {
+    opacity: 1;
+    filter: none;
+    
+    &::after {
+      display: none;
+    }
+  }
+}
+
+/* Performance indicators */
+.performance-indicator {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  z-index: 1000;
+  opacity: 0.8;
+}
+
+.performance-indicator.good {
+  background: rgba(40, 167, 69, 0.8);
+}
+
+.performance-indicator.warning {
+  background: rgba(255, 193, 7, 0.8);
+}
+
+.performance-indicator.error {
+  background: rgba(220, 53, 69, 0.8);
+}
+
+/* Optimized link styles for prefetching */
+a[data-prefetched] {
+  position: relative;
+}
+
+a[data-prefetched]::after {
+  content: '⚡';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 0.6rem;
+  background: var(--brand-color, #4158D0);
+  color: white;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+/* Image optimization classes */
+.optimized-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  loading: lazy;
+  decoding: async;
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--aspect-ratio, auto);
+}
+
+/* Performance monitoring styles */
+.performance-monitor {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.7rem;
+  z-index: 1000;
+  max-width: 200px;
+}
+
+.monitor-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.monitor-label {
+  opacity: 0.7;
+}
+
+.monitor-value {
+  font-weight: bold;
+}
+
+.monitor-value.good {
+  color: #4caf50;
+}
+
+.monitor-value.warning {
+  color: #ff9800;
+}
+
+.monitor-value.error {
+  color: #f44336;
+}
+
+/* Network optimization */
+.slow-network-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #ff9800;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  z-index: 1001;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.slow-network-warning.show {
+  transform: translateY(0);
+}
+
+/* Memory optimization */
+.memory-warning {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #f44336;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  z-index: 1000;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibility for performance features */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles for keyboard navigation */
+.lazy-loading:focus,
+.optimized-image:focus {
+  outline: 2px solid var(--brand-color, #4158D0);
+  outline-offset: 2px;
+}
+
+/* Touch optimization */
+@media (hover: none) and (pointer: coarse) {
+  .lazy-loading {
+    /* Remove hover effects on touch devices */
+    transition: none;
+  }
+  
+  /* Larger touch targets */
+  a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* High DPI optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .optimized-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Reduced data usage */
+@media (prefers-reduced-data: reduce) {
+  .lazy-loading {
+    animation: none;
+    background: #f0f0f0;
+  }
+  
+  img.lazy-loaded {
+    filter: none;
+    transition: none;
+  }
+  
+  /* Skip loading animations on reduced data */
+  .performance-indicator {
+    display: none;
+  }
+}
