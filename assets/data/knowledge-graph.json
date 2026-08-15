@@ -20,7 +20,7 @@
       "description": "Knowledge graph of concepts and articles",
       "totalPosts": 1,
       "totalConcepts": 4,
-      "generatedAt": "2026-08-15T02:37:52.493Z"
+      "generatedAt": "2026-08-15T03:15:21.220Z"
     },
     {
       "@id": "https://dominicusin.github.io/2026/08/14/deep-refactoring-plan/",
@@ -283,7 +283,7 @@
     "totalPosts": 1,
     "totalConcepts": 4,
     "totalEdges": 20,
-    "generatedAt": "2026-08-15T02:37:52.494Z",
+    "generatedAt": "2026-08-15T03:15:21.221Z",
     "version": "1.0.0"
   }
 }
