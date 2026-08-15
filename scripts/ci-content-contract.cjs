@@ -2,17 +2,19 @@
 /**
  * @fileoverview CI Content Contract gate (Vector A foundation)
  *
- * Runs the Agent-driven Publishing Protocol checks on CHANGED posts only,
- * so the formal Content Model (schema/post-metadata.schema.json) is enforced
- * as a pre-merge gate without retroactively failing the legacy corpus:
- *   1. validate-frontmatter  -> hard gate (exit 1 if any changed post invalid)
- *   2. ai-review             -> soft gate (warnings, never fails the build)
- *   3. build-knowledge-graph -> emits assets/data/knowledge-graph.json (JSON-LD)
+ * Enforces the formal Content Model (schema/post-metadata.schema.json) as a
+ * publishing contract. Two tiers, by change type:
+ *   - ADDED posts   -> HARD gate (exit 1 if any new post is invalid). New
+ *                      publications MUST satisfy the schema before merge.
+ *   - MODIFIED posts -> SOFT gate (reported, never fails the build). Legacy
+ *                      corpus (e.g. 2015 posts lacking tags/author) may carry
+ *                      historical violations we do not retroactively enforce.
+ *   - Knowledge Graph (JSON-LD) is always emitted for the whole corpus.
  *
- * Changed post detection:
+ * Post detection (git):
  *   - PR context:  git diff --name-only origin/main...HEAD
  *   - Push context: git diff --name-only HEAD~1 HEAD
- *   - fallback:     validate ALL posts (so a misconfigured runner still gates)
+ *   - fallback:     all posts (so a misconfigured runner still gates new ones)
  */
 
 const { execFileSync } = require('child_process');
@@ -31,15 +33,27 @@ function runGit(args) {
 }
 
 function getChangedPosts() {
-  // PR context
   let out = runGit(['diff', '--name-only', 'origin/main...HEAD']);
   if (!out) {
-    // Push context
     out = runGit(['diff', '--name-only', 'HEAD~1', 'HEAD']);
   }
   if (!out) {
-    // Fallback: all posts (ensures gate still runs if git is unavailable)
     console.log('⚠️  Could not determine changed files; falling back to all posts.');
+    return fs.readdirSync(path.join(ROOT, 'content', 'blog'))
+      .filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
+      .map(f => path.join('content', 'blog', f));
+  }
+  return out.split('\n').filter(line => POSTS_RE.test(line.trim())).map(l => l.trim());
+}
+
+function getAddedPosts() {
+  let out = runGit(['diff', '--diff-filter=A', '--name-only', 'origin/main...HEAD']);
+  if (!out) {
+    out = runGit(['diff', '--diff-filter=A', '--name-only', 'HEAD~1', 'HEAD']);
+  }
+  if (!out) {
+    // Fallback: no git context — treat every post as a candidate new post so
+    // the hard gate still protects the corpus if the runner lacks history.
     return fs.readdirSync(path.join(ROOT, 'content', 'blog'))
       .filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
       .map(f => path.join('content', 'blog', f));
@@ -58,30 +72,33 @@ function spawnOk(cmd, cmdArgs) {
 
 function main() {
   const changed = getChangedPosts();
-  console.log(`\n🔎 Content Contract: ${changed.length} changed post(s) detected\n`);
+  const added = getAddedPosts();
+  const modified = changed.filter(f => !added.includes(f));
 
-  if (changed.length === 0) {
-    console.log('✅ No post changes — content contract vacuously satisfied.');
-  } else {
-    // 1. Hard gate: frontmatter validation
+  console.log(`\n🔎 Content Contract: ${changed.length} changed, ${added.length} added (hard gate), ${modified.length} modified (report-only)\n`);
+
+  // 1. HARD gate: new posts MUST satisfy the schema.
+  if (added.length > 0) {
     let gateFailed = false;
-    for (const file of changed) {
+    for (const file of added) {
       const ok = spawnOk('node', [path.join('scripts', 'validate-frontmatter.cjs'), file]);
       if (!ok) gateFailed = true;
     }
     if (gateFailed) {
-      console.error('\n❌ Content Model contract FAILED for changed post(s). Fix frontmatter before merge.');
+      console.error('\n❌ Content Model contract FAILED for NEW post(s). Fix frontmatter before merge — new publications are blocked.');
       process.exit(1);
     }
-    console.log('\n✅ Content Model contract satisfied for all changed posts.');
-
-    // 2. Soft gate: AI review (informational)
-    for (const file of changed) {
-      spawnOk('node', [path.join('scripts', 'ai-review.cjs'), file]);
-    }
+    console.log('✅ Content Model contract satisfied for all new posts.');
+  } else {
+    console.log('✅ No new posts — hard gate vacuously satisfied.');
   }
 
-  // 3. Emit Knowledge Graph (JSON-LD) for all posts
+  // 2. SOFT gate: AI review on changed posts (informational, never fails).
+  for (const file of changed) {
+    spawnOk('node', [path.join('scripts', 'ai-review.cjs'), file]);
+  }
+
+  // 3. Emit Knowledge Graph (JSON-LD) for all posts.
   console.log('\n🕸️  Building Knowledge Graph (JSON-LD)...');
   spawnOk('node', [path.join('scripts', 'build-knowledge-graph.cjs')]);
 

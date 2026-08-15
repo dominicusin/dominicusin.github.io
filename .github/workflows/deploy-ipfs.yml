@@ -1,113 +1,49 @@
-name: Deploy to IPFS
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-permissions:
-  contents: read
-  issues: write
-  deployments: write
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
-
-      - name: Build site
-        run: bundle exec jekyll build
-        env:
-          JEKYLL_ENV: production
-
-      # IPFS pinning is best-effort: it must not break the core CI pipeline.
-      # When PINATA_JWT is absent the steps are skipped; when present but the
-      # pin fails (expired/invalid token, API error) we log a warning and
-      # continue so the workflow stays green. The real error is always visible
-      # in the step log.
-      - name: Pin to IPFS (best-effort)
-        id: pinata
-        if: ${{ secrets.PINATA_JWT != '' }}
-        continue-on-error: true
-        env:
-          PINATA_JWT: ${{ secrets.PINATA_JWT }}
-        run: |
-          echo "Attempting to pin ./_site to IPFS via Pinata REST API..."
-          tar -czf /tmp/site.tar.gz -C _site .
-          RESP=$(curl -s -X POST "https://api.pinata.cloud/pinning/pinFileToIPFS" \
-            -H "Authorization: Bearer ${PINATA_JWT}" \
-            -F "file=@/tmp/site.tar.gz")
-          CID=$(printf '%s' "$RESP" | grep -oP '(?<=IpfsHash"\s*:\s*")[^"]+')
-          if [ -z "$CID" ]; then
-            echo "::warning::IPFS pin failed (check PINATA_JWT / API). Response: $RESP"
-            echo "cid=" >> "$GITHUB_OUTPUT"
-          else
-            echo "cid=$CID" >> "$GITHUB_OUTPUT"
-            echo "$CID" > ipfs-cid.json
-            echo "✅ Pinned to IPFS: $CID"
-          fi
-
-      - name: Upload CID artifact
-        if: ${{ steps.pinata.outputs.cid != '' }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: ipfs-cid
-          path: ipfs-cid.json
-
-      - name: Update DNSLink (if configured)
-        if: ${{ steps.pinata.outputs.cid != '' && secrets.CLOUDFLARE_API_TOKEN != '' }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/dns_records/${{ secrets.CLOUDFLARE_DNS_RECORD_ID }}" \
-            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data "{\"data\":{\"link\":\"/ipfs/${{ steps.pinata.outputs.cid }}\"}}"
-
-      - name: Comment PR with IPFS link
-        if: ${{ github.event_name == 'pull_request' && steps.pinata.outputs.cid != '' }}
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const cid = '${{ steps.pinata.outputs.cid }}';
-            const ipfsUrl = `https://gateway.ipfs.io/ipfs/${cid}`;
-            const previewUrl = `https://${{ secrets.PINATA_GATEWAY || 'gateway.pinata.cloud'}}/ipfs/${cid}`;
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## 🚀 IPFS Deployment Preview\n\n- **CID**: \`${cid}\`\n- **Public Gateway**: [View on IPFS](${ipfsUrl})\n- **Pinata Gateway**: [View on Pinata](${previewUrl})\n\n✅ Successfully pinned to IPFS!`
-            });
-
-      - name: Create deployment status
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.pinata.outputs.cid != '' }}
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const cid = '${{ steps.pinata.outputs.cid }}';
-            const ipfsUrl = `https://gateway.ipfs.io/ipfs/${cid}`;
-            await github.rest.repos.createDeploymentStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              deployment_id: context.payload.deployment?.id || 1,
-              state: 'success',
-              environment_url: ipfsUrl,
-              description: `Deployed to IPFS: ${cid}`,
-              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
-              environment: 'ipfs-production'
-            });
+# Deploy to IPFS — DISABLED (consolidation phase, 2026-08-15)
+#
+# Reasons for disabling (see docs/SSG_MIGRATION_PLAN.md + AGENTS.md Decision):
+#   1. This workflow runs `bundle exec jekyll build` — the legacy Jekyll stack
+#      was removed in Phase 7. It would fail (no _config.yml / Gemfile).
+#   2. It pinned to Pinata, whose API key/secret/JWT were COMPROMISED on
+#      2026-08-14 and must not be used.
+#   3. Per the consolidation decision (option b) secret-requiring deploy
+#      workflows are frozen until an explicit, conscious decision.
+#
+# If IPFS pinning is wanted later, rebuild this against `hugo --gc --minify`
+# (output ./public) and a fresh, non-compromised pinning provider. The last
+# working Jekyll state is preserved at git tag `pre-phase7-legacy`.
+#
+# name: Deploy to IPFS
+#
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
+#
+# permissions:
+#   contents: read
+#   issues: write
+#   deployments: write
+#
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v7
+#       - uses: ruby/setup-ruby@v1
+#         with:
+#           ruby-version: '3.2'
+#           bundler-cache: true
+#       - run: bundle install
+#       - run: bundle exec jekyll build
+#         env:
+#           JEKYLL_ENV: production
+#       - name: Pin to IPFS (best-effort)
+#         if: ${{ secrets.PINATA_JWT != '' }}
+#         continue-on-error: true
+#         env:
+#           PINATA_JWT: ${{ secrets.PINATA_JWT }}
+#         run: |
+#           tar -czf /tmp/site.tar.gz -C _site .
+#           curl -s -X POST "https://api.pinata.cloud/pinning/pinFileToIPFS" \
+#             -H "Authorization: Bearer ${PINATA_JWT}" -F "file=@/tmp/site.tar.gz"

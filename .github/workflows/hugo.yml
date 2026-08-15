@@ -48,11 +48,11 @@ jobs:
         run: npm ci --prefer-offline --no-audit --no-fund
 
       - name: Validate content contract
-        # Soft gate: content-contract validates legacy _posts/ against the
-        # schema; pre-existing posts (e.g. 2015) lack tags/author/permalink and
-        # fail hard validation. That is legacy state, not a migration error, so
-        # we surface the report but do NOT block the Hugo build/deploy.
-        run: node scripts/ci-content-contract.cjs || true
+        # Publishing contract (Vector A): new posts in content/blog/ MUST
+        # satisfy schema/post-metadata.schema.json (hard gate — a failing new
+        # post blocks the build/deploy). Modified legacy posts are report-only.
+        # Knowledge graph (JSON-LD) is emitted for the whole corpus.
+        run: node scripts/ci-content-contract.cjs
 
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
