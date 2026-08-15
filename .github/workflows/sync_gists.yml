@@ -43,8 +43,8 @@ jobs:
           commit_message: "chore: update gists"
           commit_options: '--no-verify'
           # Укажите ветку, в которую нужно вносить изменения.
-          # Обычно это 'main' или 'master'.
-          branch: master
+          # Единственная рабочая ветка репозитория — 'main' (master удалён).
+          branch: main
           # Директория, в которой нужно отслеживать изменения.
           # Должна совпадать с 'output_dir' из предыдущего шага.
           file_pattern: 'gists/*'
