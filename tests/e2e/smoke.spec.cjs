@@ -14,9 +14,10 @@ test.describe('Publishing plane smoke', () => {
 
   test('blog index lists posts', async ({ page }) => {
     await page.goto('/blog/');
-    // At least one article card / post link.
-    const links = page.locator('a[href*="/blog/"]');
-    await expect(links.first()).toBeVisible();
+    // Real post links use dated/Slug URLs (e.g. /blog/<slug>/ or /2026/.../),
+    // distinct from the nav "Blog" link. Assert at least one post card link.
+    const links = page.locator('article a, a[href*="/20"]').first();
+    await expect(links).toBeVisible();
   });
 
   test('a post page renders content and giscus', async ({ page }) => {
