@@ -25,7 +25,7 @@ Pick a concept to see the posts linked to it.
 <script src="/js/knowledge-graph.js" defer></script>
 
 <style>
-.kg-root { margin: 1.5rem 0; }
+.kg-root { margin: 1.5rem 0; min-height: 60vh; }
 .kg-meta { color: var(--color-muted, #888); font-size: .9rem; }
 .kg-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
 .kg-filter {
