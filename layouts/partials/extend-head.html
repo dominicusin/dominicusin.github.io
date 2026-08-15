@@ -1,0 +1,11 @@
+{{/*
+  Vercel Web Analytics integration.
+  Loads the analytics script in production mode only.
+  See: https://vercel.com/docs/analytics/quickstart
+*/}}
+{{ if hugo.IsProduction }}
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+{{ end }}
