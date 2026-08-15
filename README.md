@@ -66,12 +66,13 @@ The site is served from `public/` after a build. `public/` and `resources/` are 
 | `contracts/dao/`, `tests/hardhat/` | DAO engineering plane |
 | `.github/workflows/hugo.yml` | The only GitHub Pages publisher |
 
-## 🧹 Legacy (not yet removed)
+## 🧹 Legacy (removed)
 
-The legacy Jekyll + esbuild stack (`_config.yml`, `Gemfile`, `_layouts/`, `_sass/`, `js/`,
-`src/` frontend runtime, `build.js`) is **still present** but no longer deployed. Removal is
-deferred to a later cleanup pass (see `docs/SSG_MIGRATION_PLAN.md`, Phase 7) once the Hugo site
-has proven stable. `src/` (DAO/CRDT modules) is retained regardless.
+The legacy Jekyll + esbuild stack (`_config.yml`, `Gemfile`, `_layouts/`, `_includes/`,
+`_sass/`, `_posts/`, `_site/`, `js/`, `build.js`, `build-jekyll.rb`) and the Jekyll CI workflows
+(`ci.yml`, `jekyll.yml`, `ci-cd.yml`) were **removed** in Phase 7 (rollback point tagged
+`pre-phase7-legacy`). The Hugo site is the sole publisher. `src/` (DAO/CRDT modules) and
+`contracts/dao/` are retained as the engineering plane.
 
 ## 📄 License
 
