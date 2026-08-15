@@ -110,7 +110,7 @@ jobs:
             --all --include='src/**/*.js' \
             --exclude='src/**/*.test.js' --exclude='src/workers/**' \
             --check-coverage \
-            --lines 35 --branches 62 --functions 70 --statements 36 \
+            --lines 41 --branches 64 --functions 72 --statements 41 \
             npx jest --config jest.config.js --coverage=false
 
       - name: 📤 Upload coverage report

@@ -99,7 +99,7 @@ file supersedes them as the verified baseline.
 
 | Scope | % Stmts | % Branch | % Funcs | % Lines |
 |---|---|---|---|---|
-| **All files** | **36.74** | **63.07** | **72.34** | **36.74** |
+| **All files** | **41.93** | **64.07** | **72.15** | **41.93** |
 | `src/config` | 100 | 100 | 100 | 100 |
 | `src/core` (theme-manager) | 90.0 | 60.7 | 96 | 90.0 |
 | `src/utils` (helpers, storage) | 63 | 72 | 70 | 63 |
@@ -114,18 +114,22 @@ helpers 62%, storage 83%.
 
 **Zero-coverage modules (largest first) — the real test-debt surface:**
 `rum-service.js` (808), `vr-export-service.js` (637), `image-optimizer.js`
-(570), `social-sharing.js` (578), `vector-search-service.js` (573),
-`ai-i18n-service.js` (328), `embedding-cache.js` (561, **dead code — see
-AUDIT_FINDINGS §B6**), `assistant-ui.js` (387), `pwa-service.js` (625),
-`vector-store.js` (137, now 54% tested), `index.js` (217),
-`link-repair-agent.js` (414).
+(570), `social-sharing.js` (578), `vector-search-service.js` (573, its
+rewritten unit suite is quarantined in jest.config.js),
+`embedding-cache.js` (561, **dead code — see AUDIT_FINDINGS §B6**),
+`assistant-ui.js` (387), `pwa-service.js` (625), `index.js` (217).
 
-**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 63.07%
-branch / 36.74% line — substantial gap. The gap is concentrated in large
+**Now unit-covered (added on top of website redesign PR #42):**
+`ai-i18n-service.js` (73%), `link-repair-agent.js` (79%), `vector-store.js`
+(54%), analytics-service 73%, embedding-cache-service 90%, prefetch 69%,
+vector-search (module) 68%.
+
+**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 64.07%
+branch / 41.93% line — substantial gap. The gap is concentrated in large
 DOM/network-bound services (rum, pwa, vr-export, image-optimizer,
-social-sharing, assistant-ui, ai-i18n, link-repair-agent) that have no jsdom
-test harness and require a browser/E2E (Playwright) layer to cover without
-faking. A CI coverage gate IS established (see todo/CI) enforcing the measured
-baseline + no-regression; reaching 85% requires the Phase 4.4 E2E layer, which
-is the next planned work and not yet built.
+social-sharing, assistant-ui) that have no jsdom test harness and require a
+browser/E2E (Playwright) layer to cover without faking. A CI coverage gate IS
+established (see ci-cd.yml) enforcing the measured baseline + no-regression;
+reaching 85% requires the Phase 4.4 E2E layer, which is the next planned work
+and not yet built.
 
