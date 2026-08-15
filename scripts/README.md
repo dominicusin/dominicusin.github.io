@@ -12,6 +12,8 @@ Hugo site at runtime.
 | `validate-frontmatter.cjs` | Validates a single post's frontmatter against the schema. |
 | `build-knowledge-graph.cjs` | Generates `static/data/knowledge-graph.json` (JSON-LD) from published content. Consumed by the `/knowledge-graph/` page widget. |
 | `deploy-dao.cjs` | Hardhat deploy script for `contracts/dao/` (run by the guarded `deploy` job in `deploy-dao.yml`). |
+| `check-links.cjs` | Crawls `public/` after build; exits 1 on broken internal links. Used by `quality.yml`. |
+| `check-html.cjs` | Lightweight HTML well-formedness / `<img>`-alt spot-check (report-only, non-blocking). |
 | `backfill-frontmatter.cjs` | Adds missing `author` (default `DominicusIn`) to legacy posts for SEO. |
 
 ## Usage

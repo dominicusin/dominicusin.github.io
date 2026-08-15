@@ -1,0 +1,64 @@
+name: 🔍 Quality CI
+
+# Consolidated quality gate (separate from the Pages deploy in hugo.yml).
+# Runs on PRs so author can see failures before merge. Does NOT deploy.
+# Mirrors the four-stage plan: build → validate → test → link/HTML check.
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  HUGO_VERSION: "0.164.0"
+
+jobs:
+  quality:
+    name: 🧪 Build, validate, test, link-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: 🔧 Setup Hugo (extended)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: 📦 Install dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: 🏗️ Build Hugo (catch template/layout errors)
+        run: hugo --gc --minify
+
+      - name: 📝 Content Contract (report-only on PR; hard gate is in hugo.yml)
+        run: node scripts/ci-content-contract.cjs || true
+
+      - name: 🧹 Lint (eslint)
+        run: npm run lint
+
+      - name: 🧪 Unit tests (jest)
+        run: npx jest --config jest.config.js --coverage=false
+
+      - name: ⛓️ DAO contract tests (Hardhat)
+        run: npx hardhat test
+
+      - name: 🔗 Broken internal link check
+        run: node scripts/check-links.cjs
+
+      - name: 🩺 HTML well-formedness (report, non-blocking)
+        run: node scripts/check-html.cjs
+        continue-on-error: true
