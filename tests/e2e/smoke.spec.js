@@ -31,10 +31,11 @@ test.describe('Publishing plane smoke', () => {
     await expect(giscus.locator('body').first()).toBeAttached({ timeout: 15000 });
   });
 
-  test('site search input is present (Fuse.js)', async ({ page }) => {
+  test('site search trigger is present (Fuse.js)', async ({ page }) => {
     await page.goto('/');
-    // Blowfish search toggle / input.
-    const search = page.locator('#search-input, input[type="search"], #search-button').first();
+    // Blowfish renders a persistent search-button in the header; the input
+    // itself lives inside a modal that mounts on click, so assert the trigger.
+    const search = page.locator('#search-button, button[aria-label*="Search" i], a[aria-label*="Search" i]').first();
     await expect(search).toBeAttached();
   });
 
