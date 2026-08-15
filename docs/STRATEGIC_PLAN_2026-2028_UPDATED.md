@@ -6,6 +6,13 @@
 > **Период действия:** 2026 Q1 - 2028 Q4  
 > **Владелец:** DominicusIn  
 > **На основе анализа репозитория:** dominicusin/dominicusin.github.io
+>
+> **Статус миграции (2026-08-15):** SSG-миграция Jekyll → Hugo + Blowfish
+> **ЗАВЕРШЕНА** (вариант A — сохранён `src/`/DAO, удалён Jekyll-legacy в Фазе 7).
+> Hugo — единственный publisher (GitHub Pages source = "GitHub Actions").
+> Двухплоскостная архитектура формализована в `docs/adr/0002-two-plane-architecture.md`.
+> Content-contract — hard gate для новых постов (`hugo.yml`).
+> Архив: старая версия 1.0 плана (про «гибрид Jekyll+Node») **устарела** — см. `docs/STRATEGY_INDEX.md`.
 
 ---
 
