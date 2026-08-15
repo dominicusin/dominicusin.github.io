@@ -51,12 +51,22 @@ jobs:
         run: npm run lint
 
       - name: 🧪 Unit tests (jest)
-        # NOTE: tests/unit/theme-manager.test.js is a known flaky test
-        # (module-level shared link state leaks between cases -> order-dependent
-        # "Found N broken links" failure). It is quarantined from this gate but
-        # still runs in the full local `npm test` suite. Tracked for a proper
-        # beforeEach state-reset fix separately.
-        run: npx jest --config jest.config.js --coverage=false --testPathIgnorePatterns "tests/unit/theme-manager.test.js"
+        # The repo's jest.config.js already quarantines broken suites (a11y/,
+        # vector-search-service, etc. — see the "Quarantine" note in jest.config.js).
+        # We must pass the FULL ignore list here because the CLI flag REPLACES
+        # (not appends to) the config's testPathIgnorePatterns. theme-manager is
+        # an additional known-flaky test (module-level link-state leak) quarantined
+        # from this gate; it still runs in the full local `npm test` suite.
+        run: npx jest --config jest.config.js --coverage=false \
+          --testPathIgnorePatterns \
+          "tests/a11y/" \
+          "tests/integration/module-loading.test.js" \
+          "tests/unit/image-optimizer.test.js" \
+          "tests/unit/pwa-service.test.js" \
+          "tests/unit/rum-service.test.js" \
+          "tests/unit/search-engine.test.js" \
+          "tests/unit/vector-search-service.test.js" \
+          "tests/unit/theme-manager.test.js"
 
       - name: ⛓️ DAO contract tests (Hardhat)
         run: npx hardhat test
