@@ -5,6 +5,8 @@ slug: Russian_programmers
 aliases:
   - /2020/03/08/Russian_programmers.html
 ---
+author: DominicusIn
+
  1. Good programmers never read manuals and rarely use online help - they easily get a grasp of a new program, simply because they have already tried every single program in this field before.
 
  2. Good programmers never pay for the software. They either crack it or buy those wonderful CDs with tons of cracked software that are sold for $5 bucks in every major city.

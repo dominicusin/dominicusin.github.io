@@ -7,6 +7,8 @@ aliases:
 params: {}
 field_name: null
 ---
+author: DominicusIn
+
 # Domini
 
 ## SKILLS

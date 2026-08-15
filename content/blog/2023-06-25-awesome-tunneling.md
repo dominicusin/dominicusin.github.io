@@ -5,6 +5,8 @@ slug: awesome-tunneling
 aliases:
   - /2023/06/25/awesome-tunneling.html
 ---
+author: DominicusIn
+
 forked from anderspitman/awesome-tunneling
 
 The purpose of this list is to track and compare tunneling solutions. This is

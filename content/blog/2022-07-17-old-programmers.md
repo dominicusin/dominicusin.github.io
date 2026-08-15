@@ -5,6 +5,8 @@ slug: old-programmers
 aliases:
   - /2022/07/17/old-programmers.html
 ---
+author: DominicusIn
+
 The old programmers never die...
 
 they gosub without return

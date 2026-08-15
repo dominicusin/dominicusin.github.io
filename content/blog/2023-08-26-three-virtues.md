@@ -5,6 +5,8 @@ slug: three-virtues
 aliases:
   - /2023/08/26/three-virtues.html
 ---
+author: DominicusIn
+
 According to Larry Wall, There are three great virtues of a programmer: Laziness, Impatience and Hubris
 
 1. Laziness: The quality that makes you go to great effort to reduce overall energy expenditure. It makes you write labor-saving programs that other people will find useful and document what you wrote so you don't have to answer so many questions about it.

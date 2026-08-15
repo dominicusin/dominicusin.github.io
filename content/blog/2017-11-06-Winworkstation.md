@@ -5,6 +5,8 @@ slug: Winworkstation
 aliases:
   - /2017/11/06/Winworkstation.html
 ---
+author: DominicusIn
+
 # Prepare my Windows workstation
 
 ## Identification

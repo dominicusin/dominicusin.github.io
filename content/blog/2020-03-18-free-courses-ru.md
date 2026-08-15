@@ -5,6 +5,8 @@ slug: free-courses-ru
 aliases:
   - /2020/03/18/free-courses-ru.html
 ---
+author: DominicusIn
+
 ### Index
 
 * [Clojure](#clojure)

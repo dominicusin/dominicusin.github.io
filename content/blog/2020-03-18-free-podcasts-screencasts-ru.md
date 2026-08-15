@@ -5,6 +5,8 @@ slug: free-podcasts-screencasts-ru
 aliases:
   - /2020/03/18/free-podcasts-screencasts-ru.html
 ---
+author: DominicusIn
+
 ### Index
 
 * [Android](#android)

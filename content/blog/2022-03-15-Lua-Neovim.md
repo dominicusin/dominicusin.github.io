@@ -5,6 +5,8 @@ slug: Lua-Neovim
 aliases:
   - /2022/03/15/Lua-Neovim.html
 ---
+author: DominicusIn
+
 # Начало работы с Lua в Neovim
 
 ## Содержание

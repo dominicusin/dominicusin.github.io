@@ -5,6 +5,8 @@ slug: awesome-plan9
 aliases:
   - /2025/12/23/awesome-plan9.html
 ---
+author: DominicusIn
+
 # Awesome Plan9
 
 [https://github.com/henesy/awesome-plan9](https://github.com/henesy/awesome-plan9)

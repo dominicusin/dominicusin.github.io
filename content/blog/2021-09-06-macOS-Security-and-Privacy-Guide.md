@@ -5,6 +5,8 @@ slug: macOS-Security-and-Privacy-Guide
 aliases:
   - /2021/09/06/macOS-Security-and-Privacy-Guide.html
 ---
+author: DominicusIn
+
 This guide is a collection of techniques for improving the security and privacy of a modern Apple Macintosh computer ("MacBook") running a recent version of macOS (formerly known as "OS X").
 
 This guide is targeted to power users who wish to adopt enterprise-standard security, but is also suitable for novice users with an interest in improving their privacy and security on a Mac.

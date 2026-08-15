@@ -5,6 +5,8 @@ slug: HipChatAlternatives
 aliases:
   - /2019/12/16/HipChatAlternatives.html
 ---
+author: DominicusIn
+
 ## HipChat Alternatives
 
 #### Why?

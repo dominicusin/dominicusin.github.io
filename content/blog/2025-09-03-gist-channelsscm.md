@@ -12,6 +12,8 @@ tags:
 gist_id: a94364c9e2c9e742d0c94dc58a706361
 gist_url: https://gist.github.com/dominicusin/a94364c9e2c9e742d0c94dc58a706361
 ---
+author: DominicusIn
+
 channels.scm
 
 [View on GitHub Gist](https://gist.github.com/dominicusin/a94364c9e2c9e742d0c94dc58a706361)

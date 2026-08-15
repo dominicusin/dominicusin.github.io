@@ -5,6 +5,8 @@ slug: my-favorite-movies
 aliases:
   - /2018/11/09/my-favorite-movies.html
 ---
+author: DominicusIn
+
 # **My favorite movies**
 
  1. [Wrong  2012](https://www.imdb.com/title/tt1901040/)

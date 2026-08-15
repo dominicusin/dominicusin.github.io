@@ -5,6 +5,8 @@ slug: free-for-dev
 aliases:
   - /2021/08/29/free-for-dev.html
 ---
+author: DominicusIn
+
 # free-for.dev
 
 Developers and Open Source authors now have a massive amount of services offering free tiers, but it can be hard to find them all to make informed decisions. 
