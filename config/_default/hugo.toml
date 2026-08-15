@@ -1,0 +1,81 @@
+# Hugo + Blowfish configuration — dominicusin.github.io
+# Publishing Plane (see docs/SSG_MIGRATION_PLAN.md, variant A).
+# Jekyll/src/DAO are preserved untouched; this is an additive parallel scaffold.
+
+baseURL = "https://dominicusin.github.io/"
+title = "Dominicus In"
+languageCode = "ru"
+defaultContentLanguage = "ru"
+enableGitInfo = false
+paginate = 10
+summaryLength = 25
+
+# Preserve raw HTML in Markdown (about.md and posts contain HTML markup).
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Use the Blowfish theme (git submodule at themes/blowfish).
+theme = "blowfish"
+
+# Disable Hugo's default taxonomy pluralization surprises; keep standard.
+pluralizeListTitles = false
+disableKinds = ["RSS"] # RSS enabled explicitly per-language below
+
+# Mark as a user/org GitHub Pages site (no subpath).
+canonifyURLs = false
+
+[permalinks]
+  posts = "/:year/:month/:day/:slug/"
+  people = "/people/:slug/"
+  domini = "/domini/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS", "JSON"]
+  taxonomy = ["HTML", "RSS", "JSON"]
+  term = ["HTML", "RSS", "JSON"]
+
+[params]
+  colorScheme = "dark"
+  defaultTheme = "auto"
+  description = "Engineering blog & decentralized web notes by Dominicus In."
+  showDarkModeToggle = true
+  showLanguageSelector = true
+  # Replace with a real external form provider endpoint (Buttondown) at cutover.
+  # See layouts/partials/custom/subscription.html
+  externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/YOUR_USERNAME"
+  giscus = { repo = "dominicusin/dominicusin.github.io", repoId = "MDEwOlJlcG9zaXRvcnk0NjQ1OTg0OQ==", category = "Announcements", categoryId = "DIC_kwDOAsTryc4CRUZ_", mapping = "pathname", reactionsEnabled = true, commentCount = true, inputPosition = "bottom", lang = "ru", loading = "lazy" }
+
+[params.footer]
+  showCopyright = true
+  showThemeSwitcher = true
+  showAppearanceSwitcher = true
+
+[params.article]
+  showDate = true
+  showDateUpdated = false
+  showWordCount = true
+  showReadingTime = true
+  showPagination = true
+  showRelatedContent = true
+  showTaxonomies = true
+  relatedContentLimit = 3
+
+[params.list]
+  showBreadcrumbs = true
+  showDate = true
+  showReadingTime = true
+
+[params.sitemap]
+  changeFreq = "monthly"
+  priority = 0.5
+
+[params.opengraph]
+  showImages = true
+  imagesMaxCount = 3
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"

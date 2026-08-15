@@ -1,0 +1,35 @@
+# Main menu (en).
+[[main]]
+  name = "Home"
+  pageRef = "/"
+  weight = 10
+
+[[main]]
+  name = "About"
+  pageRef = "/about/"
+  weight = 20
+
+[[main]]
+  name = "Archive"
+  pageRef = "/posts/"
+  weight = 30
+
+[[main]]
+  name = "Categories"
+  pageRef = "/categories/"
+  weight = 40
+
+[[main]]
+  name = "Tags"
+  pageRef = "/tags/"
+  weight = 50
+
+[[main]]
+  name = "People"
+  pageRef = "/people/"
+  weight = 60
+
+[[main]]
+  name = "Domini"
+  pageRef = "/domini/"
+  weight = 70
