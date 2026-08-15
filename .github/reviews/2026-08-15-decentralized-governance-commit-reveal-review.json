@@ -1,0 +1,54 @@
+{
+  "postId": "2026-08-15-decentralized-governance-commit-reveal",
+  "timestamp": "2026-08-15T08:11:28.488Z",
+  "errors": [
+    {
+      "type": "schema",
+      "message": "Frontmatter does not comply with JSON Schema",
+      "details": ""
+    }
+  ],
+  "warnings": [
+    {
+      "type": "seo",
+      "severity": "warning",
+      "message": "Title too long (67 chars)",
+      "suggestion": "Keep titles under 60 characters for better SERP display"
+    }
+  ],
+  "suggestions": [
+    {
+      "type": "opengraph",
+      "severity": "warning",
+      "message": "No header image specified",
+      "suggestion": "Add `header.image` for better social sharing. Will auto-generate fallback."
+    },
+    {
+      "type": "opengraph",
+      "severity": "info",
+      "message": "Excerpt is short (0 chars)",
+      "suggestion": "Aim for 50-160 characters for optimal social previews"
+    },
+    {
+      "type": "seo",
+      "severity": "info",
+      "message": "No explicit excerpt or subtitle",
+      "suggestion": "Add `excerpt` or `subtitle` for better meta descriptions"
+    },
+    {
+      "type": "seo",
+      "severity": "info",
+      "message": "No H1 heading found in content",
+      "suggestion": "Add an H1 heading that matches or complements the title"
+    }
+  ],
+  "metrics": {
+    "wordCount": 423,
+    "links": {
+      "internal": 0,
+      "external": 0,
+      "images": 0
+    }
+  },
+  "valid": false
+}
