@@ -1,7 +1,7 @@
 # dominicusin.github.io — Engineering Blog (Hugo + Blowfish)
 
 [![Deploy](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml/badge.svg)](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml)
-[![Tests](https://img.shields.io/badge/tests-277%20passed-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-277%20jest%20%2B%209%20hardhat-brightgreen)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > Static engineering blog built with **Hugo** + the **Blowfish** theme, deployed to GitHub Pages.
@@ -29,6 +29,9 @@ This repository deliberately separates **publishing** from **engineering tooling
   - `src/` — v4.0 frontend modules (CRDT/P2P/DAO/BCI adapters). Retained for the engineering
     substrate; not bundled into the static site (Hugo ignores `src/`).
 
+See [`docs/adr/0002-two-plane-architecture.md`](docs/adr/0002-two-plane-architecture.md) for the
+formal two-plane boundary, integration points, and DAO lifecycle.
+
 ## 🛠 Local development
 
 ```bash
@@ -50,8 +53,12 @@ The site is served from `public/` after a build. `public/` and `resources/` are 
   (title, date ISO-8601, categories, tags, authors, draft, slug).
 - Legacy permalinks are preserved via Hugo `aliases` (e.g. `/2015/11/19/first.html` → `/2015/11/19/first/`).
 - The `content/posts` → `content/blog` rename keeps post URLs intact; `/posts/` now aliases `/blog/`.
-- Every changed post is validated against `schema/post-metadata.schema.json` in CI
-  (`scripts/ci-content-contract.cjs` — soft gate; legacy posts lacking tags/author are reported, not blocked).
+- Every **new** post (added in a PR) is validated as a **hard gate** against
+  `schema/post-metadata.schema.json` in CI (`scripts/ci-content-contract.cjs`):
+  an invalid new post **blocks the deploy**. Modified legacy posts (e.g. 2015
+  posts lacking tags/author) are report-only and do not block.
+- Author hint: run `node scripts/ci-content-contract.cjs` locally before push to
+  self-check; `node scripts/validate-frontmatter.cjs content/blog/<file>` validates a single post.
 
 ## 🔧 Key files
 
@@ -65,6 +72,27 @@ The site is served from `public/` after a build. `public/` and `resources/` are 
 | `i18n/` | ru/en translations |
 | `contracts/dao/`, `tests/hardhat/` | DAO engineering plane |
 | `.github/workflows/hugo.yml` | The only GitHub Pages publisher |
+
+## ⚙️ CI/CD (single publisher model)
+
+Only `.github/workflows/hugo.yml` deploys to GitHub Pages. Other workflows are
+quality/support and never flip the Pages source.
+
+| Workflow | Purpose | Deploys? |
+|----------|---------|----------|
+| `hugo.yml` | Build + **content-contract hard gate (new posts)** + deploy to Pages | ✅ yes |
+| `hugo-build-check.yml` | Build-only sanity check | ❌ |
+| `security.yml` | Node audit + Trivy + Semgrep (weekly) | ❌ |
+| `performance.yml` | Lighthouse audit against live Pages URL | ❌ |
+| `dependency-update.yml` | Dependabot-driven bumps | ❌ |
+| `link-repair.yml` | Scheduled broken-link check | ❌ |
+| `deploy-dao.yml` | `test` job (Hardhat, no secrets) + guarded `deploy` (needs secrets) | ❌ (separate track) |
+| `vr-export.yml` | Build-only VR artifact (no Pages flip) | ❌ |
+| `sync_gists.yml`, `analytics.yml`, `fediverse-notify.yml` | Post-deploy integrations | ❌ |
+| `deploy-ipfs.yml` | **DISABLED** (legacy Jekyll + compromised Pinata) | ❌ |
+
+> The legacy Jekyll CI (`ci.yml`, `jekyll.yml`, `ci-cd.yml`) was removed in
+> Phase 7. Do not reintroduce `bundle exec jekyll build` — the site is Hugo-only.
 
 ## 🧹 Legacy (removed)
 

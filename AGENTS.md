@@ -1,62 +1,113 @@
-# Engineering Blog - AI Assistant Instructions
+# Engineering Blog — AI Assistant Instructions
 
-> **Priority order (per `docs/DEEP_REFACTORING_PLAN.md` §0):** repo instructions
-> (`AGENTS.md`, `docs/*.md`) WIN over the attached external plan. Read
-> `docs/DEEP_REFACTORING_PLAN.md` and `docs/ARCHITECTURE.md` before any step.
+> **Priority order (per `docs/STRATEGIC_PLAN_2026-2027.md` + `docs/SSG_MIGRATION_PLAN.md`):**
+> repo instructions (`AGENTS.md`, `docs/*.md`) WIN over any attached external plan.
 > Consolidate — do not duplicate.
 
 ## Overview
-Jekyll-based engineering blog (GitHub Pages) with a modern ES-module frontend
-bundled by **esbuild** into `js/refactored-bundle.js`, PWA, Lunr.js search,
-and an AI-agent content pipeline. The single source of truth for post metadata
-is the **Content Model** (`schema/post-metadata.schema.json`), enforced in CI.
+
+Static engineering blog published by **Hugo v0.164.0** with the **Blowfish v2.105.0**
+theme, deployed to GitHub Pages via the `hugo.yml` workflow (Pages source =
+**GitHub Actions**). The legacy Jekyll + esbuild stack was removed in Phase 7
+(see `docs/SSG_MIGRATION_PLAN.md` and tag `pre-phase7-legacy`).
+
+Two planes:
+
+- **Publishing plane** — Hugo content in `content/` (posts live in
+  `content/blog/`; the old `content/posts/` path redirects via an alias).
+  This is what ships to the public site.
+- **Engineering / R&D plane** — `src/` (ES-module frontend experiments,
+  theme-manager, search-engine, etc.) and `contracts/dao/` (Solidity DAO).
+  This plane is **frozen R&D** (see Decision below): it is built/tested in CI
+  but NOT deployed to the live blog.
 
 ## Architecture (current, authoritative)
-```
-src/                       # ES6 modules (bundled by esbuild)
-├── config/constants.js
-├── core/theme-manager.js
-├── modules/  (i18n, image-optimizer, search-engine, social-sharing, subscription)
-├── services/ (analytics-service, pwa-service)
-├── utils/    (helpers, storage)
-└── index.js  # entry: bootstraps all modules, wired as type=module in _layouts/default.html
 
-js/refactored-bundle.js   # production bundle (esbuild, minified ~15KB gzipped)
-tests/                    # 179 Jest (jsdom) + 17 smoke; see docs/TESTING.md
+```
+content/                  # Hugo markdown (posts -> content/blog/, about, people, domini)
+config/_default/          # hugo.toml (params, permalinks, outputs) + config.toml (theme)
+layouts/partials/         # comments.html (giscus + Buttondown), subscription.html
+i18n/                     # ru.yaml, en.yaml (Hugo i18n)
+assets/                   # og-default.svg, lib/fuse/fuse.min.cjs (search)
+static/                   # robots.txt, data/knowledge-graph.json (generated)
+themes/blowfish/          # git submodule (v2.105.0)
+src/                      # ES-module R&D frontend (NOT shipped by Hugo)
+contracts/dao/            # Solidity DAO (GovernanceToken, ProposalEngine, SoulboundToken)
+tests/                    # unit/ (jest), hardhat/ (dao.test.cjs)
 schema/post-metadata.schema.json   # formal Content Model (JSON Schema draft-07)
 scripts/                  # validate-frontmatter, ai-review, build-knowledge-graph, ci-content-contract
-docs/  (ARCHITECTURE, TESTING, CONTENT_CONTRACT, DEEP_REFACTORING_PLAN)
+docs/                     # STRATEGIC_PLAN_2026-2027.md, SSG_MIGRATION_PLAN.md, ...
 ```
-Legacy `js/*.js` files may still exist on disk but the shipped bundle is the
-esbuild output. Do not edit `js/*.js` expecting it to ship.
 
-## CI contract (Vector A — Agent-driven Publishing Protocol)
-Job `📜 Content Model Contract` in `.github/workflows/ci-cd.yml`:
-- **Hard gate:** changed `_posts/*.md` MUST satisfy `schema/post-metadata.schema.json`
-  (run `node scripts/validate-frontmatter.cjs <file>`). Legacy posts are exempt
-  (not re-validated on unrelated commits).
+## Decision on the DAO / BCI / VR / CRDT layer (2026-08-15)
+
+Per the consolidation phase, this layer is kept as a **frozen, documented R&D
+sandbox** (option b): it demonstrates engineering expertise but is not part of
+the shipped blog. Concretely:
+
+- `src/` and `contracts/dao/` are retained and still compiled/tested in CI.
+- **Secret-requiring deploy workflows are disabled by default:**
+  - `deploy-dao.yml` — split into a `test` job (no secrets, runs on push/PR to
+    `contracts/**`) and a `deploy` job that is `guarded` (fails loudly without
+    `DEPLOY_PRIVATE_KEY` / `SEPOLIA_RPC_URL`). Deploy does NOT run from PRs.
+  - `deploy-ipfs.yml` — **disabled** (legacy Jekyll build + Pinata credentials
+    were compromised 2026-08-14; `pre-phase7-legacy` tag preserves the last
+    Jekyll state if recovery is ever needed).
+- `vr-export.yml` — kept build-only (emits `assets/vr` artifact, no Pages flip).
+
+## CI contract (Content Model gate)
+
+Single source of truth for post metadata: `schema/post-metadata.schema.json`,
+enforced by `scripts/ci-content-contract.cjs` (run in `hugo.yml` as a soft gate).
+
+- **Hard gate:** changed `content/blog/*.md` MUST satisfy the schema
+  (run `node scripts/validate-frontmatter.cjs <file>`).
 - **Soft gate:** `scripts/ai-review.cjs` on changed posts (reported, non-fatal).
-- **Emit:** `assets/data/knowledge-graph.json` (JSON-LD) for Vector Search / KG.
-See `docs/CONTENT_CONTRACT.md`. Run `node scripts/ci-content-contract.cjs` locally
-to simulate the gate.
+- **Emit:** `static/data/knowledge-graph.json` (JSON-LD), published to
+  `/data/knowledge-graph.json`.
+
+Run `node scripts/ci-content-contract.cjs` locally to simulate the gate.
 
 ## Local workflow
+
 ```bash
-npm ci                 # install (lockfile must match package.json)
-npm run lint          # eslint src/ tests/
-npm test              # smoke (17) + jest (179)
-npm run build:production   # esbuild -> js/refactored-bundle.js
+npm ci                       # install
+npm run lint                # eslint src/ tests/
+npm test                    # jest unit tests (ES-module plane)
+npm run build               # hugo --gc --minify  -> ./public
+hugo server -D              # local preview (drafts on)
+npx hardhat test           # Solidity DAO tests (engineering plane)
 ```
-CI runs `npm ci` then the Jekyll pipeline; `npm ci` FAILS if lock is out of sync
-— regenerate `package-lock.json` via `npm install` after editing `package.json`.
 
-## Gotchas (learned)
-- `node_modules/` is gitignored (never committed); `npm ci` rebuilds it in CI.
-- `jest-environment-jsdom` must stay `^29.7.0` (matches jest 29 + lockfile).
-- Actions `upload-artifact@v3` is hard-blocked by GitHub — use `@v4`.
-- Edited source under `src/` must be re-bundled (`npm run build:production`) or
-  the deployed site won't reflect changes.
+`hugo` is NOT installed in this environment's default toolchain (NixOS CGO
+issue). A pure-Go binary is built with
+`CGO_ENABLED=0 GOFLAGS=-mod=mod go install github.com/gohugoio/hugo@v0.164.0`
+and lives at `$(go env GOPATH)/bin/hugo`. `hugo.yml` uses `peaceiris/actions-hugo`
+in CI, so the version there is authoritative.
 
-## Legacy notes (superseded)
-Older docs described a `js/*.js` + `css/*.min.css` + Jekyll 3.10.0 layout with a
-~238KB bundle. That layout is replaced by the `src/` + esbuild pipeline above.
+## Gotchas (learned during migration)
+
+- Pages source MUST be `GitHub Actions` (Settings UI), not `branch: main`
+  (legacy Jekyll). The API returns 422 for this switch — it is a manual step.
+- Blowfish reads `theme = "blowfish"` from `config/_default/config.toml`, NOT
+  from `hugo.toml` (Hugo ignores `theme` there).
+- `enableSearch = true` requires `assets/lib/fuse/fuse.min.cjs` in PROJECT
+  assets — `resources.Get` does not see the theme submodule's copy.
+- `og:image` uses `params.defaultSocialImage` resolved via `resources.Get`, so
+  the file must live in `assets/` (e.g. `assets/images/og-default.svg`), not
+  `static/`.
+- Posts dated in the future are NOT rendered by Hugo without `--future`.
+- Branch protection requires `--admin` for merges; branch is `main` (no `master`).
+
+## Coverage baseline (measured 2026-08-15, c8)
+
+| Metric | Value |
+|--------|-------|
+| Statements | 76.57% |
+| Branch | 64.52% |
+| Functions | 73.3% |
+| Lines | 76.57% |
+
+This is the **official baseline** (not the aspirational 85% target, which
+requires an E2E/Playwright layer — see `STRATEGIC_PLAN_2026-2027.md` Q3 2026).
+Do not regress below these numbers on the `src/` plane without adding tests.
