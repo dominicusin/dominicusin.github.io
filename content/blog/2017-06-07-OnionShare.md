@@ -5,6 +5,8 @@ slug: OnionShare
 aliases:
   - /2017/06/07/OnionShare.html
 ---
+author: DominicusIn
+
 # OnionShare
 
 [![Build Status](https://travis-ci.org/micahflee/onionshare.png)](https://travis-ci.org/micahflee/onionshare)

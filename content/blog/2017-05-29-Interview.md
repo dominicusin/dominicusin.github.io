@@ -5,6 +5,8 @@ slug: Interview
 aliases:
   - /2017/05/29/Interview.html
 ---
+author: DominicusIn
+
 Linux System Administrator/DevOp Interview Questions
 ====================================================
 

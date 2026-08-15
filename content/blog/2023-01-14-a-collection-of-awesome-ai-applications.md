@@ -5,6 +5,8 @@ slug: a-collection-of-awesome-ai-applications
 aliases:
   - /2023/01/14/a-collection-of-awesome-ai-applications.html
 ---
+author: DominicusIn
+
 
 [https://github.com/ai-collection/ai-collection/blob/main/README.md](https://github.com/ai-collection/ai-collection/blob/main/README.md)
 

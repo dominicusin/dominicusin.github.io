@@ -5,6 +5,8 @@ slug: linux-networking-commands
 aliases:
   - /2019/01/31/linux-networking-commands.html
 ---
+author: DominicusIn
+
 
  1. [arpwatch](https://linux.die.net/man/8/arpwatch) – Ethernet Activity Monitor.
 

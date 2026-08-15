@@ -5,6 +5,8 @@ slug: Awesome-Selfhosted
 aliases:
   - /2022/05/16/Awesome-Selfhosted.html
 ---
+author: DominicusIn
+
 # Awesome-Selfhosted
 
 from[ https://github.com/awesome-selfhosted/awesome-selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)

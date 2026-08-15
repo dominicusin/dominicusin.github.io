@@ -5,6 +5,8 @@ slug: free-programming-books-ru
 aliases:
   - /2020/03/18/free-programming-books-ru.html
 ---
+author: DominicusIn
+
 ### Index
 
 * [0 - Language Agnostic](#0---language-agnostic)

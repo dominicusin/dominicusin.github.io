@@ -5,6 +5,8 @@ slug: free-programming-books
 aliases:
   - /2017/06/15/free-programming-books.html
 ---
+author: DominicusIn
+
 ###Index
 * [Списки книг](#meta-lists)
 * [Language Agnostic](#language-agnostic)

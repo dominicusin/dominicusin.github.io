@@ -12,6 +12,8 @@ tags:
 gist_id: 93445e617b848ab12e5b0a7026f25752
 gist_url: https://gist.github.com/dominicusin/93445e617b848ab12e5b0a7026f25752
 ---
+author: DominicusIn
+
 flatpaks
 
 [View on GitHub Gist](https://gist.github.com/dominicusin/93445e617b848ab12e5b0a7026f25752)

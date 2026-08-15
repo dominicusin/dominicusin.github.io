@@ -12,6 +12,8 @@ tags:
 gist_id: 64a2951303a20059006c99895f8a35d8
 gist_url: https://gist.github.com/dominicusin/64a2951303a20059006c99895f8a35d8
 ---
+author: DominicusIn
+
 zpool create
 
 [View on GitHub Gist](https://gist.github.com/dominicusin/64a2951303a20059006c99895f8a35d8)

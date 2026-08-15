@@ -5,6 +5,8 @@ slug: poc-in-github
 aliases:
   - /2020/05/21/poc-in-github.html
 ---
+author: DominicusIn
+
 # PoC in GitHub
 
 ## 2020

@@ -5,6 +5,8 @@ slug: russia-it-podcast
 aliases:
   - /2018/02/03/russia-it-podcast.html
 ---
+author: DominicusIn
+
 russia-it-podcast
 =================
 

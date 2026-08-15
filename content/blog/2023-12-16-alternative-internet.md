@@ -5,6 +5,8 @@ slug: alternative-internet
 aliases:
   - /2023/12/16/alternative-internet.html
 ---
+author: DominicusIn
+
 # Alternative Internet
 
 A collection of interesting networks and technology aiming at re-decentralizing the Internet. If you would like to help in categorising these projects, please submit a PR to this README.md file.

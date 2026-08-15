@@ -5,6 +5,8 @@ slug: awesome-piracy
 aliases:
   - /2023/01/20/awesome-piracy.html
 ---
+author: DominicusIn
+
 # Awesome Piracy [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
 > A curated list of arrrrrrrrr! ! !

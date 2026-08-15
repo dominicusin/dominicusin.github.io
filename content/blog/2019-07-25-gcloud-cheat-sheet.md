@@ -5,6 +5,8 @@ slug: gcloud-cheat-sheet
 aliases:
   - /2019/07/25/gcloud-cheat-sheet.html
 ---
+author: DominicusIn
+
 ## References
 * [have fun with them](https://cloudplatform.googleblog.com/2016/06/filtering-and-formatting-fun-with.html)
 * [projections](https://cloud.google.com/sdk/gcloud/reference/topic/projections)

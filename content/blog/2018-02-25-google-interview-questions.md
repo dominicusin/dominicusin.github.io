@@ -5,6 +5,8 @@ slug: google-interview-questions
 aliases:
   - /2018/02/25/google-interview-questions.html
 ---
+author: DominicusIn
+
 ##Google Interview Questions: Product Marketing Manager
 - Why do you want to join Google?
 -- Because I want to create tools for others to learn, for free. I didn't have a lot of money when growing up so I didn't get access to the same books, computers and resources that others had which caused money, I want to help ensure that others can learn on the same playing field regardless of their families wealth status or location.

@@ -5,6 +5,8 @@ slug: unrestricted-ai-tools
 aliases:
   - /2025/10/30/unrestricted-ai-tools.html
 ---
+author: DominicusIn
+
 # Unrestricted AI Tools
 
 Curated list of AI content generators that do not have any NSFW restrictions
