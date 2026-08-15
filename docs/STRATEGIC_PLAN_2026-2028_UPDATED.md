@@ -31,9 +31,9 @@
 |-----------|--------|---------|-------------|
 | **Архитектура** | ✅ Завершена | 2 плоскости (Publishing + Engineering) | Hugo + ES6 модули |
 | **Контент** | ✅ Активен | 60+ постов (2015-2026) | `content/blog/` |
-| **Тесты** | ✅ Продвинутые | 179 Jest + 17 smoke + 9 Hardhat | Покрытие ~80% |
-| **Производительность** | ✅ Оптимизирована | Bundle ~15KB (gzipped) | esbuild tree-shaking |
-| **Доступность** | ⚠️ Базовая | ARIA labels, skip links | Нет авто-проверок axe-core |
+| **Тесты** | ✅ Продвинутые | ~262 Jest unit + 9 Hardhat + 14 Playwright E2E (smoke + axe-core a11y) | Покрытие src ~76% строк / 64% веток |
+| **Производительность** | ✅ Оптимизирована | Hugo/Blowfish static; минимальный JS (search Fuse.js + KG widget) | Lighthouse ≥90 (enforced budget) |
+| **Доступность** | ✅ Проверяется | ARIA labels, skip links, axe-core в E2E (0 critical/serious violations) | Авто-проверки в CI |
 | **Безопасность** | ✅ Настроена | CSP, Semgrep в CI | npm audit, Dependabot |
 | **Документация** | ✅ Полная | 20+ документов в `docs/` | ARCHITECTURE, TESTING, STRATEGIC_PLAN |
 | **CI/CD** | ✅ Комплексный | 12 workflows | Build, Test, Deploy, Security, VR-export |
@@ -103,7 +103,7 @@
 | Image CDN с AVIF/WebP | HIGH | 2026 Q2 | -60% размер изображений | 📋 Запланировано |
 | Advanced Service Worker (stale-while-revalidate) | MEDIUM | 2026 Q3 | 95% offline hit rate | 📋 Запланировано |
 | Real User Monitoring (RUM dashboard) | MEDIUM | 2026 Q3 | Ежедневный сбор метрик | ✅ Реализовано |
-| Performance budget в CI | MEDIUM | 2026 Q2 | LCP <2.0s, CLS <0.1 | 📋 Запланировано |
+| Performance budget в CI | MEDIUM | 2026 Q2 | LCP <2.0s, CLS <0.1 | ✅ Реализовано |
 
 **Ожидаемый эффект:** Lighthouse Performance **98+**, TTI <1.5s на мобильных 3G.
 
@@ -115,7 +115,7 @@
 
 | Инициатива | Приоритет | Срок | Метрика успеха | Статус |
 |------------|-----------|------|----------------|--------|
-| axe-core в CI (автоматические проверки) | HIGH | 2026 Q2 | 0 critical violations | 📋 Запланировано |
+| axe-core в CI (автоматические проверки) | HIGH | 2026 Q2 | 0 critical violations | ✅ Реализовано |
 | Keyboard navigation testing | MEDIUM | 2026 Q2 | 100% функциональности с клавиатуры | 📋 Запланировано |
 | Screen reader compatibility | MEDIUM | 2026 Q3 | Тестирование с NVDA/VoiceOver | 📋 Запланировано |
 | Color contrast audit | LOW | 2026 Q3 | WCAG AAA для всего контента | 📋 Запланировано |
@@ -173,9 +173,9 @@ gantt
 - [ ] Vector Search с WebAssembly embeddings (<100ms)
 - [ ] Dynamic imports для Lunr.js и AI модулей
 - [ ] Image CDN с AVIF/WebP конвертацией
-- [ ] axe-core интеграция в CI
-- [ ] Email рассылка (Buttondown)
-- [ ] Performance budget в CI
+- [x] axe-core интеграция в CI
+- [x] Email рассылка (Buttondown)
+- [x] Performance budget в CI
 
 **Критерии завершения квартала:**
 - [ ] Поиск работает <100ms

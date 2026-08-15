@@ -31,8 +31,10 @@ jobs:
       - name: 🌐 Run Lighthouse CI (against the live Hugo site)
         # Phase 7: the site is now published by Hugo (hugo.yml). We audit the
         # deployed GitHub Pages URL(s) instead of a Jekyll _site build.
+        # Budgets are ENFORCED (assertions in .lighthouserc.json use "error");
+        # a regression fails this job (it does NOT rollback the live site — the
+        # Pages deploy is a separate workflow).
         uses: treosh/lighthouse-ci-action@v12
-        continue-on-error: true
         with:
           configPath: './.lighthouserc.json'
           uploadArtifacts: true
