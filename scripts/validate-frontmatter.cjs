@@ -14,8 +14,8 @@ const Ajv2019 = require('ajv/dist/2019');
 const addFormats = require('ajv-formats');
 
 const SCHEMA_PATH = path.join(__dirname, '..', 'schema', 'post-metadata.schema.json');
-const POSTS_DIR = path.join(__dirname, '..', '_posts');
-const PEOPLE_DIR = path.join(__dirname, '..', '_people');
+const POSTS_DIR = path.join(__dirname, '..', 'content', 'blog');
+const PEOPLE_DIR = path.join(__dirname, '..', 'content', 'people');
 
 // Initialize AJV with draft-07 schema support
 const ajv = new Ajv2019({ 
@@ -164,9 +164,9 @@ function validatePost(filePath) {
     return { valid: false, errors: validate.errors, normalized };
   }
   
-  // Validate author existence
-  if (!validateAuthor(normalized.author)) {
-    const errorMsg = `Author "${normalized.author}" not found in _people/`;
+  // Validate author existence (skip if no author declared — legacy posts)
+  if (normalized.author && !validateAuthor(normalized.author)) {
+    const errorMsg = `Author "${normalized.author}" not found in content/people/`;
     console.error(`  ❌ ${errorMsg}`);
     return { 
       valid: false, 
@@ -179,7 +179,7 @@ function validatePost(filePath) {
   if (normalized.coauthors) {
     const missingCoauthors = normalized.coauthors.filter(author => !validateAuthor(author));
     if (missingCoauthors.length > 0) {
-      const errorMsg = `Coauthors not found in _people/: ${missingCoauthors.join(', ')}`;
+      const errorMsg = `Coauthors not found in content/people/: ${missingCoauthors.join(', ')}`;
       console.error(`  ❌ ${errorMsg}`);
       return { 
         valid: false, 
