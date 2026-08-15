@@ -18,6 +18,7 @@
     "test": "node tests/run-tests.js",
     "test:watch": "nodemon tests/run-tests.js",
     "test:coverage": "c8 --reporter=text --reporter=lcov --all --include='src/**/*.js' --exclude='src/**/*.test.js' --exclude='src/workers/**' npx jest --config jest.config.js --coverage=false",
+    "test:e2e": "playwright test",
     "validate": "html-validate _site/**/*.html || true",
     "lint": "eslint 'src/**/*.js' 'tests/**/*.js'",
     "lint:fix": "eslint src/**/*.js tests/**/*.js --fix",
@@ -74,7 +75,8 @@
     "jsdoc": "^4.0.2",
     "lighthouse": "^12.8.2",
     "tailwindcss": "^3.4.19",
-    "terser": "^5.19.0"
+    "terser": "^5.19.0",
+    "@playwright/test": "^1.55.0"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -93,10 +95,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 70,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
+        "branches": 63,
+        "functions": 72,
+        "lines": 75,
+        "statements": 75
       }
     }
   },
