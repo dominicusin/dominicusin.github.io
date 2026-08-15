@@ -1,342 +1,78 @@
-# dominicusin.github.io - Engineering Blog v2.0
+# dominicusin.github.io — Engineering Blog (Hugo + Blowfish)
 
-[![Build Status](https://github.com/dominicusin/dominicusin.github.io/workflows/Jekyll%20CI/CD/badge.svg)](https://github.com/dominicusin/dominicusin.github.io/actions)
-[![Tests](https://img.shields.io/badge/tests-196%20passed-brightgreen)](tests/)
-[![Content Contract](https://img.shields.io/badge/Content%20Model-CI%20gated-blue)](docs/CONTENT_CONTRACT.md)
+[![Deploy](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml/badge.svg)](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml)
+[![Tests](https://img.shields.io/badge/tests-277%20passed-brightgreen)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **Modern, modular, and performant static blog built with Jekyll and ES6+ modules**
+> Static engineering blog built with **Hugo** + the **Blowfish** theme, deployed to GitHub Pages.
+> Migrated from the legacy Jekyll + esbuild stack (see `docs/SSG_MIGRATION_PLAN.md`).
 
-Domini's personal engineering blog featuring industrial engineering, systems engineering, and data science content.
+Domini's personal engineering blog: industrial engineering, systems engineering, and data science,
+plus decentralized-web / DAO notes.
 
-## 🚀 Features
+## 🚀 Architecture (two planes)
 
-### Core Features
-- 📝 **Blog Engine** - Posts with categories, tags, and archive
-- 🔍 **Full-text Search** - Client-side search powered by Lunr.js
-- 🌐 **Multilingual** - English and Russian (i18n ready)
-- 🎨 **Theme System** - Light/Dark/Auto themes with system preference detection
-- 📱 **PWA Ready** - Offline support, install prompt, service worker
-- ⚡ **Performance Optimized** - Lazy loading, code splitting, Core Web Vitals monitoring
-- 📊 **Analytics** - Built-in analytics with user behavior tracking
-- 📧 **Subscription System** - RSS and email subscriptions
-- 🔗 **Social Sharing** - Share buttons for major platforms
-- ♿ **Accessible** - WCAG 2.1 compliant, ARIA labels, keyboard navigation
+This repository deliberately separates **publishing** from **engineering tooling**:
 
-### Technical Highlights
-- **ES6+ Modules** - Modern JavaScript, bundled with esbuild into `js/refactored-bundle.js`
-- **Bundled & Minified** - esbuild production build (~15KB minified gzipped)
-- **Thorough Test Suite** - 179 Jest unit/integration tests + 17 smoke tests, all green in CI
-- **Content Model Contract** - every post is validated against `schema/post-metadata.schema.json` in CI (pre-merge gate); see `docs/CONTENT_CONTRACT.md`
-- **Progressive Enhancement** - Graceful degradation for older browsers
+- **Publishing Plane** — the website.
+  - Generator: Hugo (extended) + Blowfish theme (git submodule at `themes/blowfish`).
+  - Content: `content/` (blog posts in `content/blog/`, `content/people/`, `content/domini/`).
+  - Config: `config/_default/` (`hugo.toml`, `config.toml`, `params` inline, `menus.*.toml`, `languages.toml`).
+  - Comments: [giscus](https://giscus.app) (GitHub Discussions backend, category "Announcements").
+  - Subscription: Buttondown form (`layouts/partials/subscription.html`).
+  - i18n: `i18n/{ru,en}.yaml` (ru default, en secondary).
+  - Build/deploy: `.github/workflows/hugo.yml` → GitHub Pages (single publisher).
+- **Engineering Plane** — smart-contract / DAO tooling (kept separate, NOT deployed to the site).
+  - `contracts/dao/` — Solidity sources.
+  - `tests/hardhat/` — Hardhat tests (`npx hardhat test`, 9 passing).
+  - `scripts/` — content-contract + knowledge-graph generation.
+  - `src/` — v4.0 frontend modules (CRDT/P2P/DAO/BCI adapters). Retained for the engineering
+    substrate; not bundled into the static site (Hugo ignores `src/`).
 
-## 📁 Project Structure
-
-```
-/workspace/
-├── src/                      # Source code (ES modules)
-│   ├── config/               # Configuration constants
-│   │   └── constants.js      # App-wide frozen constants
-│   ├── core/                 # Core modules
-│   │   └── theme-manager.js  # Theme switching system
-│   ├── modules/              # Feature modules
-│   │   ├── i18n.js           # Internationalization (en/ru)
-│   │   ├── image-optimizer.js # Lazy loading, WebP
-│   │   ├── search-engine.js  # Lunr.js search
-│   │   ├── social-sharing.js # Social share buttons
-│   │   └── subscription.js   # RSS & email subscriptions
-│   ├── services/             # Background services
-│   │   ├── analytics-service.js # Analytics & Web Vitals
-│   │   └── pwa-service.js    # Service Worker management
-│   ├── utils/                # Utilities
-│   │   ├── helpers.js        # General utilities (debounce, throttle, etc.)
-│   │   └── storage.js        # localStorage/sessionStorage wrappers
-│   └── index.js              # Main entry point
-├── tests/                    # Test suite
-│   ├── run-tests.js          # Smoke test runner (Node)
-│   ├── unit/                 # Jest unit tests (i18n, search, theme, image, pwa, subscription, storage, analytics, helpers)
-│   ├── integration/          # Jest integration tests (module loading)
-│   ├── jest.config.cjs       # Jest config (jsdom)
-│   ├── babel.config.cjs      # Babel transform for ESM
-│   └── jest.setup.js         # jsdom polyfills
-├── schema/                   # Content Model
-│   └── post-metadata.schema.json # Formal post frontmatter contract (JSON Schema)
-├── scripts/                  # Build & CI tooling
-│   ├── ci-content-contract.cjs   # CI gate: validate changed posts + emit KG
-│   ├── validate-frontmatter.cjs  # Frontmatter validator/normalizer
-│   ├── ai-review.cjs             # AI pre-merge review
-│   └── build-knowledge-graph.cjs # JSON-LD Knowledge Graph generator
-├── docs/                     # Documentation
-│   ├── ARCHITECTURE.md       # Architecture overview
-│   ├── TESTING.md            # Testing guide
-│   ├── CONTENT_CONTRACT.md   # Content Model + CI contract (Vector A)
-│   └── DEEP_REFACTORING_PLAN.md # Refactoring roadmap
-├── js/                       # Built bundles
-│   └── refactored-bundle.js  # Production bundle (esbuild, minified)
-├── _layouts/                 # Jekyll layouts
-│   └── default.html          # Main layout with module loading
-├── _includes/                # Reusable components
-├── _posts/                   # Blog posts
-├── assets/                   # Static assets (incl. data/knowledge-graph.json, CI-generated)
-└── package.json              # Node.js dependencies & scripts
-```
-
-## 🛠️ Installation
-
-### Prerequisites
-- Node.js >= 22.0.0
-- Ruby >= 3.0
-- Bundler
-
-### Install Dependencies
+## 🛠 Local development
 
 ```bash
-# Install Node.js dependencies
-npm install
-
-# Install Ruby dependencies
-bundle install
+# 1. Install Hugo (extended) — e.g. via Go:
+#    CGO_ENABLED=0 go install github.com/gohugoio/hugo@v0.164.0
+# 2. Init the theme submodule:
+git submodule update --init --recursive
+# 3. Run the dev server (drafts included):
+hugo server -D
+# 4. Production build:
+hugo --gc --minify
 ```
 
-## 📦 Build Commands
+The site is served from `public/` after a build. `public/` and `resources/` are git-ignored.
 
-### Development
-```bash
-# Build development assets (unminified)
-npm run build
+## 📦 Content model
 
-# Start local server with live reload
-npm run dev
-```
+- Posts live in `content/blog/` as `YYYY-MM-DD-slug.md`. Frontmatter is normalized
+  (title, date ISO-8601, categories, tags, authors, draft, slug).
+- Legacy permalinks are preserved via Hugo `aliases` (e.g. `/2015/11/19/first.html` → `/2015/11/19/first/`).
+- The `content/posts` → `content/blog` rename keeps post URLs intact; `/posts/` now aliases `/blog/`.
+- Every changed post is validated against `schema/post-metadata.schema.json` in CI
+  (`scripts/ci-content-contract.cjs` — soft gate; legacy posts lacking tags/author are reported, not blocked).
 
-### Production
-```bash
-# Full production build (minified + optimized)
-npm run build:production
+## 🔧 Key files
 
-# This will:
-# 1. Clean old artifacts
-# 2. Minify JS/CSS
-# 3. Bundle ES modules (esbuild)
-# 4. Generate cache-busting hashes
-# 5. Optimize images
-# 6. Build Jekyll site
-```
+| Path | Purpose |
+|------|---------|
+| `config/_default/hugo.toml` | Site + Blowfish params, permalinks, outputs, giscus, subscription URL |
+| `config/_default/config.toml` | `theme = "blowfish"` declaration |
+| `themes/blowfish` | Theme submodule (v2.105.0) |
+| `content/` | All site content |
+| `layouts/partials/comments.html` | giscus + subscription injection |
+| `i18n/` | ru/en translations |
+| `contracts/dao/`, `tests/hardhat/` | DAO engineering plane |
+| `.github/workflows/hugo.yml` | The only GitHub Pages publisher |
 
-### Testing
-```bash
-# Run test suite
-npm test
+## 🧹 Legacy (not yet removed)
 
-# Watch mode
-npm run test:watch
-
-# Generate API documentation
-npm run docs
-```
-
-### Other Scripts
-```bash
-# Lint code
-npm run lint
-npm run lint:fix
-
-# Analyze bundle size
-npm run analyze:size
-
-# Clean build artifacts
-npm run clean
-
-# Validate HTML
-npm run validate
-```
-
-## 🧪 Running Tests
-
-The project includes a comprehensive test suite with 17 tests covering:
-
-- **Helpers** - debounce, throttle, generateId, deepMerge, etc.
-- **Constants** - Configuration validation
-- **Storage** - localStorage/sessionStorage with fallbacks
-- **App Module** - Entry point exports and initialization
-
-```bash
-npm test
-```
-
-Expected output:
-```
-Total: 17 | Passed: 17 | Failed: 0
-```
-
-## 📊 Bundle Analysis
-
-| File | Size (minified) | Gzip |
-|------|-----------------|------|
-| `refactored-bundle.js` | 68.7 KB | ~22 KB |
-| `main.min.js` | 8.7 KB | ~3 KB |
-| `search.min.js` | 9.3 KB | ~3.5 KB |
-
-**Total production bundle:** ~217 KB (all assets)
-
-## 🏗️ Architecture
-
-### Module System
-All JavaScript uses ES6 modules with a single entry point (`src/index.js`):
-
-```javascript
-import { ThemeManager } from './core/theme-manager.js';
-import { I18nManager } from './modules/i18n.js';
-import { AnalyticsService } from './services/analytics-service.js';
-
-// Auto-initialized on DOMContentLoaded
-export function startApp() {
-  // Initialize all modules
-}
-```
-
-### Global API
-Modules expose themselves via `window` for debugging:
-
-```javascript
-window.App          // Main application object
-window.i18n         // Translation function: t('key')
-window.analytics    // Analytics service
-window.pwa          // PWA service
-window.searchEngine // Search functionality
-```
-
-### Build Pipeline
-1. **esbuild** bundles `src/index.js` → `js/refactored-bundle.js`
-2. Tree-shaking removes unused code
-3. Minification reduces size by ~60%
-4. Source maps generated for debugging
-
-## 📈 Performance
-
-### Core Web Vitals Targets
-
-| Metric | Target | Strategy |
-|--------|--------|----------|
-| LCP | < 2.5s | Preload hero images, optimize fonts |
-| FID | < 100ms | Code splitting, web workers |
-| CLS | < 0.1 | Reserve space, font-display: swap |
-
-### Optimizations Implemented
-- ✅ Debounced/throttled event handlers
-- ✅ Intersection Observer for lazy loading
-- ✅ RequestIdleCallback for non-critical work
-- ✅ Passive event listeners
-- ✅ CSS containment
-- ✅ Resource hints (preload, prefetch, preconnect)
-- ✅ Critical CSS inlined
-- ✅ Non-blocking font loading
-
-## 🌐 Browser Support
-
-| Browser | Version | Support |
-|---------|---------|---------|
-| Chrome | 80+ | ✅ Full |
-| Firefox | 75+ | ✅ Full |
-| Safari | 14+ | ✅ Full |
-| Edge | 80+ | ✅ Full |
-| Opera | 67+ | ✅ Full |
-
-**Fallbacks provided for:**
-- localStorage → in-memory Map
-- IntersectionObserver → immediate load
-- requestIdleCallback → setTimeout(0)
-
-## 📚 Documentation
-
-- [Architecture Guide](docs/ARCHITECTURE.md) - Module structure and API
-- [Testing Guide](docs/TESTING.md) - How to run and write tests
-- [Deployment Fixes](docs/DEPLOYMENT_FIXES.md) - Common deployment issues
-- [Backup System](docs/backup-system.md) - Data backup procedures
-
-## 🔧 Customization
-
-### Adding a New Module
-
-1. Create module in `src/modules/`:
-```javascript
-// src/modules/my-feature.js
-export class MyFeature {
-  constructor(options = {}) {
-    this.options = options;
-    this.init();
-  }
-  
-  init() {
-    // Initialization logic
-  }
-}
-```
-
-2. Import in `src/index.js`:
-```javascript
-import { MyFeature } from './modules/my-feature.js';
-
-export function startApp() {
-  // ... existing code
-  if (!App.myFeature && document.querySelector('.my-feature')) {
-    App.myFeature = new MyFeature();
-    window.myFeature = App.myFeature;
-  }
-}
-```
-
-3. Rebuild:
-```bash
-npm run build
-```
-
-### Adding Translations
-
-1. Create translation file:
-```json
-// assets/i18n/es.json
-{
-  "navigation": {
-    "home": "Inicio",
-    "about": "Acerca de"
-  }
-}
-```
-
-2. Use in templates:
-```html
-<span data-i18n="navigation.home">Inicio</span>
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Add/update tests
-4. Run `npm test` and `npm run build`
-5. Commit changes (`git commit -m 'Add amazing feature'`)
-6. Push to branch (`git push origin feature/amazing-feature`)
-7. Open Pull Request
-
-### Code Style
-- ES6+ syntax (const/let, arrow functions, template literals)
-- JSDoc comments for public APIs
-- No var, use const/let
-- Async/await over promises
-- Modular architecture (single responsibility)
+The legacy Jekyll + esbuild stack (`_config.yml`, `Gemfile`, `_layouts/`, `_sass/`, `js/`,
+`src/` frontend runtime, `build.js`) is **still present** but no longer deployed. Removal is
+deferred to a later cleanup pass (see `docs/SSG_MIGRATION_PLAN.md`, Phase 7) once the Hugo site
+has proven stable. `src/` (DAO/CRDT modules) is retained regardless.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📬 Contact
-
-- **Website:** [dominicusin.github.io](https://dominicusin.github.io)
-- **Author:** DominicusIn
-
----
-
-*Last updated: 2026-08-14*  
-*Version: 2.0.0*  
-*Build: refactored-bundle.js (68.7 KB minified)*
+MIT — see `LICENSE`.
