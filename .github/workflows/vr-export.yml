@@ -61,15 +61,20 @@ jobs:
           name: knowledge-graph-gltf
           path: assets/vr/knowledge-graph.gltf
           retention-days: 30
-      
-      - name: Deploy to GitHub Pages (VR)
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./assets/vr
-          destination_dir: vr
-      
+
+      # NOTE: VR deploy to Pages is DISABLED (variant A / Phase 5 of
+      # docs/SSG_MIGRATION_PLAN.md). The single GitHub Pages publisher is
+      # .github/workflows/hugo.yml (source = GitHub Actions). peaceiris/
+      # actions-gh-pages here would create a gh-pages branch and fight the
+      # Hugo deploy, so we keep only the build + artifacts.
+      # - name: Deploy to GitHub Pages (VR)
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./assets/vr
+      #     destination_dir: vr
+
       - name: Create release with VR files
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
