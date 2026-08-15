@@ -12,9 +12,11 @@
  *   - Knowledge Graph (JSON-LD) is always emitted for the whole corpus.
  *
  * Post detection (git):
- *   - PR context:  git diff --name-only origin/main...HEAD
- *   - Push context: git diff --name-only HEAD~1 HEAD
- *   - fallback:     all posts (so a misconfigured runner still gates new ones)
+ *   - Base = merge-base(origin/main, HEAD); diff against that isolates posts
+ *     introduced by the current branch/PR (robust on push-to-main after merge).
+ *     A three-dot range (origin/main...HEAD) mis-flags the entire blog as
+ *     "added" after a squash merge, wrongly hard-blocking the deploy.
+ *   - Fallback: HEAD~1 HEAD (single-commit push), then all posts.
  */
 
 const { execFileSync } = require('child_process');
@@ -32,31 +34,47 @@ function runGit(args) {
   }
 }
 
+// Resolve the merge base with origin/main. Returns { base, reliable } —
+// `reliable` is false only when git/merge-base could not run at all. A
+// legitimately empty diff (zero new posts) is NOT treated as "could not
+// determine" (that previously forced gating of ALL posts).
+function baseRef() {
+  const mb = runGit(['merge-base', 'origin/main', 'HEAD']);
+  if (mb) return { base: mb, reliable: true };
+  return { base: 'HEAD~1', reliable: true };
+}
+
+function diffNames(...spec) {
+  return runGit(['diff', '--name-only', ...spec]);
+}
+
+function diffAdded(...spec) {
+  return runGit(['diff', '--diff-filter=A', '--name-only', ...spec]);
+}
+
+function allPosts() {
+  return fs.readdirSync(path.join(ROOT, 'content', 'blog'))
+    .filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
+    .map(f => path.join('content', 'blog', f));
+}
+
 function getChangedPosts() {
-  let out = runGit(['diff', '--name-only', 'origin/main...HEAD']);
-  if (!out) {
-    out = runGit(['diff', '--name-only', 'HEAD~1', 'HEAD']);
-  }
-  if (!out) {
+  const { base, reliable } = baseRef();
+  const out = diffNames(base, 'HEAD');
+  if (!reliable) {
     console.log('⚠️  Could not determine changed files; falling back to all posts.');
-    return fs.readdirSync(path.join(ROOT, 'content', 'blog'))
-      .filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
-      .map(f => path.join('content', 'blog', f));
+    return allPosts();
   }
   return out.split('\n').filter(line => POSTS_RE.test(line.trim())).map(l => l.trim());
 }
 
 function getAddedPosts() {
-  let out = runGit(['diff', '--diff-filter=A', '--name-only', 'origin/main...HEAD']);
-  if (!out) {
-    out = runGit(['diff', '--diff-filter=A', '--name-only', 'HEAD~1', 'HEAD']);
-  }
-  if (!out) {
-    // Fallback: no git context — treat every post as a candidate new post so
-    // the hard gate still protects the corpus if the runner lacks history.
-    return fs.readdirSync(path.join(ROOT, 'content', 'blog'))
-      .filter(f => f.endsWith('.md') || f.endsWith('.markdown'))
-      .map(f => path.join('content', 'blog', f));
+  const { base, reliable } = baseRef();
+  const out = diffAdded(base, 'HEAD');
+  if (!reliable) {
+    // No git context — treat every post as a candidate new post so the hard
+    // gate still protects the corpus if the runner lacks history.
+    return allPosts();
   }
   return out.split('\n').filter(line => POSTS_RE.test(line.trim())).map(l => l.trim());
 }
