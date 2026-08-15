@@ -1,0 +1,4 @@
+# Canonical Hugo config (variant A).
+# `theme` is declared here (not in hugo.toml) because Hugo v0.164 reads the
+# module/theme declaration reliably from config/_default/config.toml.
+theme = "blowfish"
