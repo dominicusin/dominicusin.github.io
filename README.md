@@ -94,6 +94,21 @@ quality/support and never flip the Pages source.
 > The legacy Jekyll CI (`ci.yml`, `jekyll.yml`, `ci-cd.yml`) was removed in
 > Phase 7. Do not reintroduce `bundle exec jekyll build` — the site is Hugo-only.
 
+## 🧠 Knowledge Hub (Engineering Knowledge Platform)
+
+The site is more than a blog: it is a navigable knowledge base.
+
+- **Knowledge Graph** (`/knowledge-graph/`) — interactive concept/post explorer
+  backed by `/data/knowledge-graph.json` (JSON-LD, generated each build). Noscript
+  fallback via `/categories/` + `/tags/`.
+- **Community** (`/community/`) — giscus (GitHub Discussions) comments + Buttondown
+  subscription, with discussion norms and a privacy note.
+- **Editorial strategy**: `docs/EDITORIAL_STRATEGY.md` (content directions, taxonomy,
+  people/domini rules, author checklist).
+- **DAO track**: `docs/DAO_ROADMAP.md` (contracts, test/deploy, threat model).
+- **Architecture**: `docs/adr/0002-two-plane-architecture.md` (Publishing vs Engineering).
+- **Content contract**: `docs/CONTENT_CONTRACT.md` (new posts are a hard gate).
+
 ## 🧹 Legacy (removed)
 
 The legacy Jekyll + esbuild stack (`_config.yml`, `Gemfile`, `_layouts/`, `_includes/`,
