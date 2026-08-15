@@ -22,35 +22,44 @@ $base-line-height: 1.7;
 // Отступы
 $spacing-unit: 30px;
 
-// Цвета - Светлая тема
-$text-color: #1a202c;
+// Цвета - Светлая тема (Enhanced palette)
+$text-color: #0f172a;
 $background-color: #ffffff;
-$brand-color: #4158D0;
-$brand-color-light: #667eea;
-$brand-color-dark: #2c3e8f;
+$brand-color: #4f46e5;
+$brand-color-light: #6366f1;
+$brand-color-dark: #3730a3;
 
-$grey-color: #718096;
+$grey-color: #64748b;
 $grey-color-light: #e2e8f0;
-$grey-color-dark: #2d3748;
+$grey-color-dark: #1e293b;
 
-$success-color: #38a169;
-$warning-color: #d69e2e;
-$error-color: #e53e3e;
-$info-color: #3182ce;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$error-color: #ef4444;
+$info-color: #3b82f6;
 
-$border-color: #e2e8f0;
-$shadow-color: rgba(0, 0, 0, 0.1);
+$border-color: #f1f5f9;
+$shadow-color: rgba(15, 23, 42, 0.1);
 
-// Темная тема
-$dark-text-color: #e2e8f0;
-$dark-background-color: #1a202c;
-$dark-surface-color: #2d3748;
-$dark-border-color: #4a5568;
+// Accent colors
+$accent-purple: #a855f7;
+$accent-pink: #ec4899;
+$accent-orange: #f97316;
+$accent-cyan: #06b6d4;
 
-// Градиенты
-$gradient-primary: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
-$gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$gradient-accent: linear-gradient(90deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+// Темная тема (Enhanced)
+$dark-text-color: #f1f5f9;
+$dark-background-color: #0f172a;
+$dark-surface-color: #1e293b;
+$dark-border-color: #334155;
+
+// Градиенты (Enhanced)
+$gradient-primary: linear-gradient(135deg, #4f46e5 0%, #a855f7 50%, #ec4899 100%);
+$gradient-secondary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+$gradient-accent: linear-gradient(90deg, #4f46e5 0%, #a855f7 50%, #ec4899 100%);
+$gradient-hero: linear-gradient(135deg, #4f46e5 0%, #7c3aed 25%, #a855f7 50%, #ec4899 75%, #f43f5e 100%);
+$gradient-warm: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #a855f7 100%);
+$gradient-cool: linear-gradient(135deg, #06b6d4 0%, #4f46e5 50%, #a855f7 100%);
 
 // Layout
 $content-width: 1200px;
