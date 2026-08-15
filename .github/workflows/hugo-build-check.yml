@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 env:
-  HUGO_VERSION: "0.165.0"
+  HUGO_VERSION: "0.164.0"
   HUGO_ENVIRONMENT: production
   HUGO_ENV: production
 

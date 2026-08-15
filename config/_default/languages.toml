@@ -1,16 +1,18 @@
 # Hugo multilingual configuration (variant A — preserve en/ru).
 # Maps the legacy assets/i18n/{en,ru}.json (8 keys each) into Hugo i18n.
+# Note: `languageName` is deprecated in Hugo >=0.158; `label` is preferred,
+# but `languageName` is retained for Blowfish theme compatibility.
 
 [languages.ru]
-  languageName = "Русский"
   weight = 1
   contentDir = "content"
+  languageName = "Русский"
   [languages.ru.params]
     defaultTheme = "auto"
 
 [languages.en]
-  languageName = "English"
   weight = 2
   contentDir = "content"
+  languageName = "English"
   [languages.en.params]
     defaultTheme = "auto"

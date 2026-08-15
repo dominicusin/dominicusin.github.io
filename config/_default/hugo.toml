@@ -10,6 +10,12 @@ enableGitInfo = false
 paginate = 10
 summaryLength = 25
 
+# Preserve raw HTML in Markdown (about.md and posts contain HTML markup).
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 # Use the Blowfish theme (git submodule at themes/blowfish).
 theme = "blowfish"
 
