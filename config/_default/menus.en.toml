@@ -1,13 +1,9 @@
-# Main menu (en).
+# Main menu (en). Blowfish renders config/_default/menus.<lang>.toml.
+# Consolidated: profile + topics grouped into dropdowns.
 [[main]]
   name = "Home"
   pageRef = "/"
   weight = 10
-
-[[main]]
-  name = "About"
-  pageRef = "/about/"
-  weight = 20
 
 [[main]]
   name = "Archive"
@@ -15,21 +11,46 @@
   weight = 30
 
 [[main]]
+  name = "Knowledge Graph"
+  pageRef = "/knowledge-graph/"
+  weight = 40
+
+[[main]]
+  name = "Profile"
+  identifier = "profile"
+  weight = 50
+
+[[main]]
+  name = "About"
+  pageRef = "/about/"
+  parent = "profile"
+  weight = 51
+
+[[main]]
+  name = "People"
+  URL = "/about/#people"
+  parent = "profile"
+  weight = 52
+
+[[main]]
+  name = "Domini"
+  URL = "/about/#domini"
+  parent = "profile"
+  weight = 53
+
+[[main]]
+  name = "Topics"
+  identifier = "topics"
+  weight = 60
+
+[[main]]
   name = "Categories"
   pageRef = "/categories/"
-  weight = 40
+  parent = "topics"
+  weight = 61
 
 [[main]]
   name = "Tags"
   pageRef = "/tags/"
-  weight = 50
-
-[[main]]
-  name = "People"
-  pageRef = "/people/"
-  weight = 60
-
-[[main]]
-  name = "Domini"
-  pageRef = "/domini/"
-  weight = 70
+  parent = "topics"
+  weight = 62
