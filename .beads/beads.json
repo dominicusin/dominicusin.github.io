@@ -13,7 +13,11 @@
     { "id": "T7", "kind": "task", "title": "Rewrite relative README links to absolute GitHub URLs (no broken internal links)", "status": "done", "deps": ["T3"], "artifacts": ["scripts/sync-github.cjs", "config/_default/hugo.toml"], "verified": "check-links: 0 broken across 654 pages" },
     { "id": "T8", "kind": "task", "title": "Verify: hugo 0 errors + check-links 0 broken after T7 fix", "status": "done", "deps": ["T7"], "verified": "hugo 0 errors; 553 HTML; feed.xml now valid" },
     { "id": "T9", "kind": "task", "title": "Commit + PR + gh pr merge --admin for repo-gist-ingestion batch", "status": "done", "deps": ["T8"], "pr": 107, "merged": "9470502ab" },
-    { "id": "T10", "kind": "task", "title": "Live CI smoke test: gh workflow run hugo.yml with INCLUDE_WIKI=true", "status": "done", "deps": ["T9"], "verified": "run 31943633270 green: sync + wiki + KG + build + Pages deploy" }
+    { "id": "T10", "kind": "task", "title": "Live CI smoke test: gh workflow run hugo.yml with INCLUDE_WIKI=true", "status": "done", "deps": ["T9"], "verified": "run 31943633270 green: sync + wiki + KG + build + Pages deploy" },
+    { "id": "T11", "kind": "task", "title": "build-ontology-feed.cjs: derive category→tag→repo/gist lattice from TAXONOMY.md + Hugo taxonomies + data/github.json", "status": "done", "deps": [], "artifacts": ["scripts/build-ontology-feed.cjs"], "verified": "10 categories, 90 tags, 128 repos, 100 gists", "initiative": "ontology-feed" },
+    { "id": "T12", "kind": "task", "title": "Wire feed generation into build pipeline (hugo.yml + package.json build:full)", "status": "done", "deps": ["T11"], "artifacts": [".github/workflows/hugo.yml", "package.json"], "initiative": "ontology-feed" },
+    { "id": "T13", "kind": "task", "title": "Emit static/data/ontology.json; verify valid JSON, 10 categories, repo/gist facets present", "status": "done", "deps": ["T11", "T12"], "artifacts": ["static/data/ontology.json"], "verified": "45KB feed in public/; hugo 0 err; check-links 0 broken", "initiative": "ontology-feed" },
+    { "id": "T14", "kind": "task", "title": "Commit + PR + gh pr merge --admin for ontology-feed", "status": "in_progress", "deps": ["T13"], "initiative": "ontology-feed" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -23,6 +27,10 @@
     { "from": "T3", "to": "T7", "type": "enables" },
     { "from": "T7", "to": "T8", "type": "blocks" },
     { "from": "T8", "to": "T9", "type": "blocks" },
-    { "from": "T9", "to": "T10", "type": "blocks" }
+    { "from": "T9", "to": "T10", "type": "blocks" },
+    { "from": "T11", "to": "T12", "type": "enables" },
+    { "from": "T11", "to": "T13", "type": "feeds" },
+    { "from": "T12", "to": "T13", "type": "enables" },
+    { "from": "T13", "to": "T14", "type": "blocks" }
   ]
 }
