@@ -1,0 +1,28 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+  <article class="repo-page">
+    <header class="repo-header">
+      <div class="repo-title">
+        <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+        {{ with .Params.description }}<p class="repo-descr">{{ . }}</p>{{ end }}
+      </div>
+      <div class="repo-meta">
+        {{ with .Params.language }}<span class="repo-pill">⌬ {{ . }}</span>{{ end }}
+        {{ if .Params.stars }}<span class="repo-pill">★ {{ .Params.stars }}</span>{{ end }}
+        {{ if .Params.forks }}<span class="repo-pill">⑂ {{ .Params.forks }}</span>{{ end }}
+        {{ if .Params.archived }}<span class="repo-pill repo-pill--warn">archived</span>{{ end }}
+        {{ if .Params.is_fork }}<span class="repo-pill">fork</span>{{ end }}
+      </div>
+      <div class="repo-links">
+        <a class="repo-btn" href="{{ .Params.repo_url }}" target="_blank" rel="noopener">GitHub ↗</a>
+        {{ if .Params.has_wiki }}<a class="repo-btn repo-btn--ghost" href="{{ .Params.wiki_url }}" target="_blank" rel="noopener">Wiki ↗</a>{{ end }}
+      </div>
+      {{ with .Params.topics }}<div class="repo-topics">
+        {{ range . }}<a class="repo-topic" href="/tags/{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+      </div>{{ end }}
+    </header>
+
+    {{ with .Content }}<section class="repo-body prose dark:prose-invert max-w-none">{{ . }}</section>{{ end }}
+    {{ partial "crosslinks.html" . }}
+  </article>
+{{ end }}

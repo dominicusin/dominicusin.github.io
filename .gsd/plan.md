@@ -79,3 +79,37 @@ All Beads nodes T1–T10 = `done`. Initiative `repo-gist-ingestion` **closed**.
 Beads T11–T13 = `done`; T14 (commit+PR+merge) in_progress. CI live run will
 confirm the new `hugo.yml` step (graceful, no untrusted input).
 
+---
+
+## Initiative 3: `cross-links` (new Beads nodes T15–T18)
+
+### Pivot (BMAD decision #6)
+Initial intent was post↔repo by shared tag. Data audit proved **no signal**:
+0 by tag, 0 by substring, 0 own-repo mentions in post bodies (5745 github.com
+mentions are all external). Pivoted to **repo↔repo related links** (shared
+`language` OR shared `topics`) — richly supported by the data.
+
+### Phase E — related repositories
+- `scripts/build-crosslinks.cjs` → **58/128 repos have related repos** (by
+  shared language; e.g. 12 Python repos ↔ `ai-orchestration-platform`).
+- `layouts/partials/crosslinks.html` renders "Похожие репозитории" on each repo
+  single page, reading `Site.Data.crosslinks.repos.<fullName>`. Graceful: empty.
+- Wired: `package.json` `crosslinks` + `build:full`; `hugo.yml` step
+  "Generate cross-links" before `hugo`.
+- `data/crosslinks.json` gitignored (regenerated each build).
+
+### Contract satisfaction (R1–R6 → evidence)
+| Req | Evidence |
+|-----|----------|
+| R1 feed generated, gitignored | `scripts/build-crosslinks.cjs` → `data/crosslinks.json`; `.gitignore` rule |
+| R2 join by shared language/topic | 58 repos linked; `byLanguage`/`byTopic` split tracked |
+| R3 "Похожие репозитории" on repo pages | partial wired into `layouts/repositories/single.html` |
+| R4 graceful | absent data → empty JSON → partial renders nothing |
+| R5 in pipeline before hugo | `hugo.yml` step + `build:full` chain |
+| R6 valid link targets | targets are `/repositories/<owner>__<repo>/` (real pages) |
+
+### Status
+Beads T15 = `done`; T16 (partial+CSS+wire) `done`; T17 (pipeline+verify) `done`
+(58 pages show "Похожие репозитории"; check-links 0 broken / 654 pages).
+T18 (commit+PR+merge) in_progress — CI live run confirms new hugo.yml step.
+

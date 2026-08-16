@@ -357,3 +357,17 @@ html { scroll-behavior: smooth; }
   .about-hero { justify-content: center; text-align: center; }
   .about-social { justify-content: center; }
 }
+
+/* ---------- Cross-links (Похожие репозитории) ---------- */
+.crosslinks { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgb(var(--color-neutral-200)); }
+.dark .crosslinks { border-top-color: rgb(var(--color-neutral-700)); }
+.crosslinks-title { font-size: 1.25rem; font-weight: 700; margin-bottom: .9rem; color: rgb(var(--color-neutral-900)); }
+.dark .crosslinks-title { color: rgb(var(--color-neutral-100)); }
+.crosslinks-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.crosslinks-list li a {
+  display: inline-block; padding: .35rem .8rem; border-radius: .5rem; font-size: .9rem;
+  background: rgb(var(--color-neutral-100)); color: rgb(var(--color-neutral-700));
+  border: 1px solid rgb(var(--color-neutral-200)); transition: all .15s;
+}
+.dark .crosslinks-list li a { background: rgb(var(--color-neutral-800)); color: rgb(var(--color-neutral-200)); border-color: rgb(var(--color-neutral-700)); }
+.crosslinks-list li a:hover { color: rgb(var(--color-primary-600)); border-color: rgb(var(--ring) / .5); }
