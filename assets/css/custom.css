@@ -305,6 +305,19 @@ html { scroll-behavior: smooth; }
   border-bottom: 1px solid transparent; transition: color .15s ease, border-color .15s ease; }
 .book-items li a:hover { color: rgb(var(--color-primary-300)); border-color: rgb(var(--ring) / .5); }
 
+/* ---------- Tag cloud ---------- */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: .55rem .8rem; align-items: baseline;
+  line-height: 1.5; margin: 1.5rem 0 0; }
+.tag-cloud-item { --tw: 0; display: inline-block; text-decoration: none; font-weight: 600;
+  color: rgb(var(--color-neutral-200)); transition: color .15s ease, transform .15s ease;
+  line-height: 1.1; }
+.tag-cloud-item:hover { color: rgb(var(--color-primary-300)); transform: translateY(-1px); }
+/* weight tints: rare -> cool, frequent -> warm/violet */
+.tag-cloud-item { color: rgb(var(--color-neutral-300)); }
+.tag-cloud--shortcode { margin-top: .5rem; }
+
+.tag-cloud-note { margin-top: 1rem; font-size: .82rem; color: rgb(var(--color-neutral-500)); }
+
 @media (max-width: 640px) {
   .timeline-item { grid-template-columns: 1fr; gap: .35rem; }
   .about-hero { justify-content: center; text-align: center; }
