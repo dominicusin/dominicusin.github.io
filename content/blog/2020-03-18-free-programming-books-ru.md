@@ -1,9 +1,16 @@
 ---
 title: free-programming-books
-date: "2020-03-18T17:06:00.000Z"
+date: '2020-03-18T17:06:00.000Z'
 slug: free-programming-books-ru
 aliases:
-  - /2020/03/18/free-programming-books-ru.html
+- /2020/03/18/free-programming-books-ru.html
+categories:
+- links
+tags:
+- books
+- free-resources
+- programming
+- awesome-list
 ---
 author: DominicusIn
 

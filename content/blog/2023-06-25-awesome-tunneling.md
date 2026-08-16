@@ -1,9 +1,16 @@
 ---
 title: Awesome tunneling
-date: "2023-06-25T08:09:00.000Z"
+date: '2023-06-25T08:09:00.000Z'
 slug: awesome-tunneling
 aliases:
-  - /2023/06/25/awesome-tunneling.html
+- /2023/06/25/awesome-tunneling.html
+categories:
+- web
+tags:
+- tunneling
+- self-hosting
+- networking
+- awesome-list
 ---
 author: DominicusIn
 

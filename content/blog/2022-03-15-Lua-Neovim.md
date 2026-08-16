@@ -1,9 +1,15 @@
 ---
 title: Lua  Neovim
-date: "2022-03-15T01:33:00.000Z"
+date: '2022-03-15T01:33:00.000Z'
 slug: Lua-Neovim
 aliases:
-  - /2022/03/15/Lua-Neovim.html
+- /2022/03/15/Lua-Neovim.html
+categories:
+- systems
+tags:
+- neovim
+- lua
+- editors
 ---
 author: DominicusIn
 

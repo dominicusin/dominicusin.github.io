@@ -1,14 +1,15 @@
 ---
 title: lists
-date: "2024-10-23T11:15:44.000Z"
+date: '2024-10-23T11:15:44.000Z'
 slug: gist-lists
 aliases:
-  - /2024/10/23/gist-lists.html
+- /2024/10/23/gist-lists.html
 categories:
-  - gist
+- notes
 tags:
-  - gist
-  - code
+- gist
+- code
+- cli
 gist_id: 4d2dd71dbda592ec3e974f895d9629b6
 gist_url: https://gist.github.com/dominicusin/4d2dd71dbda592ec3e974f895d9629b6
 ---

@@ -1,9 +1,14 @@
 ---
 title: Google Interview Questions
-date: "2018-02-25T18:25:00.000Z"
+date: '2018-02-25T18:25:00.000Z'
 slug: google-interview-questions
 aliases:
-  - /2018/02/25/google-interview-questions.html
+- /2018/02/25/google-interview-questions.html
+categories:
+- career
+tags:
+- interview
+- programming
 ---
 author: DominicusIn
 

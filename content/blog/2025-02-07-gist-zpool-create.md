@@ -1,14 +1,16 @@
 ---
 title: zpool create
-date: "2025-02-07T16:29:56.000Z"
+date: '2025-02-07T16:29:56.000Z'
 slug: gist-zpool-create
 aliases:
-  - /2025/02/07/gist-zpool-create.html
+- /2025/02/07/gist-zpool-create.html
 categories:
-  - gist
+- notes
 tags:
-  - gist
-  - code
+- gist
+- code
+- zfs
+- storage
 gist_id: 64a2951303a20059006c99895f8a35d8
 gist_url: https://gist.github.com/dominicusin/64a2951303a20059006c99895f8a35d8
 ---

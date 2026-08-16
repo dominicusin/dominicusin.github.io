@@ -1,14 +1,16 @@
 ---
 title: flatpaks
-date: "2025-05-04T04:56:00.000Z"
+date: '2025-05-04T04:56:00.000Z'
 slug: gist-flatpaks
 aliases:
-  - /2025/05/04/gist-flatpaks.html
+- /2025/05/04/gist-flatpaks.html
 categories:
-  - gist
+- notes
 tags:
-  - gist
-  - code
+- gist
+- code
+- flatpak
+- linux
 gist_id: 93445e617b848ab12e5b0a7026f25752
 gist_url: https://gist.github.com/dominicusin/93445e617b848ab12e5b0a7026f25752
 ---

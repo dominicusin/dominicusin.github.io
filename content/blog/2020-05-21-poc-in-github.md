@@ -1,9 +1,15 @@
 ---
 title: PoC in GitHub
-date: "2020-05-21T01:05:00.000Z"
+date: '2020-05-21T01:05:00.000Z'
 slug: poc-in-github
 aliases:
-  - /2020/05/21/poc-in-github.html
+- /2020/05/21/poc-in-github.html
+categories:
+- systems
+tags:
+- git
+- github
+- security
 ---
 author: DominicusIn
 

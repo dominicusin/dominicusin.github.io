@@ -1,14 +1,14 @@
 ---
 title: gistfile1 txt
-date: "2025-03-11T06:38:07.000Z"
+date: '2025-03-11T06:38:07.000Z'
 slug: gist-gistfile1txt
 aliases:
-  - /2025/03/11/gist-gistfile1txt.html
+- /2025/03/11/gist-gistfile1txt.html
 categories:
-  - gist
+- notes
 tags:
-  - gist
-  - code
+- gist
+- code
 gist_id: 09e979be90a5a188026c91453113f5fa
 gist_url: https://gist.github.com/dominicusin/09e979be90a5a188026c91453113f5fa
 ---

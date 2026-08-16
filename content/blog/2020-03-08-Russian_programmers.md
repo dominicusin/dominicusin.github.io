@@ -1,9 +1,14 @@
 ---
 title: programmers
-date: "2020-03-08T20:49:00.000Z"
+date: '2020-03-08T20:49:00.000Z'
 slug: Russian_programmers
 aliases:
-  - /2020/03/08/Russian_programmers.html
+- /2020/03/08/Russian_programmers.html
+categories:
+- links
+tags:
+- programming
+- awesome-list
 ---
 author: DominicusIn
 
