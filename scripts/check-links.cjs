@@ -25,7 +25,10 @@ if (!fs.existsSync(PUBLIC)) {
 }
 
 const httpRe = /^https?:\/\//;
+// Only match hrefs that look like real URLs (no JS-template artifacts like
+// '+t+' or backticks). Links inside <script>/<style> are stripped below.
 const hrefRe = /href="([^"]+)"/g;
+const cleanRe = /href="([^"'+`<>]+)"/g;
 
 // Map a resolved URL path to a file inside public/.
 function targetExists(urlPath) {
@@ -38,21 +41,22 @@ function targetExists(urlPath) {
 }
 
 function collectFromFile(file, found) {
-  const html = fs.readFileSync(file, 'utf8');
+  let html = fs.readFileSync(file, 'utf8');
+  // Strip <script> and <style> blocks — they contain JS/strings that are not
+  // real navigable links (e.g. '/post/'+t+' would be falsely extracted).
+  html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+  html = html.replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '');
   let m;
-  while ((m = hrefRe.exec(html)) !== null) {
+  while ((m = cleanRe.exec(html)) !== null) {
     const href = m[1].trim();
     if (!href || href.startsWith('#') || href.startsWith('mailto:') ||
-        href.startsWith('javascript:') || httpRe.test(href) && !href.startsWith(BASE)) {
-      // external or in-page -> skip
-      if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('javascript:')) continue;
-      if (httpRe.test(href) && !href.startsWith(BASE)) continue;
-    }
+        href.startsWith('javascript:')) continue;
+    if (httpRe.test(href) && !href.startsWith(BASE)) continue;
     if (href.startsWith(BASE)) {
       found.add(href.slice(BASE.length) || '/');
     } else if (href.startsWith('/')) {
       found.add(href);
-    } else if (!httpRe.test(href) && !href.startsWith('#') && !href.startsWith('mailto:')) {
+    } else if (!httpRe.test(href)) {
       // relative link — resolve against the current file's directory
       const rel = path.relative(PUBLIC, path.dirname(file));
       found.add(path.posix.join('/' + rel.replace(/\\/g, '/'), href));
