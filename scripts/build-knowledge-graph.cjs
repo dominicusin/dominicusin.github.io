@@ -113,6 +113,34 @@ const bridges = [
 ];
 bridges.forEach(([a, b]) => addEdge(a, b, 'relatedTo'));
 
+// --- GitHub repositories + gists (ontology expansion) ---
+// Reads the index produced by scripts/sync-github.cjs (data/github.json). Each
+// repo becomes a `repository` node; each gist a `gist` node; their GitHub topics
+// become `concept` (tag) nodes linked via `tagged`. This turns the graph into a
+// true site ontology spanning posts, concepts, repos, gists and people.
+const githubJson = path.join(ROOT, 'data', 'github.json');
+if (fs.existsSync(githubJson)) {
+  try {
+    const gh = JSON.parse(fs.readFileSync(githubJson, 'utf8'));
+    for (const r of (gh.repos || [])) {
+      const id = 'repo:' + r.fullName;
+      addNode({ id, type: 'repository', label: r.name, url: r.html_url, owner: r.owner, weight: 4 });
+      addEdge('org:' + r.owner, id, 'owns');
+      addNode({ id: 'org:' + r.owner, type: 'org', label: r.owner, weight: 6 });
+      for (const t of (r.topics || [])) {
+        const cid = 'tag:' + slug(t);
+        addNode({ id: cid, type: 'concept', label: titleCase(t), kind: 'Tag', weight: 2 });
+        addEdge(id, cid, 'tagged');
+      }
+    }
+    for (const g of (gh.gists || [])) {
+      const id = 'gist:' + g.id;
+      addNode({ id, type: 'gist', label: (g.description || g.id).toString().slice(0, 40), url: g.html_url, weight: 3 });
+      addEdge('person:dominicusin', id, 'authored');
+    }
+  } catch (e) { console.warn('kg: github.json parse skipped:', e.message); }
+}
+
 // --- Concept co-occurrence ---
 const conceptPosts = {};
 for (const [pid, cs] of Object.entries(postConcept)) cs.forEach(c => { (conceptPosts[c] = conceptPosts[c] || []).push(pid); });

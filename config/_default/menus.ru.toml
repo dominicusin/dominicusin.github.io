@@ -54,3 +54,26 @@
   pageRef = "/tags/"
   parent = "topics"
   weight = 62
+
+[[main]]
+  name = "Код"
+  identifier = "code"
+  weight = 70
+
+[[main]]
+  name = "Репозитории"
+  pageRef = "/repositories/"
+  parent = "code"
+  weight = 71
+
+[[main]]
+  name = "Гисты"
+  pageRef = "/gists/"
+  parent = "code"
+  weight = 72
+
+[[main]]
+  name = "Онтология"
+  pageRef = "/ontology/"
+  parent = "code"
+  weight = 73

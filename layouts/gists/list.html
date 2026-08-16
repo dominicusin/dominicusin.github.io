@@ -1,0 +1,20 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "list" }}
+  <header class="mt-5">
+    <h1 class="text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    {{ with .Content }}<section class="prose dark:prose-invert max-w-prose mt-3">{{ . }}</section>{{ end }}
+  </header>
+  <div class="repo-grid">
+    {{ range .RegularPages.ByTitle }}
+      <a class="repo-card" href="{{ .RelPermalink }}">
+        <div class="repo-card-top">
+          <span class="repo-card-name">{{ .Params.gist_id }}</span>
+        </div>
+        <p class="repo-card-desc">{{ .Params.description | truncate 120 }}</p>
+        <div class="repo-card-meta">
+          {{ with .Params.files }}<span>{{ len . }} файл(ов)</span>{{ end }}
+        </div>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}

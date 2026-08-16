@@ -14,6 +14,8 @@
     "minify": "hugo --gc --minify",
     "optimize": "hugo --gc --minify",
     "knowledge-graph": "node scripts/build-knowledge-graph.cjs",
+    "sync:github": "node scripts/sync-github.cjs",
+    "build:full": "node scripts/sync-github.cjs && node scripts/build-knowledge-graph.cjs && hugo --gc --minify",
     "content-contract": "node scripts/ci-content-contract.cjs",
     "test": "node tests/run-tests.js",
     "test:watch": "nodemon tests/run-tests.js",
