@@ -70,7 +70,7 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   showTableOfContents = true  # TOC (works with smartTOC scroll-spy)
   showPagination = true
   showRelatedContent = true
-  relatedContentLimit = 3
+  relatedContentLimit = 0
   showTaxonomies = true
   showComments = true
   showBreadcrumbs = true
@@ -78,6 +78,8 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   editURL = "https://github.com/dominicusin/dominicusin.github.io/edit/main/content"
   editAppendPath = true
   sharingLinks = ["linkedin", "twitter", "bluesky", "reddit", "telegram", "email"]
+  showViews = true
+  showLikes = true
 
 # --- List / section pages ---
 [list]
@@ -86,6 +88,7 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   showReadingTime = true
   showCards = true
   cardView = true
+  showViews = true
 
 # --- Sitemap ---
 [sitemap]
@@ -101,3 +104,23 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
 [twitter]
   card = "summary_large_image"
   site = "@dominicusin"
+
+# --- Firebase (post views & likes counters) ---
+# Public client-side config (Firebase web apiKey is meant to be embedded;
+# access is gated by Firestore Security Rules, not secrecy). Requires an
+# active Firebase project with Anonymous Auth enabled and Firestore rules
+# permitting reads + increments on views_*/likes_* collections.
+[firebase]
+  apiKey = "AIzaSyAfGoPVnQZOtTJ3Fbj9u8UYEj8ajIw595w"
+  authDomain = "dominicusingithubio.firebaseapp.com"
+  projectId = "dominicusingithubio"
+  storageBucket = "dominicusinghubio.firebasestorage.app"
+  messagingSenderId = "981844297656"
+  appId = "1:981844297656:web:a24a4df60a59283ac6314d"
+  measurementId = "G-4QCLTEKK18"
+
+[taxonomy]
+  showViews = true
+
+[term]
+  showViews = true
