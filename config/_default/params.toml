@@ -3,8 +3,8 @@
 # theme capabilities are configured in one place. See https://blowfish.page/docs/configuration/
 
 # --- Core appearance ---
-colorScheme = "dark"
-defaultAppearance = "auto"
+colorScheme = "dominicusin"
+defaultAppearance = "dark"
 description = "Engineering blog & decentralized web notes by Dominicus In."
 showDarkModeToggle = true
 showLanguageSelector = true

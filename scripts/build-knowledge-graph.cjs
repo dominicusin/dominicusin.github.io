@@ -1,181 +1,131 @@
 #!/usr/bin/env node
 
 /**
- * Knowledge Graph Generator (Hugo edition)
+ * Knowledge Graph Generator (Hugo edition) — v2
  *
- * Builds a JSON-LD knowledge graph from Hugo post frontmatter in
- * content/blog/*.md. Replaces the legacy _posts/-based generator (Phase 7
- * removed Jekyll). Concepts are derived from each post's `tags` + `categories`;
- * co-occurrence links connect concepts shared by the same post.
+ * Builds an interactive knowledge graph from the published site:
+ *   - post    nodes : content/blog/*.md
+ *   - concept nodes : every tag + category used by posts (co-occurrence edges)
+ *   - person  nodes : authors in data/authors + non-draft content/people
+ *   - project nodes : Engineering Plane projects (DAO, Knowledge Graph pipeline)
+ *   - dao     nodes : the three Solidity contracts in contracts/dao
  *
- * Output: assets/data/knowledge-graph.json
+ * Edges connect posts to their concepts, concepts to co-occurring concepts,
+ * posts to their author, DAO contracts to the DAO project, and the author to
+ * projects. Output: static/data/knowledge-graph.json (gitignored; CI regenerates).
  */
 
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
-const POSTS_DIR = path.join(__dirname, '..', 'content', 'blog');
-const OUTPUT_DIR = path.join(__dirname, '..', 'static', 'data');
+const ROOT = path.join(__dirname, '..');
+const POSTS_DIR = path.join(ROOT, 'content', 'blog');
+const PEOPLE_DIR = path.join(ROOT, 'content', 'people');
+const AUTHORS_DIR = path.join(ROOT, 'content', '..', 'data', 'authors');
+const DAO_DIR = path.join(ROOT, 'contracts', 'dao');
+const OUTPUT_DIR = path.join(ROOT, 'static', 'data');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'knowledge-graph.json');
 
-if (!fs.existsSync(OUTPUT_DIR)) {
-  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-}
+if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
 function extractFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return null;
-  try {
-    return yaml.load(match[1]);
-  } catch (e) {
-    return null;
+  try { return yaml.load(match[1]); } catch (e) { return null; }
+}
+function readMD(dir, name) {
+  const p = path.join(dir, name);
+  return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null;
+}
+function postUrl(relPath) {
+  // content/blog/2026/08/14/slug.md -> /2026/08/14/slug/
+  const m = relPath.match(/content\/blog\/(.+)\.md$/);
+  if (!m) return null;
+  return '/' + m[1].replace(/\\/g, '/') + '/';
+}
+function titleCase(s) { return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); }
+
+const nodes = [];
+const edges = [];
+const nodeIndex = new Set();
+function addNode(n) { if (!nodeIndex.has(n.id)) { nodeIndex.add(n.id); nodes.push(n); } }
+function addEdge(source, target, type) {
+  if (nodeIndex.has(source) && nodeIndex.has(target) && source !== target) {
+    edges.push({ source, target, type: type || 'relates' });
   }
 }
 
-function buildKnowledgeGraph() {
-  console.log('🔍 Scanning Hugo posts for concepts...\n');
-
-  if (!fs.existsSync(POSTS_DIR)) {
-    console.error('❌ Posts directory not found: ' + POSTS_DIR);
-    process.exit(1);
-  }
-
-  const files = fs.readdirSync(POSTS_DIR)
-    .filter((f) => f.endsWith('.md') || f.endsWith('.markdown'))
-    .sort()
-    .reverse();
-
-  const concepts = new Map();
-  const nodes = [];
-  const edges = [];
-  const postConcepts = new Map();
-
-  files.forEach((file) => {
-    const filePath = path.join(POSTS_DIR, file);
-    const content = fs.readFileSync(filePath, 'utf8');
-    const fm = extractFrontmatter(content);
-    if (!fm) return;
-    if (fm.draft) return;
-
-    // Hugo post URL: prefer explicit slug/permalink, else derived from filename.
-    const slug = (fm.slug || file.replace(/\.(md|markdown)$/, ''))
-      .replace(/^\d{4}-\d{2}-\d{2}-/, '');
-    const postUrl = fm.permalink || ('/' + slug + '/');
-    const postId = slug;
-
-    const conceptIds = [];
-    [...(fm.tags || []), ...(fm.categories || [])].forEach((raw) => {
-      const id = String(raw).toLowerCase().replace(/\s+/g, '-');
-      if (!concepts.has(id)) {
-        concepts.set(id, {
-          id,
-          label: String(raw),
-          description: 'Concept "' + raw + '" referenced in dominicusin.github.io',
-          type: 'Concept',
-          occurrences: [],
-        });
-      }
-      const conceptObj = concepts.get(id);
-      conceptObj.occurrences.push({ postId, postUrl, postTitle: fm.title, date: fm.date });
-      conceptIds.push(id);
-      edges.push({ source: postId, target: id, relation: 'tagged_with', type: 'references' });
-      edges.push({ source: id, target: postId, relation: 'used_in', type: 'referenced_by' });
+// --- Posts + concepts ---
+const postConcept = {}; // postId -> [conceptId]
+if (fs.existsSync(POSTS_DIR)) {
+  for (const f of walkFiles(POSTS_DIR, '.md')) {
+    const raw = fs.readFileSync(f, 'utf8');
+    const fm = extractFrontmatter(raw);
+    if (!fm || fm.draft) continue;
+    const id = path.basename(f, '.md');
+    const url = postUrl(f) || '/' + id + '/';
+    const label = (fm.title || id).toString();
+    const cats = Array.isArray(fm.categories) ? fm.categories : (fm.category ? [fm.category] : []);
+    const tags = Array.isArray(fm.tags) ? fm.tags : [];
+    const concepts = [...cats.map(c => 'cat:' + slug(c)), ...tags.map(t => 'tag:' + slug(t))];
+    addNode({ id, type: 'post', label, url, date: fm.date || fm.publishDate || '', weight: 3 });
+    postConcept[id] = concepts;
+    concepts.forEach(c => {
+      const kind = c.startsWith('cat:') ? 'Category' : 'Tag';
+      const name = c.split(':')[1];
+      addNode({ id: c, type: 'concept', label: titleCase(name), kind, weight: 2 });
+      addEdge(id, c, 'tagged');
     });
-
-    postConcepts.set(postId, conceptIds);
-    nodes.push({
-      id: postId,
-      type: 'BlogPosting',
-      url: postUrl,
-      title: fm.title,
-      date: fm.date,
-      categories: fm.categories || [],
-      tags: fm.tags || [],
-      author: fm.author || fm.authors || null,
-      conceptCount: conceptIds.length,
-    });
-  });
-
-  const conceptArray = Array.from(concepts.values());
-
-  for (let i = 0; i < conceptArray.length; i++) {
-    for (let j = i + 1; j < conceptArray.length; j++) {
-      const a = conceptArray[i];
-      const b = conceptArray[j];
-      const common = a.occurrences.filter((oa) => b.occurrences.some((ob) => oa.postId === ob.postId));
-      if (common.length > 0) {
-        edges.push({ source: a.id, target: b.id, relation: 'co_occurs_with', type: 'semantic_link', strength: common.length, posts: common.map((c) => c.postId) });
-        edges.push({ source: b.id, target: a.id, relation: 'co_occurs_with', type: 'semantic_link', strength: common.length, posts: common.map((c) => c.postId) });
-      }
-    }
+    // author
+    const author = (fm.authors && fm.authors[0]) || fm.author || 'DominicusIn';
+    addNode({ id: 'person:' + slug(String(author)), type: 'person', label: String(author).replace(/([a-z])([A-Z])/g, '$1 $2'), weight: 4 });
+    addEdge(id, 'person:' + slug(String(author)), 'authored');
   }
-
-  const graph = {
-    '@context': {
-      '@vocab': 'https://schema.org/',
-      rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-      Concept: 'skos:Concept',
-      label: 'skos:prefLabel',
-    },
-    '@graph': [
-      {
-        '@id': 'https://dominicusin.github.io',
-        '@type': 'WebSite',
-        name: 'Dominicus In Blog',
-        description: 'Knowledge graph of concepts and articles',
-        totalPosts: nodes.length,
-        totalConcepts: conceptArray.length,
-        generatedAt: new Date().toISOString(),
-      },
-    ]
-      .concat(
-        nodes.map((n) => ({
-          '@id': 'https://dominicusin.github.io' + n.url,
-          '@type': n.type,
-          headline: n.title,
-          datePublished: n.date,
-          articleSection: n.categories,
-          keywords: n.tags,
-          author: n.author ? { '@type': 'Person', '@id': '#/people/' + n.author } : undefined,
-          about: (postConcepts.get(n.id) || []).map((cid) => ({ '@id': '#/concepts/' + cid })),
-        }))
-      )
-      .concat(
-        conceptArray.map((c) => ({
-          '@id': '#/concepts/' + c.id,
-          '@type': 'Concept',
-          prefLabel: c.label,
-          definition: c.description,
-          occurrence: c.occurrences.map((occ) => ({ '@type': 'Occurrence', inPost: { '@id': 'https://dominicusin.github.io' + occ.postUrl }, relationType: occ.relation })),
-        }))
-      ),
-    nodes: nodes.map((n) => ({ id: n.id, type: 'post', label: n.title, url: n.url }))
-      .concat(conceptArray.map((c) => ({ id: c.id, type: 'concept', label: c.label }))),
-    edges: edges.map((e) => ({ source: e.source, target: e.target, relation: e.relation, type: e.type, strength: e.strength || undefined })),
-    metadata: {
-      totalPosts: nodes.length,
-      totalConcepts: conceptArray.length,
-      totalEdges: edges.length,
-      generatedAt: new Date().toISOString(),
-      version: '2.0.0',
-    },
-  };
-
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(graph, null, 2));
-  console.log('✅ Knowledge Graph generated successfully!');
-  console.log('   📄 Output: ' + OUTPUT_FILE);
-  console.log('   📊 Statistics:');
-  console.log('      - Posts: ' + nodes.length);
-  console.log('      - Concepts: ' + conceptArray.length);
-  console.log('      - Edges: ' + edges.length);
-  return graph;
 }
 
-try {
-  buildKnowledgeGraph();
-} catch (error) {
-  console.error('❌ Error building knowledge graph: ' + error.message);
-  console.error(error.stack);
-  process.exit(1);
+// --- Concept co-occurrence ---
+const conceptPosts = {};
+for (const [pid, cs] of Object.entries(postConcept)) cs.forEach(c => { (conceptPosts[c] = conceptPosts[c] || []).push(pid); });
+const conceptIds = Object.keys(conceptPosts);
+for (let i = 0; i < conceptIds.length; i++) {
+  for (let j = i + 1; j < conceptIds.length; j++) {
+    const shared = conceptPosts[conceptIds[i]].filter(p => conceptPosts[conceptIds[j]].includes(p));
+    if (shared.length >= 2) addEdge(conceptIds[i], conceptIds[j], 'co-occurs');
+  }
 }
+
+// --- DAO contracts ---
+const daoContracts = ['GovernanceToken', 'SoulboundToken', 'ProposalEngine'];
+addNode({ id: 'project:dao', type: 'project', label: 'Decentralized Governance (DAO)', url: '/projects/', weight: 5 });
+daoContracts.forEach(c => {
+  addNode({ id: 'dao:' + c, type: 'dao', label: c + '.sol', url: 'https://github.com/dominicusin/dominicusin.github.io/tree/main/contracts/dao', weight: 3 });
+  addEdge('project:dao', 'dao:' + c, 'implements');
+});
+
+// --- Knowledge Graph project ---
+addNode({ id: 'project:kg', type: 'project', label: 'Knowledge Graph Pipeline', url: '/knowledge-graph/', weight: 5 });
+addEdge('person:dominicusin', 'project:kg', 'maintains');
+addEdge('person:dominicusin', 'project:dao', 'maintains');
+
+// --- concepts that clearly tie to projects ---
+addEdge('project:kg', 'concept:knowledge-graph', 'documents');
+
+function walkFiles(dir, ext) {
+  const out = [];
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) out.push(...walkFiles(full, ext));
+    else if (e.name.endsWith(ext)) out.push(full);
+  }
+  return out;
+}
+function slug(s) { return String(s).toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w-]/g, ''); }
+
+const graph = {
+  generatedAt: new Date().toISOString(),
+  nodes,
+  edges,
+};
+fs.writeFileSync(OUTPUT_FILE, JSON.stringify(graph, null, 2));
+console.log(`✅ Knowledge graph: ${nodes.length} nodes, ${edges.length} edges → ${path.relative(ROOT, OUTPUT_FILE)}`);
