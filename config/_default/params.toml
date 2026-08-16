@@ -1,0 +1,103 @@
+# Blowfish theme parameters — full feature enablement (variant A publishing plane).
+# Consolidated here from the previous [params] block in hugo.toml so all
+# theme capabilities are configured in one place. See https://blowfish.page/docs/configuration/
+
+# --- Core appearance ---
+colorScheme = "dark"
+defaultAppearance = "auto"
+description = "Engineering blog & decentralized web notes by Dominicus In."
+showDarkModeToggle = true
+showLanguageSelector = true
+mainSections = ["blog"]
+
+# --- Feature flags ---
+enableSearch = true          # client-side Fuse.js search (index.json)
+enableA11y = true            # improved accessibility (skip-links, a11y nav)
+enableCodeCopy = true        # copy-to-clipboard on code blocks
+enableStructuredBreadcrumbs = true  # structured-data breadcrumbs (SEO)
+highlightCurrentMenuArea = true     # highlight active menu item
+smartTOC = true              # scroll-spy table of contents
+
+# --- Images ---
+defaultSocialImage = "images/og-default.svg"   # OG/Twitter fallback
+defaultFeaturedImage = "images/og-default.svg" # card/hero fallback when a post has no image
+
+# --- Subscription (Buttondown) ---
+externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/dominicusin"
+
+# --- Comments (giscus) ---
+[giscus]
+  repo = "dominicusin/dominicusin.github.io"
+  repoId = "MDEwOlJlcG9zaXRvcnk0NjQ1OTg0OQ=="
+  category = "Announcements"
+  categoryId = "DIC_kwDOAsTryc4CRUZ_"
+  mapping = "pathname"
+  reactionsEnabled = true
+  commentCount = true
+  inputPosition = "bottom"
+  lang = "ru"
+  loading = "lazy"
+
+# --- Header ---
+[header]
+  layout = "fixed"   # sticky header
+
+# --- Footer ---
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+# --- Homepage ---
+[homepage]
+  layout = "profile"          # personal-site landing: author card + recent posts
+  showRecent = true
+  showRecentItems = 8
+  showMoreLink = true
+  showMoreLinkDest = "blog"
+
+# --- Articles / posts ---
+[article]
+  showDate = true
+  showDateUpdated = false
+  showWordCount = true
+  showReadingTime = true
+  showAuthor = true
+  showHeadingAnchors = true   # anchor links on headings
+  showZenMode = true          # focus/reading mode toggle
+  showTableOfContents = true  # TOC (works with smartTOC scroll-spy)
+  showPagination = true
+  showRelatedContent = true
+  relatedContentLimit = 3
+  showTaxonomies = true
+  showComments = true
+  showBreadcrumbs = true
+  showEdit = true             # "Edit this page" GitHub link
+  editURL = "https://github.com/dominicusin/dominicusin.github.io/edit/main/content"
+  editAppendPath = true
+  sharingLinks = ["linkedin", "twitter", "bluesky", "reddit", "telegram", "email"]
+
+# --- List / section pages ---
+[list]
+  showBreadcrumbs = true
+  showDate = true
+  showReadingTime = true
+  showCards = true
+  cardView = true
+
+# --- Sitemap ---
+[sitemap]
+  changeFreq = "monthly"
+  priority = 0.5
+
+# --- OpenGraph ---
+[opengraph]
+  showImages = true
+  imagesMaxCount = 3
+
+# --- Twitter / X cards ---
+[twitter]
+  card = "summary_large_image"
+  site = "@dominicusin"
