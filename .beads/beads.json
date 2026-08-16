@@ -17,7 +17,11 @@
     { "id": "T11", "kind": "task", "title": "build-ontology-feed.cjs: derive category→tag→repo/gist lattice from TAXONOMY.md + Hugo taxonomies + data/github.json", "status": "done", "deps": [], "artifacts": ["scripts/build-ontology-feed.cjs"], "verified": "10 categories, 90 tags, 128 repos, 100 gists", "initiative": "ontology-feed" },
     { "id": "T12", "kind": "task", "title": "Wire feed generation into build pipeline (hugo.yml + package.json build:full)", "status": "done", "deps": ["T11"], "artifacts": [".github/workflows/hugo.yml", "package.json"], "initiative": "ontology-feed" },
     { "id": "T13", "kind": "task", "title": "Emit static/data/ontology.json; verify valid JSON, 10 categories, repo/gist facets present", "status": "done", "deps": ["T11", "T12"], "artifacts": ["static/data/ontology.json"], "verified": "45KB feed in public/; hugo 0 err; check-links 0 broken", "initiative": "ontology-feed" },
-    { "id": "T14", "kind": "task", "title": "Commit + PR + gh pr merge --admin for ontology-feed", "status": "done", "deps": ["T13"], "pr": 108, "merged": "f0d8395e9", "initiative": "ontology-feed" }
+    { "id": "T14", "kind": "task", "title": "Commit + PR + gh pr merge --admin for ontology-feed", "status": "done", "deps": ["T13"], "pr": 108, "merged": "f0d8395e9", "initiative": "ontology-feed" },
+    { "id": "T15", "kind": "task", "title": "build-crosslinks.cjs: derive repo↔repo related links by shared language/topic (data/github.json)", "status": "done", "deps": [], "artifacts": ["scripts/build-crosslinks.cjs"], "verified": "58/128 repos linked by shared language", "initiative": "cross-links" },
+    { "id": "T16", "kind": "task", "title": "Partial layouts/partials/crosslinks.html + wire into repository single template (Похожие репозитории)", "status": "done", "deps": ["T15"], "artifacts": ["layouts/partials/crosslinks.html", "layouts/repository/single.html", "assets/css/custom.css"], "initiative": "cross-links" },
+    { "id": "T17", "kind": "task", "title": "Wire into pipeline (package.json build:full + hugo.yml step); verify sections render + 0 broken links", "status": "done", "deps": ["T15", "T16"], "artifacts": [".github/workflows/hugo.yml", "package.json", "data/crosslinks.json"], "verified": "58 pages show section; check-links 0 broken / 654", "initiative": "cross-links" },
+    { "id": "T18", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cross-links", "status": "in_progress", "deps": ["T17"], "initiative": "cross-links" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -31,6 +35,10 @@
     { "from": "T11", "to": "T12", "type": "enables" },
     { "from": "T11", "to": "T13", "type": "feeds" },
     { "from": "T12", "to": "T13", "type": "enables" },
-    { "from": "T13", "to": "T14", "type": "blocks" }
+    { "from": "T13", "to": "T14", "type": "blocks" },
+    { "from": "T15", "to": "T16", "type": "enables" },
+    { "from": "T15", "to": "T17", "type": "feeds" },
+    { "from": "T16", "to": "T17", "type": "enables" },
+    { "from": "T17", "to": "T18", "type": "blocks" }
   ]
 }
