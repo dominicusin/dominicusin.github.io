@@ -289,6 +289,18 @@ html { scroll-behavior: smooth; }
 .contact-info h4 { margin: 0; font-size: .9rem; }
 .contact-info p { margin: 0; font-size: .82rem; color: rgb(var(--color-neutral-400)); }
 
+/* Book list (merged Domini reading list) */
+.section-intro { margin: 0 0 1.25rem; color: rgb(var(--color-neutral-300)); font-size: .95rem; }
+.book-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+.book-group { padding: 1rem; background: rgb(var(--bg-elevated) / .5);
+  border: 1px solid rgb(var(--color-neutral-700) / .4); border-radius: var(--radius); }
+.book-group-title { margin: 0 0 .5rem; font-size: .95rem; color: rgb(var(--color-primary-200));
+  padding-bottom: .35rem; border-bottom: 1px solid rgb(var(--color-neutral-700) / .4); }
+.book-items { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.book-items li a { color: rgb(var(--color-neutral-200)); text-decoration: none; font-size: .88rem;
+  border-bottom: 1px solid transparent; transition: color .15s ease, border-color .15s ease; }
+.book-items li a:hover { color: rgb(var(--color-primary-300)); border-color: rgb(var(--ring) / .5); }
+
 @media (max-width: 640px) {
   .timeline-item { grid-template-columns: 1fr; gap: .35rem; }
   .about-hero { justify-content: center; text-align: center; }

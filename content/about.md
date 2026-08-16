@@ -84,5 +84,33 @@ description: "Dominicus In — industrial & systems engineer; this site is an en
 </div>
 </div>
 </section>
+
+<section class="about-section" id="domini">
+<h2 class="section-title">📚 Избранное чтение</h2>
+<p class="section-intro">Курируемый список книг и руководств по инженерии, программированию и анализу данных — ранее в разделе <em>Domini</em>.</p>
+<div class="book-list">
+<div class="book-group"><h3 class="book-group-title">Language Agnostic</h3><ul class="book-items"><li><a href="http://scrum.org.ua/wp-content/uploads/2008/12/scrum_xp-from-the-trenches-rus-final.pdf" target="_blank" rel="noopener">Scrum и XP: заметки с передовой</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Bash</h3><ul class="book-items"><li><a href="http://rus-linux.net/MyLDP/BOOKS/abs-guide/flat/abs-book.html" target="_blank" rel="noopener">Advanced Bash-Scripting Guide</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">CoffeeScript</h3><ul class="book-items"><li><a href="http://cidocs.ru/coffeescript/" target="_blank" rel="noopener">Документация CoffeeScript</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Git</h3><ul class="book-items"><li><a href="http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/ru/" target="_blank" rel="noopener">Волшебство Git</a></li><li><a href="http://git-scm.com/book/ru" target="_blank" rel="noopener">Pro Git</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">JavaScript</h3><ul class="book-items"><li><a href="http://learn.javascript.ru/" target="_blank" rel="noopener">Современный учебник JavaScript</a></li><li><a href="http://bonsaiden.github.io/JavaScript-Garden/ru/" target="_blank" rel="noopener">JavaScript Garden</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">LaTeX</h3><ul class="book-items"><li><a href="http://www.inp.nsk.su/~baldin/LaTeX/index.html" target="_blank" rel="noopener">LaTeX, GNU/Linux и русский стиль</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Lisp</h3><ul class="book-items"><li><a href="https://github.com/ilammy/lisp" target="_blank" rel="noopener">Lisp In Small Pieces (перевод)</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">MetaPost</h3><ul class="book-items"><li><a href="http://www.inp.nsk.su/~baldin/mpost/index.html" target="_blank" rel="noopener">Создание иллюстраций в MetaPost</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Node.js</h3><ul class="book-items"><li><a href="http://nodebeginner.ru" target="_blank" rel="noopener">Node.js для начинающих</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">NoSQL</h3><ul class="book-items"><li><a href="http://jsman.ru/mongo-book/index.html" target="_blank" rel="noopener">Маленькая книга о MongoDB</a></li><li><a href="https://github.com/kondratovich/the-little-redis-book/blob/master/ru/redis.md" target="_blank" rel="noopener">Маленькая книга о Redis</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Perl</h3><ul class="book-items"><li><a href="http://pragmaticperl.com/" target="_blank" rel="noopener">Pragmatic Perl (журнал)</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">R</h3><ul class="book-items"><li><a href="http://www.inp.nsk.su/~baldin/DataAnalysis/index.html" target="_blank" rel="noopener">Анализ данных с R</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Ruby</h3><ul class="book-items"><li><a href="https://github.com/Krugloff/rus_ruby_book" target="_blank" rel="noopener">Круглов А. — Ruby</a></li><li><a href="http://betterspecs.org/ru" target="_blank" rel="noopener">Better Specs (RSpec)</a></li><li><a href="http://rusrails.ru" target="_blank" rel="noopener">Ruby on Rails Guides</a></li><li><a href="http://railtutorial.ru/" target="_blank" rel="noopener">Ruby on Rails Tutorial</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Scilab</h3><ul class="book-items"><li><a href="http://forge.scilab.org/index.php/p/docintrotoscilab/downloads/" target="_blank" rel="noopener">Введение в Scilab</a></li><li><a href="http://forge.scilab.org/index.php/p/docprogscilab/downloads/" target="_blank" rel="noopener">Программирование в Scilab</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">SQL</h3><ul class="book-items"><li><a href="http://postgresql.leopard.in.ua/" target="_blank" rel="noopener">Работа с PostgreSQL</a></li><li><a href="http://www.inp.nsk.su/~baldin/PostgreSQL/index.html" target="_blank" rel="noopener">История о PostgreSQL</a></li></ul></div>
+<div class="book-group"><h3 class="book-group-title">Параллельные технологии</h3><ul class="book-items"><li><a href="http://www.inp.nsk.su/~baldin/Parallel/index.html" target="_blank" rel="noopener">Параллельные технологии</a></li></ul></div>
+</div>
+</section>
+
+<section class="about-section" id="people">
+<h2 class="section-title">👥 Люди</h2>
+<p class="section-intro">Автор и редактор проекта — <strong>Dominicus In</strong>. Над материалами также работали соавторы и рецензенты сообщества Domini. Полный список участников ведётся в репозитории проекта.</p>
+</section>
 </div>
 </div>

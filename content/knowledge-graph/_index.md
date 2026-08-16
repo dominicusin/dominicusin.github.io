@@ -2,10 +2,6 @@
 title: "Knowledge Graph"
 slug: "knowledge-graph"
 description: "Semantic map of posts, concepts, people and Domini's engineering projects — an interactive navigable knowledge hub."
-menu:
-  main:
-    name: "Knowledge Graph"
-    weight: 80
 ---
 
 The **Knowledge Graph** connects ideas, articles, people and projects into a
