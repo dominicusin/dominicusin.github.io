@@ -70,6 +70,11 @@ jobs:
       - name: Rebuild Knowledge Graph (includes repos + gists)
         run: node scripts/build-knowledge-graph.cjs
 
+      - name: Generate ontology feed (machine-readable lattice)
+        # Emits static/data/ontology.json (categories→tags→repos/gists). Derived,
+        # never hand-edited. Graceful: omit repo/gist facets if data/github.json absent.
+        run: node scripts/build-ontology-feed.cjs
+
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
