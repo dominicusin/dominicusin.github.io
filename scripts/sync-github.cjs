@@ -222,12 +222,22 @@ function rewriteRelative(md, fullName, ref) {
     .replace(/\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (m, p) => `](${fix(p)})`);
 }
 
+function stripHtmlComments(input) {
+  let previous;
+  let output = input;
+  do {
+    previous = output;
+    output = output.replace(/<!--.*?-->/gs, '');
+  } while (output !== previous);
+  return output;
+}
+
 async function processRepo(r) {
   const full = r.full_name;
   const ref = r.default_branch;
   let body = '';
   const readme = await getFile(full, 'README.md', ref) || await getFile(full, 'readme.md', ref);
-  if (readme) body += rewriteRelative(readme.replace(/<!--.*?-->/gs, '').slice(0, MAX_DOC_BYTES * 2), full, ref);
+  if (readme) body += rewriteRelative(stripHtmlComments(readme).slice(0, MAX_DOC_BYTES * 2), full, ref);
   const docs = [];
   if (!r.fork) {
     const contributing = await getFile(full, 'CONTRIBUTING.md', ref);
