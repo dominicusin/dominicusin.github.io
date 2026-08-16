@@ -37,7 +37,7 @@
 | **Author backfill on legacy posts** | ✅ | `backfill-frontmatter.cjs` → `author: DominicusIn` on 59 posts |
 | **Consolidated Quality CI (separate from deploy)** | ✅ | `quality.yml` (build/contract/jest/hardhat/lint/links) — green |
 | **Broken-link check** | ✅ | `scripts/check-links.cjs` (193 links, 0 broken) |
-| **HTML well-formedness / a11y spot-check** | 🔄 | `scripts/check-html.cjs` (report-only; found 39 `<img>` missing `alt`) |
+| **HTML well-formedness / a11y spot-check** | ✅ | `scripts/check-html.cjs` (corrected: only flags imgs with NO `alt`; 0 warnings after fix) |
 | **JSON-LD structured data** | ✅ | Blowfish `schema.html` emits `WebSite`/`Article` JSON-LD per page |
 | **SEO/permalink audit + aliases** | ✅ | legacy `/posts/`, `/blog/`, old `.html` → 200 via aliases |
 | **Single Pages publisher (hugo.yml only)** | ✅ | only `hugo.yml` has `pages: write`; `vr-export.yml` perms tightened to `contents:write` |
@@ -57,12 +57,14 @@
 - The **content-contract gate must diff against `merge-base(origin/main, HEAD)`**, not a three-dot range — a squash-merge otherwise flags all 59 posts as "added" and hard-blocks the deploy. (Fixed in #83.)
 - The **jest `--testPathIgnorePatterns` CLI flag REPLACES the config list**, not appends — passing a partial list silently un-quarantines broken suites. Quarantine belongs in `jest.config.js`. (Fixed in #90.)
 - **`vr-export.yml` declared `pages: write` but never deploys** — a least-privilege violation, now tightened.
+- **`check-html.cjs` `<img>`-alt check used `/\salt=/`** which missed a *bare* `alt` attribute (Hugo renders markdown `![]()` as `<img alt src=...>`, valid empty alt). This produced 39 false-positive "missing alt" warnings. Corrected to `/\balt\b/` — only flags imgs with NO alt attribute. After the fix the real gap was just 16 decorative logo `<img>` in `ai2.md` (+1 in cyber-security), now fixed with `alt=""`.
 
 ## Deductive recommendations (next)
-1. **Retire `hugo-build-check.yml`** — fully subsumed by `quality.yml` (less workflow noise, per the strategy's "reduce workflows" goal).
+1. **Retire `hugo-build-check.yml`** — fully subsumed by `quality.yml` (less workflow noise, per the strategy's "reduce workflows" goal). ✅ Done (#93).
 2. **Backfill `tags` on legacy posts** (free-form, no enum risk) to enrich the Knowledge Graph and SEO; `categories` require editorial choice (enum-restricted) — leave for manual curation.
-3. **Fix the 39 `<img>` missing `alt`** — real a11y gap surfaced by `check-html.cjs`; add alt text to posts with images.
+3. **Fix the `<img>` missing `alt`** — ✅ Done (#94): corrected the checker false-positive and added `alt=""` to 16 decorative logo imgs in `ai2.md` + `cyber-security.md`.
 4. **Package.json prune** — split content-tooling vs legacy engineering deps to shrink `npm ci` and supply-chain surface.
+5. **i18n ru/en parity audit** — confirm Blowfish ru/en content parity; add languages only after audit.
 
 ## Open architectural decisions (deferred, not blocked)
 - `/api/*` removal from publishing layer — **already satisfied** (no `/api/` exists in repo).
