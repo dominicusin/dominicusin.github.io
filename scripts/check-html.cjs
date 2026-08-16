@@ -38,7 +38,10 @@ for (const f of files) {
   // <img> without alt
   const imgs = html.match(/<img\b[^>]*>/g) || [];
   for (const tag of imgs) {
-    if (!/\salt=/.test(tag)) {
+    // Valid if an `alt` attribute token is present — including empty alt
+    // (Hugo renders markdown ![]() as <img alt src=...>, which is intentional
+    // for decorative images). Only flag imgs that have NO alt attribute at all.
+    if (!/\balt\b/.test(tag)) {
       console.warn(`⚠ ${rel}: <img> missing alt attribute`);
       warnings++;
     }
