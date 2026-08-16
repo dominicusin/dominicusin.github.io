@@ -1,9 +1,14 @@
 ---
 title: it-podcast
-date: "2018-02-03T12:50:00.000Z"
+date: '2018-02-03T12:50:00.000Z'
 slug: russia-it-podcast
 aliases:
-  - /2018/02/03/russia-it-podcast.html
+- /2018/02/03/russia-it-podcast.html
+categories:
+- links
+tags:
+- podcasts
+- awesome-list
 ---
 author: DominicusIn
 

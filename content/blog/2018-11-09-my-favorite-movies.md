@@ -1,9 +1,13 @@
 ---
 title: My favorite movies
-date: "2018-11-08T23:34:00.000Z"
+date: '2018-11-08T23:34:00.000Z'
 slug: my-favorite-movies
 aliases:
-  - /2018/11/09/my-favorite-movies.html
+- /2018/11/09/my-favorite-movies.html
+categories:
+- media
+tags:
+- movies
 ---
 author: DominicusIn
 

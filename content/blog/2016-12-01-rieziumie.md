@@ -1,11 +1,16 @@
 ---
 title: Curriculum Vitae
-date: "2016-12-01T08:32:00.000Z"
+date: '2016-12-01T08:32:00.000Z'
 slug: rieziumie
 aliases:
-  - /2016/12/01/rieziumie.html
+- /2016/12/01/rieziumie.html
 params: {}
 field_name: null
+categories:
+- career
+tags:
+- cv
+- productivity
 ---
 author: DominicusIn
 

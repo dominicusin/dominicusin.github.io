@@ -1,9 +1,15 @@
 ---
 title: macOS-Security-and-Privacy-Guide
-date: "2021-09-06T06:01:00.000Z"
+date: '2021-09-06T06:01:00.000Z'
 slug: macOS-Security-and-Privacy-Guide
 aliases:
-  - /2021/09/06/macOS-Security-and-Privacy-Guide.html
+- /2021/09/06/macOS-Security-and-Privacy-Guide.html
+categories:
+- security
+tags:
+- macos
+- privacy
+- hardening
 ---
 author: DominicusIn
 

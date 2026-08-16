@@ -1,9 +1,15 @@
 ---
 title: HipChat Alternatives
-date: "2019-12-16T03:42:00.000Z"
+date: '2019-12-16T03:42:00.000Z'
 slug: HipChatAlternatives
 aliases:
-  - /2019/12/16/HipChatAlternatives.html
+- /2019/12/16/HipChatAlternatives.html
+categories:
+- web
+tags:
+- chat
+- privacy
+- awesome-list
 ---
 author: DominicusIn
 

@@ -1,9 +1,15 @@
 ---
 title: Awesome Plan9
-date: "2025-12-23T09:37:00.000Z"
+date: '2025-12-23T09:37:00.000Z'
 slug: awesome-plan9
 aliases:
-  - /2025/12/23/awesome-plan9.html
+- /2025/12/23/awesome-plan9.html
+categories:
+- systems
+tags:
+- plan9
+- awesome-list
+- operating-systems
 ---
 author: DominicusIn
 

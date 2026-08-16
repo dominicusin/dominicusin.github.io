@@ -1,9 +1,15 @@
 ---
 title: Awesome-Selfhosted
-date: "2019-06-16T14:04:00.000Z"
+date: '2019-06-16T14:04:00.000Z'
 slug: Awesome-Selfhosted
 aliases:
-  - /2019/06/16/Awesome-Selfhosted.html
+- /2019/06/16/Awesome-Selfhosted.html
+categories:
+- web
+tags:
+- self-hosting
+- awesome-list
+- free-resources
 ---
 author: DominicusIn
 

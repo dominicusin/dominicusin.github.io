@@ -1,9 +1,15 @@
 ---
 title: Linux System Administrator(DevOp) Interview Questions
-date: "2017-05-28T22:03:00.000Z"
+date: '2017-05-28T22:03:00.000Z'
 slug: Interview
 aliases:
-  - /2017/05/29/Interview.html
+- /2017/05/29/Interview.html
+categories:
+- career
+tags:
+- linux
+- interview
+- devops
 ---
 author: DominicusIn
 

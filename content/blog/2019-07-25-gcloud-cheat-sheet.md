@@ -1,9 +1,15 @@
 ---
 title: gcloud cheat sheet
-date: "2019-07-25T01:55:00.000Z"
+date: '2019-07-25T01:55:00.000Z'
 slug: gcloud-cheat-sheet
 aliases:
-  - /2019/07/25/gcloud-cheat-sheet.html
+- /2019/07/25/gcloud-cheat-sheet.html
+categories:
+- notes
+tags:
+- gcloud
+- cli
+- cloud
 ---
 author: DominicusIn
 

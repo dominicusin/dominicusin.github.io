@@ -1,9 +1,16 @@
 ---
 title: Alternative Internet
-date: "2023-12-16T02:40:00.000Z"
+date: '2023-12-16T02:40:00.000Z'
 slug: alternative-internet
 aliases:
-  - /2023/12/16/alternative-internet.html
+- /2023/12/16/alternative-internet.html
+categories:
+- web
+tags:
+- decentralization
+- privacy
+- networks
+- awesome-list
 ---
 author: DominicusIn
 

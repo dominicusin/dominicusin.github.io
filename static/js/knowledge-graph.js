@@ -75,7 +75,12 @@
     wrap.appendChild(stage);
 
     var legend = el('div', 'kg-legend');
-    types.forEach(function (t) { var i = el('span', 'kg-leg'); i.style.background = COLORS[t]; i.appendChild(el('span', null, LABELS[t])); legend.appendChild(i); });
+    types.forEach(function (t) {
+      var i = el('span', 'kg-leg');
+      var sw = el('span', 'kg-leg-dot'); sw.style.background = COLORS[t];
+      i.appendChild(sw); i.appendChild(el('span', 'kg-leg-label', LABELS[t]));
+      legend.appendChild(i);
+    });
     wrap.appendChild(legend);
 
     var width = Math.max(320, svgHost.clientWidth || svgHost.getBoundingClientRect().width || 800);
@@ -91,7 +96,7 @@
     svg.call(zoom);
 
     var link = g.append('g').attr('stroke', 'var(--kg-edge, rgba(148,163,184,.35))').attr('stroke-width', 1)
-      .selectAll('line').data(links).join('line').attr('class', 'kg-edge');
+      .selectAll('line').data(links).join('line').attr('class', 'kg-edge').attr('data-type', function (l) { return l.type; });
 
     var node = g.append('g').selectAll('g').data(nodes).join('g').attr('class', 'kg-node');
     node.append('circle')
@@ -107,9 +112,9 @@
       .attr('data-type', function (d) { return d.type; });
 
     var sim = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(function (d) { return d.id; }).distance(function (l) { return 90 + (Math.min((byId[l.source.id || l.source] || {}).weight || 2, (byId[l.target.id || l.target] || {}).weight || 2)) * 6; }).strength(0.2))
-      .force('charge', d3.forceManyBody().strength(-380))
-      .force('collide', d3.forceCollide(function (d) { return 20 + (d.weight || 2) * 2.8; }))
+      .force('link', d3.forceLink(links).id(function (d) { return d.id; }).distance(function (l) { return 110 + (Math.min((byId[l.source.id || l.source] || {}).weight || 2, (byId[l.target.id || l.target] || {}).weight || 2)) * 7; }).strength(0.15))
+      .force('charge', d3.forceManyBody().strength(-640).distanceMax(900))
+      .force('collide', d3.forceCollide(function (d) { return 26 + (d.weight || 2) * 3; }))
       .on('tick', ticked);
 
     function liveSize() {

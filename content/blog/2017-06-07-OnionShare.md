@@ -1,9 +1,15 @@
 ---
 title: OnionShare
-date: "2017-06-07T17:02:00.000Z"
+date: '2017-06-07T17:02:00.000Z'
 slug: OnionShare
 aliases:
-  - /2017/06/07/OnionShare.html
+- /2017/06/07/OnionShare.html
+categories:
+- security
+tags:
+- privacy
+- tor
+- tools
 ---
 author: DominicusIn
 

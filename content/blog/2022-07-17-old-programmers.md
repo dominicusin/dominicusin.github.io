@@ -1,9 +1,14 @@
 ---
 title: old programmers
-date: "2022-07-16T22:50:00.000Z"
+date: '2022-07-16T22:50:00.000Z'
 slug: old-programmers
 aliases:
-  - /2022/07/17/old-programmers.html
+- /2022/07/17/old-programmers.html
+categories:
+- links
+tags:
+- programming
+- awesome-list
 ---
 author: DominicusIn
 

@@ -1,9 +1,15 @@
 ---
 title: Free Programming Books
-date: "2017-06-15T16:49:00.000Z"
+date: '2017-06-15T16:49:00.000Z'
 slug: free-programming-books
 aliases:
-  - /2017/06/15/free-programming-books.html
+- /2017/06/15/free-programming-books.html
+categories:
+- links
+tags:
+- books
+- free-resources
+- programming
 ---
 author: DominicusIn
 

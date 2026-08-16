@@ -1,9 +1,15 @@
 ---
 title: Awesome Piracy
-date: "2023-01-20T05:45:00.000Z"
+date: '2023-01-20T05:45:00.000Z'
 slug: awesome-piracy
 aliases:
-  - /2023/01/20/awesome-piracy.html
+- /2023/01/20/awesome-piracy.html
+categories:
+- links
+tags:
+- awesome-list
+- piracy
+- media
 ---
 author: DominicusIn
 
