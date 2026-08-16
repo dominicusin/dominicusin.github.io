@@ -13,7 +13,7 @@
     { "id": "T7", "kind": "task", "title": "Rewrite relative README links to absolute GitHub URLs (no broken internal links)", "status": "done", "deps": ["T3"], "artifacts": ["scripts/sync-github.cjs", "config/_default/hugo.toml"], "verified": "check-links: 0 broken across 654 pages" },
     { "id": "T8", "kind": "task", "title": "Verify: hugo 0 errors + check-links 0 broken after T7 fix", "status": "done", "deps": ["T7"], "verified": "hugo 0 errors; 553 HTML; feed.xml now valid" },
     { "id": "T9", "kind": "task", "title": "Commit + PR + gh pr merge --admin for repo-gist-ingestion batch", "status": "done", "deps": ["T8"], "pr": 107, "merged": "9470502ab" },
-    { "id": "T10", "kind": "task", "title": "Live CI smoke test: gh workflow run hugo.yml with INCLUDE_WIKI=true", "status": "in_progress", "deps": ["T9"], "note": "dispatching hugo.yml via repository_dispatch; verify sync+wiki+build+deploy green" }
+    { "id": "T10", "kind": "task", "title": "Live CI smoke test: gh workflow run hugo.yml with INCLUDE_WIKI=true", "status": "done", "deps": ["T9"], "verified": "run 31943633270 green: sync + wiki + KG + build + Pages deploy" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
