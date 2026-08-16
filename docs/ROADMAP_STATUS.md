@@ -40,7 +40,7 @@
 | **HTML well-formedness / a11y spot-check** | ✅ | `scripts/check-html.cjs` (corrected: only flags imgs with NO `alt`; 0 warnings after fix) |
 | **JSON-LD structured data** | ✅ | Blowfish `schema.html` emits `WebSite`/`Article` JSON-LD per page |
 | **SEO/permalink audit + aliases** | ✅ | legacy `/posts/`, `/blog/`, old `.html` → 200 via aliases |
-| **Single Pages publisher (hugo.yml only)** | ✅ | only `hugo.yml` has `pages: write`; `vr-export.yml` perms tightened to `contents:write` |
+| **Single Pages publisher (hugo.yml only)** | ⚠️ | GitHub Pages (`hugo.yml`) is the canonical deploy. Vercel ALSO builds `main` (auto-detected, no manual trigger) — see note below. Both pin Hugo 0.164.0. |
 | **DAO roadmap / threat model** | ✅ | `docs/DAO_ROADMAP.md`; Hardhat 9/9; `deploy-dao.yml` guarded |
 | **Editorial strategy / taxonomy** | 📋 | `docs/EDITORIAL_STRATEGY.md` exists; legacy `categories`/`tags` still sparse |
 | **Semantic / graph-assisted search** | 📋 | KG is browseable; no semantic search backend yet |
@@ -70,3 +70,4 @@
 - `/api/*` removal from publishing layer — **already satisfied** (no `/api/` exists in repo).
 - DAO Sepolia→mainnet — only after external audit; deploy job guarded.
 - BCI/CRDT/P2P — frozen R&D (option b), no active CI triggers.
+- **Dual publisher (GitHub Pages + Vercel)** — Vercel auto-builds `main` (auto-detected; `vercel.json` pins Hugo 0.164.0 extended). GitHub Pages via `hugo.yml` is the canonical pipeline. Live domain resolves to Vercel. Both produce identical static output from the same source, so divergence risk is low, BUT: (a) two independent build environments must stay on Hugo 0.164.0; (b) Vercel's build is NOT gated by `quality.yml`/`content-contract` (only the GitHub Pages path is). If a content-contract-invalid post lands, GitHub Pages deploy is blocked but Vercel still publishes it. Decision (2026-08-16): keep both, document, live domain → Vercel. Recommended hardening: add the content-contract gate as a Vercel build check, or disable Vercel auto-deploy and use it for previews only.
