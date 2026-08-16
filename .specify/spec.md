@@ -37,3 +37,10 @@
 - Private repos.
 - Full recursive doc trees for every repo (only README + Contributing + License +
   a curated `docs/` probe; wiki opt-in).
+
+## Handoff (Spec Kit owns the "what" only)
+- → **Beads** (`.beads/beads.json`): the state graph (task nodes T1–T10 + edges).
+  Spec Kit does not track status.
+- → **GSD** (`.gsd/plan.md`): the execution engine that satisfies this contract
+  and records evidence. Spec Kit does not execute.
+- Governance context lives in **BMAD** (`.planning/CHARTER.md`); not restated here.

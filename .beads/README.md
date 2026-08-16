@@ -1,21 +1,23 @@
 # Beads — State Graph
 
-Task system for `dominicusin.github.io`, initiative **repo-gist-ingestion**.
+> **Sole responsibility: the STATE GRAPH.** Task nodes, statuses, dependency edges.
+> No prose status (that lives in the graph). No "why" (BMAD) or "what" (Spec Kit)
+> or "how executed" (GSD) — only *current state*.
 
-## Stack (strict separation of concerns)
-| Layer | Tool | Responsibility |
-|-------|------|----------------|
+## Stack (strict separation — each layer owns exactly one concern)
+| Layer | Tool | Owns |
+|-------|------|------|
 | Governance / reasoning | **BMAD** | `.planning/CHARTER.md` — why + shape + locked decisions |
-| Contract | **Spec Kit / OpenSpec** | `.specify/spec.md` + `.openspec/changes/*` — binding requirements + acceptance |
-| State graph | **Beads** | this file + `beads.json` — tasks, statuses, dependency edges |
-| Execution | **GSD** | drives tasks T7→T10 to done (verify → commit → PR → CI smoke) |
-
-## Status summary
-- `done`: T1 (tag cloud, PR #106), T2–T6 (core feature implemented & locally verified)
-- `in_progress`: T7 (rel-link rewrite — code done, re-verify pending)
-- `blocked`: T8 (GitHub API rate limit from prior test runs; needs reset)
-- `pending`: T9 (PR), T10 (live CI smoke test)
+| Contract | **Spec Kit / OpenSpec** | `.specify/spec.md` + `.openspec/changes/*` — binding "what" + acceptance |
+| **State graph** | **Beads** | this dir — `beads.json` (nodes/edges/status) |
+| Execution | **GSD** | `.gsd/plan.md` — drives the graph to `done`, records evidence |
 
 ## How to read `beads.json`
-`nodes[].status` ∈ {done, in_progress, blocked, pending}. `edges[].type` ∈
-{enables, feeds, blocks}. Blocked tasks name their blocker.
+- `nodes[].status` ∈ {done, in_progress, blocked, pending}
+- `edges[].type` ∈ {enables, feeds, blocks}
+- `blocked` nodes name their blocker; `done` nodes may carry `verified` evidence refs.
+
+## Current initiative: `repo-gist-ingestion`
+All 10 nodes (T1–T10) are `done`. For the authoritative live state, read
+`beads.json` — not this prose. Execution evidence (commands + outputs) is in
+**GSD** (`.gsd/plan.md`); acceptance criteria are in **Spec Kit** (`.specify/spec.md`).
