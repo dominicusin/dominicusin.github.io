@@ -21,7 +21,7 @@
     { "id": "T15", "kind": "task", "title": "build-crosslinks.cjs: derive repo↔repo related links by shared language/topic (data/github.json)", "status": "done", "deps": [], "artifacts": ["scripts/build-crosslinks.cjs"], "verified": "58/128 repos linked by shared language", "initiative": "cross-links" },
     { "id": "T16", "kind": "task", "title": "Partial layouts/partials/crosslinks.html + wire into repository single template (Похожие репозитории)", "status": "done", "deps": ["T15"], "artifacts": ["layouts/partials/crosslinks.html", "layouts/repository/single.html", "assets/css/custom.css"], "initiative": "cross-links" },
     { "id": "T17", "kind": "task", "title": "Wire into pipeline (package.json build:full + hugo.yml step); verify sections render + 0 broken links", "status": "done", "deps": ["T15", "T16"], "artifacts": [".github/workflows/hugo.yml", "package.json", "data/crosslinks.json"], "verified": "58 pages show section; check-links 0 broken / 654", "initiative": "cross-links" },
-    { "id": "T18", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cross-links", "status": "in_progress", "deps": ["T17"], "initiative": "cross-links" }
+    { "id": "T18", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cross-links", "status": "done", "deps": ["T17"], "pr": 109, "merged": "cbdb2489f", "initiative": "cross-links" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
