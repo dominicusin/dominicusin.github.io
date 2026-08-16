@@ -1,14 +1,16 @@
 ---
 title: channels.scm
-date: "2025-09-03T08:08:12.000Z"
+date: '2025-09-03T08:08:12.000Z'
 slug: gist-channelsscm
 aliases:
-  - /2025/09/03/gist-channelsscm.html
+- /2025/09/03/gist-channelsscm.html
 categories:
-  - gist
+- notes
 tags:
-  - gist
-  - code
+- gist
+- code
+- scheme
+- plan9
 gist_id: a94364c9e2c9e742d0c94dc58a706361
 gist_url: https://gist.github.com/dominicusin/a94364c9e2c9e742d0c94dc58a706361
 ---

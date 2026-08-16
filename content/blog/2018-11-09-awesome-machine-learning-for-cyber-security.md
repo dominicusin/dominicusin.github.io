@@ -1,9 +1,16 @@
 ---
 title: Awesome Machine Learning for Cyber Security
-date: "2018-11-09T03:42:00.000Z"
+date: '2018-11-09T03:42:00.000Z'
 slug: awesome-machine-learning-for-cyber-security
 aliases:
-  - /2018/11/09/awesome-machine-learning-for-cyber-security.html
+- /2018/11/09/awesome-machine-learning-for-cyber-security.html
+categories:
+- security
+- ai
+tags:
+- ml
+- cybersecurity
+- awesome-list
 ---
 author: DominicusIn
 

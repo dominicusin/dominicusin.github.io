@@ -1,9 +1,16 @@
 ---
 title: Unrestricted AI Tools
-date: "2025-10-29T23:04:00.000Z"
+date: '2025-10-29T23:04:00.000Z'
 slug: unrestricted-ai-tools
 aliases:
-  - /2025/10/30/unrestricted-ai-tools.html
+- /2025/10/30/unrestricted-ai-tools.html
+categories:
+- ai
+tags:
+- llm
+- awesome-list
+- tools
+- nsfw
 ---
 author: DominicusIn
 

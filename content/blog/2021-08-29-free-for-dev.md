@@ -1,9 +1,16 @@
 ---
 title: free-for.dev
-date: "2021-08-29T15:14:00.000Z"
+date: '2021-08-29T15:14:00.000Z'
 slug: free-for-dev
 aliases:
-  - /2021/08/29/free-for-dev.html
+- /2021/08/29/free-for-dev.html
+categories:
+- web
+tags:
+- devops
+- free-resources
+- cloud
+- awesome-list
 ---
 author: DominicusIn
 

@@ -84,6 +84,35 @@ if (fs.existsSync(POSTS_DIR)) {
   }
 }
 
+// --- Ontology: category subsumes its tags (concept hierarchy) ---
+// For each post, every tag is "owned" by the post's category(-ies). We draw a
+// `subsumes` edge from each category concept to every tag concept that appears
+// under it. This turns the concept layer into a real hierarchy instead of pure
+// co-occurrence, and is what makes the Knowledge Graph an ontology view.
+const catTags = {}; // catId -> Set(tagId)
+for (const [pid, cs] of Object.entries(postConcept)) {
+  const cats = cs.filter(c => c.startsWith('cat:'));
+  const tags = cs.filter(c => c.startsWith('tag:'));
+  for (const cat of cats) {
+    catTags[cat] = catTags[cat] || new Set();
+    tags.forEach(t => catTags[cat].add(t));
+  }
+}
+for (const [cat, tags] of Object.entries(catTags)) {
+  tags.forEach(t => addEdge(cat, t, 'subsumes'));
+}
+
+// --- Ontology: cross-domain bridges (manual, high-level) ---
+const bridges = [
+  ['cat:security', 'cat:web'],
+  ['cat:systems', 'cat:web'],
+  ['cat:ai', 'cat:security'],
+  ['cat:dao', 'cat:web'],
+  ['cat:philosophy', 'cat:career'],
+  ['cat:systems', 'cat:dao'],
+];
+bridges.forEach(([a, b]) => addEdge(a, b, 'relatedTo'));
+
 // --- Concept co-occurrence ---
 const conceptPosts = {};
 for (const [pid, cs] of Object.entries(postConcept)) cs.forEach(c => { (conceptPosts[c] = conceptPosts[c] || []).push(pid); });

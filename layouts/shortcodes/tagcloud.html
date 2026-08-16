@@ -1,0 +1,21 @@
+{{/*
+  tagcloud shortcode — renders a weighted cloud of the `tags` taxonomy.
+  Usage: {{< tagcloud >}}   (optionally limit with `limit` param)
+*/}}
+{{ $limit := .Get "limit" | default 0 }}
+{{ $terms := site.Taxonomies.tags.ByCount }}
+{{ if gt $limit 0 }}{{ $terms = first $limit $terms }}{{ end }}
+{{ $max := cond (gt (len $terms) 0) (index $terms 0).Count 1 }}
+{{ $min := $max }}
+{{ range $terms }}{{ if lt .Count $min }}{{ $min = .Count }}{{ end }}{{ end }}
+{{ $logMax := math.Log (add $max 1) }}
+{{ $logMin := math.Log (add $min 1) }}
+{{ $logSpread := math.Max (sub $logMax $logMin) 0.0001 }}
+<div class="tag-cloud tag-cloud--shortcode">
+  {{ range $terms }}
+    {{ $w := div (sub (math.Log (add .Count 1)) $logMin) $logSpread }}
+    {{ $size := add 0.85 (mul $w 1.4) }}
+    <a class="tag-cloud-item" href="{{ .Page.RelPermalink }}" title="{{ .Count }} постов"
+       style="font-size: {{ printf "%.2f" $size }}rem; --tw: {{ $w }};">{{ .Page.Title }}</a>
+  {{ end }}
+</div>

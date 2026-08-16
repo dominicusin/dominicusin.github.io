@@ -1,9 +1,14 @@
 ---
 title: YA movies's list
-date: "2025-11-02T01:46:00.000Z"
+date: '2025-11-02T01:46:00.000Z'
 slug: yet-another-list-of-movies
 aliases:
-  - /2025/11/02/yet-another-list-of-movies.html
+- /2025/11/02/yet-another-list-of-movies.html
+categories:
+- media
+tags:
+- movies
+- awesome-list
 ---
 author: DominicusIn
 

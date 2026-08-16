@@ -1,9 +1,16 @@
 ---
 title: free-podcasts-screencasts
-date: "2020-03-18T17:09:00.000Z"
+date: '2020-03-18T17:09:00.000Z'
 slug: free-podcasts-screencasts-ru
 aliases:
-  - /2020/03/18/free-podcasts-screencasts-ru.html
+- /2020/03/18/free-podcasts-screencasts-ru.html
+categories:
+- links
+tags:
+- podcasts
+- screencasts
+- free-resources
+- awesome-list
 ---
 author: DominicusIn
 

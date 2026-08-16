@@ -1,9 +1,15 @@
 ---
 title: Linux Networking commands
-date: "2019-01-31T15:41:00.000Z"
+date: '2019-01-31T15:41:00.000Z'
 slug: linux-networking-commands
 aliases:
-  - /2019/01/31/linux-networking-commands.html
+- /2019/01/31/linux-networking-commands.html
+categories:
+- systems
+tags:
+- linux
+- networking
+- cli
 ---
 author: DominicusIn
 

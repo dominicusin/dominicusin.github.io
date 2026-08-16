@@ -1,9 +1,15 @@
 ---
 title: Prepare my Windows workstation
-date: "2017-11-05T23:27:00.000Z"
+date: '2017-11-05T23:27:00.000Z'
 slug: Winworkstation
 aliases:
-  - /2017/11/06/Winworkstation.html
+- /2017/11/06/Winworkstation.html
+categories:
+- notes
+tags:
+- windows
+- productivity
+- automation
 ---
 author: DominicusIn
 

@@ -1,9 +1,15 @@
 ---
 title: Three Virtues
-date: "2023-08-26T03:27:00.000Z"
+date: '2023-08-26T03:27:00.000Z'
 slug: three-virtues
 aliases:
-  - /2023/08/26/three-virtues.html
+- /2023/08/26/three-virtues.html
+categories:
+- philosophy
+tags:
+- programming
+- humor
+- craft
 ---
 author: DominicusIn
 

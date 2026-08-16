@@ -1,14 +1,16 @@
 ---
 title: chroot
-date: "2025-01-24T09:46:30.000Z"
+date: '2025-01-24T09:46:30.000Z'
 slug: gist-chroot
 aliases:
-  - /2025/01/24/gist-chroot.html
+- /2025/01/24/gist-chroot.html
 categories:
-  - gist
+- notes
 tags:
-  - gist
-  - code
+- gist
+- code
+- chroot
+- linux
 gist_id: 8402abedb4df49c2852ce150f03a5372
 gist_url: https://gist.github.com/dominicusin/8402abedb4df49c2852ce150f03a5372
 ---

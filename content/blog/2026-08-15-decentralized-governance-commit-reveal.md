@@ -1,16 +1,19 @@
 ---
-title: "Децентрализованное управление: commit-reveal голосование и таймлоки"
-date: "2026-08-14T18:00:00.000Z"
+title: 'Децентрализованное управление: commit-reveal голосование и таймлоки'
+date: '2026-08-14T18:00:00.000Z'
 slug: decentralized-governance-commit-reveal
 aliases:
-  - /2026/08/15/decentralized-governance-commit-reveal.html
+- /2026/08/15/decentralized-governance-commit-reveal.html
 categories:
-  - devops
+- dao
 tags:
-  - architecture
-  - security
-  - ai-agents
-description: "Как устроен смарт-контракт DAO в этом репозитории: токен голосования с капом, soulbound-репутация, commit-reveal схема против фронтраннинга и двухдневный таймлок перед исполнением."
+- smart-contracts
+- governance
+- commit-reveal
+- solidity
+description: 'Как устроен смарт-контракт DAO в этом репозитории: токен голосования
+  с капом, soulbound-репутация, commit-reveal схема против фронтраннинга и двухдневный
+  таймлок перед исполнением.'
 ---
 author: DominicusIn
 

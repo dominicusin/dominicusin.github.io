@@ -1,9 +1,15 @@
 ---
 title: free-courses
-date: "2020-03-18T16:55:00.000Z"
+date: '2020-03-18T16:55:00.000Z'
 slug: free-courses-ru
 aliases:
-  - /2020/03/18/free-courses-ru.html
+- /2020/03/18/free-courses-ru.html
+categories:
+- links
+tags:
+- free-resources
+- courses
+- awesome-list
 ---
 author: DominicusIn
 

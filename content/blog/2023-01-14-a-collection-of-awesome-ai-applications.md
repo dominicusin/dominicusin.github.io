@@ -1,9 +1,15 @@
 ---
 title: A Collection of Awesome AI Applications
-date: "2023-01-14T13:26:00.000Z"
+date: '2023-01-14T13:26:00.000Z'
 slug: a-collection-of-awesome-ai-applications
 aliases:
-  - /2023/01/14/a-collection-of-awesome-ai-applications.html
+- /2023/01/14/a-collection-of-awesome-ai-applications.html
+categories:
+- ai
+tags:
+- llm
+- awesome-list
+- applications
 ---
 author: DominicusIn
 

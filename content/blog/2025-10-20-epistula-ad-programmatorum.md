@@ -1,9 +1,15 @@
 ---
 title: Epistula ad Programmatorum
-date: "2025-10-19T21:10:00.000Z"
+date: '2025-10-19T21:10:00.000Z'
 slug: epistula-ad-programmatorum
 aliases:
-  - /2025/10/20/epistula-ad-programmatorum.html
+- /2025/10/20/epistula-ad-programmatorum.html
+categories:
+- philosophy
+tags:
+- craft
+- programming
+- essay
 ---
 author: DominicusIn
 
