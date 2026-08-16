@@ -16,9 +16,12 @@
     concept: 'var(--kg-concept, #34d399)',
     person: 'var(--kg-person, #f472b6)',
     project: 'var(--kg-project, #fbbf24)',
-    dao: 'var(--kg-dao, #a78bfa)'
+    dao: 'var(--kg-dao, #a78bfa)',
+    repository: 'var(--kg-repo, #38bdf8)',
+    gist: 'var(--kg-gist, #fbbf24)',
+    org: 'var(--kg-org, #c084fc)'
   };
-  var LABELS = { post: 'Post', concept: 'Concept', person: 'Person', project: 'Project', dao: 'DAO contract' };
+  var LABELS = { post: 'Post', concept: 'Concept', person: 'Person', project: 'Project', dao: 'DAO contract', repository: 'Repository', gist: 'Gist', org: 'Organization' };
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -50,9 +53,9 @@
     wrap.appendChild(controls);
 
     // Filter chips
-    var types = ['post', 'concept', 'person', 'project', 'dao'];
+    var types = ['post', 'concept', 'person', 'project', 'dao', 'repository', 'gist', 'org'];
     var chips = el('div', 'kg-chips');
-    var active = { post: true, concept: true, person: true, project: true, dao: true };
+    var active = { post: true, concept: true, person: true, project: true, dao: true, repository: true, gist: true, org: true };
     types.forEach(function (t) {
       var c = el('button', 'kg-chip kg-active', LABELS[t]);
       c.style.setProperty('--chip', COLORS[t]);

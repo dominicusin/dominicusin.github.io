@@ -36,6 +36,10 @@ canonifyURLs = false
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
 
+# Standard /feed.xml RSS URL (README of the site links to it).
+[outputFormats.RSS]
+  baseName = "feed"
+
 [taxonomies]
   tag = "tags"
   category = "categories"

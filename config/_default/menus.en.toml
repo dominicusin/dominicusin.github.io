@@ -54,3 +54,26 @@
   pageRef = "/tags/"
   parent = "topics"
   weight = 62
+
+[[main]]
+  name = "Code"
+  identifier = "code"
+  weight = 70
+
+[[main]]
+  name = "Repositories"
+  pageRef = "/repositories/"
+  parent = "code"
+  weight = 71
+
+[[main]]
+  name = "Gists"
+  pageRef = "/gists/"
+  parent = "code"
+  weight = 72
+
+[[main]]
+  name = "Ontology"
+  pageRef = "/ontology/"
+  parent = "code"
+  weight = 73

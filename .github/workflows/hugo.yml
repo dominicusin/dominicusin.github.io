@@ -3,6 +3,12 @@ name: Deploy Hugo site to GitHub Pages
 on:
   push:
     branches: [main]
+  # Auto-update: re-sync repos/gists from GitHub on a schedule and on dispatch,
+  # so new gists/repos or README/doc changes appear on the site automatically.
+  schedule:
+    - cron: "*/30 * * * *"
+  repository_dispatch:
+    types: [sync-github]
   workflow_dispatch:
 
 permissions:
@@ -18,6 +24,8 @@ env:
   HUGO_VERSION: "0.164.0"
   HUGO_ENVIRONMENT: production
   HUGO_ENV: production
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  INCLUDE_WIKI: "1"
 
 jobs:
   build:
@@ -47,12 +55,20 @@ jobs:
       - name: Install deps (content-contract scripts)
         run: npm ci --prefer-offline --no-audit --no-fund
 
+      - name: Sync GitHub repos + gists (auto-ingest)
+        # Generates content/repositories/*, content/gists/*, data/github.json
+        # from the live GitHub API before building. Graceful: never fails deploy.
+        run: node scripts/sync-github.cjs
+
       - name: Validate content contract
         # Publishing contract (Vector A): new posts in content/blog/ MUST
         # satisfy schema/post-metadata.schema.json (hard gate — a failing new
         # post blocks the build/deploy). Modified legacy posts are report-only.
         # Knowledge graph (JSON-LD) is emitted for the whole corpus.
         run: node scripts/ci-content-contract.cjs
+
+      - name: Rebuild Knowledge Graph (includes repos + gists)
+        run: node scripts/build-knowledge-graph.cjs
 
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"

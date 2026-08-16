@@ -318,6 +318,40 @@ html { scroll-behavior: smooth; }
 
 .tag-cloud-note { margin-top: 1rem; font-size: .82rem; color: rgb(var(--color-neutral-500)); }
 
+/* ---------- Repositories & Gists pages ---------- */
+.repo-header { margin: 1rem 0 1.5rem; }
+.repo-title h1 { margin-bottom: .35rem; }
+.repo-descr { color: rgb(var(--color-neutral-300)); max-width: 60ch; margin: 0; }
+.repo-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+.repo-pill { display: inline-flex; align-items: center; gap: .25rem; font-size: .78rem; padding: .2rem .6rem;
+  border-radius: 999px; background: rgb(var(--color-neutral-800) / .7); color: rgb(var(--color-neutral-300));
+  border: 1px solid rgb(var(--color-neutral-700) / .5); }
+.repo-pill--warn { color: rgb(var(--color-amber-300, 252 211 77)); border-color: rgb(var(--color-amber-500, 245 158 11) / .4); }
+.repo-links { display: flex; gap: .6rem; margin-top: .8rem; }
+.repo-btn { display: inline-flex; align-items: center; gap: .3rem; padding: .4rem .9rem; border-radius: 999px;
+  font-size: .85rem; text-decoration: none; background: rgb(var(--color-primary-500)); color: #fff;
+  transition: transform .15s ease, background .15s ease; }
+.repo-btn:hover { transform: translateY(-1px); background: rgb(var(--color-primary-400)); }
+.repo-btn--ghost { background: transparent; color: rgb(var(--color-primary-300)); border: 1px solid rgb(var(--ring) / .5); }
+.repo-topics { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+.repo-topic { font-size: .78rem; color: rgb(var(--color-primary-300)); text-decoration: none; }
+.repo-topic:hover { text-decoration: underline; }
+.repo-body { margin-top: 1rem; }
+
+.repo-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin: 1.5rem 0; }
+.repo-card { display: flex; flex-direction: column; gap: .4rem; padding: 1rem; border-radius: var(--radius);
+  background: rgb(var(--bg-elevated) / .6); border: 1px solid rgb(var(--color-neutral-700) / .5);
+  text-decoration: none; color: inherit; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.repo-card:hover { transform: translateY(-3px); border-color: rgb(var(--ring) / .6); background: rgb(var(--bg-elevated) / .9); }
+.repo-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.repo-card-name { font-weight: 700; color: rgb(var(--color-primary-200)); font-size: .98rem; word-break: break-word; }
+.repo-card-owner { font-size: .72rem; color: rgb(var(--color-neutral-500)); white-space: nowrap; }
+.repo-card-desc { font-size: .84rem; color: rgb(var(--color-neutral-300)); margin: 0; line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.repo-card-meta { display: flex; flex-wrap: wrap; gap: .5rem; font-size: .72rem; color: rgb(var(--color-neutral-400)); margin-top: auto; }
+.gist-header { margin: 1rem 0 1.5rem; }
+.gist-links { display: flex; align-items: center; gap: .6rem; margin-top: .8rem; flex-wrap: wrap; }
+
 @media (max-width: 640px) {
   .timeline-item { grid-template-columns: 1fr; gap: .35rem; }
   .about-hero { justify-content: center; text-align: center; }

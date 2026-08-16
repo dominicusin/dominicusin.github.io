@@ -1,0 +1,28 @@
+{
+  "schema": "beads.state-graph/v1",
+  "project": "dominicusin.github.io",
+  "initiative": "repo-gist-ingestion",
+  "updated": "2026-08-16",
+  "nodes": [
+    { "id": "T1", "kind": "task", "title": "Weighted tag cloud on /tags/ + tagcloud shortcode", "status": "done", "deps": [], "artifacts": ["layouts/_default/terms.html", "layouts/shortcodes/tagcloud.html", "assets/css/custom.css"], "pr": 106 },
+    { "id": "T2", "kind": "task", "title": "sync-github.cjs: fetch dominicusin + 3 orgs repos + gists, emit Hugo content + data/github.json", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "128 repos + 100 gists generated" },
+    { "id": "T3", "kind": "task", "title": "Repo/gist list + single page layouts + CSS", "status": "done", "deps": ["T2"], "artifacts": ["layouts/repositories/{list,single}.html", "layouts/gists/{list,single}.html", "assets/css/custom.css"] },
+    { "id": "T4", "kind": "task", "title": "KG generator ingests repo/gist/org nodes; JS colours/filters", "status": "done", "deps": ["T2"], "artifacts": ["scripts/build-knowledge-graph.cjs", "static/js/knowledge-graph.js"] },
+    { "id": "T5", "kind": "task", "title": "Ontology page /ontology/ + nav (Код dropdown: Репозитории/Гисты/Онтология)", "status": "done", "deps": ["T4"], "artifacts": ["content/ontology/_index.md", "config/_default/menus*.toml", "docs/TAXONOMY.md"] },
+    { "id": "T6", "kind": "task", "title": "CI: hugo.yml adds cron + repository_dispatch + sync step (auto-update)", "status": "done", "deps": ["T2", "T3"], "artifacts": [".github/workflows/hugo.yml"], "verified": "config only; live run pending" },
+    { "id": "T7", "kind": "task", "title": "Rewrite relative README links to absolute GitHub URLs (no broken internal links)", "status": "done", "deps": ["T3"], "artifacts": ["scripts/sync-github.cjs", "config/_default/hugo.toml"], "verified": "check-links: 0 broken across 654 pages" },
+    { "id": "T8", "kind": "task", "title": "Verify: hugo 0 errors + check-links 0 broken after T7 fix", "status": "done", "deps": ["T7"], "verified": "hugo 0 errors; 553 HTML; feed.xml now valid" },
+    { "id": "T9", "kind": "task", "title": "Commit + PR + gh pr merge --admin for repo-gist-ingestion batch", "status": "pending", "deps": ["T8"] },
+    { "id": "T10", "kind": "task", "title": "Live CI smoke test: gh workflow run hugo.yml with INCLUDE_WIKI=true", "status": "pending", "deps": ["T9"] }
+  ],
+  "edges": [
+    { "from": "T2", "to": "T3", "type": "enables" },
+    { "from": "T2", "to": "T4", "type": "feeds" },
+    { "from": "T4", "to": "T5", "type": "enables" },
+    { "from": "T2", "to": "T6", "type": "enables" },
+    { "from": "T3", "to": "T7", "type": "enables" },
+    { "from": "T7", "to": "T8", "type": "blocks" },
+    { "from": "T8", "to": "T9", "type": "blocks" },
+    { "from": "T9", "to": "T10", "type": "blocks" }
+  ]
+}
