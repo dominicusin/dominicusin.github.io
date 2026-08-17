@@ -1500,4 +1500,4 @@ The list of authors can be found [here](AUTHORS.md).
 
 ## License
 
-This list is under the [Creative Commons Attribution-ShareAlike 3.0 Unported](LICENSE) License.
+This list is under the [Creative Commons Attribution-ShareAlike 3.0 Unported](https://github.com/dominicusin/dominicusin.github.io/blob/main/LICENSE) License.
