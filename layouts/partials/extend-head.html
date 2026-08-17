@@ -1,11 +1,7 @@
 {{/*
-  Vercel Web Analytics integration.
-  Loads the analytics script in production mode only.
-  See: https://vercel.com/docs/analytics/quickstart
+  Project extend-head.html partial.
+  NOTE: This site is deployed to GitHub Pages, NOT Vercel. The previous Vercel
+  Web Analytics snippet (`/_vercel/insights/script.js`) caused a 404 on every
+  production page. Removed — there is no Vercel deployment, so the include is
+  dead weight. If analytics is ever wanted, use a Pages-compatible provider.
 */}}
-{{ if hugo.IsProduction }}
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-{{ end }}
