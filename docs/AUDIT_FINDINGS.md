@@ -53,7 +53,11 @@ and `contracts/`. Import-graph scan of `src/` shows **0 cycles** even with them.
   needed human confirmation; user chose **MIT**. Replaced `LICENSE` content with
   the standard MIT text (Copyright (c) 2026 DominicusIn). Repo is now internally
   consistent: `LICENSE` = MIT, `package.json.license` = MIT, README = MIT.
-- **D2 (B4):** `.bolt/` removal — confirm it's unused before deleting.
+- **D2 (B4):** `.bolt/` removal — **BLOCKED pending user confirmation** (doc-debt
+  initiative, 2026-08-17). `.bolt/mcp.json` lists notion/linear/miro `enabled:true`
+  (a config artifact, NOT proof of active use). Per AGENTS.md "no deletion without
+  commit + reason", the directory is retained. Action deferred to repo owner:
+  confirm whether these MCP servers are actually used; only then remove (with reason).
 - **D3 (build-stats.json):** ✅ RESOLVED 2026-08-15 — ran `NODE_ENV=production
   node build.js`; `dist/` now exists; `build-stats.json` regenerated and
   verified (32 entries, 0 missing, sumOnDisk == reportedTotal == 231,731 B).

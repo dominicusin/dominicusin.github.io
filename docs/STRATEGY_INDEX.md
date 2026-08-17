@@ -21,6 +21,8 @@
 |----------|--------------|
 | `STRATEGIC_PLAN_2026-2027.md` (v1.0-era) | Pre-migration; superseded by the 2026-2028 UPDATED plan |
 | External `стратегический-план-развития-репозитория...md` (v1.0, "Jekyll+Node hybrid") | Describes a **hybrid Jekyll+Node** repo and lists "migrate to Hugo" as Priority 1 — **obsolete**: Hugo migration is complete (Phase 7 + P0 consolidation, 2026-08-15). Kept only as historical context. |
+| [`RECOMMENDATIONS.md`](../RECOMMENDATIONS.md) (root) | Jekyll-era editorial recommendations; **superseded** by the Hugo two-plane strategy + `EDITORIAL_STRATEGY.md`. Archived 2026-08-17 (doc-debt initiative). |
+| [`Manifest.md`](../Manifest.md) (root) | Jekyll-era site manifest; **obsolete** after Hugo migration (no `_config.yml`/Jekyll build). Archived 2026-08-17 (doc-debt initiative). |
 
 ## What actually happened vs the v1.0 plan
 
