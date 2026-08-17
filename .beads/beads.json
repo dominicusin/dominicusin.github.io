@@ -59,7 +59,7 @@
     { "id": "T53", "kind": "task", "title": "sync-github.cjs: persist gist file lang in gistsOut.files (f.lang||guessLang)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs", "data/github.json"], "verified": "gist files carry lang (e.g. Shell)", "initiative": "kb-taxonomy" },
     { "id": "T54", "kind": "task", "title": "build-knowledge-graph.cjs: lang concept layer (repo+gist tagged lang:), repo↔repo relatedTo by language", "status": "done", "deps": ["T53"], "artifacts": ["scripts/build-knowledge-graph.cjs"], "verified": "lang: concepts added; repo+gist tagged by lang", "initiative": "kb-taxonomy" },
     { "id": "T55", "kind": "task", "title": "Rebuild KG; measure deltas (edges, isolated gists, repo↔repo relatedTo); build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T54"], "artifacts": ["static/data/knowledge-graph.json"], "verified": "nodes 393→420, edges 699→1007, relatedTo 6→208, isolated gists 100→64", "initiative": "kb-taxonomy" },
-    { "id": "T56", "kind": "task", "title": "Commit + PR + gh pr merge --admin for kb-taxonomy", "status": "in_progress", "deps": ["T55"], "initiative": "kb-taxonomy" }
+    { "id": "T56", "kind": "task", "title": "Commit + PR + gh pr merge --admin for kb-taxonomy", "status": "done", "deps": ["T55"], "pr": 119, "merged": "23c470db2", "initiative": "kb-taxonomy" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
