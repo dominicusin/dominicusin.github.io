@@ -35,7 +35,11 @@
     { "id": "T29", "kind": "task", "title": "Write scripts/check-perf.cjs: parse built public/index.html, fail on render-blocking script/CSS", "status": "in_progress", "deps": [], "artifacts": ["scripts/check-perf.cjs"], "initiative": "perf-gate" },
     { "id": "T30", "kind": "task", "title": "Test check-perf.cjs: passes on current build; fails on injected blocking script/stylesheet (negative test, reverted)", "status": "pending", "deps": ["T29"], "artifacts": ["scripts/check-perf.cjs"], "initiative": "perf-gate" },
     { "id": "T31", "kind": "task", "title": "Wire Performance smoke check step into hugo.yml (report-only, after build)", "status": "done", "deps": ["T29", "T30"], "artifacts": [".github/workflows/hugo.yml"], "initiative": "perf-gate" },
-    { "id": "T32", "kind": "task", "title": "Verify build/lint/test/linkcheck + commit+PR+admin-merge (perf-gate)", "status": "done", "deps": ["T31"], "pr": 113, "merged": "e4334ffee", "initiative": "perf-gate" }
+    { "id": "T32", "kind": "task", "title": "Verify build/lint/test/linkcheck + commit+PR+admin-merge (perf-gate)", "status": "done", "deps": ["T31"], "pr": 113, "merged": "e4334ffee", "initiative": "perf-gate" },
+    { "id": "T33", "kind": "task", "title": "Author og-default.svg (1200x630 brand) + generate assets/images/og-default.png via rsvg-convert", "status": "done", "deps": [], "artifacts": ["assets/images/og-default.png", "assets/images/og-default.src.svg"], "verified": "PNG 1200x630, 89KB; rsvg-convert reproducible", "initiative": "og-image-raster" },
+    { "id": "T34", "kind": "task", "title": "Switch params.toml defaultSocialImage to images/og-default.png (keep card SVG)", "status": "done", "deps": ["T33"], "artifacts": ["config/_default/params.toml"], "initiative": "og-image-raster" },
+    { "id": "T35", "kind": "task", "title": "Verify built og:image/twitter:image end in .png; PNG 1200x630 <250KB; build/lint/test/linkcheck green", "status": "done", "deps": ["T33", "T34"], "artifacts": ["public/index.html"], "verified": "og:image+twitter:image -> og-default.png; perf gate 0 regressions", "initiative": "og-image-raster" },
+    { "id": "T36", "kind": "task", "title": "Commit + PR + gh pr merge --admin for og-image-raster", "status": "in_progress", "deps": ["T35"], "initiative": "og-image-raster" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -66,6 +70,9 @@
     { "from": "T27", "to": "T28", "type": "blocks" },
     { "from": "T29", "to": "T30", "type": "enables" },
     { "from": "T30", "to": "T31", "type": "enables" },
-    { "from": "T31", "to": "T32", "type": "blocks" }
+    { "from": "T31", "to": "T32", "type": "blocks" },
+    { "from": "T33", "to": "T34", "type": "enables" },
+    { "from": "T34", "to": "T35", "type": "enables" },
+    { "from": "T35", "to": "T36", "type": "blocks" }
   ]
 }

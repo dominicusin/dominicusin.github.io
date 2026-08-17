@@ -153,3 +153,30 @@ Beads T27 = `done`; T28 (commit+PR+merge for CSS fix) in_progress.
 
 ### Status
 Beads T29–T31 = `done`; T32 (commit+PR+merge) in_progress.
+
+---
+
+## Initiative 7: `og-image-raster` (self-identified) — DONE
+- **Self-identified problem (autonomous task-setting):** audit of built homepage
+  found `og:image`/`twitter:image` pointed at `images/og-default.svg`. Social
+  platforms (X/Telegram/Slack/Discord/FB/LinkedIn) do NOT render SVG previews →
+  sharing the URL shows NO image. Real, user-visible defect.
+- **Fix (R1–R5):**
+  - Authored `assets/images/og-default.src.svg` (1200×630 brand: title + tagline on
+    `dominicusin` dark scheme) and converted to `assets/images/og-default.png`
+    (1200×630, 89KB) via `rsvg-convert`. Reproducible, no external service/secrets.
+  - Switched `config/_default/params.toml` `defaultSocialImage` → `images/og-default.png`.
+    The card-thumbnail SVG is left untouched (different role).
+- **Root-cause gotcha (real, not guessed):** Blowfish's `head.html` emits the social
+  image via `resources.Get .Site.Params.defaultSocialImage` + `.RelPermalink`.
+  `resources.Get` resolves from the **assets** filesystem, not `static/`. The old
+  `.svg` worked only because `assets/images/og-default.svg` already existed (project
+  asset). Putting the PNG in `static/` made `resources.Get` return nil → NO og:image.
+  Fix: PNG placed in `assets/images/` (project asset overrides theme). Now both
+  `og:image` and `twitter:image` emit `…/og-default.png`.
+- **Verify:** built `public/index.html` → `og:image` + `twitter:image` end in `.png`;
+  PNG 1200×630 / 89KB (<250KB); `hugo` 0 errors; lint clean; test pass; check-links 0
+  broken; check-perf 0 regressions.
+
+### Status
+Beads T33–T35 = `done`; T36 (commit+PR+merge) in_progress.
