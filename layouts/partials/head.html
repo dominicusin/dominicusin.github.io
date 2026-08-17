@@ -136,11 +136,21 @@
     {{ $cssResources = $cssResources | append (resources.Get "lib/zoom/style.css") }}
   {{ end }}
   {{ $bundleCSS := $cssResources | resources.Concat "css/main.bundle.css" | resources.Minify | resources.Fingerprint $alg }}
+  {{/* Load CSS non-render-blocking: preload + swap to stylesheet on load,
+       so first paint is not blocked by the 128KB bundle. noscript keeps it
+       blocking for no-JS users (correct styling, acceptable trade-off). */}}
   <link
-    type="text/css"
-    rel="stylesheet"
+    rel="preload"
+    as="style"
     href="{{ $bundleCSS.RelPermalink }}"
-    integrity="{{ $bundleCSS.Data.Integrity }}">
+    integrity="{{ $bundleCSS.Data.Integrity }}"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="{{ $bundleCSS.RelPermalink }}"
+      integrity="{{ $bundleCSS.Data.Integrity }}">
+  </noscript>
 
   {{/* JS deferred (was "loaded immediately" in theme — now deferred for LCP) */}}
   {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify | resources.Fingerprint $alg }}

@@ -101,3 +101,29 @@ Beads T19–T21 = `done`; T22 = `done` (merged #110 via --admin).
 
 ### Status
 Beads T23–T25 = `done`; T26 (commit+PR+merge) in_progress.
+
+---
+
+## Initiative 5 (cont.) — Phase H: CSS non-render-blocking (DONE)
+- **Re-audit after JS-defer (T24):** Lighthouse LCP still ~5.5s (perf 0.68). JS was
+  secondary. Measured the real bottleneck: **CSS bundle = 128.78 KB**, loaded as a
+  render-blocking `<link rel=stylesheet>` — browser must download+parse 129KB CSS
+  before first paint. Homepage is only 67KB HTML / 697 tags (DOM not the issue);
+  NO web fonts (system stack), NO external stylesheets, NO hero image. So the
+  paint-blocking CSS is THE LCP root cause.
+- **Fix (T27):** in `layouts/partials/head.html` override, changed the CSS `<link>`
+  to the standard non-render-blocking pattern:
+  `<link rel=preload as=style onload="this.rel='stylesheet'">` + `<noscript>`
+  fallback. First paint no longer waits on the 129KB CSS; styles swap in on load
+  (modern browsers) / stay blocking for no-JS.
+- **Verify (structural, real builds):** built site → CSS link is `rel=preload
+  as=style` with onload swap + noscript fallback present; CSS bundle still emitted;
+  build 0 err; lint clean; test pass; check-links 0 broken.
+- **Honest caveat:** cannot run Lighthouse locally (no Chrome/Lighthouse binary;
+  CI Lighthouse runs on shared, throttled, noisy infra — perf 0.64–0.68 across runs).
+  The change is the correct, textbook LCP fix for a render-blocking CSS bundle, but
+  the exact Lighthouse delta must be read from the next CI Performance Monitoring run,
+  not asserted here.
+
+### Status
+Beads T27 = `done`; T28 (commit+PR+merge for CSS fix) in_progress.
