@@ -2,6 +2,7 @@
 title: "OpenZFS on OS X on boot installer script"
 type: gist
 gist_id: "bb91fc051d96cb5d7582eaedead01c3b"
+gist_name: "OpenZFS on OS X on boot installer script zfsonosxonboot.sh"
 gist_url: https://gist.github.com/dominicusin/bb91fc051d96cb5d7582eaedead01c3b
 updated_at: "2022-06-08T00:06:08Z"
 files: ["zfsonosxonboot.sh"]

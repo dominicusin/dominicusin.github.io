@@ -2,6 +2,7 @@
 title: "How to setup a community version of Proxmox VE 5.x-6.x"
 type: gist
 gist_id: "316ab2c4be582d19ddd5bc612f9edeeb"
+gist_name: "How to setup a community version of Proxmox VE 5.x-6.x gistfile1.txt"
 gist_url: https://gist.github.com/dominicusin/316ab2c4be582d19ddd5bc612f9edeeb
 updated_at: "2021-10-26T13:30:59Z"
 files: ["gistfile1.txt"]

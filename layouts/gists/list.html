@@ -8,7 +8,7 @@
     {{ range .RegularPages.ByTitle }}
       <a class="repo-card" href="{{ .RelPermalink }}">
         <div class="repo-card-top">
-          <span class="repo-card-name">{{ .Params.gist_id }}</span>
+          <span class="repo-card-name">{{ .Params.gist_name }}</span>
         </div>
         <p class="repo-card-desc">{{ .Params.description | truncate 120 }}</p>
         <div class="repo-card-meta">

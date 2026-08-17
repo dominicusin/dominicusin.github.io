@@ -2,6 +2,7 @@
 title: "raid_bootloader_install"
 type: gist
 gist_id: "d36e39ec0183f56f230ffed9dacfbab4"
+gist_name: "raid_bootloader_install raid_bootloader_install.sh"
 gist_url: https://gist.github.com/dominicusin/d36e39ec0183f56f230ffed9dacfbab4
 updated_at: "2024-06-19T07:43:53Z"
 files: ["raid_bootloader_install.sh"]

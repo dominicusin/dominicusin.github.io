@@ -2,6 +2,7 @@
 title: "452ef1dfef6ee6d31bcbd6e0c3cf54e3"
 type: gist
 gist_id: "452ef1dfef6ee6d31bcbd6e0c3cf54e3"
+gist_name: "gistfile1.txt"
 gist_url: https://gist.github.com/dominicusin/452ef1dfef6ee6d31bcbd6e0c3cf54e3
 updated_at: "2026-07-03T18:41:14Z"
 files: ["gistfile1.txt"]
