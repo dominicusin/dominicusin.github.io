@@ -59,7 +59,15 @@
     { "id": "T53", "kind": "task", "title": "sync-github.cjs: persist gist file lang in gistsOut.files (f.lang||guessLang)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs", "data/github.json"], "verified": "gist files carry lang (e.g. Shell)", "initiative": "kb-taxonomy" },
     { "id": "T54", "kind": "task", "title": "build-knowledge-graph.cjs: lang concept layer (repo+gist tagged lang:), repo↔repo relatedTo by language", "status": "done", "deps": ["T53"], "artifacts": ["scripts/build-knowledge-graph.cjs"], "verified": "lang: concepts added; repo+gist tagged by lang", "initiative": "kb-taxonomy" },
     { "id": "T55", "kind": "task", "title": "Rebuild KG; measure deltas (edges, isolated gists, repo↔repo relatedTo); build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T54"], "artifacts": ["static/data/knowledge-graph.json"], "verified": "nodes 393→420, edges 699→1007, relatedTo 6→208, isolated gists 100→64", "initiative": "kb-taxonomy" },
-    { "id": "T56", "kind": "task", "title": "Commit + PR + gh pr merge --admin for kb-taxonomy", "status": "done", "deps": ["T55"], "pr": 119, "merged": "23c470db2", "initiative": "kb-taxonomy" }
+    { "id": "T56", "kind": "task", "title": "Commit + PR + gh pr merge --admin for kb-taxonomy", "status": "done", "deps": ["T55"], "pr": 119, "merged": "23c470db2", "initiative": "kb-taxonomy" },
+    { "id": "T29", "kind": "task", "title": "Write scripts/check-perf.cjs: parse built public/index.html, fail on render-blocking script/CSS", "status": "done", "deps": [], "artifacts": ["scripts/check-perf.cjs"], "verified": "shipped in #113 (e4334ffee)", "initiative": "perf-gate" },
+    { "id": "T30", "kind": "task", "title": "Test check-perf.cjs: passes on current build; fails on injected blocking script (negative test, reverted)", "status": "done", "deps": ["T29"], "artifacts": ["scripts/check-perf.cjs"], "verified": "negative test in #113: injected blocking script -> exit 1", "initiative": "perf-gate" },
+    { "id": "T57", "kind": "task", "title": "doc-debt Phase 1: add RECOMMENDATIONS.md + Manifest.md to STRATEGY_INDEX archived table (root paths, Jekyll-era)", "status": "in_progress", "deps": [], "artifacts": ["docs/STRATEGY_INDEX.md"], "initiative": "doc-debt" },
+    { "id": "T58", "kind": "task", "title": "doc-debt Phase 1: AUDIT_FINDINGS D2 — mark .bolt/ removal BLOCKED pending user confirmation", "status": "pending", "deps": ["T57"], "artifacts": ["docs/AUDIT_FINDINGS.md"], "initiative": "doc-debt" },
+    { "id": "T59", "kind": "task", "title": "doc-debt Phase 3: wire vercel.json to content-contract (ignoreCommand) or preview-only — block invalid posts on Vercel path", "status": "pending", "deps": [], "artifacts": ["vercel.json"], "initiative": "doc-debt" },
+    { "id": "T60", "kind": "task", "title": "doc-debt Phase 2: remove dead _site/.bundle/vendor scripts from package.json; verify precommit + node_modules delta", "status": "pending", "deps": [], "artifacts": ["package.json"], "initiative": "doc-debt" },
+    { "id": "T61", "kind": "task", "title": "doc-debt Phase 4: Playwright fixtures for 0-coverage DOM/network modules; raise branch coverage", "status": "pending", "deps": [], "artifacts": ["tests/"], "initiative": "doc-debt" },
+    { "id": "T62", "kind": "task", "title": "doc-debt Phase 5/6: i18n parity audit + ROADMAP_STATUS reconcile with Beads", "status": "pending", "deps": [], "artifacts": ["i18n/", "docs/ROADMAP_STATUS.md"], "initiative": "doc-debt" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -109,6 +117,8 @@
     { "from": "T51", "to": "T52", "type": "blocks" },
     { "from": "T53", "to": "T54", "type": "enables" },
     { "from": "T54", "to": "T55", "type": "enables" },
-    { "from": "T55", "to": "T56", "type": "blocks" }
+    { "from": "T55", "to": "T56", "type": "blocks" },
+    { "from": "T57", "to": "T58", "type": "enables" },
+    { "from": "T29", "to": "T30", "type": "blocks" }
   ]
 }

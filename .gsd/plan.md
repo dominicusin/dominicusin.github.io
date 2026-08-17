@@ -299,5 +299,29 @@ Beads T37–T39 = `done`; T40 (commit+PR+merge) in_progress.
   isolated-gist count drops by ≥ 26. `hugo` 0 errors; lint clean; test ALL PASSED;
   check-links 0 broken; check-perf 0 regressions.
 
+---
+
+## Initiative 13: `doc-debt` (user backlog doc-debt-and-hardening, Initiative 6+) — IN PROGRESS
+- **Audit (measured, not blindly followed):** user supplied a 7-phase Beads/GSD
+  backlog. Before acting, reconciled it with repo reality:
+  - **Phase 0 (T29/T30) ALREADY DONE** in PR #113 (`e4334ffee`) — `check-perf.cjs`
+    negative test (fails on injected blocking script) shipped there. Beads graph was
+    out of sync; reconciled T29/T30 → `done`.
+  - **Phase 1.2 valid**: `STRATEGY_INDEX.md` "Archived/superseded" lacked
+    `RECOMMENDATIONS.md` + `Manifest.md` (both in repo ROOT, not `docs/` — plan
+    mis-stated path). Added them as archived (Jekyll-era).
+  - **Phase 1.3 / 1.4 HUMAN-GATED** (AGENTS.md: no deletion without commit+reason):
+    did NOT delete `RECOMMENDATIONS.md`; did NOT remove `.bolt/`. D2 updated to
+    BLOCKED-pending-user (`.bolt/mcp.json` shows notion/linear/miro enabled — config,
+    not proof of use).
+  - **Phase 3 real risk**: `hugo.yml` runs `ci-content-contract.cjs` (soft gate) but
+    `vercel.json` exists with NO Vercel Actions workflow → Vercel can auto-deploy on
+    push, bypassing the Pages contract. Separate careful PR planned (T59).
+  - **Phase 2** previously assessed NOT viable (transitive deps); will re-verify
+    before acting (T60). **Phase 4/5/6** incremental (T61/T62).
+- **Done this pass (T57/T58 = Phase 1):** STRATEGY_INDEX archives RECOMMENDATIONS.md
+  + Manifest.md (root paths, Jekyll-era); AUDIT_FINDINGS D2 marked BLOCKED-pending-user.
+- **Verify:** docs/ links valid; T29/T30 reconciled; graph consistent.
+
 ### Status
-Beads T53–T55 = `done`; T56 (commit+PR+merge) in_progress.
+Beads T29/T30 reconciled (done); T57/T58 = `done` (Phase 1); T59–T62 pending.
