@@ -39,7 +39,7 @@
     { "id": "T33", "kind": "task", "title": "Author og-default.svg (1200x630 brand) + generate assets/images/og-default.png via rsvg-convert", "status": "done", "deps": [], "artifacts": ["assets/images/og-default.png", "assets/images/og-default.src.svg"], "verified": "PNG 1200x630, 89KB; rsvg-convert reproducible", "initiative": "og-image-raster" },
     { "id": "T34", "kind": "task", "title": "Switch params.toml defaultSocialImage to images/og-default.png (keep card SVG)", "status": "done", "deps": ["T33"], "artifacts": ["config/_default/params.toml"], "initiative": "og-image-raster" },
     { "id": "T35", "kind": "task", "title": "Verify built og:image/twitter:image end in .png; PNG 1200x630 <250KB; build/lint/test/linkcheck green", "status": "done", "deps": ["T33", "T34"], "artifacts": ["public/index.html"], "verified": "og:image+twitter:image -> og-default.png; perf gate 0 regressions", "initiative": "og-image-raster" },
-    { "id": "T36", "kind": "task", "title": "Commit + PR + gh pr merge --admin for og-image-raster", "status": "in_progress", "deps": ["T35"], "initiative": "og-image-raster" }
+    { "id": "T36", "kind": "task", "title": "Commit + PR + gh pr merge --admin for og-image-raster", "status": "done", "deps": ["T35"], "pr": 114, "merged": "630c960f9", "initiative": "og-image-raster" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
