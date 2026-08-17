@@ -55,7 +55,7 @@
     { "id": "T49", "kind": "task", "title": "writeGistPage: emit gist_name = desc + firstFileName (fallback desc||id)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "gist_name: 'zroot zroot' for 21432…", "initiative": "gist-names" },
     { "id": "T50", "kind": "task", "title": "list.html + single.html render gist_name instead of gist_id", "status": "done", "deps": ["T49"], "artifacts": ["layouts/gists/list.html", "layouts/gists/single.html"], "initiative": "gist-names" },
     { "id": "T51", "kind": "task", "title": "Regenerate content/gists; verify built list shows names (zroot zroot), build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T50"], "artifacts": ["public/gists/index.html"], "verified": "0 hash-names of 100 cards; build/lint/test/linkcheck/perf green", "initiative": "gist-names" },
-    { "id": "T52", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gist-names", "status": "in_progress", "deps": ["T51"], "initiative": "gist-names" }
+    { "id": "T52", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gist-names", "status": "done", "deps": ["T51"], "pr": 118, "merged": "30dba679e", "initiative": "gist-names" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
