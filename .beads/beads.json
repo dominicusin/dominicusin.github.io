@@ -51,7 +51,7 @@
     { "id": "T45", "kind": "task", "title": "Revert CSS to render-blocking (rel=stylesheet) in head.html; keep JS deferred", "status": "done", "deps": [], "artifacts": ["layouts/partials/head.html"], "verified": "built head has rel=stylesheet, no preload/onload swap", "initiative": "cls-fix" },
     { "id": "T46", "kind": "task", "title": "Update check-perf.cjs: rel=stylesheet is acceptable (informational), still guard render-blocking JS", "status": "done", "deps": ["T45"], "artifacts": ["scripts/check-perf.cjs"], "verified": "gate reports CSS blocking as intentional, not failure", "initiative": "cls-fix" },
     { "id": "T47", "kind": "task", "title": "Verify built head rel=stylesheet + no swap; build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T45", "T46"], "artifacts": ["public/index.html"], "verified": "0 errors; check-perf 0 regressions; head rel=stylesheet", "initiative": "cls-fix" },
-    { "id": "T48", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cls-fix", "status": "in_progress", "deps": ["T47"], "initiative": "cls-fix" }
+    { "id": "T48", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cls-fix", "status": "done", "deps": ["T47"], "pr": 117, "merged": "3497571ed", "initiative": "cls-fix" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
