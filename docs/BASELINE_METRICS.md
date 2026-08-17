@@ -103,3 +103,31 @@ remains (used by `vector-search-service.js`).
 **Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 64.49% branch
 / 76.57% line — substantial gap concentrated in DOM/network services. Closing it
 requires the Playwright E2E layer (Phase 0/4), not unit tests.
+
+## 7. Phase 4 update — doc-debt (2026-08-17, commit series #120–#123)
+
+Added unit tests for the two modules that were **truly 0%-covered** (the other five
+modules named in the backlog already had `tests/unit/*.test.js`, so they were not
+re-tested). Measured with `npm run test:coverage` (c8, `src/**/*.js`):
+
+| Module | Lines (before→after) | Branch (before→after) |
+|---|---|---|
+| `src/services/vr-export-service.js` | 0% → **84.92%** | 0% → **71.92%** |
+| `src/modules/social-sharing.js` | 0% → **77.68%** | 0% → **64.91%** |
+
+**Source bugs found and fixed by the new tests** (this is the real value of the
+coverage work, not the percentage):
+1. `vr-export-service.js:95` — `const alpha` was reassigned inside the force-layout
+   loop → `TypeError: "alpha" is read-only`. Changed to `let alpha` (VR export was
+   previously non-functional).
+2. `social-sharing.js` — 4× `} catch {} {` missing the `error` binding; inside the
+   block `error` was referenced → `ReferenceError: error is not defined` on **any**
+   share-count fetch failure / web-share / clipboard-fallback path. Restored
+   `catch (error)` on the two blocks that use it (lines 293, 410); the two blocks
+   that don't use it kept optional `catch {}` (ES2019).
+
+**Honest note on the 85% target:** adding these two suites did NOT move the repo-wide
+`c8 --all` branch number to 85% (it stays in the ~65% band because many other
+`src/**` modules remain untested — out of doc-debt scope). The 85% gate remains a
+TODO requiring the broader Playwright E2E layer, as the plan itself states. Recorded
+here so the baseline is never retro-fabricated upward.
