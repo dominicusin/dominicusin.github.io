@@ -35,7 +35,7 @@
     { "id": "T29", "kind": "task", "title": "Write scripts/check-perf.cjs: parse built public/index.html, fail on render-blocking script/CSS", "status": "in_progress", "deps": [], "artifacts": ["scripts/check-perf.cjs"], "initiative": "perf-gate" },
     { "id": "T30", "kind": "task", "title": "Test check-perf.cjs: passes on current build; fails on injected blocking script/stylesheet (negative test, reverted)", "status": "pending", "deps": ["T29"], "artifacts": ["scripts/check-perf.cjs"], "initiative": "perf-gate" },
     { "id": "T31", "kind": "task", "title": "Wire Performance smoke check step into hugo.yml (report-only, after build)", "status": "done", "deps": ["T29", "T30"], "artifacts": [".github/workflows/hugo.yml"], "initiative": "perf-gate" },
-    { "id": "T32", "kind": "task", "title": "Verify build/lint/test/linkcheck + commit+PR+admin-merge (perf-gate)", "status": "in_progress", "deps": ["T31"], "initiative": "perf-gate" }
+    { "id": "T32", "kind": "task", "title": "Verify build/lint/test/linkcheck + commit+PR+admin-merge (perf-gate)", "status": "done", "deps": ["T31"], "pr": 113, "merged": "e4334ffee", "initiative": "perf-gate" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
