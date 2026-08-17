@@ -180,3 +180,26 @@ Beads T29–T31 = `done`; T32 (commit+PR+merge) in_progress.
 
 ### Status
 Beads T33–T35 = `done`; T36 (commit+PR+merge) in_progress.
+
+---
+
+## Initiative 8: `gists-list` (self-identified, user-reported) — DONE
+- **Reported:** user: "Почему гисты (https://dominicusin.github.io/gists/) пусты? их же >100".
+- **Root cause (verified, not guessed):** `writeGistPage` wrote gist pages as
+  **nested** `content/gists/<id>/index.md` (leaf bundles). The list template
+  (`layouts/gists/list.html`) ranges `{{ .RegularPages.ByTitle }}` on the `/gists/`
+  section — nested leaf bundles are NOT surfaced as the section's `.RegularPages`
+  the way **flat** pages are. `writeRepoPage` writes flat `content/repositories/
+  <owner>__<repo>.md` and the repo list works. So `/gists/` rendered the layout
+  but listed 0 gists. Live confirmed: `repo-grid` present, `repo-card` count = 0.
+- **Fix:** `writeGistPage` now writes flat `content/gists/<id>.md` (single file,
+  direct child of the section), mirroring `writeRepoPage`. Frontmatter keys
+  (`type:gist`, `gist_id`, `gist_url`, `updated_at`, `files`) unchanged. Stale
+  nested `content/gists/<id>/` dirs removed before regen.
+- **Verify:** `content/gists/*.md` = 100 (matches `data/github.json` gists); built
+  `public/gists/index.html` contains 100 gist cards (`repo-card` class ×5 per card
+  = 500 occurrences); single `public/gists/<id>/index.html` pages render; `hugo` 0
+  errors; lint clean; test ALL PASSED; check-links 0 broken; check-perf 0 regressions.
+
+### Status
+Beads T37–T39 = `done`; T40 (commit+PR+merge) in_progress.

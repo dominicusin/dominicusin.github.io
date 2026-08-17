@@ -184,8 +184,12 @@ function writeRepoPage(owner, repo, info, body, docs) {
 }
 
 function writeGistPage(gist) {
-  const dir = path.join(GIST_OUT, gist.id);
-  fs.mkdirSync(dir, { recursive: true });
+  // Flat page: content/gists/<id>.md — a direct child of the /gists/ section so
+  // .RegularPages lists every gist on the index (mirrors writeRepoPage for repos).
+  // NOTE: nested content/gists/<id>/index.md was NOT picked up by the section's
+  // .RegularPages in the list template, leaving /gists/ empty. Flat layout fixes it.
+  const file = path.join(GIST_OUT, `${gist.id}.md`);
+  fs.mkdirSync(GIST_OUT, { recursive: true });
   const fm = [
     '---',
     `title: ${yamlish(gist.description || gist.id)}`,
@@ -200,7 +204,7 @@ function writeGistPage(gist) {
   let body = '';
   if (gist.description) body += `_${gist.description}_\n\n`;
   for (const f of gist.files) body += `## ${f.name}\n\n\`\`\`${f.lang || ''}\n${f.content}\n\`\`\`\n\n`;
-  fs.writeFileSync(path.join(dir, 'index.md'), fm + body);
+  fs.writeFileSync(file, fm + body + '\n');
 }
 
 function guessLang(name) {
