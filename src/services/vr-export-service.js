@@ -92,7 +92,7 @@ export class KnowledgeGraphVRExporter {
 
     const edges = this.graphData.edges || [];
     const iterations = 300;
-    const alpha = 0.3;
+    let alpha = 0.3;
     const alphaDecay = Math.pow(alpha, 1 / iterations);
 
     for (let i = 0; i < iterations; i++) {

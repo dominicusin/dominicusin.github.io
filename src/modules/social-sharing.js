@@ -290,7 +290,7 @@ export class SocialSharing {
             url: this.shareData.url
           });
           this._trackShare('web_share');
-        } catch {} {
+        } catch (error) {
           if (error.name !== 'AbortError') {
             console.error('Web share failed:', error);
           }
@@ -407,7 +407,7 @@ export class SocialSharing {
       });
 
       this._updateShareCountsUI();
-    } catch {} {
+    } catch (error) {
       console.warn('Failed to load share counts:', error);
       this._hideShareCounts();
     }
