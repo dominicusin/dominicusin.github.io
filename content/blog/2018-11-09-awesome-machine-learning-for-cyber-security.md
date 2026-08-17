@@ -11,6 +11,9 @@ tags:
 - ml
 - cybersecurity
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "Awesome Machine Learning for Cyber Security"
 ---
 author: DominicusIn
 

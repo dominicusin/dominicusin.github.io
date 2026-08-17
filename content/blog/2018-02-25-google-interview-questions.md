@@ -9,6 +9,9 @@ categories:
 tags:
 - interview
 - programming
+
+image: /assets/images/og-default.png
+alt: "Google Interview Questions"
 ---
 author: DominicusIn
 

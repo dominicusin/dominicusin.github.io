@@ -9,6 +9,9 @@ categories:
 tags:
 - podcasts
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "it-podcast"
 ---
 author: DominicusIn
 

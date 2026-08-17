@@ -12,6 +12,9 @@ tags:
 - cli
 gist_id: 4d2dd71dbda592ec3e974f895d9629b6
 gist_url: https://gist.github.com/dominicusin/4d2dd71dbda592ec3e974f895d9629b6
+
+image: /assets/images/og-default.png
+alt: "lists"
 ---
 author: DominicusIn
 

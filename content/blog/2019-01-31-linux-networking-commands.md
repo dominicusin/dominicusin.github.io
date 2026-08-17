@@ -10,6 +10,9 @@ tags:
 - linux
 - networking
 - cli
+
+image: /assets/images/og-default.png
+alt: "Linux Networking commands"
 ---
 author: DominicusIn
 

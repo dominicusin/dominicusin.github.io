@@ -10,6 +10,9 @@ tags:
 - tor
 - darknet
 - privacy
+
+image: /assets/images/og-default.png
+alt: "Dark Web Links"
 ---
 author: DominicusIn
 

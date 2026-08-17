@@ -10,6 +10,8 @@ tags:
 - privacy
 - tor
 - tools
+image: /assets/images/og-default.png
+alt: "OnionShare"
 ---
 author: DominicusIn
 

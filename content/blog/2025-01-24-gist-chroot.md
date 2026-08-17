@@ -13,6 +13,9 @@ tags:
 - linux
 gist_id: 8402abedb4df49c2852ce150f03a5372
 gist_url: https://gist.github.com/dominicusin/8402abedb4df49c2852ce150f03a5372
+
+image: /assets/images/og-default.png
+alt: "chroot"
 ---
 author: DominicusIn
 

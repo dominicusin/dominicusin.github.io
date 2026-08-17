@@ -11,6 +11,9 @@ tags:
 - free-resources
 - programming
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "free-programming-books"
 ---
 author: DominicusIn
 

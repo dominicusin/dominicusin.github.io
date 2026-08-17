@@ -11,6 +11,9 @@ categories:
 tags:
 - cv
 - productivity
+
+image: /assets/images/og-default.png
+alt: "Curriculum Vitae"
 ---
 author: DominicusIn
 

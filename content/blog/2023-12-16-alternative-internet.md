@@ -11,6 +11,9 @@ tags:
 - privacy
 - networks
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "Alternative Internet"
 ---
 author: DominicusIn
 

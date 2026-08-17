@@ -13,6 +13,9 @@ tags:
 - linux
 gist_id: 93445e617b848ab12e5b0a7026f25752
 gist_url: https://gist.github.com/dominicusin/93445e617b848ab12e5b0a7026f25752
+
+image: /assets/images/og-default.png
+alt: "flatpaks"
 ---
 author: DominicusIn
 

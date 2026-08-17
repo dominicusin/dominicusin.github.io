@@ -10,6 +10,9 @@ tags:
 - awesome-list
 - piracy
 - media
+
+image: /assets/images/og-default.png
+alt: "Awesome Piracy"
 ---
 author: DominicusIn
 

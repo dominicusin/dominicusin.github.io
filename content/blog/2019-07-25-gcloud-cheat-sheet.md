@@ -10,6 +10,9 @@ tags:
 - gcloud
 - cli
 - cloud
+
+image: /assets/images/og-default.png
+alt: "gcloud cheat sheet"
 ---
 author: DominicusIn
 

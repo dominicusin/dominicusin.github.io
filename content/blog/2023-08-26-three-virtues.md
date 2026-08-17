@@ -10,6 +10,9 @@ tags:
 - programming
 - humor
 - craft
+
+image: /assets/images/og-default.png
+alt: "Three Virtues"
 ---
 author: DominicusIn
 

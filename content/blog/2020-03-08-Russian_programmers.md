@@ -9,6 +9,9 @@ categories:
 tags:
 - programming
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "programmers"
 ---
 author: DominicusIn
 
