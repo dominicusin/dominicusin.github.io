@@ -43,7 +43,7 @@
     { "id": "T37", "kind": "task", "title": "Fix writeGistPage: write flat content/gists/<id>.md (was nested index.md; .RegularPages missed them)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "mirrors writeRepoPage flat layout", "initiative": "gists-list" },
     { "id": "T38", "kind": "task", "title": "Clean stale content/gists + regenerate (sync-github.cjs) so flat pages exist", "status": "done", "deps": ["T37"], "artifacts": ["content/gists/*.md"], "verified": "100 flat gist pages match data/github.json", "initiative": "gists-list" },
     { "id": "T39", "kind": "task", "title": "Verify built /gists/ lists all gists (>=90 repo-card); build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T38"], "artifacts": ["public/gists/index.html"], "verified": "100 gist cards (500 repo-card class hits); 0 errors; all gates green", "initiative": "gists-list" },
-    { "id": "T40", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gists-list", "status": "in_progress", "deps": ["T39"], "initiative": "gists-list" }
+    { "id": "T40", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gists-list", "status": "done", "deps": ["T39"], "pr": 115, "merged": "249f8c758", "initiative": "gists-list" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
