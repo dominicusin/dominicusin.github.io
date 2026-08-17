@@ -52,6 +52,7 @@
 | **DAO security audit before any deploy** | 📋 | threat model documented; no external audit; deploy guarded (no secrets) |
 | **PR preview deployments** | 📋 | not configured (GitHub Pages single env) |
 | **ActivityPub / IndieWeb / JSON Feed beyond RSS** | 📋 | RSS + JSON index exist; richer machine feeds not started |
+| **doc-debt backlog (doc-debt-and-hardening)** | 🔄 | Phases 0–4 done (PRs #120–#123). Phases 5–6 (i18n parity, ROADMAP_STATUS reconcile) in progress. Granular status lives in the Beads graph (`.beads/beads.json` T1–T71); this doc is the strategic synthesis. |
 
 ## Inductive findings (from observed repo behavior)
 - The **content-contract gate must diff against `merge-base(origin/main, HEAD)`**, not a three-dot range — a squash-merge otherwise flags all 59 posts as "added" and hard-blocks the deploy. (Fixed in #83.)
