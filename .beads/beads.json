@@ -29,7 +29,7 @@
     { "id": "T23", "kind": "task", "title": "Audit built site: root-cause LCP bottleneck (asset sizes, render-blocking JS/CSS, inline scripts)", "status": "done", "deps": [], "artifacts": ["layouts/partials/head.html"], "verified": "9 head scripts, 8 were render-blocking; no hero image; CSS already bundled", "initiative": "performance" },
     { "id": "T24", "kind": "task", "title": "Defer non-critical JS (appearance/a11y/zenMode/zoom) off critical path via head.html override", "status": "done", "deps": ["T23"], "artifacts": ["layouts/partials/head.html"], "verified": "head scripts: 9→1 non-deferred (JSON-LD/config only, non-executable)", "initiative": "performance" },
     { "id": "T25", "kind": "task", "title": "Optimize critical CSS/hero if needed; reduce critical-path budget (measure before/after)", "status": "done", "deps": ["T23", "T24"], "verified": "no hero image; CSS single minified bundle; no further action", "initiative": "performance" },
-    { "id": "T26", "kind": "task", "title": "Commit + PR + gh pr merge --admin for performance", "status": "in_progress", "deps": ["T25"], "initiative": "performance" }
+    { "id": "T26", "kind": "task", "title": "Commit + PR + gh pr merge --admin for performance", "status": "done", "deps": ["T25"], "pr": 111, "merged": "0e964181f", "initiative": "performance" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
