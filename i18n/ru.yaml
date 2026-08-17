@@ -62,3 +62,22 @@ search_close_button_title: "Закрыть поиск"
 # Related posts section (Blowfish related.html) — nested to override theme RU
 article:
   related_articles: "Похожие статьи"
+  zen_mode_title:
+    enable: "Включить дзен-режим"
+    disable: "Выключить дзен-режим"
+
+# Share link labels (Blowfish sharing.json provider titles use nested
+# `sharing.<provider>` keys — were missing, causing empty aria-label/title on
+# share anchors → axe link-name violation on every post)
+sharing:
+  email: "Поделиться по email"
+  facebook: "Поделиться в Facebook"
+  line: "Поделиться в Line"
+  linkedin: "Поделиться в LinkedIn"
+  pinterest: "Поделиться в Pinterest"
+  reddit: "Поделиться в Reddit"
+  twitter: "Поделиться в Twitter"
+  whatsapp: "Поделиться в WhatsApp"
+  telegram: "Поделиться в Telegram"
+  bluesky: "Поделиться в Bluesky"
+  mastodon: "Поделиться в Mastodon"
