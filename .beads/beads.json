@@ -31,7 +31,11 @@
     { "id": "T25", "kind": "task", "title": "Optimize critical CSS/hero if needed; reduce critical-path budget (measure before/after)", "status": "done", "deps": ["T23", "T24"], "verified": "no hero image; CSS single minified bundle; no further action", "initiative": "performance" },
     { "id": "T26", "kind": "task", "title": "Commit + PR + gh pr merge --admin for performance", "status": "done", "deps": ["T25"], "pr": 111, "merged": "0e964181f", "initiative": "performance" },
     { "id": "T27", "kind": "task", "title": "Make 128KB CSS bundle non-render-blocking (preload+onload swap, noscript fallback) in head.html override", "status": "done", "deps": ["T24"], "artifacts": ["layouts/partials/head.html"], "verified": "CSS link now rel=preload as=style + onload swap; noscript fallback present", "initiative": "performance" },
-    { "id": "T28", "kind": "task", "title": "Verify CSS still applies + build/lint/test/linkcheck green; commit+PR+admin-merge (performance CSS)", "status": "done", "deps": ["T27"], "pr": 112, "merged": "96489a698", "initiative": "performance" }
+    { "id": "T28", "kind": "task", "title": "Verify CSS still applies + build/lint/test/linkcheck green; commit+PR+admin-merge (performance CSS)", "status": "done", "deps": ["T27"], "pr": 112, "merged": "96489a698", "initiative": "performance" },
+    { "id": "T29", "kind": "task", "title": "Write scripts/check-perf.cjs: parse built public/index.html, fail on render-blocking script/CSS", "status": "in_progress", "deps": [], "artifacts": ["scripts/check-perf.cjs"], "initiative": "perf-gate" },
+    { "id": "T30", "kind": "task", "title": "Test check-perf.cjs: passes on current build; fails on injected blocking script/stylesheet (negative test, reverted)", "status": "pending", "deps": ["T29"], "artifacts": ["scripts/check-perf.cjs"], "initiative": "perf-gate" },
+    { "id": "T31", "kind": "task", "title": "Wire Performance smoke check step into hugo.yml (report-only, after build)", "status": "done", "deps": ["T29", "T30"], "artifacts": [".github/workflows/hugo.yml"], "initiative": "perf-gate" },
+    { "id": "T32", "kind": "task", "title": "Verify build/lint/test/linkcheck + commit+PR+admin-merge (perf-gate)", "status": "in_progress", "deps": ["T31"], "initiative": "perf-gate" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -59,6 +63,9 @@
     { "from": "T24", "to": "T25", "type": "enables" },
     { "from": "T25", "to": "T26", "type": "blocks" },
     { "from": "T24", "to": "T27", "type": "enables" },
-    { "from": "T27", "to": "T28", "type": "blocks" }
+    { "from": "T27", "to": "T28", "type": "blocks" },
+    { "from": "T29", "to": "T30", "type": "enables" },
+    { "from": "T30", "to": "T31", "type": "enables" },
+    { "from": "T31", "to": "T32", "type": "blocks" }
   ]
 }

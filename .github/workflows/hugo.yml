@@ -83,6 +83,13 @@ jobs:
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Performance smoke check (report-only)
+        # Structural guard for the #111/#112 perf fixes: fails if the built
+        # homepage regresses to render-blocking JS/CSS. Report-only on the deploy
+        # path (never blocks publishing); promotes to a hard gate once stable.
+        continue-on-error: true
+        run: node scripts/check-perf.cjs
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
