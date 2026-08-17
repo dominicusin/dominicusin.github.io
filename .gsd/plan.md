@@ -127,3 +127,29 @@ Beads T23–T25 = `done`; T26 (commit+PR+merge) in_progress.
 
 ### Status
 Beads T27 = `done`; T28 (commit+PR+merge for CSS fix) in_progress.
+
+---
+
+## Initiative 6: `perf-gate` (Structural regression guard) — DONE
+- **Why:** #111 (defer JS) + #112 (non-blocking CSS) were unguarded; CI Lighthouse is
+  non-blocking + noisy (throttled shared infra), so it can't protect them. We
+  automate the structural audit of the built homepage as a CI gate.
+- **R1–R6 satisfied:**
+  - `scripts/check-perf.cjs` (CommonJS `.cjs`, mirrors `check-links.cjs`) parses
+    `public/index.html`, fails on render-blocking `<script src>` (no defer/async,
+    excludes `type=module`) or a plain `<link rel=stylesheet>` in `<head>` outside
+    `<noscript>`. Inline non-executable (JSON/JSON-LD) and trivial vendor inits
+    (<256 chars, e.g. Vercel `window.va`) are exempt. Reports CSS bundle bytes
+    (warn >140KB, informational).
+  - **PASS on current build**: 0 regressions (exit 0). **NEGATIVE test**: injecting a
+    blocking `<script src>` + plain `rel=stylesheet` → exits 1 with both flagged
+    (reverted; not committed). Gate works both ways.
+  - Wired into `.github/workflows/hugo.yml` as "Performance smoke check" step after
+    "Build with Hugo", `continue-on-error: true` (report-only, never blocks deploy).
+- **Reality note:** built HTML uses UNQUOTED attribute values (`type=module`,
+  `rel=stylesheet`) — initial regexes falsely matched; fixed by quote-optional
+  matching. Also `onload="this.rel='stylesheet'"` substring initially tripped the
+  stylesheet detector — fixed by requiring `rel` attribute boundary.
+
+### Status
+Beads T29–T31 = `done`; T32 (commit+PR+merge) in_progress.
