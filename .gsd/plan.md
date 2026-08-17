@@ -231,5 +231,31 @@ Beads T37–T39 = `done`; T40 (commit+PR+merge) in_progress.
   (committed/tracked); built `public/gists/index.html` ≥ 90 gist cards; `hugo` 0 errors;
   lint clean; test ALL PASSED; check-links 0 broken; check-perf 0 regressions.
 
+---
+
+## Initiative 10: `cls-fix` (self-identified: Lighthouse CLS=1.0) — DONE
+- **Signal:** Lighthouse CI reports `cumulative-layout-shift` = **1.0** (max) on
+  every deploy. Earlier I judged Lighthouse LCP as noisy and stopped; CLS=1.0 is
+  NOT noise — it is a deterministic, full-viewport layout shift (the worst score).
+- **Root cause (VERIFIED from built HTML):** PR #112 made the CSS bundle
+  non-render-blocking (`rel=preload as=style onload="this.rel='stylesheet'"` +
+  `<noscript>` fallback). The page therefore painted **UNSTYLED** first, then
+  snapped into the styled layout when the 128KB bundle loaded → CLS ≈ 1.0. A
+  render-blocking `rel=stylesheet` does NOT cause CLS (content waits for styles).
+  PR #112 traded a marginal, CI-noise LCP improvement for a catastrophic, real CLS
+  regression. Local Chromium measurement was BLOCKED (NixOS `[nix-ld] FATAL:
+  Posix(2)` — same breakage class as the Firestore emulator JDK), so the cause was
+  confirmed from the build output, not guessed.
+- **Fix:** reverted CSS to `<link rel="stylesheet">` (render-blocking) in
+  `layouts/partials/head.html`; kept JS deferred (PR #111 retained — defer does not
+  cause CLS). Updated `scripts/check-perf.cjs` so a blocking stylesheet is NOT a
+  failure (informational only); the gate still fails on a render-blocking
+  executable `<script>` (the real #111 regression guard). Kept `scripts/probe-cls.cjs`
+  as a diagnostic (NixOS-can't-run-here; useful on other runners).
+- **Verify:** built `public/index.html` head has `<link rel="stylesheet" href=…main.bundle…>`
+  and NO `rel=preload as=style … onload=`; `node scripts/check-perf.cjs` exits 0
+  (CSS blocking reported as intentional); `hugo` 0 errors; lint clean; test ALL
+  PASSED; check-links 0 broken.
+
 ### Status
-Beads T41–T43 = `done`; T44 (verify+commit+PR+merge) in_progress.
+Beads T45–T47 = `done`; T48 (commit+PR+merge) in_progress.

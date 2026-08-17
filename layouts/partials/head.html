@@ -136,21 +136,19 @@
     {{ $cssResources = $cssResources | append (resources.Get "lib/zoom/style.css") }}
   {{ end }}
   {{ $bundleCSS := $cssResources | resources.Concat "css/main.bundle.css" | resources.Minify | resources.Fingerprint $alg }}
-  {{/* Load CSS non-render-blocking: preload + swap to stylesheet on load,
-       so first paint is not blocked by the 128KB bundle. noscript keeps it
-       blocking for no-JS users (correct styling, acceptable trade-off). */}}
+  {{/* CSS — render-blocking (rel=stylesheet).
+       NOTE: a previous version loaded CSS non-render-blocking via
+       preload + onload swap. That caused a catastrophic CLS (~1.0) because the
+       page painted UNSTYLED first, then snapped into the styled layout when the
+       bundle loaded. A render-blocking stylesheet does NOT cause CLS (content
+       does not paint until styled). The 128KB bundle is already-purged component
+       CSS (not trimmable without dropping features), so render-blocking is the
+       correct trade-off: CLS 0 beats a marginal, CI-noise LCP delta. JS stays
+       deferred (see below) — defer does not cause CLS. */}}
   <link
-    rel="preload"
-    as="style"
+    rel="stylesheet"
     href="{{ $bundleCSS.RelPermalink }}"
-    integrity="{{ $bundleCSS.Data.Integrity }}"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link
-      rel="stylesheet"
-      href="{{ $bundleCSS.RelPermalink }}"
-      integrity="{{ $bundleCSS.Data.Integrity }}">
-  </noscript>
+    integrity="{{ $bundleCSS.Data.Integrity }}">
 
   {{/* JS deferred (was "loaded immediately" in theme — now deferred for LCP) */}}
   {{ $jsAppearance := resources.Get "js/appearance.js" | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify | resources.Fingerprint $alg }}
