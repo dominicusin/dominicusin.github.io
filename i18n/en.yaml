@@ -36,6 +36,9 @@ topics_data_science_desc: "Machine learning, artificial intelligence, big data a
 topics_learn_more: "Learn More"
 topics_articles_count: "articles"
 
+article:
+  related_articles: "Related Articles"
+
 newsletter_title: "Subscribe to Updates"
 newsletter_description: "Get notifications about new articles and materials"
 newsletter_rss_feed: "RSS Feed"
