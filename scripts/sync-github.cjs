@@ -9,7 +9,7 @@
  *
  * Outputs:
  *   content/repositories/<owner>/<repo>/_index.md   (README + Contributing + License + docs)
- *   content/gists/<id>/index.md                     (each gist file as a code block)
+ *   content/gists/<id>.md                          (each gist file as a code block)
  *   data/github.json                                (machine-readable index for KG + ontology)
  *
  * Design notes:
@@ -264,11 +264,43 @@ async function processRepo(r) {
   };
 }
 
+async function getGists() {
+  const cacheKey = path.join(CACHE_DIR, `gists-${GIST_USER}.json`);
+  const url = `https://api.github.com/users/${GIST_USER}/gists?per_page=100`;
+  let gists = await gh(url);
+  if (!gists || !gists.length) {
+    // Secondary rate-limit / 403 in CI (heavy repo storm exhausts the token
+    // before this call). Fall back to last-good cache so gist pages still build.
+    if (cache[url] && Array.isArray(cache[url].data) && cache[url].data.length) return cache[url].data;
+    if (fs.existsSync(cacheKey)) { try { return JSON.parse(fs.readFileSync(cacheKey, 'utf8')); } catch {} }
+  }
+  if (gists && gists.length) { try { fs.mkdirSync(CACHE_DIR, { recursive: true }); fs.writeFileSync(cacheKey, JSON.stringify(gists)); } catch {} }
+  return gists || [];
+}
+
 async function main() {
   console.log('🔄 Syncing GitHub repos + gists…');
   const reposOut = [];
   const gistsOut = [];
   const errors = [];
+
+  // ---- Gists FIRST (cheap: 1 list call + N file calls) ----
+  // Must run before the heavy repo storm, which exhausts the CI token's
+  // secondary rate-limit and makes `users/<user>/gists` return HTTP 403.
+  let gists = [];
+  try { gists = await getGists(); } catch (e) { errors.push(`gists: ${e.message}`); }
+  console.log(`  gists: ${gists.length}`);
+  for (const g of gists) {
+    try {
+      const files = [];
+      for (const [name, meta] of Object.entries(g.files || {})) {
+        const raw = meta.raw_url ? await gh(meta.raw_url, { raw: true }) : (meta.content || '');
+        files.push({ name, lang: meta.language || guessLang(name), content: (raw || '').slice(0, MAX_DOC_BYTES) });
+      }
+      writeGistPage({ id: g.id, description: g.description, updated_at: g.updated_at, files });
+      gistsOut.push({ id: g.id, description: g.description || '', html_url: g.html_url, updated_at: g.updated_at, files: files.map(f => f.name) });
+    } catch (e) { errors.push(`gist ${g.id}: ${e.message}`); }
+  }
 
   // ---- Repos (parallel, batched) ----
   const allRepos = [];
@@ -282,22 +314,6 @@ async function main() {
     const batch = allRepos.slice(i, i + BATCH);
     const results = await Promise.all(batch.map(r => processRepo(r).catch(e => { errors.push(`repo ${r.full_name}: ${e.message}`); return null; })));
     results.filter(Boolean).forEach(r => reposOut.push(r));
-  }
-
-  // ---- Gists ----
-  let gists = [];
-  try { gists = await gh(`https://api.github.com/users/${GIST_USER}/gists?per_page=100`) || []; } catch (e) { errors.push(`gists: ${e.message}`); }
-  console.log(`  gists: ${gists.length}`);
-  for (const g of gists) {
-    try {
-      const files = [];
-      for (const [name, meta] of Object.entries(g.files || {})) {
-        const raw = meta.raw_url ? await gh(meta.raw_url, { raw: true }) : (meta.content || '');
-        files.push({ name, lang: meta.language || guessLang(name), content: (raw || '').slice(0, MAX_DOC_BYTES) });
-      }
-      writeGistPage({ id: g.id, description: g.description, updated_at: g.updated_at, files });
-      gistsOut.push({ id: g.id, description: g.description || '', html_url: g.html_url, updated_at: g.updated_at, files: files.map(f => f.name) });
-    } catch (e) { errors.push(`gist ${g.id}: ${e.message}`); }
   }
 
   fs.mkdirSync(DATA_OUT, { recursive: true });

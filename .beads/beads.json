@@ -43,7 +43,11 @@
     { "id": "T37", "kind": "task", "title": "Fix writeGistPage: write flat content/gists/<id>.md (was nested index.md; .RegularPages missed them)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "mirrors writeRepoPage flat layout", "initiative": "gists-list" },
     { "id": "T38", "kind": "task", "title": "Clean stale content/gists + regenerate (sync-github.cjs) so flat pages exist", "status": "done", "deps": ["T37"], "artifacts": ["content/gists/*.md"], "verified": "100 flat gist pages match data/github.json", "initiative": "gists-list" },
     { "id": "T39", "kind": "task", "title": "Verify built /gists/ lists all gists (>=90 repo-card); build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T38"], "artifacts": ["public/gists/index.html"], "verified": "100 gist cards (500 repo-card class hits); 0 errors; all gates green", "initiative": "gists-list" },
-    { "id": "T40", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gists-list", "status": "done", "deps": ["T39"], "pr": 115, "merged": "249f8c758", "initiative": "gists-list" }
+    { "id": "T40", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gists-list", "status": "done", "deps": ["T39"], "pr": 115, "merged": "249f8c758", "initiative": "gists-list" },
+    { "id": "T41", "kind": "task", "title": "Reorder main(): fetch+write gists BEFORE repos (fresh CI quota)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "sync log shows gists:100 before repos", "initiative": "gists-ci-403" },
+    { "id": "T42", "kind": "task", "title": "Un-ignore content/gists/*/ in .gitignore; commit generated gist pages (fallback in CI)", "status": "done", "deps": ["T41"], "artifacts": [".gitignore", "content/gists/"], "verified": "gist md files now tracked (git check-ignore = not ignored)", "initiative": "gists-ci-403" },
+    { "id": "T43", "kind": "task", "title": "Add gist cache fallback (last-good gists-<user>.json) mirroring getRepos", "status": "done", "deps": ["T41"], "artifacts": ["scripts/sync-github.cjs"], "verified": "getGists() fallback added", "initiative": "gists-ci-403" },
+    { "id": "T44", "kind": "task", "title": "Verify gists fetch before repos; build/lint/test/linkcheck/perf green; commit+PR+admin-merge", "status": "in_progress", "deps": ["T42", "T43"], "initiative": "gists-ci-403" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -80,6 +84,10 @@
     { "from": "T35", "to": "T36", "type": "blocks" },
     { "from": "T37", "to": "T38", "type": "enables" },
     { "from": "T38", "to": "T39", "type": "enables" },
-    { "from": "T39", "to": "T40", "type": "blocks" }
+    { "from": "T39", "to": "T40", "type": "blocks" },
+    { "from": "T41", "to": "T42", "type": "enables" },
+    { "from": "T41", "to": "T43", "type": "enables" },
+    { "from": "T42", "to": "T44", "type": "enables" },
+    { "from": "T43", "to": "T44", "type": "enables" }
   ]
 }
