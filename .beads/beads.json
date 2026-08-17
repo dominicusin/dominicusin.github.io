@@ -31,7 +31,7 @@
     { "id": "T25", "kind": "task", "title": "Optimize critical CSS/hero if needed; reduce critical-path budget (measure before/after)", "status": "done", "deps": ["T23", "T24"], "verified": "no hero image; CSS single minified bundle; no further action", "initiative": "performance" },
     { "id": "T26", "kind": "task", "title": "Commit + PR + gh pr merge --admin for performance", "status": "done", "deps": ["T25"], "pr": 111, "merged": "0e964181f", "initiative": "performance" },
     { "id": "T27", "kind": "task", "title": "Make 128KB CSS bundle non-render-blocking (preload+onload swap, noscript fallback) in head.html override", "status": "done", "deps": ["T24"], "artifacts": ["layouts/partials/head.html"], "verified": "CSS link now rel=preload as=style + onload swap; noscript fallback present", "initiative": "performance" },
-    { "id": "T28", "kind": "task", "title": "Verify CSS still applies + build/lint/test/linkcheck green; commit+PR+admin-merge (performance CSS)", "status": "in_progress", "deps": ["T27"], "initiative": "performance" }
+    { "id": "T28", "kind": "task", "title": "Verify CSS still applies + build/lint/test/linkcheck green; commit+PR+admin-merge (performance CSS)", "status": "done", "deps": ["T27"], "pr": 112, "merged": "96489a698", "initiative": "performance" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
