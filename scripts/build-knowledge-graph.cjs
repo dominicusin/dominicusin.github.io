@@ -119,9 +119,11 @@ bridges.forEach(([a, b]) => addEdge(a, b, 'relatedTo'));
 // become `concept` (tag) nodes linked via `tagged`. This turns the graph into a
 // true site ontology spanning posts, concepts, repos, gists and people.
 const githubJson = path.join(ROOT, 'data', 'github.json');
+const CODE_LANGS = new Set(['python', 'javascript', 'typescript', 'c', 'cpp', 'shell', 'bash', 'haskell', 'rust', 'go', 'nix', 'lua', 'lisp', 'scheme', 'sql', 'php', 'tex', 'markdown', 'html', 'yaml', 'json']);
 if (fs.existsSync(githubJson)) {
   try {
     const gh = JSON.parse(fs.readFileSync(githubJson, 'utf8'));
+    const repoLang = {}; // repoId -> language (for repo↔repo clustering)
     for (const r of (gh.repos || [])) {
       const id = 'repo:' + r.fullName;
       addNode({ id, type: 'repository', label: r.name, url: r.html_url, owner: r.owner, weight: 4 });
@@ -132,11 +134,32 @@ if (fs.existsSync(githubJson)) {
         addNode({ id: cid, type: 'concept', label: titleCase(t), kind: 'Tag', weight: 2 });
         addEdge(id, cid, 'tagged');
       }
+      // Language concept layer (real field: r.language). Links repo → lang:<Lang>.
+      if (r.language) {
+        const lid = 'tag:lang-' + slug(r.language);
+        addNode({ id: lid, type: 'concept', label: r.language, kind: 'Language', weight: 3 });
+        addEdge(id, lid, 'tagged');
+        repoLang[id] = lid;
+      }
     }
     for (const g of (gh.gists || [])) {
       const id = 'gist:' + g.id;
       addNode({ id, type: 'gist', label: (g.description || g.id).toString().slice(0, 40), url: g.html_url, weight: 3 });
       addEdge('person:dominicusin', id, 'authored');
+      // Language concept layer for gists: primary code file (real field: file.lang).
+      const codeFile = (g.files || []).find(f => f && f.lang && CODE_LANGS.has(String(f.lang).toLowerCase()));
+      if (codeFile) {
+        const lid = 'tag:lang-' + slug(codeFile.lang);
+        addNode({ id: lid, type: 'concept', label: codeFile.lang, kind: 'Language', weight: 3 });
+        addEdge(id, lid, 'tagged');
+      }
+    }
+    // Repo↔repo clustering by shared language (bounded by language, not C(n,2)).
+    const byLang = {};
+    for (const [rid, lid] of Object.entries(repoLang)) (byLang[lid] = byLang[lid] || []).push(rid);
+    for (const ids of Object.values(byLang)) {
+      for (let i = 0; i < ids.length; i++)
+        for (let j = i + 1; j < ids.length; j++) addEdge(ids[i], ids[j], 'relatedTo');
     }
   } catch (e) { console.warn('kg: github.json parse skipped:', e.message); }
 }

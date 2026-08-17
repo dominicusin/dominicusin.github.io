@@ -55,7 +55,11 @@
     { "id": "T49", "kind": "task", "title": "writeGistPage: emit gist_name = desc + firstFileName (fallback desc||id)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "gist_name: 'zroot zroot' for 21432…", "initiative": "gist-names" },
     { "id": "T50", "kind": "task", "title": "list.html + single.html render gist_name instead of gist_id", "status": "done", "deps": ["T49"], "artifacts": ["layouts/gists/list.html", "layouts/gists/single.html"], "initiative": "gist-names" },
     { "id": "T51", "kind": "task", "title": "Regenerate content/gists; verify built list shows names (zroot zroot), build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T50"], "artifacts": ["public/gists/index.html"], "verified": "0 hash-names of 100 cards; build/lint/test/linkcheck/perf green", "initiative": "gist-names" },
-    { "id": "T52", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gist-names", "status": "done", "deps": ["T51"], "pr": 118, "merged": "30dba679e", "initiative": "gist-names" }
+    { "id": "T52", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gist-names", "status": "done", "deps": ["T51"], "pr": 118, "merged": "30dba679e", "initiative": "gist-names" },
+    { "id": "T53", "kind": "task", "title": "sync-github.cjs: persist gist file lang in gistsOut.files (f.lang||guessLang)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs", "data/github.json"], "verified": "gist files carry lang (e.g. Shell)", "initiative": "kb-taxonomy" },
+    { "id": "T54", "kind": "task", "title": "build-knowledge-graph.cjs: lang concept layer (repo+gist tagged lang:), repo↔repo relatedTo by language", "status": "done", "deps": ["T53"], "artifacts": ["scripts/build-knowledge-graph.cjs"], "verified": "lang: concepts added; repo+gist tagged by lang", "initiative": "kb-taxonomy" },
+    { "id": "T55", "kind": "task", "title": "Rebuild KG; measure deltas (edges, isolated gists, repo↔repo relatedTo); build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T54"], "artifacts": ["static/data/knowledge-graph.json"], "verified": "nodes 393→420, edges 699→1007, relatedTo 6→208, isolated gists 100→64", "initiative": "kb-taxonomy" },
+    { "id": "T56", "kind": "task", "title": "Commit + PR + gh pr merge --admin for kb-taxonomy", "status": "in_progress", "deps": ["T55"], "initiative": "kb-taxonomy" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -102,6 +106,9 @@
     { "from": "T47", "to": "T48", "type": "blocks" },
     { "from": "T49", "to": "T50", "type": "enables" },
     { "from": "T50", "to": "T51", "type": "enables" },
-    { "from": "T51", "to": "T52", "type": "blocks" }
+    { "from": "T51", "to": "T52", "type": "blocks" },
+    { "from": "T53", "to": "T54", "type": "enables" },
+    { "from": "T54", "to": "T55", "type": "enables" },
+    { "from": "T55", "to": "T56", "type": "blocks" }
   ]
 }

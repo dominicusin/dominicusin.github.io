@@ -305,7 +305,7 @@ async function main() {
         files.push({ name, lang: meta.language || guessLang(name), content: (raw || '').slice(0, MAX_DOC_BYTES) });
       }
       writeGistPage({ id: g.id, description: g.description, updated_at: g.updated_at, files });
-      gistsOut.push({ id: g.id, description: g.description || '', html_url: g.html_url, updated_at: g.updated_at, files: files.map(f => f.name) });
+      gistsOut.push({ id: g.id, description: g.description || '', html_url: g.html_url, updated_at: g.updated_at, files: files.map(f => ({ name: f.name, lang: f.lang || '' })) });
     } catch (e) { errors.push(`gist ${g.id}: ${e.message}`); }
   }
 
