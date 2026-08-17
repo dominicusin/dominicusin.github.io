@@ -10,6 +10,9 @@ tags:
 - neovim
 - lua
 - editors
+
+image: /assets/images/og-default.png
+alt: "Lua  Neovim"
 ---
 author: DominicusIn
 

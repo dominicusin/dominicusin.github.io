@@ -11,6 +11,9 @@ tags:
 - free-resources
 - cloud
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "free-for.dev"
 ---
 author: DominicusIn
 

@@ -10,6 +10,9 @@ tags:
 - plan9
 - awesome-list
 - operating-systems
+
+image: /assets/images/og-default.png
+alt: "Awesome Plan9"
 ---
 author: DominicusIn
 

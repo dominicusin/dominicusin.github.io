@@ -8,6 +8,9 @@ categories:
 - media
 tags:
 - movies
+
+image: /assets/images/og-default.png
+alt: "My favorite movies"
 ---
 author: DominicusIn
 

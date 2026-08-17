@@ -9,6 +9,9 @@ categories:
 tags:
 - movies
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "YA movies's list"
 ---
 author: DominicusIn
 

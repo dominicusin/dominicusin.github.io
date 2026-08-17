@@ -10,6 +10,9 @@ tags:
 - chat
 - privacy
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "HipChat Alternatives"
 ---
 author: DominicusIn
 

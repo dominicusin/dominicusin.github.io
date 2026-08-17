@@ -10,6 +10,9 @@ tags:
 - llm
 - awesome-list
 - applications
+
+image: /assets/images/og-default.png
+alt: "A Collection of Awesome AI Applications"
 ---
 author: DominicusIn
 

@@ -10,6 +10,9 @@ tags:
 - self-hosting
 - awesome-list
 - free-resources
+
+image: /assets/images/og-default.png
+alt: "Awesome-Selfhosted"
 ---
 author: DominicusIn
 

@@ -10,6 +10,9 @@ tags:
 - craft
 - programming
 - essay
+
+image: /assets/images/og-default.png
+alt: "Epistula ad Programmatorum"
 ---
 author: DominicusIn
 

@@ -8,6 +8,9 @@ categories:
 tags:
 - meta
 - about
+
+image: /assets/images/og-default.png
+alt: "Blog"
 ---
 author: DominicusIn
 

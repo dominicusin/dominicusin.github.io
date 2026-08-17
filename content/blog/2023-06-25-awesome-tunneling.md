@@ -11,6 +11,9 @@ tags:
 - self-hosting
 - networking
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "Awesome tunneling"
 ---
 author: DominicusIn
 

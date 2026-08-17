@@ -10,6 +10,9 @@ tags:
 - free-resources
 - courses
 - awesome-list
+
+image: /assets/images/og-default.png
+alt: "free-courses"
 ---
 author: DominicusIn
 
