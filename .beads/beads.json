@@ -47,7 +47,7 @@
     { "id": "T41", "kind": "task", "title": "Reorder main(): fetch+write gists BEFORE repos (fresh CI quota)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "sync log shows gists:100 before repos", "initiative": "gists-ci-403" },
     { "id": "T42", "kind": "task", "title": "Un-ignore content/gists/*/ in .gitignore; commit generated gist pages (fallback in CI)", "status": "done", "deps": ["T41"], "artifacts": [".gitignore", "content/gists/"], "verified": "gist md files now tracked (git check-ignore = not ignored)", "initiative": "gists-ci-403" },
     { "id": "T43", "kind": "task", "title": "Add gist cache fallback (last-good gists-<user>.json) mirroring getRepos", "status": "done", "deps": ["T41"], "artifacts": ["scripts/sync-github.cjs"], "verified": "getGists() fallback added", "initiative": "gists-ci-403" },
-    { "id": "T44", "kind": "task", "title": "Verify gists fetch before repos; build/lint/test/linkcheck/perf green; commit+PR+admin-merge", "status": "in_progress", "deps": ["T42", "T43"], "initiative": "gists-ci-403" }
+    { "id": "T44", "kind": "task", "title": "Verify gists fetch before repos; build/lint/test/linkcheck/perf green; commit+PR+admin-merge", "status": "done", "deps": ["T42", "T43"], "pr": 116, "merged": "75d07fc80", "initiative": "gists-ci-403" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
