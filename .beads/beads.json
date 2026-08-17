@@ -39,7 +39,11 @@
     { "id": "T33", "kind": "task", "title": "Author og-default.svg (1200x630 brand) + generate assets/images/og-default.png via rsvg-convert", "status": "done", "deps": [], "artifacts": ["assets/images/og-default.png", "assets/images/og-default.src.svg"], "verified": "PNG 1200x630, 89KB; rsvg-convert reproducible", "initiative": "og-image-raster" },
     { "id": "T34", "kind": "task", "title": "Switch params.toml defaultSocialImage to images/og-default.png (keep card SVG)", "status": "done", "deps": ["T33"], "artifacts": ["config/_default/params.toml"], "initiative": "og-image-raster" },
     { "id": "T35", "kind": "task", "title": "Verify built og:image/twitter:image end in .png; PNG 1200x630 <250KB; build/lint/test/linkcheck green", "status": "done", "deps": ["T33", "T34"], "artifacts": ["public/index.html"], "verified": "og:image+twitter:image -> og-default.png; perf gate 0 regressions", "initiative": "og-image-raster" },
-    { "id": "T36", "kind": "task", "title": "Commit + PR + gh pr merge --admin for og-image-raster", "status": "done", "deps": ["T35"], "pr": 114, "merged": "630c960f9", "initiative": "og-image-raster" }
+    { "id": "T36", "kind": "task", "title": "Commit + PR + gh pr merge --admin for og-image-raster", "status": "done", "deps": ["T35"], "pr": 114, "merged": "630c960f9", "initiative": "og-image-raster" },
+    { "id": "T37", "kind": "task", "title": "Fix writeGistPage: write flat content/gists/<id>.md (was nested index.md; .RegularPages missed them)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "mirrors writeRepoPage flat layout", "initiative": "gists-list" },
+    { "id": "T38", "kind": "task", "title": "Clean stale content/gists + regenerate (sync-github.cjs) so flat pages exist", "status": "done", "deps": ["T37"], "artifacts": ["content/gists/*.md"], "verified": "100 flat gist pages match data/github.json", "initiative": "gists-list" },
+    { "id": "T39", "kind": "task", "title": "Verify built /gists/ lists all gists (>=90 repo-card); build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T38"], "artifacts": ["public/gists/index.html"], "verified": "100 gist cards (500 repo-card class hits); 0 errors; all gates green", "initiative": "gists-list" },
+    { "id": "T40", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gists-list", "status": "in_progress", "deps": ["T39"], "initiative": "gists-list" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -73,6 +77,9 @@
     { "from": "T31", "to": "T32", "type": "blocks" },
     { "from": "T33", "to": "T34", "type": "enables" },
     { "from": "T34", "to": "T35", "type": "enables" },
-    { "from": "T35", "to": "T36", "type": "blocks" }
+    { "from": "T35", "to": "T36", "type": "blocks" },
+    { "from": "T37", "to": "T38", "type": "enables" },
+    { "from": "T38", "to": "T39", "type": "enables" },
+    { "from": "T39", "to": "T40", "type": "blocks" }
   ]
 }
