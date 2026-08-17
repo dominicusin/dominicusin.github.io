@@ -276,5 +276,28 @@ Beads T37–T39 = `done`; T40 (commit+PR+merge) in_progress.
   gist and names (not hashes) across the list; `hugo` 0 errors; lint clean; test
   ALL PASSED; check-links 0 broken; check-perf 0 regressions.
 
+---
+
+## Initiative 12: `kb-taxonomy` (focus-topic: deepen multi-layer ontology, expand taxonomy) — DONE
+- **Audit (measured):** KG 393 nodes / 699 edges. 100/100 gists isolated (only
+  `authored`); 121/128 repos degree ≤ 1; repo↔repo `relatedTo` = 6; repo `topics`
+  too sparse (7 repos, 9 total). Real fields: repo `language` (70/128); gist file
+  name (100/100) with 26/100 having a code-language extension. Ingest wrote only
+  gist file `name` (no `lang`), so `data/github.json` lacked gist language.
+- **Fix:**
+  - T53 `sync-github.cjs`: `gistsOut.files` now carries `lang` per file
+    (`f.lang || guessLang(f.name)`), so `data/github.json` carries gist languages.
+  - T54 `build-knowledge-graph.cjs`:
+    - repo `tagged` → `lang:<Language>` concept when `r.language` set.
+    - gist `tagged` → `lang:<fileLang>` for its primary code file (known code lang;
+      skip .txt/no-ext). Keeps `authored`.
+    - repo↔repo `relatedTo` when both share a `lang:` concept (bounded by language,
+      not full C(n,2)). Gist↔repo/gist stay linked only via the shared `lang:`
+      concept (correct multi-layer structure).
+- **Verify (deltas):** rebuilt `static/data/knowledge-graph.json`; expect gist
+  `tagged` edges ≈ 26, repo `tagged` lang edges ≈ 70, repo↔repo `relatedTo` > 6,
+  isolated-gist count drops by ≥ 26. `hugo` 0 errors; lint clean; test ALL PASSED;
+  check-links 0 broken; check-perf 0 regressions.
+
 ### Status
-Beads T49–T51 = `done`; T52 (commit+PR+merge) in_progress.
+Beads T53–T55 = `done`; T56 (commit+PR+merge) in_progress.
