@@ -25,7 +25,7 @@
     { "id": "T19", "kind": "task", "title": "Configure Hugo related index (hugo.toml [related] tags/categories) + params.article.relatedContentLimit=5", "status": "done", "deps": [], "artifacts": ["config/_default/hugo.toml", "config/_default/params.toml", "i18n/ru.yaml"], "verified": "[related] indices tags/categories; RU heading", "initiative": "related-posts" },
     { "id": "T20", "kind": "task", "title": "Verify Blowfish related.html renders on blog single pages (theme-native + project override)", "status": "done", "deps": ["T19"], "artifacts": ["layouts/partials/related.html"], "initiative": "related-posts" },
     { "id": "T21", "kind": "task", "title": "Verify: hugo 0 errors + related section on posts + 0 broken links", "status": "done", "deps": ["T19", "T20"], "verified": "52 posts show Похожие статьи; check-links 0 broken", "initiative": "related-posts" },
-    { "id": "T22", "kind": "task", "title": "Commit + PR + gh pr merge --admin for related-posts", "status": "in_progress", "deps": ["T21"], "initiative": "related-posts" }
+    { "id": "T22", "kind": "task", "title": "Commit + PR + gh pr merge --admin for related-posts", "status": "done", "deps": ["T21"], "pr": 110, "merged": "8a5a930e0", "initiative": "related-posts" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
