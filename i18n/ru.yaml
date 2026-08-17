@@ -58,3 +58,7 @@ subscribe_button: "Подписаться"
 # Search (Blowfish built-in)
 search_input_placeholder: "Поиск по сайту…"
 search_close_button_title: "Закрыть поиск"
+
+# Related posts section (Blowfish related.html) — nested to override theme RU
+article:
+  related_articles: "Похожие статьи"

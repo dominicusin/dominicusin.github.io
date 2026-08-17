@@ -43,3 +43,16 @@ canonifyURLs = false
 [taxonomies]
   tag = "tags"
   category = "categories"
+
+# Related-content index (powers Blowfish `related.html` on blog single pages).
+# Rank by shared tags (primary) then shared categories (secondary).
+[related]
+  includeNewer = false
+  threshold = 0
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "categories"
+    weight = 50
