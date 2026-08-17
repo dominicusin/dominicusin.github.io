@@ -8,5 +8,6 @@
       "HUGO_VERSION": "0.164.0",
       "HUGO_EXTENDED": "true"
     }
-  }
+  },
+  "ignoreCommand": "node scripts/ci-content-contract.cjs && exit 1 || exit 0"
 }
