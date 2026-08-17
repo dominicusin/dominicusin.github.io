@@ -203,3 +203,33 @@ Beads T33–T35 = `done`; T36 (commit+PR+merge) in_progress.
 
 ### Status
 Beads T37–T39 = `done`; T40 (commit+PR+merge) in_progress.
+
+---
+
+## Initiative 9: `gists-ci-403` (user-reported: live /gists/ STILL empty after #115) — DONE
+- **Root cause (VERIFIED from CI log, run 31996202654 "Sync GitHub repos + gists"):**
+  ```
+  ✗ https://api.github.com/users/dominicusin/gists?per_page=100: HTTP 403
+    gists: 0
+  ```
+  Repos succeeded (`dominicusin:105 neoallunity:11 Hitech-gmbh:0 transgregorial:6`). The
+  gist API call returns **HTTP 403** in CI → `gists=[]` → no gist pages → empty `/gists/`.
+  CAUSE: `main()` fetched ~122 repos FIRST, each doing README+CONTRIBUTING+LICENSE+doc
+  calls (hundreds of API hits). By the time it reached the gists call (~3.5 min in), the
+  **CI GITHUB_TOKEN hit GitHub's secondary rate-limit / abuse detection** on the gists
+  endpoint. Locally a full `gh auth token` has a larger quota, so gists succeeded — my
+  local "green" test was a FALSE POSITIVE for the CI environment.
+- **Fix (R1–R3):**
+  - `main()` now fetches + writes **gists FIRST** (cheap: 1 list call + N file calls)
+    before the heavy repo storm, consuming the fresh CI quota.
+  - `getGists()` adds a **cache fallback** (mirrors `getRepos`): on empty live fetch,
+    reuse last-good `.cache/gists-<user>.json` cache.
+  - `content/gists/*/` **un-ignored** in `.gitignore` — generated gist pages are now
+    COMMITTED, so the deployed `/gists/` is never empty even if the CI gist API hits 403
+    (guaranteed committed fallback). Repos stay gitignored (122 heavy pages; work in CI).
+- **Verify:** sync log shows `gists:` before repo counts; `content/gists/*.md` = 100
+  (committed/tracked); built `public/gists/index.html` ≥ 90 gist cards; `hugo` 0 errors;
+  lint clean; test ALL PASSED; check-links 0 broken; check-perf 0 regressions.
+
+### Status
+Beads T41–T43 = `done`; T44 (verify+commit+PR+merge) in_progress.
