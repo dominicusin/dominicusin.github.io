@@ -9,12 +9,19 @@
  *     deferred by default); OR is an inline <script> with executable body and no
  *     defer/async. Inline non-executable scripts (application/json, ld+json, or
  *     empty) are exempt.
- *   - any <link rel=stylesheet> in <head> outside <noscript> (the main CSS bundle
- *     must load non-render-blocking via rel=preload as=style + onload swap).
  *
- * This protects the #111 (deferred JS) and #112 (non-blocking CSS) perf fixes
- * against silent regressions and makes the perf signal actionable locally (no
- * Chrome/Lighthouse binary needed). Mirrors scripts/check-links.cjs.
+ * The main CSS bundle is intentionally render-blocking (rel=stylesheet). A
+ * previous non-blocking preload+swap caused a catastrophic CLS (~1.0): the page
+ * painted UNSTYLED, then snapped into the styled layout. Render-blocking CSS does
+ * NOT cause CLS (content waits for styles). The 128KB bundle is already-purged
+ * component CSS (not trimmable without dropping features), so render-blocking is
+ * correct. The gate therefore does NOT fail on a blocking stylesheet — it only
+ * reports the bundle size as informational. It WOULD have caught the original
+ * #111 JS regression, which it still guards.
+ *
+ * This protects the #111 (deferred JS) perf fix against silent regressions and
+ * makes the perf signal actionable locally (no Chrome/Lighthouse binary needed).
+ * Mirrors scripts/check-links.cjs.
  *
  * Complementary to (not a replacement for) the CI Lighthouse job, which is
  * non-blocking and runs on throttled shared infra.
@@ -93,20 +100,16 @@ while ((sm = scriptTagRe.exec(head)) !== null) {
   }
 }
 
-// --- 2) Render-blocking CSS <link> in <head> (outside noscript) -------------
-// Match a real rel="stylesheet" HTML attribute (not the substring inside an
-// onload="this.rel='stylesheet'" handler). Attribute values may be unquoted.
+// --- 2) Main CSS bundle: intentionally render-blocking (rel=stylesheet) -----
+// A blocking stylesheet is CORRECT here (prevents the CLS=1.0 unstyled-flash
+// bug). The gate does NOT fail on it; it only reports the bundle size.
+// (This is the deliberate revert of the #112 non-blocking experiment.)
 const linkRe = /<link\b([^>]*)>/gi;
-let cssBlocking = 0;
+let stylesheetCount = 0;
 let lm;
 while ((lm = linkRe.exec(head)) !== null) {
   const attrs = lm[1];
-  // rel attribute preceded by whitespace/start-of-tag, value exactly "stylesheet"
-  // (quote-optional). This does NOT match the onload handler substring.
-  if (/(^|\s)rel\s*=\s*["']?stylesheet["']?/i.test(attrs)) {
-    cssBlocking += 1;
-    errors.push('render-blocking <link rel=stylesheet> in <head> (CSS must load non-blocking)');
-  }
+  if (/(^|\s)rel\s*=\s*["']?stylesheet["']?/i.test(attrs)) stylesheetCount += 1;
 }
 
 // --- 3) Informational: CSS bundle byte size --------------------------------
@@ -122,7 +125,7 @@ const CSS_WARN_THRESHOLD = 140 * 1024;
 // --- Report ----------------------------------------------------------------
 console.log('🔎 Performance smoke check (built public/index.html)');
 console.log(`   render-blocking <script> regressions : ${errors.filter((e) => e.includes('script')).length}`);
-console.log(`   render-blocking <link rel=stylesheet> : ${cssBlocking}`);
+console.log(`   CSS bundle <link rel=stylesheet>      : ${stylesheetCount} (render-blocking is intentional — avoids CLS)`);
 if (cssBytes > 0) {
   const kb = (cssBytes / 1024).toFixed(1);
   const flag = cssBytes > CSS_WARN_THRESHOLD ? ' ⚠️ (above 140KB threshold — informational)' : '';

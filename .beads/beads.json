@@ -47,7 +47,11 @@
     { "id": "T41", "kind": "task", "title": "Reorder main(): fetch+write gists BEFORE repos (fresh CI quota)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "sync log shows gists:100 before repos", "initiative": "gists-ci-403" },
     { "id": "T42", "kind": "task", "title": "Un-ignore content/gists/*/ in .gitignore; commit generated gist pages (fallback in CI)", "status": "done", "deps": ["T41"], "artifacts": [".gitignore", "content/gists/"], "verified": "gist md files now tracked (git check-ignore = not ignored)", "initiative": "gists-ci-403" },
     { "id": "T43", "kind": "task", "title": "Add gist cache fallback (last-good gists-<user>.json) mirroring getRepos", "status": "done", "deps": ["T41"], "artifacts": ["scripts/sync-github.cjs"], "verified": "getGists() fallback added", "initiative": "gists-ci-403" },
-    { "id": "T44", "kind": "task", "title": "Verify gists fetch before repos; build/lint/test/linkcheck/perf green; commit+PR+admin-merge", "status": "done", "deps": ["T42", "T43"], "pr": 116, "merged": "75d07fc80", "initiative": "gists-ci-403" }
+    { "id": "T44", "kind": "task", "title": "Verify gists fetch before repos; build/lint/test/linkcheck/perf green; commit+PR+admin-merge", "status": "done", "deps": ["T42", "T43"], "pr": 116, "merged": "75d07fc80", "initiative": "gists-ci-403" },
+    { "id": "T45", "kind": "task", "title": "Revert CSS to render-blocking (rel=stylesheet) in head.html; keep JS deferred", "status": "done", "deps": [], "artifacts": ["layouts/partials/head.html"], "verified": "built head has rel=stylesheet, no preload/onload swap", "initiative": "cls-fix" },
+    { "id": "T46", "kind": "task", "title": "Update check-perf.cjs: rel=stylesheet is acceptable (informational), still guard render-blocking JS", "status": "done", "deps": ["T45"], "artifacts": ["scripts/check-perf.cjs"], "verified": "gate reports CSS blocking as intentional, not failure", "initiative": "cls-fix" },
+    { "id": "T47", "kind": "task", "title": "Verify built head rel=stylesheet + no swap; build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T45", "T46"], "artifacts": ["public/index.html"], "verified": "0 errors; check-perf 0 regressions; head rel=stylesheet", "initiative": "cls-fix" },
+    { "id": "T48", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cls-fix", "status": "in_progress", "deps": ["T47"], "initiative": "cls-fix" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -88,6 +92,9 @@
     { "from": "T41", "to": "T42", "type": "enables" },
     { "from": "T41", "to": "T43", "type": "enables" },
     { "from": "T42", "to": "T44", "type": "enables" },
-    { "from": "T43", "to": "T44", "type": "enables" }
+    { "from": "T43", "to": "T44", "type": "enables" },
+    { "from": "T45", "to": "T46", "type": "enables" },
+    { "from": "T46", "to": "T47", "type": "enables" },
+    { "from": "T47", "to": "T48", "type": "blocks" }
   ]
 }
