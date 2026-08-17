@@ -19,7 +19,7 @@ highlightCurrentMenuArea = true     # highlight active menu item
 smartTOC = true              # scroll-spy table of contents
 
 # --- Images ---
-defaultSocialImage = "images/og-default.svg"   # OG/Twitter fallback
+defaultSocialImage = "images/og-default.png"    # OG/Twitter fallback (raster; SVG is not rendered by social platforms)
 defaultFeaturedImage = "images/og-default.svg" # card/hero fallback when a post has no image
 
 # --- Subscription (Buttondown) ---
