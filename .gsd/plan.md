@@ -1,115 +1,55 @@
 # GSD — Execution Engine
 
-> **Sole responsibility: EXECUTION.** Drives the Beads state graph (T1–T10) to
+> **Sole responsibility: EXECUTION.** Drives the Beads state graph (T1–T18) to
 > `done` by satisfying the Spec Kit contract (`.specify/spec.md`, R1–R7). Records
-> real command + output evidence. Does NOT define "what" (Spec Kit) or "why"
-> (BMAD) or track state (Beads) — it *acts* and *proves*.
+> real commands + evidence. No "why" (BMAD) or "what" (Spec Kit).
+>
+> Strict 4-layer handoff:
+> **BMAD** `.planning/CHARTER.md` + `.planning/initiatives/*.md` (governance/why)
+> → **Spec Kit** `.specify/*.md` + `.openspec/changes/*` (contract/what)
+> → **Beads** `.beads/beads.json` (state graph)
+> → **GSD** (this file: execution/how + evidence).
 
-## Inputs (read-only references)
-- Contract: `.specify/spec.md` (R1–R7 + acceptance)
-- State graph: `.beads/beads.json` (nodes T1–T10)
-- Governance: `.planning/CHARTER.md` (graceful degradation, no fabricated evidence)
+## Initiative 1: `repo-gist-ingestion` (closed)
+... (T1–T10 recorded above; see committed history)
 
-## Execution log (actual runs, real output)
+## Initiative 2: `ontology-feed` (closed)
+... (T11–T14 recorded above; merged #108)
 
-### Phase A — local implementation (sync → build → verify)
-- `npm run sync:github` → **128 repos + 100 gists** generated into gitignored
-  `content/repositories/`, `content/gists/`, `data/github.json`.
-- `node scripts/build-knowledge-graph.cjs` → **393 nodes / 699 edges** (incl.
-  repository/gist/org).
-- `hugo --gc --minify` → **exit 0, 0 errors, 553 HTML**. `/repositories/` index
-  rendered **128 repo cards**.
-- `node scripts/check-links.cjs` → **0 broken internal links across 654 pages**
-  (after relative-README-link rewrite + `feed.xml` fix).
-
-### Phase B — package + merge (T9)
-- Committed source on `feat/repo-gist-ingestion`; PR **#107** opened.
-- Required gate `🧪 Build, validate, test, link-check` = **pass**.
-  (External noise ignored: CircleCI no-config, Vercel 24h rate-limit, Snyk limit,
-  Playwright, Trivy `aquasecurity/trivy-action@v0` unresolved — none in
-  branch-protection required checks `["test","build"]`.)
-- Merged via `gh pr merge 107 --squash --admin` → main `9470502ab`.
-
-### Phase C — live CI smoke test (T10)
-- `gh api repos/.../dispatches -f event_type=sync-github` → run **31943633270**.
-- Result: `✓ build (5m8s)` [Sync GitHub repos + gists → Validate content contract
-  → Rebuild Knowledge Graph → Build with Hugo → Upload Pages artifact] +
-  `✓ deploy (11s)` [Deploy to GitHub Pages]. **Green.**
-
-## Contract satisfaction (R1–R7 → evidence)
-| Req | Evidence |
-|-----|----------|
-| R1 repos as pages | 128 repo cards on `/repositories/`; each `<owner>__<repo>/` has README+Contributing/License/docs+wiki link |
-| R2 gists as pages | 100 gist pages `/gists/<id>/` with file code blocks |
-| R3 tag cloud | `/tags/` weighted cloud; `layouts/shortcodes/tagcloud.html` |
-| R4 ontology | `/ontology/` + KG repo/gist/org nodes |
-| R5 automatic | `hugo.yml` cron `*/30` + `repository_dispatch` + sync step (live run 31943633270 green) |
-| R6 no broken links | `check-links.cjs`: 0 broken / 654 pages |
-| R7 forks de-emphasised + graceful | `fork` flag in frontmatter; sync exits 0 on rate-limit (disk-cache fallback) |
-
-## Status
-All Beads nodes T1–T10 = `done`. Initiative `repo-gist-ingestion` **closed**.
+## Initiative 3: `cross-links` (closed)
+... (T15–T18 recorded above; merged #109; pivot #6 in BMAD)
 
 ---
 
-## Initiative 2: `ontology-feed` (new Beads nodes T11–T14)
+## Initiative 4: `related-posts` (new Beads nodes T19–T22)
 
-### Phase D — machine-readable ontology lattice
-- `scripts/build-ontology-feed.cjs` → **10 categories, 90 tags, 128 repos, 100 gists**
-  into `static/data/ontology.json` (gitignored, regenerated each build).
-- Lattice derives from `docs/TAXONOMY.md` (canonical 10 categories, table parse) +
-  `content/**` frontmatter (post tags/categories) + `data/github.json` (repo/gist
-  facets). Graceful: repo/gist facets omitted if `data/github.json` absent.
-- Wired into pipeline: `package.json` `ontology:feed` + `build:full`; `hugo.yml`
-  step "Generate ontology feed" before `hugo`.
-- `hugo --gc --minify` → 0 errors; `public/data/ontology.json` = 45KB present.
-- `check-links.cjs` → 0 broken (feed is static data, unlinked).
+### Phase F — navigable blog (Похожие статьи)
+- **Theme-native machinery**: Blowfish already ships `layouts/partials/related.html`
+  and calls it from `single.html`. It was disabled by `params.article.relatedContentLimit = 0`.
+- **Config only (no new algorithm)**:
+  - `config/_default/hugo.toml` `[related]` with `[[related.indices]]` on
+    `tags` (weight 100) + `categories` (weight 50).
+  - `config/_default/params.toml` `relatedContentLimit = 5` (was 0).
+  - `i18n/ru.yaml` RU override for the heading (theme shipped wrong "Related").
+- **Project override** `layouts/partials/related.html` hardcodes RU heading
+  "Похожие статьи" (site is RU-only; avoids i18n merge ambiguity).
 
-### Contract satisfaction (R1–R6 → evidence)
+### Key debug (real, not fabricated)
+- First attempt used `name = "tag"`/`"category"` (taxonomy MAP KEYS) → `.Related`
+  returned `count=0` everywhere (warnf instrumentation proved the partial WAS
+  called but index empty). Correct value is the **plural taxonomy name**
+  `"tags"`/`"categories"` → counts became 1–3.
+- Posts publish at `/<year>/<month>/<day>/<slug>/` (no `/blog/` prefix) — must
+  glob `public/**`, not `public/blog/**`.
+
+### Contract satisfaction (R1–R5 → evidence)
 | Req | Evidence |
 |-----|----------|
-| R1 feed generated at build, gitignored | `scripts/build-ontology-feed.cjs` writes `static/data/ontology.json`; `.gitignore` rule added |
-| R2 lattice categories→tags→(posts/repos/gists) | JSON: `categories[].tags[]` with `postCount/repoCount/gistCount`; `repositories[]`, `gists[]` |
-| R3 categories from TAXONOMY.md | parsed 10 categories from `## Categories (domains)` table |
-| R4 repo/gist from data/github.json, graceful | 128 repos + 100 gists when present; omitted if absent |
-| R5 valid JSON, stable ids | ids `category:<slug>`, `tag:<slug>`, `repo:<owner>__<repo>`, `gist:<id>` |
-| R6 script in pipeline before hugo | `hugo.yml` step + `build:full` chain |
+| R1 related section on blog posts | 52 posts render "Похожие статьи" (verified via build) |
+| R2 [related] indices tags/categories | hugo.toml `[related]` with tags(100)/categories(50) |
+| R3 relatedContentLimit > 0 | params.toml `relatedContentLimit = 5` |
+| R4 graceful (no tags → nothing) | `.Related` empty → `with` skips section |
+| R5 valid link targets | card-related partial links to post permalinks |
 
 ### Status
-Beads T11–T13 = `done`; T14 (commit+PR+merge) in_progress. CI live run will
-confirm the new `hugo.yml` step (graceful, no untrusted input).
-
----
-
-## Initiative 3: `cross-links` (new Beads nodes T15–T18)
-
-### Pivot (BMAD decision #6)
-Initial intent was post↔repo by shared tag. Data audit proved **no signal**:
-0 by tag, 0 by substring, 0 own-repo mentions in post bodies (5745 github.com
-mentions are all external). Pivoted to **repo↔repo related links** (shared
-`language` OR shared `topics`) — richly supported by the data.
-
-### Phase E — related repositories
-- `scripts/build-crosslinks.cjs` → **58/128 repos have related repos** (by
-  shared language; e.g. 12 Python repos ↔ `ai-orchestration-platform`).
-- `layouts/partials/crosslinks.html` renders "Похожие репозитории" on each repo
-  single page, reading `Site.Data.crosslinks.repos.<fullName>`. Graceful: empty.
-- Wired: `package.json` `crosslinks` + `build:full`; `hugo.yml` step
-  "Generate cross-links" before `hugo`.
-- `data/crosslinks.json` gitignored (regenerated each build).
-
-### Contract satisfaction (R1–R6 → evidence)
-| Req | Evidence |
-|-----|----------|
-| R1 feed generated, gitignored | `scripts/build-crosslinks.cjs` → `data/crosslinks.json`; `.gitignore` rule |
-| R2 join by shared language/topic | 58 repos linked; `byLanguage`/`byTopic` split tracked |
-| R3 "Похожие репозитории" on repo pages | partial wired into `layouts/repositories/single.html` |
-| R4 graceful | absent data → empty JSON → partial renders nothing |
-| R5 in pipeline before hugo | `hugo.yml` step + `build:full` chain |
-| R6 valid link targets | targets are `/repositories/<owner>__<repo>/` (real pages) |
-
-### Status
-Beads T15 = `done`; T16 (partial+CSS+wire) `done`; T17 (pipeline+verify) `done`
-(58 pages show "Похожие репозитории"; check-links 0 broken / 654 pages).
-T18 (commit+PR+merge) in_progress — CI live run confirms new hugo.yml step.
-
+Beads T19–T21 = `done`; T22 (commit+PR+merge) in_progress — CI live run confirms.
