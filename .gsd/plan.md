@@ -257,5 +257,24 @@ Beads T37–T39 = `done`; T40 (commit+PR+merge) in_progress.
   (CSS blocking reported as intentional); `hugo` 0 errors; lint clean; test ALL
   PASSED; check-links 0 broken.
 
+---
+
+## Initiative 11: `gist-names` (user-requested: show names not hashes on /gists/) — DONE
+- **Request:** on `/gists/`, cards (and single page) showed `gist_id` (32-char hash
+  like `21432fc5f29c73591044eafa09e6fafc`). User wants the human name, e.g. that
+  gist → **"zroot zroot"**.
+- **Root cause (VERIFIED):** `layouts/gists/list.html` rendered `{{ .Params.gist_id }}`.
+  The generated page frontmatter already carried the name parts (`title`=description,
+  `files`=file names) but no single display name. For gist `21432…`:
+  `description='zroot'`, `files=['zroot']` → "zroot zroot".
+- **Fix:** `scripts/sync-github.cjs writeGistPage` now emits `gist_name` =
+  `(description ? description + ' ' : '') + firstFileName` (fallback description||id).
+  `layouts/gists/list.html` and `single.html` render `{{ .Params.gist_name }}`. The
+  hash stays only in the URL slug (links preserved).
+- **Verify:** regenerated `content/gists/*.md` (gist_name present); built
+  `public/gists/index.html` shows "zroot zroot" as the card text for the example
+  gist and names (not hashes) across the list; `hugo` 0 errors; lint clean; test
+  ALL PASSED; check-links 0 broken; check-perf 0 regressions.
+
 ### Status
-Beads T45–T47 = `done`; T48 (commit+PR+merge) in_progress.
+Beads T49–T51 = `done`; T52 (commit+PR+merge) in_progress.

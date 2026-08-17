@@ -2,6 +2,7 @@
 title: "strip package version gentoo"
 type: gist
 gist_id: "db842f92c4bdf62cd9cebddaff0da00b"
+gist_name: "strip package version gentoo strip version"
 gist_url: https://gist.github.com/dominicusin/db842f92c4bdf62cd9cebddaff0da00b
 updated_at: "2022-03-28T23:32:11Z"
 files: ["strip version"]

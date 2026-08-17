@@ -2,7 +2,7 @@
   {{ .Scratch.Set "scope" "single" }}
   <article class="gist-page">
     <header class="gist-header">
-      <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+      <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Params.gist_name | default .Title }}</h1>
       <div class="gist-links">
         <a class="repo-btn" href="{{ .Params.gist_url }}" target="_blank" rel="noopener">Открыть гист ↗</a>
         {{ with .Params.updated_at }}<span class="repo-pill">обновлён {{ dateFormat "2006-01-02" . }}</span>{{ end }}

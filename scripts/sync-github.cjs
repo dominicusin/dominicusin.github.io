@@ -190,11 +190,18 @@ function writeGistPage(gist) {
   // .RegularPages in the list template, leaving /gists/ empty. Flat layout fixes it.
   const file = path.join(GIST_OUT, `${gist.id}.md`);
   fs.mkdirSync(GIST_OUT, { recursive: true });
+  // Human-readable name for the /gists/ list: "description firstFileName".
+  // For gist 21432… (description "zroot", file "zroot") this yields "zroot zroot".
+  const firstName = (gist.files && gist.files[0] && gist.files[0].name) || '';
+  const gistName = gist.description
+    ? (firstName ? `${gist.description} ${firstName}` : gist.description)
+    : (firstName || gist.id);
   const fm = [
     '---',
     `title: ${yamlish(gist.description || gist.id)}`,
     'type: gist',
     `gist_id: ${JSON.stringify(gist.id)}`,
+    `gist_name: ${JSON.stringify(gistName)}`,
     `gist_url: https://gist.github.com/${GIST_USER}/${gist.id}`,
     `updated_at: ${JSON.stringify(gist.updated_at || '')}`,
     `files: ${qlist(gist.files.map(f => f.name))}`,

@@ -2,6 +2,7 @@
 title: "/etc/apt/sources.list.d/Debian.sources"
 type: gist
 gist_id: "2fbfdcb6ff72ab2debe1a4dbebe0b509"
+gist_name: "/etc/apt/sources.list.d/Debian.sources Debian.sources"
 gist_url: https://gist.github.com/dominicusin/2fbfdcb6ff72ab2debe1a4dbebe0b509
 updated_at: "2024-03-04T03:58:27Z"
 files: ["Debian.sources"]

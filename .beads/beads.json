@@ -51,7 +51,11 @@
     { "id": "T45", "kind": "task", "title": "Revert CSS to render-blocking (rel=stylesheet) in head.html; keep JS deferred", "status": "done", "deps": [], "artifacts": ["layouts/partials/head.html"], "verified": "built head has rel=stylesheet, no preload/onload swap", "initiative": "cls-fix" },
     { "id": "T46", "kind": "task", "title": "Update check-perf.cjs: rel=stylesheet is acceptable (informational), still guard render-blocking JS", "status": "done", "deps": ["T45"], "artifacts": ["scripts/check-perf.cjs"], "verified": "gate reports CSS blocking as intentional, not failure", "initiative": "cls-fix" },
     { "id": "T47", "kind": "task", "title": "Verify built head rel=stylesheet + no swap; build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T45", "T46"], "artifacts": ["public/index.html"], "verified": "0 errors; check-perf 0 regressions; head rel=stylesheet", "initiative": "cls-fix" },
-    { "id": "T48", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cls-fix", "status": "done", "deps": ["T47"], "pr": 117, "merged": "3497571ed", "initiative": "cls-fix" }
+    { "id": "T48", "kind": "task", "title": "Commit + PR + gh pr merge --admin for cls-fix", "status": "done", "deps": ["T47"], "pr": 117, "merged": "3497571ed", "initiative": "cls-fix" },
+    { "id": "T49", "kind": "task", "title": "writeGistPage: emit gist_name = desc + firstFileName (fallback desc||id)", "status": "done", "deps": [], "artifacts": ["scripts/sync-github.cjs"], "verified": "gist_name: 'zroot zroot' for 21432…", "initiative": "gist-names" },
+    { "id": "T50", "kind": "task", "title": "list.html + single.html render gist_name instead of gist_id", "status": "done", "deps": ["T49"], "artifacts": ["layouts/gists/list.html", "layouts/gists/single.html"], "initiative": "gist-names" },
+    { "id": "T51", "kind": "task", "title": "Regenerate content/gists; verify built list shows names (zroot zroot), build/lint/test/linkcheck/perf green", "status": "done", "deps": ["T50"], "artifacts": ["public/gists/index.html"], "verified": "0 hash-names of 100 cards; build/lint/test/linkcheck/perf green", "initiative": "gist-names" },
+    { "id": "T52", "kind": "task", "title": "Commit + PR + gh pr merge --admin for gist-names", "status": "in_progress", "deps": ["T51"], "initiative": "gist-names" }
   ],
   "edges": [
     { "from": "T2", "to": "T3", "type": "enables" },
@@ -95,6 +99,9 @@
     { "from": "T43", "to": "T44", "type": "enables" },
     { "from": "T45", "to": "T46", "type": "enables" },
     { "from": "T46", "to": "T47", "type": "enables" },
-    { "from": "T47", "to": "T48", "type": "blocks" }
+    { "from": "T47", "to": "T48", "type": "blocks" },
+    { "from": "T49", "to": "T50", "type": "enables" },
+    { "from": "T50", "to": "T51", "type": "enables" },
+    { "from": "T51", "to": "T52", "type": "blocks" }
   ]
 }
