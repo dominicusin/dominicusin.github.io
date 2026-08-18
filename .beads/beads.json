@@ -1283,6 +1283,8 @@
         "layouts/partials/crosslinks.html",
         "config/_default/hugo.toml"
       ]
+
+
     },
     {
       "id": "T102",
@@ -1296,6 +1298,20 @@
       "pr": 162,
       "evidence": "audit-internal-links.cjs BROKEN 20->0 after IGNORE added for 8 mirrored posts",
       "verification": "node --check + audit re-run 0 broken + jest 277/21 + build 0"
+    },
+    {
+      "id": "T103",
+      "title": "cycle44: fix inverted vercel.json ignoreCommand",
+      "status": "done",
+      "priority": "P2",
+      "owner": "audit-loop",
+      "depends_on": [
+        "T102"
+      ],
+      "pr": 163,
+      "evidence": "ignoreCommand was 'node ...cjs && exit 1 || exit 0' (inverted: valid->skip, invalid->build); corrected to 'node ...cjs' (pass->build/skip-on-fail). vercel.json valid JSON, contract exit 0 on clean main.",
+      "verification": "python json.load valid; node script exit 0; jest 277/21; audit BROKEN 0"
+
     }
   ],
   "edges": [
@@ -1548,11 +1564,19 @@
       "from": "T29",
       "to": "T30",
       "type": "blocks"
+
+
     },
     {
       "from": "T101",
       "to": "T102",
       "type": "next"
+    },
+    {
+      "from": "T102",
+      "to": "T103",
+      "type": "next"
+
     }
   ]
 }

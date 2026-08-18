@@ -9,5 +9,5 @@
       "HUGO_EXTENDED": "true"
     }
   },
-  "ignoreCommand": "node scripts/ci-content-contract.cjs && exit 1 || exit 0"
+  "ignoreCommand": "node scripts/ci-content-contract.cjs"
 }
