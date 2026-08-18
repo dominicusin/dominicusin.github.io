@@ -71,3 +71,15 @@ jobs:
         # timeout. Dead links are reported as warnings, never fail the build.
         run: node scripts/check-external-links.cjs
         continue-on-error: true
+
+      - name: 🩺 Accessibility audit (report, non-blocking)
+        # Real axe-core audit of the BUILT site (public/). Catches a11y
+        # regressions that mock-based unit suites miss.
+        run: node scripts/check-a11y.cjs
+        continue-on-error: true
+
+      - name: 🖼️ OG-image guard (report, non-blocking)
+        # Ensures dated posts render a valid og:image (falls back to
+        # og-default.png). Regressions surface as warnings.
+        run: node scripts/check-og-image.cjs
+        continue-on-error: true
