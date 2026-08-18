@@ -1283,6 +1283,19 @@
         "layouts/partials/crosslinks.html",
         "config/_default/hugo.toml"
       ]
+    },
+    {
+      "id": "T102",
+      "title": "cycle43: exclude mirrored 3rd-party lists from internal-link audit",
+      "status": "done",
+      "priority": "P2",
+      "owner": "audit-loop",
+      "depends_on": [
+        "T101"
+      ],
+      "pr": 162,
+      "evidence": "audit-internal-links.cjs BROKEN 20->0 after IGNORE added for 8 mirrored posts",
+      "verification": "node --check + audit re-run 0 broken + jest 277/21 + build 0"
     }
   ],
   "edges": [
@@ -1535,6 +1548,11 @@
       "from": "T29",
       "to": "T30",
       "type": "blocks"
+    },
+    {
+      "from": "T101",
+      "to": "T102",
+      "type": "next"
     }
   ]
 }
