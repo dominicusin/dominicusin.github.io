@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "rules": {
+    "attr-quotes": "off",
+    "doctype-style": "off",
+    "script-type": "off",
+    "void-style": "off",
+    "no-implicit-button-type": "off",
+    "prefer-native-element": "off"
+  }
+}
