@@ -1138,6 +1138,18 @@
       "verified": "audit step printed + summarized by severity (was silently swallowed). Gates only on critical (currently 0 -> scan green + fully reported). moderate/high = warnings (dev/CI tooling: hardhat/lighthouse/puppeteer/undici; node_modules not in prod bundle). security.yml valid YAML; lint/test green. Completes the 15-iteration loop (T72-T86)."
     },
     {
+      "id": "T87",
+      "kind": "task",
+      "title": "CYCLE-26: replace dead hand-authored external links with verified archive.org snapshots",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "content/blog/2025-03-14-ai.md",
+        "content/blog/2023-01-20-awesome-piracy.md"
+      ],
+      "pr": 146
+    },
+    {
       "id": "T88",
       "kind": "task",
       "title": "Planning consolidation: archive .gsd/.openspec/.specify into docs/archive",
