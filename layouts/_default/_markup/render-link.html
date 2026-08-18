@@ -1,0 +1,8 @@
+{{ $href := .Destination }}
+{{ $lower := lower $href }}
+{{ $dangerous := or (hasPrefix $lower "javascript:") (hasPrefix $lower "data:") (hasPrefix $lower "vbscript:") (hasPrefix $lower "file:") }}
+{{ if $dangerous }}
+  {{ .Text | safeHTML }}
+{{ else }}
+  <a href="{{ $href | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if strings.HasPrefix $lower "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>{{ .Text | safeHTML }}</a>
+{{ end }}

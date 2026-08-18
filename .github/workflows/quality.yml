@@ -51,8 +51,8 @@ jobs:
         # the CLS=1.0 unstyled-flash bug). Complements the Lighthouse job.
         run: node scripts/check-perf.cjs
 
-      - name: 📝 Content Contract (report-only on PR; hard gate is in hugo.yml)
-        run: node scripts/ci-content-contract.cjs || true
+      - name: 📝 Content Contract (hard gate on PR — blocks invalid new posts; merge-base diff keeps main green)
+        run: node scripts/ci-content-contract.cjs
 
       - name: 🧹 Lint (eslint)
         run: npm run lint
