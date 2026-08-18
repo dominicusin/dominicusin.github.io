@@ -81,3 +81,13 @@ sharing:
   telegram: "Поделиться в Telegram"
   bluesky: "Поделиться в Bluesky"
   mastodon: "Поделиться в Mastodon"
+
+# Search (Blowfish built-in) — open button title (mobile-menu.html)
+search.open_button_title: "Открыть поиск"
+
+# Code block copy button (layouts/partials/head.html)
+code.copy: "Копировать"
+code.copied: "Скопировано"
+
+# Footer theme toggle (layouts/partials/header/components/mobile-menu.html)
+footer.dark_appearance: "Переключить тему"
