@@ -1156,15 +1156,16 @@
     {
       "id": "T89",
       "kind": "task",
-      "title": "R&D CI isolation: test-rnd.yml (hardhat+src jest); Chromium steps continue-on-error",
-      "status": "pending",
+      "title": "R&D CI isolation: test-rnd.yml (jest+hardhat) separate from prod Hugo build",
+      "status": "done",
       "deps": [
         "T88"
       ],
       "artifacts": [
         ".github/workflows/test-rnd.yml"
       ],
-      "initiative": "autonomous-cycle"
+      "initiative": "autonomous-cycle",
+      "verified": "Created .github/workflows/test-rnd.yml (jest src/ + hardhat contracts/dao) triggered on src/** contracts/** tests/** + config. Removed jest+hardhat steps from quality.yml build job so R&D flake can't block Pages deploy. Local gate green: jest 273 passed/21 suites, hardhat 9 passing, lint clean. Both workflows valid YAML."
     },
     {
       "id": "T90",

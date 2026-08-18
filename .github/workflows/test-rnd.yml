@@ -1,0 +1,74 @@
+name: 🧪 R&D Tests
+
+# Isolated R&D test gate (TASK-C2 / T89). Runs the experimental-plane suites
+# (src/ jest + contracts/dao hardhat) separately from the production Hugo build
+# so a flaky R&D test cannot block the GitHub Pages deploy. Triggered on any
+# change touching the R&D surface. Not a required status check for merge
+# (the required checks are "test" + "build" in hugo.yml), but it surfaces R&D
+# regressions on every relevant push/PR.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'contracts/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'jest.config.js'
+      - 'babel.config.cjs'
+      - '.babelrc'
+      - 'hardhat.config.cjs'
+      - 'tailwind.config.js'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'contracts/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'jest.config.js'
+      - 'babel.config.cjs'
+      - '.babelrc'
+      - 'hardhat.config.cjs'
+      - 'tailwind.config.js'
+  workflow_dispatch:
+
+jobs:
+  rnd-unit:
+    name: 🧪 Unit tests (jest, src/)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v7
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - name: 📦 Install deps
+        run: npm ci --prefer-offline --no-audit --no-fund
+      - name: 🧹 Lint (eslint)
+        run: npm run lint
+      - name: 🧪 Jest (src/ + R&D suites)
+        run: npx jest --config jest.config.js --coverage=false
+
+  rnd-dao:
+    name: ⛓️ DAO contract tests (Hardhat)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - name: 📦 Install deps
+        run: npm ci --prefer-offline --no-audit --no-fund
+      - name: ⛓️ Hardhat tests
+        run: npx hardhat test
