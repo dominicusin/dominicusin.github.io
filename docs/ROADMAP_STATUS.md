@@ -31,11 +31,11 @@
 | **Content Contract — soft/report for legacy** | ✅ | `ci-content-contract.cjs` split added(hard)/modified(soft) |
 | **giscus + Buttondown community** | ✅ | `layouts/partials/comments.html`; `/community/` page |
 | **Playwright E2E (smoke + a11y/axe-core)** | ✅ | `e2e.yml`, 14 passing (9 smoke + 5 a11y) |
-| **Lighthouse performance budget in CI** | ✅ | `performance.yml` + `.lighthouserc.json` (error asserts, LCP≤2.5s/CLS≤0.1) |
+| **Lighthouse performance budget in CI** | ⚠️ | `performance.yml` + `.lighthouserc.json` — perf/LCP are **warn** budgets (relaxed Cycle 22: LCP≤4000ms, perf≥0.7) because the Hugo+Blowfish site is inherently heavy (vendored D3, KG 3D, PWA); best-practices/seo/CLS remain **error** asserts |
 | **Knowledge Graph public page** | ✅ | `/knowledge-graph/` + `static/js/knowledge-graph.js` + JSON-LD data |
 | **Engineering-plane surfacing (READMEs, /projects/)** | ✅ | `contracts/dao/README.md`, `src/README.md`, `scripts/README.md`, `content/projects/` |
 | **Author backfill on legacy posts** | ✅ | `backfill-frontmatter.cjs` → `author: DominicusIn` on 59 posts |
-| **Consolidated Quality CI (separate from deploy)** | ✅ | `quality.yml` (build/contract/jest/hardhat/lint/links) — green |
+| **Consolidated Quality CI (separate from deploy)** | ✅ | `quality.yml` (build/lint/links/a11y/og/perf-smoke) + separate `test-rnd.yml` (jest src/ + hardhat contracts/dao) — R&D tests isolated so a flake can't block Pages deploy (Cycle 28) |
 | **Broken-link check** | ✅ | `scripts/check-links.cjs` (193 links, 0 broken) |
 | **HTML well-formedness / a11y spot-check** | ✅ | `scripts/check-html.cjs` (corrected: only flags imgs with NO `alt`; 0 warnings after fix) |
 | **JSON-LD structured data** | ✅ | Blowfish `schema.html` emits `WebSite`/`Article` JSON-LD per page |

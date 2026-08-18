@@ -1222,6 +1222,17 @@
         "AGENTS.md"
       ],
       "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T94",
+      "kind": "task",
+      "title": "CYCLE-33: correct ROADMAP_STATUS.md stale CI claims (perf warn budgets, R&D isolation)",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "docs/ROADMAP_STATUS.md"
+      ],
+      "pr": 153
     }
   ],
   "edges": [
