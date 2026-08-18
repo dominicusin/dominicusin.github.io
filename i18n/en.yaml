@@ -63,6 +63,14 @@ subscribe_button: "Subscribe"
 # Search (Blowfish built-in)
 search_input_placeholder: "Search the site…"
 search_close_button_title: "Close search"
+search.open_button_title: "Open search"
+
+# Code block copy button (layouts/partials/head.html)
+code.copy: "Copy"
+code.copied: "Copied"
+
+# Footer theme toggle (layouts/partials/header/components/mobile-menu.html)
+footer.dark_appearance: "Toggle theme"
 
 # Share link labels (Blowfish sharing.json provider titles use nested
 # `sharing.<provider>` keys — were missing, causing empty aria-label/title on
