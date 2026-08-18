@@ -32,7 +32,7 @@ jobs:
 
       - name: 🔍 Trivy Vulnerability Scanner
         # Pinned to a release tag (not @master) per supply-chain policy.
-        uses: aquasecurity/trivy-action@v0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
