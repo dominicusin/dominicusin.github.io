@@ -1169,15 +1169,16 @@
     {
       "id": "T90",
       "kind": "task",
-      "title": "Full search.json generation from content/ + coverage check",
-      "status": "pending",
+      "title": "Search index: repoint R&D fetch to /index.json; remove dead Jekyll search.json",
+      "status": "done",
       "deps": [
         "T88"
       ],
       "artifacts": [
         "scripts/build-search-index.cjs"
       ],
-      "initiative": "autonomous-cycle"
+      "initiative": "autonomous-cycle",
+      "verified": "Root search.json was dead Jekyll Liquid leftover (never published, 404). Real index = public/index.json (4.35MB, 384 entries, full corpus, 0 no-content). Fixed src/modules/search-engine.js + src/services/pwa-service.js to fetch /index.json. Removed dead root search.json. robots.txt now disallows /index.json for AI crawlers. R&D src/ not in prod build (experimental layer only). AUDIT R4 RESOLVED, ROADMAP updated."
     },
     {
       "id": "T91",

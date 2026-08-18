@@ -109,7 +109,7 @@ export class SearchEngine {
    */
   async loadSearchIndex() {
     try {
-      const response = await fetch('/search.json');
+      const response = await fetch('/index.json');
       if (!response.ok) throw new Error('Failed to load search index');
       
       const data = await response.json();

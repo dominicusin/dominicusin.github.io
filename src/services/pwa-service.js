@@ -229,7 +229,7 @@ export class PWAService {
     if (this.state.isOffline) return;
     try {
       const { VectorSearch } = await import('../modules/vector-search.js');
-      const response = await fetch('/search.json');
+      const response = await fetch('/index.json');
       if (!response.ok) return;
       const data = await response.json();
       const posts = Array.isArray(data)
