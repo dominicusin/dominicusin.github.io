@@ -19,56 +19,63 @@ jobs:
       
     - name: 🌐 Site Health Check
       run: |
-        echo "🌐 Site Health Status for ${{ github.repository_owner }}.github.io"
-        
-        # Check site availability
-        if curl -f -s https://${{ github.repository_owner }}.github.io > /dev/null; then
-          echo "✅ Site is accessible"
-        else
-          echo "❌ Site is not accessible"
-          exit 1
-        fi
-        
-        # Check critical files
-        files=(
-          "https://${{ github.repository_owner }}.github.io/manifest.json"
-          "https://${{ github.repository_owner }}.github.io/sitemap.xml"
-          "https://${{ github.repository_owner }}.github.io/css/main.min.css"
-          "https://${{ github.repository_owner }}.github.io/js/main.min.js"
+        BASE="https://${{ github.repository_owner }}.github.io"
+        echo "🌐 Site Health Status for $BASE"
+        STATUS=0
+
+        # Stable endpoints that MUST exist on the live site. Hashed asset
+        # bundles (css/main.bundle.min.<hash>.css, js/main.bundle.min.<hash>.js)
+        # are intentionally excluded — filenames change every build and cannot
+        # be predicted from CI. sitemap.xml / robots.txt / LICENSE are stable.
+        endpoints=(
+          "$BASE/"
+          "$BASE/sitemap.xml"
+          "$BASE/robots.txt"
+          "$BASE/LICENSE"
         )
-        
-        for file in "${files[@]}"; do
-          if curl -f -s "$file" > /dev/null; then
-            echo "✅ $file"
+
+        for ep in "${endpoints[@]}"; do
+          if curl -f -s -o /dev/null "$ep"; then
+            echo "✅ $ep"
           else
-            echo "❌ $file"
+            echo "❌ $ep"
+            STATUS=1
           fi
         done
-        
+
+        if [ "$STATUS" -ne 0 ]; then
+          echo "❌ Site health check FAILED"
+          exit 1
+        fi
+        echo "✅ Site is accessible and critical endpoints respond"
+
     - name: 📈 Bundle Size Tracking
       run: |
-        # Analyze bundle sizes
-        curl -s https://${{ github.repository_owner }}.github.io/js/main.min.js | wc -c > js_size.txt
-        curl -s https://${{ github.repository_owner }}.github.io/css/main.min.css | wc -c > css_size.txt
-        
-        JS_SIZE=$(cat js_size.txt)
-        CSS_SIZE=$(cat css_size.txt)
-        
+        BASE="https://${{ github.repository_owner }}.github.io"
+        # Asset bundles are content-hashed (main.bundle.min.<hash>.{js,css});
+        # extract the real URLs from the live homepage instead of guessing.
+        HTML=$(curl -s "$BASE/")
+        JS_URL=$(echo "$HTML" | grep -oE '/js/[a-zA-Z0-9_.-]+\.js' | head -1)
+        CSS_URL=$(echo "$HTML" | grep -oE '/css/[a-zA-Z0-9_.-]+\.css' | head -1)
+
+        JS_SIZE=$(curl -s "$BASE$JS_URL" | wc -c)
+        CSS_SIZE=$(curl -s "$BASE$CSS_URL" | wc -c)
+
         echo "📊 Current Bundle Sizes:"
-        echo "JavaScript: $(($JS_SIZE/1024))KB"
-        echo "CSS: $(($CSS_SIZE/1024))KB"
+        echo "JavaScript ($JS_URL): $(($JS_SIZE/1024))KB"
+        echo "CSS ($CSS_URL): $(($CSS_SIZE/1024))KB"
         echo "Total: $(((JS_SIZE + CSS_SIZE)/1024))KB"
-        
+
         # Compare with budgets
         JS_BUDGET=250000
         CSS_BUDGET=50000
-        
+
         if [ $JS_SIZE -le $JS_BUDGET ]; then
           echo "✅ JavaScript within budget"
         else
           echo "⚠️ JavaScript exceeds budget"
         fi
-        
+
         if [ $CSS_SIZE -le $CSS_BUDGET ]; then
           echo "✅ CSS within budget"
         else
@@ -77,44 +84,52 @@ jobs:
         
     - name: 🔍 SEO Validation
       run: |
+        BASE="https://${{ github.repository_owner }}.github.io"
         echo "🔍 SEO Health Check:"
-        
-        # Check robots.txt
-        if curl -f -s https://${{ github.repository_owner }}.github.io/robots.txt > /dev/null; then
+        SEO_OK=1
+
+        if curl -f -s -o /dev/null "$BASE/robots.txt"; then
           echo "✅ robots.txt accessible"
+          ROBOTS=true
         else
-          echo "⚠️ robots.txt missing"
+          echo "❌ robots.txt missing"
+          ROBOTS=false
+          SEO_OK=0
         fi
-        
-        # Check sitemap
-        if curl -f -s https://${{ github.repository_owner }}.github.io/sitemap.xml > /dev/null; then
+
+        if curl -f -s -o /dev/null "$BASE/sitemap.xml"; then
           echo "✅ sitemap.xml accessible"
+          SITEMAP=true
         else
           echo "❌ sitemap.xml missing"
+          SITEMAP=false
+          SEO_OK=0
         fi
-        
-        # Check PWA manifest
-        if curl -f -s https://${{ github.repository_owner }}.github.io/manifest.json > /dev/null; then
-          echo "✅ manifest.json accessible"
-        else
-          echo "❌ manifest.json missing"
+
+        if [ "$SEO_OK" -ne 1 ]; then
+          echo "❌ SEO validation FAILED"
+          exit 1
         fi
-        
+        echo "✅ SEO endpoints OK"
+
     - name: 📝 Generate Analytics Report
       run: |
+        BASE="https://${{ github.repository_owner }}.github.io"
+        ROBOTS=$(curl -f -s -o /dev/null "$BASE/robots.txt" && echo true || echo false)
+        SITEMAP=$(curl -f -s -o /dev/null "$BASE/sitemap.xml" && echo true || echo false)
+        ACCESSIBLE=$(curl -f -s -o /dev/null "$BASE/" && echo true || echo false)
         cat > analytics-report.json << EOF
         {
           "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-          "site": "${{ github.repository_owner }}.github.io",
+          "site": "$BASE",
           "health": {
-            "accessible": true,
+            "accessible": $ACCESSIBLE,
             "js_size": "$(cat js_size.txt)",
             "css_size": "$(cat css_size.txt)"
           },
           "seo": {
-            "robots_txt": true,
-            "sitemap": true,
-            "manifest": true
+            "robots_txt": $ROBOTS,
+            "sitemap": $SITEMAP
           }
         }
         EOF
