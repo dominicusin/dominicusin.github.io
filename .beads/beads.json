@@ -1258,16 +1258,15 @@
       "pr": 154
     },
     {
-      "id": "T98",
+      "id": "T99",
       "kind": "task",
-      "title": "CYCLE-38: add jest tests for helpers.supports/requestIdleCallback; fix supports() CSS-undefined crash",
+      "title": "CYCLE-39/40: ROADMAP.md accuracy + loop 26-40 closeout (T93 AGENTS.md blocked GATE-2)",
       "status": "done",
       "deps": [],
       "artifacts": [
-        "tests/unit/helpers.test.js",
-        "src/utils/helpers.js"
+        ".planning/ROADMAP.md"
       ],
-      "pr": 157
+      "pr": 158
     }
   ],
   "edges": [
