@@ -1198,8 +1198,8 @@
     {
       "id": "T92",
       "kind": "task",
-      "title": "deploy-ipfs.yml disabled + .ci/ gitignored",
-      "status": "pending",
+      "title": "Hygiene: add .ci/ to .gitignore (deploy-ipfs.yml already disabled+documented)",
+      "status": "done",
       "deps": [
         "T88"
       ],
@@ -1207,7 +1207,8 @@
         ".github/workflows/deploy-ipfs.yml",
         ".gitignore"
       ],
-      "initiative": "autonomous-cycle"
+      "initiative": "autonomous-cycle",
+      "verified": "Added .ci/ to .gitignore (generated CI report artifacts like external-links-report.json, regenerated per run, never commit). deploy-ipfs.yml already has a DISABLED header (Pinata keys compromised 2026-08-14, Jekyll removed in Phase 7) — no change needed. Verified: git check-ignore .ci -> ignored."
     },
     {
       "id": "T93",
