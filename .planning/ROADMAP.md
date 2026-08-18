@@ -10,7 +10,7 @@ Requirements/initiatives live in `.planning/initiatives/`. Architecture decision
   verified current state. Planning dirs consolidated: `.planning/` = requirements SoT,
   `.beads/` = live task graph; `.gsd`/`.openspec`/`.specify` archived.
 - **Phase 1 — Consolidation (NEXT)**: TASK-C2 R&D CI isolation; update `AGENTS.md`.
-- **Phase 2 — Reliability**: full `search.json` generation + coverage check (R4).
+- **Phase 2 — Reliability**: search index verified full via `public/index.json` (384 entries, 4.35 MB); dead root `search.json` removed (Cycle 29); R&D search code repointed to `/index.json`.
 - **Phase 3 — Performance**: asset budget in CI; lazy-load D3/KG (R3).
 - **Phase 4 — Hygiene**: disable/remove `deploy-ipfs.yml`; add `.ci/` to `.gitignore` (R5).
 - **Phase 5 — Agentic Publishing**: content PR protocol (frontmatter/link/JSON-LD/a11y gates).

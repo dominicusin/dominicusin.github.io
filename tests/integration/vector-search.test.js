@@ -30,7 +30,7 @@ describe('SearchEngine vector integration', () => {
     delete global.lunr; // simulate no Lunr (offline/lightweight path)
   });
 
-  test('builds a vector index from search.json posts', async () => {
+  test('builds a vector index from index.json posts', async () => {
     const engine = await loadEngineWith([
       {
         title: 'Vector Search Explained',
