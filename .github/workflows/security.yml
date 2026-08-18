@@ -26,9 +26,27 @@ jobs:
           cache: 'npm'
 
       - name: 🔍 Node.js Security Audit
+        # Surface findings by severity (no longer silently masked by `|| true`).
+        # This repo ships a STATIC Hugo site — node_modules never reaches
+        # production, so npm audit is informational. Gate ONLY on `critical`
+        # (a real emergency; currently 0). moderate/high are reported as
+        # warnings (mostly dev/CI tooling: hardhat, lighthouse, puppeteer,
+        # undici — upstream transitive issues needing major bumps that would
+        # break those tools). Findings are always uploaded as npm-audit.json.
         run: |
           npm audit --audit-level=moderate || true
           npm audit --json > npm-audit.json || true
+          node -e '
+            const a = require("./npm-audit.json");
+            const m = (a.metadata && a.metadata.vulnerabilities) || {};
+            const crit = m.critical || 0;
+            console.log("🔒 npm audit summary:", JSON.stringify(m));
+            if (crit > 0) {
+              console.error("❌ Blocking: " + crit + " critical vulnerabilities present.");
+              process.exit(1);
+            }
+            console.log("✅ No critical vulnerabilities — moderate/high reported as warnings (dev/CI tooling; not in production bundle).");
+          '
 
       - name: 🔍 Trivy Vulnerability Scanner
         # Pinned to a release tag (not @master) per supply-chain policy.
