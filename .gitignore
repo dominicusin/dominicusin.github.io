@@ -77,3 +77,7 @@ data/github.json
 # OS / misc
 .DS_Store
 Thumbs.db
+
+# Generated CI report artifacts (e.g. external-links-report.json from
+# scripts/check-external-links.cjs). Regenerated per run; never commit.
+.ci/
