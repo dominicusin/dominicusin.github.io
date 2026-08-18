@@ -27,7 +27,7 @@
 | `coverage/` | **generated** | c8 report; gitignored |
 | `dist/` | **legacy generated** | old esbuild/Jekyll output; gitignored, candidate for deletion |
 | `css/`, `js/` (root) | **legacy generated** | old Jekyll frontend; superseded by `src/` + Hugo; not shipped |
-| `404.html`, `index.html`, `archive.html`, `categories.html`, `feed.xml`, `manifest.json` | **legacy generated** | old Jekyll build output in repo root; gitignored via `/public/` patterns? verify — these are stale |
+| `404.html`, `index.html`, `archive.html`, `categories.html`, `feed.xml`, `manifest.json` | **mostly legacy generated** | old Jekyll build output in repo root; the `tags.html` root file is a genuine Hugo `layout: page` source (NOT stale). Verify which remain before deleting. |
 | `_domini/` | **migrated** | moved to `content/domini/` in migration; legacy dir candidate for deletion |
 | `_config.local.yml`, `.jekyll-metadata`, `.bolt/`, `.babelrc` | **legacy/tooling** | Jekyll/Babel leftovers; not used by Hugo |
 | `.github/reviews/` | **generated** | PR review artifacts; not committed intentionally |

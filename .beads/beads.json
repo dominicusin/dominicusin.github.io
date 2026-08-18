@@ -1256,6 +1256,17 @@
         "docs/BASELINE_METRICS.md"
       ],
       "pr": 154
+    },
+    {
+      "id": "T97",
+      "kind": "task",
+      "title": "CYCLE-36: correct REPOSITORY_SURFACE.md over-broad 'root *.html stale' claim (tags.html is real source)",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "docs/REPOSITORY_SURFACE.md"
+      ],
+      "pr": 156
     }
   ],
   "edges": [
