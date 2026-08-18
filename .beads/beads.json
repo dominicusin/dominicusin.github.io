@@ -1136,6 +1136,88 @@
       ],
       "initiative": "autonomous-cycle",
       "verified": "audit step printed + summarized by severity (was silently swallowed). Gates only on critical (currently 0 -> scan green + fully reported). moderate/high = warnings (dev/CI tooling: hardhat/lighthouse/puppeteer/undici; node_modules not in prod bundle). security.yml valid YAML; lint/test green. Completes the 15-iteration loop (T72-T86)."
+    },
+    {
+      "id": "T88",
+      "kind": "task",
+      "title": "Planning consolidation: archive .gsd/.openspec/.specify into docs/archive",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "docs/archive/gsd-2026-08-18/",
+        "docs/archive/openspec-2026-08-18/",
+        "docs/archive/specify-2026-08-18/",
+        "docs/architecture/AUDIT-2026-08.md",
+        ".planning/ROADMAP.md"
+      ],
+      "verified": "git mv of .gsd/.openspec/.specify into docs/archive/ (history preserved). .planning/initiatives + .beads remain live. No CI/scripts referenced archived dirs. AUDIT-2026-08.md + ROADMAP.md written. Cycle 27.",
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T89",
+      "kind": "task",
+      "title": "R&D CI isolation: test-rnd.yml (hardhat+src jest); Chromium steps continue-on-error",
+      "status": "pending",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        ".github/workflows/test-rnd.yml"
+      ],
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T90",
+      "kind": "task",
+      "title": "Full search.json generation from content/ + coverage check",
+      "status": "pending",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        "scripts/build-search-index.cjs"
+      ],
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T91",
+      "kind": "task",
+      "title": "Asset budget CI + lazy-load D3/KG (perf)",
+      "status": "pending",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        "static/js/knowledge-graph.js"
+      ],
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T92",
+      "kind": "task",
+      "title": "deploy-ipfs.yml disabled + .ci/ gitignored",
+      "status": "pending",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        ".github/workflows/deploy-ipfs.yml",
+        ".gitignore"
+      ],
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T93",
+      "kind": "task",
+      "title": "AGENTS.md update for single planning SoT (.planning + .beads)",
+      "status": "pending",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        "AGENTS.md"
+      ],
+      "initiative": "autonomous-cycle"
     }
   ],
   "edges": [
