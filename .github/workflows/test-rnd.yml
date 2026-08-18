@@ -38,7 +38,7 @@ on:
 
 jobs:
   rnd-unit:
-    name: 🧪 Unit tests (jest, src/)
+    name: 🧪 R&D Unit tests (jest — same suites as prod; src/ suites are quarantined)
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout
@@ -52,7 +52,14 @@ jobs:
         run: npm ci --prefer-offline --no-audit --no-fund
       - name: 🧹 Lint (eslint)
         run: npm run lint
-      - name: 🧪 Jest (src/ + R&D suites)
+      - name: 🧪 Jest (R&D surface smoke test)
+        # NOTE: jest.config.js roots = ['<rootDir>/tests'] and there are 0 tests
+        # under src/ (R&D suites are quarantined — they fail against the real
+        # implementation). This job therefore runs the SAME 29 suites as the
+        # production Quality CI as a smoke check that R&D-surface file changes
+        # don't break the shared test harness. It is NOT an isolated src/ gate.
+        # To make it a true R&D gate, add `npx jest --config jest.config.js
+        # --testPathPattern='<quarantine patterns>'` (expects those suites green).
         run: npx jest --config jest.config.js --coverage=false
 
   rnd-dao:

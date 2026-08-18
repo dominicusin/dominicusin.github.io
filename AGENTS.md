@@ -1,15 +1,19 @@
 # Engineering Blog — AI Assistant Instructions
 
-> **Priority order (per `docs/STRATEGIC_PLAN_2026-2027.md` + `docs/SSG_MIGRATION_PLAN.md`):**
-> repo instructions (`AGENTS.md`, `docs/*.md`) WIN over any attached external plan.
-> Consolidate — do not duplicate.
+> **Priority order:** repo instructions (`AGENTS.md`, `docs/*.md`) WIN over any
+> attached external plan. Consolidate — do not duplicate.
+> **Architecture decision (ratified 2026-08):** Hugo + Blowfish is the
+> production SSG and stays — no migration to Astro/Jekyll. `docs/SSG_MIGRATION_PLAN.md`
+> is **superseded** (its original plan was based on a stale snapshot); `docs/STRATEGIC_PLAN_2026-2027.md`
+> carries a stale baseline — see its reconciliation header. Source of truth for
+> current state: this file + `ROADMAP.md` + `AUDIT-2026-08.md`.
 
 ## Overview
 
 Static engineering blog published by **Hugo v0.164.0** with the **Blowfish v2.105.0**
 theme, deployed to GitHub Pages via the `hugo.yml` workflow (Pages source =
 **GitHub Actions**). The legacy Jekyll + esbuild stack was removed in Phase 7
-(see `docs/SSG_MIGRATION_PLAN.md` and tag `pre-phase7-legacy`).
+(see tag `pre-phase7-legacy`).
 
 Two planes:
 
@@ -109,5 +113,6 @@ in CI, so the version there is authoritative.
 | Lines | 76.57% |
 
 This is the **official baseline** (not the aspirational 85% target, which
-requires an E2E/Playwright layer — see `STRATEGIC_PLAN_2026-2027.md` Q3 2026).
+requires an E2E/Playwright layer — tracked in `ROADMAP.md` / `AUDIT-2026-08.md`,
+not in the (stale-baseline) `STRATEGIC_PLAN_2026-2027.md`.
 Do not regress below these numbers on the `src/` plane without adding tests.

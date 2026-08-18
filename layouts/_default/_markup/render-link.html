@@ -1,0 +1,33 @@
+{{/*
+  Trust-boundary render-link hook (overrides themes/blowfish/.../render-link.html).
+  Mirrors Blowfish's urls.Parse-based pass-through EXACTLY (so legitimate but
+  unusual schemes like `stun:`/`<scheme>:` are rendered the same way the theme
+  would — Hugo escapes them to href="#ZgotmplZ", which link-checkers ignore),
+  and additionally neutralises dangerous link schemes
+  (javascript:/data:/vbscript:/file:) by rendering as plain text.
+*/}}
+{{- $u := urls.Parse .Destination -}}
+{{- $href := $u.String -}}
+{{- $lower := lower .Destination -}}
+{{- $dangerous := or (hasPrefix $lower "javascript:") (hasPrefix $lower "data:") (hasPrefix $lower "vbscript:") (hasPrefix $lower "file:") -}}
+{{- if $dangerous -}}
+  {{- /* neutralise executable/unsafe schemes: render as text, no anchor */ -}}
+  {{- .Text | safeHTML -}}
+{{- else -}}
+  {{- if strings.HasPrefix $u.String "#" -}}
+    {{- $href = printf "%s#%s" .PageInner.RelPermalink $u.Fragment -}}
+  {{- else if and $href (not $u.IsAbs) -}}
+    {{- $path := strings.TrimPrefix "./" $u.Path -}}
+    {{- with or ($.PageInner.GetPage $path) ($.PageInner.Resources.Get $path) (resources.Get $path) -}}
+      {{- $href = .RelPermalink -}}
+      {{- with $u.RawQuery -}}{{- $href = printf "%s?%s" $href . -}}{{- end -}}
+      {{- with $u.Fragment -}}{{- $href = printf "%s#%s" $href . -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $forceNewTab := .Page.Params.externalLinkForceNewTab | default (.Page.Site.Params.article.externalLinkForceNewTab | default true) -}}
+  {{- $isExternal := or (strings.HasPrefix .Destination "http:") (strings.HasPrefix .Destination "https:") -}}
+  {{- $newTab := and $forceNewTab $isExternal -}}
+<a href="{{ $href }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} target="_blank" rel="noreferrer"{{ end }}>
+  {{- .Text | safeHTML -}}
+</a>
+{{- end -}}

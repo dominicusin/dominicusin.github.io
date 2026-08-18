@@ -1322,6 +1322,13 @@
       "pr": 164,
       "evidence": "doc claimed coverage 17/17 + bundle 68KB (stale); added baseline-correction header with real metrics (jest 277/21, build 0, Hugo stays).",
       "verification": "markdown valid; lint clean; jest 277/21; build 0"
+    },
+    {
+      "id": "T105",
+      "title": "Gated security/governance batch (TASK-003/TASK-009/GATE-2/R&D)",
+      "status": "done",
+      "pr": null,
+      "note": "user-approved gated work: TASK-003 remove ||true content gate (proven safe via EXIT=1 on invalid new post); TASK-009 trust-boundary (render-link hook blocks javascript:/data:/vbscript:/file: + sanitizeExternal in sync-github.cjs strips <script>/on*= from ingested GitHub READMEs); GATE-2 AGENTS.md T93 updated (Hugo stays, SSG_MIGRATION_PLAN superseded) + archived RECOMMENDATIONS.md/Manifest.md/.bolt/ to docs/archive/legacy-root/; R&D jest job renamed (was falsely 'src/')."
     }
   ],
   "edges": [
@@ -1588,6 +1595,11 @@
     {
       "from": "T103",
       "to": "T104",
+      "type": "next"
+    },
+    {
+      "from": "T104",
+      "to": "T105",
       "type": "next"
     }
   ]
