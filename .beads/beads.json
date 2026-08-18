@@ -1329,6 +1329,13 @@
       "status": "done",
       "pr": null,
       "note": "user-approved gated work: TASK-003 remove ||true content gate (proven safe via EXIT=1 on invalid new post); TASK-009 trust-boundary (render-link hook blocks javascript:/data:/vbscript:/file: + sanitizeExternal in sync-github.cjs strips <script>/on*= from ingested GitHub READMEs); GATE-2 AGENTS.md T93 updated (Hugo stays, SSG_MIGRATION_PLAN superseded) + archived RECOMMENDATIONS.md/Manifest.md/.bolt/ to docs/archive/legacy-root/; R&D jest job renamed (was falsely 'src/')."
+    },
+    {
+      "id": "T106",
+      "title": "cycle47: relax html-validate minify-artifact rules (meaningful non-blocking report)",
+      "status": "done",
+      "pr": null,
+      "note": "Added .htmlvalidate.json disabling attr-quotes/doctype-style/script-type/void-style — these flag Hugo's intentional minified output (unquoted attrs are valid HTML5), producing ~50 false-positive errors on the non-blocking validate step. Now 0 errors; report is meaningful. Theme-chrome a11y (autocomplete-on-checkbox, aria-hidden-on-focusable) is in pinned Blowfish submodule v2.105.0, untouchable without breaking pin — documented as known-issue."
     }
   ],
   "edges": [
@@ -1600,6 +1607,11 @@
     {
       "from": "T104",
       "to": "T105",
+      "type": "next"
+    },
+    {
+      "from": "T105",
+      "to": "T106",
       "type": "next"
     }
   ]
