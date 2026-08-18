@@ -1270,6 +1270,19 @@
         "package.json"
       ],
       "pr": 160
+    },
+    {
+      "id": "T101",
+      "kind": "task",
+      "title": "CYCLE-42: fix Hugo deprecated .Site.Data API in crosslinks.html",
+      "phase": "audit",
+      "status": "done",
+      "evidence": "hugo --gc --minify emitted WARN deprecated: .Site.Data was deprecated in Hugo v0.156.0; used in layouts/partials/crosslinks.html:8,15 (2 sites). Partial is wired via layouts/repository/single.html:26. Fixed .Site.Data -> hugo.Data. languageCode deprecation left as known-issue (Blowfish theme reads .Language.LanguageCode for i18n redirect; removing it breaks language switcher; adding 'locale' did not silence warning in v0.164.0).",
+      "verification": "rebuild: build=0, 482 RU / 8 EN pages (no regression); .Site.Data WARN gone; languageCode WARN remains (theme-dependent).",
+      "files": [
+        "layouts/partials/crosslinks.html",
+        "config/_default/hugo.toml"
+      ]
     }
   ],
   "edges": [
