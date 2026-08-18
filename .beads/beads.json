@@ -1336,6 +1336,13 @@
       "status": "done",
       "pr": null,
       "note": "Added .htmlvalidate.json disabling attr-quotes/doctype-style/script-type/void-style — these flag Hugo's intentional minified output (unquoted attrs are valid HTML5), producing ~50 false-positive errors on the non-blocking validate step. Now 0 errors; report is meaningful. Theme-chrome a11y (autocomplete-on-checkbox, aria-hidden-on-focusable) is in pinned Blowfish submodule v2.105.0, untouchable without breaking pin — documented as known-issue."
+    },
+    {
+      "id": "T107",
+      "title": "cycle48: sanitize-generated.cjs + hugo.yml step (re-sanitize existing generated content)",
+      "status": "done",
+      "pr": null,
+      "note": "Found injected <script async src=...> in content/repositories/dominicusin__webring.md (external GitHub README, unsafe=true Hugo). TASK-009 sanitizeExternal only covers FRESH sync; already-written generated content was never re-sanitized. Added scripts/sanitize-generated.cjs (scans content/repositories/*.md + content/gists/*.md, strips <script>/on*=/javascript:/vbscript:/iframe/object/embed) and wired it into hugo.yml deploy workflow right after sync-github.cjs, before build. Verified: scanned 236 generated files, sanitized 1 (webring.md), legit code/links preserved. Cleaned up local sync experiment artifacts (gitignored generated content)."
     }
   ],
   "edges": [
@@ -1612,6 +1619,11 @@
     {
       "from": "T105",
       "to": "T106",
+      "type": "next"
+    },
+    {
+      "from": "T106",
+      "to": "T107",
       "type": "next"
     }
   ]
