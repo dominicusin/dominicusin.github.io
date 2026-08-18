@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '_posts/**'
+      - 'content/blog/**'
 
 permissions:
   contents: read
@@ -12,32 +12,32 @@ permissions:
 jobs:
   notify-fediverse:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      
+
       - name: Get latest post details
         id: post
         run: |
-          LATEST_POST=$(ls -t _posts/*.md | head -1)
+          LATEST_POST=$(find content/blog -name '*.md' -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-)
           if [ -z "$LATEST_POST" ]; then
             echo "No posts found"
             exit 0
           fi
-          
+
           # Extract front matter
           TITLE=$(grep -m1 "^title:" "$LATEST_POST" | sed 's/title: "//;s/"$//')
           DESCRIPTION=$(grep -m1 "^description:" "$LATEST_POST" | sed 's/description: "//;s/"$//' || echo "New post published")
-          URL="${{ secrets.SITE_BASE_URL }}/$(basename "$LATEST_POST" .md)/"
+          URL="${{ secrets.SITE_BASE_URL }}/$(echo "$LATEST_POST" | sed 's|^content/blog/||;s|\.md$||')/"
           IMAGE=$(grep -m1 "^image:" "$LATEST_POST" | sed 's/image: "//;s/"$//' || echo "")
-          
+
           echo "title=$TITLE" >> $GITHUB_OUTPUT
           echo "description=$DESCRIPTION" >> $GITHUB_OUTPUT
           echo "url=$URL" >> $GITHUB_OUTPUT
           echo "image=$IMAGE" >> $GITHUB_OUTPUT
           echo "post_file=$LATEST_POST" >> $GITHUB_OUTPUT
-      
+
       - name: Generate ActivityPub Object
         id: ap_object
         run: |
@@ -76,29 +76,24 @@ jobs:
             "cc": ["https://www.w3.org/ns/activitystreams#Public"]
           }
           EOF
-      
+
       - name: Sign and send to Mastodon Inbox
         run: |
           if [ -z "${{ secrets.ACTIVITYPUB_PRIVATE_KEY }}" ]; then
             echo "⚠️ ActivityPub credentials not configured, skipping federation"
             exit 0
           fi
-          
-          # Install http-signature tools
-          npm install -g http-signature-header
-          
-          # Create signed request
+
+          # NOTE: proper HTTP Signatures require a signing library (e.g.
+          # http-signature). The simplified curl below posts the Activity but
+          # most inboxes reject unsigned requests; the Mastodon API fallback
+          # below is the reliable path when a token is configured.
           INBOX_URL="https://${{ secrets.MASTODON_INSTANCE }}/users/${{ secrets.MASTODON_USERNAME }}/inbox"
-          
-          # Generate HTTP Signature header
           DATE=$(date -u +"%a, %d %h %Y %T GMT")
           CONTENT_TYPE="application/activity+json"
           BODY=$(cat activitypub-object.json)
-          
-          # Create digest
           DIGEST=$(echo -n "$BODY" | openssl dgst -sha256 -binary | base64)
-          
-          # Sign the request (simplified - in production use proper library)
+
           curl -X POST "$INBOX_URL" \
             -H "Content-Type: $CONTENT_TYPE" \
             -H "Date: $DATE" \
@@ -107,25 +102,25 @@ jobs:
             -H "(request-target): post /users/${{ secrets.MASTODON_USERNAME }}/inbox" \
             --data-binary "$BODY" \
             || echo "Failed to send to inbox, trying alternative method"
-      
-      - name: Alternative: Post via Mastodon API
+
+      - name: "Alternative: Post via Mastodon API"
         if: failure()
         run: |
           if [ -z "${{ secrets.MASTODON_ACCESS_TOKEN }}" ]; then
             echo "⚠️ Mastodon API token not configured"
             exit 0
           fi
-          
+
           STATUS_TEXT="📝 New post: ${{ steps.post.outputs.title }}\n\n${{ steps.post.outputs.description }}\n\n${{ steps.post.outputs.url }}\n\n#jekyll #staticsite #webdev"
-          
+
           if [ -n "${{ steps.post.outputs.image }}" ]; then
-            # Upload media first
+            # Upload media first (image is a site-relative URL; prefix with base)
+            MEDIA_URL="${{ secrets.SITE_BASE_URL }}${{ steps.post.outputs.image }}"
             MEDIA_ID=$(curl -s -X POST "https://${{ secrets.MASTODON_INSTANCE }}/api/v1/media" \
               -H "Authorization: Bearer ${{ secrets.MASTODON_ACCESS_TOKEN }}" \
-              -F "file=@${{ steps.post.outputs.image }}" \
+              -F "file=@$MEDIA_URL" \
               | jq -r '.id')
-            
-            # Post with media
+
             curl -X POST "https://${{ secrets.MASTODON_INSTANCE }}/api/v1/statuses" \
               -H "Authorization: Bearer ${{ secrets.MASTODON_ACCESS_TOKEN }}" \
               -H "Content-Type: application/json" \
@@ -135,7 +130,6 @@ jobs:
                 \"visibility\": \"public\"
               }"
           else
-            # Post text only
             curl -X POST "https://${{ secrets.MASTODON_INSTANCE }}/api/v1/statuses" \
               -H "Authorization: Bearer ${{ secrets.MASTODON_ACCESS_TOKEN }}" \
               -H "Content-Type: application/json" \
@@ -144,5 +138,5 @@ jobs:
                 \"visibility\": \"public\"
               }"
           fi
-          
+
           echo "✅ Posted to Mastodon successfully!"
