@@ -1,8 +1,11 @@
-# BMAD — Governance & Reasoning Layer
+# Governance & Reasoning Layer
 
 > **Sole responsibility: WHY + SHAPE + locked governance decisions.**
-> Does NOT define "what" (Spec Kit) or "how to execute" (GSD) or track state (Beads).
-> Downstream: hands the initiative charter to **Spec Kit** (`.specify/spec.md`).
+> Does NOT define "what" (requirements) or "how to execute" (task graph) — those
+> live in `.planning/initiatives/` and `.beads/beads.json` respectively.
+> Legacy planning tools (Spec Kit / `.specify/`, GSD / `.gsd/`, OpenSpec / `.openspec/`)
+> were **archived to `docs/archive/` in Cycle 27 (PR #147)** and are no longer active.
+> This file is part of the current Planning SoT (`.planning/` + `.beads/`).
 
 ## Project
 `dominicusin.github.io` — Hugo + Blowfish engineering blog & decentralized-web
@@ -36,9 +39,13 @@ cloud and an expanded site ontology — updating automatically.**
   600–900 calls/run (< 5000/h). Batched concurrency (8) → ~2–4 min runtime.
   Wiki clones (opt-in `INCLUDE_WIKI=1`) add time, not API calls.
 
-## Handoff contract
-- → **Spec Kit** (`.specify/spec.md`): defines the binding "what" (requirements R1–R7
-  + acceptance contract). BMAD does not restate it.
-- → **Beads** (`.beads/beads.json`): receives the state graph (nodes/edges).
-- → **GSD** (`.gsd/plan.md`): executes the contract against the state graph and
-  records evidence. BMAD does not execute.
+## Handoff contract (current SoT — post Cycle 27 consolidation)
+- **Requirements**: live in `.planning/initiatives/` (supersedes the old Spec Kit /
+  `.specify/spec.md` requirements doc, now archived).
+- **State graph (nodes/edges)**: live in `.beads/beads.json` (supersedes the old
+  GSD / `.gsd/plan.md` executor; GSD archived in Cycle 27).
+- **Architecture decisions**: `docs/architecture/ADR-*.md`.
+- **Roadmap**: `.planning/ROADMAP.md`.
+
+Legacy tools archived (Cycle 27, #147): `.gsd/`, `.openspec/`, `.specify/`.
+They are historical context only and MUST NOT be treated as active systems.
