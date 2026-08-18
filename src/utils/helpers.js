@@ -227,7 +227,7 @@ export function supports(feature) {
   const features = {
     intersectionObserver: 'IntersectionObserver' in window,
     mutationObserver: 'MutationObserver' in window,
-    cssCustomProperties: CSS.supports?.('color', 'var(--test)'),
+    cssCustomProperties: typeof CSS !== 'undefined' && CSS.supports?.('color', 'var(--test)'),
     promise: 'Promise' in window,
     fetch: 'fetch' in window,
     localStorage: 'localStorage' in window,
