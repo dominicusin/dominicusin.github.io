@@ -1283,8 +1283,6 @@
         "layouts/partials/crosslinks.html",
         "config/_default/hugo.toml"
       ]
-
-
     },
     {
       "id": "T102",
@@ -1311,7 +1309,19 @@
       "pr": 163,
       "evidence": "ignoreCommand was 'node ...cjs && exit 1 || exit 0' (inverted: valid->skip, invalid->build); corrected to 'node ...cjs' (pass->build/skip-on-fail). vercel.json valid JSON, contract exit 0 on clean main.",
       "verification": "python json.load valid; node script exit 0; jest 277/21; audit BROKEN 0"
-
+    },
+    {
+      "id": "T104",
+      "title": "cycle45: reconcile stale STRATEGIC_PLAN baseline numbers",
+      "status": "done",
+      "priority": "P2",
+      "owner": "audit-loop",
+      "depends_on": [
+        "T103"
+      ],
+      "pr": 164,
+      "evidence": "doc claimed coverage 17/17 + bundle 68KB (stale); added baseline-correction header with real metrics (jest 277/21, build 0, Hugo stays).",
+      "verification": "markdown valid; lint clean; jest 277/21; build 0"
     }
   ],
   "edges": [
@@ -1564,8 +1574,6 @@
       "from": "T29",
       "to": "T30",
       "type": "blocks"
-
-
     },
     {
       "from": "T101",
@@ -1576,7 +1584,11 @@
       "from": "T102",
       "to": "T103",
       "type": "next"
-
+    },
+    {
+      "from": "T103",
+      "to": "T104",
+      "type": "next"
     }
   ]
 }
