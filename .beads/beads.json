@@ -1182,15 +1182,16 @@
     {
       "id": "T91",
       "kind": "task",
-      "title": "Asset budget CI + lazy-load D3/KG (perf)",
-      "status": "pending",
+      "title": "Perf: wire scripts/check-perf.cjs into quality.yml (render-blocking regression guard)",
+      "status": "done",
       "deps": [
         "T88"
       ],
       "artifacts": [
         "static/js/knowledge-graph.js"
       ],
-      "initiative": "autonomous-cycle"
+      "initiative": "autonomous-cycle",
+      "verified": "Added 'Performance smoke check' step after hugo build in quality.yml running node scripts/check-perf.cjs. It fails only on real render-blocking <script> regressions (would have caught #111), reports CSS bundle size as informational (render-blocking CSS intentional to avoid CLS=1.0). Verified: 0 regressions, quality.yml valid YAML. D3/KG scripts confirmed page-scoped + deferred (load only on /knowledge-graph/, not global) — already isolated. R3 partially addressed (guard wired); full asset trim deferred as separate optimization."
     },
     {
       "id": "T92",

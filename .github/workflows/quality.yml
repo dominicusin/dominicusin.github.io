@@ -44,6 +44,13 @@ jobs:
       - name: 🏗️ Build Hugo (catch template/layout errors)
         run: hugo --gc --minify
 
+      - name: ⚡ Performance smoke check (render-blocking regression guard)
+        # scripts/check-perf.cjs fails only on a real render-blocking <script>
+        # regression (it would have caught the #111 JS bug). CSS bundle size is
+        # reported as informational (render-blocking CSS is intentional — avoids
+        # the CLS=1.0 unstyled-flash bug). Complements the Lighthouse job.
+        run: node scripts/check-perf.cjs
+
       - name: 📝 Content Contract (report-only on PR; hard gate is in hugo.yml)
         run: node scripts/ci-content-contract.cjs || true
 
