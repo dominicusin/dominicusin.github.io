@@ -20,7 +20,20 @@ const REPO_ROOT = path.join(__dirname, '..');
 const rootFiles = new Set(fs.readdirSync(REPO_ROOT));
 
 // Auto-generated / CI-fallback content must NOT be edited (regenerated each sync).
-const IGNORE = ['content/gists/**'];
+// Also ignore intentionally-mirrored third-party lists whose relative links
+// point into the *upstream source repo* (e.g. ./CONTRIBUTING.md, AUTHORS.md),
+// not this site. These are not author content and their broken links are expected.
+const IGNORE = [
+  'content/gists/**',
+  'blog/2017-11-06-Winworkstation.md',
+  'blog/2018-11-09-awesome-machine-learning-for-cyber-security.md',
+  'blog/2019-06-16-Awesome-Selfhosted.md',
+  'blog/2022-05-16-Awesome-Selfhosted.md',
+  'blog/2023-01-14-a-collection-of-awesome-ai-applications.md',
+  'blog/2023-01-20-awesome-piracy.md',
+  'blog/2023-05-18-dark-web-links.md',
+  'blog/2025-12-23-awesome-plan9.md',
+];
 
 const linkRe = /\[[^\]]*\]\(([^)]+)\)/g;
 const mdFiles = glob.sync('**/*.md', { cwd: CONTENT_DIR, absolute: true, ignore: IGNORE });
