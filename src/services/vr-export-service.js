@@ -531,27 +531,48 @@ export class KnowledgeGraphVRExporter {
    * Конвертация в GLB (бинарный glTF)
    */
   convertToGLB(gltf) {
+    const enc = new TextEncoder();
     const jsonChunk = JSON.stringify(gltf);
-    const jsonPadded = this.padToMultipleOf4(jsonChunk);
-    
-    // Здесь должна быть логика упаковки бинарных данных
-    // Для простоты возвращаем заглушку
-    const header = new ArrayBuffer(12);
-    const headerView = new DataView(header);
-    
-    headerView.setUint32(0, 0x46546C67, true); // 'glTF'
-    headerView.setUint32(4, 2, true); // version
-    headerView.setUint32(8, 12 + 8 + jsonPadded.length, true); // length
+    let jsonBytes = enc.encode(jsonChunk);
 
-    const jsonHeader = new ArrayBuffer(8);
-    const jsonHeaderView = new DataView(jsonHeader);
-    jsonHeaderView.setUint32(0, jsonPadded.length, true);
-    jsonHeaderView.setUint32(4, 0x4E4F534A, true); // 'JSON'
+    // Pad the JSON chunk to a multiple of 4 BYTES (glTF requires 4-byte
+    // alignment of chunks). Use 0x00 padding — valid per the glTF spec.
+    const jsonPad = (4 - (jsonBytes.length % 4)) % 4;
+    const jsonPadded = new Uint8Array(jsonBytes.length + jsonPad);
+    jsonPadded.set(jsonBytes, 0);
 
-    const combined = new Uint8Array(header.byteLength + jsonHeader.byteLength + jsonPadded.length);
-    combined.set(new Uint8Array(header), 0);
-    combined.set(new Uint8Array(jsonHeader), header.byteLength);
-    combined.set(new TextEncoder().encode(jsonPadded), header.byteLength + jsonHeader.byteLength);
+    // BIN chunk: the geometry binary is a known stub (byteLength 0), so emit
+    // an empty (zero-length) BIN chunk. Keeps the GLB structurally valid.
+    const binChunk = new Uint8Array(0);
+
+    const totalLength = 12 + 8 + jsonPadded.length + 8 + binChunk.length;
+    const combined = new Uint8Array(totalLength);
+    let offset = 0;
+
+    // GLB header (12 bytes)
+    const header = new DataView(new ArrayBuffer(12));
+    header.setUint32(0, 0x46546C67, true); // 'glTF'
+    header.setUint32(4, 2, true);          // version 2
+    header.setUint32(8, totalLength, true);
+    combined.set(new Uint8Array(header.buffer), offset);
+    offset += 12;
+
+    // JSON chunk header (8 bytes) + data
+    const jsonHeader = new DataView(new ArrayBuffer(8));
+    jsonHeader.setUint32(0, jsonPadded.length, true);
+    jsonHeader.setUint32(4, 0x4E4F534A, true); // 'JSON'
+    combined.set(new Uint8Array(jsonHeader.buffer), offset);
+    offset += 8;
+    combined.set(jsonPadded, offset);
+    offset += jsonPadded.length;
+
+    // BIN chunk header (8 bytes) + data (empty stub)
+    const binHeader = new DataView(new ArrayBuffer(8));
+    binHeader.setUint32(0, binChunk.length, true);
+    binHeader.setUint32(4, 0x004E4942, true); // 'BIN\0'
+    combined.set(new Uint8Array(binHeader.buffer), offset);
+    offset += 8;
+    combined.set(binChunk, offset);
 
     return combined.buffer;
   }
