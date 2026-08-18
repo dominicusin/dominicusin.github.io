@@ -50,14 +50,9 @@ jobs:
       - name: 🧹 Lint (eslint)
         run: npm run lint
 
-      - name: 🧪 Unit tests (jest)
-        # Runs the green suites per jest.config.js's testPathIgnorePatterns
-        # (broken/flaky suites are quarantined there, incl. the flaky
-        # theme-manager test — see jest.config.js "Quarantine" note).
-        run: npx jest --config jest.config.js --coverage=false
-
-      - name: ⛓️ DAO contract tests (Hardhat)
-        run: npx hardhat test
+      # NOTE: R&D unit (jest) + DAO (hardhat) tests are run in the dedicated
+      # test-rnd.yml workflow so a flaky R&D test cannot block the Pages deploy.
+      # They are still enforced on R&D-relevant changes (src/, contracts/, tests/).
 
       - name: 🔗 Broken internal link check
         run: node scripts/check-links.cjs
