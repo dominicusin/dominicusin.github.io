@@ -1247,26 +1247,15 @@
       "pr": 153
     },
     {
-      "id": "T95",
+      "id": "T96",
       "kind": "task",
-      "title": "CYCLE-34: correct BASELINE_METRICS.md stale numbers (jest 273/21, HTML 553, coverage 77.44/65.41)",
+      "title": "CYCLE-35: wire scripts/audit-dao.cjs into deploy-dao.yml test job (DAO security static audit)",
       "status": "done",
       "deps": [],
       "artifacts": [
-        "docs/BASELINE_METRICS.md"
+        ".github/workflows/deploy-dao.yml"
       ],
-      "pr": 154
-    },
-    {
-      "id": "T99",
-      "kind": "task",
-      "title": "CYCLE-39/40: ROADMAP.md accuracy + loop 26-40 closeout (T93 AGENTS.md blocked GATE-2)",
-      "status": "done",
-      "deps": [],
-      "artifacts": [
-        ".planning/ROADMAP.md"
-      ],
-      "pr": 158
+      "pr": 155
     }
   ],
   "edges": [
