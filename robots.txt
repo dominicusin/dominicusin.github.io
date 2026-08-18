@@ -55,16 +55,16 @@ Allow: /
 # Disallow AI/ML crawlers from accessing content-heavy pages
 User-agent: ChatGPT-User
 Disallow: /feed.xml
-Disallow: /search.json
+Disallow: /index.json
 
 User-agent: GPTBot
 Disallow: /feed.xml
-Disallow: /search.json
+Disallow: /index.json
 Allow: /
 
 User-agent: Google-Extended
 Disallow: /feed.xml
-Disallow: /search.json
+Disallow: /index.json
 Allow: /
 
 # Block unwanted crawlers

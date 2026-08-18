@@ -34,6 +34,12 @@ jobs:
       - name: Test (hardhat)
         run: npx hardhat test
 
+      - name: DAO security static audit
+        # scripts/audit-dao.cjs checks the compiled contracts for safety patterns
+        # (AccessControl gating, non-transferable Soulbound, restricted mint). It is
+        # a static analysis gate (no secrets) — documented in BASELINE_METRICS.md.
+        run: node scripts/audit-dao.cjs
+
   deploy:
     name: Deploy DAO contracts
     runs-on: ubuntu-latest

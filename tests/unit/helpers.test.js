@@ -12,7 +12,9 @@ import {
   escapeHTML,
   formatDate,
   parseQueryParams,
-  createElement
+  createElement,
+  requestIdleCallback,
+  supports
 } from '@utils/helpers.js';
 
 describe('helpers — pure utils', () => {
@@ -170,6 +172,38 @@ describe('helpers — pure utils', () => {
       await new Promise((r) => setTimeout(r, 120));
       t();
       expect(fn).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('requestIdleCallback', () => {
+    test('uses native requestIdleCallback when available', () => {
+      const native = jest.fn((cb) => cb());
+      window.requestIdleCallback = native;
+      const cb = jest.fn();
+      requestIdleCallback(cb);
+      expect(native).toHaveBeenCalledWith(cb);
+      expect(cb).toHaveBeenCalled();
+    });
+    test('falls back to setTimeout when unavailable', () => {
+      const original = window.requestIdleCallback;
+      delete window.requestIdleCallback;
+      jest.useFakeTimers();
+      const cb = jest.fn();
+      requestIdleCallback(cb);
+      jest.runAllTimers();
+      expect(cb).toHaveBeenCalled();
+      window.requestIdleCallback = original;
+      jest.useRealTimers();
+    });
+  });
+
+  describe('supports', () => {
+    test('returns true for a feature present in jsdom', () => {
+      expect(supports('fetch')).toBe(true);
+      expect(supports('localStorage')).toBe(true);
+    });
+    test('returns false for an unknown feature', () => {
+      expect(supports('nonexistentFeature')).toBe(false);
     });
   });
 });

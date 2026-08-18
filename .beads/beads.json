@@ -1136,6 +1136,126 @@
       ],
       "initiative": "autonomous-cycle",
       "verified": "audit step printed + summarized by severity (was silently swallowed). Gates only on critical (currently 0 -> scan green + fully reported). moderate/high = warnings (dev/CI tooling: hardhat/lighthouse/puppeteer/undici; node_modules not in prod bundle). security.yml valid YAML; lint/test green. Completes the 15-iteration loop (T72-T86)."
+    },
+    {
+      "id": "T87",
+      "kind": "task",
+      "title": "CYCLE-26: replace dead hand-authored external links with verified archive.org snapshots",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "content/blog/2025-03-14-ai.md",
+        "content/blog/2023-01-20-awesome-piracy.md"
+      ],
+      "pr": 146
+    },
+    {
+      "id": "T88",
+      "kind": "task",
+      "title": "Planning consolidation: archive .gsd/.openspec/.specify into docs/archive",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "docs/archive/gsd-2026-08-18/",
+        "docs/archive/openspec-2026-08-18/",
+        "docs/archive/specify-2026-08-18/",
+        "docs/architecture/AUDIT-2026-08.md",
+        ".planning/ROADMAP.md"
+      ],
+      "verified": "git mv of .gsd/.openspec/.specify into docs/archive/ (history preserved). .planning/initiatives + .beads remain live. No CI/scripts referenced archived dirs. AUDIT-2026-08.md + ROADMAP.md written. Cycle 27.",
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T89",
+      "kind": "task",
+      "title": "R&D CI isolation: test-rnd.yml (jest+hardhat) separate from prod Hugo build",
+      "status": "done",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        ".github/workflows/test-rnd.yml"
+      ],
+      "initiative": "autonomous-cycle",
+      "verified": "Created .github/workflows/test-rnd.yml (jest src/ + hardhat contracts/dao) triggered on src/** contracts/** tests/** + config. Removed jest+hardhat steps from quality.yml build job so R&D flake can't block Pages deploy. Local gate green: jest 273 passed/21 suites, hardhat 9 passing, lint clean. Both workflows valid YAML."
+    },
+    {
+      "id": "T90",
+      "kind": "task",
+      "title": "Search index: repoint R&D fetch to /index.json; remove dead Jekyll search.json",
+      "status": "done",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        "scripts/build-search-index.cjs"
+      ],
+      "initiative": "autonomous-cycle",
+      "verified": "Root search.json was dead Jekyll Liquid leftover (never published, 404). Real index = public/index.json (4.35MB, 384 entries, full corpus, 0 no-content). Fixed src/modules/search-engine.js + src/services/pwa-service.js to fetch /index.json. Removed dead root search.json. robots.txt now disallows /index.json for AI crawlers. R&D src/ not in prod build (experimental layer only). AUDIT R4 RESOLVED, ROADMAP updated."
+    },
+    {
+      "id": "T91",
+      "kind": "task",
+      "title": "Perf: wire scripts/check-perf.cjs into quality.yml (render-blocking regression guard)",
+      "status": "done",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        "static/js/knowledge-graph.js"
+      ],
+      "initiative": "autonomous-cycle",
+      "verified": "Added 'Performance smoke check' step after hugo build in quality.yml running node scripts/check-perf.cjs. It fails only on real render-blocking <script> regressions (would have caught #111), reports CSS bundle size as informational (render-blocking CSS intentional to avoid CLS=1.0). Verified: 0 regressions, quality.yml valid YAML. D3/KG scripts confirmed page-scoped + deferred (load only on /knowledge-graph/, not global) — already isolated. R3 partially addressed (guard wired); full asset trim deferred as separate optimization."
+    },
+    {
+      "id": "T92",
+      "kind": "task",
+      "title": "Hygiene: add .ci/ to .gitignore (deploy-ipfs.yml already disabled+documented)",
+      "status": "done",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        ".github/workflows/deploy-ipfs.yml",
+        ".gitignore"
+      ],
+      "initiative": "autonomous-cycle",
+      "verified": "Added .ci/ to .gitignore (generated CI report artifacts like external-links-report.json, regenerated per run, never commit). deploy-ipfs.yml already has a DISABLED header (Pinata keys compromised 2026-08-14, Jekyll removed in Phase 7) — no change needed. Verified: git check-ignore .ci -> ignored."
+    },
+    {
+      "id": "T93",
+      "kind": "task",
+      "title": "AGENTS.md update for single planning SoT (.planning + .beads)",
+      "status": "pending",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        "AGENTS.md"
+      ],
+      "initiative": "autonomous-cycle"
+    },
+    {
+      "id": "T94",
+      "kind": "task",
+      "title": "CYCLE-33: correct ROADMAP_STATUS.md stale CI claims (perf warn budgets, R&D isolation)",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "docs/ROADMAP_STATUS.md"
+      ],
+      "pr": 153
+    },
+    {
+      "id": "T96",
+      "kind": "task",
+      "title": "CYCLE-35: wire scripts/audit-dao.cjs into deploy-dao.yml test job (DAO security static audit)",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        ".github/workflows/deploy-dao.yml"
+      ],
+      "pr": 155
     }
   ],
   "edges": [

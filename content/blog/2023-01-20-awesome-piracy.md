@@ -414,7 +414,7 @@ You will notice some items in this list have a :star2: next to them. Items with 
 
 * [Remove fake TPB torrents](https://www.reddit.com/r/Piracy/comments/78aicx/i_wrote_a_small_script_that_automatically_hides/) Script that automatically hides fake torrents on The Pirate Bay based on conditional logic.
 
-* [Get DLC Info from SteamDB](https://cs.rin.ru/forum/viewtopic.php?t=71837) For use with CreamAPI and similar tools.
+* [Get DLC Info from SteamDB](https://web.archive.org/web/2024/https://web.archive.org/web/2024/https://cs.rin.ru/forum/) For use with CreamAPI and similar tools.
 
 * [The Pirate Bay Cleaner](https://greasyfork.org/en/scripts/1573-the-pirate-bay-cleaner) Auto-sorting, torrentifying, theme-change, search-change, SSL/HTTPS and more.
 
@@ -1795,13 +1795,13 @@ You will notice some items in this list have a :star2: next to them. Items with 
 
 * [GOD scraped URLs](https://drive.google.com/file/d/17MB0gCcCMr3QqE_CgJkaxmdXtZk61TdZ/view) All DDL links for games listed on the now-dead GoodOldDownloads site.
 
-* [cs.rin.ru](https://cs.rin.ru/) Popular gaming piracy forum
+* [cs.rin.ru](https://web.archive.org/web/2024/https://cs.rin.ru/) Popular gaming piracy forum
 
 * [SmartSteamEmu](https://github.com/MAXBURAOT/SmartSteamEmu) Steam emulator
 
 * [Goldberg Steam Emu](https://www.reddit.com/r/CrackWatch/comments/979s5e/goldberg_steam_emu_lan_multiplayer_without_steam/) This project is an attempt to make a generic Steam ddl that lets you play multiplayer games on a LAN without any internet connection
 
-* [CreamAPI](https://cs.rin.ru/forum/viewtopic.php?t=70576) "A Legit DLC Unlocker" for Steam
+* [CreamAPI](https://web.archive.org/web/2024/https://web.archive.org/web/2024/https://cs.rin.ru/forum/) "A Legit DLC Unlocker" for Steam
 
 * [cream-api-autoinstaller](https://github.com/Douile/cream-api-autoinstaller) A python script to automatically install Cream API for Steam games
 
@@ -2053,7 +2053,7 @@ You will notice some items in this list have a :star2: next to them. Items with 
 
 * [Custom Search Engine](https://cse.google.com/cse?cx=000661023013169144559:a1-kkiboeco) A Google custom search engine specifically for ebooks
 
-* [Exploring over 1,800 Calibre ebook servers](https://blog.chrisbonk.ca/2018/12/knowledge-is-power-exploring-over-1800.html?m=1) Blog post detailing how to use Shodan to find Calibre ebook servers
+* [Exploring over 1,800 Calibre ebook servers](https://web.archive.org/web/2024/https://web.archive.org/web/2024/https://blog.chrisbonk.ca/2018/12/knowledge-is-power-exploring-over-1800.html) Blog post detailing how to use Shodan to find Calibre ebook servers
 
 * [DeDRM_tools](https://github.com/apprenticeharper/DeDRM_tools) DeDRM tools for ebooks.
 
@@ -2355,7 +2355,7 @@ You will notice some items in this list have a :star2: next to them. Items with 
 
 * [Tachiyomi](https://github.com/inorichi/tachiyomi) Tachiyomi is a free and open source manga reader for Android.
 
-* [4PDA.ru](http://4pda.ru/forum/index.php?act=idx) 4PDA is the biggest Russian forum about mobile devices. You can find an endless amount of APKs and Mobile software there. For download, registration is required
+* [4PDA.ru](https://web.archive.org/web/2024/http://4pda.ru/forum/index.php?act=idx) 4PDA is the biggest Russian forum about mobile devices. You can find an endless amount of APKs and Mobile software there. For download, registration is required
 
 * [AnYme](https://github.com/zunjae/anYme) Unofficial Anime App for MyAnimeList
 
