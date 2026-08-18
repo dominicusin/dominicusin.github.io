@@ -533,7 +533,7 @@ export class KnowledgeGraphVRExporter {
   convertToGLB(gltf) {
     const enc = new TextEncoder();
     const jsonChunk = JSON.stringify(gltf);
-    let jsonBytes = enc.encode(jsonChunk);
+    const jsonBytes = enc.encode(jsonChunk);
 
     // Pad the JSON chunk to a multiple of 4 BYTES (glTF requires 4-byte
     // alignment of chunks). Use 0x00 padding — valid per the glTF spec.
