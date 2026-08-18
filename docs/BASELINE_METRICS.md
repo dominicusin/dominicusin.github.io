@@ -12,10 +12,10 @@
 | Gate | Command | Result |
 |---|---|---|
 | ESLint (src + tests) | `npm run lint` | **0 errors, exit 0** |
-| Jest unit (jsdom) | `npx jest --config jest.config.js` | **262 passed / 263** (1 flaky: `theme-manager.test.js` test-ordering assertion, unrelated to migration) across **20 suites** |
+| Jest unit (jsdom) | `npx jest --config jest.config.js` | **273 passed / 273** (0 failures) across **21 suites** |
 | DAO contracts (Hardhat) | `npx hardhat test` | **9 passing / 9** (local Hardhat network) |
 | DAO security audit (static) | `node scripts/audit-dao.cjs` | **PASSED** (6/6 safety patterns) |
-| Hugo production build | `npm run build` (hugo --gc --minify) | **155 HTML, 0 errors** |
+| Hugo production build | `npm run build` (hugo --gc --minify) | **553 HTML, 0 errors** |
 
 **Note:** the legacy `node build.js` (esbuild) and `npm ci --dry-run` Jekyll-era
 gates are gone — the site is Hugo-only (see `docs/adr/0002-two-plane-architecture.md`).
@@ -75,13 +75,13 @@ as an engineering substrate / R&D layer.
 | Lint errors | 0 | 0 (held) |
 | Hugo build errors | 0 | 0 (held) |
 
-## 7. Real test coverage (measured 2026-08-15 with `c8`)
+## 7. Real test coverage (re-measured 2026-08-18 with `c8` + jest --coverage)
 
 Instrumented coverage (`npx c8 ... npx jest`):
 
 | Scope | % Stmts | % Branch | % Funcs | % Lines |
 |---|---|---|---|---|
-| **All files** | **76.57** | **64.49** | **73.3** | **76.57** |
+| **All files** | **77.44** | **65.41** | **70.8** | **78.94** |
 | `src/config` | 100 | 100 | 100 | 100 |
 | `src/core` (theme-manager) | 90.0 | 60.7 | 96 | 90.0 |
 | `src/utils` (helpers, storage) | 63 | 72 | 70 | 63 |
@@ -100,8 +100,8 @@ to cover without faking.
 the cleanup phase; its unit test removed too. `embedding-cache-service.js`
 remains (used by `vector-search-service.js`).
 
-**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current 64.49% branch
-/ 76.57% line — substantial gap concentrated in DOM/network services. Closing it
+**Plan Phase 4 target:** ≥85% branch coverage as a CI gate. Current **65.41% branch**
+/ **78.94% line** — substantial gap concentrated in DOM/network services. Closing it
 requires the Playwright E2E layer (Phase 0/4), not unit tests.
 
 ## 7. Phase 4 update — doc-debt (2026-08-17, commit series #120–#123)

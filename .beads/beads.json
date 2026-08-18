@@ -1245,6 +1245,17 @@
         "docs/ROADMAP_STATUS.md"
       ],
       "pr": 153
+    },
+    {
+      "id": "T95",
+      "kind": "task",
+      "title": "CYCLE-34: correct BASELINE_METRICS.md stale numbers (jest 273/21, HTML 553, coverage 77.44/65.41)",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        "docs/BASELINE_METRICS.md"
+      ],
+      "pr": 154
     }
   ],
   "edges": [
