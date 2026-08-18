@@ -1256,6 +1256,20 @@
         ".github/workflows/deploy-dao.yml"
       ],
       "pr": 155
+    },
+    {
+      "id": "T100",
+      "kind": "task",
+      "title": "CYCLE-41 (audit TASK-002): clean .planning/CHARTER.md stale active SpecKit/GSD handoffs + remove jekyll keyword",
+      "status": "done",
+      "deps": [
+        "T88"
+      ],
+      "artifacts": [
+        ".planning/CHARTER.md",
+        "package.json"
+      ],
+      "pr": 160
     }
   ],
   "edges": [
