@@ -65,3 +65,9 @@ jobs:
       - name: 🩺 HTML well-formedness (report, non-blocking)
         run: node scripts/check-html.cjs
         continue-on-error: true
+
+      - name: 🌐 External link audit (report, non-blocking)
+        # Skips social share-intent hosts; checks content links with bounded
+        # timeout. Dead links are reported as warnings, never fail the build.
+        run: node scripts/check-external-links.cjs
+        continue-on-error: true
