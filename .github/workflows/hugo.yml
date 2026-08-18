@@ -60,6 +60,13 @@ jobs:
         # from the live GitHub API before building. Graceful: never fails deploy.
         run: node scripts/sync-github.cjs
 
+      - name: Sanitize generated content (trust boundary)
+        # Re-strip executable vectors (<script>, inline on*= handlers,
+        # javascript:/vbscript: link schemes, <iframe>/<object>/<embed>) from
+        # every generated repo/gist page. Defense-in-depth over sync-github.cjs:
+        # catches content a skipped/partial sync left untouched. See TASK-009.
+        run: node scripts/sanitize-generated.cjs
+
       - name: Validate content contract
         # Publishing contract (Vector A): new posts in content/blog/ MUST
         # satisfy schema/post-metadata.schema.json (hard gate — a failing new
