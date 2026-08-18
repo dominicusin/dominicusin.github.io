@@ -1258,15 +1258,16 @@
       "pr": 154
     },
     {
-      "id": "T97",
+      "id": "T98",
       "kind": "task",
-      "title": "CYCLE-36: correct REPOSITORY_SURFACE.md over-broad 'root *.html stale' claim (tags.html is real source)",
+      "title": "CYCLE-38: add jest tests for helpers.supports/requestIdleCallback; fix supports() CSS-undefined crash",
       "status": "done",
       "deps": [],
       "artifacts": [
-        "docs/REPOSITORY_SURFACE.md"
+        "tests/unit/helpers.test.js",
+        "src/utils/helpers.js"
       ],
-      "pr": 156
+      "pr": 157
     }
   ],
   "edges": [
