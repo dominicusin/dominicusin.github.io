@@ -188,7 +188,7 @@ export function startApp() {
   if (!App.prefetch) {
     import('./services/prefetch.js').then(({ PrefetchService }) => {
       App.prefetch = new PrefetchService({
-        graphUrl: '/assets/data/knowledge-graph.json',
+        graphUrl: '/data/knowledge-graph.json',
         enabled: window.prefetchEnabled !== false
       });
       App.prefetch.init().then((ok) => {

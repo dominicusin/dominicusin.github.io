@@ -11,7 +11,7 @@
  */
 
 const DEFAULT_OPTIONS = {
-  graphUrl: '/assets/data/knowledge-graph.json',
+  graphUrl: '/data/knowledge-graph.json',
   maxPrefetch: 2,
   hoverDelayMs: 120,
   concurrency: 2,
