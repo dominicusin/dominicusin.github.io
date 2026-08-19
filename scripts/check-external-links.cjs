@@ -45,7 +45,10 @@ for (const f of files) {
   let m;
   while ((m = extRe.exec(html))) seen.add(m[1]);
 }
-function hostOf(u) { try { return new URL(u).host.toLowerCase(); } catch { return null; } }
+function hostOf(u) {
+  try { return new URL(u.replace(/&amp;/g, '&')).host.toLowerCase(); }
+  catch { return null; }
+}
 
 const candidates = [...seen].filter((u) => {
   const h = hostOf(u);
@@ -54,8 +57,9 @@ const candidates = [...seen].filter((u) => {
 
 function check(u) {
   return new Promise((resolve) => {
-    let mod, target = u;
-    try { mod = u.startsWith('https') ? https : http; } catch { return resolve({ u, status: 'error' }); }
+    const target = u.replace(/&amp;/g, '&'); // Hugo HTML-escapes & -> &amp; in hrefs
+    let mod;
+    try { mod = target.startsWith('https') ? https : http; } catch { return resolve({ u, status: 'error' }); }
     const req = mod.request(target, { method: 'HEAD', timeout: 8000, headers: { 'User-Agent': 'Mozilla/5.0 link-checker' } }, (res) => {
       const code = res.statusCode;
       res.resume();

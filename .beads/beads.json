@@ -1346,10 +1346,17 @@
     },
     {
       "id": "T108",
-      "title": "cycle51: fix ai-review.cjs (ReferenceError + broken schema subprocess call)",
+      "title": "cycle52: decode HTML entities (&amp;) in external-link checker",
       "status": "done",
       "pr": null,
-      "note": "scripts/ai-review.cjs had two real bugs: (1) `externalWarnings` was declared inside an `if` block but referenced in the sibling `else if` -> ReferenceError on any post with external links (caught soft by ci-content-contract, but silent failure); fixed by hoisting `let externalWarnings = []`. (2) schema-validation step called `validate-frontmatter.js` but the file is `validate-frontmatter.cjs` -> execFileSync always threw MODULE_NOT_FOUND -> 'Schema validation failed' on EVERY post (false negative vs the working standalone validator). Fixed to `.cjs`. Verified: ai-review now reports 'Schema validation passed' and no ReferenceError on all posts; ci-content-contract.cjs still exits 0. NOTE: a legacy 2019 post (SFTP) has an inverted markdown link [url](text) that ai-review flags as broken internal link - this is content, not script, bug; left as-is per cycle-43 no-mass-edit precedent. ai-review.cjs is a soft (non-blocking) gate."
+      "note": "scripts/check-external-links.cjs extracts hrefs with regex but Hugo HTML-escapes & -> &amp; in href attributes. The script passed the raw &amp;-encoded URL to new URL()/http.request, checking a MALFORMED URL (e.g. ?cmd=show&amp;type=NOT instead of ?cmd=show&type=NOT) -> false-positive DEAD reports for any link with query params. Fixed by unescaping &amp; -> & in hostOf() and check() before URL parsing/request. Verified: https://support.oracle.com/...?cmd=show&amp;type=NOT&amp;id=... decodes to valid URL with correct host. Did NOT run full network re-audit (slow, non-blocking by design). Also cleaned up local experiment artifacts (gitignored generated content + .github/reviews noise) that my probe runs had left in the working tree."
+    },
+    {
+      "id": "T109",
+      "title": "cycle52: decode HTML entities (&amp;) in external-link checker",
+      "status": "done",
+      "pr": null,
+      "note": "scripts/check-external-links.cjs regex-extracted hrefs but Hugo HTML-escapes & -> &amp; in href attributes. Script passed the raw &amp;-encoded URL to new URL()/http.request, checking a MALFORMED URL (?cmd=show&amp;type=NOT instead of ?cmd=show&type=NOT) -> false-positive DEAD reports for any link with query params. Fixed by unescaping &amp; -> & in hostOf() and check() before URL parsing/request. Verified decode produces valid URL + correct host. Did NOT re-run full network audit (slow, non-blocking). Cleaned up local experiment artifacts (gitignored generated content + .github/reviews noise) left by probe runs."
     }
   ],
   "edges": [
@@ -1636,6 +1643,11 @@
     {
       "from": "T107",
       "to": "T108",
+      "type": "next"
+    },
+    {
+      "from": "T108",
+      "to": "T109",
       "type": "next"
     }
   ]
