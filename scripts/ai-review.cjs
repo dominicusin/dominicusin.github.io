@@ -343,12 +343,13 @@ async function reviewPost(filePath) {
   
   const internalErrors = validateInternalLinks(links, allPosts);
   report.errors.push(...internalErrors);
-  
+
+  let externalWarnings = [];
   if (CONFIG.checkExternalLinks && links.external.length > 0) {
-    const externalWarnings = await validateExternalLinks(links);
+    externalWarnings = await validateExternalLinks(links);
     report.warnings.push(...externalWarnings);
   }
-  
+
   if (internalErrors.length === 0 && links.external.length === 0) {
     log(colors.green, '   All links valid');
   } else if (internalErrors.length === 0) {
@@ -382,7 +383,7 @@ async function reviewPost(filePath) {
   // 5. Schema Validation (call external script)
   log(colors.cyan, '\n✅ Running schema validation...');
   try {
-    execFileSync('node', [path.join(__dirname, 'validate-frontmatter.js'), filePath], {
+    execFileSync('node', [path.join(__dirname, 'validate-frontmatter.cjs'), filePath], {
       stdio: 'pipe',
       encoding: 'utf8'
     });
