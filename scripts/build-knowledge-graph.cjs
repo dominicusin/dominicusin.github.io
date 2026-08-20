@@ -43,13 +43,33 @@ function postUrl(relPath) {
   if (!m) return null;
   const inner = m[1].replace(/\\/g, '/');
   // Nested layout: blog/2026/08/14/slug.md -> /2026/08/14/slug/
-  if (inner.includes('/')) return '/' + inner + '/';
-  // Flat layout: blog/2025-11-02-slug.md -> parse date, build permalink
-  // matching hugo.toml [permalinks] blog = "/:year/:month/:day/:slug/"
-  const fm = inner.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
-  if (fm) return `/${fm[1]}/${fm[2]}/${fm[3]}/${fm[4]}/`;
-  // Fallback: use the basename as a section path
-  return '/' + inner + '/';
+  if (inner.includes('/')) return '/' + inner.toLowerCase() + '/';
+  // Flat layout: blog/2025-11-02-slug.md
+  // Hugo derives the permalink from FRONT MATTER (date + slug), NOT the
+  // filename, and lowercases the whole path. Mirror that exactly:
+  //  - date  : fm.date || fm.publishDate (YYYY-MM-DD...)
+  //  - slug  : fm.slug || basename(without date prefix)
+  // If front matter is missing, fall back to parsing the filename date.
+  try {
+    const raw = fs.readFileSync(relPath, 'utf8');
+    const fm = extractFrontmatter(raw) || {};
+    const dateSrc = fm.date || fm.publishDate || fm.Date || '';
+    const dm = String(dateSrc).match(/^(\d{4})-(\d{2})-(\d{2})/);
+    let y, mo, d;
+    if (dm) { [y, mo, d] = [dm[1], dm[2], dm[3]]; }
+    else {
+      const fm2 = inner.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+      if (!fm2) return '/' + inner.toLowerCase() + '/';
+      [y, mo, d] = [fm2[1], fm2[2], fm2[3]];
+    }
+    const slug = (fm.slug || fm.Slug || inner.replace(/^\d{4}-\d{2}-\d{2}-/, '')).toString();
+    return `/${y}/${mo}/${d}/${slug.toLowerCase()}/`;
+  } catch (e) {
+    // Fallback: parse filename date, lowercase slug
+    const fm = inner.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+    if (fm) return `/${fm[1]}/${fm[2]}/${fm[3]}/${fm[4].toLowerCase()}/`;
+    return '/' + inner.toLowerCase() + '/';
+  }
 }
 function titleCase(s) { return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); }
 
@@ -67,6 +87,8 @@ function addEdge(source, target, type) {
 const postConcept = {}; // postId -> [conceptId]
 if (fs.existsSync(POSTS_DIR)) {
   for (const f of walkFiles(POSTS_DIR, '.md')) {
+    // Skip section/index files (_index.md, _index.ru.md) — not blog posts.
+    if (path.basename(f).startsWith('_')) continue;
     const raw = fs.readFileSync(f, 'utf8');
     const fm = extractFrontmatter(raw);
     if (!fm || fm.draft) continue;
