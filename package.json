@@ -54,10 +54,9 @@
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
-    "@nomicfoundation/hardhat-chai-matchers": "^3.0.0",
-    "@nomicfoundation/hardhat-ethers": "^4.0.15",
-    "@nomicfoundation/hardhat-network-helpers": "^3.0.11",
-    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
     "@openzeppelin/contracts": "^5.4.0",
     "@playwright/test": "^1.55.0",
     "@testing-library/dom": "^10.4.1",

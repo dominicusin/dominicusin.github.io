@@ -1,6 +1,7 @@
 /* Hardhat config — DAO test network. CommonJS for Hardhat 2.x.
-   hardhat ^2.22.0 is compatible with @nomicfoundation/* 2.x/3.x plugins
-   and the .cjs (CommonJS) config format. */
+   Uses the 2.x-compatible plugin set (hardhat-ethers 3.x / chai-matchers 2.x
+   / network-helpers 1.x), all of which resolve `hardhat/plugins` correctly
+   under Hardhat 2.29.x. */
 require('@nomicfoundation/hardhat-ethers');
 require('@nomicfoundation/hardhat-chai-matchers');
 const { HardhatUserConfig } = require('hardhat/config');
