@@ -24,6 +24,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
+const { sanitizeExternal } = require('./sanitize.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const REPO_OUT = path.join(ROOT, 'content', 'repositories');
@@ -243,29 +244,6 @@ function stripHtmlComments(input) {
   return output;
 }
 
-// Trust-boundary sanitizer for externally-sourced content (live GitHub
-// READMEs/gists written by this script into content/). Hugo runs with
-// `unsafe = true`, so raw HTML in markdown is rendered verbatim — a hostile
-// repo README could embed <script> or inline handlers -> stored XSS.
-// This is defense-in-depth (layouts/_default/_markup/render-link.html blocks
-// dangerous link schemes at render time); here we strip the obvious
-// executable vectors from the stored markdown. It is a basic mitigation,
-// not a full HTML sanitizer — legitimate code blocks (<, > inside fenced
-// blocks) are preserved.
-function sanitizeExternal(input) {
-  if (!input) return input;
-  return input
-    // strip <script>...</script> (and </script> even if opening tag is split)
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<\/script>/gi, '')
-    // strip inline event handlers (onclick=, onload=, onerror=, ...)
-    .replace(/\son[a-z]+\s*=\s*("([^"]*)"|'([^']*)'|[^\s>]+)/gi, '')
-    // strip javascript:/vbscript: link schemes in raw markdown links/images
-    .replace(/(\[[^\]]*\]\()\s*(javascript:|vbscript:)[^)\s]*/gi, '$1#')
-    // remove standalone <iframe>/<object>/<embed> (content-injection surfaces)
-    .replace(/<(iframe|object|embed)\b[^>]*>[\s\S]*?<\/(iframe|object|embed)>/gi, '')
-    .replace(/<(iframe|object|embed)\b[^>]*\/?>/gi, '');
-}
 
 async function processRepo(r) {
   const full = r.full_name;
