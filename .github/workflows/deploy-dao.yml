@@ -14,6 +14,8 @@ on:
     branches: [main]
     paths: ['contracts/**', 'hardhat.config.cjs', 'scripts/deploy-dao.cjs', 'package*.json']
 
+permissions:
+  contents: read
 jobs:
   test:
     name: DAO contract tests
