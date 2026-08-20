@@ -1357,6 +1357,13 @@
       "status": "done",
       "pr": null,
       "note": "scripts/check-external-links.cjs regex-extracted hrefs but Hugo HTML-escapes & -> &amp; in href attributes. Script passed the raw &amp;-encoded URL to new URL()/http.request, checking a MALFORMED URL (?cmd=show&amp;type=NOT instead of ?cmd=show&type=NOT) -> false-positive DEAD reports for any link with query params. Fixed by unescaping &amp; -> & in hostOf() and check() before URL parsing/request. Verified decode produces valid URL + correct host. Did NOT re-run full network audit (slow, non-blocking). Cleaned up local experiment artifacts (gitignored generated content + .github/reviews noise) left by probe runs."
+    },
+    {
+      "id": "T110",
+      "title": "cycle53: wire audit-internal-links.cjs into CI (was dead code)",
+      "status": "done",
+      "pr": null,
+      "note": "Discovered scripts/audit-internal-links.cjs (source-level markdown internal-link auditor) was NEVER invoked by any workflow, package.json script, or other script -- it was dead code. Its cycle-43 IGNORE list (8 mirrored awesome-lists) and 0-BROKEN result were therefore unused in CI. Wired it into .github/workflows/quality.yml as a report-only step after the built-surface check-links.cjs, giving pre-build source-level link feedback (complements Hugo alias/redirect resolution). Verified: script exits 0, 0 actionable dead links on current content. Non-blocking (no process.exit(1)), so pipeline safe. This is a workflow edit -> Quality CI needs manual dispatch on the PR."
     }
   ],
   "edges": [
@@ -1648,6 +1655,11 @@
     {
       "from": "T108",
       "to": "T109",
+      "type": "next"
+    },
+    {
+      "from": "T109",
+      "to": "T110",
       "type": "next"
     }
   ]
