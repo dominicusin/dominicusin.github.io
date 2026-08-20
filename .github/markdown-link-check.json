@@ -1,0 +1,17 @@
+{
+  "ignorePatterns": [
+    { "pattern": "^#" },
+    { "pattern": "^mailto:" },
+    { "pattern": "localhost" },
+    { "pattern": "127.0.0.1" }
+  ],
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "aliveStatusCodes": [200, 206, 429],
+  "httpHeaders": {
+    "*": {
+      "Accept-Encoding": "zstd, br, gzip, deflate"
+    }
+  }
+}

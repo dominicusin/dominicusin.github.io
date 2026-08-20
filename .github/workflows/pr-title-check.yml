@@ -1,0 +1,26 @@
+name: PR Title Check
+
+# Enforce a Conventional Commits-style PR title so the changelog and
+# release notes stay consistent. Non-blocking warning by default.
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  title-check:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check title format
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if echo "$TITLE" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?(!)?: .+'; then
+            echo "::notice::PR title follows Conventional Commits: $TITLE"
+          else
+            echo "::warning::PR title '$TITLE' does not follow Conventional Commits (e.g. 'fix: ...', 'feat(scope): ...'). Not blocking."
+          fi

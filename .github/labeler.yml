@@ -1,0 +1,29 @@
+# PR labeler configuration — maps changed paths to labels.
+
+'ci':
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
+
+'dependencies':
+  - changed-files:
+      - any-glob-to-any-file: 'package*.json'
+
+'contracts':
+  - changed-files:
+      - any-glob-to-any-file: 'contracts/**'
+
+'frontend':
+  - changed-files:
+      - any-glob-to-any-file: ['src/**', 'assets/**', 'static/**']
+
+'docs':
+  - changed-files:
+      - any-glob-to-any-file: ['**.md', 'content/**']
+
+'security':
+  - changed-files:
+      - any-glob-to-any-file: ['.github/workflows/security*.yml', '.github/workflows/fortify.yml', 'scripts/audit-dao.cjs']
+
+'dao':
+  - changed-files:
+      - any-glob-to-any-file: ['contracts/**', 'scripts/deploy-dao.cjs', 'tests/hardhat/**']
