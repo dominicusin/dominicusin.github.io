@@ -80,7 +80,7 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   sharingLinks = ["linkedin", "twitter", "bluesky", "reddit", "telegram", "email"]
   # showViews/showLikes disabled: the Firebase backend is deny-all (403), so the
   # counters render a permanent "loading" placeholder — bad UX. Re-enable once
-  # Firestore rules permit reads/increments. See ADR / issue backlog.
+  # Firestore rules permit reads/increments.
   # showViews = true
   # showLikes = true
 
