@@ -45,19 +45,18 @@ jobs:
   deploy:
     name: Deploy DAO contracts
     runs-on: ubuntu-latest
-    # Deploy only from main/dispatch when credentials exist; otherwise skip
-    # (don't fail) so the check stays non-blocking. Tests (above) always run.
-    # Never from a PR.
+    # Deploy only from main/dispatch; never from a PR. Secret presence is
+    # checked INSIDE the job (secrets are not addressable in `if:` contexts).
+    # Without credentials the deploy step skips (exit 0) so the check stays
+    # non-blocking. Tests (above) always run.
     if: >-
-      secrets.DEPLOY_PRIVATE_KEY != '' &&
-      secrets.SEPOLIA_RPC_URL != '' &&
       github.event_name != 'pull_request' &&
       (github.event_name == 'workflow_dispatch' ||
        (github.event_name == 'push' && github.ref == 'refs/heads/main'))
     # Tests must pass before we even consider deploying.
     needs: test
     # Hard requirement: a funded wallet private key must be supplied as a
-    # repository secret. Without it we fail loudly rather than fake a deploy.
+    # repository secret. Without it we skip (exit 0), not fake a deploy.
     env:
       DEPLOY_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
       SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
@@ -71,13 +70,13 @@ jobs:
 
       - run: npm ci --no-audit --no-fund
 
-      - name: Guard — require deploy secrets
+      - name: Guard — require deploy secrets (skip if absent)
         run: |
           if [ -z "$DEPLOY_PRIVATE_KEY" ] || [ -z "$SEPOLIA_RPC_URL" ]; then
-            echo "::error::DEPLOY_PRIVATE_KEY and SEPOLIA_RPC_URL secrets are required to deploy."
-            echo "Add them under Settings > Secrets before running this workflow."
-            exit 1
+            echo "No DEPLOY_PRIVATE_KEY / SEPOLIA_RPC_URL secrets — skipping deploy (non-blocking)."
+            exit 0
           fi
+          echo "Deploy credentials present — proceeding."
 
       - name: Compile
         run: npx hardhat compile
