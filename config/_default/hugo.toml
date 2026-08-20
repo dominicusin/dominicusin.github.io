@@ -56,3 +56,17 @@ canonifyURLs = false
   [[related.indices]]
     name = "categories"
     weight = 50
+
+# The GitHub Wiki is mirrored as a git submodule at content/wiki/ (read-only
+# source). Its pages are copied + front-matter-injected into content/wiki-build/
+# by scripts/generate-wiki-nav.py at build time. Exclude the raw submodule from
+# the build so we don't publish duplicate un-menu'd pages. See ADR-0003.
+ignoreFiles = ["content/wiki/**"]
+
+# Also exclude the wiki submodule from the content mount so Hugo does not
+# publish the raw (front-matter-less) submodule pages alongside wiki-build/.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+    excludeFiles = ["wiki/**"]
