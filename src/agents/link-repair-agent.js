@@ -98,7 +98,7 @@ export class LinkRepairAgent {
       
       this.linkCache.set(cacheKey, isValid);
       return isValid;
-    } catch {} {
+    } catch (e) {
       this.linkCache.set(cacheKey, false);
       return false;
     }
@@ -123,7 +123,7 @@ export class LinkRepairAgent {
     try {
       await fs.access(targetPath);
       return true;
-    } catch {
+    } catch (e) {
       // Проверяем альтернативные расширения
       const extensions = ['.md', '.html', '.njk', '.liquid', ''];
       for (const ext of extensions) {
@@ -357,8 +357,8 @@ export class LinkRepairAgent {
         confidence: fix.confidence,
         commitSha: commit.commit.sha
       };
-    } catch {} {
-      console.error(`Failed to apply fix for ${filePath}:`, error.message);
+    } catch (e) {
+      console.error(`Failed to apply fix for ${filePath}:`, e?.message || e);
       return null;
     }
   }
@@ -397,7 +397,13 @@ if (process.argv[1]?.includes('link-repair-agent')) {
     dryRun: process.argv.includes('--dry-run')
   });
 
-  agent.run()
+  // Hard ceiling so the agent never hangs the CI job on slow external fetches.
+  const HARD_TIMEOUT_MS = 8 * 60 * 1000;
+  const timeout = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('Link repair timed out after 8m')), HARD_TIMEOUT_MS)
+  );
+
+  Promise.race([agent.run(), timeout])
     .then(result => {
       console.log('✅ Link repair completed');
       if (result) {
@@ -406,7 +412,7 @@ if (process.argv[1]?.includes('link-repair-agent')) {
       process.exit(0);
     })
     .catch(error => {
-      console.error('❌ Link repair failed:', error);
+      console.error('❌ Link repair failed:', error?.message || error);
       process.exit(1);
     });
 }

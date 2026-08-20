@@ -40,7 +40,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm ci
-          npm install -g @octokit/rest glob
       
       - name: Run Link Repair Agent
         env:
