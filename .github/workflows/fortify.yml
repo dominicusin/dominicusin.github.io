@@ -28,6 +28,11 @@ on:
 
 jobs:
   Fortify-AST-Scan:
+    # Skip unless Fortify credentials are configured as repository secrets.
+    # Without FOD_TENANT / FOD_PAT the scan cannot authenticate and would
+    # fail loudly; skipping keeps the check non-blocking until credentials
+    # are provided under Settings > Secrets.
+    if: ${{ secrets.FOD_TENANT != '' && secrets.FOD_PAT != '' }}
     # Use the appropriate runner for building your source code. Ensure dev tools required to build your code are present and configured appropriately (MSBuild, Python, etc).
     runs-on: ubuntu-latest
     permissions:
