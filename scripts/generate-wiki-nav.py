@@ -50,19 +50,15 @@ def split_front_matter(md_text: str):
 def build_page(src_path: str, out_path: str, weight: int, title: str):
     raw = open(src_path, encoding="utf-8").read()
     _, body = split_front_matter(raw)
-    # Keep the original H1 in the body (don't duplicate it as a title heading
-    # clash — Hugo still renders the heading, that's fine for a wiki page).
+    # Children contribute ONLY to the /wiki/ section page (parent _index.md),
+    # NOT to the global header menu. Adding them to menu.main clutters the
+    # nav with one flat link per wiki file. See ADR-0003.
     fm = [
         "---",
         f"title: {title!r}",
         "description: Documentation mirrored from the repository GitHub Wiki.",
         "type: wiki",
         f"weight: {weight}",
-        "menu:",
-        "  main:",
-        f"    name: {title!r}",
-        f"    weight: {weight}",
-        f"    identifier: wiki-{weight}",
         "---",
         "",
     ]
