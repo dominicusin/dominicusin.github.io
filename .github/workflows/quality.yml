@@ -61,8 +61,14 @@ jobs:
       # test-rnd.yml workflow so a flaky R&D test cannot block the Pages deploy.
       # They are still enforced on R&D-relevant changes (src/, contracts/, tests/).
 
-      - name: 🔗 Broken internal link check
+      - name: 🔗 Broken internal link check (built surface)
         run: node scripts/check-links.cjs
+
+      - name: 🔗 Internal link audit (source markdown, pre-build)
+        # Source-level audit of content/**/*.md — complements the built-surface
+        # check above (catches dead links before Hugo resolves aliases/redirects).
+        # Report-only: always exits 0. Was previously dead code (never wired in).
+        run: node scripts/audit-internal-links.cjs
 
       - name: 🩺 HTML well-formedness (report, non-blocking)
         run: node scripts/check-html.cjs
