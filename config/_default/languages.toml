@@ -1,16 +1,11 @@
-# Hugo multilingual configuration (variant A — preserve en/ru).
-# Maps the legacy assets/i18n/{en,ru}.json (8 keys each) into Hugo i18n.
+# Hugo multilingual configuration (variant A — RU primary).
+# EN language removed: no content/en exists, so the /en/* mirror only
+# produced dead links (e.g. /en/blog). Re-add [languages.en] here if/when
+# English content is added under content/en/.
 
 [languages.ru]
   weight = 1
   contentDir = "content"
   label = "Русский"
   [languages.ru.params]
-    defaultTheme = "auto"
-
-[languages.en]
-  weight = 2
-  contentDir = "content"
-  label = "English"
-  [languages.en.params]
     defaultTheme = "auto"
