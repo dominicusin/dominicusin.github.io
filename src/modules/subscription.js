@@ -419,7 +419,10 @@ export class SubscriptionSystem {
    * @returns {boolean} Is valid
    */
   isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Bounded, linear-time validation to avoid catastrophic backtracking
+    // (js/polynomial-redos). Limits length and uses a simple, non-nested pattern.
+    if (typeof email !== 'string' || email.length > 254) return false;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return emailRegex.test(email);
   }
 
