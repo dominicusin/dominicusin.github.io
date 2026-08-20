@@ -40,4 +40,4 @@ jobs:
         with:
           subject-path: sbom.spdx.json
           predicate-type: https://spdx.dev/Document
-          predicate-file: sbom.spdx.json
+          predicate-path: sbom.spdx.json
