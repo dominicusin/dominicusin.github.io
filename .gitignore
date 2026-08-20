@@ -87,3 +87,4 @@ content/wiki-build/
 
 # Generated wiki nav (built from content/wiki submodule at build time)
 content/wiki-build/
+__pycache__/
