@@ -78,8 +78,11 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   editURL = "https://github.com/dominicusin/dominicusin.github.io/edit/main/content"
   editAppendPath = true
   sharingLinks = ["linkedin", "twitter", "bluesky", "reddit", "telegram", "email"]
-  showViews = true
-  showLikes = true
+  # showViews/showLikes disabled: the Firebase backend is deny-all (403), so the
+  # counters render a permanent "loading" placeholder — bad UX. Re-enable once
+  # Firestore rules permit reads/increments.
+  # showViews = true
+  # showLikes = true
 
 # --- List / section pages ---
 [list]
@@ -88,7 +91,8 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   showReadingTime = true
   showCards = true
   cardView = true
-  showViews = true
+  # showViews disabled (Firebase backend deny-all → permanent "loading")
+  # showViews = true
 
 # --- Sitemap ---
 [sitemap]
@@ -120,7 +124,9 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   measurementId = "G-4QCLTEKK18"
 
 [taxonomy]
-  showViews = true
+  # showViews disabled (Firebase backend deny-all → permanent "loading")
+  # showViews = true
 
 [term]
-  showViews = true
+  # showViews disabled (Firebase backend deny-all → permanent "loading")
+  # showViews = true
