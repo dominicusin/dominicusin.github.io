@@ -98,7 +98,7 @@ export class LinkRepairAgent {
       
       this.linkCache.set(cacheKey, isValid);
       return isValid;
-    } catch (e) {
+    } catch {
       this.linkCache.set(cacheKey, false);
       return false;
     }
@@ -123,7 +123,7 @@ export class LinkRepairAgent {
     try {
       await fs.access(targetPath);
       return true;
-    } catch (e) {
+    } catch {
       // Проверяем альтернативные расширения
       const extensions = ['.md', '.html', '.njk', '.liquid', ''];
       for (const ext of extensions) {
