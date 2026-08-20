@@ -43,8 +43,8 @@ jobs:
       
       - name: Generate VR Scene
         env:
-          EXPORT_QUALITY: ${{ coalesce(github.event.inputs.quality, 'medium') }}
-          EXPORT_FORMAT: ${{ coalesce(github.event.inputs.format, 'glb') }}
+          EXPORT_QUALITY: ${{ github.event.inputs.quality || 'medium' }}
+          EXPORT_FORMAT: ${{ github.event.inputs.format || 'glb' }}
         run: |
           node scripts/generate-vr-scene.js
       
@@ -106,8 +106,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const quality = '${{ coalesce(github.event.inputs.quality, 'medium') }}';
-            const format = '${{ coalesce(github.event.inputs.format, 'glb') }}';
+            const quality = '${{ github.event.inputs.quality || 'medium' }}';
+            const format = '${{ github.event.inputs.format || 'glb' }}';
             
             await github.rest.repos.createCommitComment({
               owner: context.repo.owner,
