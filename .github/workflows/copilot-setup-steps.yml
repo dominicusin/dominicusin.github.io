@@ -34,9 +34,3 @@ jobs:
 
       - name: Lint
         run: npm run lint
-
-      - name: Validate Hugo build
-        run: |
-          export PATH="$PATH:$(go env GOPATH)/bin"
-          hugo --gc --minify
-        shell: bash
