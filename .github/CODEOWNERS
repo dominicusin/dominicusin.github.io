@@ -1,0 +1,68 @@
+# Code Owners
+
+# These patterns cover all the important parts of the project
+# and ensure proper review of changes.
+
+# Root-level config files
+/.babelrc              @dominicusin
+/.beadsrc              @dominicusin
+/.htmlvalidate.json    @dominicusin
+/.lighthouserc.json    @dominicusin
+/.npmrc                @dominicusin
+/sitemap.xml           @dominicusin
+/robots.txt            @dominicusin
+/favicon.ico           @dominicusin
+/favicon.svg           @dominicusin
+/LICENSE               @dominicusin
+/README.md             @dominicusin
+/SECURITY.md           @dominicusin
+/CONTRIBUTING.md       @dominicusin
+/CODE_OF_CONDUCT.md    @dominicusin
+/package.json          @dominicusin
+
+# Security & CI configuration
+/.github/              @dominicusin
+/.github/CODEOWNERS    @dominicusin
+/.github/dependabot.yml @dominicusin
+
+# Issue templates
+/.github/ISSUE_TEMPLATE/* @dominicusin
+
+# Workflows (security critical)
+/.github/workflows/*   @dominicusin
+
+# Hugo configuration
+/hugo.toml             @dominicusin
+/hugo.yaml             @dominicusin
+/config/_default/*     @dominicusin
+
+# Build scripts (critical for site functionality)
+/scripts/*             @dominicusin
+
+# Package lock (ensures reproducible builds)
+/package-lock.json     @dominicusin
+
+# Source code
+/src/*                 @dominicusin
+
+# Tests (important for quality)
+/tests/*               @dominicusin
+
+# Layouts (frontend)
+/layouts/*             @dominicusin
+
+# Themes
+/themes/*              @dominicusin
+
+# Data files
+/data/*                @dominicusin
+
+# Content (blog posts, docs)
+/content/*             @dominicusin
+
+# Generic assets
+/assets/*              @dominicusin
+/static/*              @dominicusin
+
+# Default owner for files not matched above
+*                     @dominicusin

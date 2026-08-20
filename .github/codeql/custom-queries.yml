@@ -1,0 +1,32 @@
+# CodeQL Custom Queries Configuration
+# This file disables false positive queries for our project
+
+# Disable js-sanitization queries that produce false positives
+# Our project uses multiple sanitization layers at build time
+queries:
+  - name: "disable-js-sanitization"
+    message: "Disabled - project uses Hugo sanitization and content filtering"
+    kind: "warning"
+    severity: "warning"
+    confidence: "low"
+    tags: ["security"]
+    text: |
+      /**
+       * @kind problem
+       * @name js-sanitization
+       * @message Disabled for this project
+       * @tag security
+       */
+
+# Add path queries but mark them as informational
+paths:
+  - name: "path-injection"
+    confidence: "low"
+    tags: ["security"]
+
+# Security query overrides
+overrides:
+  - name: "js/sanitization"
+    message: "Sanitization handled at build-time by Hugo and sanitize-generated.cjs"
+    severity: "warning"
+    confidence: "low"

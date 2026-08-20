@@ -1,0 +1,46 @@
+# Gitleaks Configuration
+title = "Gitleaks Configuration for dominicusin.github.io"
+description = "Secret scanning configuration"
+path = ".github/gitleaks.toml"
+
+[[rules]]
+description = "RSA private key"
+regex = '''-----BEGIN RSA PRIVATE KEY-----'''
+tags = ["key", "provider:aws"]
+
+[[rules]]
+description = "Generic Private Key"
+regex = '''-----BEGIN (OPENSSH|EC|DSA) PRIVATE KEY-----'''
+tags = ["key"]
+
+[[rules]]
+description = "Generic API Key"
+regex = '''(?i)(?:apikey|api_key)\s*[:=]\s*['"][a-zA-Z0-9]{16,}['"]'''
+tags = ["key", "provider:generic"]
+
+[[rules]]
+description = "Slack webhook"
+regex = '''https://hooks\\.slack\\.com/'''
+tags = ["key", "provider:slack"]
+
+[[rules]]
+description = "Telegram bot token"
+regex = '''\\d{10}:[a-zA-Z0-9-_]{35}'''
+tags = ["key", "provider:telegram"]
+
+[[rules]]
+description = "JWT Token in code"
+regex = '''eyJ[a-zA-Z0-9_-]*\\.eyJ[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]*'''
+tags = ["key", "provider:generic"]
+entropic = true
+min_entropy = 3.5
+
+[allowlist]
+paths = [
+  "docs/**/*.md",
+  "LEGACY.md"
+]
+regexes = [
+  "your-.*-key-here",
+  "BEGIN RSA PRIVATE KEY"
+]

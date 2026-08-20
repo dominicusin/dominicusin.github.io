@@ -5,23 +5,39 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    ignore:
+      # Ignore major version updates for GitHub Actions (manual review required)
+      - dependency-name: "actions/*"
+        versions: [">=2.0.0"]
 
-  # Maintain dependencies for npm
+  # Maintain npm dependencies
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
+      day: "monday"
+      time: "10:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
     groups:
       production-dependencies:
         dependency-type: "production"
       development-dependencies:
         dependency-type: "development"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "dev-deps"
 
-  # Maintain dependencies for Ruby
+  # Maintain dependencies for Ruby (if applicable)
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "tuesday"
+      time: "10:00"
+      timezone: "UTC"
     open-pull-requests-limit: 5
