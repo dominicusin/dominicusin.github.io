@@ -39,10 +39,17 @@ function readMD(dir, name) {
   return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null;
 }
 function postUrl(relPath) {
-  // content/blog/2026/08/14/slug.md -> /2026/08/14/slug/
   const m = relPath.match(/content\/blog\/(.+)\.md$/);
   if (!m) return null;
-  return '/' + m[1].replace(/\\/g, '/') + '/';
+  const inner = m[1].replace(/\\/g, '/');
+  // Nested layout: blog/2026/08/14/slug.md -> /2026/08/14/slug/
+  if (inner.includes('/')) return '/' + inner + '/';
+  // Flat layout: blog/2025-11-02-slug.md -> parse date, build permalink
+  // matching hugo.toml [permalinks] blog = "/:year/:month/:day/:slug/"
+  const fm = inner.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+  if (fm) return `/${fm[1]}/${fm[2]}/${fm[3]}/${fm[4]}/`;
+  // Fallback: use the basename as a section path
+  return '/' + inner + '/';
 }
 function titleCase(s) { return s.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); }
 
