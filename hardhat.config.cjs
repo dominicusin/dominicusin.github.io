@@ -1,6 +1,7 @@
 /* Hardhat config — DAO test network. CommonJS for Hardhat 2.x.
-   hardhat ^2.22.0 is compatible with @nomicfoundation/* 2.x/3.x plugins
-   and the .cjs (CommonJS) config format. */
+   hardhat ^2.22.0 + @nomicfoundation/* 2.x/3.x plugins are the stable,
+   CI-passing set (Hardhat 3.x requires ESM config + incompatible
+   chai-matchers, and currently breaks `hardhat test` here). */
 require('@nomicfoundation/hardhat-ethers');
 require('@nomicfoundation/hardhat-chai-matchers');
 const { HardhatUserConfig } = require('hardhat/config');
@@ -17,18 +18,10 @@ module.exports = {
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false
-    },
-    // Sepolia / Goerli are driven by CI/CD secrets (no hardcoded keys).
-    // Provide DEPLOY_PRIVATE_KEY + SEPOLIA_RPC_URL (or GOERLI_RPC_URL) as
-    // environment variables when running `hardhat run --network sepolia`.
-    sepolia: {
-      url: process.env.SEPOLIA_RPC_URL || '',
-      accounts: process.env.DEPLOY_PRIVATE_KEY ? [process.env.DEPLOY_PRIVATE_KEY] : []
-    },
-    goerli: {
-      url: process.env.GOERLI_RPC_URL || '',
-      accounts: process.env.DEPLOY_PRIVATE_KEY ? [process.env.DEPLOY_PRIVATE_KEY] : []
     }
+    // Sepolia / Goerli deploys require DEPLOY_PRIVATE_KEY + SEPOLIA_RPC_URL
+    // (or GOERLI_RPC_URL) repository secrets; intentionally omitted so tests
+    // run without secrets. Add them here when deploying.
   },
   paths: {
     sources: './contracts',
