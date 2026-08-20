@@ -56,3 +56,11 @@ canonifyURLs = false
   [[related.indices]]
     name = "categories"
     weight = 50
+
+# The GitHub Wiki is mirrored as a git submodule at content/wiki/ (read-only
+# source). Its pages are copied + front-matter-injected into content/wiki-build/
+# by scripts/generate-wiki-nav.py at build time. Exclude the raw submodule from
+# the build so we don't publish duplicate un-menu'd pages. See ADR-0003.
+# NOTE: ignoreFiles uses Go regexp (not glob), so `content/wiki/.*\.md$` matches
+# only files directly under content/wiki/ — NOT content/wiki-build/.
+ignoreFiles = ["content/wiki/.*\\.md$"]

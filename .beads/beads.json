@@ -1378,6 +1378,22 @@
       "status": "done",
       "pr": null,
       "note": "User requested: categories quick-nav on top of every page (after menu), tags quick-nav in footer of every page. Added reusable layouts/partials/taxonomy-bar.html (renders .Site.GetPage 'taxonomy' <name> .Data.Terms with i18n nav_<tax> heading; uses urlize $term in GetPage because raw term name returned nil). Wired into layouts/partials/header/basic.html override (categories, right after .main-menu) and layouts/partials/footer.html override (tags, top of footer). Verified on built public/: categories bar at byte 30662 < main 33496 (after menu, before content); tags bar at 82468 > footer 79734 (inside footer); real links /categories/{ai,career,dao,links}/ and /tags/{awesome-list,media,piracy}/; i18n headings Категории/Теги (RU) + Categories/Tags (EN). Full gate: lint clean, jest 277/21, hugo build 0. Key gotcha fixed: $.Site.GetPage 'taxonomy' $taxonomy $term returned nil until wrapped with (urlize $term); relLangURL . broke because . is WeightedPages inside range."
+    },
+    {
+      "id": "T113",
+      "kind": "task",
+      "title": "Mirror GitHub Wiki into published site as /wiki/ section",
+      "status": "done",
+      "deps": [],
+      "artifacts": [
+        ".gitmodules",
+        "content/wiki (submodule)",
+        "content/wiki-build (generated, git-ignored)",
+        "scripts/generate-wiki-nav.py",
+        "docs/adr/0003-wiki-submodule-sync.md",
+        ".github/workflows/hugo.yml"
+      ],
+      "pr": 214
     }
   ],
   "edges": [
