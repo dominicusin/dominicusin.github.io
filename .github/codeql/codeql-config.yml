@@ -1,0 +1,10 @@
+# CodeQL configuration
+# Reduce noise from files that are not shipped to production and are
+# intentionally HTML/string-manipulating (build-time sanitizers, link checkers).
+# Real UI XSS in src/modules/* is reviewed separately.
+paths-ignore:
+  - scripts/
+  - node_modules/
+
+queries:
+  - uses: security-and-quality

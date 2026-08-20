@@ -15,6 +15,9 @@ on:
         required: false
         default: '0.6'
 
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
   link-repair:
     runs-on: ubuntu-latest

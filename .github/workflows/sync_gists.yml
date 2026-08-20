@@ -10,6 +10,8 @@ on:
     - cron: "0 0 * * *"
 
 # Задачи, которые будет выполнять Action
+permissions:
+  contents: read
 jobs:
   sync:
     # Использовать последнюю версию Ubuntu для выполнения
@@ -38,7 +40,7 @@ jobs:
       # Шаг 3: Фиксация и отправка изменений (коммит и пуш)
       # Этот шаг сохранит добавленные файлы с Gists в ваш репозиторий.
       - name: Commit and Push
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: update gists"
           commit_options: '--no-verify'
