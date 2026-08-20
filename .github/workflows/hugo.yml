@@ -38,6 +38,17 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Init wiki submodule
+        # content/wiki is a git submodule (GitHub Wiki). Ensure it is present
+        # even if checkout's recursive flag missed it.
+        run: git submodule update --init --recursive content/wiki
+
+      - name: Generate wiki navigation
+        # Blowfish has no built-in docs-tree sidebar; this pre-build script
+        # copies content/wiki/*.md into content/wiki-build/ with menu.main
+        # front matter (submodule stays read-only). See ADR for the design.
+        run: python3 scripts/generate-wiki-nav.py
+
       - name: Setup Node (for content-contract validation)
         uses: actions/setup-node@v7
         with:
