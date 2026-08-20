@@ -79,7 +79,7 @@ jobs:
 
       - name: Create release with VR files
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             assets/vr/knowledge-graph.glb
