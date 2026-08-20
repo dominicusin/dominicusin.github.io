@@ -84,3 +84,4 @@ Thumbs.db
 
 # Generated wiki nav (built from content/wiki submodule)
 content/wiki-build/
+__pycache__/
