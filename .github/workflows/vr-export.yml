@@ -16,6 +16,9 @@ on:
         required: false
         default: 'glb'
 
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
   generate-vr-scene:
     runs-on: ubuntu-latest
