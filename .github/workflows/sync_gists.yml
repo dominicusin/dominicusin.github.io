@@ -10,6 +10,8 @@ on:
     - cron: "0 0 * * *"
 
 # Задачи, которые будет выполнять Action
+permissions:
+  contents: read
 jobs:
   sync:
     # Использовать последнюю версию Ubuntu для выполнения
