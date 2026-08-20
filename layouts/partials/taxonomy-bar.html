@@ -1,0 +1,35 @@
+{{/*
+  taxonomy-bar.html — reusable horizontal list of taxonomy terms
+  (categories or tags), rendered as quick-nav links.
+
+  Usage:
+    {{ partial "taxonomy-bar.html" (dict "taxonomy" "categories") }}
+    {{ partial "taxonomy-bar.html" (dict "taxonomy" "tags") }}
+
+  The taxonomy name must match a key under .Site.Taxonomies
+  (e.g. "categories" / "tags" as declared in [taxonomies]).
+  The heading uses the i18n key "nav_<taxonomy>" (nav_categories /
+  nav_tags), already provided by the theme's ru.yaml / en.yaml.
+*/}}
+{{ $taxonomy := .taxonomy }}
+{{ $taxPage := site.GetPage "taxonomy" $taxonomy }}
+{{ with $taxPage }}
+  {{ with .Data.Terms }}
+    {{ if . }}
+      <div class="taxonomy-bar flex flex-wrap items-center gap-x-2 gap-y-1 py-2 text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+        <span class="font-medium text-neutral-700 dark:text-neutral-300 me-1">
+          {{ i18n (printf "nav_%s" $taxonomy) }}
+        </span>
+        {{ range $term, $pages := . }}
+          {{ $termPage := $.Site.GetPage "taxonomy" $taxonomy (urlize $term) }}
+          <a
+            class="rounded bg-neutral-100 px-2 py-0.5 decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 dark:bg-neutral-700"
+            href="{{ if $termPage }}{{ $termPage.RelPermalink }}{{ else }}/{{ $taxonomy }}/{{ $term | urlize }}/{{ end }}"
+            title="{{ if $termPage }}{{ $termPage.Title | markdownify }}{{ else }}{{ $term }}{{ end }}">
+            {{ if $termPage }}{{ $termPage.Title | markdownify }}{{ else }}{{ $term }}{{ end }}
+          </a>
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}

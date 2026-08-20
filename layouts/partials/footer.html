@@ -1,4 +1,7 @@
 <footer id="site-footer" class="py-10 print:hidden">
+  {{/* Tags quick-nav — rendered on every page, at the top of the footer. */}}
+  {{ partial "taxonomy-bar.html" (dict "taxonomy" "tags") }}
+
   {{/* Footer menu */}}
   {{ if .Site.Params.footer.showMenu | default true }}
     {{ if .Site.Menus.footer }}
