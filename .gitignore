@@ -81,3 +81,6 @@ Thumbs.db
 # Generated CI report artifacts (e.g. external-links-report.json from
 # scripts/check-external-links.cjs). Regenerated per run; never commit.
 .ci/
+
+# Generated wiki nav (built from content/wiki submodule at build time)
+content/wiki-build/
