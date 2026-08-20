@@ -4,7 +4,7 @@
 HUGO ?= hugo
 PORT ?= 1313
 
-.PHONY: help install serve build build-preview lint test test:src test:dao \
+.PHONY: help install serve build build-preview lint test test-src test-dao \
         contract kg e2e clean
 
 help: ## Show this help
@@ -29,10 +29,10 @@ lint: ## Lint scripts (eslint over src/ and scripts/)
 test: ## Run JS unit tests (jest)
 	npm test
 
-test:src: ## Run engineering-plane tests (jest, src/ + scripts/)
+test-src: ## Run engineering-plane tests (jest, src/ + scripts/)
 	npx jest --config jest.config.js src scripts
 
-test:dao: ## Run Hardhat DAO contract tests
+test-dao: ## Run Hardhat DAO contract tests
 	npx hardhat test
 
 contract: ## Validate frontmatter of changed posts (content-contract, soft)
