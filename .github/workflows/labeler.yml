@@ -1,0 +1,22 @@
+name: PR Labeler
+
+# Auto-label PRs based on the paths they touch, so reviewers get a quick
+# signal of the surface area (docs, CI, contracts, frontend, deps).
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    name: Label PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml

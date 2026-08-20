@@ -1,0 +1,25 @@
+name: Lock Threads
+
+# Lock closed issues/PRs after a cooling-off period to prevent necro-bumps
+# while keeping the history intact.
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  discussions: write
+
+jobs:
+  lock:
+    name: Lock closed threads
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dessant/lock-threads@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-inactive-days: '90'
+          pr-inactive-days: '90'
+          log-output: true
