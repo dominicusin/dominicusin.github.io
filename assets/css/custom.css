@@ -185,6 +185,53 @@ html { scroll-behavior: smooth; }
 /* ---------- Selection ---------- */
 ::selection { background: rgb(var(--ring) / .35); color: #fff; }
 
+/* ============================================================
+   Ergonomics pass — readability & scanning improvements
+   ============================================================ */
+
+.article-list .article-list-item .article-time,
+.article-header .article-time,
+.article-meta,
+.article-list-item .text-sm,
+.text-sm.text-neutral-500,
+.text-neutral-500 {
+  font-size: .82rem !important;
+  color: rgb(var(--color-neutral-400)) !important;
+}
+.dark .article-meta,
+.dark .article-time {
+  color: rgb(var(--color-neutral-300)) !important;
+}
+
+#top-app-bar nav a,
+.header nav a,
+.desktop-menu a {
+  padding-inline: .55rem !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+.kg-search:focus-visible {
+  outline: 2px solid rgb(var(--ring) / .9);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.article-content,
+.prose {
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .footer .flex.flex-wrap,
+  #site-footer .tagcloud,
+  .footer-tags {
+    gap: .35rem !important;
+    font-size: .8rem !important;
+  }
+}
+
 /* ---------- Scrollbar polish ---------- */
 * { scrollbar-width: thin; scrollbar-color: rgb(var(--color-neutral-700)) transparent; }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
