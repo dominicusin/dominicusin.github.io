@@ -1,0 +1,35 @@
+name: SBOM Generation
+
+# Generate a Software Bill of Materials for every push to main and on
+# dispatch. The SBOM is uploaded as a workflow artifact and (when
+# enabled) to the dependency snapshot API for supply-chain visibility.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM (syft)
+        uses: anchore/sbom-action@v0.17.0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+          retention-days: 30

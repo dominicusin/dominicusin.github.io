@@ -1,0 +1,40 @@
+name: OpenSSF Scorecard
+
+# Supply-chain security scoring via OpenSSF Scorecard. Runs on schedule
+# and dispatch, uploads results to the Security > Code scanning dashboard.
+
+on:
+  schedule:
+    - cron: '27 3 * * 2'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  # Required for Scorecard to upload SARIF to code scanning.
+  security-events: write
+  actions: read
+  id-token: write
+
+jobs:
+  scorecard:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run analysis
+        uses: ossf/scorecard-action@v2.4.0
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          publish_results: true
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif

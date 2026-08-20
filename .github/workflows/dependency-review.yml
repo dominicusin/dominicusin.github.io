@@ -1,0 +1,31 @@
+name: Dependency Review
+
+# Block PRs that introduce new vulnerabilities in the dependency delta.
+# Only fails when the PR's dependency changes add a known vulnerability,
+# so it stays green for clean PRs and acts as a supply-chain gate.
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          # Fail only on high/critical vulnerabilities introduced by this PR.
+          fail-on-severity: high
+          # Allow maintainer-authored Dependabot bumps to pass CI; they are
+          # reviewed separately.
+          allow-ghsas: ''
+          comment-summary-in-pr: true
