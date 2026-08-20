@@ -33,3 +33,10 @@ jobs:
           name: sbom
           path: sbom.spdx.json
           retention-days: 30
+
+      - name: Generate Generic Attestations
+        uses: actions/attest@v4.2.2
+        with:
+          subject-path: sbom.spdx.json
+          predicate-type: https://spdx.dev/Document
+          predicate: sbom.spdx.json

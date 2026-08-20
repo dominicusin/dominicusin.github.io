@@ -110,6 +110,11 @@ jobs:
         with:
           path: ./public
 
+      - name: Generate Generic Attestations
+        uses: actions/attest@v4.2.2
+        with:
+          subject-path: ./public
+
   deploy:
     needs: build
     environment:
