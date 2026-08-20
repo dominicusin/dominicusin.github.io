@@ -25,7 +25,7 @@ OnionShare lets you securely and anonymously share files of any size. It works b
 
 **You can download OnionShare for Windows and macOS from <https://onionshare.org/>. It should be available in your package manager for Linux, and it's included by default in Tails.**
 
-You can set up your development environment to build OnionShare yourself by following [these instructions](/BUILD.md).
+You can set up your development environment to build OnionShare yourself by following [these instructions](https://github.com/micahflee/onionshare/blob/develop/BUILD.md).
 
 ![Server Screenshot](/screenshots/server.png)
 ![Client Screenshot](/screenshots/client.png)

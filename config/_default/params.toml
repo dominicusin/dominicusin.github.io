@@ -7,7 +7,7 @@ colorScheme = "dominicusin"
 defaultAppearance = "dark"
 description = "Engineering blog & decentralized web notes by Dominicus In."
 showDarkModeToggle = true
-showLanguageSelector = true
+showLanguageSelector = false       # EN not configured (no content/en); avoid dead /en/* links
 mainSections = ["blog"]
 
 # --- Feature flags ---
