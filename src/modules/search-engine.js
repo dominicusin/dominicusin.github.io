@@ -4,7 +4,7 @@
  */
 
 import { DEFAULT_CONFIG } from '../config/constants.js';
-import { debounce, createElement } from '../utils/helpers.js';
+import { debounce, createElement, escapeHTML } from '../utils/helpers.js';
 import { VectorSearch } from './vector-search.js';
 
 /**
@@ -443,28 +443,28 @@ export class SearchEngine {
     
     const resultsHTML = results.map((post, index) => `
       <div class="search-result-item" role="article" tabindex="-1" data-index="${index}">
-        <a href="${post.url}" class="search-result-link">
+        <a href="${escapeHTML(post.url)}" class="search-result-link">
           <div class="search-result-header">
             <h3 class="search-result-title">
-              ${this.getHighlightedHTML(post.title, query)}
+              ${this.getHighlightedHTML(escapeHTML(post.title), escapeHTML(query))}
             </h3>
             <div class="search-result-meta">
-              <time datetime="${post.date}" class="search-result-date">
+              <time datetime="${escapeHTML(post.date)}" class="search-result-date">
                 ${formatDate(post.date)}
               </time>
               ${post.categories.length > 0 ? `
-                <span class="search-result-category">${post.categories[0]}</span>
+                <span class="search-result-category">${escapeHTML(post.categories[0])}</span>
               ` : ''}
             </div>
           </div>
           ${post.excerpt ? `
             <div class="search-result-excerpt">
-              ${this.getHighlightedHTML(post.excerpt, query)}
+              ${this.getHighlightedHTML(escapeHTML(post.excerpt), escapeHTML(query))}
             </div>
           ` : ''}
           ${post.tags.length > 0 ? `
             <div class="search-result-tags">
-              ${post.tags.slice(0, 3).map(tag => `<span class="search-result-tag">${tag}</span>`).join('')}
+              ${post.tags.slice(0, 3).map(tag => `<span class="search-result-tag">${escapeHTML(tag)}</span>`).join('')}
             </div>
           ` : ''}
         </a>

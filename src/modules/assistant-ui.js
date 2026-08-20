@@ -256,8 +256,15 @@ export class AssistantUI {
   }
 
   formatMessage(content) {
-    // Basic markdown formatting
-    return content
+    // Escape user-controlled content first, then apply markdown formatting
+    // to the safe (already-escaped) string. Prevents XSS via innerHTML.
+    const escapeHtml = (s) => s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+    return escapeHtml(content)
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/`(.*?)`/g, '<code>$1</code>')

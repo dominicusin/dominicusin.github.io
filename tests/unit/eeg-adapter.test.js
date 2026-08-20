@@ -13,8 +13,7 @@ class MockWS {
 
 describe('EEGWebSocketAdapter', () => {
   test('parses JSON frames into NeuroSample and forwards them', () => {
-    const mk = () => new (class extends MockWS {})('ws://x');
-    const inst = new EEGWebSocketAdapter('ws://eeg', { wsImpl: mk });
+    const inst = new EEGWebSocketAdapter('ws://eeg', { wsImpl: MockWS });
     const received = [];
     const status = [];
     inst.onStatus = (s) => status.push(s);
@@ -31,7 +30,7 @@ describe('EEGWebSocketAdapter', () => {
   });
 
   test('ignores malformed frames', () => {
-    const inst = new EEGWebSocketAdapter('ws://eeg', { wsImpl: (u) => new MockWS(u) });
+    const inst = new EEGWebSocketAdapter('ws://eeg', { wsImpl: MockWS });
     const received = [];
     inst.start((s) => received.push(s));
     inst._ws.push('not json{');
@@ -39,13 +38,14 @@ describe('EEGWebSocketAdapter', () => {
   });
 
   test('throws when WebSocket is unavailable', () => {
-    const saved = globalThis.WebSocket;
-    // simulate an environment without WebSocket
-    try { globalThis.WebSocket = undefined; } catch {}
+    let saved;
+    try { saved = globalThis.WebSocket; } catch { saved = undefined; }
+    // Simulate an environment without a WebSocket constructor (strict-mode safe)
+    try { Object.defineProperty(globalThis, 'WebSocket', { value: undefined, configurable: true, writable: true }); } catch {}
     const inst = new EEGWebSocketAdapter('ws://eeg', { wsImpl: undefined });
     let threw = false;
     try { inst.start(() => {}); } catch (e) { threw = /unavailable/.test(e.message); }
-    try { globalThis.WebSocket = saved; } catch {}
+    try { Object.defineProperty(globalThis, 'WebSocket', { value: saved, configurable: true, writable: true }); } catch {}
     expect(threw).toBe(true);
   });
 });

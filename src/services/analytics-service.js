@@ -87,7 +87,11 @@ export class AnalyticsService {
    */
   generateSessionId() {
     const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 9);
+    // Use cryptographically secure randomness instead of Math.random()
+    // to avoid predictable session identifiers (js/insecure-randomness).
+    const randomBytes = new Uint8Array(8);
+    (globalThis.crypto || globalThis.msCrypto).getRandomValues(randomBytes);
+    const random = Array.from(randomBytes, b => b.toString(16).padStart(2, '0')).join('');
     return `session_${timestamp}_${random}`;
   }
 

@@ -3,7 +3,7 @@
  * Handles modal open/close, input debouncing, skeleton loading, and results rendering
  */
 
-import { debounce } from '../utils/helpers.js';
+import { debounce, escapeHTML } from '../utils/helpers.js';
 
 export class SearchUI {
   constructor(options = {}) {
@@ -168,7 +168,7 @@ export class SearchUI {
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M12 8v4m0 4h.01"></path>
         </svg>
-        <p>Error: ${message}</p>
+        <p>Error: ${escapeHTML(message)}</p>
       `;
       
       // Clear previous content
