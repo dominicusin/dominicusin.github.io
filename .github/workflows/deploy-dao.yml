@@ -80,9 +80,11 @@ jobs:
           fi
 
       - name: Compile
+        if: ${{ env.DEPLOY_PRIVATE_KEY != '' }}
         run: npx hardhat compile
 
       - name: Deploy to target network
+        if: ${{ env.DEPLOY_PRIVATE_KEY != '' }}
         env:
           # workflow_dispatch input is operator-controlled, not attacker PR/issue
           # content; still constrain to an allowlist for safety.
