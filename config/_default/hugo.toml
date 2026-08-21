@@ -31,7 +31,7 @@ canonifyURLs = false
   domini = "/domini/:slug/"
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON", "RedirectIndex"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   term = ["HTML", "RSS"]
@@ -39,6 +39,15 @@ canonifyURLs = false
 # Standard /feed.xml RSS URL (README of the site links to it).
 [outputFormats.RSS]
   baseName = "feed"
+
+# Lightweight [{slug,url,title,section}] index powering the 404 smart-redirect
+# (broken URL -> fuzzy slug match -> closest existing page). Deliberately small
+# (no content) so it loads instantly on a 404; distinct from the 4.4MB search index.
+[outputFormats.RedirectIndex]
+  baseName = "redirect-index"
+  mediaType = "application/json"
+  isPlainText = true
+  rel = "alternate"
 
 [taxonomies]
   tag = "tags"
