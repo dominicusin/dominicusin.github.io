@@ -1,0 +1,19 @@
+{{/* Lightweight redirect index for the 404 smart-redirect feature.
+     Emits [{ slug, url, title, section }] for every non-home page so the
+     404 page can fuzzy-match a broken URL's slug and redirect to the
+     closest existing page (e.g. a date-gap URL like /2025/11/slug/ ->
+     /2025/11/02/slug/). Deliberately tiny (no content/summary) so it
+     loads instantly on a 404. */}}
+{{- $data := slice -}}
+{{- range site.AllPages -}}
+  {{- if and .Permalink (not .IsHome) -}}
+    {{- $rel := trim .RelPermalink "/" -}}
+    {{- $segs := split $rel "/" -}}
+    {{- $slug := "" -}}
+    {{- if gt (len $segs) 0 -}}{{- $slug = index $segs (sub (len $segs) 1) -}}{{- end -}}
+    {{- if ne $slug "" -}}
+      {{- $data = $data | append (dict "slug" $slug "url" .RelPermalink "title" .Title "section" .Section) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $data | jsonify -}}

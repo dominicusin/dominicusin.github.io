@@ -41,6 +41,9 @@
         {{- partial "search.html" . -}}
       {{ end }}
     </div>
+  {{/* Smart 404 redirect: only on the /404.html page (content/404.md sets
+      is404: true). Translates a broken URL into the closest existing page. */}}
+  {{ if .Params.is404 }}{{ partial "smart-404.html" . }}{{ end }}
   </body>
   {{ if site.Params.buymeacoffee.globalWidget | default false }}
     <script
