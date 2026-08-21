@@ -1,79 +1,101 @@
-# Main menu (ru). Blowfish renders config/_default/menus.<lang>.toml.
-# Consolidated: profile + topics grouped into dropdowns.
-[[main]]
+# Language-scoped main menu for the RU-default site.
+# Blowfish ships a default menus.en.toml; for the "ru" site Hugo uses this
+# file, so it must contain the FULL menu (Hugo replaces, not merges, the
+# theme default). "Карта сайта" renders the XSLT-styled sitemap
+# (static/sitemap.xsl + the <?xml-stylesheet?> PI from layouts/sitemap.xml).
+
+[[menus.main]]
   name = "Главная"
-  pageRef = "/"
-  weight = 10
+  url = "/"
+  weight = 1
 
-[[main]]
+[[menus.main]]
   name = "Архив"
-  pageRef = "/posts/"
-  weight = 30
+  url = "/archives/"
+  weight = 2
 
-[[main]]
+[[menus.main]]
   name = "Knowledge Graph"
-  pageRef = "/knowledge-graph/"
-  weight = 40
+  url = "/knowledge-graph/"
+  weight = 3
 
-[[main]]
+[[menus.main]]
   name = "Профиль"
   identifier = "profile"
-  weight = 50
+  url = "/about/"
+  weight = 4
 
-[[main]]
+[[menus.main]]
   name = "Об авторе"
-  pageRef = "/about/"
+  url = "/about/"
   parent = "profile"
-  weight = 51
+  weight = 1
 
-[[main]]
+[[menus.main]]
   name = "Люди"
-  URL = "/about/#people"
+  url = "/people/"
   parent = "profile"
-  weight = 52
+  weight = 2
 
-[[main]]
+[[menus.main]]
   name = "Domini"
-  URL = "/about/#domini"
+  url = "/domini/"
   parent = "profile"
-  weight = 53
+  weight = 3
 
-[[main]]
+[[menus.main]]
   name = "Темы"
   identifier = "topics"
-  weight = 60
+  url = "/categories/"
+  weight = 5
 
-[[main]]
+[[menus.main]]
   name = "Категории"
-  pageRef = "/categories/"
+  url = "/categories/"
   parent = "topics"
-  weight = 61
+  weight = 1
 
-[[main]]
+[[menus.main]]
   name = "Теги"
-  pageRef = "/tags/"
+  url = "/tags/"
   parent = "topics"
-  weight = 62
+  weight = 2
 
-[[main]]
+[[menus.main]]
   name = "Код"
   identifier = "code"
-  weight = 70
+  url = "/repositories/"
+  weight = 6
 
-[[main]]
+[[menus.main]]
   name = "Репозитории"
-  pageRef = "/repositories/"
+  url = "/repositories/"
   parent = "code"
-  weight = 71
+  weight = 1
 
-[[main]]
+[[menus.main]]
   name = "Гисты"
-  pageRef = "/gists/"
+  url = "/gists/"
   parent = "code"
-  weight = 72
+  weight = 2
 
-[[main]]
+[[menus.main]]
   name = "Онтология"
-  pageRef = "/ontology/"
+  url = "/ontology/"
   parent = "code"
-  weight = 73
+  weight = 3
+
+[[menus.main]]
+  name = "Community"
+  url = "/community/"
+  weight = 7
+
+[[menus.main]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 8
+
+[[menus.main]]
+  name = "Карта сайта"
+  url = "/sitemap.xml"
+  weight = 9
