@@ -78,11 +78,12 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   editURL = "https://github.com/dominicusin/dominicusin.github.io/edit/main/content"
   editAppendPath = true
   sharingLinks = ["linkedin", "twitter", "bluesky", "reddit", "telegram", "email"]
-  # showViews/showLikes disabled: the Firebase backend is deny-all (403), so the
-  # counters render a permanent "loading" placeholder — bad UX. Re-enable once
-  # Firestore rules permit reads/increments.
-  # showViews = true
-  # showLikes = true
+  # Views/Likes enabled: firestore.rules shipped (permits authenticated reads
+  # + increment-by-1 writes), and assets/js/firebase.js now falls back to "0"
+  # instead of a stuck "loading" spinner if the backend is ever unreachable.
+  # Deploy the rules once with: firebase deploy --only firestore:rules
+  showViews = true
+  showLikes = true
 
 # --- List / section pages ---
 [list]
@@ -91,8 +92,8 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   showReadingTime = true
   showCards = true
   cardView = true
-  # showViews disabled (Firebase backend deny-all → permanent "loading")
-  # showViews = true
+  # Views enabled (firestore.rules shipped + graceful 0-fallback). See firestore.rules.
+  showViews = true
 
 # --- Sitemap ---
 [sitemap]
@@ -124,9 +125,9 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
   measurementId = "G-4QCLTEKK18"
 
 [taxonomy]
-  # showViews disabled (Firebase backend deny-all → permanent "loading")
-  # showViews = true
+  # Views enabled (firestore.rules shipped + graceful 0-fallback). See firestore.rules.
+  showViews = true
 
 [term]
-  # showViews disabled (Firebase backend deny-all → permanent "loading")
-  # showViews = true
+  # Views enabled (firestore.rules shipped + graceful 0-fallback). See firestore.rules.
+  showViews = true
