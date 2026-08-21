@@ -52,7 +52,7 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
 
 # --- Homepage ---
 [homepage]
-  layout = "profile"          # personal-site landing: author card + recent posts
+  layout = "custom"           # custom layouts/index.html (glass/neo-modern emerald)
   showRecent = true
   showRecentItems = 8
   showMoreLink = true

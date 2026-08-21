@@ -1,0 +1,119 @@
+{{/* Homepage — Glass / Neo-modern (emerald). Overrides Blowfish's profile
+     homepage while reusing the theme's baseof.html (header, footer, taxonomy
+     bar). Reads live site data; falls back to i18n strings. */}}
+{{ define "main" }}
+  {{ $pages := where site.RegularPages "Section" "blog" }}
+  {{ $pages = sort $pages "Date" "desc" }}
+  {{ $featured := first 3 $pages }}
+  {{ $recent := first 8 (after 3 $pages) }}
+
+  {{ $articles := len $pages }}
+  {{ $categories := .Site.Taxonomies.categories }}
+  {{ $catCount := len $categories }}
+  {{ $tagCount := len .Site.Taxonomies.tags }}
+
+  <div class="home-container">
+
+    {{/* Hero */}}
+    <section class="hero-glass">
+      <h1>{{ .Site.Title | emojify }}</h1>
+      <p class="tagline">{{ .Site.Params.description | default (i18n "site_description") }}</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">{{ $articles }}</div>
+          <div class="hero-stat-label">{{ i18n "hero_articles" | default "Статей" }}</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">{{ $catCount }}</div>
+          <div class="hero-stat-label">{{ i18n "hero_categories" | default "Категорий" }}</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">{{ $tagCount }}</div>
+          <div class="hero-stat-label">{{ i18n "hero_tags" | default "Тегов" }}</div>
+        </div>
+      </div>
+    </section>
+
+    {{/* Topic highlights (top categories by post count) */}}
+    {{ with $categories.ByCount }}
+      <div class="topic-highlights">
+        {{ range first 8 . }}
+          {{ $term := .Page }}
+          <a href="{{ $term.RelPermalink }}" class="topic-pill">
+            {{ $term.Title | markdownify }}
+            <span class="count">{{ .Count }}</span>
+          </a>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{/* Featured posts */}}
+    <div class="section-header">
+      <h2>{{ i18n "recent_title" | default "Последние статьи" }}</h2>
+      <a href="{{ (site.GetPage "section" "blog").RelPermalink }}">{{ i18n "recent_all_articles" | default "Все статьи" }} →</a>
+    </div>
+    <div class="featured-grid">
+      {{ range $featured }}
+        <article class="summary-card">
+          <div class="card-body">
+            {{ with index (.Params.categories | default slice) 0 }}
+              <span class="card-category-badge">{{ . }}</span>
+            {{ end }}
+            <h3 class="card-title">
+              <a href="{{ .RelPermalink }}">{{ .Title | emojify | markdownify }}</a>
+            </h3>
+            <div class="card-meta">
+              {{ .Date | time.Format "02.01.2006" }}
+              · {{ .WordCount }} {{ i18n "words" | default "слов" }}
+              · {{ .ReadingTime }} {{ i18n "recent_min_read" | default "мин" }}
+            </div>
+            {{ $summary := .Summary | plainify | replaceRE `^\s*author:\s*\S+\s*` "" | truncate 160 }}
+            <p class="card-summary">{{ $summary }}</p>
+            {{ with .Params.tags }}
+              <div class="article-tags">
+                {{ range first 5 . }}
+                  <a href="{{ (printf "/tags/%s/" (urlize .)) | relURL }}">{{ . }}</a>
+                {{ end }}
+              </div>
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </div>
+
+    {{/* Recent list */}}
+    {{ with $recent }}
+      <div class="section-header">
+        <h2>{{ i18n "recent_subtitle" | default "Ещё материалы" }}</h2>
+      </div>
+      <div class="recent-list">
+        {{ range . }}
+          <div class="recent-item">
+            <span class="recent-date">{{ .Date | time.Format "02.01.2006" }}</span>
+            <a href="{{ .RelPermalink }}" class="recent-title">{{ .Title | emojify | markdownify }}</a>
+            <span class="recent-meta">
+              {{ .ReadingTime }} {{ i18n "recent_min_read" | default "мин" }}
+              {{ with index (.Params.categories | default slice) 0 }}· {{ . }}{{ end }}
+            </span>
+          </div>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{/* Newsletter CTA (Buttondown) */}}
+    <section class="newsletter-cta">
+      <h2>{{ i18n "newsletter_title" | default "Подписка на обновления" }}</h2>
+      <p>{{ i18n "newsletter_description" | default "Получайте уведомления о новых статьях и материалах" }}</p>
+      <form
+        class="newsletter-form"
+        action="{{ .Site.Params.externalSubscriptionURL }}"
+        method="post"
+        target="_blank"
+        rel="noopener">
+        <input type="email" name="email" placeholder="your@email.com" required />
+        <button type="submit">{{ i18n "subscribe_button" | default "Подписаться" }}</button>
+      </form>
+    </section>
+
+  </div>
+{{ end }}
