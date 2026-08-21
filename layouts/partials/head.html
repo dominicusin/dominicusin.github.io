@@ -16,6 +16,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color">
 
+  {{/* Brand font: Wix Madefor Text + Mono (2026-08-21 brand decision).
+       preconnect + single CSS2 request; no JS needed. Falls back to the
+       system stack in custom.css if the network is unavailable. */}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:wght@400;500;600;700&family=Wix+Madefor+Mono:wght@400;500;600&display=swap">
+
   {{/* Title */}}
   {{ if .IsHome }}
     <title>{{ .Site.Title | emojify }}</title>
@@ -131,6 +140,14 @@
   {{ $cssResources = $cssResources | append (resources.Get "css/compiled/main.css") }}
   {{ with resources.Get "css/custom.css" }}
     {{ $cssResources = $cssResources | append . }}
+  {{ end }}
+  {{/* Emerald glass/neo-modern homepage layer (2026-08-21). Rules are scoped to
+       .home-container, so it is safe to ship on every route; included
+       unconditionally to avoid a stale resource-cache key. */}}
+  {{ with resources.Get "css/home-emerald.css" }}
+    {{ $cssResources = $cssResources | append . }}
+  {{ else }}
+    {{ warnf "home-emerald.css NOT FOUND via resources.Get" }}
   {{ end }}
   {{ if not .Site.Params.disableImageZoom | default true }}
     {{ $cssResources = $cssResources | append (resources.Get "lib/zoom/style.css") }}
