@@ -40,6 +40,12 @@ canonifyURLs = false
 [outputFormats.RSS]
   baseName = "feed"
 
+# Native Hugo RSS cap: keep the home feed to the N most-recent blog posts
+# (the full site has 295+ regular pages incl. gists/repos — far too noisy for
+# a subscription feed). The feed template further scopes to the blog section.
+[services.rss]
+  limit = 50
+
 # Lightweight [{slug,url,title,section}] index powering the 404 smart-redirect
 # (broken URL -> fuzzy slug match -> closest existing page). Deliberately small
 # (no content) so it loads instantly on a 404; distinct from the 4.4MB search index.
