@@ -5,10 +5,10 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "build": "hugo --gc --minify",
+    "build": "node scripts/sync-github.cjs && hugo --gc --minify",
     "build:css": "tailwindcss -i ./css/tailwind.src.css -o ./css/tailwind.css --minify",
     "watch:css": "tailwindcss -i ./css/tailwind.src.css -o ./css/tailwind.css --watch",
-    "build:production": "hugo --gc --minify --baseURL \"https://dominicusin.github.io/\"",
+    "build:production": "node scripts/sync-github.cjs && hugo --gc --minify --baseURL \"https://dominicusin.github.io/\"",
     "serve": "hugo server -D",
     "start": "hugo server -D --bind 0.0.0.0 --port 4000",
     "minify": "hugo --gc --minify",
