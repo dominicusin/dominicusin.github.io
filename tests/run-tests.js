@@ -11,7 +11,7 @@
  * - Performance tests
  */
 
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import { existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -97,8 +97,14 @@ function runJestTests() {
     jestArgs.push(config.testPathPattern);
   }
   
+  const jestBin = join(rootDir, 'node_modules', 'jest', 'bin', 'jest.js');
   try {
-    execSync(`npx jest ${jestArgs.join(' ')}`, {
+    // Spawn jest through the node already running this script (process.execPath)
+    // instead of `npx jest`, which resolves to node_modules/.bin/jest — a shim
+    // whose `#!/usr/bin/env node` shebang fails when `node` is absent from the
+    // child shell's PATH. execFileSync with an arg array (no shell) avoids both
+    // the broken shim and any command-injection surface; args are repo-internal.
+    execFileSync(process.execPath, [jestBin, ...jestArgs], {
       cwd: rootDir,
       stdio: 'inherit',
       env: { ...process.env, NODE_ENV: 'test' }
@@ -116,8 +122,9 @@ function runJestTests() {
 function runA11yTests() {
   console.log(`\n${colors.blue}Running Accessibility Tests...${colors.reset}`);
   
+  const jestBin = join(rootDir, 'node_modules', 'jest', 'bin', 'jest.js');
   try {
-    execSync('npx jest tests/a11y --config jest.config.js', {
+    execFileSync(process.execPath, [jestBin, 'tests/a11y', '--config', 'jest.config.js'], {
       cwd: rootDir,
       stdio: 'inherit',
       env: { ...process.env, NODE_ENV: 'test' }
