@@ -1,12 +1,17 @@
 {{- /* Custom sitemap: per-section priority + changefreq, lastmod on every
-       URL, and the 404 page excluded. Overrides the stock template that
-       assigned a flat 0.5/monthly to all 488 pages. */}}
+       URL, the 404 page excluded, and an XSLT stylesheet that renders the
+       raw XML as a styled HTML "Карта сайта" page in the browser.
+       The <?xml-stylesheet?> PI must come after the xml declaration and
+       before <urlset>; browsers then apply /sitemap.xsl client-side. Both
+       PIs are emitted via printf|safeHTML so the XML renderer does not
+       HTML-escape the angle brackets. */}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{- printf "<?xml-stylesheet type=\"text/xsl\" href=\"sitemap.xsl\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 {{- range .Data.Pages }}
-  {{- if and (not .Sitemap.Disable) (not (in ($.Site.Params.sitemap.excludedKinds | default slice) .Kind)) }}
+  {{- if and (not .Sitemap.Disable) }}{{ if not (in ($.Site.Params.sitemap.excludedKinds | default slice) .Kind) }}
     {{- if and (.Param "xml" | default true) (not .Params.excludeFromSearch) (not (eq .RelPermalink "/404.html")) }}
       {{- $prio := 0.3 -}}
       {{- $freq := "yearly" -}}
@@ -24,13 +29,13 @@
         {{- if not .Lastmod.IsZero }}<lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>{{ end }}
     <changefreq>{{ $freq }}</changefreq>
     <priority>{{ $prio }}</priority>
-        {{- /* Featured image as sitemap image extension for image SEO. */ -}}
         {{- with .Params.featuredimage }}<image:image><image:loc>{{ . | absURL }}</image:loc></image:image>{{ end -}}
         {{- if .IsTranslated }}{{ range .Translations }}
-    <xhtml:link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}"/>{{ end }}{{ end }}
+    <xhtml:link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}"/>
+        {{ end }}{{ end }}
   </url>
       {{- end }}
     {{- end }}
-  {{- end }}
+  {{- end }}{{ end }}
 {{- end }}
 </urlset>
