@@ -55,7 +55,7 @@ function saveCache() {
   try { fs.mkdirSync(CACHE_DIR, { recursive: true }); fs.writeFileSync(CACHE_FILE, JSON.stringify(cache)); } catch {}
 }
 
-async function gh(url, { raw = false, retry = 2 } = {}) {
+async function gh(url, { raw = false, retry = 0 } = {}) {
   for (let attempt = 0; attempt <= retry; attempt++) {
     try {
       const headers = { 'Accept': raw ? '*/*' : 'application/vnd.github+json', 'User-Agent': UA, 'X-GitHub-Api-Version': '2022-11-28' };
