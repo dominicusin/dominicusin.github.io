@@ -1,0 +1,50 @@
+{{- /* Custom RSS feed: scope to the blog section, cap to the N most-recent
+       posts (services.rss.limit), and enrich each item with category tags
+       and full content. Overrides the Blowfish/stock feed which pulled every
+       regular page (gists, repo subpages, wiki) into a 295-item, 4MB feed. */}}
+{{- $pages := slice -}}
+{{- if .IsHome -}}
+  {{- /* Editorial content only: the blog section (posts). */ -}}
+  {{- $pages = where site.RegularPages "Section" "blog" -}}
+  {{- $limit := .Site.Config.Services.RSS.Limit -}}
+  {{- if ge $limit 1 -}}{{- $pages = $pages | first $limit -}}{{- end -}}
+{{- else -}}
+  {{- $pages = .Pages -}}
+{{- end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} на {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>Новые записи{{ if ne .Title .Site.Title }} в «{{ .Title }}»{{ end }} на {{ .Site.Title }}</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>{{ site.Language.Locale }}</language>
+    {{- with .Site.Params.Author.email }}<managingEditor>{{ . }}{{ with $.Site.Params.Author.name }} ({{ . }}){{ end }}</managingEditor>{{ end }}
+    {{- with .Site.Params.Author.email }}<webMaster>{{ . }}{{ with $.Site.Params.Author.name }} ({{ . }}){{ end }}</webMaster>{{ end }}
+    {{- if .Site.Params.footer.showCopyright | default true }}
+    <copyright>{{ with replace .Site.Params.copyright "{ year }" now.Year }}{{ . }}{{ else }}© {{ now.Format "2006" }} {{ .Site.Params.Author.name }}{{ end }}</copyright>
+    {{- end }}
+    {{- with .OutputFormats.Get "RSS" }}<atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType }}"/>{{ end }}
+    {{- /* Channel image (OG image) for richer feed cards in readers. */ -}}
+    {{- with .Site.Params.defaultSocialImage }}<image>
+      <url>{{ . | absURL }}</url>
+      <title>{{ $.Site.Title }}</title>
+      <link>{{ $.Permalink }}</link>
+    </image>{{ end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      <dc:creator>{{ with .Site.Params.Author.name }}{{ . }}{{ end }}</dc:creator>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <description>{{ .Summary | transform.XMLEscape | safeHTML }}</description>
+      <content:encoded>{{ .Content | transform.XMLEscape | safeHTML }}</content:encoded>
+      {{- /* Category tags: both tags and categories for better aggregation. */ -}}
+      {{- range .Params.tags }}<category>{{ . }}</category>{{ end }}
+      {{- range .Params.categories }}<category>{{ . }}</category>{{ end }}
+      {{- with .Params.featuredimage }}<enclosure url="{{ . | absURL }}" type="image/jpeg"/>{{ end }}
+    </item>
+    {{- end }}
+  </channel>
+</rss>
