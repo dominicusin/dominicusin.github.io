@@ -406,3 +406,32 @@ html:not(.dark) .home-topics a {
     flex-direction: column;
   }
 }
+
+/* ---------- Emerald polish: tag-cloud + list cards ---------- */
+/* Tag cloud: weight tints cool->emerald, frequent tags glow brighter.
+   The --tw variable (0..1) is set inline by terms.html from post count. */
+.tag-cloud-item {
+  color: color-mix(in oklab, rgb(var(--ring-soft, 52 211 153)) calc(var(--tw, 0) * 65%), rgb(var(--color-neutral-300)));
+}
+.tag-cloud-item:hover {
+  color: rgb(var(--ring-soft, 52 211 153));
+  transform: translateY(-2px);
+  text-shadow: 0 0 12px rgba(var(--ring, 16 185 129), 0.35);
+}
+
+/* List page cards (article-link--card) get an emerald hover glow to match
+   the homepage glass language instead of the flat Blowfish default. */
+.article-link--card {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.article-link--card:hover {
+  border-color: rgba(var(--ring, 16 185 129), 0.35);
+  box-shadow: 0 0 0 1px rgba(var(--ring, 16 185 129), 0.15),
+    0 6px 24px rgba(var(--ring, 16 185 129), 0.10);
+  transform: translateY(-3px);
+}
+.article-link--card:hover h2 a {
+  color: rgb(var(--ring-soft, 52 211 153));
+}
