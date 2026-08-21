@@ -339,4 +339,11 @@ async function main() {
   process.exit(0);
 }
 
-main();
+
+process.on('unhandledRejection', (e) => {
+  console.warn('sync-github: unhandled rejection (ignored, build continues):', e && (e.message || e));
+});
+main().catch((e) => {
+  console.warn('sync-github: fatal error (ignored, build continues):', e && e.message);
+  process.exit(0);
+});
