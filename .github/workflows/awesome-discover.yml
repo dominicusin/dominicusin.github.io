@@ -49,6 +49,12 @@ jobs:
 
       - name: Rebuild catalog data
         run: node scripts/build-awesome.cjs
+      - name: Setup Hugo (extended)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.164.0"
+          extended: true
+
       - name: Build site (guard — new lists must not break the build)
         # Renders the /awesome/ catalog + preview pages. If a freshly added
         # list (or its README) breaks the build, the workflow fails HERE
