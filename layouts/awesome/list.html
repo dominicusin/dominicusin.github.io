@@ -1,0 +1,58 @@
+{{ define "main" }}
+<section class="prose dark:prose-invert max-w-none mb-10">
+  <header class="mb-8">
+    <h1 class="text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral mb-3">
+      {{ .Title | default "Awesome" }}
+    </h1>
+    <p class="text-lg text-neutral-500 dark:text-neutral-400">
+      {{ .Description | default "Курируемые awesome-списки из внешних репозиториев, сгруппированные по темам." }}
+    </p>
+    <p class="mt-2 text-sm text-neutral-400 dark:text-neutral-500">
+      Списки подключены как git-субмодули bear с выборочной загрузкой (sparse-checkout) —
+      из каждого репозитория синхронизируется только <code>README.md</code>.
+      Автоматически пополняются через
+      <a class="text-primary-600 dark:text-primary-400 hover:underline" href="https://github.com/dominicusin/dominicusin.github.io/actions/workflows/awesome-discover.yml">awesome-discover</a>.
+    </p>
+  </header>
+
+  {{ $data := .Site.Data.awesome }}
+  {{ if not $data }}
+    <p class="text-neutral-500">Каталог пока пуст. Запустите <code>node scripts/build-awesome.cjs</code>.</p>
+  {{ else }}
+    <div class="space-y-12">
+      {{ range $data.groups }}
+      <div class="group-section">
+        <div class="flex items-center gap-3 mb-4">
+          <h2 class="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
+            {{ .name }}
+          </h2>
+          <span class="text-sm px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300">
+            {{ len .repos }}
+          </span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {{ range .repos }}
+          <article class="flex flex-col justify-between rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-4 transition hover:border-primary-400 hover:shadow-sm">
+            <div>
+              <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral mb-1">
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 hover:underline" href="{{ .gh }}" target="_blank" rel="noopener">{{ .name }}</a>
+              </h3>
+              <p class="text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-2">{{ .group }}</p>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-3 text-sm">
+              <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ .gh }}" target="_blank" rel="noopener">★ Репозиторий</a>
+              <a class="text-neutral-500 dark:text-neutral-400 hover:underline" href="{{ .gh }}/blob/main/{{ .readme }}" target="_blank" rel="noopener">README</a>
+            </div>
+          </article>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+
+    <p class="mt-12 text-sm text-neutral-400 dark:text-neutral-500">
+      Всего курируемых списков: <strong>{{ $data.total }}</strong> в <strong>{{ len $data.groups }}</strong> группах.
+    </p>
+  {{ end }}
+</section>
+{{ end }}
