@@ -225,7 +225,6 @@ async function fetchRepoMeta(gh) {
     cache[full] = meta; saveMetaCache(cache); return { stars: meta.stars, description: meta.description };
   } catch { return null; }
 }
-async 
 function countCJK(text){const m=(text||'').match(/[\u3400-\u9fff\uf900-\ufaff]/g);return m?m.length:0;}
 function isChineseDominant(text){const cjk=countCJK(text||'');if(cjk<120)return false;const nonWs=(text||'').replace(/\s+/g,'').length||1;return cjk/nonWs>0.05||cjk>300;}
 const LANG_REPLACE={};
