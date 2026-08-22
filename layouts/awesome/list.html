@@ -30,6 +30,7 @@
           <span class="text-sm px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300">
             {{ len .repos }}
           </span>
+          {{ with .refreshedAt }}<span class="text-[11px] text-neutral-400 dark:text-neutral-500">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {{ range .repos }}
@@ -40,8 +41,12 @@
               <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral mb-1">
                 <a class="hover:text-primary-600 dark:hover:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">{{ $repo.name }}</a>
               </h3>
-              <p class="text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-2">{{ $repo.group }}</p>
-              {{ with $repo.refreshedAt }}<p class="text-[11px] text-neutral-400 dark:text-neutral-500 mb-2">обновлено: {{ (time .) | time.Format "2006-01-02" }}</p>{{ end }}
+              <p class="text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-1">{{ $repo.group }}</p>
+              {{ with $repo.description }}<p class="text-sm text-neutral-600 dark:text-neutral-300 mb-1 line-clamp-2">{{ . }}</p>{{ end }}
+              <p class="text-[11px] text-neutral-400 dark:text-neutral-500">
+                {{ with $repo.stars }}<span class="text-amber-500 dark:text-amber-400">★ {{ . }}</span>{{ end }}
+                {{ with $repo.refreshedAt }}<span class="ms-2">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
+              </p>
             </div>
             <div class="mt-3 flex flex-wrap gap-3 text-sm">
               <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">★ Репозиторий</a>

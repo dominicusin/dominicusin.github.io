@@ -421,3 +421,7 @@ input:focus-visible,
 }
 .dark .crosslinks-list li a { background: rgb(var(--color-neutral-800)); color: rgb(var(--color-neutral-200)); border-color: rgb(var(--color-neutral-700)); }
 .crosslinks-list li a:hover { color: rgb(var(--color-primary-600)); border-color: rgba(var(--ring), .5); }
+
+.awesome-preview { contain: content; position: relative; overflow: hidden; max-height: 70vh; overflow-y: auto; font-size: 0.95rem; line-height: 1.6; }
+.awesome-preview img, .awesome-preview video, .awesome-preview iframe { max-width: 100%; height: auto; }
+.awesome-preview table { display: block; width: 100%; overflow-x: auto; }
