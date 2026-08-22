@@ -1,181 +1,108 @@
-# 🚀 CI/CD Pipeline Documentation
+# 🚀 CI/CD Pipeline Documentation — dominicusin.github.io
+
+> Hugo (extended) + Blowfish v2.105.0 static site, deployed to GitHub Pages.
+> This file is the authoritative map of `.github/workflows/`. Keep it in sync
+> with the workflows — outdated docs are worse than no docs.
 
 ## Overview
-This repository features a comprehensive CI/CD pipeline for Jekyll with GitHub Pages deployment, including automated testing, security scanning, performance monitoring, and dependency management.
 
-## 🔄 Workflow Files
+| Concern | Workflow(s) |
+|---|---|
+| **Build & deploy to Pages** | `hugo.yml` |
+| **Quality gate on PRs** | `quality.yml` (🔍 Quality CI — required by branch protection) |
+| **E2E / accessibility** | `e2e.yml` (🎭 Playwright + axe-core) |
+| **Awesome-list curation** | `awesome-discover.yml`, `awesome-refresh.yml` |
+| **Security** | `security.yml`, `security-scan.yml`, `fortify.yml` (opt-in), `scorecard.yml`, `dependency-review.yml`, `sbom.yml` |
+| **Content ingestion** | `sync_gists.yml`, `hugo.yml` (sync-github step) |
+| **Maintenance** | `stale.yml`, `lock-threads.yml`, `greetings.yml`, `labeler.yml`, `size-label.yml`, `pr-title-check.yml`, `fediverse-notify.yml`, `analytics.yml`, `performance.yml` |
+| **DAO / R&D** | `deploy-dao.yml`, `test-rnd.yml`, `vr-export.yml` |
+| **Cache hygiene** | `cache-cleanup.yml` |
 
-### Main Pipeline (`.github/workflows/ci-cd.yml`)
-**Triggers**: Push to main/master, Pull Requests, Daily schedule
-**Jobs**:
-- 🔍 **Test & Quality Check**: HTML validation, JavaScript tests, performance audit, security scan
-- 🏗️ **Build & Optimize**: Production build with asset optimization
-- 🔒 **Security Scan**: Trivy vulnerability scanner
-- 🚀 **Deploy**: Automatic deployment to GitHub Pages
-- 📊 **Performance Monitoring**: Lighthouse CI with Core Web Vitals
-- 🔄 **Health Check**: Site availability and critical asset validation
-- 📬 **Notifications**: Deployment status notifications
+## 🔑 Branch protection & secrets
 
-### Supporting Workflows
+- `main` requires the **`🧪 Build, validate, test, link-check`** status check (from `quality.yml`) before merge.
+- Workflows that push branches / open PRs (`awesome-discover`, `awesome-refresh`) need
+  **repo-level Actions "Workflow permissions" = `write`** (Settings → Actions → General).
+  A YAML `permissions:` block is *not* sufficient when the repo default is read-only —
+  this was the root cause of the earlier `github-actions[bot]` 403s.
+- Required secrets: `GIST_TOKEN`, `PINATA_API_KEY/JWT/SECRET_API_KEY`.
+  Optional: `FOD_TENANT`/`FOD_PAT` (or `SSC_*`) **plus** repo variable `FORTIFY_ENABLED=true`
+  to enable the Fortify scan (otherwise `fortify.yml` is skipped cleanly).
 
-#### Dependency Updates (`.github/workflows/dependency-update.yml`)
-- **Schedule**: Weekly on Sundays at 3 AM UTC
-- **Actions**: Update Ruby/Node dependencies, create automated PRs
-- **Safety**: Tests compatibility before creating PR
+## 🏗️ `hugo.yml` — Deploy Hugo site to GitHub Pages
 
-#### Performance Monitoring (`.github/workflows/performance.yml`)
-- **Schedule**: Daily at 1 AM UTC
-- **Actions**: Lighthouse CI, bundle size validation, Core Web Vitals
-- **Budgets**: JS 250KB, CSS 50KB
+**Triggers**: push to `main`, every 30 min (`*/30 * * * *`), `repository_dispatch: sync-github`, `workflow_dispatch`.
 
-#### Security Scanning (`.github/workflows/security.yml`)
-- **Schedule**: Weekly on Mondays at 4 AM UTC
-- **Actions**: npm audit, bundle audit, Trivy, Semgrep
-- **Coverage**: Dependencies, file system, code patterns, secrets
+Steps (build job):
+1. Checkout (submodules recursive) → init wiki submodule → init awesome submodules (sparse).
+2. Generate wiki navigation (`generate-wiki-nav.py`).
+3. Cache npm + Hugo build cache (`~/.cache/hugo_cache`, `hugo_modules`).
+4. `node scripts/sync-github.cjs` — ingest repos/gists (graceful: never fails deploy).
+5. `sanitize-generated.cjs` — strip executable vectors from generated pages (trust boundary).
+6. `ci-content-contract.cjs` — hard gate on **new** `content/blog/` posts.
+7. Rebuild knowledge graph / ontology / crosslinks.
+8. `refresh-awesome.cjs` + `build-awesome.cjs` — advance & render curated lists.
+9. `hugo --gc --minify --baseURL <pages>` → upload Pages artifact → `actions/deploy-pages`.
 
-#### Analytics (`.github/workflows/analytics.yml`)
-- **Schedule**: Daily at 6 AM UTC
-- **Actions**: Site health checks, bundle size tracking, SEO validation
-- **Reports**: Daily analytics reports with performance metrics
+The deploy `build` job also runs a **report-only** performance smoke check (`check-perf.cjs`).
 
-## 🎯 Key Features
+## 🔍 `quality.yml` — Quality CI (required check)
 
-### Automated Testing
-- HTML validation with html-validate
-- JavaScript and CSS linting
-- Bundle size analysis
-- Performance budget enforcement
+**Triggers**: `pull_request` to `main`, `workflow_dispatch`. Does **not** deploy.
+Mirrors the four-stage plan: build → validate → test → link/HTML check.
 
-### Security & Compliance
-- Multi-scanner approach (npm, bundler, Trivy, Semgrep)
-- Automated dependency updates
-- Security audit reports
-- Vulnerability scanning
+Steps: build (Hugo), perf smoke, content-contract, eslint, **broken-internal-link check**
+(`check-links.cjs`), source-link audit (report-only), HTML well-formedness (report-only),
+external-link audit (report-only), axe-core a11y audit (report-only), OG-image guard
+(report-only). Hugo + npm build caches are enabled for speed.
 
-### Performance Optimization
-- Lighthouse CI integration
-- Core Web Vitals monitoring
-- Bundle size budgets
-- Asset optimization
+## 🎭 `e2e.yml` — Playwright E2E
 
-### Deployment Excellence
-- Zero-downtime deployments
-- Health checks post-deployment
-- CDN cache invalidation (Cloudflare)
-- Automatic rollback on failure
+Runs on push/PR/dispatch. Spins up a Hugo dev server, then `npx playwright test`:
+- `accessibility.spec.cjs` — axe-core, fails on **critical/serious** violations
+  (ignores `color-contrast`, `html-has-lang`, `scrollable-region-focusable`).
+- `smoke.spec.cjs` — core navigation smoke.
 
-## 📊 Performance Metrics
+> The `/about/` Twitter link once lacked a closing `</a>` + `.social-text`, causing 2
+> serious `link-name` violations — fixed in `content/about.md` (see issue #248).
 
-### Current Benchmarks
-- **JavaScript Budget**: 250KB compressed
-- **CSS Budget**: 50KB compressed
-- **Lighthouse Scores**: 
-  - Performance: > 90
-  - Accessibility: > 95
-  - Best Practices: > 90
-  - SEO: > 90
-- **Core Web Vitals**: All green thresholds
+## ⭐ Awesome-list curation
 
-### Bundle Optimization
-- Terser minification for JavaScript
-- CSSNano optimization for CSS
-- HTML minification for better compression
-- Gzip compression enabled
+- **`awesome-discover.yml`** — weekly + manual. Searches GitHub `topic:awesome` by stars,
+  groups by topic, adds up to `MAX_NEW` (default 3) new sparse submodules under `awesome/`,
+  regenerates the catalog, **builds the site as a guard** (Setup Hugo step added), then opens a PR.
+- **`awesome-refresh.yml`** — weekly + manual. Advances every `awesome/*` submodule to its
+  latest tip, regenerates catalog + previews, opens a PR on change.
 
-## 🔧 Configuration
+Both call `build-awesome.cjs`, which rewrites README relative links → absolute GitHub blob
+URLs (per submodule branch) so generated preview pages never publish broken internal links.
 
-### Environment Variables
-- `NODE_VERSION`: '18' (Node.js version)
-- `RUBY_VERSION`: '3.1' (Ruby version)
+## 🧹 `cache-cleanup.yml`
 
-### Secrets (Optional)
-- `CLOUDFLARE_API_TOKEN`: For CDN cache purging
-- `CLOUDFLARE_ZONE_ID`: Cloudflare zone identifier
+Weekly (Mon 04:37 UTC) + dispatchable. Prunes GitHub Actions caches, keeping the N newest
+per cache key (default 3). `dry_run` input available. Never fails the run.
 
-### Lighthouse Configuration
-Configured in `.lighthouserc.json`:
-- Performance score: > 80 (warning)
-- Accessibility score: > 90 (warning)
-- Best practices score: > 80 (warning)
-- SEO score: > 80 (warning)
-- PWA: disabled for static site
+## 🔒 Security
 
-## 🚀 Deployment Process
+- `security.yml` / `security-scan.yml` — npm audit, Semgrep, Trivy, CodeQL.
+- `scorecard.yml` — OpenSSF Scorecard.
+- `dependency-review.yml` — blocks PRs that add vulnerable deps.
+- `sbom.yml` — generates an SBOM.
+- `fortify.yml` — **opt-in** SAST (see secrets above); skipped unless `FORTIFY_ENABLED=true`.
 
-1. **Code Push**: Triggered by push to main/master
-2. **Quality Gates**: All tests must pass
-3. **Security Validation**: No critical vulnerabilities
-4. **Performance Check**: Within budget thresholds
-5. **Build**: Optimized production build
-6. **Deploy**: GitHub Pages deployment
-7. **Health Check**: Post-deployment validation
-8. **Monitoring**: Continuous performance tracking
+## 🛠️ Local dev
 
-## 📈 Monitoring & Alerts
-
-### Automated Reports
-- Daily analytics reports
-- Weekly dependency updates
-- Monthly performance summaries
-- Security scan notifications
-
-### Failure Handling
-- Immediate notification on deployment failures
-- Health check failures trigger alerts
-- Performance regressions detected and reported
-- Security vulnerabilities prioritized and reported
-
-## 🛠️ Local Development
-
-### Setup Commands
 ```bash
-# Install dependencies
 npm ci
-bundle install
-
-# Development server
-npm run dev
-
-# Build for testing
-npm run build:test
-
-# Run all tests
-npm run test
-
-# Performance audit
-npm run audit:performance
-
-# Bundle size analysis
-npm run analyze:size
+hugo server -D            # preview
+node scripts/build-awesome.cjs
+node scripts/check-links.cjs
+npx playwright test        # needs browsers: npx playwright install --with-deps chromium
 ```
 
-### Pre-commit Hooks
-The pipeline includes quality checks that run locally:
-- HTML validation
-- JavaScript/CSS linting
-- Bundle size validation
-- Basic security checks
+## 📌 Maintenance notes
 
-## 🔄 Maintenance
-
-### Automated Tasks
-- Weekly dependency updates (PRs created automatically)
-- Daily performance monitoring
-- Weekly security scans
-- Daily health checks
-
-### Manual Tasks
-- Review and merge dependency update PRs
-- Address security vulnerabilities
-- Monitor performance trends
-- Update performance budgets as needed
-
-## 📝 Best Practices
-
-1. **Branch Strategy**: Use feature branches, PR to main/master
-2. **Commit Messages**: Follow conventional commit format
-3. **Performance**: Monitor bundle sizes in PRs
-4. **Security**: Address critical vulnerabilities promptly
-5. **Testing**: Run local tests before pushing
-
-This CI/CD pipeline ensures enterprise-grade deployment with comprehensive monitoring, security scanning, and performance optimization for your Jekyll blog.
+- Merged feature/bot branches are deleted after their PR is merged — keep `origin` free of
+  stale refs.
+- One-off migration scripts live in `scripts/archive/` (e.g. `migrate-jekyll-to-hugo.cjs`).
+- Document any new workflow here within the same PR that adds it.
