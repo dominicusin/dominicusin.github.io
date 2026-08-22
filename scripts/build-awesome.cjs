@@ -225,6 +225,11 @@ async function fetchRepoMeta(gh) {
     cache[full] = meta; saveMetaCache(cache); return { stars: meta.stars, description: meta.description };
   } catch { return null; }
 }
+async 
+function countCJK(text){const m=(text||'').match(/[\u3400-\u9fff\uf900-\ufaff]/g);return m?m.length:0;}
+function isChineseDominant(text){const cjk=countCJK(text||'');if(cjk<120)return false;const nonWs=(text||'').replace(/\s+/g,'').length||1;return cjk/nonWs>0.05||cjk>300;}
+const LANG_REPLACE={};
+
 async function main() {
   if (!fs.existsSync(GITMODULES)) {
     console.warn('[awesome] no .gitmodules — writing empty catalog');
@@ -249,6 +254,9 @@ async function main() {
     const readme = detectReadme(rel);
     const ghMatch = m.url.match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/i);
     const gh = ghMatch ? `https://github.com/${ghMatch[1]}/${ghMatch[2]}` : m.url;
+    const repoKey = `${slugify(group)}/${slugify(repo)}`;
+    let readmeText='';try{readmeText=fs.readFileSync(path.join(ROOT,rel,readme),'utf8');}catch{}
+    if(isChineseDominant(readmeText)){const sub=LANG_REPLACE[repoKey];if(sub){console.log(`[awesome] ${repoKey}: Chinese-only -> substituting with ${sub.url}`);m.url=sub.url;gh=sub.url;}else{console.log(`[awesome] ${repoKey}: skipped (Chinese-only, no EN/RU replacement)`);continue;}}
 
     const entry = {
       slug: slugify(repo),
