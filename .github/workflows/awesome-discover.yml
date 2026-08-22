@@ -32,6 +32,10 @@ jobs:
         uses: actions/checkout@v7
         with:
           submodules: false
+      - name: 🛡️ Ignore nested submodules (avoid recursive fatal)
+        run: |
+          git config --global submodule."awesome/tools/open-source-ios-apps/ReadmeGenerator".active false
+          git config --global submodule."awesome/tools/open-source-mac-os-apps/ReadmeGenerator".active false
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
