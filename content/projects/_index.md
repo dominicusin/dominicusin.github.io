@@ -2,10 +2,6 @@
 title: "Projects"
 slug: "projects"
 description: "Engineering work behind the site — DAO contracts, the Knowledge Graph pipeline, and the research substrate in src/."
-menu:
-  main:
-    name: "Projects"
-    weight: 100
 ---
 
 This site is also an **engineering portfolio**. The publishing layer (Hugo /

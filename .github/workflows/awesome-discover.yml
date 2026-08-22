@@ -1,0 +1,78 @@
+name: Discover new Awesome lists
+
+# Finds curated Awesome lists on GitHub and adds them as sparse submodules
+# under content/awesome/<group>/<repo> (README-only). Runs on a weekly
+# schedule and can be triggered manually. If new lists are discovered it
+# opens a pull request; the PR is merged by a maintainer (or auto-merged
+# when checks pass).
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"   # every Monday 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: "Max new lists to add this run"
+        required: false
+        default: "3"
+      min_stars:
+        description: "Minimum GitHub stars for a candidate"
+        required: false
+        default: "800"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Discover and add new awesome lists
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWESOME_MAX_NEW: ${{ github.event.inputs.max_new || '3' }}
+          AWESOME_MIN_STARS: ${{ github.event.inputs.min_stars || '800' }}
+        run: node scripts/discover-awesome.cjs
+
+      - name: Rebuild catalog data
+        run: node scripts/build-awesome.cjs
+
+      - name: Open PR if anything changed
+        id: pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet .gitmodules content/awesome 2>/dev/null && git status --porcelain --untracked-files=no | grep -q .gitmodules; then
+            echo "changes detected"
+          fi
+          # Stage submodule registration + any new gitlinks
+          git add .gitmodules awesome
+          if git diff --cached --quiet; then
+            echo "nothing to commit"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="bot/awesome-discover-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git commit -m "bot: discover new curated awesome lists"
+          git push --force-with-lease origin "$BRANCH"
+          gh pr create \
+            --title "bot: discover new curated awesome lists" \
+            --body "Automated discovery added new awesome lists as sparse submodules under content/awesome/. Review and merge." \
+            --label "awesome" || true
+          echo "changed=true" >> "$GITHUB_OUTPUT"

@@ -1,0 +1,143 @@
+{
+  "groups": [
+    {
+      "slug": "security",
+      "name": "Безопасность",
+      "repos": [
+        {
+          "slug": "awesome-security",
+          "name": "awesome-security",
+          "group": "security",
+          "path": "awesome/security/awesome-security",
+          "url": "https://github.com/sbilly/awesome-security",
+          "readme": "README.md",
+          "gh": "https://github.com/sbilly/awesome-security"
+        }
+      ]
+    },
+    {
+      "slug": "blockchain",
+      "name": "Блокчейн & DAO",
+      "repos": [
+        {
+          "slug": "awesome-blockchain",
+          "name": "awesome-blockchain",
+          "group": "blockchain",
+          "path": "awesome/blockchain/awesome-blockchain",
+          "url": "https://github.com/yjjnls/awesome-blockchain",
+          "readme": "README.md",
+          "gh": "https://github.com/yjjnls/awesome-blockchain"
+        }
+      ]
+    },
+    {
+      "slug": "data",
+      "name": "Данные & ML",
+      "repos": [
+        {
+          "slug": "awesome-machine-learning",
+          "name": "awesome-machine-learning",
+          "group": "data",
+          "path": "awesome/data/awesome-machine-learning",
+          "url": "https://github.com/josephmisiti/awesome-machine-learning",
+          "readme": "README.md",
+          "gh": "https://github.com/josephmisiti/awesome-machine-learning"
+        }
+      ]
+    },
+    {
+      "slug": "tools",
+      "name": "Инструменты & Прочее",
+      "repos": [
+        {
+          "slug": "awesome-mac",
+          "name": "awesome-mac",
+          "group": "tools",
+          "path": "awesome/tools/awesome-mac",
+          "url": "https://github.com/jaywcjlove/awesome-mac",
+          "readme": "README.md",
+          "gh": "https://github.com/jaywcjlove/awesome-mac"
+        }
+      ]
+    },
+    {
+      "slug": "development",
+      "name": "Разработка",
+      "repos": [
+        {
+          "slug": "awesome-nodejs",
+          "name": "awesome-nodejs",
+          "group": "development",
+          "path": "awesome/development/awesome-nodejs",
+          "url": "https://github.com/sindresorhus/awesome-nodejs",
+          "readme": "readme.md",
+          "gh": "https://github.com/sindresorhus/awesome-nodejs"
+        },
+        {
+          "slug": "awesome-python",
+          "name": "awesome-python",
+          "group": "development",
+          "path": "awesome/development/awesome-python",
+          "url": "https://github.com/vinta/awesome-python",
+          "readme": "README.md",
+          "gh": "https://github.com/vinta/awesome-python"
+        }
+      ]
+    },
+    {
+      "slug": "systems",
+      "name": "Системы & Языки",
+      "repos": [
+        {
+          "slug": "papers-we-love",
+          "name": "papers-we-love",
+          "group": "systems",
+          "path": "awesome/systems/papers-we-love",
+          "url": "https://github.com/papers-we-love/papers-we-love",
+          "readme": "README.md",
+          "gh": "https://github.com/papers-we-love/papers-we-love"
+        }
+      ]
+    },
+    {
+      "slug": "devops",
+      "name": "DevOps & Инфраструктура",
+      "repos": [
+        {
+          "slug": "awesome-kubernetes",
+          "name": "awesome-kubernetes",
+          "group": "devops",
+          "path": "awesome/devops/awesome-kubernetes",
+          "url": "https://github.com/ramitsurana/awesome-kubernetes",
+          "readme": "docs/README.md",
+          "gh": "https://github.com/ramitsurana/awesome-kubernetes"
+        },
+        {
+          "slug": "awesome-nix",
+          "name": "awesome-nix",
+          "group": "devops",
+          "path": "awesome/devops/awesome-nix",
+          "url": "https://github.com/nix-community/awesome-nix",
+          "readme": "README.md",
+          "gh": "https://github.com/nix-community/awesome-nix"
+        }
+      ]
+    },
+    {
+      "slug": "web",
+      "name": "Web & Frontend",
+      "repos": [
+        {
+          "slug": "frontend-dev-bookmarks",
+          "name": "frontend-dev-bookmarks",
+          "group": "web",
+          "path": "awesome/web/frontend-dev-bookmarks",
+          "url": "https://github.com/dypsilon/frontend-dev-bookmarks",
+          "readme": "README.md",
+          "gh": "https://github.com/dypsilon/frontend-dev-bookmarks"
+        }
+      ]
+    }
+  ],
+  "total": 10
+}
