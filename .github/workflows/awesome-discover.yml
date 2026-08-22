@@ -41,8 +41,8 @@ jobs:
         # submodules (e.g. open-source-ios-apps/ReadmeGenerator) absent from our
         # root .gitmodules. We init only the direct submodules the job needs.
         run: |
-          git submodule update --init --no-recurse-submodules themes/blowfish
-          git submodule update --init --no-recurse-submodules awesome
+          git submodule update --init --no-recursive themes/blowfish
+          git submodule update --init --no-recursive awesome
 
         uses: actions/setup-node@v7
         with:
