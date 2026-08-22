@@ -18,7 +18,7 @@ permissions:
   attestations: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 env:
@@ -62,7 +62,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
@@ -71,6 +71,18 @@ jobs:
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
+
+      - name: Cache Hugo build (modules + build cache)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/hugo_cache
+            ~/.cache/hugo_modules
+            public/resources/_gen
+          key: ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-
+            ${{ runner.os }}-hugo-
 
       - name: Setup Pages
         id: pages

@@ -28,11 +28,13 @@ on:
 
 jobs:
   Fortify-AST-Scan:
-    # Skip unless Fortify credentials are configured as repository secrets.
-    # Without FOD_TENANT / FOD_PAT the scan cannot authenticate and would
-    # fail loudly; skipping keeps the check non-blocking until credentials
-    # are provided under Settings > Secrets.
-    if: ${{ secrets.FOD_TENANT != '' && secrets.FOD_PAT != '' }}
+    # Fortify is OPT-IN. It only runs when the repo variable FORTIFY_ENABLED
+    # is set to "true" AND the matching FOD/SSC secrets exist. By default the
+    # variable is unset, so the job is skipped cleanly (never fails the run)
+    # instead of erroring on missing credentials. To enable: add repo variable
+    # FORTIFY_ENABLED=true plus FOD_TENANT/FOD_PAT (or SSC_* ) secrets, then
+    # this scan contributes SAST results to the Security tab.
+    if: ${{ vars.FORTIFY_ENABLED == 'true' }}
     # Use the appropriate runner for building your source code. Ensure dev tools required to build your code are present and configured appropriately (MSBuild, Python, etc).
     runs-on: ubuntu-latest
     permissions:
