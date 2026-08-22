@@ -15,6 +15,10 @@ permissions:
 env:
   HUGO_VERSION: "0.164.0"
 
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   quality:
     name: 🧪 Build, validate, test, link-check
@@ -37,6 +41,17 @@ jobs:
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
+
+      - name: 🗄️ Cache Hugo build (modules + build cache)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/hugo_cache
+            ~/.cache/hugo_modules
+          key: ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-
+            ${{ runner.os }}-hugo-
 
       - name: 📦 Install dependencies
         run: npm ci --prefer-offline --no-audit --no-fund

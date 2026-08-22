@@ -1,0 +1,66 @@
+name: Cache Cleanup
+
+# Proactively prune GitHub Actions caches so we stay under the 10 GB storage
+# limit (we were sitting at 9.28 / 10 GB). GitHub auto-evicts LRU caches, but
+# pruning deliberately keeps headroom and avoids surprise evictions of hot caches.
+#
+# - Runs weekly (Mon 04:37 UTC) and on manual dispatch.
+# - Keeps the N most recent caches per cache key (default 3); deletes the rest.
+# - Never fails the run; report-only.
+
+on:
+  schedule:
+    - cron: "37 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      keep:
+        description: "Number of newest caches to keep per key"
+        required: false
+        default: "3"
+      dry_run:
+        description: "List what would be deleted without deleting"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  actions: write   # required to delete caches
+  contents: read
+
+jobs:
+  cleanup:
+    name: 🧹 Prune old caches
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout (for gh cli)
+        uses: actions/checkout@v7
+
+      - name: 🧹 Delete caches beyond the keep threshold
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          KEEP: ${{ github.event.inputs.keep || '3' }}
+          DRY: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          set -euo pipefail
+          echo "Repository: ${{ github.repository }}"
+          echo "Keeping newest $KEEP caches per key (dry_run=$DRY)"
+          # Collect all caches: id, key, createdAt
+          maps=$(gh cache list --json id,key,createdAt --jq '.[] | "\(.id)\t\(.key)\t\(.createdAt)"')
+          # Group by key, sort each group by createdAt desc, delete all but the first KEEP.
+          echo "$maps" | sort -t$'\t' -k2,2 -k3,3r | awk -F'\t' '
+            {
+              key=$2; id=$1
+              count[key]++
+              if (count[key] > KEEP) {
+                print id "\t" key
+              }
+            }' KEEP="$KEEP" | while IFS=$'\t' read -r id key; do
+            if [ "$DRY" = "true" ]; then
+              echo "DRY-RUN: would delete cache $id ($key)"
+            else
+              echo "deleting cache $id ($key)"
+              gh cache delete "$id" || echo "  (failed to delete $id, skipping)"
+            fi
+          done
+          echo "Done. Remaining caches:"
+          gh cache list --limit 100 | wc -l
