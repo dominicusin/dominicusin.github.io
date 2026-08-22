@@ -27,7 +27,7 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v7
         with:
-          submodules: true
+          submodules: false
           fetch-depth: 0
 
       - name: 🟢 Setup Node.js
@@ -52,6 +52,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-
             ${{ runner.os }}-hugo-
+
+      - name: 📥 Init submodules (non-recursive)
+        # Checkout uses submodules:false to avoid recursing into nested
+        # submodules (e.g. awesome/tools/open-source-ios-apps contains a
+        # ReadmeGenerator submodule absent from our .gitmodules -> fatal).
+        # We init only the direct submodules the build needs, non-recursively.
+        run: |
+          git submodule update --init --no-recurse-submodules themes/blowfish
+          git submodule update --init --no-recurse-submodules awesome
 
       - name: 📦 Install dependencies
         run: npm ci --prefer-offline --no-audit --no-fund

@@ -21,11 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          submodules: true
+          submodules: false
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
+      - name: 📥 Init awesome submodules (non-recursive)
+        run: git submodule update --init --no-recurse-submodules awesome
+
         uses: actions/setup-node@v7
         with:
           node-version: "24"

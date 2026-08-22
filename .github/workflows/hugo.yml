@@ -35,16 +35,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          submodules: true
+          submodules: false
           fetch-depth: 0
 
-      - name: Init wiki submodule
-        # content/wiki is a git submodule (GitHub Wiki). Ensure it is present
-        # even if checkout's recursive flag missed it.
-        run: git submodule update --init content/wiki
-      - name: Init awesome submodules (sparse README only)
+      - name: Init theme submodule (non-recursive)
+        run: git submodule update --init --no-recurse-submodules themes/blowfish
+
+      - name: Init wiki submodule (non-recursive)
+        # content/wiki is a git submodule (GitHub Wiki). --no-recurse avoids
+        # diving into any nested submodule.
+        run: git submodule update --init --no-recurse-submodules content/wiki
+      - name: Init awesome submodules (non-recursive, sparse README only)
+        # --no-recurse-submodules: we only need each awesome repo's README;
+        # recursing would fail on nested submodules (e.g. open-source-ios-apps/
+        # ReadmeGenerator) absent from our root .gitmodules.
         run: |
-          git submodule update --init awesome
+          git submodule update --init --no-recurse-submodules awesome
           node scripts/ensure-awesome-sparse.cjs || true
 
       - name: Generate wiki navigation
