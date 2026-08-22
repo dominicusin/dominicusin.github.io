@@ -50,6 +50,15 @@
       "name": "Инструменты & Прочее",
       "repos": [
         {
+          "slug": "awesome-go",
+          "name": "awesome-go",
+          "group": "tools",
+          "path": "awesome/tools/awesome-go",
+          "url": "https://github.com/avelino/awesome-go",
+          "readme": "README.md",
+          "gh": "https://github.com/avelino/awesome-go"
+        },
+        {
           "slug": "awesome-mac",
           "name": "awesome-mac",
           "group": "tools",
@@ -57,6 +66,24 @@
           "url": "https://github.com/jaywcjlove/awesome-mac",
           "readme": "README.md",
           "gh": "https://github.com/jaywcjlove/awesome-mac"
+        },
+        {
+          "slug": "awesome-selfhosted",
+          "name": "awesome-selfhosted",
+          "group": "tools",
+          "path": "awesome/tools/awesome-selfhosted",
+          "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
+          "readme": "README.md",
+          "gh": "https://github.com/awesome-selfhosted/awesome-selfhosted"
+        },
+        {
+          "slug": "the-book-of-secret-knowledge",
+          "name": "the-book-of-secret-knowledge",
+          "group": "tools",
+          "path": "awesome/tools/the-book-of-secret-knowledge",
+          "url": "https://github.com/trimstray/the-book-of-secret-knowledge",
+          "readme": "README.md",
+          "gh": "https://github.com/trimstray/the-book-of-secret-knowledge"
         }
       ]
     },
@@ -139,5 +166,5 @@
       ]
     }
   ],
-  "total": 10
+  "total": 13
 }

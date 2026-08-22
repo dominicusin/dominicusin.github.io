@@ -8,8 +8,8 @@
       {{ .Description | default "Курируемые awesome-списки из внешних репозиториев, сгруппированные по темам." }}
     </p>
     <p class="mt-2 text-sm text-neutral-400 dark:text-neutral-500">
-      Списки подключены как git-субмодули bear с выборочной загрузкой (sparse-checkout) —
-      из каждого репозитория синхронизируется только <code>README.md</code>.
+      Списки подключены как git-субмодули с выборочной загрузкой (sparse-checkout) —
+      из каждого репозитория синхронизируется только <code>README.md</code>/список.
       Автоматически пополняются через
       <a class="text-primary-600 dark:text-primary-400 hover:underline" href="https://github.com/dominicusin/dominicusin.github.io/actions/workflows/awesome-discover.yml">awesome-discover</a>.
     </p>
@@ -32,17 +32,28 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {{ range .repos }}
+          {{ $repo := . }}
+          {{ $p := $.Site.GetPage (printf "/awesome/%s/%s" $repo.group $repo.name) }}
           <article class="flex flex-col justify-between rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-4 transition hover:border-primary-400 hover:shadow-sm">
             <div>
               <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral mb-1">
-                <a class="hover:text-primary-600 dark:hover:text-primary-400 hover:underline" href="{{ .gh }}" target="_blank" rel="noopener">{{ .name }}</a>
+                <a class="hover:text-primary-600 dark:hover:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">{{ $repo.name }}</a>
               </h3>
-              <p class="text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-2">{{ .group }}</p>
+              <p class="text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-2">{{ $repo.group }}</p>
             </div>
             <div class="mt-3 flex flex-wrap gap-3 text-sm">
-              <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ .gh }}" target="_blank" rel="noopener">★ Репозиторий</a>
-              <a class="text-neutral-500 dark:text-neutral-400 hover:underline" href="{{ .gh }}/blob/main/{{ .readme }}" target="_blank" rel="noopener">README</a>
+              <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">★ Репозиторий</a>
+              <a class="text-neutral-500 dark:text-neutral-400 hover:underline" href="{{ $repo.gh }}/blob/main/{{ $repo.readme }}" target="_blank" rel="noopener">README ↗</a>
+              {{ with $p }}<a class="text-emerald-600 dark:text-emerald-400 hover:underline" href="{{ .RelPermalink }}">Превью →</a>{{ end }}
             </div>
+            {{ with $p }}
+            <details class="mt-3 group/preview">
+              <summary class="cursor-pointer text-xs text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 select-none">показать превью списка</summary>
+              <div class="mt-2 max-h-80 overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-3 text-sm awesome-preview">
+                {{ .Content }}
+              </div>
+            </details>
+            {{ end }}
           </article>
           {{ end }}
         </div>

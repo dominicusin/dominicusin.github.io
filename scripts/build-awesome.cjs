@@ -4,15 +4,22 @@
  * -----------------
  * Parses .gitmodules (the curated Awesome lists added as sparse submodules
  * under awesome/<group>/<repo> at the repo root — kept OUT of content/ so
- * Hugo never renders the README as a page) and emits data/awesome.json:
+ * Hugo never renders the bare submodule directories as pages) and:
  *
- *   { groups: [ { slug, name, repos: [ { slug, name, group, path, url, readme, gh } ] } ], total: N }
+ *   1. Emits data/awesome.json — { groups:[{slug,name,repos:[...]}], total:N }
+ *      used by layouts/awesome/list.html (the /awesome/ catalog).
+ *   2. Generates per-list preview pages content/awesome/<group>/<repo>/index.md
+ *      by copying the submodule's list file (README.md / readme.md / docs/README.md)
+ *      into a Hugo page (layout: awesome/single). These previews are GENERATED
+ *      (gitignored) and re-derived every build, so they always reflect the
+ *      sparse submodule's current README.
  *
- * The catalog page (layouts/awesome/list.html, served at /awesome/) renders
- * this as grouped cards. Also writes content/awesome/_index.md if missing.
+ * The catalog page renders cards linking to each preview page; the preview
+ * page shows the curated list in full.
  *
  * Graceful: if .gitmodules is absent or a submodule read fails, it still
- * writes a valid (possibly empty) data file — never fails the build.
+ * writes a valid (possibly empty) data file and clears stale previews — never
+ * fails the build.
  */
 const fs = require('fs');
 const path = require('path');
@@ -23,6 +30,8 @@ const GITMODULES = path.join(ROOT, '.gitmodules');
 const OUT = path.join(ROOT, 'data', 'awesome.json');
 const IDX = path.join(ROOT, 'content', 'awesome', '_index.md');
 const SUB_BASE = 'awesome'; // repo-root dir
+const PREVIEW_DIR = path.join(ROOT, 'content', 'awesome');
+const PREVIEW_MAX_LINES = 260; // cap so huge lists stay readable
 
 const GROUP_NAMES = {
   development: 'Разработка',
@@ -70,16 +79,76 @@ function detectReadme(rel) {
   return cands[0];
 }
 
+function clearStalePreviews(keep) {
+  // Remove generated preview dirs that are no longer in the catalog.
+  if (!fs.existsSync(PREVIEW_DIR)) return;
+  for (const g of fs.readdirSync(PREVIEW_DIR)) {
+    const gdir = path.join(PREVIEW_DIR, g);
+    if (!fs.statSync(gdir).isDirectory()) continue;
+    if (g === '.git') continue;
+    if (g === 'images') continue; // keep any inline images dir we create
+    for (const r of fs.readdirSync(gdir)) {
+      const rdir = path.join(gdir, r);
+      if (!fs.statSync(rdir).isDirectory()) continue;
+      const key = `${g}/${r}`;
+      if (!keep.has(key)) {
+        fs.rmSync(rdir, { recursive: true, force: true });
+        console.warn(`[awesome] removed stale preview: ${key}`);
+      }
+    }
+  }
+}
+
+function writePreviews(entries) {
+  const keep = new Set();
+  for (const e of entries) {
+    const key = `${e.group}/${e.name}`;
+    keep.add(key);
+    const src = path.join(ROOT, e.path, e.readme);
+    const dir = path.join(PREVIEW_DIR, e.group, e.name);
+    fs.mkdirSync(dir, { recursive: true });
+    let body = '';
+    try {
+      const raw = fs.readFileSync(src, 'utf8');
+      const lines = raw.split('\n');
+      // Drop a leading "# Title" line (the repo name already is the H1).
+      let start = 0;
+      while (start < lines.length && /^\s*#\s/.test(lines[start])) start++;
+      body = lines.slice(start, start + PREVIEW_MAX_LINES).join('\n').trimEnd();
+      if (lines.length > PREVIEW_MAX_LINES + start) body += '\n\n_…превью ограничено; полный список — в репозитории._';
+    } catch (err) {
+      body = `_Не удалось прочитать ${e.readme} субмодуля._`;
+    }
+    const md = [
+      '---',
+      'title: "' + e.name + '"',
+      'description: "Курируемый awesome-список: ' + e.name + '"',
+      'layout: awesome/single',
+      'awesome_repo: "' + e.gh + '"',
+      'awesome_readme: "' + e.readme + '"',
+      '---',
+      '',
+      `> Источник: [${e.name}](${e.gh}) — синхронизируется из внешнего репозитория как sparse-субмодуль (только список).`,
+      '',
+      body,
+    ].join('\n') + '\n';
+    fs.writeFileSync(path.join(dir, 'index.md'), md);
+  }
+  clearStalePreviews(keep);
+}
+
 function main() {
   if (!fs.existsSync(GITMODULES)) {
     console.warn('[awesome] no .gitmodules — writing empty catalog');
     writeOut({ groups: [], total: 0 });
     ensureIndex();
+    writePreviews([]);
     return;
   }
 
   const mods = parseGitmodules(fs.readFileSync(GITMODULES, 'utf8'));
   const byGroup = new Map();
+  const entries = [];
 
   for (const m of mods) {
     const rel = m.path.replace(/\\/g, '/');
@@ -102,6 +171,7 @@ function main() {
       readme,
       gh,
     };
+    entries.push(entry);
     if (!byGroup.has(entry.group)) byGroup.set(entry.group, []);
     byGroup.get(entry.group).push(entry);
   }
@@ -112,6 +182,7 @@ function main() {
 
   const total = groups.reduce((n, g) => n + g.repos.length, 0);
   writeOut({ groups, total });
+  writePreviews(entries);
   ensureIndex();
   console.log(`[awesome] catalog: ${groups.length} groups, ${total} lists -> ${path.relative(ROOT, OUT)}`);
 }

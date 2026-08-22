@@ -35,3 +35,12 @@
 [submodule "awesome/tools/awesome-mac"]
 	path = awesome/tools/awesome-mac
 	url = https://github.com/jaywcjlove/awesome-mac
+[submodule "awesome/tools/awesome-selfhosted"]
+	path = awesome/tools/awesome-selfhosted
+	url = https://github.com/awesome-selfhosted/awesome-selfhosted
+[submodule "awesome/tools/the-book-of-secret-knowledge"]
+	path = awesome/tools/the-book-of-secret-knowledge
+	url = https://github.com/trimstray/the-book-of-secret-knowledge
+[submodule "awesome/tools/awesome-go"]
+	path = awesome/tools/awesome-go
+	url = https://github.com/avelino/awesome-go

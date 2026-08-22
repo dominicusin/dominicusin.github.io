@@ -88,3 +88,6 @@ content/wiki-build/
 # Generated wiki nav (built from content/wiki submodule at build time)
 content/wiki-build/
 __pycache__/
+
+# Generated Awesome preview pages (derived from submodule READMEs by build-awesome.cjs)
+content/awesome/*/
