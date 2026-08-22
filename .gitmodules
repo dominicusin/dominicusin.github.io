@@ -44,3 +44,9 @@
 [submodule "awesome/tools/awesome-go"]
 	path = awesome/tools/awesome-go
 	url = https://github.com/avelino/awesome-go
+[submodule "awesome/tools/hellogithub"]
+	path = awesome/tools/hellogithub
+	url = https://github.com/521xueweihan/HelloGitHub
+[submodule "awesome/tools/awesome-hacking"]
+	path = awesome/tools/awesome-hacking
+	url = https://github.com/Hack-with-Github/Awesome-Hacking
