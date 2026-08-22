@@ -133,6 +133,30 @@ function rewriteRelativeLinks(md, ghUrl, repoPath) {
   });
 }
 
+
+// Balance raw HTML tags so a malformed README (e.g. an unclosed
+// `<div align=center>` banner) can't break the page layout when inlined
+// into a Hugo preview/catalog. Void elements are ignored.
+const VOID = new Set(['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr']);
+function balanceHtmlTags(html) {
+  const stack = [];
+  const re = /<\/?([a-zA-Z][a-zA-Z0-9-]*)(?:\s[^>]*)?\/?>/g;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const raw = m[0];
+    const name = m[1].toLowerCase();
+    if (VOID.has(name)) continue;
+    if (raw.startsWith('</')) {
+      for (let i = stack.length - 1; i >= 0; i--) {
+        if (stack[i] === name) { stack.length = i; break; }
+      }
+    } else if (!raw.endsWith('/>')) {
+      stack.push(name);
+    }
+  }
+  return html + stack.reverse().map((n) => `</${n}>`).join('');
+}
+
 function writePreviews(entries) {
   const keep = new Set();
   for (const e of entries) {
@@ -154,6 +178,9 @@ function writePreviews(entries) {
       // sub-dirs, raw <a href> anchors) at the source repo on GitHub so they
       // don't render as broken internal links on the Hugo site.
       body = rewriteRelativeLinks(body, e.gh, path.join(ROOT, e.path));
+      // Guard against unbalanced raw HTML in the README (banners, tables, etc.)
+      // that would otherwise break the rendered preview/page layout.
+      body = balanceHtmlTags(body);
     } catch (err) {
       body = `_Не удалось прочитать ${e.readme} субмодуля._`;
     }
