@@ -33,6 +33,9 @@ jobs:
         run: |
           git config --global submodule."awesome/tools/open-source-ios-apps/ReadmeGenerator".active false
           git config --global submodule."awesome/tools/open-source-mac-os-apps/ReadmeGenerator".active false
+          git config --global submodule."awesome/tools/open-source-ios-apps/ReadmeGenerator".update none
+          git config --global submodule."awesome/tools/open-source-mac-os-apps/ReadmeGenerator".update none
+          git config --global submodule.recurse false
 
       - name: 🔎 actionlint (workflow YAML structural check)
         run: |
