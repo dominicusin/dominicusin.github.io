@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article class="prose dark:prose-invert max-w-none">
+  <header class="mb-6 flex flex-wrap items-center gap-3">
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral mb-1">
+        {{ .Title }}
+      </h1>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+        Курируемый awesome-список ·
+        <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ .Params.awesome_repo }}" target="_blank" rel="noopener">открыть репозиторий ↗</a>
+      </p>
+    </div>
+    <a class="ms-auto text-sm px-3 py-1 rounded-full border border-primary-300 text-primary-700 dark:border-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/30"
+       href="{{ "/awesome/" | relLangURL }}">← Ко всем спискам</a>
+  </header>
+
+  <div class="awesome-preview rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-5 sm:p-7">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

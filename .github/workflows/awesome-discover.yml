@@ -21,7 +21,7 @@ on:
         default: "800"
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -55,9 +55,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git diff --quiet .gitmodules content/awesome 2>/dev/null && git status --porcelain --untracked-files=no | grep -q .gitmodules; then
-            echo "changes detected"
-          fi
           # Stage submodule registration + any new gitlinks
           git add .gitmodules awesome
           if git diff --cached --quiet; then
