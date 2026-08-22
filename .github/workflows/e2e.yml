@@ -29,8 +29,8 @@ jobs:
 
       - name: 📥 Init submodules (non-recursive)
         run: |
-          git submodule update --init --no-recursive themes/blowfish
-          git submodule update --init --no-recursive awesome
+          git submodule update --init themes/blowfish
+          git submodule update --init awesome
 
       - name: 🔧 Setup Hugo
         uses: peaceiris/actions-hugo@v3

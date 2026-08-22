@@ -59,8 +59,8 @@ jobs:
         # ReadmeGenerator submodule absent from our .gitmodules -> fatal).
         # We init only the direct submodules the build needs, non-recursively.
         run: |
-          git submodule update --init --no-recursive themes/blowfish
-          git submodule update --init --no-recursive awesome
+          git submodule update --init themes/blowfish
+          git submodule update --init awesome
 
       - name: 📦 Install dependencies
         run: npm ci --prefer-offline --no-audit --no-fund
