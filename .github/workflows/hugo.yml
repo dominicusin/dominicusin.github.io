@@ -40,7 +40,6 @@ jobs:
         run: |
           git config --global submodule."awesome/tools/open-source-ios-apps/ReadmeGenerator".active false
           git config --global submodule."awesome/tools/open-source-mac-os-apps/ReadmeGenerator".active false
-          fetch-depth: 0
 
       - name: Init theme submodule (non-recursive)
         run: git submodule update --init themes/blowfish
