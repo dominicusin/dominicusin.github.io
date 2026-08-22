@@ -26,6 +26,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 const ROOT = process.cwd();
+const GENERATED_AT = new Date().toISOString();
 const GITMODULES = path.join(ROOT, '.gitmodules');
 const OUT = path.join(ROOT, 'data', 'awesome.json');
 const IDX = path.join(ROOT, 'content', 'awesome', '_index.md');
@@ -207,6 +208,7 @@ function main() {
       url: m.url,
       readme,
       gh,
+      refreshedAt: GENERATED_AT,
     };
     entries.push(entry);
     if (!byGroup.has(entry.group)) byGroup.set(entry.group, []);
@@ -218,7 +220,7 @@ function main() {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const total = groups.reduce((n, g) => n + g.repos.length, 0);
-  writeOut({ groups, total });
+  writeOut({ generatedAt: GENERATED_AT, groups, total });
   writePreviews(entries);
   ensureIndex();
   console.log(`[awesome] catalog: ${groups.length} groups, ${total} lists -> ${path.relative(ROOT, OUT)}`);
