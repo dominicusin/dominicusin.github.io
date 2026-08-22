@@ -49,6 +49,14 @@ jobs:
 
       - name: Rebuild catalog data
         run: node scripts/build-awesome.cjs
+      - name: Build site (guard — new lists must not break the build)
+        # Renders the /awesome/ catalog + preview pages. If a freshly added
+        # list (or its README) breaks the build, the workflow fails HERE
+        # (before opening a PR) instead of merging broken content later.
+        run: |
+          hugo --gc --minify --baseURL "https://example.com/"
+          rm -rf public resources
+
 
       - name: Open PR if anything changed
         id: pr
