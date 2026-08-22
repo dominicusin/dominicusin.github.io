@@ -95,3 +95,75 @@
 [submodule "awesome/tools/open-source-ios-apps"]
 	path = awesome/tools/open-source-ios-apps
 	url = https://github.com/dkhamsing/open-source-ios-apps
+[submodule "awesome/tools/open-source-mac-os-apps"]
+	path = awesome/tools/open-source-mac-os-apps
+	url = https://github.com/serhii-londar/open-source-mac-os-apps
+[submodule "awesome/tools/awesome-java"]
+	path = awesome/tools/awesome-java
+	url = https://github.com/akullpp/awesome-java
+[submodule "awesome/tools/awesome-design-patterns"]
+	path = awesome/tools/awesome-design-patterns
+	url = https://github.com/DovAmir/awesome-design-patterns
+[submodule "awesome/tools/awesome-react-components"]
+	path = awesome/tools/awesome-react-components
+	url = https://github.com/brillout/awesome-react-components
+[submodule "awesome/tools/awesome-remote-job"]
+	path = awesome/tools/awesome-remote-job
+	url = https://github.com/lukasz-madon/awesome-remote-job
+[submodule "awesome/tools/awesome-compose"]
+	path = awesome/tools/awesome-compose
+	url = https://github.com/docker/awesome-compose
+[submodule "awesome/tools/data-engineer-handbook"]
+	path = awesome/tools/data-engineer-handbook
+	url = https://github.com/DataExpert-io/data-engineer-handbook
+[submodule "awesome/tools/awesome-design-tools"]
+	path = awesome/tools/awesome-design-tools
+	url = https://github.com/goabstract/Awesome-Design-Tools
+[submodule "awesome/tools/awesome-system-design-resources"]
+	path = awesome/tools/awesome-system-design-resources
+	url = https://github.com/ashishps1/awesome-system-design-resources
+[submodule "awesome/tools/awesome-cursorrules"]
+	path = awesome/tools/awesome-cursorrules
+	url = https://github.com/PatrickJS/awesome-cursorrules
+[submodule "awesome/tools/awesome-deepseek-integration"]
+	path = awesome/tools/awesome-deepseek-integration
+	url = https://github.com/deepseek-ai/awesome-deepseek-integration
+[submodule "awesome/tools/awesome-copilot"]
+	path = awesome/tools/awesome-copilot
+	url = https://github.com/github/awesome-copilot
+[submodule "awesome/tools/awesome-shell"]
+	path = awesome/tools/awesome-shell
+	url = https://github.com/alebcay/awesome-shell
+[submodule "awesome/tools/awesome-docker"]
+	path = awesome/tools/awesome-docker
+	url = https://github.com/veggiemonk/awesome-docker
+[submodule "awesome/tools/500-ai-machine-learning-deep-learning-computer-vision-nlp-projects-with-code"]
+	path = awesome/tools/500-ai-machine-learning-deep-learning-computer-vision-nlp-projects-with-code
+	url = https://github.com/ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code
+[submodule "awesome/tools/awesome-cto"]
+	path = awesome/tools/awesome-cto
+	url = https://github.com/kuchin/awesome-cto
+[submodule "awesome/tools/awesome-sysadmin"]
+	path = awesome/tools/awesome-sysadmin
+	url = https://github.com/awesome-foss/awesome-sysadmin
+[submodule "awesome/tools/awesome-php"]
+	path = awesome/tools/awesome-php
+	url = https://github.com/ziadoz/awesome-php
+[submodule "awesome/tools/weekly"]
+	path = awesome/tools/weekly
+	url = https://github.com/ascoders/weekly
+[submodule "awesome/tools/awesome-github-profile-readme"]
+	path = awesome/tools/awesome-github-profile-readme
+	url = https://github.com/abhisheknaiidu/awesome-github-profile-readme
+[submodule "awesome/tools/awesome-macos-command-line"]
+	path = awesome/tools/awesome-macos-command-line
+	url = https://github.com/herrbischoff/awesome-macos-command-line
+[submodule "awesome/tools/awesome-agent-skills"]
+	path = awesome/tools/awesome-agent-skills
+	url = https://github.com/VoltAgent/awesome-agent-skills
+[submodule "awesome/tools/css-protips"]
+	path = awesome/tools/css-protips
+	url = https://github.com/AllThingsSmitty/css-protips
+[submodule "awesome/tools/tvlist-awesome-m3u-m3u8"]
+	path = awesome/tools/tvlist-awesome-m3u-m3u8
+	url = https://github.com/imDazui/Tvlist-awesome-m3u-m3u8
