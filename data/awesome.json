@@ -1,6 +1,45 @@
 {
   "groups": [
     {
+      "slug": "devops",
+      "name": "DevOps & Инфраструктура",
+      "repos": [
+        {
+          "slug": "awesome-kubernetes",
+          "name": "awesome-kubernetes",
+          "group": "devops",
+          "path": "awesome/devops/awesome-kubernetes",
+          "url": "https://github.com/ramitsurana/awesome-kubernetes",
+          "readme": "docs/README.md",
+          "gh": "https://github.com/ramitsurana/awesome-kubernetes"
+        },
+        {
+          "slug": "awesome-nix",
+          "name": "awesome-nix",
+          "group": "devops",
+          "path": "awesome/devops/awesome-nix",
+          "url": "https://github.com/nix-community/awesome-nix",
+          "readme": "README.md",
+          "gh": "https://github.com/nix-community/awesome-nix"
+        }
+      ]
+    },
+    {
+      "slug": "web",
+      "name": "Web & Frontend",
+      "repos": [
+        {
+          "slug": "frontend-dev-bookmarks",
+          "name": "frontend-dev-bookmarks",
+          "group": "web",
+          "path": "awesome/web/frontend-dev-bookmarks",
+          "url": "https://github.com/dypsilon/frontend-dev-bookmarks",
+          "readme": "README.md",
+          "gh": "https://github.com/dypsilon/frontend-dev-bookmarks"
+        }
+      ]
+    },
+    {
       "slug": "security",
       "name": "Безопасность",
       "repos": [
@@ -123,45 +162,6 @@
           "url": "https://github.com/papers-we-love/papers-we-love",
           "readme": "README.md",
           "gh": "https://github.com/papers-we-love/papers-we-love"
-        }
-      ]
-    },
-    {
-      "slug": "devops",
-      "name": "DevOps & Инфраструктура",
-      "repos": [
-        {
-          "slug": "awesome-kubernetes",
-          "name": "awesome-kubernetes",
-          "group": "devops",
-          "path": "awesome/devops/awesome-kubernetes",
-          "url": "https://github.com/ramitsurana/awesome-kubernetes",
-          "readme": "docs/README.md",
-          "gh": "https://github.com/ramitsurana/awesome-kubernetes"
-        },
-        {
-          "slug": "awesome-nix",
-          "name": "awesome-nix",
-          "group": "devops",
-          "path": "awesome/devops/awesome-nix",
-          "url": "https://github.com/nix-community/awesome-nix",
-          "readme": "README.md",
-          "gh": "https://github.com/nix-community/awesome-nix"
-        }
-      ]
-    },
-    {
-      "slug": "web",
-      "name": "Web & Frontend",
-      "repos": [
-        {
-          "slug": "frontend-dev-bookmarks",
-          "name": "frontend-dev-bookmarks",
-          "group": "web",
-          "path": "awesome/web/frontend-dev-bookmarks",
-          "url": "https://github.com/dypsilon/frontend-dev-bookmarks",
-          "readme": "README.md",
-          "gh": "https://github.com/dypsilon/frontend-dev-bookmarks"
         }
       ]
     }
