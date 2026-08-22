@@ -111,6 +111,11 @@ jobs:
         # never hand-edited. Graceful: empty graph if data/github.json absent.
         run: node scripts/build-crosslinks.cjs
 
+      - name: Refresh Awesome submodules (pull latest READMEs)
+        # Keep curated lists fresh: advance each awesome/* submodule to its
+        # latest remote tip (shallow), then regenerate catalog + previews.
+        run: node scripts/refresh-awesome.cjs || true
+
       - name: Build Awesome catalog (parse .gitmodules -> data/awesome.json)
         # Curated awesome lists live as sparse submodules under awesome.
         # This emits the grouped catalog data the /awesome/ page renders.
