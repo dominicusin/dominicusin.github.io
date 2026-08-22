@@ -36,6 +36,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
       - name: 📥 Init submodules (non-recursive)
         # Checkout uses submodules:false so it won't recurse into nested
         # submodules (e.g. open-source-ios-apps/ReadmeGenerator) absent from our
@@ -43,10 +47,6 @@ jobs:
         run: |
           git submodule update --init themes/blowfish
           git submodule update --init awesome
-
-        uses: actions/setup-node@v7
-        with:
-          node-version: "24"
 
       - name: Discover and add new awesome lists
         env:
