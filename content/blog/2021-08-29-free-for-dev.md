@@ -1359,7 +1359,7 @@ This list is the result of Pull Requests, reviews, ideas and work done by 900\+ 
 
   * [Forms](https://zoho.com/forms)
 
-  * [Sign](https:/zoho.com/sign)
+  * [Sign](https://zoho.com/sign)
 
   * [Surveys](https://zoho.com/surveys)
 

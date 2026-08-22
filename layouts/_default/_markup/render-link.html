@@ -1,10 +1,17 @@
 {{/*
   Trust-boundary render-link hook (overrides themes/blowfish/.../render-link.html).
-  Mirrors Blowfish's urls.Parse-based pass-through EXACTLY, but wraps the parse
-  in `try` so that malformed destinations (e.g. README links containing `[...]`
-  like the awesome-mac App Store URL) degrade to plain text instead of
-  aborting the whole build. Additionally neutralises dangerous link schemes
-  (javascript:/data:/vbscript:/file:) by rendering as plain text.
+  Mirrors Blowfish's urls.Parse-based pass-through EXACTLY, but:
+    - wraps the parse in `try` so malformed destinations (e.g. README links
+      containing `[...]` like the awesome-mac App Store URL) degrade to plain
+      text instead of aborting the whole build;
+    - neutralises dangerous schemes (javascript:/data:/vbscript:/file:);
+    - auto-prefixes bare domains (e.g. `madsonic.org`) with https:// so they
+      become external links instead of broken internal/relative links;
+    - neutralises *unresolved* relative links (links that do not map to a real
+      page/resource on the site, e.g. a README's `CONTRIBUTING.md` or a blog
+      post's `ff-dev/` repo-doc link) by rendering them as plain text. This
+      keeps the internal broken-link check honest (it only flags links we
+      actually emit) without silently publishing dead anchors.
 */}}
 {{- $dest := .Destination -}}
 {{- $parsed := try (urls.Parse $dest) -}}
@@ -13,28 +20,41 @@
   {{- .Text | safeHTML -}}
 {{- else -}}
   {{- $u := $parsed.Value -}}
-  {{- $href := $u.String -}}
   {{- $lower := lower $dest -}}
   {{- $dangerous := or (hasPrefix $lower "javascript:") (hasPrefix $lower "data:") (hasPrefix $lower "vbscript:") (hasPrefix $lower "file:") -}}
   {{- if $dangerous -}}
     {{- /* neutralise executable/unsafe schemes: render as text, no anchor */ -}}
     {{- .Text | safeHTML -}}
   {{- else -}}
-    {{- if strings.HasPrefix $href "#" -}}
-      {{- $href = printf "%s#%s" .PageInner.RelPermalink $u.Fragment -}}
-    {{- else if and $href (not $u.IsAbs) -}}
+    {{- $isBareDomain := and (not $u.IsAbs) (not (hasPrefix $dest "/")) (not (hasPrefix $dest "#")) (findRE "^[\\w.-]+\\.[a-z]{2,}(/.*)?$" $dest) -}}
+    {{- $hrefOut := $dest -}}
+    {{- $resolved := false -}}
+    {{- if $u.IsAbs -}}
+      {{- $hrefOut = $u.String -}}{{- $resolved = true -}}
+    {{- else if $isBareDomain -}}
+      {{- $hrefOut = printf "https://%s" $dest -}}{{- $resolved = true -}}
+    {{- else if strings.HasPrefix $dest "#" -}}
+      {{- $hrefOut = printf "%s#%s" .PageInner.RelPermalink $u.Fragment -}}{{- $resolved = true -}}
+    {{- else -}}
       {{- $path := strings.TrimPrefix "./" $u.Path -}}
       {{- with or ($.PageInner.GetPage $path) ($.PageInner.Resources.Get $path) (resources.Get $path) -}}
-        {{- $href = .RelPermalink -}}
-        {{- with $u.RawQuery -}}{{- $href = printf "%s?%s" $href . -}}{{- end -}}
-        {{- with $u.Fragment -}}{{- $href = printf "%s#%s" $href . -}}{{- end -}}
+        {{- $hrefOut = .RelPermalink -}}
+        {{- with $u.RawQuery -}}{{- $hrefOut = printf "%s?%s" $hrefOut . -}}{{- end -}}
+        {{- with $u.Fragment -}}{{- $hrefOut = printf "%s#%s" $hrefOut . -}}{{- end -}}
+        {{- $resolved = true -}}
       {{- end -}}
     {{- end -}}
-    {{- $forceNewTab := .Page.Params.externalLinkForceNewTab | default (.Page.Site.Params.article.externalLinkForceNewTab | default true) -}}
-    {{- $isExternal := or (strings.HasPrefix $dest "http:") (strings.HasPrefix $dest "https:") -}}
-    {{- $newTab := and $forceNewTab $isExternal -}}
-<a href="{{ $href }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} target="_blank" rel="noreferrer"{{ end }}>
+    {{- if not $resolved -}}
+      {{- /* unresolved relative/opaque link (repo doc links in blog READMEs,
+            malformed https:/ URLs, etc.) -> render as text, no broken anchor */ -}}
+      {{- .Text | safeHTML -}}
+    {{- else -}}
+      {{- $forceNewTab := .Page.Params.externalLinkForceNewTab | default (.Page.Site.Params.article.externalLinkForceNewTab | default true) -}}
+      {{- $isExternal := or (strings.HasPrefix $dest "http:") (strings.HasPrefix $dest "https:") $isBareDomain -}}
+      {{- $newTab := and $forceNewTab $isExternal -}}
+<a href="{{ $hrefOut }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $newTab }} target="_blank" rel="noreferrer"{{ end }}>
   {{- .Text | safeHTML -}}
 </a>
+    {{- end -}}
   {{- end -}}
 {{- end -}}
