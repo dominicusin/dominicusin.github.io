@@ -55,4 +55,4 @@ jobs:
           gh pr create \
             --title "bot: refresh curated awesome lists" \
             --body "Automated refresh advanced the awesome/* submodules to their latest READMEs and regenerated the catalog. Review and merge." \
-            --label "awesome" || true
+            --label "awesome" --auto || true
