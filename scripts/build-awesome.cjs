@@ -34,6 +34,10 @@ const SUB_BASE = 'awesome'; // repo-root dir
 const PREVIEW_DIR = path.join(ROOT, 'content', 'awesome');
 const PREVIEW_MAX_LINES = 260; // cap so huge lists stay readable
 
+
+const GROUP_ORDER = {
+  development: 1, web: 2, devops: 3, security: 4, data: 5, blockchain: 6, systems: 7, tools: 8,
+};
 const GROUP_NAMES = {
   development: 'Разработка',
   devops: 'DevOps & Инфраструктура',
@@ -202,7 +206,26 @@ function writePreviews(entries) {
   clearStalePreviews(keep);
 }
 
-function main() {
+
+const META_CACHE = path.join(ROOT, 'data', 'awesome-meta.json');
+const META_TTL_MS = 24 * 60 * 60 * 1000;
+function loadMetaCache() { try { return JSON.parse(fs.readFileSync(META_CACHE, 'utf8')); } catch { return {}; } }
+function saveMetaCache(c) { try { fs.mkdirSync(path.dirname(META_CACHE), { recursive: true }); fs.writeFileSync(META_CACHE, JSON.stringify(c, null, 2)); } catch {} }
+async function fetchRepoMeta(gh) {
+  const m = gh.match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/i); if (!m) return null;
+  const full = `${m[1]}/${m[2]}`; const cache = loadMetaCache(); const hit = cache[full];
+  if (hit && Date.now() - (hit.ts||0) < META_TTL_MS) return { stars: hit.stars, description: hit.description };
+  try {
+    const headers = { 'Accept': 'application/vnd.github+json', 'User-Agent': 'build-awesome' };
+    if (process.env.GITHUB_TOKEN) headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN}`;
+    const res = await fetch(`https://api.github.com/repos/${full}`, { headers });
+    if (!res.ok) return null;
+    const j = await res.json();
+    const meta = { stars: j.stargazers_count ?? null, description: j.description ?? null, ts: Date.now() };
+    cache[full] = meta; saveMetaCache(cache); return { stars: meta.stars, description: meta.description };
+  } catch { return null; }
+}
+async function main() {
   if (!fs.existsSync(GITMODULES)) {
     console.warn('[awesome] no .gitmodules — writing empty catalog');
     writeOut({ groups: [], total: 0 });
@@ -243,9 +266,15 @@ function main() {
   }
 
   const groups = [...byGroup.entries()]
-    .map(([slug, repos]) => ({ slug, name: groupName(slug), repos: repos.sort((a, b) => a.name.localeCompare(b.name)) }))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .map(([slug, repos]) => {
+      const sorted = repos.slice().sort((a, b) => a.name.localeCompare(b.name));
+      const refreshed = sorted.map((r) => r.refreshedAt).filter(Boolean).sort().slice(-1)[0];
+      return { slug, name: groupName(slug), order: GROUP_ORDER[slug] != null ? GROUP_ORDER[slug] : 99, refreshedAt: refreshed || null, repos: sorted };
+    })
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 
+  await Promise.all(entries.map(async (e) => { const meta = await fetchRepoMeta(e.gh); if (meta) { e.stars = meta.stars; e.description = meta.description; } }));
+  for (const g of groups) for (const r of g.repos) { const src = entries.find((x) => x.name === r.name && x.group === r.group); if (src) { r.stars = src.stars; r.description = src.description; } }
   const total = groups.reduce((n, g) => n + g.repos.length, 0);
   writeOut({ generatedAt: GENERATED_AT, groups, total });
   writePreviews(entries);
@@ -280,4 +309,4 @@ function ensureIndex() {
   console.warn('[awesome] created content/awesome/_index.md');
 }
 
-main();
+main().catch((err) => { console.error('[awesome] FATAL', err); process.exit(1); });

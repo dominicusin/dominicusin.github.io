@@ -30,6 +30,11 @@ jobs:
           submodules: false
           fetch-depth: 0
 
+      - name: 🔎 actionlint (workflow YAML structural check)
+        run: |
+          curl -sL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash | bash
+          ./actionlint -shellcheck= -pyflakes= .github/workflows/*.yml
+
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v7
         with:
@@ -67,6 +72,10 @@ jobs:
 
       - name: 🏗️ Build Hugo (catch template/layout errors)
         run: hugo --gc --minify
+
+      - name: 🛡️ Catalog guard (fail if awesome catalog is empty/regressed)
+        run: |
+          node -e "const d=require('./data/awesome.json'); const n=d.total||0; if(n<10){console.error('Catalog too small: '+n+' lists (expected >=10)'); process.exit(1);} console.log('Catalog OK: '+n+' lists in '+(d.groups||[]).length+' groups');"
 
       - name: ⚡ Performance smoke check (render-blocking regression guard)
         # scripts/check-perf.cjs fails only on a real render-blocking <script>

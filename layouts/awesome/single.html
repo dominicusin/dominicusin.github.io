@@ -18,4 +18,22 @@
     {{ .Content }}
   </div>
 </article>
+  <script defer>
+    (function () {
+      function sanitize(el) {
+        if (!el) return;
+        el.querySelectorAll('script, style, iframe, object, embed, form, link[rel="stylesheet"]').forEach(function (n) { n.remove(); });
+        el.querySelectorAll('*').forEach(function (n) {
+          for (var i = n.attributes.length - 1; i >= 0; i--) {
+            var a = n.attributes[i].name; var v = (n.attributes[i].value || '').toLowerCase();
+            if (a.startsWith('on')) n.removeAttribute(a);
+            else if ((a === 'href' || a === 'src') && /^(javascript:|data:text\/html)/.test(v)) n.removeAttribute(a);
+          }
+        });
+      }
+      function run() { document.querySelectorAll('.awesome-preview').forEach(sanitize); }
+      if (document.readyState !== 'loading') run(); else document.addEventListener('DOMContentLoaded', run);
+    })();
+  </script>
+
 {{ end }}
