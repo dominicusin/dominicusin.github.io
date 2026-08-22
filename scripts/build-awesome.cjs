@@ -99,6 +99,39 @@ function clearStalePreviews(keep) {
   }
 }
 
+// Rewrite relative markdown links inside a README so they point to the
+// source repo on GitHub instead of resolving as broken internal links on the
+// Hugo site. Absolute (http(s)://, mailto:, tel:, #anchor) and repo-root (/)
+// links are left untouched. `branch` is the submodule's real default branch.
+function repoBranch(repoPath) {
+  try {
+    const b = execFileSync('git', ['-C', repoPath, 'rev-parse', '--abbrev-ref', 'HEAD'], { encoding: 'utf8' }).trim();
+    return b && b !== 'HEAD' ? b : 'main';
+  } catch { return 'main'; }
+}
+function rewriteRelativeLinks(md, ghUrl, repoPath) {
+  const branch = repoBranch(repoPath);
+  const base = ghUrl.replace(/\/$/, '');
+  // Raw HTML anchors with relative hrefs (e.g. the-book-of-secret-knowledge
+  // README has `<a href="LICENSE.md">`), which markdown-link rewriting misses.
+  md = md.replace(/<a\s+([^>]*?)href=["\']([^"\']+)["\']([^>]*)>/gi, (m, pre, href, post) => {
+    const d = href.trim();
+    if (/^(https?:\/\/|mailto:|tel:|#|\/)/i.test(d)) return m;
+    const rel = d.replace(/^\.\//, '').replace(/^\.\.\//, '');
+    return `<a ${pre}href="${base}/blob/${branch}/${rel}"${post}>`;
+  });
+  return md.replace(/\]\(([^)]+)\)/g, (m, dest) => {
+    const d = dest.trim();
+    if (/^(https?:\/\/|mailto:|tel:|#)/i.test(d)) return m;      // absolute / anchor
+    let rel;
+    if (d.startsWith('/')) rel = d.slice(1);                        // repo-root absolute -> repo path
+    else rel = d.replace(/^\.\//, '').replace(/^\.\.\//, '');   // ./ or ../ -> repo root
+    const frag = d.includes('#') ? '#' + d.split('#')[1] : '';
+    const q = d.includes('?') ? '?' + d.split('?')[1] : '';
+    return `](${base}/blob/${branch}/${rel}${q}${frag})`;
+  });
+}
+
 function writePreviews(entries) {
   const keep = new Set();
   for (const e of entries) {
@@ -116,6 +149,10 @@ function writePreviews(entries) {
       while (start < lines.length && /^\s*#\s/.test(lines[start])) start++;
       body = lines.slice(start, start + PREVIEW_MAX_LINES).join('\n').trimEnd();
       if (lines.length > PREVIEW_MAX_LINES + start) body += '\n\n_…превью ограничено; полный список — в репозитории._';
+      // Point the list's internal doc links (CONTRIBUTING.md, sub-pages,
+      // sub-dirs, raw <a href> anchors) at the source repo on GitHub so they
+      // don't render as broken internal links on the Hugo site.
+      body = rewriteRelativeLinks(body, e.gh, path.join(ROOT, e.path));
     } catch (err) {
       body = `_Не удалось прочитать ${e.readme} субмодуля._`;
     }

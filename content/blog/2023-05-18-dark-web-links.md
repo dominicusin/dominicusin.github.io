@@ -603,7 +603,8 @@ The following list are the first sites which are available as a v3 .onion hidden
 - [http://fahue6hb7odzns36vfoi2dqfvqvjq4btt7vo52a67jivmyz6a6h3vzqd.onion/](http://fahue6hb7odzns36vfoi2dqfvqvjq4btt7vo52a67jivmyz6a6h3vzqd.onion/)
 
 ### Ransomware Group Sites 
-- [http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/](http://)[](http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/) 
+- [ransomware leak site (.onion)](http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/)
+
 
 ### Runion
 - [http://runionv3do7jdylpx7ufc6qkmygehsiuichjcstpj4hb2ycqrnmp67ad.onion/](http://runionv3do7jdylpx7ufc6qkmygehsiuichjcstpj4hb2ycqrnmp67ad.onion/)
