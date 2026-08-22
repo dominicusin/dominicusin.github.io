@@ -9,6 +9,7 @@ updates:
       time: "09:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
+    auto-merge: true
     ignore:
       # Ignore major version updates for GitHub Actions (manual review required)
       - dependency-name: "actions/*"
@@ -23,6 +24,7 @@ updates:
       time: "10:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
+    auto-merge: true
     groups:
       production-dependencies:
         dependency-type: "production"
