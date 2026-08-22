@@ -42,6 +42,10 @@ jobs:
         # content/wiki is a git submodule (GitHub Wiki). Ensure it is present
         # even if checkout's recursive flag missed it.
         run: git submodule update --init --recursive content/wiki
+      - name: Init awesome submodules (sparse README only)
+        run: |
+          git submodule update --init --recursive awesome
+          node scripts/ensure-awesome-sparse.cjs || true
 
       - name: Generate wiki navigation
         # Blowfish has no built-in docs-tree sidebar; this pre-build script
@@ -106,6 +110,11 @@ jobs:
         # Emits data/crosslinks.json (repo↔repo by shared language/topic). Derived,
         # never hand-edited. Graceful: empty graph if data/github.json absent.
         run: node scripts/build-crosslinks.cjs
+
+      - name: Build Awesome catalog (parse .gitmodules -> data/awesome.json)
+        # Curated awesome lists live as sparse submodules under awesome.
+        # This emits the grouped catalog data the /awesome/ page renders.
+        run: node scripts/build-awesome.cjs
 
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"

@@ -4,3 +4,34 @@
 [submodule "content/wiki"]
 	path = content/wiki
 	url = https://github.com/dominicusin/dominicusin.github.io.wiki.git
+
+[submodule "awesome/development/awesome-python"]
+	path = awesome/development/awesome-python
+	url = https://github.com/vinta/awesome-python
+[submodule "awesome/development/awesome-nodejs"]
+	path = awesome/development/awesome-nodejs
+	url = https://github.com/sindresorhus/awesome-nodejs
+[submodule "awesome/devops/awesome-nix"]
+	path = awesome/devops/awesome-nix
+	url = https://github.com/nix-community/awesome-nix
+[submodule "awesome/devops/awesome-kubernetes"]
+	path = awesome/devops/awesome-kubernetes
+	url = https://github.com/ramitsurana/awesome-kubernetes
+[submodule "awesome/security/awesome-security"]
+	path = awesome/security/awesome-security
+	url = https://github.com/sbilly/awesome-security
+[submodule "awesome/data/awesome-machine-learning"]
+	path = awesome/data/awesome-machine-learning
+	url = https://github.com/josephmisiti/awesome-machine-learning
+[submodule "awesome/web/frontend-dev-bookmarks"]
+	path = awesome/web/frontend-dev-bookmarks
+	url = https://github.com/dypsilon/frontend-dev-bookmarks
+[submodule "awesome/systems/papers-we-love"]
+	path = awesome/systems/papers-we-love
+	url = https://github.com/papers-we-love/papers-we-love
+[submodule "awesome/blockchain/awesome-blockchain"]
+	path = awesome/blockchain/awesome-blockchain
+	url = https://github.com/yjjnls/awesome-blockchain
+[submodule "awesome/tools/awesome-mac"]
+	path = awesome/tools/awesome-mac
+	url = https://github.com/jaywcjlove/awesome-mac

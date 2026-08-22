@@ -99,3 +99,8 @@
   name = "Карта сайта"
   url = "/sitemap.xml"
   weight = 9
+
+[[menus.main]]
+  name = "Awesome"
+  url = "/awesome/"
+  weight = 10
