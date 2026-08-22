@@ -168,11 +168,3 @@
 	path = awesome/tools/tvlist-awesome-m3u-m3u8
 	url = https://github.com/imDazui/Tvlist-awesome-m3u-m3u8
 
-[submodule "awesome/tools/open-source-mac-os-apps/ReadmeGenerator"]
-	path = awesome/tools/open-source-mac-os-apps/ReadmeGenerator
-	url = https://github.com/serhii-londar/open-source-mac-os-apps
-	active = false
-[submodule "awesome/tools/open-source-ios-apps/ReadmeGenerator"]
-	path = awesome/tools/open-source-ios-apps/ReadmeGenerator
-	url = https://github.com/dkhamsing/open-source-ios-apps
-	active = false
