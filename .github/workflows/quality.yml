@@ -27,7 +27,7 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 0
 
       - name: 🟢 Setup Node.js

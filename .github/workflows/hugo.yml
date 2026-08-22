@@ -35,16 +35,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          submodules: recursive
+          submodules: true
           fetch-depth: 0
 
       - name: Init wiki submodule
         # content/wiki is a git submodule (GitHub Wiki). Ensure it is present
         # even if checkout's recursive flag missed it.
-        run: git submodule update --init --recursive content/wiki
+        run: git submodule update --init content/wiki
       - name: Init awesome submodules (sparse README only)
         run: |
-          git submodule update --init --recursive awesome
+          git submodule update --init awesome
           node scripts/ensure-awesome-sparse.cjs || true
 
       - name: Generate wiki navigation

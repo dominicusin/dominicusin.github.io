@@ -2,7 +2,8 @@ name: License Check
 
 # Fail the build if a dependency introduces a disallowed license
 # (copyleft / unknown). Keeps the project on permissive, audit-friendly
-# licensing for the static Hugo site and its CI tooling.
+# licensing for the static Hugo site and its CI tooling. MPL-2.0 is allowed
+# because @axe-core/playwright (E2E a11y tests only, never shipped) is MPL-2.0.
 
 on:
   pull_request:
@@ -35,6 +36,6 @@ jobs:
         run: |
           npx license-checker --summary --production \
             --excludePrivatePackages \
-            --onlyAllow "MIT;BSD-2-Clause;BSD-3-Clause;Apache-2.0;ISC;0BSD;CC0-1.0;Unlicense;WTFPL;BlueOak-1.0.0;Python-2.0;CC-BY-4.0" \
+            --onlyAllow "MIT;BSD-2-Clause;BSD-3-Clause;Apache-2.0;ISC;0BSD;CC0-1.0;Unlicense;WTFPL;BlueOak-1.0.0;Python-2.0;CC-BY-4.0;MPL-2.0" \
             || echo "::warning::License check found non-allowlisted licenses (informational; not blocking)."
         continue-on-error: true
