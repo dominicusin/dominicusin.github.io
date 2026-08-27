@@ -26,7 +26,7 @@
   <div class="neo-post-body">{{ .Content }}</div>
   {{ partial "share.html" . }}
   {{ partial "related.html" . }}
-  {{ if .Params.comments }}{{ partial "comments.html" . }}{{ end }}
+  {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}
 </article>
 </main>
 {{ partial "neo-footer.html" . }}
