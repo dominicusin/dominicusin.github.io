@@ -2,6 +2,8 @@
 title: Коллекция фильмов
 date: '2026-08-26T12:00:00.000Z'
 slug: film-collection
+aliases:
+- /film-collection/
 categories:
 - media
 tags:
