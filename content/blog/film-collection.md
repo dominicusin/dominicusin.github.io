@@ -1,6 +1,6 @@
 ---
 title: Коллекция фильмов
-date: '2026-08-27T12:00:00.000Z'
+date: '2026-08-26T12:00:00.000Z'
 slug: film-collection
 categories:
 - media
