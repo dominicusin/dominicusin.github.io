@@ -1,0 +1,21 @@
+{{/*
+  Neo header — standalone replacement for Blowfish header inside the
+  standalone index/single/list layouts. Reads site.Menus.main.
+  EN language is disabled on this site, so no RU/EN switcher is rendered.
+*/}}
+<header class="neo-header">
+  <div class="neo-nav">
+    <a class="neo-brand" href="{{ site.Home.RelPermalink }}">
+      <span class="mark">D</span>
+      <span>Dominicus&nbsp;In<small>engineering · systems · data</small></span>
+    </a>
+    <nav class="neo-links">
+      {{ range site.Menus.main }}
+        {{ if not .Parent }}
+          <a href="{{ .URL }}">{{ .Name }}</a>
+        {{ end }}
+      {{ end }}
+    </nav>
+    <button class="neo-theme" onclick="document.querySelector('.neo').classList.toggle('neo-light')">◐ тема</button>
+  </div>
+</header>
