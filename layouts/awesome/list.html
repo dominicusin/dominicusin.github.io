@@ -31,15 +31,15 @@
           {{ range .repos }}
           {{ $repo := . }}
           {{ $p := $.Site.GetPage (printf "/awesome/%s/%s" $repo.group $repo.name) }}
-          <article class="flex flex-col justify-between rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-4 transition hover:border-primary-400 hover:shadow-sm">
+          <article class="awesome-card flex flex-col justify-between rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-4 transition hover:border-primary-400 hover:shadow-sm">
             <div>
               <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral mb-1">
                 <a class="hover:text-primary-600 dark:hover:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">{{ $repo.name }}</a>
               </h3>
-              <p class="text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-1">{{ $repo.group }}</p>
+              <p class="group text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-1">{{ $repo.group }}</p>
               {{ with $repo.description }}<p class="text-sm text-neutral-600 dark:text-neutral-300 mb-1 line-clamp-2">{{ . }}</p>{{ end }}
               <p class="text-[11px] text-neutral-400 dark:text-neutral-500">
-                {{ with $repo.stars }}<span class="text-amber-500 dark:text-amber-400">★ {{ . }}</span>{{ end }}
+                {{ with $repo.stars }}<span class="stars text-amber-500 dark:text-amber-400">★ {{ . }}</span>{{ end }}
                 {{ with $repo.refreshedAt }}<span class="ms-2">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
               </p>
             </div>

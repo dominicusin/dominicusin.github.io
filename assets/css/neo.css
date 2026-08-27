@@ -166,7 +166,90 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .neo-card .read::after{content:" →";transition:transform .2s;display:inline-block}
 .neo-card:hover .read::after{transform:translateX(4px)}
 
-/* Rows */
+/* ---------- LIST CARDS: repositories / gists / awesome ---------- */
+/* These pages load only neo.css; the card classes below are the real,
+   token-driven styles (the custom.css copies are dead on neo routes). */
+.repo-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));margin:1.5rem 0}
+
+/* Shared accent: gradient top bar + glow border that intensifies on hover */
+.repo-card,.gist-card,.awesome-card{
+  position:relative;display:flex;flex-direction:column;gap:.5rem;
+  padding:1.1rem 1.15rem 1rem;border-radius:calc(var(--radius) - 2px);
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);
+  text-decoration:none;color:inherit;overflow:hidden;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease;
+  box-shadow:0 1px 0 rgba(255,255,255,.02) inset, 0 8px 24px -16px rgba(0,0,0,.7);
+}
+.repo-card::before,.gist-card::before,.awesome-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet));
+  opacity:.0;transition:opacity .25s ease;
+}
+.repo-card:hover,.gist-card:hover,.awesome-card:hover{
+  transform:translateY(-6px);
+  border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  background:linear-gradient(160deg,var(--panel-2),color-mix(in srgb,var(--accent) 7%,var(--panel)));
+  box-shadow:0 18px 40px -20px rgba(0,0,0,.85),
+             0 0 0 1px color-mix(in srgb,var(--accent) 22%,transparent),
+             0 0 28px -6px color-mix(in srgb,var(--accent) 40%,transparent);
+}
+.repo-card:hover::before,.gist-card:hover::before,.awesome-card:hover::before{opacity:1}
+
+/* Header row */
+.repo-card-top{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem}
+.repo-card-name{font-weight:700;color:var(--text);font-size:1rem;line-height:1.25;word-break:break-word}
+.repo-card-owner{font-size:.72rem;color:var(--faint);white-space:nowrap}
+.repo-card-desc{font-size:.84rem;color:var(--muted);margin:0;line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Topics pills */
+.repo-pills{display:flex;flex-wrap:wrap;gap:.35rem}
+.repo-pill{font-size:.66rem;padding:.12rem .5rem;border-radius:999px;
+  background:color-mix(in srgb,var(--accent) 16%,transparent);
+  color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+  transition:background .2s ease,color .2s ease}
+.repo-card:hover .repo-pill{background:color-mix(in srgb,var(--accent) 26%,transparent)}
+
+/* Badges & tags */
+.repo-badge{font-size:.62rem;padding:.08rem .45rem;border-radius:999px;
+  background:color-mix(in srgb,var(--muted) 18%,transparent);color:var(--muted);
+  border:1px solid color-mix(in srgb,var(--muted) 35%,transparent);font-weight:600;letter-spacing:.3px}
+.repo-tag{font-size:.62rem;padding:.08rem .45rem;border-radius:999px;
+  background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber);
+  border:1px solid color-mix(in srgb,var(--amber) 35%,transparent);font-weight:600}
+
+/* Meta line (language / stars / forks / date) */
+.repo-card-meta{display:flex;flex-wrap:wrap;gap:.55rem;font-size:.72rem;color:var(--faint);margin-top:auto;align-items:center}
+.repo-card-meta span{display:inline-flex;align-items:center;gap:.25rem;
+  background:color-mix(in srgb,var(--muted) 8%,transparent);padding:.12rem .45rem;border-radius:7px}
+.repo-lang-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.25rem;
+  box-shadow:0 0 8px -1px currentColor}
+
+/* Gist file chips */
+.gist-files{display:flex;flex-wrap:wrap;gap:.35rem}
+.gist-file{font-size:.66rem;padding:.14rem .5rem;border-radius:.45rem;
+  background:var(--bg-2);border:1px solid var(--line);color:var(--muted);font-family:var(--mono)}
+.gist-file-more{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 32%,transparent)}
+
+/* Footer links */
+.card-links{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.55rem}
+.card-link{font-size:.72rem;font-weight:700;color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+  padding:.18rem .6rem;border-radius:999px;transition:background .2s ease,color .2s ease}
+.card-link:hover{background:var(--accent);color:#06121a}
+
+/* Awesome: make the inline Tailwindish structure resolve to the accent card */
+.group-section{margin-bottom:2.5rem}
+.neo .awesome-card{background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid var(--line);color:var(--text)}
+.neo .awesome-card a{color:var(--accent-2)}
+.neo .awesome-card a:hover{color:var(--accent)}
+.neo .awesome-card h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.25rem}
+.neo .awesome-card p{color:var(--muted);font-size:.86rem;line-height:1.45}
+.neo .awesome-card .group{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
+.neo .awesome-card .stars{color:var(--amber)}
+
 .neo-rows{display:flex;flex-direction:column;border-top:1px solid var(--line)}
 .neo-row{display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:center;padding:18px 6px;
   border-bottom:1px solid var(--line);transition:background .2s;text-decoration:none}
