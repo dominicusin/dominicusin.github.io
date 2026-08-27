@@ -1,0 +1,16 @@
+{{/*
+  Neo head partial — loads Neo CSS + custom.js (theme toggle, back-to-top).
+  Kept minimal on purpose: the Blowfish head.html (fonts, meta, theme
+  scripts, RSS) is NOT reused here to avoid double <head>/class conflicts;
+  Neo pages are self-contained and scoped under .neo-*.
+*/}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .Permalink }}">{{ end }}
+{{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{ $js := resources.Get "js/custom.js" | minify | fingerprint }}
+<script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+<script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>

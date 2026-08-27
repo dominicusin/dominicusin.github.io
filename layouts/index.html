@@ -1,16 +1,12 @@
 {{/*
-  Homepage — Neo design system (standalone override).
-  Uses Blowfish's head.html (keeps theme scripts, search, fonts) and
-  footer.html (keeps giscus + subscription) partials, but renders the
-  page body with the .neo-* design layer from assets/css/neo.css.
-  Does NOT use baseof.html (full document here).
+  Homepage — Neo design system (standalone full document, does NOT use
+  baseof so it won't inherit Tailwind). Reuses the Neo partials only.
 */}}
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}">
-{{ partial "head.html" . }}
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
-
 {{ $blog := where site.RegularPages "Section" "blog" }}
 {{ $blog = sort $blog "Date" "desc" }}
 
@@ -26,7 +22,6 @@
         {{ end }}
       </div>
     </div>
-
     <div class="neo-term">
       <div class="neo-term-bar">
         <span class="neo-dot" style="background:#ff5f57"></span>
@@ -47,17 +42,11 @@
   </section>
 
   <section class="neo-wrap">
-    <div class="neo-sec-head">
-      <h2>Избранное</h2>
-      <a class="more" href="{{ "blog/" | relURL }}">все посты →</a>
-    </div>
+    <div class="neo-sec-head"><h2>Избранное</h2><a class="more" href="{{ "blog/" | relURL }}">все посты →</a></div>
     <div class="neo-featured">
       {{ range first 3 $blog }}
       <article class="neo-card">
-        <div class="meta">
-          {{ with .Params.categories }}<span class="cat">{{ index . 0 }}</span>{{ end }}
-          <span>{{ .Date.Format "02 янв 2006" }}</span>
-        </div>
+        <div class="meta">{{ with .Params.categories }}<span class="cat">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         <p>{{ .Summary | truncate 140 }}</p>
         <a class="read" href="{{ .RelPermalink }}">Читать</a>
@@ -67,10 +56,7 @@
   </section>
 
   <section class="neo-wrap">
-    <div class="neo-sec-head">
-      <h2>Последние записи</h2>
-      <a class="more" href="{{ "blog/" | relURL }}">архив →</a>
-    </div>
+    <div class="neo-sec-head"><h2>Последние записи</h2><a class="more" href="{{ "blog/" | relURL }}">архив →</a></div>
     <div class="neo-rows">
       {{ range first 10 $blog }}
       <a class="neo-row" href="{{ .RelPermalink }}">
@@ -83,35 +69,23 @@
   </section>
 
   <section class="neo-wrap">
-    <div class="neo-sec-head">
-      <h2>Категории</h2>
-      <a class="more" href="{{ "categories/" | relURL }}">все →</a>
-    </div>
+    <div class="neo-sec-head"><h2>Категории</h2><a class="more" href="{{ "categories/" | relURL }}">все →</a></div>
     <div class="neo-cats">
       {{ range site.Taxonomies.categories.ByCount }}
-      <a class="neo-cat" href="{{ .Page.RelPermalink }}">
-        <div class="ico">▸</div>
-        <h4>{{ .Page.Title }}</h4>
-        <span>{{ .Count }} записей</span>
-      </a>
+      <a class="neo-cat" href="{{ .Page.RelPermalink }}"><div class="ico">▸</div><h4>{{ .Page.Title }}</h4><span>{{ .Count }} записей</span></a>
       {{ end }}
     </div>
   </section>
 
   <section class="neo-wrap">
     <div class="neo-news">
-      <div>
-        <h3>Подпишитесь на обновления</h3>
-        <p>Новые записи блога прямо в почту. Никакого спама — только инженерия, системы и данные.</p>
-      </div>
+      <div><h3>Подпишитесь на обновления</h3><p>Новые записи блога прямо в почту. Никакого спама — только инженерия, системы и данные.</p></div>
       <form action="{{ site.Params.newsletterAction | default "#" }}" method="post">
-        <input type="email" name="email" placeholder="you@example.com" required />
-        <button type="submit">Подписаться</button>
+        <input type="email" name="email" placeholder="you@example.com" required /><button type="submit">Подписаться</button>
       </form>
     </div>
   </section>
 </main>
-
-{{ partial "footer.html" . }}
+{{ partial "neo-footer.html" . }}
 </body>
 </html>

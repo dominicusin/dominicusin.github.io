@@ -1,58 +1,30 @@
 {{/*
-  Taxonomy terms + term pages — Neo design system (standalone).
-  Hugo uses this single template for BOTH the taxonomy landing
-  (/categories/, /tags/ — .Data.Terms populated) and individual term
-  pages (/categories/media/ — .Pages populated). Paginate the latter.
+  Taxonomy landing (all tags / all categories) — Neo tag cloud.
+  Font size scales with mention count so popular tags are visibly larger.
 */}}
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}">
-{{ partial "head.html" . }}
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
 <main class="neo">
-  <section class="neo-wrap">
-    <div class="neo-sec-head" style="margin-top:20px">
-      <h2>{{ .Title }}</h2>
-      <span class="more">{{ if .Data.Terms }}{{ len .Data.Terms }}{{ else }}{{ len .Pages }}{{ end }} записей</span>
-    </div>
-
-    {{ if .Data.Terms }}
-      {{/* Taxonomy landing: list of terms */}}
-      <div class="neo-cats">
-        {{ range .Data.Terms.Alphabetical }}
-        <a class="neo-cat" href="{{ .Page.RelPermalink }}">
-          <div class="ico">▸</div>
-          <h4>{{ .Page.Title }}</h4>
-          <span>{{ .Count }} записей</span>
-        </a>
-        {{ end }}
-      </div>
-    {{ else }}
-      {{/* Term page: list of posts with pagination */}}
-      {{ $pages := .Paginate .Pages }}
-      <div class="neo-rows">
-        {{ range $pages.Pages }}
-        <a class="neo-row" href="{{ .RelPermalink }}">
-          <span class="date">{{ .Date.Format "2006-01-02" }}</span>
-          <span class="title">{{ .Title }}</span>
-          {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
-        </a>
-        {{ end }}
-      </div>
-      {{ with $pages }}
-      <nav class="neo-pager">
-        {{ if .HasPrev }}<a href="{{ .Prev.URL }}">← назад</a>{{ end }}
-        {{ $cur := .PageNumber }}
-        {{ range .Pagers }}
-          {{ if eq .PageNumber $cur }}<span class="current">{{ .PageNumber }}</span>
-          {{ else }}<a href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }}
-        {{ end }}
-        {{ if .HasNext }}<a href="{{ .Next.URL }}">вперёд →</a>{{ end }}
-      </nav>
-      {{ end }}
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px">
+    <h2>{{ .Title }}</h2>
+    <span class="more">{{ len .Data.Terms }} терминов</span>
+  </div>
+  <div class="neo-tagcloud">
+    {{ $max := 0 }}{{ range .Data.Terms.Alphabetical }}{{ if gt .Count $max }}{{ $max = .Count }}{{ end }}{{ end }}
+    {{ range .Data.Terms.Alphabetical }}
+      {{ $size := add 13 (mul 17 (math.Log (add .Count 1))) }}
+      {{ if gt $max 1 }}{{ $size = add 13 (mul 20 (div (sub .Count 1.0) (sub $max 1.0))) }}{{ end }}
+      <a class="neo-chip" style="font-size:{{ $size | lang.FormatNumber 0 }}px" href="{{ .Page.RelPermalink }}">
+        #{{ .Page.Title }} <span class="count">{{ .Count }}</span>
+      </a>
     {{ end }}
-  </section>
+  </div>
+</div>
 </main>
-{{ partial "footer.html" . }}
+{{ partial "neo-footer.html" . }}
 </body>
 </html>

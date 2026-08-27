@@ -1,0 +1,26 @@
+{{/*
+  Neo footer — sections + links (GitHub/RSS/Search). Reuses the existing
+  subscription.html partial (Buttondown) for the newsletter block so the
+  configured externalSubscriptionURL keeps working.
+*/}}
+<footer class="neo-footer">
+  <div class="neo-foot">
+    <div>
+      <div class="neo-brand"><span class="mark">D</span>Dominicus In</div>
+      <p style="margin-top:10px">© {{ now.Year }} · CC0 · Hugo + Blowfish</p>
+    </div>
+    <div class="neo-foot-cols">
+      <div class="neo-foot-col">
+        <h5>Разделы</h5>
+        {{ range site.Menus.main }}{{ if not .Parent }}<a href="{{ .URL }}">{{ .Name }}</a>{{ end }}{{ end }}
+      </div>
+      <div class="neo-foot-col">
+        <h5>Ссылки</h5>
+        <a href="https://github.com/dominicusin">GitHub</a>
+        <a href="{{ "feed.xml" | relURL }}">RSS</a>
+        <a href="{{ "search/" | relURL }}">Поиск</a>
+      </div>
+    </div>
+  </div>
+  {{ partial "subscription.html" . }}
+</footer>

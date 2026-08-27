@@ -1,7 +1,7 @@
 {{/*
-  Neo header — standalone replacement for Blowfish header inside the
-  standalone index/single/list layouts. Reads site.Menus.main.
-  EN language is disabled on this site, so no RU/EN switcher is rendered.
+  Neo header — reads site.Menus.main. EN is disabled on this site, so no
+  RU/EN switcher. Includes Search link + theme toggle (no JS dep; wired in
+  custom.js via #neo-theme-toggle).
 */}}
 <header class="neo-header">
   <div class="neo-nav">
@@ -11,11 +11,12 @@
     </a>
     <nav class="neo-links">
       {{ range site.Menus.main }}
-        {{ if not .Parent }}
-          <a href="{{ .URL }}">{{ .Name }}</a>
-        {{ end }}
+        {{ if not .Parent }}<a href="{{ .URL }}">{{ .Name }}</a>{{ end }}
       {{ end }}
+      <a href="{{ "search/" | relURL }}">Поиск</a>
     </nav>
-    <button class="neo-theme" onclick="document.querySelector('.neo').classList.toggle('neo-light')">◐ тема</button>
+    <div class="neo-nav-actions">
+      <button id="neo-theme-toggle" class="neo-theme" aria-label="Переключить тему">◐</button>
+    </div>
   </div>
 </header>

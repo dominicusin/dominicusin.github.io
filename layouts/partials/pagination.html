@@ -1,0 +1,13 @@
+{{/*
+  Pagination — Neo pager. Works with .Paginator (list/term/archive pages).
+  Safe no-op when there is a single page.
+*/}}
+{{ with .Paginator }}
+  {{ if gt .TotalPages 1 }}
+  <nav class="neo-pager">
+    {{ if .HasPrev }}<a href="{{ .Prev.URL }}">← Назад</a>{{ end }}
+    <span class="current" style="background:transparent;border:none;color:var(--faint)">Стр. {{ .PageNumber }} из {{ .TotalPages }}</span>
+    {{ if .HasNext }}<a href="{{ .Next.URL }}">Вперёд →</a>{{ end }}
+  </nav>
+  {{ end }}
+{{ end }}

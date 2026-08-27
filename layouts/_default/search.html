@@ -1,0 +1,50 @@
+{{/*
+  Search page — Neo design system (standalone). Inline index baked at build.
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap search-page">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>Поиск по блогу</h2></div>
+  <input id="neo-search-input" class="neo-search-input" type="search" placeholder="Введите запрос…" autofocus />
+  <div id="neo-search-results" class="neo-rows"></div>
+  <p id="neo-search-empty" class="neo-search-empty">Введите запрос для поиска по заголовкам, тегам и описаниям.</p>
+</div>
+<script>
+(function(){
+  /* INDEX is build-time baked JSON (trusted, static). */
+  var INDEX = [
+    {{ range site.RegularPages }}
+    {t:{{ .Title | jsonify }}, u:{{ .RelPermalink | jsonify }}, g:{{ with .Params.tags }}{{ delimit . " " | jsonify }}{{ else }}""{{ end }}, s:{{ .Summary | plainify | truncate 180 | jsonify }}, d:{{ .Date.Format "2006-01-02" | jsonify }}},
+    {{ end }}
+  ];
+  var input = document.getElementById('neo-search-input');
+  var res = document.getElementById('neo-search-results');
+  var empty = document.getElementById('neo-search-empty');
+  function render(q){
+    q = (q||'').toLowerCase().trim();
+    res.innerHTML = '';
+    if(!q){ empty.style.display='block'; empty.textContent='Введите запрос для поиска по заголовкам, тегам и описаниям.'; return; }
+    var hits = INDEX.filter(function(i){
+      return i.t.toLowerCase().indexOf(q) > -1 || i.g.toLowerCase().indexOf(q) > -1 || i.s.toLowerCase().indexOf(q) > -1;
+    }).slice(0, 30);
+    if(hits.length){ empty.style.display='none'; } else {
+      empty.style.display='block'; empty.textContent = 'Ничего не найдено по запросу «'+q+'».'; return;
+    }
+    hits.forEach(function(h){
+      var a = document.createElement('a');
+      a.className='neo-row'; a.href=h.u;
+      a.innerHTML = '<span class="date">'+h.d+'</span><span class="title">'+h.t+'</span><span class="tag">тег</span>';
+      res.appendChild(a);
+    });
+  }
+  input.addEventListener('input', function(){ render(input.value); });
+})();
+</script>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>

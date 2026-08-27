@@ -1,0 +1,34 @@
+{{/*
+  Archives section list — Neo standalone; groups blog posts by year.
+  The section itself has no child pages, so we query the blog section.
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px">
+    <h2>Архив по годам</h2>
+    <span class="more">{{ len (where site.RegularPages "Section" "blog") }} записей</span>
+  </div>
+  {{ $pages := where site.RegularPages "Section" "blog" }}
+  {{ $pages = sort $pages "Date" "desc" }}
+  {{ range $pages.GroupByPublishDate "2006" }}
+    <h3 class="neo-year">{{ .Key }}</h3>
+    <div class="neo-rows">
+      {{ range .Pages }}
+      <a class="neo-row" href="{{ .RelPermalink }}">
+        <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+        <span class="title">{{ .Title }}</span>
+        {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+  {{ end }}
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>
