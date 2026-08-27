@@ -433,3 +433,20 @@ img { height: auto; }
 .awesome-preview { contain: content; position: relative; overflow: hidden; max-height: 70vh; overflow-y: auto; font-size: 0.95rem; line-height: 1.6; }
 .awesome-preview img, .awesome-preview video, .awesome-preview iframe { max-width: 100%; height: auto; }
 .awesome-preview table { display: block; width: 100%; overflow-x: auto; }
+
+/* ===== Movie grid (film collection) ===== */
+.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 1.1rem; margin: 2rem 0; }
+.movie-card { display:flex; flex-direction:column; background: var(--card-bg,#1b1b22); border:1px solid var(--card-border,#2c2c36); border-radius:12px; overflow:hidden; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.movie-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.35); border-color: var(--accent,#6ee7b7); }
+.movie-poster { position:relative; aspect-ratio:2/3; display:flex; align-items:center; justify-content:center; text-align:center; padding:.6rem; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.45); }
+.movie-poster .mp-title { font-weight:700; font-size:.95rem; line-height:1.15; }
+.movie-poster .mp-year { position:absolute; top:.4rem; right:.5rem; font-size:.72rem; background:rgba(0,0,0,.4); padding:.1rem .4rem; border-radius:999px; }
+.movie-body { padding:.6rem .7rem .8rem; }
+.movie-body .m-title { font-weight:600; font-size:.9rem; margin:0 0 .15rem; }
+.movie-body .m-meta { font-size:.76rem; color:var(--muted,#9aa); margin:0 0 .5rem; }
+.movie-links { display:flex; flex-wrap:wrap; gap:.35rem; }
+.movie-links a { font-size:.72rem; padding:.22rem .5rem; border-radius:999px; text-decoration:none; border:1px solid var(--card-border,#2c2c36); color:var(--fg,#ddd); transition: background .15s ease,color .15s ease; }
+.movie-links a:hover { background: var(--accent,#6ee7b7); color:#06231a; }
+.movie-links a.imdb:hover { background:#f5c518; color:#000; }
+.movie-links a.kp:hover { background:#ffec00; color:#000; }
+@media (max-width:520px){ .movie-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); } }
