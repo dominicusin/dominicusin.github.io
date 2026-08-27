@@ -7,7 +7,7 @@
 <div class="neo-wrap">
   <div class="neo-sec-head" style="margin-top:20px">
     <h2>{{ .Title }}</h2>
-    <span class="more">{{ len .RegularPages }} репозиториев</span>
+    <span class="more">{{ len .RegularPages }} проектов</span>
   </div>
   {{ .Content }}
   {{ $pages := .RegularPages }}
@@ -16,13 +16,26 @@
       <a class="repo-card" href="{{ .RelPermalink }}">
         <div class="repo-card-top">
           <span class="repo-card-name">{{ .Params.repo_name }}</span>
-          <span class="repo-card-owner">{{ .Params.repo_owner }}</span>
+          {{ if .Params.archived }}<span class="repo-badge">архив</span>{{ end }}
         </div>
-        <p class="repo-card-desc">{{ .Params.description | truncate 120 }}</p>
+        {{ if .Params.repo_owner }}<span class="repo-card-owner">@{{ .Params.repo_owner }}</span>{{ end }}
+        <p class="repo-card-desc">{{ .Params.description | default "—" | truncate 120 }}</p>
+        {{ with .Params.topics }}
+          <div class="repo-pills">
+            {{ range first 4 . }}<span class="repo-pill">{{ . }}</span>{{ end }}
+          </div>
+        {{ end }}
         <div class="repo-card-meta">
-          {{ with .Params.language }}<span>{{ . }}</span>{{ end }}
-          {{ if .Params.stars }}<span>★ {{ .Params.stars }}</span>{{ end }}
-          {{ if .Params.is_fork }}<span>fork</span>{{ end }}
+          {{ with .Params.language }}
+            <span><span class="repo-lang-dot {{ . | lower }}"></span>{{ . }}</span>
+          {{ end }}
+          {{ if .Params.stars }}<span title="звёзды">★ {{ .Params.stars }}</span>{{ end }}
+          {{ if .Params.forks }}<span title="форки">⑂ {{ .Params.forks }}</span>{{ end }}
+          {{ if .Params.is_fork }}<span class="repo-tag">fork</span>{{ end }}
+        </div>
+        <div class="card-links">
+          {{ with .Params.repo_url }}<span class="card-link">GitHub ↗</span>{{ end }}
+          {{ if .Params.has_wiki }}<span class="card-link">Wiki ↗</span>{{ end }}
         </div>
       </a>
     {{ end }}

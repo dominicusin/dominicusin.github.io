@@ -7,18 +7,27 @@
 <div class="neo-wrap">
   <div class="neo-sec-head" style="margin-top:20px">
     <h2>{{ .Title }}</h2>
-    <span class="more">{{ len .RegularPages }} гистов</span>
+    <span class="more">{{ len .RegularPages }} gist-ов</span>
   </div>
   {{ .Content }}
-  <div class="repo-grid">
+  <div class="repo-grid" data-count="{{ len .RegularPages }}">
     {{ range .RegularPages.ByTitle }}
-      <a class="repo-card" href="{{ .RelPermalink }}">
+      <a class="repo-card gist-card" href="{{ .RelPermalink }}">
         <div class="repo-card-top">
           <span class="repo-card-name">{{ .Params.gist_name }}</span>
         </div>
-        <p class="repo-card-desc">{{ .Params.description | truncate 120 }}</p>
+        <p class="repo-card-desc">{{ .Params.title | default .Params.description | default "—" | truncate 120 }}</p>
+        <div class="gist-files">
+          {{ range first 3 .Params.files }}<span class="gist-file">📄 {{ . }}</span>{{ end }}
+          {{ if gt (len .Params.files) 3 }}<span class="gist-file gist-file-more">+{{ sub (len .Params.files) 3 }} ещё</span>{{ end }}
+        </div>
         <div class="repo-card-meta">
-          {{ with .Params.files }}<span>{{ len . }} файл(ов)</span>{{ end }}
+          {{ with .Params.files }}<span>📄 {{ . | len }} файл{{ if ne (. | len) 1 }}{{ . | len }}{{ else }}{{ end }}</span>{{ end }}
+          {{ with .Params.updated_at }}<span title="обновлён">🕑 {{ substr . 0 10 }}</span>{{ end }}
+          {{ if .Params.language }}<span><span class="repo-lang-dot {{ .Params.language | lower }}"></span>{{ . }}</span>{{ end }}
+        </div>
+        <div class="card-links">
+          {{ with .Params.gist_url }}<span class="card-link">Открыть gist ↗</span>{{ end }}
         </div>
       </a>
     {{ end }}

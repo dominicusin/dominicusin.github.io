@@ -399,14 +399,45 @@ img { height: auto; }
 .repo-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin: 1.5rem 0; }
 .repo-card { display: flex; flex-direction: column; gap: .4rem; padding: 1rem; border-radius: var(--radius);
   background: rgba(var(--bg-elevated), .6); border: 1px solid rgba(var(--color-neutral-700), .5);
-  text-decoration: none; color: inherit; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
-.repo-card:hover { transform: translateY(-3px); border-color: rgba(var(--ring), .6); background: rgba(var(--bg-elevated), .9); }
+  text-decoration: none; color: inherit; transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+.repo-card:hover { transform: translateY(-5px); border-color: rgba(var(--ring), .6); background: rgba(var(--bg-elevated), .9);
+  box-shadow: 0 8px 24px rgba(0,0,0,.35); }
 .repo-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
 .repo-card-name { font-weight: 700; color: rgb(var(--color-primary-200)); font-size: .98rem; word-break: break-word; }
 .repo-card-owner { font-size: .72rem; color: rgb(var(--color-neutral-500)); white-space: nowrap; }
 .repo-card-desc { font-size: .84rem; color: rgb(var(--color-neutral-300)); margin: 0; line-height: 1.4;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .repo-card-meta { display: flex; flex-wrap: wrap; gap: .5rem; font-size: .72rem; color: rgb(var(--color-neutral-400)); margin-top: auto; }
+/* Topics pills */
+.repo-pills { display: flex; flex-wrap: wrap; gap: .3rem; }
+.repo-pill { font-size: .64rem; padding: .1rem .45rem; border-radius: 999px; background: rgba(var(--color-primary-500), .14);
+  color: rgb(var(--color-primary-300)); border: 1px solid rgba(var(--color-primary-500), .25); }
+/* Badges & tags */
+.repo-badge { font-size: .62rem; padding: .05rem .4rem; border-radius: 999px; background: rgba(var(--color-neutral-600), .4);
+  color: rgb(var(--color-neutral-300)); border: 1px solid rgba(var(--color-neutral-500), .4); }
+.repo-tag { font-size: .62rem; padding: .05rem .4rem; border-radius: 999px; background: rgba(var(--color-warning, .14);
+  color: rgb(var(--color-warning)); border: 1px solid rgba(var(--color-warning), .3); }
+/* Gist file chips */
+.gist-files { display: flex; flex-wrap: wrap; gap: .3rem; }
+.gist-file { font-size: .66rem; padding: .12rem .45rem; border-radius: .4rem; background: rgba(var(--bg-elevated), .9);
+  border: 1px solid rgba(var(--color-neutral-700), .6); color: rgb(var(--color-neutral-300)); font-family: var(--font-mono, monospace); }
+.gist-file-more { color: rgb(var(--color-primary-300)); border-color: rgba(var(--color-primary-500), .3); }
+/* Card footer links */
+.card-links { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .5rem; }
+.card-link { font-size: .7rem; font-weight: 600; color: rgb(var(--color-primary-300)); }
+.repo-card:hover .card-link { color: rgb(var(--color-primary-200)); text-decoration: underline; }
+/* Language color dots */
+.repo-lang-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: .25rem; }
+.repo-lang-dot.js { background: #f7df1e; }
+.repo-lang-dot.ts { background: #3178c6; }
+.repo-lang-dot.py { background: #3776ab; }
+.repo-lang-dot.rs { background: #dea584; }
+.repo-lang-dot.cpp { background: #6c54ce; }
+.repo-lang-dot.go { background: #00add8; }
+.repo-lang-dot.cs { background: #2f596c; }
+.repo-lang-dot.java { background: #e73c30; }
+.repo-lang-dot.love2d { background: #ff9a21; }
 .gist-header { margin: 1rem 0 1.5rem; }
 .gist-links { display: flex; align-items: center; gap: .6rem; margin-top: .8rem; flex-wrap: wrap; }
 
