@@ -60,8 +60,12 @@ jobs:
           path: |
             ~/.cache/hugo_cache
             ~/.cache/hugo_modules
-          key: ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          # Stable key so the cache actually restores between PR runs instead
+          # of being keyed on the always-unique commit SHA. PRs restore the
+          # main-branch cache via restore-keys, then refresh on save.
+          key: ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-${{ github.ref_name }}
           restore-keys: |
+            ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-main
             ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-
             ${{ runner.os }}-hugo-
 
