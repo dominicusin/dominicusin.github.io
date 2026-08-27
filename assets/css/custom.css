@@ -450,3 +450,14 @@ img { height: auto; }
 .movie-links a.imdb:hover { background:#f5c518; color:#000; }
 .movie-links a.kp:hover { background:#ffec00; color:#000; }
 @media (max-width:520px){ .movie-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); } }
+
+/* poster image overlay + details */
+.movie-poster { overflow: hidden; }
+.mp-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.mp-title-overlay { position:absolute; left:0; right:0; bottom:0; padding:.5rem .55rem; font-weight:700; font-size:.85rem; line-height:1.1;
+  background: linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,0)); text-shadow:0 1px 3px rgba(0,0,0,.6); }
+.movie-card:hover .mp-title-overlay { color: var(--accent,#6ee7b7); }
+.m-rating { font-size:.78rem; color:#f5c518; margin:0 0 .35rem; }
+.m-plot { font-size:.76rem; margin:0 0 .5rem; }
+.m-plot summary { cursor:pointer; color:var(--accent,#6ee7b7); font-weight:600; }
+.m-plot p { margin:.35rem 0 0; color:var(--muted,#9aa); line-height:1.4; }
