@@ -8,6 +8,15 @@ on:
   schedule:
     - cron: '0 6 * * 1'
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (no PR)"
+        required: false
+        default: "false"
+      min_confidence:
+        description: "Min link-check confidence"
+        required: false
+        default: "0.6"
 
 permissions:
   contents: read
