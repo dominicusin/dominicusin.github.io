@@ -11,14 +11,17 @@
       <span>Dominicus&nbsp;In<small>engineering · systems · data</small></span>
     </a>
 
-    {{/* Common menu derived from categories (data-driven) */}}
+    {{/* Explicit primary navigation (ordered as requested) */}}
     <nav class="neo-menu" aria-label="Разделы">
-      {{ range first 8 site.Taxonomies.categories.ByCount }}
-        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
-      {{ end }}
       <a href="{{ "blog/" | relURL }}">Блог</a>
+      <a href="{{ "repositories/" | relURL }}">Репозитории</a>
+      <a href="{{ "gists/" | relURL }}">Гисты</a>
+      <a href="{{ "ontology/" | relURL }}">Онтология</a>
       <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
-      <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
+      <a href="{{ "awesome/" | relURL }}">awesome</a>
+      <a href="{{ "categories/" | relURL }}">Категории</a>
+      <a href="{{ "tags/" | relURL }}">Теги</a>
+      <a href="{{ "sitemap.xml" | relURL }}">sitemap</a>
     </nav>
 
     <div class="neo-nav-actions">
@@ -58,8 +61,16 @@
             </div>
           </div>
           <h5>Навигация</h5>
+          <a class="neo-theme-opt" href="{{ "blog/" | relURL }}" style="margin-top:4px">📝 Блог</a>
+          <a class="neo-theme-opt" href="{{ "repositories/" | relURL }}" style="margin-top:4px">📦 Репозитории</a>
+          <a class="neo-theme-opt" href="{{ "gists/" | relURL }}" style="margin-top:4px">📄 Гисты</a>
+          <a class="neo-theme-opt" href="{{ "ontology/" | relURL }}" style="margin-top:4px">🕸 Онтология</a>
+          <a class="neo-theme-opt" href="{{ "knowledge-graph/" | relURL }}" style="margin-top:4px">🔗 Graph</a>
+          <a class="neo-theme-opt" href="{{ "awesome/" | relURL }}" style="margin-top:4px">⭐ awesome</a>
+          <a class="neo-theme-opt" href="{{ "categories/" | relURL }}" style="margin-top:4px">🗂 Категории</a>
+          <a class="neo-theme-opt" href="{{ "tags/" | relURL }}" style="margin-top:4px">🏷 Теги</a>
+          <a class="neo-theme-opt" href="{{ "sitemap.xml" | relURL }}" style="margin-top:4px">🗺 sitemap.xml</a>
           <a class="neo-theme-opt" href="{{ "search/" | relURL }}" style="margin-top:4px">⌕ Поиск по сайту</a>
-          <a class="neo-theme-opt" href="{{ "sitemap/" | relURL }}" style="margin-top:4px">🗺 Карта сайта</a>
           <a class="neo-theme-opt" href="{{ "archives/" | relURL }}" style="margin-top:4px">🗓 Архив по годам</a>
         </div>
       </div>
