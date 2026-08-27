@@ -1,0 +1,14 @@
+{{/*
+  TOC partial — renders Hugo's auto-generated TableOfContents when the page
+  opts in via front matter `toc: true` (or when .TableOfContents is non-empty).
+*/}}
+{{ if or .Params.toc .Page.TableOfContents }}
+  {{ with .Page.TableOfContents }}
+    <aside class="neo-toc-wrap">
+      <nav class="neo-toc" aria-label="Оглавление">
+        <h4>Содержание</h4>
+        {{ . }}
+      </nav>
+    </aside>
+  {{ end }}
+{{ end }}

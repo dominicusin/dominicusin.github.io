@@ -1,0 +1,48 @@
+{{/*
+  Smart 404 — Neo design system (standalone). Matches requested path against
+  the prebuilt redirect-index.json and suggests the closest page.
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap notfound" style="text-align:center;padding-top:80px">
+  <div class="neo-eyebrow">404 · Not Found</div>
+  <h1>Страница не найдена</h1>
+  <p class="lead">Возможно, ссылка устарела или адрес изменился. Пробую найти ближайший материал…</p>
+  <p id="neo-nf-suggestion" class="neo-nf-suggestion"></p>
+  <a class="read" href="{{ site.Home.RelPermalink }}" style="color:var(--accent-2)">← На главную</a>
+</div>
+<script>
+/* redirect-index.json values are static build output (trusted). */
+(function(){
+  var want = location.pathname.toLowerCase().replace(/\/+$/,'');
+  fetch('{{ "redirect-index.json" | relURL }}')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var pages = (data && data.pages) ? data.pages : (Array.isArray(data) ? data : []);
+      var best=null, bestScore=0;
+      pages.forEach(function(p){
+        var u=(p.url||'').toLowerCase();
+        var s=score(want,u);
+        if(s>bestScore){ bestScore=s; best=p; }
+      });
+      if(best && bestScore>0.3){
+        var el=document.getElementById('neo-nf-suggestion');
+        if(el) el.innerHTML = 'Возможно, вы искали: <a href="'+best.url+'">'+best.title+'</a>';
+      }
+    }).catch(function(){});
+  function score(a,b){
+    if(!a||!b) return 0;
+    var sa=a.split('/'), sb=b.split('/'), m=0, i;
+    for(i=0;i<Math.min(sa.length,sb.length);i++){ if(sa[i]===sb[i]) m++; }
+    return m/Math.max(sa.length,sb.length);
+  }
+})();
+</script>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>

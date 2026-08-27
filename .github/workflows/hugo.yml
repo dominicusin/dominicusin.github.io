@@ -91,9 +91,11 @@ jobs:
             ~/.cache/hugo_cache
             ~/.cache/hugo_modules
             public/resources/_gen
-          key: ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+          # Stable key (branch only) so the cache actually restores between
+          # runs instead of being keyed on the always-unique commit SHA.
+          key: ${{ runner.os }}-hugo-${{ github.ref_name }}-v1
           restore-keys: |
-            ${{ runner.os }}-hugo-${{ hashFiles('package-lock.json') }}-
+            ${{ runner.os }}-hugo-main-v1
             ${{ runner.os }}-hugo-
 
       - name: Setup Pages
@@ -122,18 +124,12 @@ jobs:
         # Knowledge graph (JSON-LD) is emitted for the whole corpus.
         run: node scripts/ci-content-contract.cjs
 
-      - name: Rebuild Knowledge Graph (includes repos + gists)
-        run: node scripts/build-knowledge-graph.cjs
-
-      - name: Generate ontology feed (machine-readable lattice)
-        # Emits static/data/ontology.json (categories→tags→repos/gists). Derived,
-        # never hand-edited. Graceful: omit repo/gist facets if data/github.json absent.
-        run: node scripts/build-ontology-feed.cjs
-
-      - name: Generate cross-links (related repositories)
-        # Emits data/crosslinks.json (repo↔repo by shared language/topic). Derived,
-        # never hand-edited. Graceful: empty graph if data/github.json absent.
-        run: node scripts/build-crosslinks.cjs
+      - name: Rebuild Knowledge Graph + ontology + crosslinks (parallel)
+        run: |
+          node scripts/build-knowledge-graph.cjs &
+          node scripts/build-ontology-feed.cjs &
+          node scripts/build-crosslinks.cjs &
+          wait
 
       - name: Refresh Awesome submodules (pull latest READMEs)
         # Keep curated lists fresh: advance each awesome/* submodule to its

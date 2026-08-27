@@ -1,0 +1,41 @@
+{{/*
+  Sitemap section list — Neo standalone HTML sitemap (layout sitemap).
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px">
+    <h2>Карта сайта</h2>
+    <span class="more">{{ len site.RegularPages }} страниц</span>
+  </div>
+  <div class="neo-sitemap">
+    {{ range site.Sections }}
+    <div class="col">
+      <h4>{{ .Title | default .Section }}</h4>
+      {{ range first 60 .Pages.ByTitle }}
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ end }}
+    </div>
+    {{ end }}
+    <div class="col">
+      <h4>Служебные</h4>
+      <a href="{{ "search/" | relURL }}">Поиск</a>
+      <a href="{{ "archives/" | relURL }}">Архив</a>
+      <a href="{{ "categories/" | relURL }}">Категории</a>
+      <a href="{{ "tags/" | relURL }}">Теги</a>
+      <a href="{{ "knowledge-graph/" | relURL }}">Knowledge Graph</a>
+      <a href="{{ "ontology/" | relURL }}">Онтология</a>
+      <a href="{{ "projects/" | relURL }}">Projects</a>
+      <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
+      <a href="{{ "sitemap.xml" | relURL }}">XML Sitemap</a>
+    </div>
+  </div>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>

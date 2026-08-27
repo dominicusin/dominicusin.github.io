@@ -1,0 +1,36 @@
+{{/*
+  Ontology section list — Neo standalone; renders .Content + taxonomy grids.
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<article class="neo-post">
+  <nav class="neo-crumbs"><a href="{{ site.Home.RelPermalink }}">Главная</a><span>/</span><span>{{ .Title }}</span></nav>
+  <header class="neo-post-head">
+    <div class="neo-eyebrow">{{ .Date.Format "2006-01-02" }}</div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </header>
+  <div class="neo-post-body">
+    {{ .Content }}
+    <h2>Категории</h2>
+    <div class="neo-cats">
+      {{ range site.Taxonomies.categories.ByCount }}
+      <a class="neo-cat" href="{{ .Page.RelPermalink }}"><div class="ico">▸</div><h4>{{ .Page.Title }}</h4><span>{{ .Count }} записей</span></a>
+      {{ end }}
+    </div>
+    <h2>Теги</h2>
+    <div class="neo-tagcloud">
+      {{ range site.Taxonomies.tags.ByCount }}
+      <a class="neo-chip" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} <span class="count">{{ .Count }}</span></a>
+      {{ end }}
+    </div>
+  </div>
+</article>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>

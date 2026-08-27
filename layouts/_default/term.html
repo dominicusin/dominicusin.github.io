@@ -1,42 +1,30 @@
 {{/*
-  Individual taxonomy term page (/categories/media/, /tags/foo/) — Neo design
-  system (standalone). Mirrors the term branch of terms.html but as the
-  dedicated term.html template Hugo prefers for term pages.
+  Individual taxonomy term page (/categories/media/, /tags/foo/) — Neo (standalone).
 */}}
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}">
-{{ partial "head.html" . }}
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
 <main class="neo">
-  <section class="neo-wrap">
-    <div class="neo-sec-head" style="margin-top:20px">
-      <h2>{{ .Title }}</h2>
-      <span class="more">{{ len .Pages }} записей</span>
-    </div>
-    {{ $pages := .Paginate .Pages }}
-    <div class="neo-rows">
-      {{ range $pages.Pages }}
-      <a class="neo-row" href="{{ .RelPermalink }}">
-        <span class="date">{{ .Date.Format "2006-01-02" }}</span>
-        <span class="title">{{ .Title }}</span>
-        {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
-      </a>
-      {{ end }}
-    </div>
-    {{ with $pages }}
-    <nav class="neo-pager">
-      {{ if .HasPrev }}<a href="{{ .Prev.URL }}">← назад</a>{{ end }}
-      {{ $cur := .PageNumber }}
-      {{ range .Pagers }}
-        {{ if eq .PageNumber $cur }}<span class="current">{{ .PageNumber }}</span>
-        {{ else }}<a href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }}
-      {{ end }}
-      {{ if .HasNext }}<a href="{{ .Next.URL }}">вперёд →</a>{{ end }}
-    </nav>
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px">
+    <h2>{{ .Title }}</h2>
+    <span class="more">{{ len .Pages }} записей</span>
+  </div>
+  {{ $pages := .Paginate .Pages }}
+  <div class="neo-rows">
+    {{ range $pages.Pages }}
+    <a class="neo-row" href="{{ .RelPermalink }}">
+      <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="title">{{ .Title }}</span>
+      {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
+    </a>
     {{ end }}
-  </section>
+  </div>
+  {{ partial "pagination.html" . }}
+</div>
 </main>
-{{ partial "footer.html" . }}
+{{ partial "neo-footer.html" . }}
 </body>
 </html>

@@ -1,28 +1,34 @@
 {{/*
-  Single post — Neo design system (standalone).
-  Reuses Blowfish head.html (theme/search) and footer.html (giscus/subscription).
+  Single post — Neo design system (standalone full document).
 */}}
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}">
-{{ partial "head.html" . }}
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
 <main class="neo">
-  <article class="neo-post">
-    <header class="neo-post-head">
-      <div class="neo-eyebrow">
-        {{ .Date.Format "2006-01-02" }}
-        {{ range .Params.tags }} · <a href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
-      </div>
-      <h1>{{ .Title }}</h1>
-      {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
-    </header>
-    <div class="neo-post-body">
-      {{ .Content }}
+<article class="neo-post">
+  <nav class="neo-crumbs">
+    <a href="{{ site.Home.RelPermalink }}">Главная</a>
+    {{ with .Parent }}<span>/</span><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
+    <span>/</span><span>{{ .Title }}</span>
+  </nav>
+  <header class="neo-post-head">
+    <div class="neo-eyebrow">
+      {{ .Date.Format "2006-01-02" }}
+      {{ range .Params.tags }} · <a href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
     </div>
-    {{ if .Params.comments }}{{ partial "comments.html" . }}{{ end }}
-  </article>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+    <div class="neo-post-meta"><span>⏱ {{ .ReadingTime }} мин чтения</span><span>· {{ .WordCount }} слов</span></div>
+  </header>
+  {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
+  <div class="neo-post-body">{{ .Content }}</div>
+  {{ partial "share.html" . }}
+  {{ partial "related.html" . }}
+  {{ if .Params.comments }}{{ partial "comments.html" . }}{{ end }}
+</article>
 </main>
-{{ partial "footer.html" . }}
+{{ partial "neo-footer.html" . }}
 </body>
 </html>
