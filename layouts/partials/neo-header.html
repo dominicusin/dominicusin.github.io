@@ -1,7 +1,8 @@
 {{/*
-  Neo header — reads site.Menus.main. EN is disabled on this site, so no
-  RU/EN switcher. Includes Search link + theme toggle (no JS dep; wired in
-  custom.js via #neo-theme-toggle).
+  Neo header — presentation layer. The primary navigation is auto-generated
+  from the site's categories taxonomy (raw data -> categories -> common menu),
+  so adding a category needs no menu edit. A settings drawer (theme/appearance/
+  accessibility/search) is wired by custom.js. EN is disabled, so no RU/EN.
 */}}
 <header class="neo-header">
   <div class="neo-nav">
@@ -9,14 +10,60 @@
       <span class="mark">D</span>
       <span>Dominicus&nbsp;In<small>engineering · systems · data</small></span>
     </a>
-    <nav class="neo-links">
-      {{ range site.Menus.main }}
-        {{ if not .Parent }}<a href="{{ .URL }}">{{ .Name }}</a>{{ end }}
+
+    {{/* Common menu derived from categories (data-driven) */}}
+    <nav class="neo-menu" aria-label="Разделы">
+      {{ range first 8 site.Taxonomies.categories.ByCount }}
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
       {{ end }}
-      <a href="{{ "search/" | relURL }}">Поиск</a>
+      <a href="{{ "blog/" | relURL }}">Блог</a>
+      <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
+      <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
     </nav>
+
     <div class="neo-nav-actions">
-      <button id="neo-theme-toggle" class="neo-theme" aria-label="Переключить тему">◐</button>
+      <button class="neo-icon-btn" id="neo-search-open" aria-label="Поиск" title="Поиск">⌕</button>
+      <div class="neo-settings">
+        <button class="neo-icon-btn" id="neo-settings-btn" aria-label="Настройки" title="Настройки">⚙</button>
+        <div class="neo-drawer" id="neo-drawer" role="dialog" aria-label="Настройки оформления">
+          <h5>Тема оформления</h5>
+          <div class="neo-theme-grid" id="neo-theme-grid">
+            <div class="neo-theme-opt" data-theme="dark"><span class="neo-sw" style="background:#0b0e14"></span>Тёмная</div>
+            <div class="neo-theme-opt" data-theme="light"><span class="neo-sw" style="background:#f6f8fb"></span>Светлая</div>
+            <div class="neo-theme-opt" data-theme="solar"><span class="neo-sw" style="background:#1c1917"></span>Solar</div>
+            <div class="neo-theme-opt" data-theme="mono"><span class="neo-sw" style="background:#0a0a0a"></span>Mono</div>
+          </div>
+          <h5>Акцент</h5>
+          <div class="neo-accent-grid" id="neo-accent-grid">
+            <div class="neo-accent-opt" data-accent="teal" style="background:#4fd1c5" title="Teal"></div>
+            <div class="neo-accent-opt" data-accent="violet" style="background:#a78bfa" title="Violet"></div>
+            <div class="neo-accent-opt" data-accent="amber" style="background:#fbbf24" title="Amber"></div>
+            <div class="neo-accent-opt" data-accent="emerald" style="background:#34d399" title="Emerald"></div>
+            <div class="neo-accent-opt" data-accent="rose" style="background:#fb7185" title="Rose"></div>
+          </div>
+          <h5>Доступность</h5>
+          <div class="neo-row-opt">
+            <span>Размер шрифта</span>
+            <div class="neo-seg" id="neo-fscale">
+              <button data-fs="normal">A</button>
+              <button data-fs="large">A+</button>
+              <button data-fs="xlarge">A++</button>
+            </div>
+          </div>
+          <div class="neo-row-opt">
+            <span>Анимация</span>
+            <div class="neo-seg" id="neo-motion">
+              <button data-motion="on">Вкл</button>
+              <button data-motion="off">Выкл</button>
+            </div>
+          </div>
+          <h5>Навигация</h5>
+          <a class="neo-theme-opt" href="{{ "search/" | relURL }}" style="margin-top:4px">⌕ Поиск по сайту</a>
+          <a class="neo-theme-opt" href="{{ "sitemap/" | relURL }}" style="margin-top:4px">🗺 Карта сайта</a>
+          <a class="neo-theme-opt" href="{{ "archives/" | relURL }}" style="margin-top:4px">🗓 Архив по годам</a>
+        </div>
+      </div>
+      <button class="neo-icon-btn" id="neo-theme-toggle" aria-label="Светлая/тёмная" title="Светлая/тёмная">◐</button>
     </div>
   </div>
 </header>
