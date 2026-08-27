@@ -131,3 +131,8 @@ externalSubscriptionURL = "https://buttondown.email/api/emails/embed-subscribe/d
 [term]
   # Views enabled (firestore.rules shipped + graceful 0-fallback). See firestore.rules.
   showViews = true
+
+# --- Neo design-system (2026-08-27) ---
+# Action URL for the homepage newsletter form in layouts/index.html.
+# Defaults to "#" in the template if unset; set to your Buttondown/Mailchimp endpoint.
+newsletterAction = ""

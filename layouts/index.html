@@ -1,119 +1,117 @@
-{{/* Homepage — Glass / Neo-modern (emerald). Overrides Blowfish's profile
-     homepage while reusing the theme's baseof.html (header, footer, taxonomy
-     bar). Reads live site data; falls back to i18n strings. */}}
-{{ define "main" }}
-  {{ $pages := where site.RegularPages "Section" "blog" }}
-  {{ $pages = sort $pages "Date" "desc" }}
-  {{ $featured := first 3 $pages }}
-  {{ $recent := first 8 (after 3 $pages) }}
+{{/*
+  Homepage — Neo design system (standalone override).
+  Uses Blowfish's head.html (keeps theme scripts, search, fonts) and
+  footer.html (keeps giscus + subscription) partials, but renders the
+  page body with the .neo-* design layer from assets/css/neo.css.
+  Does NOT use baseof.html (full document here).
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}">
+{{ partial "head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
 
-  {{ $articles := len $pages }}
-  {{ $categories := .Site.Taxonomies.categories }}
-  {{ $catCount := len $categories }}
-  {{ $tagCount := len .Site.Taxonomies.tags }}
+{{ $blog := where site.RegularPages "Section" "blog" }}
+{{ $blog = sort $blog "Date" "desc" }}
 
-  <div class="home-container">
-
-    {{/* Hero */}}
-    <section class="hero-glass">
-      <h1>{{ .Site.Title | emojify }}</h1>
-      <p class="tagline">{{ .Site.Params.description | default (i18n "site_description") }}</p>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-value">{{ $articles }}</div>
-          <div class="hero-stat-label">{{ i18n "hero_articles" | default "Статей" }}</div>
-        </div>
-        <div>
-          <div class="hero-stat-value">{{ $catCount }}</div>
-          <div class="hero-stat-label">{{ i18n "hero_categories" | default "Категорий" }}</div>
-        </div>
-        <div>
-          <div class="hero-stat-value">{{ $tagCount }}</div>
-          <div class="hero-stat-label">{{ i18n "hero_tags" | default "Тегов" }}</div>
-        </div>
-      </div>
-    </section>
-
-    {{/* Topic highlights (top categories by post count) */}}
-    {{ with $categories.ByCount }}
-      <div class="topic-highlights">
-        {{ range first 8 . }}
-          {{ $term := .Page }}
-          <a href="{{ $term.RelPermalink }}" class="topic-pill">
-            {{ $term.Title | markdownify }}
-            <span class="count">{{ .Count }}</span>
-          </a>
+<main class="neo">
+  <section class="neo-hero">
+    <div>
+      <div class="neo-eyebrow">~ dominicusin.github.io</div>
+      <h1>Инженерный блог<br/><span class="grad">о системах и данных</span></h1>
+      <p class="lead">{{ site.Params.description | default "Промышленная инженерия, системная инженерия и наука о данных." }}</p>
+      <div class="neo-tags">
+        {{ range first 6 site.Taxonomies.tags.ByCount }}
+          <a class="neo-chip" href="{{ .Page.RelPermalink }}"><b>#</b> {{ .Page.Title }}</a>
         {{ end }}
       </div>
-    {{ end }}
-
-    {{/* Featured posts */}}
-    <div class="section-header">
-      <h2>{{ i18n "recent_title" | default "Последние статьи" }}</h2>
-      <a href="{{ (site.GetPage "section" "blog").RelPermalink }}">{{ i18n "recent_all_articles" | default "Все статьи" }} →</a>
     </div>
-    <div class="featured-grid">
-      {{ range $featured }}
-        <article class="summary-card">
-          <div class="card-body">
-            {{ with index (.Params.categories | default slice) 0 }}
-              <span class="card-category-badge">{{ . }}</span>
-            {{ end }}
-            <h3 class="card-title">
-              <a href="{{ .RelPermalink }}">{{ .Title | emojify | markdownify }}</a>
-            </h3>
-            <div class="card-meta">
-              {{ .Date | time.Format "02.01.2006" }}
-              · {{ .WordCount }} {{ i18n "words" | default "слов" }}
-              · {{ .ReadingTime }} {{ i18n "recent_min_read" | default "мин" }}
-            </div>
-            {{ $summary := .Summary | plainify | replaceRE `^\s*author:\s*\S+\s*` "" | truncate 160 }}
-            <p class="card-summary">{{ $summary }}</p>
-            {{ with .Params.tags }}
-              <div class="article-tags">
-                {{ range first 5 . }}
-                  <a href="{{ (printf "/tags/%s/" (urlize .)) | relURL }}">{{ . }}</a>
-                {{ end }}
-              </div>
-            {{ end }}
-          </div>
-        </article>
+
+    <div class="neo-term">
+      <div class="neo-term-bar">
+        <span class="neo-dot" style="background:#ff5f57"></span>
+        <span class="neo-dot" style="background:#febc2e"></span>
+        <span class="neo-dot" style="background:#28c840"></span>
+        <span class="path">~/engineering-blog — zsh</span>
+      </div>
+      <div class="neo-term-body">
+        <div><span class="ln">1</span> <span class="p">$</span> <span class="k">git</span> log --oneline -3</div>
+        <div><span class="ln">2</span> <span class="c"># {{ with index $blog 0 }}{{ .Title }}{{ end }} · и другие записи</span></div>
+        <div><span class="ln">3</span> <span class="p">$</span> <span class="k">hugo</span> server --bind 0.0.0.0</div>
+        <div><span class="ln">4</span> <span class="c"># Watching for changes… live at :1313</span></div>
+        <div><span class="ln">5</span> <span class="p">$</span> <span class="k">guix</span> <span class="s">pull</span> <span class="c"># update the world</span></div>
+        <div><span class="ln">6</span> <span class="p">$</span> <span class="k">zpool</span> <span class="s">status</span> <span class="c"># all good</span></div>
+        <div><span class="ln">7</span> <span class="p">$</span> <span class="neo-cursor"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="neo-wrap">
+    <div class="neo-sec-head">
+      <h2>Избранное</h2>
+      <a class="more" href="{{ "blog/" | relURL }}">все посты →</a>
+    </div>
+    <div class="neo-featured">
+      {{ range first 3 $blog }}
+      <article class="neo-card">
+        <div class="meta">
+          {{ with .Params.categories }}<span class="cat">{{ index . 0 }}</span>{{ end }}
+          <span>{{ .Date.Format "02 янв 2006" }}</span>
+        </div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Summary | truncate 140 }}</p>
+        <a class="read" href="{{ .RelPermalink }}">Читать</a>
+      </article>
       {{ end }}
     </div>
+  </section>
 
-    {{/* Recent list */}}
-    {{ with $recent }}
-      <div class="section-header">
-        <h2>{{ i18n "recent_subtitle" | default "Ещё материалы" }}</h2>
-      </div>
-      <div class="recent-list">
-        {{ range . }}
-          <div class="recent-item">
-            <span class="recent-date">{{ .Date | time.Format "02.01.2006" }}</span>
-            <a href="{{ .RelPermalink }}" class="recent-title">{{ .Title | emojify | markdownify }}</a>
-            <span class="recent-meta">
-              {{ .ReadingTime }} {{ i18n "recent_min_read" | default "мин" }}
-              {{ with index (.Params.categories | default slice) 0 }}· {{ . }}{{ end }}
-            </span>
-          </div>
-        {{ end }}
-      </div>
-    {{ end }}
+  <section class="neo-wrap">
+    <div class="neo-sec-head">
+      <h2>Последние записи</h2>
+      <a class="more" href="{{ "blog/" | relURL }}">архив →</a>
+    </div>
+    <div class="neo-rows">
+      {{ range first 10 $blog }}
+      <a class="neo-row" href="{{ .RelPermalink }}">
+        <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+        <span class="title">{{ .Title }}</span>
+        {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
 
-    {{/* Newsletter CTA (Buttondown) */}}
-    <section class="newsletter-cta">
-      <h2>{{ i18n "newsletter_title" | default "Подписка на обновления" }}</h2>
-      <p>{{ i18n "newsletter_description" | default "Получайте уведомления о новых статьях и материалах" }}</p>
-      <form
-        class="newsletter-form"
-        action="{{ .Site.Params.externalSubscriptionURL }}"
-        method="post"
-        target="_blank"
-        rel="noopener">
-        <input type="email" name="email" placeholder="your@email.com" required />
-        <button type="submit">{{ i18n "subscribe_button" | default "Подписаться" }}</button>
+  <section class="neo-wrap">
+    <div class="neo-sec-head">
+      <h2>Категории</h2>
+      <a class="more" href="{{ "categories/" | relURL }}">все →</a>
+    </div>
+    <div class="neo-cats">
+      {{ range site.Taxonomies.categories.ByCount }}
+      <a class="neo-cat" href="{{ .Page.RelPermalink }}">
+        <div class="ico">▸</div>
+        <h4>{{ .Page.Title }}</h4>
+        <span>{{ .Count }} записей</span>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="neo-wrap">
+    <div class="neo-news">
+      <div>
+        <h3>Подпишитесь на обновления</h3>
+        <p>Новые записи блога прямо в почту. Никакого спама — только инженерия, системы и данные.</p>
+      </div>
+      <form action="{{ site.Params.newsletterAction | default "#" }}" method="post">
+        <input type="email" name="email" placeholder="you@example.com" required />
+        <button type="submit">Подписаться</button>
       </form>
-    </section>
+    </div>
+  </section>
+</main>
 
-  </div>
-{{ end }}
+{{ partial "footer.html" . }}
+</body>
+</html>
