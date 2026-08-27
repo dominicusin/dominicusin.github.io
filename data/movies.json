@@ -8,6 +8,7 @@
   "plot": "Shakespeare's comedy of gender confusion, in which a girl disguises herself as a man to be near the count she adores, only to be pursued by the woman he loves.",
   "imdb_id": "tt0117991",
   "rating": "7.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0117991/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=12%20%D0%BD%D0%BE%D1%87%D1%8C",
   "lb": "https://letterboxd.com/search/films/12%20%D0%BD%D0%BE%D1%87%D1%8C/"
@@ -21,6 +22,7 @@
   "plot": "Computer scientist Douglas Hall unknowingly gets involved in the murder of his colleague, Hannon Fuller, a computer genius, who is killed just before the testing of his newly launched virtual reality simulation programme.",
   "imdb_id": "tt0139809",
   "rating": "7.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0139809/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=13%20%D1%8D%D1%82%D0%B0%D0%B6",
   "lb": "https://letterboxd.com/search/films/13%20%D1%8D%D1%82%D0%B0%D0%B6/"
@@ -34,6 +36,7 @@
   "plot": "Four interlocking tales that take place in a fading hotel on New Year's Eve.",
   "imdb_id": "tt0113101",
   "rating": "6.7/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0113101/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=4%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D1%8B",
   "lb": "https://letterboxd.com/search/films/4%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D1%8B/"
@@ -47,6 +50,7 @@
   "plot": "A struggling screenwriter inadvertently becomes entangled in the Los Angeles criminal underworld after his oddball friends kidnap a gangster's beloved Shih Tzu.",
   "imdb_id": "tt1931533",
   "rating": "7.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1931533/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=7%20%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BF%D0%B0%D1%82%D0%BE%D0%B2",
   "lb": "https://letterboxd.com/search/films/7%20%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BF%D0%B0%D1%82%D0%BE%D0%B2/"
@@ -60,6 +64,7 @@
   "plot": "In the colorful future, cabdriver Korben Dallas unwittingly becomes the central figure in the search for a legendary cosmic weapon to keep the great evil and Jean-Baptiste Emmanuel Zorg at bay.",
   "imdb_id": "tt0119116",
   "rating": "7.6/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0119116/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=5%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82",
   "lb": "https://letterboxd.com/search/films/5%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82/"
@@ -73,20 +78,22 @@
   "plot": "A struggling dentist's life is turned upside down when a famous gangster moves in next door, and his wife convinces him to inform a notorious mob boss about the gangster's whereabouts.",
   "imdb_id": "tt0190138",
   "rating": "6.7/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0190138/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=9%20%D1%8F%D1%80%D0%B4%D0%BE%D0%B2",
   "lb": "https://letterboxd.com/search/films/9%20%D1%8F%D1%80%D0%B4%D0%BE%D0%B2/"
  },
  {
   "title": "Автостопом по галактике",
-  "year": null,
+  "year": "2005",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%90%D0%B2%D1%82%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BC%20%D0%BF%D0%BE%20%D0%B3%D0%B0%D0%BB%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5",
+  "poster": "https://m.media-amazon.com/images/M/MV5BMTg4OWYwZjgtZDU0ZS00NjU4LTkxNjItYmYyYmUwNDU5YmM3XkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "Mere seconds before the Earth is to be demolished by an alien construction crew, journeyman Arthur Dent is swept off the planet by his friend Ford Prefect, a researcher penning a new edition of \"The Hitchhiker's Guide to the Galaxy.\"",
+  "imdb_id": "tt0371724",
+  "rating": "6.7/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt0371724/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%90%D0%B2%D1%82%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BC%20%D0%BF%D0%BE%20%D0%B3%D0%B0%D0%BB%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5",
   "lb": "https://letterboxd.com/search/films/%D0%90%D0%B2%D1%82%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BC%20%D0%BF%D0%BE%20%D0%B3%D0%B0%D0%BB%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5/"
  },
@@ -99,6 +106,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C",
   "lb": "https://letterboxd.com/search/films/%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C/"
@@ -112,6 +120,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%91%D0%BE%D0%B1%D1%80%D0%BE%20%D0%BF%D0%BE%D1%80%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%B1%D1%80%D0%BE%20%D0%BF%D0%BE%D1%80%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C",
   "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%B1%D1%80%D0%BE%20%D0%BF%D0%BE%D1%80%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C/"
@@ -125,6 +134,7 @@
   "plot": "A comic allegory about a traveling Bushman who encounters modern civilization and its stranger aspects, including a clumsy scientist and a band of revolutionaries.",
   "imdb_id": "tt0080801",
   "rating": "7.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0080801/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%B3%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B5%D1%80%D0%BD%D0%BE%20%D1%81%D0%BE%D1%88%D0%BB%D0%B8%20%D1%81%20%D1%83%D0%BC%D0%B0%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%B3%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B5%D1%80%D0%BD%D0%BE%20%D1%81%D0%BE%D1%88%D0%BB%D0%B8%20%D1%81%20%D1%83%D0%BC%D0%B0%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
@@ -138,6 +148,7 @@
   "plot": "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
   "imdb_id": "tt0137523",
   "rating": "8.8/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0137523/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%B9%D1%86%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BB%D1%83%D0%B1",
   "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%B9%D1%86%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BB%D1%83%D0%B1/"
@@ -151,6 +162,7 @@
   "plot": "Jeff \"The Dude\" Lebowski, mistaken for a millionaire of the same name, seeks restitution for his ruined rug and enlists his bowling buddies to help get it.",
   "imdb_id": "tt0118715",
   "rating": "8.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0118715/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%9B%D0%B5%D0%B1%D0%BE%D0%B2%D1%81%D0%BA%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%9B%D0%B5%D0%B1%D0%BE%D0%B2%D1%81%D0%BA%D0%B8/"
@@ -164,6 +176,7 @@
   "plot": "A dark force threatens Alpha, a vast metropolis and home to species from a thousand planets. Special operatives Valerian and Laureline must race to identify the marauding menace and safeguard not just Alpha, but the future of the ...",
   "imdb_id": "tt2239822",
   "rating": "6.4/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt2239822/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B0%D0%BD%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%D0%B8%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B5%D1%82",
   "lb": "https://letterboxd.com/search/films/%D0%92%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B0%D0%BD%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%D0%B8%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B5%D1%82/"
@@ -177,6 +190,7 @@
   "plot": "A Toronto cable TV station co-owner who specializes in adult entertainment searches for the producers of a dangerous and bizarre broadcast titled \"Videodrome.\"",
   "imdb_id": "tt0086541",
   "rating": "7.2/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0086541/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B4%D1%80%D0%BE%D0%BC",
   "lb": "https://letterboxd.com/search/films/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B4%D1%80%D0%BE%D0%BC/"
@@ -190,6 +204,7 @@
   "plot": "During a long space war, the lives of two wounded enemies become dependent on their ability to forgive and to trust.",
   "imdb_id": "tt0089092",
   "rating": "6.8/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0089092/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D1%80%D0%B0%D0%B3%20%D0%BC%D0%BE%D0%B9",
   "lb": "https://letterboxd.com/search/films/%D0%92%D1%80%D0%B0%D0%B3%20%D0%BC%D0%BE%D0%B9/"
@@ -203,6 +218,7 @@
   "plot": "A depressed musician reunites with his lover. However, their romance, which has already endured several centuries, is disrupted by the arrival of her uncontrollable younger sister.",
   "imdb_id": "tt1714915",
   "rating": "7.2/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1714915/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D1%8B%D0%B6%D0%B8%D0%B2%D1%83%D1%82%20%D1%82%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE%20%D0%B2%D0%BB%D1%8E%D0%B1%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5",
   "lb": "https://letterboxd.com/search/films/%D0%92%D1%8B%D0%B6%D0%B8%D0%B2%D1%83%D1%82%20%D1%82%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE%20%D0%B2%D0%BB%D1%8E%D0%B1%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5/"
@@ -216,6 +232,7 @@
   "plot": "A hapless orchestra player becomes an unwitting pawn of rival factions within the French secret service after he is chosen as a decoy by being identified as a super secret agent.",
   "imdb_id": "tt0068655",
   "rating": "7.2/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0068655/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%B8%D0%B9%20%D0%B1%D0%BB%D0%BE%D0%BD%D0%B4%D0%B8%D0%BD%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%B1%D0%BE%D1%82%D0%B8%D0%BD%D0%BA%D0%B5",
   "lb": "https://letterboxd.com/search/films/%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%B8%D0%B9%20%D0%B1%D0%BB%D0%BE%D0%BD%D0%B4%D0%B8%D0%BD%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%B1%D0%BE%D1%82%D0%B8%D0%BD%D0%BA%D0%B5/"
@@ -229,6 +246,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%93%D0%BE%D0%BB%D0%BE%D1%81%D0%B0",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%93%D0%BE%D0%BB%D0%BE%D1%81%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%93%D0%BE%D0%BB%D0%BE%D1%81%D0%B0/"
@@ -242,6 +260,7 @@
   "plot": "A narcissistic, self-centered weatherman finds himself in a time loop on Groundhog Day.",
   "imdb_id": "tt0107048",
   "rating": "8.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0107048/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B5%D0%BD%D1%8C%20%D1%81%D1%83%D1%80%D0%BA%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%94%D0%B5%D0%BD%D1%8C%20%D1%81%D1%83%D1%80%D0%BA%D0%B0/"
@@ -255,6 +274,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B6%D0%B8%D0%B2%D1%81%20%D0%B8%20%D0%92%D1%83%D1%81%D1%82%D0%B5%D1%80",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B6%D0%B8%D0%B2%D1%81%20%D0%B8%20%D0%92%D1%83%D1%81%D1%82%D0%B5%D1%80",
   "lb": "https://letterboxd.com/search/films/%D0%94%D0%B6%D0%B8%D0%B2%D1%81%20%D0%B8%20%D0%92%D1%83%D1%81%D1%82%D0%B5%D1%80/"
@@ -268,8 +288,9 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": "58673",
   "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D1%88%D1%82%D1%83%D1%87%D0%BA%D0%B0%20/%20%D0%9D%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%88%D0%B5%D0%BD%D1%8C",
-  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D1%88%D1%82%D1%83%D1%87%D0%BA%D0%B0%20/%20%D0%9D%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%88%D0%B5%D0%BD%D1%8C",
+  "kp": "https://www.kinopoisk.ru/film/58673/",
   "lb": "https://letterboxd.com/search/films/%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D1%88%D1%82%D1%83%D1%87%D0%BA%D0%B0%20/%20%D0%9D%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%88%D0%B5%D0%BD%D1%8C/"
  },
  {
@@ -281,6 +302,7 @@
   "plot": "Six short stories that explore the extremities of human behavior involving people in distress.",
   "imdb_id": "tt3011894",
   "rating": "8.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt3011894/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B8%D0%BA%D0%B8%D0%B5%20%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%94%D0%B8%D0%BA%D0%B8%D0%B5%20%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8/"
@@ -294,6 +316,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0/"
@@ -307,6 +330,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%97%D0%B0%D0%BC%D0%BE%D0%BA",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%B0%D0%BC%D0%BE%D0%BA",
   "lb": "https://letterboxd.com/search/films/%D0%97%D0%B0%D0%BC%D0%BE%D0%BA/"
@@ -320,6 +344,7 @@
   "plot": "Aspiring young singers from all over India showcase their talents under the mentorship of prominent artists to impress the judges.",
   "imdb_id": "tt13300004",
   "rating": "7.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt13300004/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D0%B8%20%D0%BD%D0%B0%20%D0%B7%D0%B5%D0%BC%D0%BB%D0%B5",
   "lb": "https://letterboxd.com/search/films/%D0%97%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D0%B8%20%D0%BD%D0%B0%20%D0%B7%D0%B5%D0%BC%D0%BB%D0%B5/"
@@ -333,6 +358,7 @@
   "plot": "2020, the virus has taken over the world, people are dying out en masse, the economy is collapsing (or so it looks like). Unemployment is still a current and ignored problem. At such times, something happened in the city called Lo...",
   "imdb_id": "tt15068992",
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt15068992/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%20%D0%B4%D1%83%D1%80%D0%B0%D0%BA%D0%BE%D0%B2",
   "lb": "https://letterboxd.com/search/films/%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%20%D0%B4%D1%83%D1%80%D0%B0%D0%BA%D0%BE%D0%B2/"
@@ -346,6 +372,7 @@
   "plot": "The uneventful, aimless lives of a London electronics salesman and his layabout roommate are disrupted by the zombie apocalypse.",
   "imdb_id": "tt0365748",
   "rating": "7.8/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0365748/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%BE%D0%BC%D0%B1%D0%B8%20%D0%A8%D0%BE%D0%BD",
   "lb": "https://letterboxd.com/search/films/%D0%97%D0%BE%D0%BC%D0%B1%D0%B8%20%D0%A8%D0%BE%D0%BD/"
@@ -359,20 +386,22 @@
   "plot": "In Paris, a young employee in the office of the US Ambassador hooks up with an American spy looking to stop a terrorist attack in the city.",
   "imdb_id": "tt1179034",
   "rating": "6.4/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1179034/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%98%D0%B7%20%D0%9F%D0%B0%D1%80%D0%B8%D0%B6%D0%B0%20%D1%81%20%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D1%8C%D1%8E",
   "lb": "https://letterboxd.com/search/films/%D0%98%D0%B7%20%D0%9F%D0%B0%D1%80%D0%B8%D0%B6%D0%B0%20%D1%81%20%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D1%8C%D1%8E/"
  },
  {
   "title": "Кин-дза-дза",
-  "year": null,
+  "year": "1986",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%9A%D0%B8%D0%BD-%D0%B4%D0%B7%D0%B0-%D0%B4%D0%B7%D0%B0",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNGJiNzY1M2MtMTQxNS00Mzc3LWI4MWEtMTkyZmQ2NWMxOTE5XkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "Two Russians push the wrong button on a strange device and end up on the telepathic planet Pluke with its strange societal norms.",
+  "imdb_id": "tt0091341",
+  "rating": "7.8/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt0091341/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D0%B8%D0%BD-%D0%B4%D0%B7%D0%B0-%D0%B4%D0%B7%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%9A%D0%B8%D0%BD-%D0%B4%D0%B7%D0%B0-%D0%B4%D0%B7%D0%B0/"
  },
@@ -385,6 +414,7 @@
   "plot": "Rémi François is a detective who is hired to find Ange Leoni, a Corsican who apparently has inherited a 2 million euros house.",
   "imdb_id": "tt0380349",
   "rating": "5.8/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0380349/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D0%BE%D1%80%D1%81%D0%B8%D0%BA%D0%B0%D0%BD%D0%B5%D1%86",
   "lb": "https://letterboxd.com/search/films/%D0%9A%D0%BE%D1%80%D1%81%D0%B8%D0%BA%D0%B0%D0%BD%D0%B5%D1%86/"
@@ -398,21 +428,23 @@
   "plot": "A group of travelers, including a monk, stay in a lonely inn in the mountains. The host confesses the monk his habit of serving a soporific soup to the guests, to rob their possessions and to bury them in the backyard. The story u...",
   "imdb_id": "tt0043303",
   "rating": "7.2/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0043303/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C",
   "lb": "https://letterboxd.com/search/films/%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C/"
  },
  {
   "title": "Кровавый четверг",
-  "year": null,
+  "year": "1998",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%9A%D1%80%D0%BE%D0%B2%D0%B0%D0%B2%D1%8B%D0%B9%20%D1%87%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D0%B3",
-  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D1%80%D0%BE%D0%B2%D0%B0%D0%B2%D1%8B%D0%B9%20%D1%87%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D0%B3",
+  "poster": "https://m.media-amazon.com/images/M/MV5BOGE2MGJkOGMtYzRmMi00Y2ViLWI4YjEtMTZmNzViZDcxYjQ5XkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "A former L.A. drug dealer has moved to Houston to make a new life for himself as a married architect. Everything falls apart when he is suddenly visited by one of his former cohorts who comes carrying heroin.",
+  "imdb_id": "tt0124901",
+  "rating": "7.1/10",
+  "kp_id": "15641",
+  "imdb": "https://www.imdb.com/title/tt0124901/",
+  "kp": "https://www.kinopoisk.ru/film/15641/",
   "lb": "https://letterboxd.com/search/films/%D0%9A%D1%80%D0%BE%D0%B2%D0%B0%D0%B2%D1%8B%D0%B9%20%D1%87%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D0%B3/"
  },
  {
@@ -424,6 +456,7 @@
   "plot": "It follows twelve players as they work together in challenges to add money to a pot that only one of them will win.",
   "imdb_id": "tt21822078",
   "rating": "7.5/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt21822078/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D1%80%D0%BE%D1%82",
   "lb": "https://letterboxd.com/search/films/%D0%9A%D1%80%D0%BE%D1%82/"
@@ -437,6 +470,7 @@
   "plot": "A crazed killer known as \"The Bat\" is on the loose in a mansion full of people.",
   "imdb_id": "tt0052602",
   "rating": "6.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0052602/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9B%D0%B5%D1%82%D1%83%D1%87%D0%B0%D1%8F%20%D0%BC%D1%8B%D1%88%D1%8C",
   "lb": "https://letterboxd.com/search/films/%D0%9B%D0%B5%D1%82%D1%83%D1%87%D0%B0%D1%8F%20%D0%BC%D1%8B%D1%88%D1%8C/"
@@ -450,6 +484,7 @@
   "plot": "A single mother and waitress, a misanthropic author, and a gay artist form an unlikely friendship after the artist is assaulted in a robbery.",
   "imdb_id": "tt0119822",
   "rating": "7.7/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0119822/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9B%D1%83%D1%87%D1%88%D0%B5%20%D0%BD%D0%B5%20%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82",
   "lb": "https://letterboxd.com/search/films/%D0%9B%D1%83%D1%87%D1%88%D0%B5%20%D0%BD%D0%B5%20%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82/"
@@ -463,6 +498,7 @@
   "plot": "James, an NYC cop, is hired by Agent K of a secret government agency that monitors extraterrestrial life on Earth. Together, they must recover an item that has been stolen by an intergalactic villain.",
   "imdb_id": "tt0119654",
   "rating": "7.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0119654/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9B%D1%8E%D0%B4%D0%B8%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D0%B5%20%D0%B4%D0%B2%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%9B%D1%8E%D0%B4%D0%B8%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D0%B5%20%D0%B4%D0%B2%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
@@ -476,6 +512,7 @@
   "plot": "On the run after murdering a man, accountant William Blake encounters a strange Native American man named Nobody who prepares him for his journey into the spiritual world.",
   "imdb_id": "tt0112817",
   "rating": "7.5/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0112817/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%B5%D1%80%D1%82%D0%B2%D0%B5%D1%86",
   "lb": "https://letterboxd.com/search/films/%D0%9C%D0%B5%D1%80%D1%82%D0%B2%D0%B5%D1%86/"
@@ -489,6 +526,7 @@
   "plot": "A Martian lands on Earth and makes friends with a reporter.",
   "imdb_id": "tt0120764",
   "rating": "5.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0120764/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%BE%D0%B9%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%80%D1%81%D0%B8%D0%B0%D0%BD%D0%B8%D0%BD",
   "lb": "https://letterboxd.com/search/films/%D0%9C%D0%BE%D0%B9%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%80%D1%81%D0%B8%D0%B0%D0%BD%D0%B8%D0%BD/"
@@ -502,20 +540,22 @@
   "plot": "Black comedy about a doctor who opens an assisted suicide clinic",
   "imdb_id": "tt1728130",
   "rating": "6.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1728130/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%BE%D0%B9%20%D0%BF%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D0%BA%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%202016",
   "lb": "https://letterboxd.com/search/films/%D0%9C%D0%BE%D0%B9%20%D0%BF%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D0%BA%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%202016/"
  },
  {
   "title": "Молчи в тряпочку",
-  "year": null,
+  "year": "2005",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%9C%D0%BE%D0%BB%D1%87%D0%B8%20%D0%B2%20%D1%82%D1%80%D1%8F%D0%BF%D0%BE%D1%87%D0%BA%D1%83",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNTA4OTc2MDc4Nl5BMl5BanBnXkFtZTYwNjUyODY2._V1_SX300.jpg",
+  "plot": "A pastor preoccupied with writing the perfect sermon fails to realize that his wife is having an affair, and his children are up to no good.",
+  "imdb_id": "tt0444653",
+  "rating": "6.8/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt0444653/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%BE%D0%BB%D1%87%D0%B8%20%D0%B2%20%D1%82%D1%80%D1%8F%D0%BF%D0%BE%D1%87%D0%BA%D1%83",
   "lb": "https://letterboxd.com/search/films/%D0%9C%D0%BE%D0%BB%D1%87%D0%B8%20%D0%B2%20%D1%82%D1%80%D1%8F%D0%BF%D0%BE%D1%87%D0%BA%D1%83/"
  },
@@ -528,20 +568,22 @@
   "plot": "An intellectual billionaire and two other men struggle to band together and survive after getting stranded in the Alaskan wilderness with a blood-thirsty Kodiak Bear hunting them down.",
   "imdb_id": "tt0119051",
   "rating": "6.9/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0119051/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B0%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%201997",
   "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B0%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%201997/"
  },
  {
   "title": "Набережная орсе",
-  "year": null,
+  "year": "2004",
   "director": null,
   "note": null,
   "poster": null,
   "plot": null,
-  "imdb_id": null,
+  "imdb_id": "tt26678941",
   "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%80%D1%81%D0%B5",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt26678941/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%80%D1%81%D0%B5",
   "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%80%D1%81%D0%B5/"
  },
@@ -554,6 +596,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE",
   "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE/"
@@ -567,6 +610,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B5%D0%B1%D0%B5%D1%81%D0%BD%D1%8B%D0%B5%20%D0%BB%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B8",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B5%D0%B1%D0%B5%D1%81%D0%BD%D1%8B%D0%B5%20%D0%BB%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B5%D0%B1%D0%B5%D1%81%D0%BD%D1%8B%D0%B5%20%D0%BB%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B8/"
@@ -580,6 +624,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%9E%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%A6%D0%B2%D0%B5%D1%82%20%D0%B2%D0%BE%D0%BB%D1%88%D0%B5%D0%B1%D1%81%D1%82%D0%B2%D0%B0",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9E%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%A6%D0%B2%D0%B5%D1%82%20%D0%B2%D0%BE%D0%BB%D1%88%D0%B5%D0%B1%D1%81%D1%82%D0%B2%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%9E%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%A6%D0%B2%D0%B5%D1%82%20%D0%B2%D0%BE%D0%BB%D1%88%D0%B5%D0%B1%D1%81%D1%82%D0%B2%D0%B0/"
@@ -593,6 +638,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9%20%D0%BE%D1%85%D0%BE%D1%82%D1%8B/%20%D1%80%D1%8B%D0%B1%D0%B0%D0%BB%D0%BA%D0%B8",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9%20%D0%BE%D1%85%D0%BE%D1%82%D1%8B/%20%D1%80%D1%8B%D0%B1%D0%B0%D0%BB%D0%BA%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9%20%D0%BE%D1%85%D0%BE%D1%82%D1%8B/%20%D1%80%D1%8B%D0%B1%D0%B0%D0%BB%D0%BA%D0%B8/"
@@ -606,6 +652,7 @@
   "plot": "A writer encounters the owner of an aging high-class hotel, who tells him of his early years serving as a lobby boy in the hotel's glorious years under an exceptional concierge.",
   "imdb_id": "tt2278388",
   "rating": "8.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt2278388/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B4-%D0%B1%D1%83%D0%B4%D0%B0%D0%BF%D0%B5%D1%88%D1%82",
   "lb": "https://letterboxd.com/search/films/%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B4-%D0%B1%D1%83%D0%B4%D0%B0%D0%BF%D0%B5%D1%88%D1%82/"
@@ -619,20 +666,22 @@
   "plot": "A quiet observation of the triumphs and defeats of daily life, along with the poetry evident in its smallest details.",
   "imdb_id": "tt5247022",
   "rating": "7.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt5247022/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%B0%D1%82%D0%B5%D1%80%D1%81%D0%BE%D0%BD",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D0%B0%D1%82%D0%B5%D1%80%D1%81%D0%BE%D0%BD/"
  },
  {
   "title": "Патруль времени",
-  "year": "1985",
+  "year": "2014",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": "tt10914984",
-  "rating": null,
-  "imdb": "https://www.imdb.com/title/tt10914984/",
+  "poster": "https://m.media-amazon.com/images/M/MV5BY2VhODM5OTUtZDJhMi00MTc5LThjNjYtZWY1M2NlNWU0N2NjXkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "As his last assignment, a temporal agent is tasked to travel back in time and prevent a bomb attack in New York in 1975. The hunt, however, turns out to be beyond the bounds of possibility.",
+  "imdb_id": "tt2397535",
+  "rating": "7.4/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt2397535/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%B0%D1%82%D1%80%D1%83%D0%BB%D1%8C%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D0%B0%D1%82%D1%80%D1%83%D0%BB%D1%8C%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8/"
  },
@@ -645,6 +694,7 @@
   "plot": "A miserable conman and his partner pose as Santa and his Little Helper to rob department stores on Christmas Eve. But they run into problems when the conman befriends a troubled kid.",
   "imdb_id": "tt0307987",
   "rating": "7.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0307987/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%BB%D0%BE%D1%85%D0%BE%D0%B9%20%D0%A1%D0%B0%D0%BD%D1%82%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D0%BB%D0%BE%D1%85%D0%BE%D0%B9%20%D0%A1%D0%B0%D0%BD%D1%82%D0%B0/"
@@ -658,6 +708,7 @@
   "plot": "A year after their father's funeral, three brothers travel across India by train in an attempt to bond with each other.",
   "imdb_id": "tt0838221",
   "rating": "7.2/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0838221/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%BE%D0%B5%D0%B7%D0%B4%20%D0%BD%D0%B0%20%D0%B4%D0%B0%D1%80%D0%B4%D0%B6%D0%BB%D0%B8%D0%BD%D0%B3",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D0%BE%D0%B5%D0%B7%D0%B4%20%D0%BD%D0%B0%20%D0%B4%D0%B0%D1%80%D0%B4%D0%B6%D0%BB%D0%B8%D0%BD%D0%B3/"
@@ -671,6 +722,7 @@
   "plot": "Two English comic book geeks traveling across the U.S. encounter an alien outside Area 51.",
   "imdb_id": "tt1092026",
   "rating": "6.9/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1092026/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%BE%D0%BB%20%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D1%87%D0%B8%D0%BA%202011",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D0%BE%D0%BB%20%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D1%87%D0%B8%D0%BA%202011/"
@@ -684,33 +736,36 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F/"
  },
  {
   "title": "Проблемиста",
-  "year": null,
+  "year": "2023",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B8%D1%81%D1%82%D0%B0",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNjNlNzBlN2EtZDhhNC00ZDg0LTljODgtMTAzNDI2MTRmMjZjXkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "Alejandro is an aspiring toy designer from El Salvador struggling to bring his unusual ideas to life in NY. As time runs out on his work visa, a job assisting an erratic art-world outcast becomes his only hope to stay in the country.",
+  "imdb_id": "tt15078804",
+  "rating": "6.7/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt15078804/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B8%D1%81%D1%82%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B8%D1%81%D1%82%D0%B0/"
  },
  {
   "title": "Пророчество селесты",
-  "year": null,
+  "year": "2006",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%80%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D1%81%D0%B5%D0%BB%D0%B5%D1%81%D1%82%D1%8B",
+  "poster": "https://m.media-amazon.com/images/M/MV5BMjEwODg5MTQ0NF5BMl5BanBnXkFtZTcwOTMwOTg3OQ@@._V1_SX300.jpg",
+  "plot": "An adaptation of James Redfield's novel about the search for a sacred manuscript in the Peruvian rain forest.",
+  "imdb_id": "tt0398842",
+  "rating": "4.9/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt0398842/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%80%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D1%81%D0%B5%D0%BB%D0%B5%D1%81%D1%82%D1%8B",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D1%80%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D1%81%D0%B5%D0%BB%D0%B5%D1%81%D1%82%D1%8B/"
  },
@@ -723,6 +778,7 @@
   "plot": "In the colorful future, cabdriver Korben Dallas unwittingly becomes the central figure in the search for a legendary cosmic weapon to keep the great evil and Jean-Baptiste Emmanuel Zorg at bay.",
   "imdb_id": "tt0119116",
   "rating": "7.6/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0119116/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%8F%D1%82%D1%8B%D0%B9%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82",
   "lb": "https://letterboxd.com/search/films/%D0%9F%D1%8F%D1%82%D1%8B%D0%B9%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82/"
@@ -736,6 +792,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A0%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%B8%20%D1%87%D0%B0%D1%81%20%D1%80%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%8B",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A0%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%B8%20%D1%87%D0%B0%D1%81%20%D1%80%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%8B",
   "lb": "https://letterboxd.com/search/films/%D0%A0%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%B8%20%D1%87%D0%B0%D1%81%20%D1%80%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%8B/"
@@ -749,6 +806,7 @@
   "plot": "Gambler Jake Green enters into a game with potentially deadly consequences.",
   "imdb_id": "tt0365686",
   "rating": "6.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0365686/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8C%D0%B2%D0%B5%D1%80",
   "lb": "https://letterboxd.com/search/films/%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8C%D0%B2%D0%B5%D1%80/"
@@ -762,20 +820,22 @@
   "plot": "When his peaceful life is threatened by a high-tech assassin, former black-ops agent Frank Moses reassembles his old team in a last-ditch effort to survive and uncover the assailants.",
   "imdb_id": "tt1245526",
   "rating": "7.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1245526/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A0%D0%AD%D0%94%202010-%D0%B3%D0%BE",
   "lb": "https://letterboxd.com/search/films/%D0%A0%D0%AD%D0%94%202010-%D0%B3%D0%BE/"
  },
  {
   "title": "Сад 1995-го",
-  "year": null,
+  "year": "1995",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%B0%D0%B4%201995-%D0%B3%D0%BE",
+  "poster": "https://m.media-amazon.com/images/M/MV5BZTUyYjMyZDYtOWRlMi00MmRiLWEwMzctYTExMGE3NzE3MTc4XkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "A disillusioned 30-something teacher falls out with his father and moves to a derelict house in their family garden. He is then visited by a stunningly beautiful neighbour, famous philosophers, his ex-lover and.",
+  "imdb_id": "tt0115040",
+  "rating": "7.6/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt0115040/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%B0%D0%B4%201995-%D0%B3%D0%BE",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D0%B0%D0%B4%201995-%D0%B3%D0%BE/"
  },
@@ -788,6 +848,7 @@
   "plot": "Con artists plan to fleece an eccentric family using an accomplice who claims to be their long-lost uncle.",
   "imdb_id": "tt0101272",
   "rating": "7.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0101272/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%B5%D0%BC%D0%B5%D0%B9%D0%BA%D0%B0%20%D0%B0%D0%B4%D0%B4%D0%B0%D0%BC%D1%81%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D0%B5%D0%BC%D0%B5%D0%B9%D0%BA%D0%B0%20%D0%B0%D0%B4%D0%B4%D0%B0%D0%BC%D1%81%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
@@ -801,6 +862,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%B8%D0%BB%D1%8C%D0%B2%D0%B0",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%B8%D0%BB%D1%8C%D0%B2%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D0%B8%D0%BB%D1%8C%D0%B2%D0%B0/"
@@ -814,6 +876,7 @@
   "plot": "Chaos ensues when a man tries to expose a dark secret regarding a recently deceased patriarch of a dysfunctional British family.",
   "imdb_id": "tt0795368",
   "rating": "7.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0795368/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%BC%D0%B5%D1%80%D1%82%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D1%85%D0%BE%D1%80%D0%BE%D0%BD%D0%B0%D1%85%202007-%D0%B3%D0%BE",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D0%BC%D0%B5%D1%80%D1%82%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D1%85%D0%BE%D1%80%D0%BE%D0%BD%D0%B0%D1%85%202007-%D0%B3%D0%BE/"
@@ -827,6 +890,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%BD%D0%B5",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%BD%D0%B5",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%BD%D0%B5/"
@@ -840,6 +904,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9%20%D1%81%D1%82%D0%B0%D1%80%D0%B8%D0%BA%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%B2%D1%8B%D1%88%D0%B5%D0%BB%20%D0%B2%20%D0%BE%D0%BA%D0%BD%D0%BE%20%D0%B8%20%D0%B8%D1%81%D1%87%D0%B5%D0%B7",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9%20%D1%81%D1%82%D0%B0%D1%80%D0%B8%D0%BA%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%B2%D1%8B%D1%88%D0%B5%D0%BB%20%D0%B2%20%D0%BE%D0%BA%D0%BD%D0%BE%20%D0%B8%20%D0%B8%D1%81%D1%87%D0%B5%D0%B7",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9%20%D1%81%D1%82%D0%B0%D1%80%D0%B8%D0%BA%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%B2%D1%8B%D1%88%D0%B5%D0%BB%20%D0%B2%20%D0%BE%D0%BA%D0%BD%D0%BE%20%D0%B8%20%D0%B8%D1%81%D1%87%D0%B5%D0%B7/"
@@ -853,6 +918,7 @@
   "plot": "Fussy Felix Unger moves in with his divorced poker buddy, sloppy Oscar Madison.",
   "imdb_id": "tt0063374",
   "rating": "7.6/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0063374/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0%202004-%D0%B9",
   "lb": "https://letterboxd.com/search/films/%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0%202004-%D0%B9/"
@@ -866,6 +932,7 @@
   "plot": "To work off his tarnished driving record, a hip taxi driver must chauffeur a loser police inspector on the trail of German bank robbers.",
   "imdb_id": "tt0152930",
   "rating": "7.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0152930/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D0%B0%D0%BA%D1%81%D0%B8%20%E2%80%93%203%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%A2%D0%B0%D0%BA%D1%81%D0%B8%20%E2%80%93%203%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
@@ -879,6 +946,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A2%D1%80%D1%83%D0%BF%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B%20%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B6%D0%B5%20%D1%80%D0%B5%D0%B6%D0%B8%D1%81%D1%81%D0%B5%D1%80%D0%B0%20%D0%BC%D1%80%D0%B0%D1%87%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D0%BD%D0%B8%2C%20%D0%B0%D0%BB%D0%B8%D1%81%D0%B0%20%D0%B2%20%D1%82%D1%81%D1%80%D0%B0%D0%BD%D0%B5%20%D1%87%D1%83%D0%B4%D0%B5%D1%81",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%80%D1%83%D0%BF%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B%20%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B6%D0%B5%20%D1%80%D0%B5%D0%B6%D0%B8%D1%81%D1%81%D0%B5%D1%80%D0%B0%20%D0%BC%D1%80%D0%B0%D1%87%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D0%BD%D0%B8%2C%20%D0%B0%D0%BB%D0%B8%D1%81%D0%B0%20%D0%B2%20%D1%82%D1%81%D1%80%D0%B0%D0%BD%D0%B5%20%D1%87%D1%83%D0%B4%D0%B5%D1%81",
   "lb": "https://letterboxd.com/search/films/%D0%A2%D1%80%D1%83%D0%BF%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B%20%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B6%D0%B5%20%D1%80%D0%B5%D0%B6%D0%B8%D1%81%D1%81%D0%B5%D1%80%D0%B0%20%D0%BC%D1%80%D0%B0%D1%87%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D0%BD%D0%B8%2C%20%D0%B0%D0%BB%D0%B8%D1%81%D0%B0%20%D0%B2%20%D1%82%D1%81%D1%80%D0%B0%D0%BD%D0%B5%20%D1%87%D1%83%D0%B4%D0%B5%D1%81/"
@@ -892,6 +960,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A2%D1%80%D1%83%D1%84%D1%84%D0%B0%D0%BB%D1%8C%D0%B4%D0%B8%D0%BD%D0%BE%20%D0%B8%D0%B7%20%D0%91%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%BE",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%80%D1%83%D1%84%D1%84%D0%B0%D0%BB%D1%8C%D0%B4%D0%B8%D0%BD%D0%BE%20%D0%B8%D0%B7%20%D0%91%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%BE",
   "lb": "https://letterboxd.com/search/films/%D0%A2%D1%80%D1%83%D1%84%D1%84%D0%B0%D0%BB%D1%8C%D0%B4%D0%B8%D0%BD%D0%BE%20%D0%B8%D0%B7%20%D0%91%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%BE/"
@@ -905,6 +974,7 @@
   "plot": "A small-time conman has torn loyalties between his estranged mother and new girlfriend, both of whom are high-stakes grifters with their own angles to play.",
   "imdb_id": "tt0099703",
   "rating": "6.9/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0099703/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%80%D1%8E%D0%BA%D0%B0%D1%87",
   "lb": "https://letterboxd.com/search/films/%D0%A2%D1%80%D1%8E%D0%BA%D0%B0%D1%87/"
@@ -918,6 +988,7 @@
   "plot": "A tourist on the train to Venice is approached by a mysterious woman for an unusual reason.",
   "imdb_id": "tt1243957",
   "rating": "6.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt1243957/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82",
   "lb": "https://letterboxd.com/search/films/%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82/"
@@ -931,6 +1002,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A3%D0%B1%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B8%D0%BA%D1%83%D0%BB%D1%8B",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%B1%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B8%D0%BA%D1%83%D0%BB%D1%8B",
   "lb": "https://letterboxd.com/search/films/%D0%A3%D0%B1%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B8%D0%BA%D1%83%D0%BB%D1%8B/"
@@ -944,6 +1016,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A3%D0%B6%D0%B8%D0%BD%20%D0%B2%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%20%D1%80%D1%83%D0%BA%D0%B8",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%B6%D0%B8%D0%BD%20%D0%B2%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%20%D1%80%D1%83%D0%BA%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%A3%D0%B6%D0%B8%D0%BD%20%D0%B2%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%20%D1%80%D1%83%D0%BA%D0%B8/"
@@ -957,6 +1030,7 @@
   "plot": "Brutish, fortune-hunting scoundrel Petruchio tames his wealthy, shrewish wife, Katharina.",
   "imdb_id": "tt0061407",
   "rating": "7.1/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0061407/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%BA%D1%80%D0%BE%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D1%80%D0%BE%D0%BF%D1%82%D0%B8%D0%B2%D0%BE%D0%B9%202005%20BBC",
   "lb": "https://letterboxd.com/search/films/%D0%A3%D0%BA%D1%80%D0%BE%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D1%80%D0%BE%D0%BF%D1%82%D0%B8%D0%B2%D0%BE%D0%B9%202005%20BBC/"
@@ -970,6 +1044,7 @@
   "plot": "Six guests are anonymously invited to a strange mansion for dinner, but after their host is killed, they must cooperate with the staff to identify the murderer as the bodies pile up.",
   "imdb_id": "tt0088930",
   "rating": "7.3/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0088930/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%BB%D0%B8%D0%BA%D0%B0%201985",
   "lb": "https://letterboxd.com/search/films/%D0%A3%D0%BB%D0%B8%D0%BA%D0%B0%201985/"
@@ -983,33 +1058,36 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A4%D0%B0%D0%BD%D0%B4%D0%BE%20%D0%B8%20%D0%9B%D0%B8%D1%81",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A4%D0%B0%D0%BD%D0%B4%D0%BE%20%D0%B8%20%D0%9B%D0%B8%D1%81",
   "lb": "https://letterboxd.com/search/films/%D0%A4%D0%B0%D0%BD%D0%B4%D0%BE%20%D0%B8%20%D0%9B%D0%B8%D1%81/"
  },
  {
   "title": "Финикийская схема",
-  "year": null,
+  "year": "2025",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%A4%D0%B8%D0%BD%D0%B8%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNTJmODQzYmItNTZlMy00Mjg0LTk1NjctYjM4ZGI0NTM3ZTVjXkEyXkFqcGc@._V1_QL75_UX380_CR0,15,380,562_.jpg",
+  "plot": "Wealthy businessman Zsa-zsa Korda appoints his only daughter, a nun, as sole heir to his estate. As Korda embarks on a new enterprise, they soon become the target of scheming tycoons, foreign terrorists and determined assassins.",
+  "imdb_id": "tt30840798",
+  "rating": "6.6/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt30840798/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A4%D0%B8%D0%BD%D0%B8%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%A4%D0%B8%D0%BD%D0%B8%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0/"
  },
  {
   "title": "Храбрые перцем",
-  "year": null,
+  "year": "2011",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%A5%D1%80%D0%B0%D0%B1%D1%80%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%80%D1%86%D0%B5%D0%BC",
+  "poster": "https://m.media-amazon.com/images/M/MV5BMTY2MDgwODIyMV5BMl5BanBnXkFtZTcwODc1NDQ0NA@@._V1_SX300.jpg",
+  "plot": "When Prince Fabious's bride is kidnapped, he goes on a quest to rescue her... accompanied by his lazy useless brother Thadeous.",
+  "imdb_id": "tt1240982",
+  "rating": "5.5/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt1240982/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A5%D1%80%D0%B0%D0%B1%D1%80%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%80%D1%86%D0%B5%D0%BC",
   "lb": "https://letterboxd.com/search/films/%D0%A5%D1%80%D0%B0%D0%B1%D1%80%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%80%D1%86%D0%B5%D0%BC/"
  },
@@ -1022,6 +1100,7 @@
   "plot": null,
   "imdb_id": null,
   "rating": null,
+  "kp_id": null,
   "imdb": "https://www.imdb.com/find?q=%D0%A7%D0%B0%D1%80%D0%BE%D0%B4%D0%B5%D0%B8",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A7%D0%B0%D1%80%D0%BE%D0%B4%D0%B5%D0%B8",
   "lb": "https://letterboxd.com/search/films/%D0%A7%D0%B0%D1%80%D0%BE%D0%B4%D0%B5%D0%B8/"
@@ -1035,6 +1114,7 @@
   "plot": "Robin Monroe, a New York magazine editor, and the gruff pilot Quinn Harris must put aside their mutual dislike if they are to survive after crash landing on a deserted South Seas island.",
   "imdb_id": "tt0120828",
   "rating": "5.9/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0120828/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A8%D0%B5%D1%81%D1%82%D1%8C%20%D0%B4%D0%BD%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%20%D0%BD%D0%BE%D1%87%D0%B5%D0%B9",
   "lb": "https://letterboxd.com/search/films/%D0%A8%D0%B5%D1%81%D1%82%D1%8C%20%D0%B4%D0%BD%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%20%D0%BD%D0%BE%D1%87%D0%B5%D0%B9/"
@@ -1048,20 +1128,22 @@
   "plot": "Two Frenchmen must go to South America to save the local shaman's soul from the evil forces.",
   "imdb_id": "tt0116676",
   "rating": "6.0/10",
+  "kp_id": null,
   "imdb": "https://www.imdb.com/title/tt0116676/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%AF%D0%B3%D1%83%D0%B0%D1%80",
   "lb": "https://letterboxd.com/search/films/%D0%AF%D0%B3%D1%83%D0%B0%D1%80/"
  },
  {
   "title": "Электрические сны Филиппа Дика",
-  "year": null,
+  "year": "2017",
   "director": null,
   "note": null,
-  "poster": null,
-  "plot": null,
-  "imdb_id": null,
-  "rating": null,
-  "imdb": "https://www.imdb.com/find?q=%D0%AD%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BD%D1%8B%20%D0%A4%D0%B8%D0%BB%D0%B8%D0%BF%D0%BF%D0%B0%20%D0%94%D0%B8%D0%BA%D0%B0",
+  "poster": "https://m.media-amazon.com/images/M/MV5BZGZmMDUxMDgtZmVhOS00YjFlLWJlZjctOWM4MDRjMjQ0ODdhXkEyXkFqcGc@._V1_SX300.jpg",
+  "plot": "A sci-fi anthology series with stand-alone episodes based on the works of Philip K. Dick.",
+  "imdb_id": "tt5711280",
+  "rating": "7.2/10",
+  "kp_id": null,
+  "imdb": "https://www.imdb.com/title/tt5711280/",
   "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%AD%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BD%D1%8B%20%D0%A4%D0%B8%D0%BB%D0%B8%D0%BF%D0%BF%D0%B0%20%D0%94%D0%B8%D0%BA%D0%B0",
   "lb": "https://letterboxd.com/search/films/%D0%AD%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BD%D1%8B%20%D0%A4%D0%B8%D0%BB%D0%B8%D0%BF%D0%BF%D0%B0%20%D0%94%D0%B8%D0%BA%D0%B0/"
  }
