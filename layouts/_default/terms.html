@@ -1,64 +1,58 @@
-{{ define "main" }}
-  {{ .Scratch.Set "scope" "terms" }}
-  {{ $showHero := .Params.showHero | default site.Params.taxonomy.showHero | default false }}
-  {{ if $showHero }}
-    {{ $heroStyle := print "hero/" site.Params.taxonomy.heroStyle ".html" }}
-    {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
-      {{ partial $heroStyle . }}
-    {{ else }}
-      {{ partial "hero/basic.html" . }}
-    {{ end }}
-  {{- end -}}
-
-  <header class="mt-5">
-    {{ if .Params.showBreadcrumbs | default (site.Params.taxonomy.showBreadcrumbs | default false) }}
-      {{ partial "breadcrumbs.html" . }}
-    {{ end }}
-    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
-    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-      {{ partial "article-meta/taxonomy.html" (dict "context" . "scope" "single") }}
+{{/*
+  Taxonomy terms + term pages — Neo design system (standalone).
+  Hugo uses this single template for BOTH the taxonomy landing
+  (/categories/, /tags/ — .Data.Terms populated) and individual term
+  pages (/categories/media/ — .Pages populated). Paginate the latter.
+*/}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}">
+{{ partial "head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+  <section class="neo-wrap">
+    <div class="neo-sec-head" style="margin-top:20px">
+      <h2>{{ .Title }}</h2>
+      <span class="more">{{ if .Data.Terms }}{{ len .Data.Terms }}{{ else }}{{ len .Pages }}{{ end }} записей</span>
     </div>
-  </header>
 
-  {{ if .Content }}
-    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      <div class="min-w-0 min-h-0 max-w-prose">
-        {{ .Content }}
+    {{ if .Data.Terms }}
+      {{/* Taxonomy landing: list of terms */}}
+      <div class="neo-cats">
+        {{ range .Data.Terms.Alphabetical }}
+        <a class="neo-cat" href="{{ .Page.RelPermalink }}">
+          <div class="ico">▸</div>
+          <h4>{{ .Page.Title }}</h4>
+          <span>{{ .Count }} записей</span>
+        </a>
+        {{ end }}
       </div>
-    </section>
-  {{ end }}
-
-  {{ if eq .Data.Plural "tags" }}
-    {{/* Weighted tag cloud */}}
-    {{ $terms := .Data.Terms.ByCount }}
-    {{ $max := 1 }}{{ $min := 1 }}
-    {{ range $terms }}{{ if gt .Count $max }}{{ $max = .Count }}{{ end }}{{ end }}
-    {{ $min = $max }}{{ range $terms }}{{ if lt .Count $min }}{{ $min = .Count }}{{ end }}{{ end }}
-    {{ $logMax := math.Log (add $max 1) }}
-    {{ $logMin := math.Log (add $min 1) }}
-    {{ $logSpread := math.Max (sub $logMax $logMin) 0.0001 }}
-    <section class="tag-cloud" aria-label="Tag cloud">
-      {{ range $terms }}
-        {{ $w := div (sub (math.Log (add .Count 1)) $logMin) $logSpread }}
-        {{ $size := add 0.8 (mul $w 1.5) }}
-        <a class="tag-cloud-item" href="{{ .Page.RelPermalink }}" title="{{ .Count }} постов"
-           style="font-size: {{ printf "%.2f" $size }}rem; --tw: {{ $w }};">{{ .Page.Title }}</a>
-      {{ end }}
-    </section>
-    <p class="tag-cloud-note">Размер тега пропорционален числу постов. Всего тегов: {{ len $terms }}.</p>
-  {{ else }}
-    {{ if site.Params.taxonomy.cardView }}
-      <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {{ range .Data.Terms }}
-          {{ partial "term-link/card.html" . }}
-        {{ end }}
-      </section>
     {{ else }}
-      <section class="flex flex-wrap max-w-prose -mx-2 overflow-hidden">
-        {{ range .Data.Terms }}
-          {{ partial "term-link/text.html" . }}
+      {{/* Term page: list of posts with pagination */}}
+      {{ $pages := .Paginate .Pages }}
+      <div class="neo-rows">
+        {{ range $pages.Pages }}
+        <a class="neo-row" href="{{ .RelPermalink }}">
+          <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+          <span class="title">{{ .Title }}</span>
+          {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
+        </a>
         {{ end }}
-      </section>
+      </div>
+      {{ with $pages }}
+      <nav class="neo-pager">
+        {{ if .HasPrev }}<a href="{{ .Prev.URL }}">← назад</a>{{ end }}
+        {{ $cur := .PageNumber }}
+        {{ range .Pagers }}
+          {{ if eq .PageNumber $cur }}<span class="current">{{ .PageNumber }}</span>
+          {{ else }}<a href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }}
+        {{ end }}
+        {{ if .HasNext }}<a href="{{ .Next.URL }}">вперёд →</a>{{ end }}
+      </nav>
+      {{ end }}
     {{ end }}
-  {{ end }}
-{{ end }}
+  </section>
+</main>
+{{ partial "footer.html" . }}
+</body>
+</html>
