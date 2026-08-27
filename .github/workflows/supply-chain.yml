@@ -1,10 +1,6 @@
-name: OpenSSF Scorecard
+name: Supply Chain (SBOM + Scorecard)
 
-# Supply-chain security scoring via OpenSSF Scorecard. Runs on a weekly
-# schedule and on manual dispatch. The default GITHUB_TOKEN is frequently
-# rate-limited / returns 401 against the GitHub API for anonymous-style
-# scorecard queries, so the job is NON-BLOCKING (continue-on-error) — it
-# surfaces the score in Security > Code scanning without failing the run.
+# Consolidated from scorecard.yml + sbom.yml.
 
 on:
   schedule:
@@ -42,3 +38,31 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
+
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Generate SBOM (syft)
+        uses: anchore/sbom-action@v0.17.0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+          retention-days: 30
+
+      - name: Generate Generic Attestations
+        uses: actions/attest@v4.2.2
+        with:
+          subject-path: sbom.spdx.json
+          predicate-type: https://spdx.dev/Document
+          predicate-path: sbom.spdx.json
