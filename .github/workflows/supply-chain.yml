@@ -1,0 +1,68 @@
+name: Supply Chain (SBOM + Scorecard)
+
+# Consolidated from scorecard.yml + sbom.yml.
+
+on:
+  schedule:
+    - cron: '27 3 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Required for Scorecard to upload SARIF to code scanning.
+  security-events: write
+  actions: read
+  id-token: write
+
+jobs:
+  scorecard:
+    name: Scorecard analysis
+    runs-on: ubuntu-latest
+    # Non-blocking: Scorecard's GitHub API access is rate-limited with the
+    # default token; do not fail the overall CI on its intermittent 401/rate.
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Run analysis
+        uses: ossf/scorecard-action@v2.4.0
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          publish_results: true
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Generate SBOM (syft)
+        uses: anchore/sbom-action@v0.17.0
+        with:
+          path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+          retention-days: 30
+
+      - name: Generate Generic Attestations
+        uses: actions/attest@v4.2.2
+        with:
+          subject-path: sbom.spdx.json
+          predicate-type: https://spdx.dev/Document
+          predicate-path: sbom.spdx.json
