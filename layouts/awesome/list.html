@@ -1,22 +1,17 @@
-{{ define "main" }}
-<section class="prose dark:prose-invert max-w-none mb-10">
-  <header class="mb-8">
-    <h1 class="text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral mb-3">
-      {{ .Title | default "Awesome" }}
-    </h1>
-    <p class="text-lg text-neutral-500 dark:text-neutral-400">
-      {{ .Description | default "Курируемые awesome-списки из внешних репозиториев, сгруппированные по темам." }}
-    </p>
-    <p class="mt-2 text-sm text-neutral-400 dark:text-neutral-500">
-      Списки подключены как git-субмодули с выборочной загрузкой (sparse-checkout) —
-      из каждого репозитория синхронизируется только <code>README.md</code>/список.
-      Автоматически пополняются через
-      <a class="text-primary-600 dark:text-primary-400 hover:underline" href="https://github.com/dominicusin/dominicusin.github.io/actions/workflows/awesome-discover.yml">awesome-discover</a>.
-    </p>
-  </header>
-
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+{{/* Neo awesome section — standalone full-doc; data/awesome.json drives the cards */}}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px">
+    <h2>{{ .Title | default "Awesome" }}</h2>
+    <span class="more">{{ $data := .Site.Data.awesome }}{{ if $data }}{{ $data.total }} списков{{ else }}0 списков{{ end }}</span>
+  </div>
+  {{ .Content }}
   {{ $data := .Site.Data.awesome }}
-      {{ with $data.generatedAt }}<p class="mt-1 text-xs text-neutral-400 dark:text-neutral-500">Каталог сгенерирован: {{ (time .) | time.Format "2006-01-02 15:04 MST" }}</p>{{ end }}
   {{ if not $data }}
     <p class="text-neutral-500">Каталог пока пуст. Запустите <code>node scripts/build-awesome.cjs</code>.</p>
   {{ else }}
@@ -64,5 +59,8 @@
       Всего курируемых списков: <strong>{{ $data.total }}</strong> в <strong>{{ len $data.groups }}</strong> группах.
     </p>
   {{ end }}
-</section>
-{{ end }}
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>

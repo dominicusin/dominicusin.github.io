@@ -1,9 +1,15 @@
-{{ define "main" }}
-  {{ .Scratch.Set "scope" "list" }}
-  <header class="mt-5">
-    <h1 class="text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
-    {{ with .Content }}<section class="prose dark:prose-invert max-w-prose mt-3">{{ . }}</section>{{ end }}
-  </header>
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px">
+    <h2>{{ .Title }}</h2>
+    <span class="more">{{ len .RegularPages }} гистов</span>
+  </div>
+  {{ .Content }}
   <div class="repo-grid">
     {{ range .RegularPages.ByTitle }}
       <a class="repo-card" href="{{ .RelPermalink }}">
@@ -17,4 +23,8 @@
       </a>
     {{ end }}
   </div>
-{{ end }}
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>
