@@ -1,0 +1,740 @@
+[
+ {
+  "title": "12 ночь",
+  "year": null,
+  "director": "Ян Фрид",
+  "note": "Ян Фрид",
+  "imdb": "https://www.imdb.com/find?q=12%20%D0%BD%D0%BE%D1%87%D1%8C",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=12%20%D0%BD%D0%BE%D1%87%D1%8C",
+  "lb": "https://letterboxd.com/search/films/12%20%D0%BD%D0%BE%D1%87%D1%8C/"
+ },
+ {
+  "title": "13 этаж",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=13%20%D1%8D%D1%82%D0%B0%D0%B6",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=13%20%D1%8D%D1%82%D0%B0%D0%B6",
+  "lb": "https://letterboxd.com/search/films/13%20%D1%8D%D1%82%D0%B0%D0%B6/"
+ },
+ {
+  "title": "4 комнаты",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=4%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D1%8B",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=4%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D1%8B",
+  "lb": "https://letterboxd.com/search/films/4%20%D0%BA%D0%BE%D0%BC%D0%BD%D0%B0%D1%82%D1%8B/"
+ },
+ {
+  "title": "7 психопатов",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=7%20%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BF%D0%B0%D1%82%D0%BE%D0%B2",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=7%20%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BF%D0%B0%D1%82%D0%BE%D0%B2",
+  "lb": "https://letterboxd.com/search/films/7%20%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BF%D0%B0%D1%82%D0%BE%D0%B2/"
+ },
+ {
+  "title": "5 элемент",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=5%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=5%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82",
+  "lb": "https://letterboxd.com/search/films/5%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82/"
+ },
+ {
+  "title": "9 ярдов",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=9%20%D1%8F%D1%80%D0%B4%D0%BE%D0%B2",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=9%20%D1%8F%D1%80%D0%B4%D0%BE%D0%B2",
+  "lb": "https://letterboxd.com/search/films/9%20%D1%8F%D1%80%D0%B4%D0%BE%D0%B2/"
+ },
+ {
+  "title": "Автостопом по галактике",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%90%D0%B2%D1%82%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BC%20%D0%BF%D0%BE%20%D0%B3%D0%B0%D0%BB%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%90%D0%B2%D1%82%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BC%20%D0%BF%D0%BE%20%D0%B3%D0%B0%D0%BB%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5",
+  "lb": "https://letterboxd.com/search/films/%D0%90%D0%B2%D1%82%D0%BE%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BC%20%D0%BF%D0%BE%20%D0%B3%D0%B0%D0%BB%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5/"
+ },
+ {
+  "title": "Бесконечно белый медведь",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C",
+  "lb": "https://letterboxd.com/search/films/%D0%91%D0%B5%D1%81%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D0%BE%20%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D1%8C/"
+ },
+ {
+  "title": "Бобро поржаловать",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%91%D0%BE%D0%B1%D1%80%D0%BE%20%D0%BF%D0%BE%D1%80%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%B1%D1%80%D0%BE%20%D0%BF%D0%BE%D1%80%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C",
+  "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%B1%D1%80%D0%BE%20%D0%BF%D0%BE%D1%80%D0%B6%D0%B0%D0%BB%D0%BE%D0%B2%D0%B0%D1%82%D1%8C/"
+ },
+ {
+  "title": "Боги наверно сошли с ума обе части",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%91%D0%BE%D0%B3%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B5%D1%80%D0%BD%D0%BE%20%D1%81%D0%BE%D1%88%D0%BB%D0%B8%20%D1%81%20%D1%83%D0%BC%D0%B0%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%B3%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B5%D1%80%D0%BD%D0%BE%20%D1%81%D0%BE%D1%88%D0%BB%D0%B8%20%D1%81%20%D1%83%D0%BC%D0%B0%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%B3%D0%B8%20%D0%BD%D0%B0%D0%B2%D0%B5%D1%80%D0%BD%D0%BE%20%D1%81%D0%BE%D1%88%D0%BB%D0%B8%20%D1%81%20%D1%83%D0%BC%D0%B0%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
+ },
+ {
+  "title": "Бойцовский клуб",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%91%D0%BE%D0%B9%D1%86%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BB%D1%83%D0%B1",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%B9%D1%86%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BB%D1%83%D0%B1",
+  "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%B9%D1%86%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BB%D1%83%D0%B1/"
+ },
+ {
+  "title": "Большой Лебовски",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%9B%D0%B5%D0%B1%D0%BE%D0%B2%D1%81%D0%BA%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%9B%D0%B5%D0%B1%D0%BE%D0%B2%D1%81%D0%BA%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9%20%D0%9B%D0%B5%D0%B1%D0%BE%D0%B2%D1%81%D0%BA%D0%B8/"
+ },
+ {
+  "title": "Валериан и город тысячи планет",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%92%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B0%D0%BD%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%D0%B8%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B5%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B0%D0%BD%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%D0%B8%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B5%D1%82",
+  "lb": "https://letterboxd.com/search/films/%D0%92%D0%B0%D0%BB%D0%B5%D1%80%D0%B8%D0%B0%D0%BD%20%D0%B8%20%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%20%D1%82%D1%8B%D1%81%D1%8F%D1%87%D0%B8%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B5%D1%82/"
+ },
+ {
+  "title": "Видеодром",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B4%D1%80%D0%BE%D0%BC",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B4%D1%80%D0%BE%D0%BC",
+  "lb": "https://letterboxd.com/search/films/%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B4%D1%80%D0%BE%D0%BC/"
+ },
+ {
+  "title": "Враг мой",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%92%D1%80%D0%B0%D0%B3%20%D0%BC%D0%BE%D0%B9",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D1%80%D0%B0%D0%B3%20%D0%BC%D0%BE%D0%B9",
+  "lb": "https://letterboxd.com/search/films/%D0%92%D1%80%D0%B0%D0%B3%20%D0%BC%D0%BE%D0%B9/"
+ },
+ {
+  "title": "Выживут только влюбленные",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%92%D1%8B%D0%B6%D0%B8%D0%B2%D1%83%D1%82%20%D1%82%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE%20%D0%B2%D0%BB%D1%8E%D0%B1%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D1%8B%D0%B6%D0%B8%D0%B2%D1%83%D1%82%20%D1%82%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE%20%D0%B2%D0%BB%D1%8E%D0%B1%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5",
+  "lb": "https://letterboxd.com/search/films/%D0%92%D1%8B%D0%B6%D0%B8%D0%B2%D1%83%D1%82%20%D1%82%D0%BE%D0%BB%D1%8C%D0%BA%D0%BE%20%D0%B2%D0%BB%D1%8E%D0%B1%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5/"
+ },
+ {
+  "title": "Высокий блондин в чёрном ботинке",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%B8%D0%B9%20%D0%B1%D0%BB%D0%BE%D0%BD%D0%B4%D0%B8%D0%BD%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%B1%D0%BE%D1%82%D0%B8%D0%BD%D0%BA%D0%B5",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%B8%D0%B9%20%D0%B1%D0%BB%D0%BE%D0%BD%D0%B4%D0%B8%D0%BD%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%B1%D0%BE%D1%82%D0%B8%D0%BD%D0%BA%D0%B5",
+  "lb": "https://letterboxd.com/search/films/%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%B8%D0%B9%20%D0%B1%D0%BB%D0%BE%D0%BD%D0%B4%D0%B8%D0%BD%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%B1%D0%BE%D1%82%D0%B8%D0%BD%D0%BA%D0%B5/"
+ },
+ {
+  "title": "Голоса",
+  "year": "2014",
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%93%D0%BE%D0%BB%D0%BE%D1%81%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%93%D0%BE%D0%BB%D0%BE%D1%81%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%93%D0%BE%D0%BB%D0%BE%D1%81%D0%B0/"
+ },
+ {
+  "title": "День сурка",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B5%D0%BD%D1%8C%20%D1%81%D1%83%D1%80%D0%BA%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B5%D0%BD%D1%8C%20%D1%81%D1%83%D1%80%D0%BA%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%94%D0%B5%D0%BD%D1%8C%20%D1%81%D1%83%D1%80%D0%BA%D0%B0/"
+ },
+ {
+  "title": "Дживс и Вустер",
+  "year": null,
+  "director": "сериал",
+  "note": "сериал",
+  "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B6%D0%B8%D0%B2%D1%81%20%D0%B8%20%D0%92%D1%83%D1%81%D1%82%D0%B5%D1%80",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B6%D0%B8%D0%B2%D1%81%20%D0%B8%20%D0%92%D1%83%D1%81%D1%82%D0%B5%D1%80",
+  "lb": "https://letterboxd.com/search/films/%D0%94%D0%B6%D0%B8%D0%B2%D1%81%20%D0%B8%20%D0%92%D1%83%D1%81%D1%82%D0%B5%D1%80/"
+ },
+ {
+  "title": "Дикая штучка / Нежная мишень",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D1%88%D1%82%D1%83%D1%87%D0%BA%D0%B0%20/%20%D0%9D%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%88%D0%B5%D0%BD%D1%8C",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D1%88%D1%82%D1%83%D1%87%D0%BA%D0%B0%20/%20%D0%9D%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%88%D0%B5%D0%BD%D1%8C",
+  "lb": "https://letterboxd.com/search/films/%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D1%88%D1%82%D1%83%D1%87%D0%BA%D0%B0%20/%20%D0%9D%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D1%88%D0%B5%D0%BD%D1%8C/"
+ },
+ {
+  "title": "Дикие истории",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B8%D0%BA%D0%B8%D0%B5%20%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B8%D0%BA%D0%B8%D0%B5%20%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%94%D0%B8%D0%BA%D0%B8%D0%B5%20%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8/"
+ },
+ {
+  "title": "Дикая парочка",
+  "year": null,
+  "director": "Горный тимьян",
+  "note": "Горный тимьян",
+  "imdb": "https://www.imdb.com/find?q=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%94%D0%B8%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0/"
+ },
+ {
+  "title": "Замок",
+  "year": null,
+  "director": "Балабанов",
+  "note": "Балабанов",
+  "imdb": "https://www.imdb.com/find?q=%D0%97%D0%B0%D0%BC%D0%BE%D0%BA",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%B0%D0%BC%D0%BE%D0%BA",
+  "lb": "https://letterboxd.com/search/films/%D0%97%D0%B0%D0%BC%D0%BE%D0%BA/"
+ },
+ {
+  "title": "Звездочки на земле",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%97%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D0%B8%20%D0%BD%D0%B0%20%D0%B7%D0%B5%D0%BC%D0%BB%D0%B5",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D0%B8%20%D0%BD%D0%B0%20%D0%B7%D0%B5%D0%BC%D0%BB%D0%B5",
+  "lb": "https://letterboxd.com/search/films/%D0%97%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D0%B8%20%D0%BD%D0%B0%20%D0%B7%D0%B5%D0%BC%D0%BB%D0%B5/"
+ },
+ {
+  "title": "Золото дураков",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%20%D0%B4%D1%83%D1%80%D0%B0%D0%BA%D0%BE%D0%B2",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%20%D0%B4%D1%83%D1%80%D0%B0%D0%BA%D0%BE%D0%B2",
+  "lb": "https://letterboxd.com/search/films/%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%20%D0%B4%D1%83%D1%80%D0%B0%D0%BA%D0%BE%D0%B2/"
+ },
+ {
+  "title": "Зомби Шон",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%97%D0%BE%D0%BC%D0%B1%D0%B8%20%D0%A8%D0%BE%D0%BD",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%97%D0%BE%D0%BC%D0%B1%D0%B8%20%D0%A8%D0%BE%D0%BD",
+  "lb": "https://letterboxd.com/search/films/%D0%97%D0%BE%D0%BC%D0%B1%D0%B8%20%D0%A8%D0%BE%D0%BD/"
+ },
+ {
+  "title": "Из Парижа с любовью",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%98%D0%B7%20%D0%9F%D0%B0%D1%80%D0%B8%D0%B6%D0%B0%20%D1%81%20%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D1%8C%D1%8E",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%98%D0%B7%20%D0%9F%D0%B0%D1%80%D0%B8%D0%B6%D0%B0%20%D1%81%20%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D1%8C%D1%8E",
+  "lb": "https://letterboxd.com/search/films/%D0%98%D0%B7%20%D0%9F%D0%B0%D1%80%D0%B8%D0%B6%D0%B0%20%D1%81%20%D0%BB%D1%8E%D0%B1%D0%BE%D0%B2%D1%8C%D1%8E/"
+ },
+ {
+  "title": "Кин-дза-дза",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9A%D0%B8%D0%BD-%D0%B4%D0%B7%D0%B0-%D0%B4%D0%B7%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D0%B8%D0%BD-%D0%B4%D0%B7%D0%B0-%D0%B4%D0%B7%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%9A%D0%B8%D0%BD-%D0%B4%D0%B7%D0%B0-%D0%B4%D0%B7%D0%B0/"
+ },
+ {
+  "title": "Корсиканец",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9A%D0%BE%D1%80%D1%81%D0%B8%D0%BA%D0%B0%D0%BD%D0%B5%D1%86",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D0%BE%D1%80%D1%81%D0%B8%D0%BA%D0%B0%D0%BD%D0%B5%D1%86",
+  "lb": "https://letterboxd.com/search/films/%D0%9A%D0%BE%D1%80%D1%81%D0%B8%D0%BA%D0%B0%D0%BD%D0%B5%D1%86/"
+ },
+ {
+  "title": "Красный отель",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C",
+  "lb": "https://letterboxd.com/search/films/%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9%20%D0%BE%D1%82%D0%B5%D0%BB%D1%8C/"
+ },
+ {
+  "title": "Кровавый четверг",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9A%D1%80%D0%BE%D0%B2%D0%B0%D0%B2%D1%8B%D0%B9%20%D1%87%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D0%B3",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D1%80%D0%BE%D0%B2%D0%B0%D0%B2%D1%8B%D0%B9%20%D1%87%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D0%B3",
+  "lb": "https://letterboxd.com/search/films/%D0%9A%D1%80%D0%BE%D0%B2%D0%B0%D0%B2%D1%8B%D0%B9%20%D1%87%D0%B5%D1%82%D0%B2%D0%B5%D1%80%D0%B3/"
+ },
+ {
+  "title": "Крот",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9A%D1%80%D0%BE%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9A%D1%80%D0%BE%D1%82",
+  "lb": "https://letterboxd.com/search/films/%D0%9A%D1%80%D0%BE%D1%82/"
+ },
+ {
+  "title": "Летучая мышь",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9B%D0%B5%D1%82%D1%83%D1%87%D0%B0%D1%8F%20%D0%BC%D1%8B%D1%88%D1%8C",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9B%D0%B5%D1%82%D1%83%D1%87%D0%B0%D1%8F%20%D0%BC%D1%8B%D1%88%D1%8C",
+  "lb": "https://letterboxd.com/search/films/%D0%9B%D0%B5%D1%82%D1%83%D1%87%D0%B0%D1%8F%20%D0%BC%D1%8B%D1%88%D1%8C/"
+ },
+ {
+  "title": "Лучше не бывает",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9B%D1%83%D1%87%D1%88%D0%B5%20%D0%BD%D0%B5%20%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9B%D1%83%D1%87%D1%88%D0%B5%20%D0%BD%D0%B5%20%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82",
+  "lb": "https://letterboxd.com/search/films/%D0%9B%D1%83%D1%87%D1%88%D0%B5%20%D0%BD%D0%B5%20%D0%B1%D1%8B%D0%B2%D0%B0%D0%B5%D1%82/"
+ },
+ {
+  "title": "Люди в чёрном первые две части",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9B%D1%8E%D0%B4%D0%B8%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D0%B5%20%D0%B4%D0%B2%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9B%D1%8E%D0%B4%D0%B8%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D0%B5%20%D0%B4%D0%B2%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%9B%D1%8E%D0%B4%D0%B8%20%D0%B2%20%D1%87%D1%91%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%B5%D1%80%D0%B2%D1%8B%D0%B5%20%D0%B4%D0%B2%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
+ },
+ {
+  "title": "Мертвец",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9C%D0%B5%D1%80%D1%82%D0%B2%D0%B5%D1%86",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%B5%D1%80%D1%82%D0%B2%D0%B5%D1%86",
+  "lb": "https://letterboxd.com/search/films/%D0%9C%D0%B5%D1%80%D1%82%D0%B2%D0%B5%D1%86/"
+ },
+ {
+  "title": "Мой любимый марсианин",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9C%D0%BE%D0%B9%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%80%D1%81%D0%B8%D0%B0%D0%BD%D0%B8%D0%BD",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%BE%D0%B9%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%80%D1%81%D0%B8%D0%B0%D0%BD%D0%B8%D0%BD",
+  "lb": "https://letterboxd.com/search/films/%D0%9C%D0%BE%D0%B9%20%D0%BB%D1%8E%D0%B1%D0%B8%D0%BC%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%80%D1%81%D0%B8%D0%B0%D0%BD%D0%B8%D0%BD/"
+ },
+ {
+  "title": "Мой парень киллер 2016",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9C%D0%BE%D0%B9%20%D0%BF%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D0%BA%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%202016",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%BE%D0%B9%20%D0%BF%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D0%BA%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%202016",
+  "lb": "https://letterboxd.com/search/films/%D0%9C%D0%BE%D0%B9%20%D0%BF%D0%B0%D1%80%D0%B5%D0%BD%D1%8C%20%D0%BA%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%202016/"
+ },
+ {
+  "title": "Молчи в тряпочку",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9C%D0%BE%D0%BB%D1%87%D0%B8%20%D0%B2%20%D1%82%D1%80%D1%8F%D0%BF%D0%BE%D1%87%D0%BA%D1%83",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9C%D0%BE%D0%BB%D1%87%D0%B8%20%D0%B2%20%D1%82%D1%80%D1%8F%D0%BF%D0%BE%D1%87%D0%BA%D1%83",
+  "lb": "https://letterboxd.com/search/films/%D0%9C%D0%BE%D0%BB%D1%87%D0%B8%20%D0%B2%20%D1%82%D1%80%D1%8F%D0%BF%D0%BE%D1%87%D0%BA%D1%83/"
+ },
+ {
+  "title": "На грани 1997",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B0%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%201997",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B0%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%201997",
+  "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B0%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%201997/"
+ },
+ {
+  "title": "Набережная орсе",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%80%D1%81%D0%B5",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%80%D1%81%D0%B5",
+  "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%80%D1%81%D0%B5/"
+ },
+ {
+  "title": "Начало",
+  "year": null,
+  "director": "инсепшн",
+  "note": "инсепшн",
+  "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE",
+  "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE/"
+ },
+ {
+  "title": "Небесные ласточки",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9D%D0%B5%D0%B1%D0%B5%D1%81%D0%BD%D1%8B%D0%B5%20%D0%BB%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9D%D0%B5%D0%B1%D0%B5%D1%81%D0%BD%D1%8B%D0%B5%20%D0%BB%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%9D%D0%B5%D0%B1%D0%B5%D1%81%D0%BD%D1%8B%D0%B5%20%D0%BB%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BA%D0%B8/"
+ },
+ {
+  "title": "Опочтарение и Цвет волшебства",
+  "year": null,
+  "director": "по Пратчетту",
+  "note": "по Пратчетту",
+  "imdb": "https://www.imdb.com/find?q=%D0%9E%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%A6%D0%B2%D0%B5%D1%82%20%D0%B2%D0%BE%D0%BB%D1%88%D0%B5%D0%B1%D1%81%D1%82%D0%B2%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9E%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%A6%D0%B2%D0%B5%D1%82%20%D0%B2%D0%BE%D0%BB%D1%88%D0%B5%D0%B1%D1%81%D1%82%D0%B2%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%9E%D0%BF%D0%BE%D1%87%D1%82%D0%B0%D1%80%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%A6%D0%B2%D0%B5%D1%82%20%D0%B2%D0%BE%D0%BB%D1%88%D0%B5%D0%B1%D1%81%D1%82%D0%B2%D0%B0/"
+ },
+ {
+  "title": "Особенности национальной охоты/ рыбалки",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9%20%D0%BE%D1%85%D0%BE%D1%82%D1%8B/%20%D1%80%D1%8B%D0%B1%D0%B0%D0%BB%D0%BA%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9%20%D0%BE%D1%85%D0%BE%D1%82%D1%8B/%20%D1%80%D1%8B%D0%B1%D0%B0%D0%BB%D0%BA%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9%20%D0%BE%D1%85%D0%BE%D1%82%D1%8B/%20%D1%80%D1%8B%D0%B1%D0%B0%D0%BB%D0%BA%D0%B8/"
+ },
+ {
+  "title": "Отель гранд-будапешт",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B4-%D0%B1%D1%83%D0%B4%D0%B0%D0%BF%D0%B5%D1%88%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B4-%D0%B1%D1%83%D0%B4%D0%B0%D0%BF%D0%B5%D1%88%D1%82",
+  "lb": "https://letterboxd.com/search/films/%D0%9E%D1%82%D0%B5%D0%BB%D1%8C%20%D0%B3%D1%80%D0%B0%D0%BD%D0%B4-%D0%B1%D1%83%D0%B4%D0%B0%D0%BF%D0%B5%D1%88%D1%82/"
+ },
+ {
+  "title": "Патерсон",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D0%B0%D1%82%D0%B5%D1%80%D1%81%D0%BE%D0%BD",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%B0%D1%82%D0%B5%D1%80%D1%81%D0%BE%D0%BD",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D0%B0%D1%82%D0%B5%D1%80%D1%81%D0%BE%D0%BD/"
+ },
+ {
+  "title": "Патруль времени",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D0%B0%D1%82%D1%80%D1%83%D0%BB%D1%8C%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%B0%D1%82%D1%80%D1%83%D0%BB%D1%8C%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D0%B0%D1%82%D1%80%D1%83%D0%BB%D1%8C%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8/"
+ },
+ {
+  "title": "Плохой Санта",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D0%BB%D0%BE%D1%85%D0%BE%D0%B9%20%D0%A1%D0%B0%D0%BD%D1%82%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%BB%D0%BE%D1%85%D0%BE%D0%B9%20%D0%A1%D0%B0%D0%BD%D1%82%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D0%BB%D0%BE%D1%85%D0%BE%D0%B9%20%D0%A1%D0%B0%D0%BD%D1%82%D0%B0/"
+ },
+ {
+  "title": "Поезд на дарджлинг",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D0%BE%D0%B5%D0%B7%D0%B4%20%D0%BD%D0%B0%20%D0%B4%D0%B0%D1%80%D0%B4%D0%B6%D0%BB%D0%B8%D0%BD%D0%B3",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%BE%D0%B5%D0%B7%D0%B4%20%D0%BD%D0%B0%20%D0%B4%D0%B0%D1%80%D0%B4%D0%B6%D0%BB%D0%B8%D0%BD%D0%B3",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D0%BE%D0%B5%D0%B7%D0%B4%20%D0%BD%D0%B0%20%D0%B4%D0%B0%D1%80%D0%B4%D0%B6%D0%BB%D0%B8%D0%BD%D0%B3/"
+ },
+ {
+  "title": "Пол секретный материальчик 2011",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D0%BE%D0%BB%20%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D1%87%D0%B8%D0%BA%202011",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D0%BE%D0%BB%20%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D1%87%D0%B8%D0%BA%202011",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D0%BE%D0%BB%20%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D1%87%D0%B8%D0%BA%202011/"
+ },
+ {
+  "title": "Прекрасная зеленая",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D0%B0%D1%8F/"
+ },
+ {
+  "title": "Проблемиста",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B8%D1%81%D1%82%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B8%D1%81%D1%82%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D0%B8%D1%81%D1%82%D0%B0/"
+ },
+ {
+  "title": "Пророчество селесты",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%80%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D1%81%D0%B5%D0%BB%D0%B5%D1%81%D1%82%D1%8B",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%80%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D1%81%D0%B5%D0%BB%D0%B5%D1%81%D1%82%D1%8B",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D1%80%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D1%81%D0%B5%D0%BB%D0%B5%D1%81%D1%82%D1%8B/"
+ },
+ {
+  "title": "Пятый элемент",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%9F%D1%8F%D1%82%D1%8B%D0%B9%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%9F%D1%8F%D1%82%D1%8B%D0%B9%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82",
+  "lb": "https://letterboxd.com/search/films/%D0%9F%D1%8F%D1%82%D1%8B%D0%B9%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82/"
+ },
+ {
+  "title": "Расплата и час расплаты",
+  "year": null,
+  "director": "2 части",
+  "note": "2 части; с аффлеком",
+  "imdb": "https://www.imdb.com/find?q=%D0%A0%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%B8%20%D1%87%D0%B0%D1%81%20%D1%80%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%8B",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A0%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%B8%20%D1%87%D0%B0%D1%81%20%D1%80%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%8B",
+  "lb": "https://letterboxd.com/search/films/%D0%A0%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20%D0%B8%20%D1%87%D0%B0%D1%81%20%D1%80%D0%B0%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D1%8B/"
+ },
+ {
+  "title": "Револьвер",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8C%D0%B2%D0%B5%D1%80",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8C%D0%B2%D0%B5%D1%80",
+  "lb": "https://letterboxd.com/search/films/%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8C%D0%B2%D0%B5%D1%80/"
+ },
+ {
+  "title": "РЭД 2010-го",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A0%D0%AD%D0%94%202010-%D0%B3%D0%BE",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A0%D0%AD%D0%94%202010-%D0%B3%D0%BE",
+  "lb": "https://letterboxd.com/search/films/%D0%A0%D0%AD%D0%94%202010-%D0%B3%D0%BE/"
+ },
+ {
+  "title": "Сад 1995-го",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%B0%D0%B4%201995-%D0%B3%D0%BE",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%B0%D0%B4%201995-%D0%B3%D0%BE",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D0%B0%D0%B4%201995-%D0%B3%D0%BE/"
+ },
+ {
+  "title": "Семейка аддамс обе части",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%B5%D0%BC%D0%B5%D0%B9%D0%BA%D0%B0%20%D0%B0%D0%B4%D0%B4%D0%B0%D0%BC%D1%81%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%B5%D0%BC%D0%B5%D0%B9%D0%BA%D0%B0%20%D0%B0%D0%B4%D0%B4%D0%B0%D0%BC%D1%81%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D0%B5%D0%BC%D0%B5%D0%B9%D0%BA%D0%B0%20%D0%B0%D0%B4%D0%B4%D0%B0%D0%BC%D1%81%20%D0%BE%D0%B1%D0%B5%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
+ },
+ {
+  "title": "Сильва",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%B8%D0%BB%D1%8C%D0%B2%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%B8%D0%BB%D1%8C%D0%B2%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D0%B8%D0%BB%D1%8C%D0%B2%D0%B0/"
+ },
+ {
+  "title": "Смерть на похоронах 2007-го",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%BC%D0%B5%D1%80%D1%82%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D1%85%D0%BE%D1%80%D0%BE%D0%BD%D0%B0%D1%85%202007-%D0%B3%D0%BE",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%BC%D0%B5%D1%80%D1%82%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D1%85%D0%BE%D1%80%D0%BE%D0%BD%D0%B0%D1%85%202007-%D0%B3%D0%BE",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D0%BC%D0%B5%D1%80%D1%82%D1%8C%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D1%85%D0%BE%D1%80%D0%BE%D0%BD%D0%B0%D1%85%202007-%D0%B3%D0%BE/"
+ },
+ {
+  "title": "Собака на сене",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%BD%D0%B5",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%BD%D0%B5",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D0%BE%D0%B1%D0%B0%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B5%D0%BD%D0%B5/"
+ },
+ {
+  "title": "Столетний старик который вышел в окно и исчез",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9%20%D1%81%D1%82%D0%B0%D1%80%D0%B8%D0%BA%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%B2%D1%8B%D1%88%D0%B5%D0%BB%20%D0%B2%20%D0%BE%D0%BA%D0%BD%D0%BE%20%D0%B8%20%D0%B8%D1%81%D1%87%D0%B5%D0%B7",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9%20%D1%81%D1%82%D0%B0%D1%80%D0%B8%D0%BA%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%B2%D1%8B%D1%88%D0%B5%D0%BB%20%D0%B2%20%D0%BE%D0%BA%D0%BD%D0%BE%20%D0%B8%20%D0%B8%D1%81%D1%87%D0%B5%D0%B7",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D1%82%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D0%B8%D0%B9%20%D1%81%D1%82%D0%B0%D1%80%D0%B8%D0%BA%20%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D1%8B%D0%B9%20%D0%B2%D1%8B%D1%88%D0%B5%D0%BB%20%D0%B2%20%D0%BE%D0%BA%D0%BD%D0%BE%20%D0%B8%20%D0%B8%D1%81%D1%87%D0%B5%D0%B7/"
+ },
+ {
+  "title": "Странная парочка 2004-й",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0%202004-%D0%B9",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0%202004-%D0%B9",
+  "lb": "https://letterboxd.com/search/films/%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D1%80%D0%BE%D1%87%D0%BA%D0%B0%202004-%D0%B9/"
+ },
+ {
+  "title": "Такси – 3 части",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A2%D0%B0%D0%BA%D1%81%D0%B8%20%E2%80%93%203%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D0%B0%D0%BA%D1%81%D0%B8%20%E2%80%93%203%20%D1%87%D0%B0%D1%81%D1%82%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%A2%D0%B0%D0%BA%D1%81%D0%B8%20%E2%80%93%203%20%D1%87%D0%B0%D1%81%D1%82%D0%B8/"
+ },
+ {
+  "title": "Труп невесты и фильмы того же режиссера мрачные тени, алиса в тсране чудес",
+  "year": null,
+  "director": "мульт",
+  "note": "мульт; тим бертон",
+  "imdb": "https://www.imdb.com/find?q=%D0%A2%D1%80%D1%83%D0%BF%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B%20%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B6%D0%B5%20%D1%80%D0%B5%D0%B6%D0%B8%D1%81%D1%81%D0%B5%D1%80%D0%B0%20%D0%BC%D1%80%D0%B0%D1%87%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D0%BD%D0%B8%2C%20%D0%B0%D0%BB%D0%B8%D1%81%D0%B0%20%D0%B2%20%D1%82%D1%81%D1%80%D0%B0%D0%BD%D0%B5%20%D1%87%D1%83%D0%B4%D0%B5%D1%81",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%80%D1%83%D0%BF%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B%20%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B6%D0%B5%20%D1%80%D0%B5%D0%B6%D0%B8%D1%81%D1%81%D0%B5%D1%80%D0%B0%20%D0%BC%D1%80%D0%B0%D1%87%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D0%BD%D0%B8%2C%20%D0%B0%D0%BB%D0%B8%D1%81%D0%B0%20%D0%B2%20%D1%82%D1%81%D1%80%D0%B0%D0%BD%D0%B5%20%D1%87%D1%83%D0%B4%D0%B5%D1%81",
+  "lb": "https://letterboxd.com/search/films/%D0%A2%D1%80%D1%83%D0%BF%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%81%D1%82%D1%8B%20%D0%B8%20%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D1%8B%20%D1%82%D0%BE%D0%B3%D0%BE%20%D0%B6%D0%B5%20%D1%80%D0%B5%D0%B6%D0%B8%D1%81%D1%81%D0%B5%D1%80%D0%B0%20%D0%BC%D1%80%D0%B0%D1%87%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D0%BD%D0%B8%2C%20%D0%B0%D0%BB%D0%B8%D1%81%D0%B0%20%D0%B2%20%D1%82%D1%81%D1%80%D0%B0%D0%BD%D0%B5%20%D1%87%D1%83%D0%B4%D0%B5%D1%81/"
+ },
+ {
+  "title": "Труффальдино из Бергамо",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A2%D1%80%D1%83%D1%84%D1%84%D0%B0%D0%BB%D1%8C%D0%B4%D0%B8%D0%BD%D0%BE%20%D0%B8%D0%B7%20%D0%91%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%BE",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%80%D1%83%D1%84%D1%84%D0%B0%D0%BB%D1%8C%D0%B4%D0%B8%D0%BD%D0%BE%20%D0%B8%D0%B7%20%D0%91%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%BE",
+  "lb": "https://letterboxd.com/search/films/%D0%A2%D1%80%D1%83%D1%84%D1%84%D0%B0%D0%BB%D1%8C%D0%B4%D0%B8%D0%BD%D0%BE%20%D0%B8%D0%B7%20%D0%91%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%BE/"
+ },
+ {
+  "title": "Трюкач",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A2%D1%80%D1%8E%D0%BA%D0%B0%D1%87",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%80%D1%8E%D0%BA%D0%B0%D1%87",
+  "lb": "https://letterboxd.com/search/films/%D0%A2%D1%80%D1%8E%D0%BA%D0%B0%D1%87/"
+ },
+ {
+  "title": "Турист",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82",
+  "lb": "https://letterboxd.com/search/films/%D0%A2%D1%83%D1%80%D0%B8%D1%81%D1%82/"
+ },
+ {
+  "title": "Убойные каникулы",
+  "year": "2010",
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A3%D0%B1%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B8%D0%BA%D1%83%D0%BB%D1%8B",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%B1%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B8%D0%BA%D1%83%D0%BB%D1%8B",
+  "lb": "https://letterboxd.com/search/films/%D0%A3%D0%B1%D0%BE%D0%B9%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D0%BD%D0%B8%D0%BA%D1%83%D0%BB%D1%8B/"
+ },
+ {
+  "title": "Ужин в четыре руки",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A3%D0%B6%D0%B8%D0%BD%20%D0%B2%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%20%D1%80%D1%83%D0%BA%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%B6%D0%B8%D0%BD%20%D0%B2%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%20%D1%80%D1%83%D0%BA%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%A3%D0%B6%D0%B8%D0%BD%20%D0%B2%20%D1%87%D0%B5%D1%82%D1%8B%D1%80%D0%B5%20%D1%80%D1%83%D0%BA%D0%B8/"
+ },
+ {
+  "title": "Укрощение строптивой 2005 BBC",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A3%D0%BA%D1%80%D0%BE%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D1%80%D0%BE%D0%BF%D1%82%D0%B8%D0%B2%D0%BE%D0%B9%202005%20BBC",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%BA%D1%80%D0%BE%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D1%80%D0%BE%D0%BF%D1%82%D0%B8%D0%B2%D0%BE%D0%B9%202005%20BBC",
+  "lb": "https://letterboxd.com/search/films/%D0%A3%D0%BA%D1%80%D0%BE%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D1%82%D1%80%D0%BE%D0%BF%D1%82%D0%B8%D0%B2%D0%BE%D0%B9%202005%20BBC/"
+ },
+ {
+  "title": "Улика 1985",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A3%D0%BB%D0%B8%D0%BA%D0%B0%201985",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A3%D0%BB%D0%B8%D0%BA%D0%B0%201985",
+  "lb": "https://letterboxd.com/search/films/%D0%A3%D0%BB%D0%B8%D0%BA%D0%B0%201985/"
+ },
+ {
+  "title": "Фандо и Лис",
+  "year": null,
+  "director": "и почти все фильмы А.Ходоровского",
+  "note": "и почти все фильмы А.Ходоровского",
+  "imdb": "https://www.imdb.com/find?q=%D0%A4%D0%B0%D0%BD%D0%B4%D0%BE%20%D0%B8%20%D0%9B%D0%B8%D1%81",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A4%D0%B0%D0%BD%D0%B4%D0%BE%20%D0%B8%20%D0%9B%D0%B8%D1%81",
+  "lb": "https://letterboxd.com/search/films/%D0%A4%D0%B0%D0%BD%D0%B4%D0%BE%20%D0%B8%20%D0%9B%D0%B8%D1%81/"
+ },
+ {
+  "title": "Финикийская схема",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A4%D0%B8%D0%BD%D0%B8%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A4%D0%B8%D0%BD%D0%B8%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%A4%D0%B8%D0%BD%D0%B8%D0%BA%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D1%85%D0%B5%D0%BC%D0%B0/"
+ },
+ {
+  "title": "Храбрые перцем",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A5%D1%80%D0%B0%D0%B1%D1%80%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%80%D1%86%D0%B5%D0%BC",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A5%D1%80%D0%B0%D0%B1%D1%80%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%80%D1%86%D0%B5%D0%BC",
+  "lb": "https://letterboxd.com/search/films/%D0%A5%D1%80%D0%B0%D0%B1%D1%80%D1%8B%D0%B5%20%D0%BF%D0%B5%D1%80%D1%86%D0%B5%D0%BC/"
+ },
+ {
+  "title": "Чародеи",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A7%D0%B0%D1%80%D0%BE%D0%B4%D0%B5%D0%B8",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A7%D0%B0%D1%80%D0%BE%D0%B4%D0%B5%D0%B8",
+  "lb": "https://letterboxd.com/search/films/%D0%A7%D0%B0%D1%80%D0%BE%D0%B4%D0%B5%D0%B8/"
+ },
+ {
+  "title": "Шесть дней семь ночей",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%A8%D0%B5%D1%81%D1%82%D1%8C%20%D0%B4%D0%BD%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%20%D0%BD%D0%BE%D1%87%D0%B5%D0%B9",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%A8%D0%B5%D1%81%D1%82%D1%8C%20%D0%B4%D0%BD%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%20%D0%BD%D0%BE%D1%87%D0%B5%D0%B9",
+  "lb": "https://letterboxd.com/search/films/%D0%A8%D0%B5%D1%81%D1%82%D1%8C%20%D0%B4%D0%BD%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%20%D0%BD%D0%BE%D1%87%D0%B5%D0%B9/"
+ },
+ {
+  "title": "Ягуар",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%AF%D0%B3%D1%83%D0%B0%D1%80",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%AF%D0%B3%D1%83%D0%B0%D1%80",
+  "lb": "https://letterboxd.com/search/films/%D0%AF%D0%B3%D1%83%D0%B0%D1%80/"
+ },
+ {
+  "title": "Электрические сны Филиппа Дика",
+  "year": null,
+  "director": null,
+  "note": null,
+  "imdb": "https://www.imdb.com/find?q=%D0%AD%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BD%D1%8B%20%D0%A4%D0%B8%D0%BB%D0%B8%D0%BF%D0%BF%D0%B0%20%D0%94%D0%B8%D0%BA%D0%B0",
+  "kp": "https://www.kinopoisk.ru/s/type/film/list?utf=1&kp_query=%D0%AD%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BD%D1%8B%20%D0%A4%D0%B8%D0%BB%D0%B8%D0%BF%D0%BF%D0%B0%20%D0%94%D0%B8%D0%BA%D0%B0",
+  "lb": "https://letterboxd.com/search/films/%D0%AD%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D0%BD%D1%8B%20%D0%A4%D0%B8%D0%BB%D0%B8%D0%BF%D0%BF%D0%B0%20%D0%94%D0%B8%D0%BA%D0%B0/"
+ }
+]
