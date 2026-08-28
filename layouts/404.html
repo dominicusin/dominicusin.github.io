@@ -31,7 +31,12 @@
       });
       if(best && bestScore>0.3){
         var el=document.getElementById('neo-nf-suggestion');
-        if(el) el.innerHTML = 'Возможно, вы искали: <a href="'+best.url+'">'+best.title+'</a>';
+        if(el){
+          el.textContent = 'Возможно, вы искали: ';
+          var a=document.createElement('a');
+          a.href=best.url; a.textContent=best.title || best.url;
+          el.appendChild(a);
+        }
       }
     }).catch(function(){});
   function score(a,b){
