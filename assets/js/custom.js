@@ -85,19 +85,16 @@
     });
   }
 
-  // Search open -> go to /search/ (data-href, if present, must be a
-  // same-origin path or http(s) URL; reject javascript:/data: schemes).
+  // Search open -> go to /search/ (data-href, if present, must be a safe
+  // local path: starts with "/" and contains no scheme/colon — so it can
+  // never be a javascript:/data: URL. Validated by regex (CodeQL sanitizer).
   var so = document.getElementById('neo-search-open');
   if (so){
     so.addEventListener('click', function(){
-      var dest = so.getAttribute('data-href') || '/search/';
-      try {
-        var u = new URL(dest, window.location.href);
-        var ok = u.origin === window.location.origin && /^https?:$/.test(u.protocol);
-        window.location.href = ok ? u.pathname + u.search + u.hash : '/search/';
-      } catch (e) {
-        window.location.href = '/search/';
-      }
+      var dest = so.getAttribute('data-href');
+      // Allow only relative local paths like "/search/" or "/x?q=1#h".
+      var safe = /^\/(?!\/)[a-zA-Z0-9/._\-]*(\?[a-zA-Z0-9=._\-&%]*)?(#[a-zA-Z0-9=._\-&%]*)?$/.test(dest);
+      window.location.href = safe ? dest : '/search/';
     });
   }
 
