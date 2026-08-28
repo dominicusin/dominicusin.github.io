@@ -383,6 +383,30 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .neo-tagcloud-foot .neo-tc{color:var(--muted);border:1px solid var(--line-2);border-radius:999px;padding:4px 12px;transition:color .2s,border-color .2s}
 .neo-tagcloud-foot .neo-tc:hover{color:var(--accent);border-color:var(--accent)}
 
+/* ---------- ABOUT (ported from custom.css; neo pages load only neo.css) ---------- */
+.about-container{max-width:1100px;margin:0 auto}
+.about-hero{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;padding:1.75rem;margin-bottom:2rem;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,transparent),rgba(34,211,238,.08));
+  border:1px solid var(--line);border-radius:var(--radius)}
+.about-avatar{position:relative;width:112px;height:112px;flex:0 0 auto;aspect-ratio:1/1}
+.about-avatar .avatar-image{width:100%;height:100%;aspect-ratio:1/1;object-fit:cover;border-radius:50%;
+  border:2px solid color-mix(in srgb,var(--accent) 60%,transparent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent)}
+.about-avatar .avatar-placeholder{display:none}
+.about-header-content{flex:1 1 16rem;min-width:0}
+.about-title{margin:0;font-size:1.9rem;font-weight:800;letter-spacing:-.02em}
+.about-subtitle{margin:.25rem 0 .6rem;color:var(--accent);font-weight:600}
+.about-description{margin:0 0 1rem;color:var(--muted)}
+.about-social{display:flex;flex-wrap:wrap;gap:.6rem}
+.social-link{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem;border-radius:999px;font-size:.9rem;
+  text-decoration:none;color:var(--text);background:var(--panel-2);border:1px solid var(--line);
+  transition:transform .15s ease,background .15s ease,border-color .15s ease}
+.social-link:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--accent) 18%,transparent);border-color:color-mix(in srgb,var(--accent) 60%,transparent);color:#fff}
+.about-section{margin:2.5rem 0}
+.section-title{font-size:1.35rem;font-weight:700;margin:0 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--line)}
+/* CLS fix: reserve space before the late-loading giscus iframe shifts layout */
+.neo-giscus,.giscus-wrapper{min-height:220px}
+img{height:auto}
+
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:900px){
   .neo-hero{grid-template-columns:1fr;padding-top:56px}
