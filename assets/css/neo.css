@@ -250,6 +250,26 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .neo .awesome-card .group{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
 .neo .awesome-card .stars{color:var(--amber)}
 
+/* Keyboard focus accent + entrance animation (a11y + visual pop) */
+.repo-card:focus-visible,.gist-card:focus-visible,.awesome-card:focus-visible{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 45%,transparent),
+             0 18px 40px -20px rgba(0,0,0,.85);
+}
+@keyframes neo-card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: no-preference){
+  .repo-grid > .repo-card,.repo-grid > .gist-card,
+  .group-section .awesome-card{
+    animation:neo-card-in .5s cubic-bezier(.2,.7,.3,1) both;
+  }
+  .repo-grid > .repo-card:nth-child(2n),
+  .repo-grid > .gist-card:nth-child(2n){animation-delay:.05s}
+  .repo-grid > .repo-card:nth-child(3n),
+  .repo-grid > .gist-card:nth-child(3n){animation-delay:.1s}
+  .group-section .awesome-card:nth-child(3n){animation-delay:.08s}
+}
+
 .neo-rows{display:flex;flex-direction:column;border-top:1px solid var(--line)}
 .neo-row{display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:center;padding:18px 6px;
   border-bottom:1px solid var(--line);transition:background .2s;text-decoration:none}
