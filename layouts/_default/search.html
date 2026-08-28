@@ -37,7 +37,10 @@
     hits.forEach(function(h){
       var a = document.createElement('a');
       a.className='neo-row'; a.href=h.u;
-      a.innerHTML = '<span class="date">'+h.d+'</span><span class="title">'+h.t+'</span><span class="tag">тег</span>';
+      var date = document.createElement('span'); date.className='date'; date.textContent=h.d;
+      var title = document.createElement('span'); title.className='title'; title.textContent=h.t;
+      var tag = document.createElement('span'); tag.className='tag'; tag.textContent = h.g ? h.g : 'тег';
+      a.appendChild(date); a.appendChild(title); a.appendChild(tag);
       res.appendChild(a);
     });
   }
