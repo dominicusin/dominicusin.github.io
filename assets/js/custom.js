@@ -85,9 +85,21 @@
     });
   }
 
-  // Search open -> go to /search/
+  // Search open -> go to /search/ (data-href, if present, must be a
+  // same-origin path or http(s) URL; reject javascript:/data: schemes).
   var so = document.getElementById('neo-search-open');
-  if (so){ so.addEventListener('click', function(){ window.location.href = so.getAttribute('data-href') || '/search/'; }); }
+  if (so){
+    so.addEventListener('click', function(){
+      var dest = so.getAttribute('data-href') || '/search/';
+      try {
+        var u = new URL(dest, window.location.href);
+        var ok = u.origin === window.location.origin && /^https?:$/.test(u.protocol);
+        window.location.href = ok ? u.pathname + u.search + u.hash : '/search/';
+      } catch (e) {
+        window.location.href = '/search/';
+      }
+    });
+  }
 
   // Back to top
   var b = document.getElementById('neo-backtotop');
