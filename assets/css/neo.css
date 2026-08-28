@@ -155,9 +155,16 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 
 /* Featured cards */
 .neo-featured{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.neo-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px;
-  display:flex;flex-direction:column;gap:14px;transition:transform .25s,border-color .25s,background .25s}
-.neo-card:hover{transform:translateY(-5px);border-color:var(--line-2);background:var(--panel-2)}
+.neo-card{position:relative;background:linear-gradient(160deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+  display:flex;flex-direction:column;gap:14px;overflow:hidden;
+  transition:transform .25s,border-color .25s,background .25s,box-shadow .25s;
+  box-shadow:0 1px 0 rgba(255,255,255,.02) inset, 0 8px 24px -16px rgba(0,0,0,.7);}
+.neo-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet));opacity:0;transition:opacity .25s ease}
+.neo-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  background:linear-gradient(160deg,var(--panel-2),color-mix(in srgb,var(--accent) 7%,var(--panel)));
+  box-shadow:0 18px 40px -20px rgba(0,0,0,.85),0 0 0 1px color-mix(in srgb,var(--accent) 22%,transparent),0 0 28px -6px color-mix(in srgb,var(--accent) 40%,transparent)}
+.neo-card:hover::before{opacity:1}
 .neo-card .meta{font-family:var(--mono);font-size:12px;color:var(--faint);display:flex;gap:10px;align-items:center}
 .neo-card .meta .cat{color:var(--accent)}
 .neo-card h3{font-size:18px;line-height:1.35;font-weight:700;letter-spacing:-.2px}
@@ -165,6 +172,7 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .neo-card .read{font-family:var(--mono);font-size:12.5px;color:var(--accent-2)}
 .neo-card .read::after{content:" →";transition:transform .2s;display:inline-block}
 .neo-card:hover .read::after{transform:translateX(4px)}
+.neo-card:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 45%,transparent),0 18px 40px -20px rgba(0,0,0,.85)}
 
 /* ---------- LIST CARDS: repositories / gists / awesome ---------- */
 /* These pages load only neo.css; the card classes below are the real,
