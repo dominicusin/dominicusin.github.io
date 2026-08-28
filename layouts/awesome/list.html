@@ -15,38 +15,34 @@
   {{ if not $data }}
     <p class="text-neutral-500">Каталог пока пуст. Запустите <code>node scripts/build-awesome.cjs</code>.</p>
   {{ else }}
-    <div class="space-y-12">
+    <div class="neo-awesome-groups">
       {{ range $data.groups }}
-      <div class="group-section">
-        <div class="flex items-center gap-3 mb-4">
-          <h2 class="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
-            {{ .name }}
-          </h2>
-          <span class="text-sm px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300">
-            {{ len .repos }}
-          </span>
-          {{ with .refreshedAt }}<span class="text-[11px] text-neutral-400 dark:text-neutral-500">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
+      <div class="neo-awesome-group">
+        <div class="neo-awesome-group-head">
+          <h2>{{ .name }}</h2>
+          <span class="neo-awesome-count">{{ len .repos }}</span>
+          {{ with .refreshedAt }}<span class="neo-awesome-updated">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="neo-awesome-grid">
           {{ range .repos }}
           {{ $repo := . }}
           {{ $p := $.Site.GetPage (printf "/awesome/%s/%s" $repo.group $repo.name) }}
-          <article class="awesome-card flex flex-col justify-between rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-4 transition hover:border-primary-400 hover:shadow-sm">
+          <article class="awesome-card">
             <div>
-              <h3 class="text-lg font-medium text-neutral-900 dark:text-neutral mb-1">
-                <a class="hover:text-primary-600 dark:hover:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">{{ $repo.name }}</a>
+              <h3 class="neo-awesome-card-title">
+                <a href="{{ $repo.gh }}" target="_blank" rel="noopener">{{ $repo.name }}</a>
               </h3>
-              <p class="group text-xs uppercase tracking-wide text-neutral-400 dark:text-neutral-500 mb-1">{{ $repo.group }}</p>
-              {{ with $repo.description }}<p class="text-sm text-neutral-600 dark:text-neutral-300 mb-1 line-clamp-2">{{ . }}</p>{{ end }}
-              <p class="text-[11px] text-neutral-400 dark:text-neutral-500">
-                {{ with $repo.stars }}<span class="stars text-amber-500 dark:text-amber-400">★ {{ . }}</span>{{ end }}
-                {{ with $repo.refreshedAt }}<span class="ms-2">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
+              <p class="neo-awesome-card-group">{{ $repo.group }}</p>
+              {{ with $repo.description }}<p class="neo-awesome-card-desc">{{ . }}</p>{{ end }}
+              <p class="neo-awesome-card-meta">
+                {{ with $repo.stars }}<span class="stars">★ {{ . }}</span>{{ end }}
+                {{ with $repo.refreshedAt }}<span class="neo-awesome-updated">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
               </p>
             </div>
-            <div class="mt-3 flex flex-wrap gap-3 text-sm">
-              <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ $repo.gh }}" target="_blank" rel="noopener">★ Репозиторий</a>
-              <a class="text-neutral-500 dark:text-neutral-400 hover:underline" href="{{ $repo.gh }}/blob/main/{{ $repo.readme }}" target="_blank" rel="noopener">README ↗</a>
-              {{ with $p }}<a class="text-emerald-600 dark:text-emerald-400 hover:underline" href="{{ .RelPermalink }}">Превью →</a>{{ end }}
+            <div class="neo-awesome-card-links">
+              <a href="{{ $repo.gh }}" target="_blank" rel="noopener">★ Репозиторий</a>
+              <a href="{{ $repo.gh }}/blob/main/{{ $repo.readme }}" target="_blank" rel="noopener">README ↗</a>
+              {{ with $p }}<a href="{{ .RelPermalink }}">Превью →</a>{{ end }}
             </div>
           </article>
           {{ end }}
@@ -55,7 +51,7 @@
       {{ end }}
     </div>
 
-    <p class="mt-12 text-sm text-neutral-400 dark:text-neutral-500">
+    <p class="neo-awesome-foot">
       Всего курируемых списков: <strong>{{ $data.total }}</strong> в <strong>{{ len $data.groups }}</strong> группах.
     </p>
   {{ end }}
