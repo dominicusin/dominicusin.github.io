@@ -285,6 +285,58 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .neo-awesome-card-links a:hover{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#06121a;
   transform:translateY(-1px);box-shadow:0 4px 14px -4px color-mix(in srgb,var(--accent) 65%,transparent)}
 
+/* ---------- CARD FLOURISHES & INTERACTIVE FEATURES ---------- */
+/* position context for overlays */
+.repo-card,.gist-card,.awesome-card{position:relative}
+
+/* decorative corner brackets on hover (рюшечки) */
+.repo-card::after,.awesome-card::after{
+  content:"";position:absolute;inset:9px;border-radius:calc(var(--radius) - 3px);pointer-events:none;
+  opacity:0;transition:opacity .3s ease;
+  background:
+    linear-gradient(var(--accent),var(--accent)) left top/13px 2px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left top/2px 13px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right top/13px 2px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right top/2px 13px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left bottom/13px 2px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) left bottom/2px 13px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right bottom/13px 2px no-repeat,
+    linear-gradient(var(--accent),var(--accent)) right bottom/2px 13px no-repeat;
+}
+.repo-card:hover::after,.awesome-card:hover::after{opacity:.5}
+
+/* shimmer sweep along the top edge on hover */
+.shimmer{position:absolute;top:0;left:0;right:0;height:2px;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0;pointer-events:none;z-index:1}
+.shimmer::before{content:"";position:absolute;top:0;left:0;height:100%;width:45%;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent) 85%,transparent),transparent);
+  transform:translateX(-120%);opacity:0}
+@keyframes neo-shimmer{0%{transform:translateX(-120%)}100%{transform:translateX(280%)}}
+.repo-card:hover .shimmer::before,.awesome-card:hover .shimmer::before{opacity:1;animation:neo-shimmer 1.3s ease-in-out infinite}
+
+/* like button (♥) — client-side, localStorage-persisted */
+.like-btn{position:absolute;top:9px;right:9px;z-index:4;display:inline-flex;align-items:center;gap:.3rem;
+  font-family:var(--mono);font-size:.74rem;font-weight:700;cursor:pointer;user-select:none;
+  padding:.22rem .5rem;border-radius:999px;color:var(--muted);
+  border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);
+  background:color-mix(in srgb,var(--panel) 72%,transparent);backdrop-filter:blur(5px);
+  transition:color .2s,border-color .2s,background .2s,transform .2s}
+.like-btn:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 60%,transparent);transform:translateY(-1px)}
+.like-btn .heart{font-size:.85rem;line-height:1;transition:transform .2s}
+.like-btn.liked{color:#ff5d73;border-color:color-mix(in srgb,#ff5d73 55%,transparent);background:color-mix(in srgb,#ff5d73 14%,transparent)}
+.like-btn.liked .heart{transform:scale(1.12)}
+@keyframes neo-heart-pop{0%{transform:scale(1)}40%{transform:scale(1.5)}70%{transform:scale(.9)}100%{transform:scale(1)}}
+.like-btn.pop .heart{animation:neo-heart-pop .4s ease}
+.like-btn:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 40%,transparent)}
+
+/* TOP badge for highly-starred repos */
+.top-badge{position:absolute;top:9px;left:9px;z-index:2;font-size:.6rem;font-weight:800;letter-spacing:.5px;
+  padding:.12rem .48rem;border-radius:999px;text-transform:uppercase;color:#1a1206;
+  background:linear-gradient(135deg,var(--amber),#ff9d3c);
+  box-shadow:0 0 12px -2px color-mix(in srgb,var(--amber) 60%,transparent)}
+
+/* count-up numerals */
+.count-up{font-variant-numeric:tabular-nums}
+
 /* Keyboard focus accent + entrance animation (a11y + visual pop) */
 .repo-card:focus-visible,.gist-card:focus-visible,.awesome-card:focus-visible{
   outline:none;
