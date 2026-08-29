@@ -28,6 +28,12 @@
           {{ $repo := . }}
           {{ $p := $.Site.GetPage (printf "/awesome/%s/%s" $repo.group $repo.name) }}
           <article class="awesome-card">
+            <span class="shimmer"></span>
+            {{ if and $repo.stars (gt $repo.stars 49) }}<span class="top-badge">★ TOP</span>{{ end }}
+            <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
+                  data-like-key="awesome-{{ $repo.group }}-{{ $repo.name }}">
+              <span class="heart">♥</span><span class="lk-count">0</span>
+            </span>
             <div>
               <h3 class="neo-awesome-card-title">
                 <a href="{{ $repo.gh }}" target="_blank" rel="noopener">{{ $repo.name }}</a>
@@ -35,7 +41,7 @@
               <p class="neo-awesome-card-group">{{ $repo.group }}</p>
               {{ with $repo.description }}<p class="neo-awesome-card-desc">{{ . }}</p>{{ end }}
               <p class="neo-awesome-card-meta">
-                {{ with $repo.stars }}<span class="stars">★ {{ . }}</span>{{ end }}
+                {{ with $repo.stars }}<span class="stars count-up" data-to="{{ . }}">★ {{ . }}</span>{{ end }}
                 {{ with $repo.refreshedAt }}<span class="neo-awesome-updated">обновлено: {{ (time .) | time.Format "2006-01-02" }}</span>{{ end }}
               </p>
             </div>
@@ -56,6 +62,7 @@
     </p>
   {{ end }}
 </div>
+{{ partial "neo-card-features.html" . }}
 </main>
 {{ partial "neo-footer.html" . }}
 </body>

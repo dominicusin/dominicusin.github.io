@@ -13,6 +13,11 @@
   <div class="repo-grid" data-count="{{ len .RegularPages }}">
     {{ range .RegularPages.ByTitle }}
       <a class="repo-card gist-card" href="{{ .RelPermalink }}">
+        <span class="shimmer"></span>
+        <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
+              data-like-key="{{ .Params.gist_id | default .Params.gist_name }}">
+          <span class="heart">♥</span><span class="lk-count">0</span>
+        </span>
         <div class="repo-card-top">
           <span class="repo-card-name">{{ .Params.gist_name }}</span>
         </div>
@@ -22,7 +27,7 @@
           {{ if gt (len .Params.files) 3 }}<span class="gist-file gist-file-more">+{{ sub (len .Params.files) 3 }} ещё</span>{{ end }}
         </div>
         <div class="repo-card-meta">
-          {{ with .Params.files }}<span>📄 {{ . | len }} файл{{ if ne (. | len) 1 }}{{ . | len }}{{ else }}{{ end }}</span>{{ end }}
+          {{ with .Params.files }}<span class="count-up" data-to="{{ . | len }}">📄 {{ . | len }} файл{{ if ne (. | len) 1 }}{{ . | len }}{{ else }}{{ end }}</span>{{ end }}
           {{ with .Params.updated_at }}<span title="обновлён">🕑 {{ substr . 0 10 }}</span>{{ end }}
           {{ if .Params.language }}<span><span class="repo-lang-dot {{ .Params.language | lower }}"></span>{{ . }}</span>{{ end }}
         </div>
@@ -33,6 +38,7 @@
     {{ end }}
   </div>
 </div>
+{{ partial "neo-card-features.html" . }}
 </main>
 {{ partial "neo-footer.html" . }}
 </body>

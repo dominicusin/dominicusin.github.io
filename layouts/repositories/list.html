@@ -14,6 +14,12 @@
   <div class="repo-grid" data-count="{{ len $pages }}">
     {{ range $pages.ByTitle }}
       <a class="repo-card" href="{{ .RelPermalink }}">
+        <span class="shimmer"></span>
+        {{ if and .Params.stars (gt .Params.stars 49) }}<span class="top-badge">★ TOP</span>{{ end }}
+        <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
+              data-like-key="{{ .Params.repo_owner }}__{{ .Params.repo_name }}">
+          <span class="heart">♥</span><span class="lk-count">0</span>
+        </span>
         <div class="repo-card-top">
           <span class="repo-card-name">{{ .Params.repo_name }}</span>
           {{ if .Params.archived }}<span class="repo-badge">архив</span>{{ end }}
@@ -29,8 +35,8 @@
           {{ with .Params.language }}
             <span><span class="repo-lang-dot {{ . | lower }}"></span>{{ . }}</span>
           {{ end }}
-          {{ if .Params.stars }}<span title="звёзды">★ {{ .Params.stars }}</span>{{ end }}
-          {{ if .Params.forks }}<span title="форки">⑂ {{ .Params.forks }}</span>{{ end }}
+          {{ if .Params.stars }}<span title="звёзды" class="count-up" data-to="{{ .Params.stars }}">★ {{ .Params.stars }}</span>{{ end }}
+          {{ if .Params.forks }}<span title="форки" class="count-up" data-to="{{ .Params.forks }}">⑂ {{ .Params.forks }}</span>{{ end }}
           {{ if .Params.is_fork }}<span class="repo-tag">fork</span>{{ end }}
         </div>
         <div class="card-links">
@@ -41,6 +47,7 @@
     {{ end }}
   </div>
 </div>
+{{ partial "neo-card-features.html" . }}
 </main>
 {{ partial "neo-footer.html" . }}
 </body>

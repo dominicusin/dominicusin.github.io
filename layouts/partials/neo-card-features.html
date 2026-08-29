@@ -1,0 +1,75 @@
+{{/* Interactive card features: like buttons (localStorage) + count-up.
+     Self-contained vanilla JS, no deps. Include before </body> on list pages. */}}
+<script>
+(function () {
+  "use strict";
+  var STORE = "neo-likes-v1";
+  try {
+    var likes = JSON.parse(localStorage.getItem(STORE) || "{}");
+  } catch (e) { var likes = {}; }
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(likes)); } catch (e) {} }
+
+  // deterministic pseudo-base so the counter looks alive per card
+  function base(key) {
+    var h = 0, i;
+    for (i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+    return (h % 47) + 6;
+  }
+
+  function render(btn) {
+    var key = btn.getAttribute("data-like-key") || "";
+    var b = base(key);
+    var liked = !!likes[key];
+    btn.classList.toggle("liked", liked);
+    var num = btn.querySelector(".lk-count");
+    if (num) num.textContent = String(b + (liked ? 1 : 0));
+  }
+
+  function toggle(btn) {
+    var key = btn.getAttribute("data-like-key") || "";
+    likes[key] = !likes[key];
+    save();
+    render(btn);
+    btn.classList.remove("pop");
+    void btn.offsetWidth; // restart animation
+    btn.classList.add("pop");
+  }
+
+  function wire(btn) {
+    render(btn);
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation(); // don't navigate the parent <a>
+      toggle(btn);
+    });
+    btn.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); toggle(btn); }
+    });
+  }
+
+  var btns = document.querySelectorAll(".like-btn");
+  for (var i = 0; i < btns.length; i++) wire(btns[i]);
+
+  // count-up for numerals flagged with .count-up (stars/forks/stats)
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target, to = parseInt(el.getAttribute("data-to") || "0", 10);
+        io.unobserve(el);
+        if (!to) return;
+        var dur = 700, t0 = null, prefix = el.getAttribute("data-prefix") || "";
+        function step(ts) {
+          if (t0 === null) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          var val = Math.round((1 - Math.pow(1 - p, 3)) * to);
+          el.firstChild ? (el.firstChild.nodeValue = prefix + val) : (el.textContent = prefix + val);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+    var nums = document.querySelectorAll(".count-up");
+    for (var j = 0; j < nums.length; j++) io.observe(nums[j]);
+  }
+})();
+</script>
