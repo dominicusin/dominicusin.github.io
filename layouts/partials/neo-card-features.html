@@ -30,9 +30,9 @@
     likes[key] = !likes[key];
     save();
     render(btn);
-    btn.classList.remove("pop");
+    btn.classList.remove("pop", "spark");
     void btn.offsetWidth; // restart animation
-    btn.classList.add("pop");
+    btn.classList.add("pop", "spark");
   }
 
   function wire(btn) {

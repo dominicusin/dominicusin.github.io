@@ -337,6 +337,54 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 /* count-up numerals */
 .count-up{font-variant-numeric:tabular-nums}
 
+/* ---------- CARD COSMETICS (рюшечки: gloss, sparkle, tilt, glow) ---------- */
+/* perspective for the 3D hover tilt (top-bar stays on ::before, brackets on ::after) */
+.repo-grid,.neo-awesome-grid{perspective:1400px}
+/* subtle dotted texture inside the card */
+.repo-card,.awesome-card{
+  background-image:radial-gradient(color-mix(in srgb,var(--accent) 9%,transparent) 1px,transparent 1px);
+  background-size:14px 14px;background-position:0 0}
+/* rotating gradient halo ring behind the card (dedicated span) */
+.card-halo{position:absolute;inset:-1.5px;border-radius:calc(var(--radius) + 1.5px);z-index:0;pointer-events:none;
+  background:conic-gradient(from var(--ang,0deg),var(--accent),var(--accent-2),var(--violet,#b98cff),var(--accent));
+  opacity:0;transition:opacity .3s ease;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;padding:1.5px}
+@keyframes neo-ang{to{--ang:360deg}}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.repo-card:hover .card-halo,.awesome-card:hover .card-halo{opacity:.9;animation:neo-ang 4s linear infinite}
+/* glossy sheen sweep (dedicated span) */
+.card-gloss{position:absolute;inset:0;border-radius:var(--radius);pointer-events:none;z-index:1;overflow:hidden;opacity:0;transition:opacity .35s ease}
+.card-gloss::before{content:"";position:absolute;inset:-40% -10%;
+  background:linear-gradient(115deg,transparent 35%,color-mix(in srgb,#ffffff 26%,transparent) 50%,transparent 62%);
+  transform:translateX(-30%);mix-blend-mode:screen}
+.repo-card:hover .card-gloss,.awesome-card:hover .card-gloss{opacity:1}
+.repo-card:hover .card-gloss::before,.awesome-card:hover .card-gloss::before{animation:neo-glide 1.5s ease}
+@keyframes neo-glide{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
+/* bump hover glow + 3D tilt (keeps top-bar & brackets) */
+.repo-card:hover,.awesome-card:hover{
+  transform:translateY(-6px) rotateX(2.5deg);
+  box-shadow:0 22px 46px -22px rgba(0,0,0,.85),0 0 26px -6px color-mix(in srgb,var(--accent) 55%,transparent)}
+/* bobbing sparkle charm */
+.card-sparkle{position:absolute;top:8px;left:10px;z-index:5;font-size:.85rem;pointer-events:none;
+  filter:drop-shadow(0 0 6px color-mix(in srgb,var(--accent) 70%,transparent));animation:neo-bob 3.2s ease-in-out infinite}
+@keyframes neo-bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-4px) rotate(6deg)}}
+/* gradient (glossy) card titles */
+.repo-card-name,.neo-awesome-card-title a,.gist-card .repo-card-name{
+  background:linear-gradient(100deg,var(--text),var(--accent) 60%,var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+/* NEW badge for recently updated */
+.new-badge{position:absolute;top:9px;left:9px;z-index:3;font-size:.58rem;font-weight:800;letter-spacing:.6px;
+  padding:.12rem .5rem;border-radius:999px;text-transform:uppercase;color:#04130c;
+  background:linear-gradient(135deg,#5dff9b,#21d4a0);
+  box-shadow:0 0 12px -2px color-mix(in srgb,#5dff9b 60%,transparent);animation:neo-pulse 2.4s ease-in-out infinite}
+@keyframes neo-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
+/* like sparkle burst */
+.like-btn.spark .heart{animation:neo-heart-pop .4s ease}
+.like-btn .burst{position:absolute;inset:0;pointer-events:none;border-radius:999px;overflow:visible}
+.like-btn .burst i{position:absolute;top:50%;left:50%;font-size:.6rem;opacity:0}
+.like-btn.spark .burst i{animation:neo-burst .6s ease-out forwards}
+@keyframes neo-burst{0%{opacity:1;transform:translate(-50%,-50%) scale(.4)}100%{opacity:0;transform:translate(var(--bx,-50%),var(--by,-50%)) scale(1.1)}}
+
 /* Keyboard focus accent + entrance animation (a11y + visual pop) */
 .repo-card:focus-visible,.gist-card:focus-visible,.awesome-card:focus-visible{
   outline:none;

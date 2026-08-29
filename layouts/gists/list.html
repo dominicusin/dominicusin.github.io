@@ -13,10 +13,15 @@
   <div class="repo-grid" data-count="{{ len .RegularPages }}">
     {{ range .RegularPages.ByTitle }}
       <a class="repo-card gist-card" href="{{ .RelPermalink }}">
+        <span class="card-halo"></span>
         <span class="shimmer"></span>
+        <span class="card-gloss"></span>
+        {{ with .Params.updated_at }}{{ $gu := . }}{{ with (time $gu) }}{{ if lt (sub now.Unix .Unix) 5184000 }}<span class="new-badge">NEW</span>{{ end }}{{ end }}{{ end }}
+        <span class="card-sparkle">✨</span>
         <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
               data-like-key="{{ .Params.gist_id | default .Params.gist_name }}">
           <span class="heart">♥</span><span class="lk-count">0</span>
+          <span class="burst"><i style="--bx:-160%;--by:-120%">✦</i><i style="--bx:160%;--by:-120%">✧</i><i style="--bx:-120%;--by:140%">✦</i><i style="--bx:120%;--by:140%">✧</i></span>
         </span>
         <div class="repo-card-top">
           <span class="repo-card-name">{{ .Params.gist_name }}</span>
