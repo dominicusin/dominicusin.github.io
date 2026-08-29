@@ -211,41 +211,54 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .repo-card-desc{font-size:.84rem;color:var(--muted);margin:0;line-height:1.45;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
-/* Topics pills */
-.repo-pills{display:flex;flex-wrap:wrap;gap:.35rem}
-.repo-pill{font-size:.66rem;padding:.12rem .5rem;border-radius:999px;
-  background:color-mix(in srgb,var(--accent) 16%,transparent);
-  color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-  transition:background .2s ease,color .2s ease}
-.repo-card:hover .repo-pill{background:color-mix(in srgb,var(--accent) 26%,transparent)}
+/* Topics pills — accentuated with gradient + glow */
+.repo-pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.repo-pill{position:relative;font-size:.68rem;font-weight:600;padding:.2rem .6rem;border-radius:999px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent-2) 12%,transparent));
+  color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);
+  box-shadow:0 0 10px -3px color-mix(in srgb,var(--accent) 45%,transparent);
+  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.repo-card:hover .repo-pill{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 32%,transparent),color-mix(in srgb,var(--accent-2) 18%,transparent));
+  box-shadow:0 0 14px -2px color-mix(in srgb,var(--accent) 60%,transparent);transform:translateY(-1px)}
 
-/* Badges & tags */
-.repo-badge{font-size:.62rem;padding:.08rem .45rem;border-radius:999px;
-  background:color-mix(in srgb,var(--muted) 18%,transparent);color:var(--muted);
-  border:1px solid color-mix(in srgb,var(--muted) 35%,transparent);font-weight:600;letter-spacing:.3px}
-.repo-tag{font-size:.62rem;padding:.08rem .45rem;border-radius:999px;
-  background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber);
-  border:1px solid color-mix(in srgb,var(--amber) 35%,transparent);font-weight:600}
+/* Badges & tags — accented chips */
+.repo-badge{font-size:.64rem;padding:.1rem .5rem;border-radius:999px;font-weight:700;letter-spacing:.4px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--muted) 22%,transparent),color-mix(in srgb,var(--muted) 10%,transparent));
+  color:var(--muted);border:1px solid color-mix(in srgb,var(--muted) 45%,transparent)}
+.repo-tag{font-size:.64rem;padding:.1rem .5rem;border-radius:999px;font-weight:700;letter-spacing:.3px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--amber) 26%,transparent),color-mix(in srgb,var(--amber) 12%,transparent));
+  color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 50%,transparent);
+  box-shadow:0 0 10px -3px color-mix(in srgb,var(--amber) 50%,transparent)}
 
-/* Meta line (language / stars / forks / date) */
-.repo-card-meta{display:flex;flex-wrap:wrap;gap:.55rem;font-size:.72rem;color:var(--faint);margin-top:auto;align-items:center}
-.repo-card-meta span{display:inline-flex;align-items:center;gap:.25rem;
-  background:color-mix(in srgb,var(--muted) 8%,transparent);padding:.12rem .45rem;border-radius:7px}
-.repo-lang-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.25rem;
-  box-shadow:0 0 8px -1px currentColor}
+/* Meta line (language / stars / forks / date) — pill chips with accent dot */
+.repo-card-meta{display:flex;flex-wrap:wrap;gap:.5rem;font-size:.72rem;color:var(--faint);margin-top:auto;align-items:center}
+.repo-card-meta span{display:inline-flex;align-items:center;gap:.3rem;
+  background:color-mix(in srgb,var(--panel-2) 80%,transparent);padding:.14rem .5rem;border-radius:8px;
+  border:1px solid var(--line)}
+.repo-card-meta span[title="звёзды"]{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 35%,transparent)}
+.repo-card-meta span[title="форки"]{color:var(--accent-2);border-color:color-mix(in srgb,var(--accent-2) 32%,transparent)}
+.repo-lang-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.1rem;
+  box-shadow:0 0 9px 0 currentColor}
 
-/* Gist file chips */
+/* Gist file chips — accent-bordered mono chips */
 .gist-files{display:flex;flex-wrap:wrap;gap:.35rem}
-.gist-file{font-size:.66rem;padding:.14rem .5rem;border-radius:.45rem;
-  background:var(--bg-2);border:1px solid var(--line);color:var(--muted);font-family:var(--mono)}
-.gist-file-more{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 32%,transparent)}
+.gist-file{font-size:.68rem;padding:.16rem .55rem;border-radius:.5rem;
+  background:var(--bg-2);border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line));
+  color:var(--muted);font-family:var(--mono);
+  transition:color .2s ease,border-color .2s ease,background .2s ease}
+.gist-file:hover{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,transparent);
+  background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.gist-file-more{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent);font-weight:600}
 
-/* Footer links */
-.card-links{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.55rem}
+/* Footer links — solid accent pill buttons */
+.card-links{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
 .card-link{font-size:.72rem;font-weight:700;color:var(--accent);
-  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
-  padding:.18rem .6rem;border-radius:999px;transition:background .2s ease,color .2s ease}
-.card-link:hover{background:var(--accent);color:#06121a}
+  border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+  padding:.22rem .65rem;border-radius:999px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 14%,transparent),transparent);
+  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.card-link:hover{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06121a;
+  transform:translateY(-1px);box-shadow:0 4px 14px -4px color-mix(in srgb,var(--accent) 70%,transparent)}
 
 /* Awesome: make the inline Tailwindish structure resolve to the accent card */
 .group-section{margin-bottom:2.5rem}
@@ -257,6 +270,20 @@ html[data-reduce-motion="true"] *{animation:none !important; transition:none !im
 .neo .awesome-card p{color:var(--muted);font-size:.86rem;line-height:1.45}
 .neo .awesome-card .group{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
 .neo .awesome-card .stars{color:var(--amber)}
+/* Awesome card elements — accentuated chips/links to match gists/repos */
+.neo-awesome-count{font-family:var(--mono);font-size:.78rem;font-weight:600;padding:.15rem .6rem;border-radius:999px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent-2) 12%,transparent));
+  color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);
+  box-shadow:0 0 10px -3px color-mix(in srgb,var(--accent) 45%,transparent)}
+.neo-awesome-card-title a{transition:color .2s ease}
+.neo-awesome-card-group{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
+.neo-awesome-card-meta .stars{color:var(--amber);font-weight:600}
+.neo-awesome-card-links a{font-weight:600;border:1px solid color-mix(in srgb,var(--accent-2) 30%,transparent);
+  padding:.12rem .5rem;border-radius:999px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--accent-2) 12%,transparent),transparent);
+  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.neo-awesome-card-links a:hover{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#06121a;
+  transform:translateY(-1px);box-shadow:0 4px 14px -4px color-mix(in srgb,var(--accent) 65%,transparent)}
 
 /* Keyboard focus accent + entrance animation (a11y + visual pop) */
 .repo-card:focus-visible,.gist-card:focus-visible,.awesome-card:focus-visible{
