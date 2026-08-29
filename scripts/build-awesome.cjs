@@ -119,9 +119,16 @@ function rewriteRelativeLinks(md, ghUrl, repoPath) {
   const base = ghUrl.replace(/\/$/, '');
   // Raw HTML anchors with relative hrefs (e.g. the-book-of-secret-knowledge
   // README has `<a href="LICENSE.md">`), which markdown-link rewriting misses.
-  md = md.replace(/<a\s+([^>]*?)href=["\']([^"\']+)["\']([^>]*)>/gi, (m, pre, href, post) => {
+  md = md.replace(/<a\s+([\s\S]*?)href=["']([^"']+)["']([\s\S]*?)>/gi, (m, pre, href, post) => {
     const d = href.trim();
-    if (/^(https?:\/\/|mailto:|tel:|#|\/)/i.test(d)) return m;
+    if (/^(https?:\/\/|mailto:|tel:|#)/i.test(d)) return m;       // absolute / anchor
+    if (d.startsWith('/')) {
+      const seg = d.replace(/^\//, '').replace(/\/$/, '');
+      if (/^tags\//i.test(seg)) return `<a ${pre}href="https://github.com/topics/${seg.split('/')[1]}"${post}>`;
+      if (!seg.includes('/') && !seg.includes('.')) return `<a ${pre}href="https://github.com/${seg}"${post}>`;
+      const rel = seg;
+      return `<a ${pre}href="${base}/blob/${branch}/${rel}"${post}>`;
+    }
     const rel = d.replace(/^\.\//, '').replace(/^\.\.\//, '');
     return `<a ${pre}href="${base}/blob/${branch}/${rel}"${post}>`;
   });
@@ -129,8 +136,16 @@ function rewriteRelativeLinks(md, ghUrl, repoPath) {
     const d = dest.trim();
     if (/^(https?:\/\/|mailto:|tel:|#)/i.test(d)) return m;      // absolute / anchor
     let rel;
-    if (d.startsWith('/')) rel = d.slice(1);                        // repo-root absolute -> repo path
-    else rel = d.replace(/^\.\//, '').replace(/^\.\.\//, '');   // ./ or ../ -> repo root
+    if (d.startsWith('/')) {
+      // Repo-root absolute link. GitHub READMEs commonly use these for the
+      // author/org profile (/domini, /people) or topic pages (/tags/x).
+      // Point user/org + topic roots at real GitHub URLs instead of a broken
+      // repo-blob path; everything else is treated as a repo-path.
+      const seg = d.replace(/^\//, '').replace(/\/$/, '');
+      if (/^tags\//i.test(seg)) return `](https://github.com/topics/${seg.split('/')[1]})`;
+      if (!seg.includes('/') && !seg.includes('.')) return `](https://github.com/${seg})`;
+      rel = seg;
+    } else rel = d.replace(/^\.\//, '').replace(/^\.\.\//, '');   // ./ or ../ -> repo root
     const frag = d.includes('#') ? '#' + d.split('#')[1] : '';
     const q = d.includes('?') ? '?' + d.split('?')[1] : '';
     return `](${base}/blob/${branch}/${rel}${q}${frag})`;
