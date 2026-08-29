@@ -26,7 +26,12 @@ function sanitizeExternal(input) {
     .replace(/<(iframe|object|embed)\b[^>]*\/?>/gi, '')
     // a11y: <img> without alt gets an empty alt (decorative/technical images
     // from ingested gists/repos should not fail the a11y spot-check)
-    .replace(/<img\b([^>]*?)\b(?!alt=)([^>]*)>/gi, '<img alt="$1$2>');
+    .replace(/<img\b([^>]*?)\b(?!alt=)([^>]*)>/gi, '<img alt="$1$2>')
+    // link-rot: GitHub READMEs link to /tags/<x>/, /domini/, /people/ etc.
+    // that do not exist on this site. Neutralize those internal markdown
+    // links (keep the visible label, drop the broken href) so generated
+    // pages don't publish dead internal links.
+    .replace(/\[([^\]]+)\]\(((\/tags\/|\/domini\/|\/people\/)[^)\s]+)\)/gi, '$1');
 }
 
 module.exports = { sanitizeExternal };

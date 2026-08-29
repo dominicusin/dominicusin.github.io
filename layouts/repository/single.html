@@ -18,7 +18,7 @@
         {{ if .Params.has_wiki }}<a class="repo-btn repo-btn--ghost" href="{{ .Params.wiki_url }}" target="_blank" rel="noopener">Wiki ↗</a>{{ end }}
       </div>
       {{ with .Params.topics }}<div class="repo-topics">
-        {{ range . }}<a class="repo-topic" href="/tags/{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+        {{ range . }}<a class="repo-topic" href="https://github.com/topics/{{ . | urlize }}" target="_blank" rel="noopener">#{{ . }}</a>{{ end }}
       </div>{{ end }}
     </header>
 
