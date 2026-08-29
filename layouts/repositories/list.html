@@ -14,11 +14,15 @@
   <div class="repo-grid" data-count="{{ len $pages }}">
     {{ range $pages.ByTitle }}
       <a class="repo-card" href="{{ .RelPermalink }}">
+        <span class="card-halo"></span>
         <span class="shimmer"></span>
+        <span class="card-gloss"></span>
         {{ if and .Params.stars (gt .Params.stars 49) }}<span class="top-badge">★ TOP</span>{{ end }}
+        <span class="card-sparkle">✨</span>
         <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
               data-like-key="{{ .Params.repo_owner }}__{{ .Params.repo_name }}">
           <span class="heart">♥</span><span class="lk-count">0</span>
+          <span class="burst"><i style="--bx:-160%;--by:-120%">✦</i><i style="--bx:160%;--by:-120%">✧</i><i style="--bx:-120%;--by:140%">✦</i><i style="--bx:120%;--by:140%">✧</i></span>
         </span>
         <div class="repo-card-top">
           <span class="repo-card-name">{{ .Params.repo_name }}</span>
