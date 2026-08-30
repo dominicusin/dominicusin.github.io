@@ -878,7 +878,11 @@ a[href^="http"]:not([href*="dominicusin.github.io"]):not([href*="github.com"]):n
 
 
 @media print{
-  .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings{display:none !important}
+  .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings,
+  .neo-cursor,.neo-orb,.neo-lightbox,.neo-palette,.neo-help,.neo-readbar,.neo-mobile-nav,
+  .neo-drawer,.neo-sort,.neo-filter,.neo-recent,.neo-sparkle,.card-halo,.card-gloss,
+  .like-btn,.neo-burger,.neo-motion-quick,.copy-btn,.neo-filter-bar{display:none !important}
   body{background:#fff;color:#000}body::before,body::after{display:none}
+  *{box-shadow:none !important}
   .neo-post{max-width:100%;padding:0}.neo-post-body{color:#000;font-size:12pt}
 }
