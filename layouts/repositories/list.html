@@ -13,7 +13,7 @@
   {{ $pages := .RegularPages }}
   <div class="repo-grid" data-count="{{ len $pages }}">
     {{ range $pages.ByTitle }}
-      <a class="repo-card" href="{{ .RelPermalink }}">
+      <a class="repo-card" href="{{ .RelPermalink }}" data-name="{{ .Params.repo_name }}" data-stars="{{ .Params.stars | default 0 }}" data-forks="{{ .Params.forks | default 0 }}">
         <span class="card-halo"></span>
         <span class="shimmer"></span>
         <span class="card-gloss"></span>

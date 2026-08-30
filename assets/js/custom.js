@@ -297,5 +297,114 @@
       else if (e.key === 'Escape' && palette.classList.contains('open')) { pClose(); }
     });
   } catch (e) {}
+
+  // ---- Ergonomics 3: sort controls, keyboard help, auto-theme, recently viewed ----
+  try {
+    var ls = function (k, v) { try { return v === undefined ? localStorage.getItem(k) : (localStorage.setItem(k, v), v); } catch (e) { return v; } };
+
+    // auto/system theme on first visit
+    if (!ls('neo-theme')) {
+      var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+      if (mq && mq.matches) document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    // sort controls on list grids
+    ['repo-grid', 'neo-awesome-grid'].forEach(function (sel) {
+      var grid = document.querySelector('.' + sel);
+      if (!grid) return;
+      var cards = Array.prototype.slice.call(grid.children);
+      if (!cards.length) return;
+      var bar = document.createElement('div');
+      bar.className = 'neo-sort';
+      var lbl = document.createElement('span'); lbl.className = 'lbl'; lbl.textContent = 'Сортировка:';
+      bar.appendChild(lbl);
+      var opts = [
+        { k: 'name', t: 'Имя' },
+        { k: 'stars', t: '★' },
+        { k: 'forks', t: '⑂' }
+      ];
+      if (cards[0].getAttribute('data-updated') !== null) opts = [{ k: 'name', t: 'Имя' }, { k: 'updated', t: 'Обновл.' }];
+      function val(c, k) {
+        if (k === 'name') return (c.getAttribute('data-name') || '').toLowerCase();
+        if (k === 'updated') return c.getAttribute('data-updated') || '';
+        return parseInt(c.getAttribute('data-' + k) || '0', 10);
+      }
+      function apply(k) {
+        var sorted = cards.slice().sort(function (a, b) {
+          var va = val(a, k), vb = val(b, k);
+          if (k === 'name' || k === 'updated') return va < vb ? -1 : va > vb ? 1 : 0;
+          return vb - va;
+        });
+        sorted.forEach(function (c) { grid.appendChild(c); });
+        bar.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.k === k ? 'true' : 'false'); });
+        ls('neo-sort-' + sel, k);
+      }
+      opts.forEach(function (o) {
+        var b = document.createElement('button');
+        b.dataset.k = o.k; b.type = 'button'; b.innerHTML = o.t;
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () { apply(o.k); });
+        bar.appendChild(b);
+      });
+      grid.parentNode.insertBefore(bar, grid);
+      var saved = ls('neo-sort-' + sel);
+      if (saved) apply(saved); else { bar.querySelector('button[data-k="name"]').setAttribute('aria-pressed', 'true'); }
+    });
+
+    // keyboard help overlay (press ?)
+    var help = document.createElement('div');
+    help.className = 'neo-help';
+    help.innerHTML = '<div class="neo-help-box"><h3>⌨ Горячие клавиши</h3>' +
+      '<div class="neo-help-grid">' +
+      '<span class="k"><span class="neo-kbd">/</span></span><span>Открыть поиск</span>' +
+      '<span class="k"><span class="neo-kbd">?</span></span><span>Эта справка</span>' +
+      '<span class="k"><span class="neo-kbd">Ctrl</span>+<span class="neo-kbd">K</span></span><span>Палитра разделов</span>' +
+      '<span class="k"><span class="neo-kbd">t</span></span><span>Сменить тему</span>' +
+      '<span class="k"><span class="neo-kbd">b</span></span><span>Наверх</span>' +
+      '<span class="k"><span class="neo-kbd">Esc</span></span><span>Закрыть оверлеи</span>' +
+      '</div><div class="hint">Нажмите <span class="neo-kbd">Esc</span> или кликните вне окна, чтобы закрыть.</div></div>';
+    document.body.appendChild(help);
+    function helpOpen() { help.classList.add('open'); }
+    function helpClose() { help.classList.remove('open'); }
+    help.addEventListener('click', function (e) { if (e.target === help) helpClose(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      var tag = e.target && e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+      if (e.key === '?') { e.preventDefault(); helpOpen(); }
+      else if (e.key === 'Escape' && help.classList.contains('open')) helpClose();
+    });
+
+    // recently viewed — track detail pages, render a strip on the homepage
+    var path = location.pathname.replace(/\/+$/, '') || '/';
+    var isDetail = /\/(repositories|gists|awesome)\//.test(path);
+    if (isDetail) {
+      var title = (document.querySelector('h1') || {}).textContent || document.title;
+      var rec = JSON.parse(ls('neo-recent') || '[]');
+      rec = rec.filter(function (r) { return r.href !== path; });
+      rec.unshift({ href: path, title: title.slice(0, 48) });
+      ls('neo-recent', JSON.stringify(rec.slice(0, 8)));
+    }
+    if (path === '/' || path === '') {
+      var recent = JSON.parse(ls('neo-recent') || '[]');
+      if (recent.length) {
+        var wrap = document.querySelector('.neo-wrap') || document.querySelector('main');
+        if (wrap) {
+          var strip = document.createElement('div');
+          strip.className = 'neo-recent';
+          var head = document.createElement('div');
+          head.className = 'neo-sec-head'; head.style.marginTop = '8px';
+          head.innerHTML = '<h2>Недавно открытое</h2>';
+          strip.appendChild(head);
+          recent.forEach(function (r) {
+            var a = document.createElement('a'); a.href = r.href; a.textContent = r.title || r.href;
+            strip.appendChild(a);
+          });
+          wrap.insertBefore(strip, wrap.firstChild.nextSibling || wrap.firstChild);
+        }
+      }
+    }
+  } catch (e) {}
 })();
+
 
