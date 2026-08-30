@@ -6,7 +6,7 @@
 {{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
-<main class="neo">
+<main class="neo" id="main">
 <div class="neo-wrap">
   <div class="neo-sec-head" style="margin-top:20px">
     <h2>{{ .Title }}</h2>
@@ -16,7 +16,7 @@
   <div class="neo-rows">
     {{ range $pages.Pages }}
     <a class="neo-row" href="{{ .RelPermalink }}">
-      <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+      <span class="date"><time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" data-time="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time></span>
       <span class="title">{{ .Title }}</span>
       {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
     </a>

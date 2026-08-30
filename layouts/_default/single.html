@@ -6,7 +6,7 @@
 {{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
-<main class="neo">
+<main class="neo" id="main">
 <article class="neo-post">
   <nav class="neo-crumbs">
     <a href="{{ site.Home.RelPermalink }}">Главная</a>
@@ -15,7 +15,7 @@
   </nav>
   <header class="neo-post-head">
     <div class="neo-eyebrow">
-      {{ .Date.Format "2006-01-02" }}
+      <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" data-time="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
       {{ range .Params.tags }} · <a href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
     </div>
     <h1>{{ .Title }}</h1>
