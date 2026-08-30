@@ -611,6 +611,57 @@ img{height:auto}
 .gist-links{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.7rem;position:relative;z-index:2}
 .gist-body{position:relative;z-index:2;margin-top:1rem}
 
+/* ---------- DETAIL CARDS in neo.css (repo / awesome single) ---------- */
+.repo-page{position:relative;margin:1.6rem auto 2rem;max-width:var(--content-max,900px);padding:1.6rem 1.7rem 1.7rem;border-radius:var(--radius);
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  box-shadow:var(--shadow),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent);
+  overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.repo-page::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet,#b98cff));opacity:.9}
+.repo-page:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px color-mix(in srgb,var(--accent) 45%,transparent)}
+.repo-page{transform-style:preserve-3d}
+.repo-page:hover .card-halo{opacity:.85;animation:neo-ang 4s linear infinite}
+.repo-page:hover .card-gloss{opacity:1}
+.repo-page:hover .card-gloss::before{animation:neo-glide 1.5s ease}
+.repo-header{position:relative;z-index:2}
+.repo-title h1{background:linear-gradient(100deg,var(--text),var(--accent) 60%,var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;font-size:1.8rem;font-weight:800;margin:.2rem 0 .4rem}
+.repo-descr{color:var(--muted);max-width:62ch;margin:0 0 .8rem}
+.repo-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;position:relative;z-index:2}
+.repo-pill{display:inline-flex;align-items:center;gap:.25rem;font-size:.78rem;padding:.2rem .6rem;border-radius:999px;
+  background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--muted);border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+  transition:transform .18s,border-color .18s,box-shadow .18s,background .18s}
+.repo-meta:hover .repo-pill{box-shadow:0 0 12px -3px color-mix(in srgb,var(--accent) 50%,transparent)}
+.repo-pill:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  background:color-mix(in srgb,var(--accent) 18%,var(--panel));box-shadow:0 0 14px -3px color-mix(in srgb,var(--accent) 55%,transparent)}
+.repo-pill--warn{background:color-mix(in srgb,var(--amber) 16%,var(--panel));color:var(--amber);
+  border-color:color-mix(in srgb,var(--amber) 45%,var(--line));box-shadow:0 0 12px -4px color-mix(in srgb,var(--amber) 55%,transparent)}
+.repo-links{display:flex;gap:.6rem;margin-top:.8rem;position:relative;z-index:2}
+.repo-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .9rem;border-radius:999px;font-size:.85rem;
+  text-decoration:none;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06121a;font-weight:700;
+  box-shadow:0 6px 16px -8px color-mix(in srgb,var(--accent) 70%,transparent);transition:transform .15s,box-shadow .15s,border-color .15s}
+.repo-btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px -8px color-mix(in srgb,var(--accent) 75%,transparent)}
+.repo-btn--ghost{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line))}
+.repo-btn--ghost:hover{background:color-mix(in srgb,var(--accent) 12%,var(--panel));box-shadow:0 8px 18px -8px color-mix(in srgb,var(--accent) 50%,transparent)}
+.repo-topics{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;position:relative;z-index:2}
+.repo-topic{font-size:.78rem;color:var(--accent);text-decoration:none;transition:transform .18s,background .18s,box-shadow .18s}
+.repo-topic:hover{text-decoration:none;transform:translateY(-2px);background:color-mix(in srgb,var(--accent) 16%,var(--panel));
+  border-radius:999px;padding:.1rem .45rem;box-shadow:0 0 12px -3px color-mix(in srgb,var(--accent) 50%,transparent)}
+.repo-body{position:relative;z-index:2;margin-top:1rem}
+.awesome-preview{position:relative;margin:0 0 2rem;border-radius:var(--radius);
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  box-shadow:var(--shadow),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent);overflow:hidden;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.awesome-preview::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet,#b98cff));opacity:.9}
+.awesome-preview:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px color-mix(in srgb,var(--accent) 45%,transparent)}
+.awesome-preview{transform-style:preserve-3d}
+.awesome-preview:hover .card-halo{opacity:.85;animation:neo-ang 4s linear infinite}
+.awesome-preview:hover .card-gloss{opacity:1}
+.awesome-preview:hover .card-gloss::before{animation:neo-glide 1.5s ease}
+
 /* ---------- SITE-WIDE COSMETICS (глобальные рюшечки) ---------- */
 /* glassy header with animated gradient underline */
 .neo-header{backdrop-filter:blur(14px) saturate(140%);background:color-mix(in srgb,var(--bg) 68%,transparent)}
