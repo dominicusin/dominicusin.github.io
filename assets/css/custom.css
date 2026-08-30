@@ -635,3 +635,33 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 @keyframes neo-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .prose, .repo-page, .gist-page, .awesome-preview{animation:neo-rise .5s ease both}
 @media (prefers-reduced-motion: no-preference){.prose,.repo-page,.gist-page,.awesome-preview{animation:neo-rise .5s ease both}}
+/* ---------- EXTRA PLUSH (theme pages mirror) ---------- */
+*::-webkit-scrollbar{width:11px;height:11px}
+*::-webkit-scrollbar-track{background:rgba(var(--bg-elevated),.8)}
+*::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgb(var(--color-primary-500)),rgb(var(--color-primary-300)),var(--violet,#b98cff));
+  border-radius:999px;border:2px solid rgba(var(--bg-elevated),.7)}
+*::-webkit-scrollbar-thumb:hover{filter:brightness(1.15)}
+html{scrollbar-color:rgb(var(--color-primary-500)) rgba(var(--bg-elevated),.8);scrollbar-width:thin}
+.neo-orb{position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(28px);opacity:.4;
+  background:radial-gradient(circle,color-mix(in srgb,rgb(var(--color-primary-500)) 60%,transparent),transparent 70%);
+  animation:neo-float 14s ease-in-out infinite}
+.neo-orb.a{width:160px;height:160px;left:3vw;bottom:8vh}
+.neo-orb.b{width:120px;height:120px;right:4vw;top:14vh;background:radial-gradient(circle,color-mix(in srgb,var(--violet,#b98cff) 60%,transparent),transparent 70%);animation-delay:-5s}
+.neo-orb.c{width:90px;height:90px;right:12vw;bottom:20vh;background:radial-gradient(circle,color-mix(in srgb,rgb(var(--color-primary-400)) 60%,transparent),transparent 70%);animation-delay:-9s}
+@keyframes neo-float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-26px) translateX(14px)}}
+.neo-cursor{position:fixed;top:0;left:0;width:26px;height:26px;border-radius:50%;z-index:80;pointer-events:none;
+  margin:-13px 0 0 -13px;background:radial-gradient(circle,color-mix(in srgb,rgb(var(--color-primary-500)) 55%,transparent),transparent 70%);
+  mix-blend-mode:screen;opacity:0;transition:opacity .3s;filter:blur(2px)}
+@media (hover:hover) and (pointer:fine){.neo-cursor{opacity:.55}}
+.neo-sec-head h2{background:linear-gradient(100deg,rgb(var(--color-neutral-100)),rgb(var(--color-primary-300)) 55%,var(--accent-2,rgb(var(--color-primary-400))));
+  -webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+.neo-sec-head h2::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:64px;border-radius:2px;
+  background:linear-gradient(90deg,rgb(var(--color-primary-500)),rgb(var(--color-primary-300)),var(--violet,#b98cff));background-size:200% 100%;animation:neo-sheen 5s linear infinite}
+.repo-btn,.neo-btn,button.primary{position:relative;overflow:hidden}
+.repo-btn::before,.neo-btn::before,button.primary::before{content:"";position:absolute;top:0;left:-60%;width:50%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .5s ease}
+.repo-btn:hover::before,.neo-btn:hover::before,button.primary:hover::before{left:130%}
+.neo-chip:hover{transform:translateY(-2px);box-shadow:0 0 16px -4px color-mix(in srgb,rgb(var(--color-primary-500)) 55%,transparent);
+  border-color:color-mix(in srgb,rgb(var(--color-primary-500)) 50%,var(--ring))}
+a:hover{text-shadow:0 0 10px color-mix(in srgb,rgb(var(--color-primary-500)) 40%,transparent)}
+

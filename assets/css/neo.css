@@ -710,6 +710,48 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 #neo-backtotop{box-shadow:0 6px 18px -6px color-mix(in srgb,var(--accent) 55%,transparent)}
 #neo-backtotop:hover{box-shadow:0 0 18px -3px color-mix(in srgb,var(--accent) 70%,transparent)}
 
+/* ---------- EXTRA PLUSH (ещё рюшечки) ---------- */
+/* gradient scrollbar */
+*::-webkit-scrollbar{width:11px;height:11px}
+*::-webkit-scrollbar-track{background:color-mix(in srgb,var(--bg) 80%,transparent)}
+*::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent-2),var(--violet,#b98cff));
+  border-radius:999px;border:2px solid color-mix(in srgb,var(--bg) 70%,transparent)}
+*::-webkit-scrollbar-thumb:hover{filter:brightness(1.15)}
+*{-ms-overflow-style:-ms-autohiding-scrollbar}
+html{scrollbar-color:var(--accent) color-mix(in srgb,var(--bg) 80%,transparent);scrollbar-width:thin}
+/* cursor-follow soft glow (element injected by custom.js) */
+.neo-cursor{position:fixed;top:0;left:0;width:26px;height:26px;border-radius:50%;z-index:80;pointer-events:none;
+  margin:-13px 0 0 -13px;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 55%,transparent),transparent 70%);
+  mix-blend-mode:screen;opacity:0;transition:opacity .3s;filter:blur(2px)}
+@media (hover:hover) and (pointer:fine){.neo-cursor{opacity:.55}}
+/* floating decorative corner orbs (non-interactive, cute) */
+.neo-orb{position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(28px);opacity:.4;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 60%,transparent),transparent 70%);
+  animation:neo-float 14s ease-in-out infinite}
+.neo-orb.a{width:160px;height:160px;left:3vw;bottom:8vh}
+.neo-orb.b{width:120px;height:120px;right:4vw;top:14vh;background:radial-gradient(circle,color-mix(in srgb,var(--violet,#b98cff) 60%,transparent),transparent 70%);animation-delay:-5s}
+.neo-orb.c{width:90px;height:90px;right:12vw;bottom:20vh;background:radial-gradient(circle,color-mix(in srgb,var(--accent-2) 60%,transparent),transparent 70%);animation-delay:-9s}
+@keyframes neo-float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-26px) translateX(14px)}}
+/* shimmering section headers */
+.neo-sec-head h2{background:linear-gradient(100deg,var(--text),var(--accent) 55%,var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+.neo-sec-head h2::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:64px;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet,#b98cff));background-size:200% 100%;
+  animation:neo-sheen 5s linear infinite}
+/* button shine sweep on primary buttons */
+.repo-btn,.neo-btn,button.primary{position:relative;overflow:hidden}
+.repo-btn::before,.neo-btn::before,button.primary::before{content:"";position:absolute;top:0;left:-60%;width:50%;height:100%;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .5s ease}
+.repo-btn:hover::before,.neo-btn:hover::before,button.primary:hover::before{left:130%}
+/* always-on faint rainbow ring on cards (subtle) */
+.repo-card,.awesome-card,.gist-card{box-shadow:var(--shadow),0 0 0 1px color-mix(in srgb,var(--accent) 12%,transparent)}
+/* tag/section chips shimmer */
+.neo-chip,.neo-tagcloud .neo-chip{transition:transform .18s,box-shadow .18s,border-color .18s}
+.neo-chip:hover,.neo-tagcloud .neo-chip:hover{transform:translateY(-2px);
+  box-shadow:0 0 16px -4px color-mix(in srgb,var(--accent) 55%,transparent);border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+/* sparkle trail on hover for links */
+a:hover{text-shadow:0 0 10px color-mix(in srgb,var(--accent) 40%,transparent)}
+
 /* ---------- PRINT ---------- */
 @media print{
   .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings{display:none !important}

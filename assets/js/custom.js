@@ -124,6 +124,29 @@
     sp.textContent = '✨';
     document.body.appendChild(sp);
 
+    // floating decorative corner orbs (cute)
+    ['a','b','c'].forEach(function(c){
+      var o = document.createElement('span');
+      o.className = 'neo-orb ' + c;
+      document.body.appendChild(o);
+    });
+
+    // cursor-follow soft glow
+    var cur = document.createElement('span');
+    cur.className = 'neo-cursor';
+    document.body.appendChild(cur);
+    var cx = 0, cy = 0, cfx = 0, cfy = 0, cranim = false;
+    window.addEventListener('mousemove', function(e){
+      cx = e.clientX; cy = e.clientY;
+      if (!cranim){ cranim = true; requestAnimationFrame(cursorLoop); }
+    }, {passive:true});
+    function cursorLoop(){
+      cfx += (cx - cfx) * 0.18; cfy += (cy - cfy) * 0.18;
+      cur.style.transform = 'translate(' + cfx + 'px,' + cfy + 'px)';
+      if (Math.abs(cx - cfx) > 0.5 || Math.abs(cy - cfy) > 0.5) requestAnimationFrame(cursorLoop);
+      else cranim = false;
+    }
+
     // scroll progress bar
     var bar = document.createElement('div');
     bar.className = 'neo-progress';
