@@ -1,60 +1,61 @@
-{{ define "main" }}
-<article class="prose dark:prose-invert max-w-none">
-  <header class="mb-6 flex flex-wrap items-center gap-3">
-    <div>
-      <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral mb-1">
-        {{ .Title }}
-      </h1>
-      <p class="text-sm text-neutral-500 dark:text-neutral-400">
-        Курируемый awesome-список ·
-        <a class="text-primary-600 dark:text-primary-400 hover:underline" href="{{ .Params.awesome_repo }}" target="_blank" rel="noopener">открыть репозиторий ↗</a>
-      </p>
+{{/* Awesome detail — Neo design system (standalone full document), matches homepage chrome. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo">
+<div class="neo-wrap">
+  <article class="neo-post">
+    <nav class="neo-crumbs">
+      <a href="{{ site.Home.RelPermalink }}">Главная</a>
+      <span>/</span><a href="/awesome/">Awesome</a>
+      <span>/</span><span>{{ .Title }}</span>
+    </nav>
+    <div class="awesome-preview rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-5 sm:p-7">
+      <span class="card-halo"></span>
+      <span class="card-gloss"></span>
+      <span class="card-sparkle">✨</span>
+      <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
+            data-like-key="awesome-single{{ .RelPermalink }}">
+        <span class="heart">♥</span><span class="lk-count">0</span>
+        <span class="burst"><i style="--bx:-160%;--by:-120%">✦</i><i style="--bx:160%;--by:-120%">✧</i><i style="--bx:-120%;--by:140%">✦</i><i style="--bx:120%;--by:140%">✧</i></span>
+      </span>
+      {{ .Content }}
     </div>
-    <a class="ms-auto text-sm px-3 py-1 rounded-full border border-primary-300 text-primary-700 dark:border-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/30"
-       href="{{ "/awesome/" | relLangURL }}">← Ко всем спискам</a>
-  </header>
-
-  <div class="awesome-preview rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/40 p-5 sm:p-7">
-    <span class="card-halo"></span>
-    <span class="card-gloss"></span>
-    <span class="card-sparkle">✨</span>
-    <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
-          data-like-key="awesome-single{{ .RelPermalink }}">
-      <span class="heart">♥</span><span class="lk-count">0</span>
-      <span class="burst"><i style="--bx:-160%;--by:-120%">✦</i><i style="--bx:160%;--by:-120%">✧</i><i style="--bx:-120%;--by:140%">✦</i><i style="--bx:120%;--by:140%">✧</i></span>
-    </span>
-    {{ .Content }}
-  </div>
-</article>
-  <script defer>
-    (function () {
-      function sanitize(el) {
-        if (!el) return;
-        el.querySelectorAll('script, style, iframe, object, embed, form, link[rel="stylesheet"]').forEach(function (n) { n.remove(); });
-        el.querySelectorAll('*').forEach(function (n) {
-          for (var i = n.attributes.length - 1; i >= 0; i--) {
-            var a = n.attributes[i].name; var v = (n.attributes[i].value || '').toLowerCase();
-            if (a.startsWith('on')) n.removeAttribute(a);
-            else if ((a === 'href' || a === 'src') && /^(javascript:|data:text\/html)/.test(v)) n.removeAttribute(a);
-          }
-        });
-      }
-      function run() {
-        document.querySelectorAll('.awesome-preview').forEach(sanitize);
-        var k='neo-likes-v1';var s=localStorage.getItem(k);var L=s?s&&JSON.parse(s):{};
-        document.querySelectorAll('.awesome-preview .like-btn').forEach(function(btn){
-          var key=btn.getAttribute('data-like-key')||'';
-          function h(str){var h=0;for(var i=0;i<str.length;i++){h=(h*31+str.charCodeAt(i))>>>0;}return h;}
-          function base(k){return 5+(h(k)%37);}
-          function render(){var c=base(key)+(L[key]?1:0);btn.querySelector('.lk-count').textContent=c;btn.classList.toggle('liked',!!L[key]);}
-          function toggle(){L[key]=!L[key];try{localStorage.setItem(k,JSON.stringify(L));}catch(e){}render();btn.classList.remove('pop','spark');void btn.offsetWidth;btn.classList.add('pop','spark');}
-          render();
-          btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggle();});
-          btn.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
-        });
-      }
-      if (document.readyState !== 'loading') run(); else document.addEventListener('DOMContentLoaded', run);
-    })();
-  </script>
-
-{{ end }}
+  </article>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+<script defer>
+  (function () {
+    function sanitize(el) {
+      if (!el) return;
+      el.querySelectorAll('script, style, iframe, object, embed, form, link[rel="stylesheet"]').forEach(function (n) { n.remove(); });
+      el.querySelectorAll('*').forEach(function (n) {
+        for (var i = n.attributes.length - 1; i >= 0; i--) {
+          var a = n.attributes[i].name; var v = (n.attributes[i].value || '').toLowerCase();
+          if (a.startsWith('on')) n.removeAttribute(a);
+          else if ((a === 'href' || a === 'src') && /^(javascript:|data:text\/html)/.test(v)) n.removeAttribute(a);
+        }
+      });
+    }
+    function run() {
+      document.querySelectorAll('.awesome-preview').forEach(sanitize);
+      var k='neo-likes-v1';var s=localStorage.getItem(k);var L=s?s&&JSON.parse(s):{};
+      document.querySelectorAll('.awesome-preview .like-btn').forEach(function(btn){
+        var key=btn.getAttribute('data-like-key')||'';
+        function h(str){var h=0;for(var i=0;i<str.length;i++){h=(h*31+str.charCodeAt(i))>>>0;}return h;}
+        function base(k){return 5+(h(k)%37);}
+        function render(){var c=base(key)+(L[key]?1:0);btn.querySelector('.lk-count').textContent=c;btn.classList.toggle('liked',!!L[key]);}
+        function toggle(){L[key]=!L[key];try{localStorage.setItem(k,JSON.stringify(L));}catch(e){}render();btn.classList.remove('pop','spark');void btn.offsetWidth;btn.classList.add('pop','spark');}
+        render();
+        btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggle();});
+        btn.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+      });
+    }
+    if (document.readyState !== 'loading') run(); else document.addEventListener('DOMContentLoaded', run);
+  })();
+</script>
+</body>
+</html>
