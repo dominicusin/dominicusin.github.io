@@ -92,6 +92,22 @@
     });
   }
 
+  // Reduced-motion quick toggle (header ✦ button)
+  var mqBtn = document.getElementById('neo-motion-quick');
+  var mqState = localStorage.getItem('neo-motion-state');
+  function mqApply(on) {
+    document.documentElement.setAttribute('data-reduce-motion', on ? 'false' : 'true');
+    if (mqBtn) mqBtn.style.opacity = on ? '' : '.5';
+    localStorage.setItem('neo-motion-state', on ? 'on' : 'off');
+  }
+  if (mqBtn) {
+    if (mqState === 'off') mqApply(false);
+    mqBtn.addEventListener('click', function () {
+      var cur = document.documentElement.getAttribute('data-reduce-motion') === 'true';
+      mqApply(!cur);
+    });
+  }
+
   // Quick light/dark toggle
   var tog = document.getElementById('neo-theme-toggle');
   if (tog){

@@ -25,13 +25,26 @@
     if (num) num.textContent = String(b + (liked ? 1 : 0));
   }
 
+  var META_STORE = "neo-fav-meta";
+  try { var meta = JSON.parse(localStorage.getItem(META_STORE) || "{}"); } catch (e) { var meta = {}; }
+  function saveMeta() { try { localStorage.setItem(META_STORE, JSON.stringify(meta)); } catch (e) {} }
+
   function toggle(btn) {
     var key = btn.getAttribute("data-like-key") || "";
     likes[key] = !likes[key];
     save();
+    if (likes[key]) {
+      var card = btn.closest("[data-type]");
+      meta[key] = {
+        title: (card && card.getAttribute("data-title")) || document.title,
+        type: (card && card.getAttribute("data-type")) || "post",
+        href: (card && card.getAttribute("href")) || location.pathname
+      };
+    } else { delete meta[key]; }
+    saveMeta();
     render(btn);
     btn.classList.remove("pop", "spark");
-    void btn.offsetWidth; // restart animation
+    void btn.offsetWidth;
     btn.classList.add("pop", "spark");
   }
 

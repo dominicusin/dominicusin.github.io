@@ -1,0 +1,49 @@
+{{/* Favorites hub — Neo design system (standalone). Client-rendered from localStorage.
+     Title/type/href come from our own like-meta store; textContent is used to avoid HTML injection. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>{{ .Title }}</h2></div>
+  {{ .Content }}
+  <div id="neo-fav-results" class="repo-grid"></div>
+  <p id="neo-fav-empty" class="neo-search-empty">Пока пусто. Нажмите ♥ на любой карточке, чтобы добавить её в избранное.</p>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+<script>
+(function () {
+  "use strict";
+  var STORE = "neo-likes-v1", META = "neo-fav-meta";
+  var KIND = { post: "📝 Блог", repo: "📦 Репо", gist: "📄 Гист", awesome: "⭐ Awesome" };
+  try { var likes = JSON.parse(localStorage.getItem(STORE) || "{}");
+        var meta = JSON.parse(localStorage.getItem(META) || "{}"); }
+  catch (e) { var likes = {}, meta = {}; }
+  var res = document.getElementById("neo-fav-results");
+  var empty = document.getElementById("neo-fav-empty");
+  var keys = Object.keys(likes).filter(function (k) { return likes[k]; });
+  if (!keys.length) { empty.style.display = "block"; return; }
+  empty.style.display = "none";
+  keys.forEach(function (k) {
+    var m = meta[k] || {};
+    var a = document.createElement("a");
+    a.className = "repo-card";
+    a.href = m.href || "#";
+    a.dataset.type = m.type || "post";
+    var halo = document.createElement("span"); halo.className = "card-halo";
+    var gloss = document.createElement("span"); gloss.className = "card-gloss";
+    var spark = document.createElement("span"); spark.className = "card-sparkle"; spark.textContent = "✨";
+    var top = document.createElement("div"); top.className = "repo-card-top";
+    var name = document.createElement("span"); name.className = "repo-card-name"; name.textContent = m.title || k;
+    var badge = document.createElement("span"); badge.className = "repo-badge"; badge.textContent = KIND[m.type] || "•";
+    top.appendChild(name); top.appendChild(badge);
+    a.appendChild(halo); a.appendChild(gloss); a.appendChild(spark); a.appendChild(top);
+    res.appendChild(a);
+  });
+})();
+</script>
+</body>
+</html>
