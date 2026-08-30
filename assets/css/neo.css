@@ -784,6 +784,37 @@ pre{position:relative}
   background:color-mix(in srgb,var(--panel) 90%,transparent);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));
   color:var(--muted);box-shadow:0 1px 0 color-mix(in srgb,var(--accent) 18%,transparent)}
 
+/* ---------- ERGONOMICS 2 (удобство/логичность) ---------- */
+/* skip-to-content link */
+.neo-skip{position:absolute;left:50%;top:-48px;transform:translateX(-50%);z-index:200;padding:.5rem 1rem;border-radius:0 0 10px 10px;
+  background:var(--accent);color:#06121a;font-weight:700;text-decoration:none;transition:top .2s ease}
+.neo-skip:focus{top:0;outline:3px solid color-mix(in srgb,var(--accent-2) 70%,#fff)}
+/* relative time / subtle */
+.rel-time{color:var(--muted);font-size:.78rem}
+/* sticky filter bar */
+.neo-filter-bar{position:sticky;top:58px;z-index:30;padding:.6rem 0;backdrop-filter:blur(8px);
+  background:color-mix(in srgb,var(--bg) 72%,transparent)}
+/* image lightbox */
+.neo-lightbox{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+  background:rgba(2,4,8,.82);backdrop-filter:blur(6px);cursor:zoom-out}
+.neo-lightbox.open{display:flex}
+.neo-lightbox img{max-width:92vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.neo-lightbox .lb-cap{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#dfe;font-size:.85rem}
+/* command palette */
+.neo-palette{position:fixed;inset:0;z-index:300;display:none;align-items:flex-start;justify-content:center;
+  background:rgba(2,4,8,.6);backdrop-filter:blur(4px)}
+.neo-palette.open{display:flex}
+.neo-palette-box{margin-top:12vh;width:min(560px,92vw);background:var(--panel);border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));
+  border-radius:16px;box-shadow:0 30px 80px -20px rgba(0,0,0,.75);overflow:hidden}
+.neo-palette input{width:100%;border:0;outline:none;background:transparent;color:var(--text);
+  padding:.9rem 1rem;font-size:1rem;border-bottom:1px solid color-mix(in srgb,var(--accent) 22%,var(--line))}
+.neo-palette ul{list-style:none;margin:0;padding:.4rem;max-height:50vh;overflow:auto}
+.neo-palette li{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border-radius:10px;cursor:pointer;color:var(--text)}
+.neo-palette li .ico{opacity:.7}
+.neo-palette li.active,.neo-palette li:hover{background:color-mix(in srgb,var(--accent) 16%,var(--panel))}
+.neo-palette li .kbd{margin-left:auto;font-size:.72rem;color:var(--muted)}
+.neo-palette .hint{padding:.4rem .8rem;font-size:.74rem;color:var(--muted);border-top:1px solid color-mix(in srgb,var(--accent) 16%,var(--line))}
+
 
 @media print{
   .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings{display:none !important}
