@@ -541,6 +541,67 @@
       else if ((e.key === 'p' || e.key === 'P') && navPrev) { e.preventDefault(); location.href = navPrev; }
     });
   } catch (e) {}
+
+  // ---- Wave 8: local analytics (page views) + most-visited strip ----
+  try {
+    var ANALYTICS_STORE = "neo-analytics";
+    try { var analytics = JSON.parse(localStorage.getItem(ANALYTICS_STORE) || "{}"); } catch (e) { var analytics = {}; }
+
+    // Track current page view
+    var path = location.pathname.replace(/\/+$/, '') || '/';
+    if (!analytics[path]) analytics[path] = { views: 0, title: document.title, lastViewed: 0 };
+    analytics[path].views++;
+    analytics[path].title = document.title;
+    analytics[path].lastViewed = Date.now();
+    // Keep only last 50 paths
+    var paths = Object.keys(analytics).sort(function (a, b) { return analytics[b].views - analytics[a].views; });
+    if (paths.length > 50) {
+      paths.slice(50).forEach(function (k) { delete analytics[k]; });
+    }
+    try { localStorage.setItem(ANALYTICS_STORE, JSON.stringify(analytics)); } catch (e) {}
+
+    // Render most-visited strip on homepage
+    if (path === '/' || path === '') {
+      var sorted = Object.keys(analytics).sort(function (a, b) { return analytics[b].views - analytics[a].views; }).slice(0, 8);
+      if (sorted.length) {
+        var wrap = document.querySelector('.neo-wrap') || document.querySelector('main');
+        if (wrap) {
+          var strip = document.createElement('div');
+          strip.className = 'neo-recent';
+          var head = document.createElement('div');
+          head.className = 'neo-sec-head'; head.style.marginTop = '8px';
+          head.innerHTML = '<h2>Часто посещаемое</h2>';
+          strip.appendChild(head);
+          sorted.forEach(function (p) {
+            var a = document.createElement('a');
+            a.href = p;
+            a.textContent = analytics[p].title || p;
+            strip.appendChild(a);
+          });
+          wrap.insertBefore(strip, wrap.firstChild.nextSibling || wrap.firstChild);
+        }
+      }
+    }
+  } catch (e) {}
+
+  // ---- A11y: focus management for modals ----
+  try {
+    function trapFocus(modal) {
+      var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      modal.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+        else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+      });
+    }
+    ['neo-palette', 'neo-help', 'neo-lightbox'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) trapFocus(el);
+    });
+  } catch (e) {}
+
 })();
 
 
