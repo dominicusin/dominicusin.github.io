@@ -27,7 +27,7 @@
           {{ range .repos }}
           {{ $repo := . }}
           {{ $p := $.Site.GetPage (printf "/awesome/%s/%s" $repo.group $repo.name) }}
-          <article class="awesome-card">
+          <article class="awesome-card" data-name="{{ $repo.name }}" data-stars="{{ $repo.stars | default 0 }}" data-group="{{ $repo.group }}">
             <span class="card-halo"></span>
             <span class="shimmer"></span>
             <span class="card-gloss"></span>

@@ -12,7 +12,7 @@
   {{ .Content }}
   <div class="repo-grid" data-count="{{ len .RegularPages }}">
     {{ range .RegularPages.ByTitle }}
-      <a class="repo-card gist-card" href="{{ .RelPermalink }}">
+      <a class="repo-card gist-card" href="{{ .RelPermalink }}" data-name="{{ .Params.gist_name }}" data-updated="{{ .Params.updated_at | default "" }}">
         <span class="card-halo"></span>
         <span class="shimmer"></span>
         <span class="card-gloss"></span>
