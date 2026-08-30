@@ -845,6 +845,21 @@ a[href^="http"]:not([href*="dominicusin.github.io"]):not([href*="github.com"]):n
 .neo-help-grid .k{text-align:right;color:var(--muted)}
 .neo-help-box .hint{margin-top:.9rem;font-size:.76rem;color:var(--muted)}
 
+/* ---------- READING PROGRESS (per-article) ---------- */
+.neo-readbar{position:fixed;left:0;top:0;height:3px;width:0;z-index:120;pointer-events:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet,#b98cff));
+  box-shadow:0 0 10px color-mix(in srgb,var(--accent) 60%,transparent)}
+
+/* prev/next post navigation */
+.neo-prevnext{display:flex;gap:.8rem;flex-wrap:wrap;margin:1.6rem 0 .4rem}
+.neo-pn{display:flex;flex-direction:column;gap:.15rem;text-decoration:none;padding:.7rem 1rem;border-radius:12px;
+  flex:1 1 220px;min-width:0;background:color-mix(in srgb,var(--panel) 85%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));transition:transform .18s,border-color .2s,box-shadow .2s,background .2s}
+.neo-pn:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  box-shadow:0 0 16px -5px color-mix(in srgb,var(--accent) 50%,transparent)}
+.pn-dir{font-size:.74rem;color:var(--muted)}
+.pn-t{font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pn-next{text-align:right;align-items:flex-end}
 /* ---------- MOBILE NAV ---------- */
 .neo-burger{display:none}
 .neo-mobile-nav{display:none;flex-direction:column;gap:2px;padding:0 1rem;

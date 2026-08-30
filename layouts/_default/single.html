@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
-<body>
+<body{{ with .PrevInSection }} data-prev="{{ .RelPermalink }}"{{ end }}{{ with .NextInSection }} data-next="{{ .RelPermalink }}"{{ end }}>
 {{ partial "neo-header.html" . }}
 <main class="neo" id="main">
 <article class="neo-post">
@@ -24,6 +24,12 @@
   </header>
   {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
   <div class="neo-post-body">{{ .Content }}</div>
+  {{ if or .PrevInSection .NextInSection }}
+  <nav class="neo-prevnext" aria-label="Навигация по записям">
+    {{ with .PrevInSection }}<a class="neo-pn pn-prev" href="{{ .RelPermalink }}"><span class="pn-dir">← Пред.</span><span class="pn-t">{{ .Title }}</span></a>{{ end }}
+    {{ with .NextInSection }}<a class="neo-pn pn-next" href="{{ .RelPermalink }}"><span class="pn-dir">След. →</span><span class="pn-t">{{ .Title }}</span></a>{{ end }}
+  </nav>
+  {{ end }}
   {{ partial "share.html" . }}
   {{ partial "related.html" . }}
   {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}

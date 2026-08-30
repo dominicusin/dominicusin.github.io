@@ -422,6 +422,51 @@
       }
     }
   } catch (e) {}
+
+  // ---- Ergonomics 4: reading progress + vim-style navigation ----
+  try {
+    var reduce = document.documentElement.getAttribute('data-reduce-motion') === 'true';
+
+    // per-article reading progress
+    var article = document.querySelector('.neo-post-body, .gist-body, .repo-body, .awesome-preview');
+    if (article) {
+      var rbar = document.createElement('div');
+      rbar.className = 'neo-readbar';
+      document.body.appendChild(rbar);
+      var ticking = false;
+      function updRead() {
+        var rect = article.getBoundingClientRect();
+        var total = rect.height - window.innerHeight;
+        var passed = -rect.top;
+        var p = total > 0 ? Math.min(100, Math.max(0, (passed / total) * 100)) : 0;
+        rbar.style.width = p + '%';
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(updRead); } }, { passive: true });
+      window.addEventListener('resize', updRead);
+      updRead();
+    }
+
+    // vim-style navigation: g h (home), g b (blog), n / p (prev/next post)
+    var gPending = false, gTimer = null;
+    var navPrev = document.body.getAttribute('data-prev');
+    var navNext = document.body.getAttribute('data-next');
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      var tag = e.target && e.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+      if (gPending) {
+        gPending = false; clearTimeout(gTimer);
+        if (e.key === 'h') location.href = '/';
+        else if (e.key === 'b') location.href = '/blog/';
+        return;
+      }
+      if (e.key === 'g') { gPending = true; gTimer = setTimeout(function () { gPending = false; }, 800); return; }
+      if ((e.key === 'n' || e.key === 'N') && navNext) { e.preventDefault(); location.href = navNext; }
+      else if ((e.key === 'p' || e.key === 'P') && navPrev) { e.preventDefault(); location.href = navPrev; }
+    });
+  } catch (e) {}
 })();
+
 
 
