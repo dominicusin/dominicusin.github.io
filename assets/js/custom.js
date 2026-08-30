@@ -278,8 +278,10 @@
       { ico: '🗺', label: 'Sitemap', href: '/sitemap.xml' },
       { ico: '⌕', label: 'Поиск', href: '/search/' },
       { ico: '🗓', label: 'Архив', href: '/archives/' },
-      { ico: '📋', label: 'Копировать ссылу страницы', action: 'copy' },
-      { ico: '🎨', label: 'Сменить тему', action: 'theme' }
+      { ico: '📋', label: 'Копировать ссылку страницы', action: 'copy' },
+      { ico: '🎨', label: 'Сменить тему', action: 'theme' },
+      { ico: '🎲', label: 'Случайная запись', action: 'random' },
+      { ico: '📤', label: 'Поделиться текущей страницей', action: 'share' }
     ];
     var ul = document.createElement('ul');
     items.forEach(function (it, i) {
@@ -338,6 +340,8 @@
         var it = fi[pActive];
         if (it && it.action === 'copy') { pClose(); navigator.clipboard && navigator.clipboard.writeText(location.href); announce('Ссылка скопирована в буфер обмена'); }
         else if (it && it.action === 'theme') { pClose(); var root = document.documentElement; var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; root.setAttribute('data-theme', next); try { localStorage.setItem('neo-theme', next); } catch (err) {} announce('Тема изменена на ' + (next === 'dark' ? 'тёмную' : 'светлую')); }
+        else if (it.action === 'random') { pClose(); if (RANDOM_POOL.length) { var pick = RANDOM_POOL[Math.floor(Math.random() * RANDOM_POOL.length)]; location.href = pick.href; } else { announce('Нет записей для случайного выбора'); } }
+        else if (it.action === 'share') { pClose(); if (navigator.share) { navigator.share({ title: document.title, url: location.href }).catch(function () {}); } else if (navigator.clipboard) { navigator.clipboard.writeText(location.href); announce('Ссылка скопирована для отправки'); } }
         else if (it) { location.href = it.href; }
       }
       else if (e.key === 'Escape') { e.preventDefault(); pClose(); }
@@ -366,6 +370,20 @@
     liveRegion.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)';
     liveRegion.id = 'neo-live';
     document.body.appendChild(liveRegion);
+    // random posts pool (blog posts with dates, for random navigation)
+    var RANDOM_POOL = [];
+    try { RANDOM_POOL = JSON.parse(localStorage.getItem('neo-random-pool') || '[]'); } catch (e) { RANDOM_POOL = []; }
+    if (!RANDOM_POOL.length) {
+      var links = document.querySelectorAll('a[href*="/20"]');
+      links.forEach(function (a) {
+        var href = a.getAttribute('href') || '';
+        if (/\/20\d{2}\//.test(href) && /\/20\d{2}\/\d{2}\/\d{2}\//.test(href)) {
+          RANDOM_POOL.push({ href: href, title: a.textContent.trim().slice(0, 60) });
+        }
+      });
+      try { localStorage.setItem('neo-random-pool', JSON.stringify(RANDOM_POOL.slice(0, 50))); } catch (e) {}
+    }
+
     function announce(msg) {
       var r = document.getElementById('neo-live');
       if (r) { r.textContent = ''; setTimeout(function () { r.textContent = msg; }, 50); }
