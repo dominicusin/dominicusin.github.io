@@ -27,6 +27,7 @@
     </nav>
 
     <div class="neo-nav-actions">
+      <button class="neo-icon-btn neo-burger" id="neo-burger" aria-label="Меню" aria-expanded="false" aria-controls="neo-mobile-nav">☰</button>
       <button class="neo-icon-btn" id="neo-search-open" aria-label="Поиск" title="Поиск">⌕</button>
       <div class="neo-settings">
         <button class="neo-icon-btn" id="neo-settings-btn" aria-label="Настройки" title="Настройки">⚙</button>
@@ -80,4 +81,18 @@
       <button class="neo-icon-btn" id="neo-theme-toggle" aria-label="Светлая/тёмная" title="Светлая/тёмная">◐</button>
     </div>
   </div>
+  <nav class="neo-mobile-nav" id="neo-mobile-nav" aria-label="Мобильное меню">
+    <a href="{{ "blog/" | relURL }}">Блог</a>
+    <a href="{{ "repositories/" | relURL }}">Репозитории</a>
+    <a href="{{ "gists/" | relURL }}">Гисты</a>
+    <a href="{{ "ontology/" | relURL }}">Онтология</a>
+    <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
+    <a href="{{ "awesome/" | relURL }}">awesome</a>
+    <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
+    <a href="{{ "categories/" | relURL }}">Категории</a>
+    <a href="{{ "tags/" | relURL }}">Теги</a>
+    <a href="{{ "sitemap.xml" | relURL }}">sitemap</a>
+    <a href="{{ "search/" | relURL }}">Поиск</a>
+    <a href="{{ "archives/" | relURL }}">Архив</a>
+  </nav>
 </header>
