@@ -1,6 +1,14 @@
 {{ define "main" }}
   {{ .Scratch.Set "scope" "single" }}
   <article class="repo-page">
+    <span class="card-halo"></span>
+    <span class="card-gloss"></span>
+    <span class="card-sparkle">✨</span>
+    <span class="like-btn" role="button" tabindex="0" aria-label="Нравится"
+          data-like-key="{{ .Params.repo_owner }}__{{ .Params.repo_name }}">
+      <span class="heart">♥</span><span class="lk-count">0</span>
+      <span class="burst"><i style="--bx:-160%;--by:-120%">✦</i><i style="--bx:160%;--by:-120%">✧</i><i style="--bx:-120%;--by:140%">✦</i><i style="--bx:120%;--by:140%">✧</i></span>
+    </span>
     <header class="repo-header">
       <div class="repo-title">
         <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
@@ -24,5 +32,20 @@
 
     {{ with .Content }}<section class="repo-body prose dark:prose-invert max-w-none">{{ . }}</section>{{ end }}
     {{ partial "crosslinks.html" . }}
+    <script>
+    (function(){try{var k="neo-likes-v1";var s=localStorage.getItem(k);var L=s?s&&JSON.parse(s):{};
+    var btn=document.querySelector('.repo-page .like-btn');if(!btn)return;
+    var key=btn.getAttribute('data-like-key')||'';
+    function h(str){var h=0;for(var i=0;i<str.length;i++){h=(h*31+str.charCodeAt(i))>>>0;}return h;}
+    function base(k){return 5+(h(k)%37);}
+    function render(){var c=base(key)+(L[key]?1:0);btn.querySelector('.lk-count').textContent=c;
+      btn.classList.toggle('liked',!!L[key]);}
+    function toggle(){L[key]=!L[key];try{localStorage.setItem(k,JSON.stringify(L));}catch(e){}
+      render();btn.classList.remove('pop','spark');void btn.offsetWidth;btn.classList.add('pop','spark');}
+    render();
+    btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toggle();});
+    btn.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
+    }catch(e){}})();
+    </script>
   </article>
 {{ end }}
