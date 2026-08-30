@@ -1,7 +1,5 @@
-{{/*
-  Search page — Neo design system (standalone). Unified index baked at build
-  across all content types (blog posts, repositories, gists, awesome lists).
-*/}}
+{{/* Search page — Neo design system (standalone). Unified index baked at build.
+     Client-side kind filter (post/repo/gist/awesome) + debounced search. */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
@@ -13,11 +11,19 @@
     <span class="more">блог · репозитории · гисты · awesome</span>
   </div>
   <input id="neo-search-input" class="neo-search-input" type="search" placeholder="Искать по заголовкам, тегам, описаниям…" autofocus />
+  <div class="neo-kind-filter" id="neo-kind-filter">
+    <button data-kind="all" aria-pressed="true">Все</button>
+    <button data-kind="post" aria-pressed="false">📝 Блог</button>
+    <button data-kind="repo" aria-pressed="false">📦 Репо</button>
+    <button data-kind="gist" aria-pressed="false">📄 Гист</button>
+    <button data-kind="awesome" aria-pressed="false">⭐ Awesome</button>
+  </div>
   <div id="neo-search-results" class="neo-rows" role="status" aria-live="polite"></div>
   <p id="neo-search-empty" class="neo-search-empty" role="status" aria-live="polite">Введите запрос для поиска по всему сайту.</p>
 </div>
 <script>
 (function(){
+  "use strict";
   /* INDEX is build-time baked JSON (trusted, static). */
   var KIND = { post:'📝 Блог', repo:'📦 Репо', gist:'📄 Гист', awesome:'⭐ Awesome' };
   var INDEX = [
@@ -32,11 +38,15 @@
   var input = document.getElementById('neo-search-input');
   var res = document.getElementById('neo-search-results');
   var empty = document.getElementById('neo-search-empty');
+  var kindbar = document.getElementById('neo-kind-filter');
+  var curKind = 'all';
+
   function render(q){
     q = (q||'').toLowerCase().trim();
     res.innerHTML = '';
     if(!q){ empty.style.display='block'; empty.textContent='Введите запрос для поиска по всему сайту.'; return; }
     var hits = INDEX.filter(function(i){
+      if (curKind !== 'all' && i.k !== curKind) return false;
       return i.t.toLowerCase().indexOf(q) > -1 || (i.g||'').toLowerCase().indexOf(q) > -1 || (i.s||'').toLowerCase().indexOf(q) > -1;
     }).slice(0, 40);
     if(!hits.length){ empty.style.display='block'; empty.textContent = 'Ничего не найдено по запросу «'+q+'».'; return; }
@@ -51,8 +61,20 @@
       res.appendChild(a);
     });
   }
+
   var t;
   input.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(function(){ render(input.value); }, 120); });
+
+  if (kindbar) {
+    kindbar.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-kind]');
+      if (!btn) return;
+      curKind = btn.dataset.kind;
+      kindbar.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.kind === curKind ? 'true' : 'false'); });
+      render(input.value);
+    });
+  }
+
   render(input.value);
 })();
 </script>
