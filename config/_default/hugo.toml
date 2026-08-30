@@ -20,7 +20,7 @@ summaryLength = 25
 
 # Disable Hugo's default taxonomy pluralization surprises; keep standard.
 pluralizeListTitles = false
-disableKinds = ["RSS"] # RSS enabled explicitly per-language below
+disableKinds = [] # RSS re-enabled; layouts/_default/rss.xml scopes the home feed to the blog (capped at services.rss.limit) to avoid the old 4MB feed.
 
 # Mark as a user/org GitHub Pages site (no subpath).
 canonifyURLs = false
