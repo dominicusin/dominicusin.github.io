@@ -277,7 +277,9 @@
       { ico: '🏷', label: 'Теги', href: '/tags/' },
       { ico: '🗺', label: 'Sitemap', href: '/sitemap.xml' },
       { ico: '⌕', label: 'Поиск', href: '/search/' },
-      { ico: '🗓', label: 'Архив', href: '/archives/' }
+      { ico: '🗓', label: 'Архив', href: '/archives/' },
+      { ico: '📋', label: 'Копировать ссылу страницы', action: 'copy' },
+      { ico: '🎨', label: 'Сменить тему', action: 'theme' }
     ];
     var ul = document.createElement('ul');
     items.forEach(function (it, i) {
@@ -298,37 +300,76 @@
     palette.appendChild(box);
     document.body.appendChild(palette);
     var pActive = 0;
-    function pRender(q) {
-      q = (q || '').toLowerCase();
-      var vis = 0, first = -1;
-      ul.querySelectorAll('li').forEach(function (li, idx) {
-        var ok = !q || li.textContent.toLowerCase().indexOf(q) !== -1;
-        li.style.display = ok ? '' : 'none';
-        if (ok) { vis++; if (first === -1) first = idx; }
+    var visibleIdx = [];
+    function filteredItems() {
+      var q = (pInput.value || '').toLowerCase();
+      visibleIdx = [];
+      items.forEach(function (it, i) {
+        var ok = !q || it.label.toLowerCase().indexOf(q) !== -1;
+        var li = ul.querySelector('li[data-i="' + i + '"]');
+        if (li) li.style.display = ok ? '' : 'none';
+        if (ok) visibleIdx.push(i);
       });
-      pActive = first;
+      return visibleIdx.map(function (i) { return items[i]; });
+    }
+    function pRender() {
+      filteredItems();
+      pActive = visibleIdx.length ? visibleIdx[0] : -1;
       ul.querySelectorAll('li').forEach(function (li) { li.classList.remove('active'); });
-      if (pActive > -1) ul.querySelector('li[data-i="' + pActive + '"]').classList.add('active');
+      if (pActive > -1) { var a = ul.querySelector('li[data-i="' + pActive + '"]'); if (a) a.classList.add('active'); }
     }
     function pOpen() { palette.classList.add('open'); pInput.value = ''; pRender(''); pInput.focus(); }
     function pClose() { palette.classList.remove('open'); }
     pInput.addEventListener('input', function () { pRender(pInput.value); });
     pInput.addEventListener('keydown', function (e) {
       var vis = Array.prototype.filter.call(ul.children, function (li) { return li.style.display !== 'none'; });
-      if (e.key === 'ArrowDown') { e.preventDefault(); pActive = (pActive + 1) % items.length; }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); pActive = (pActive - 1 + items.length) % items.length; }
-      else if (e.key === 'Enter') { e.preventDefault(); var li = ul.querySelector('li[data-i="' + pActive + '"]'); if (li) location.href = li.dataset.href; }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        var idx = visibleIdx.indexOf(pActive);
+        pActive = visibleIdx[(idx + 1) % visibleIdx.length];
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        var idx = visibleIdx.indexOf(pActive);
+        pActive = visibleIdx[(idx - 1 + visibleIdx.length) % visibleIdx.length];
+      }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        var fi = filteredItems();
+        var it = fi[pActive];
+        if (it && it.action === 'copy') { pClose(); navigator.clipboard && navigator.clipboard.writeText(location.href); announce('Ссылка скопирована в буфер обмена'); }
+        else if (it && it.action === 'theme') { pClose(); var root = document.documentElement; var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; root.setAttribute('data-theme', next); try { localStorage.setItem('neo-theme', next); } catch (err) {} announce('Тема изменена на ' + (next === 'dark' ? 'тёмную' : 'светлую')); }
+        else if (it) { location.href = it.href; }
+      }
       else if (e.key === 'Escape') { e.preventDefault(); pClose(); }
       ul.querySelectorAll('li').forEach(function (li) { li.classList.remove('active'); });
       if (pActive > -1) { var a = ul.querySelector('li[data-i="' + pActive + '"]'); if (a) a.classList.add('active'); }
     });
     ul.addEventListener('click', function (e) {
-      var li = e.target.closest('li'); if (li) { location.href = li.dataset.href; }
+      var li = e.target.closest('li'); if (!li) return;
+      var idx = parseInt(li.dataset.i, 10);
+      var it = items[idx];
+      if (it && it.action === 'copy') { pClose(); navigator.clipboard && navigator.clipboard.writeText(location.href); announce('Ссылка скопирована'); }
+      else if (it && it.action === 'theme') { pClose(); var root = document.documentElement; root.setAttribute('data-theme', root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); announce('Тема изменена'); }
+      else if (it) { location.href = it.href; }
     });
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); pOpen(); }
       else if (e.key === 'Escape' && palette.classList.contains('open')) { pClose(); }
     });
+  } catch (e) {}
+
+  // ---- Ergonomics 5: ARIA live region announcements ----
+  try {
+    var liveRegion = document.createElement('div');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)';
+    liveRegion.id = 'neo-live';
+    document.body.appendChild(liveRegion);
+    function announce(msg) {
+      var r = document.getElementById('neo-live');
+      if (r) { r.textContent = ''; setTimeout(function () { r.textContent = msg; }, 50); }
+    }
   } catch (e) {}
 
   // ---- Ergonomics 3: sort controls, keyboard help, auto-theme, recently viewed ----

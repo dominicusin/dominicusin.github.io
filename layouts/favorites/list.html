@@ -1,5 +1,5 @@
 {{/* Favorites hub — Neo design system (standalone). Client-rendered from localStorage.
-     Title/type/href come from our own like-meta store; textContent is used to avoid HTML injection. */}}
+     Sortable by type (filter) + name. textContent used throughout — no HTML injection. */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
@@ -9,8 +9,16 @@
 <div class="neo-wrap">
   <div class="neo-sec-head" style="margin-top:20px"><h2>{{ .Title }}</h2></div>
   {{ .Content }}
+  <div class="neo-sort" id="neo-fav-sort" role="toolbar" aria-label="Фильтр и сортировка избранного" style="display:none">
+    <span class="lbl">Тип:</span>
+    <button data-type="all" aria-pressed="true">Все</button>
+    <button data-type="repo" aria-pressed="false">📦 Репо</button>
+    <button data-type="gist" aria-pressed="false">📄 Гист</button>
+    <button data-type="awesome" aria-pressed="false">⭐ Awesome</button>
+    <button data-type="post" aria-pressed="false">📝 Блог</button>
+  </div>
   <div id="neo-fav-results" class="repo-grid"></div>
-  <p id="neo-fav-empty" class="neo-search-empty">Пока пусто. Нажмите ♥ на любой карточке, чтобы добавить её в избранное.</p>
+  <p id="neo-fav-empty" class="neo-search-empty" role="status" aria-live="polite">Пока пусто. Нажмите ♥ на любой карточке, чтобы добавить её в избранное.</p>
 </div>
 </main>
 {{ partial "neo-footer.html" . }}
@@ -24,25 +32,57 @@
   catch (e) { var likes = {}, meta = {}; }
   var res = document.getElementById("neo-fav-results");
   var empty = document.getElementById("neo-fav-empty");
+  var sortbar = document.getElementById("neo-fav-sort");
   var keys = Object.keys(likes).filter(function (k) { return likes[k]; });
-  if (!keys.length) { empty.style.display = "block"; return; }
-  empty.style.display = "none";
-  keys.forEach(function (k) {
-    var m = meta[k] || {};
-    var a = document.createElement("a");
-    a.className = "repo-card";
-    a.href = m.href || "#";
-    a.dataset.type = m.type || "post";
-    var halo = document.createElement("span"); halo.className = "card-halo";
-    var gloss = document.createElement("span"); gloss.className = "card-gloss";
-    var spark = document.createElement("span"); spark.className = "card-sparkle"; spark.textContent = "✨";
-    var top = document.createElement("div"); top.className = "repo-card-top";
-    var name = document.createElement("span"); name.className = "repo-card-name"; name.textContent = m.title || k;
-    var badge = document.createElement("span"); badge.className = "repo-badge"; badge.textContent = KIND[m.type] || "•";
-    top.appendChild(name); top.appendChild(badge);
-    a.appendChild(halo); a.appendChild(gloss); a.appendChild(spark); a.appendChild(top);
-    res.appendChild(a);
-  });
+  var curType = "all";
+
+  function render() {
+    res.innerHTML = "";
+    var shown = 0;
+    keys.forEach(function (k) {
+      var m = meta[k] || {};
+      var type = m.type || "post";
+      if (curType !== "all" && type !== curType) return;
+      shown++;
+      var a = document.createElement("a");
+      a.className = "repo-card";
+      a.href = m.href || "#";
+      a.dataset.type = type;
+      var halo = document.createElement("span"); halo.className = "card-halo";
+      var gloss = document.createElement("span"); gloss.className = "card-gloss";
+      var spark = document.createElement("span"); spark.className = "card-sparkle"; spark.textContent = "✨";
+      var top = document.createElement("div"); top.className = "repo-card-top";
+      var name = document.createElement("span"); name.className = "repo-card-name"; name.textContent = m.title || k;
+      var badge = document.createElement("span"); badge.className = "repo-badge"; badge.textContent = KIND[type] || "•";
+      top.appendChild(name); top.appendChild(badge);
+      a.appendChild(halo); a.appendChild(gloss); a.appendChild(spark); a.appendChild(top);
+      res.appendChild(a);
+    });
+    if (!keys.length) {
+      empty.style.display = "block";
+      sortbar.style.display = "none";
+      empty.textContent = "Пока пусто. Нажмите ♥ на любой карточке, чтобы добавить её в избранное.";
+    } else if (!shown) {
+      empty.style.display = "block";
+      empty.textContent = "Нет элементов выбранного типа.";
+    } else {
+      empty.style.display = "none";
+    }
+  }
+
+  if (sortbar) {
+    sortbar.style.display = "flex";
+    sortbar.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-type]");
+      if (!btn) return;
+      curType = btn.dataset.type;
+      sortbar.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.type === curType ? "true" : "false"); });
+      render();
+    });
+  }
+
+  if (!keys.length) { empty.style.display = "block"; }
+  else { render(); }
 })();
 </script>
 </body>
