@@ -583,6 +583,26 @@ img{height:auto}
   .neo-sitemap{grid-template-columns:1fr}
 }
 
+/* ---------- GIST SINGLE CARD (neo-standalone) ---------- */
+.gist-page{position:relative;margin:1.6rem auto;max-width:var(--content-max,820px);padding:1.6rem 1.7rem 1.7rem;border-radius:var(--radius);
+  background:linear-gradient(160deg,var(--panel-2),var(--panel));
+  border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));
+  box-shadow:var(--shadow),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent);
+  overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.gist-page::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet,#b98cff));opacity:.9}
+.gist-page:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
+  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px color-mix(in srgb,var(--accent) 45%,transparent)}
+.gist-page{transform-style:preserve-3d}
+.gist-page:hover .card-halo{opacity:.85;animation:neo-ang 4s linear infinite}
+.gist-page:hover .card-gloss{opacity:1}
+.gist-page:hover .card-gloss::before{animation:neo-glide 1.5s ease}
+.gist-header{position:relative;z-index:2}
+.gist-header h1{background:linear-gradient(100deg,var(--text),var(--accent) 60%,var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;font-size:1.7rem;margin:.2rem 0 .4rem}
+.gist-links{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.7rem;position:relative;z-index:2}
+.gist-body{position:relative;z-index:2;margin-top:1rem}
+
 /* ---------- PRINT ---------- */
 @media print{
   .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings{display:none !important}
