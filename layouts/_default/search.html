@@ -1,5 +1,6 @@
 {{/*
-  Search page — Neo design system (standalone). Inline index baked at build.
+  Search page — Neo design system (standalone). Unified index baked at build
+  across all content types (blog posts, repositories, gists, awesome lists).
 */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
@@ -8,17 +9,24 @@
 {{ partial "neo-header.html" . }}
 <main class="neo" id="main">
 <div class="neo-wrap search-page">
-  <div class="neo-sec-head" style="margin-top:20px"><h2>Поиск по блогу</h2></div>
-  <input id="neo-search-input" class="neo-search-input" type="search" placeholder="Введите запрос…" autofocus />
+  <div class="neo-sec-head" style="margin-top:20px"><h2>Поиск по сайту</h2>
+    <span class="more">блог · репозитории · гисты · awesome</span>
+  </div>
+  <input id="neo-search-input" class="neo-search-input" type="search" placeholder="Искать по заголовкам, тегам, описаниям…" autofocus />
   <div id="neo-search-results" class="neo-rows"></div>
-  <p id="neo-search-empty" class="neo-search-empty">Введите запрос для поиска по заголовкам, тегам и описаниям.</p>
+  <p id="neo-search-empty" class="neo-search-empty">Введите запрос для поиска по всему сайту.</p>
 </div>
 <script>
 (function(){
   /* INDEX is build-time baked JSON (trusted, static). */
+  var KIND = { post:'📝 Блог', repo:'📦 Репо', gist:'📄 Гист', awesome:'⭐ Awesome' };
   var INDEX = [
-    {{ range site.RegularPages }}
-    {t:{{ .Title | jsonify }}, u:{{ .RelPermalink | jsonify }}, g:{{ with .Params.tags }}{{ delimit . " " | jsonify }}{{ else }}""{{ end }}, s:{{ .Summary | plainify | truncate 180 | jsonify }}, d:{{ .Date.Format "2006-01-02" | jsonify }}},
+    {{ $pages := where site.RegularPages "RelPermalink" "ne" "" }}
+    {{ range $pages }}
+    {{- $u := .RelPermalink -}}
+    {{- $kind := "post" -}}
+    {{- if hasPrefix $u "/repositories/" }}{{ $kind = "repo" }}{{ else if hasPrefix $u "/gists/" }}{{ $kind = "gist" }}{{ else if hasPrefix $u "/awesome/" }}{{ $kind = "awesome" }}{{ end -}}
+    {t:{{ .Title | jsonify }}, u:{{ $u | jsonify }}, k:{{ $kind | jsonify }}, g:{{ with .Params.tags }}{{ delimit . " " | jsonify }}{{ else }}{{ .Description | jsonify }}{{ end }}, s:{{ .Summary | plainify | truncate 160 | jsonify }}},
     {{ end }}
   ];
   var input = document.getElementById('neo-search-input');
@@ -27,24 +35,25 @@
   function render(q){
     q = (q||'').toLowerCase().trim();
     res.innerHTML = '';
-    if(!q){ empty.style.display='block'; empty.textContent='Введите запрос для поиска по заголовкам, тегам и описаниям.'; return; }
+    if(!q){ empty.style.display='block'; empty.textContent='Введите запрос для поиска по всему сайту.'; return; }
     var hits = INDEX.filter(function(i){
-      return i.t.toLowerCase().indexOf(q) > -1 || i.g.toLowerCase().indexOf(q) > -1 || i.s.toLowerCase().indexOf(q) > -1;
-    }).slice(0, 30);
-    if(hits.length){ empty.style.display='none'; } else {
-      empty.style.display='block'; empty.textContent = 'Ничего не найдено по запросу «'+q+'».'; return;
-    }
+      return i.t.toLowerCase().indexOf(q) > -1 || (i.g||'').toLowerCase().indexOf(q) > -1 || (i.s||'').toLowerCase().indexOf(q) > -1;
+    }).slice(0, 40);
+    if(!hits.length){ empty.style.display='block'; empty.textContent = 'Ничего не найдено по запросу «'+q+'».'; return; }
+    empty.style.display='none';
     hits.forEach(function(h){
       var a = document.createElement('a');
       a.className='neo-row'; a.href=h.u;
-      var date = document.createElement('span'); date.className='date'; date.textContent=h.d;
+      var date = document.createElement('span'); date.className='date'; date.textContent = KIND[h.k] || '•';
       var title = document.createElement('span'); title.className='title'; title.textContent=h.t;
-      var tag = document.createElement('span'); tag.className='tag'; tag.textContent = h.g ? h.g : 'тег';
-      a.appendChild(date); a.appendChild(title); a.appendChild(tag);
+      a.appendChild(date); a.appendChild(title);
+      if(h.g){ var tag = document.createElement('span'); tag.className='tag'; tag.textContent = (h.g||'').split(' ')[0]; a.appendChild(tag); }
       res.appendChild(a);
     });
   }
-  input.addEventListener('input', function(){ render(input.value); });
+  var t;
+  input.addEventListener('input', function(){ clearTimeout(t); t = setTimeout(function(){ render(input.value); }, 120); });
+  render(input.value);
 })();
 </script>
 </main>

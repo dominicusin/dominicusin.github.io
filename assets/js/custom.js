@@ -75,6 +75,23 @@
     });
   }
 
+  // Mobile nav toggle
+  var burger = document.getElementById('neo-burger');
+  var mnav = document.getElementById('neo-mobile-nav');
+  if (burger && mnav) {
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = mnav.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    mnav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('click', function (e) {
+      if (!mnav.contains(e.target) && e.target !== burger) { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    });
+  }
+
   // Quick light/dark toggle
   var tog = document.getElementById('neo-theme-toggle');
   if (tog){

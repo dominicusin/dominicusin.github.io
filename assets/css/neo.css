@@ -845,6 +845,22 @@ a[href^="http"]:not([href*="dominicusin.github.io"]):not([href*="github.com"]):n
 .neo-help-grid .k{text-align:right;color:var(--muted)}
 .neo-help-box .hint{margin-top:.9rem;font-size:.76rem;color:var(--muted)}
 
+/* ---------- MOBILE NAV ---------- */
+.neo-burger{display:none}
+.neo-mobile-nav{display:none;flex-direction:column;gap:2px;padding:0 1rem;
+  background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px) saturate(140%);
+  max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;
+  border-top:1px solid color-mix(in srgb,var(--accent) 18%,var(--line))}
+.neo-mobile-nav.open{display:flex;max-height:70vh;padding:.6rem 1rem 1rem;overflow:auto}
+.neo-mobile-nav a{padding:.7rem .4rem;border-radius:8px;color:var(--text);text-decoration:none;
+  font-size:1rem;border-bottom:1px solid color-mix(in srgb,var(--accent) 10%,var(--line))}
+.neo-mobile-nav a:hover{color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--panel))}
+@media(max-width:900px){
+  .neo-burger{display:inline-flex}
+  .neo-mobile-nav{display:flex}
+  .neo-burger[aria-expanded="true"]{color:var(--accent)}
+}
+
 
 @media print{
   .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings{display:none !important}
