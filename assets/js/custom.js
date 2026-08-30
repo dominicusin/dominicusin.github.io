@@ -105,3 +105,61 @@
     b.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
   }
 })();
+
+/* Global site flourishes: aurora bg, scroll progress, click sparkle.
+   Presentation-only. Disabled when reduced-motion is on. */
+(function(){
+  "use strict";
+  try {
+    var reduce = document.documentElement.getAttribute('data-reduce-motion') === 'true';
+    if (reduce) return;
+
+    // aurora layer
+    var aur = document.createElement('div');
+    aur.className = 'neo-aurora';
+    document.body.appendChild(aur);
+    // cute floating sparkle
+    var sp = document.createElement('span');
+    sp.className = 'neo-spark';
+    sp.textContent = '✨';
+    document.body.appendChild(sp);
+
+    // scroll progress bar
+    var bar = document.createElement('div');
+    bar.className = 'neo-progress';
+    document.body.appendChild(bar);
+    var ticking = false;
+    window.addEventListener('scroll', function(){
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function(){
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        var p = h > 0 ? (window.scrollY / h) * 100 : 0;
+        bar.style.width = p + '%';
+        ticking = false;
+      });
+    }, {passive:true});
+
+    // click sparkle burst (cute)
+    var glyphs = ['✦','✧','✨','★','♥'];
+    document.addEventListener('click', function(e){
+      var n = 5;
+      for (var i = 0; i < n; i++){
+        var s = document.createElement('span');
+        s.textContent = glyphs[(Math.random() * glyphs.length) | 0];
+        s.style.cssText = 'position:fixed;left:' + e.clientX + 'px;top:' + e.clientY + 'px;z-index:90;pointer-events:none;' +
+          'font-size:' + (10 + Math.random() * 10).toFixed(0) + 'px;color:var(--accent);' +
+          'text-shadow:0 0 8px color-mix(in srgb,var(--accent) 70%,transparent);' +
+          'transition:transform .7s ease-out,opacity .7s ease-out;opacity:1';
+        document.body.appendChild(s);
+        (function(el){
+          requestAnimationFrame(function(){
+            var dx = (Math.random() - 0.5) * 80, dy = (Math.random() - 0.5) * 80 - 30;
+            el.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(.4) rotate(' + (Math.random() * 360 | 0) + 'deg)';
+            el.style.opacity = '0';
+          });
+          setTimeout(function(){ el.remove(); }, 750);
+        })(s);
+      }
+    });
+  } catch (e) {}
+})();

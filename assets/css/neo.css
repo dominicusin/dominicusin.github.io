@@ -73,6 +73,7 @@ body::before{
     radial-gradient(700px 500px at 0% 10%,color-mix(in srgb,var(--violet) 9%,transparent),transparent 55%),
     var(--bg);
 }
+/* aurora: drifting glow orbs behind everything */
 body::after{
   content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),
@@ -81,6 +82,13 @@ body::after{
   -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
           mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
 }
+.neo-aurora{position:fixed;inset:-20vmax;z-index:-3;pointer-events:none;filter:blur(40px);opacity:.55;
+  background:
+    radial-gradient(38vmax 38vmax at 20% 18%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%),
+    radial-gradient(34vmax 34vmax at 82% 30%,color-mix(in srgb,var(--violet,#b98cff) 26%,transparent),transparent 60%),
+    radial-gradient(30vmax 30vmax at 60% 88%,color-mix(in srgb,var(--accent-2) 22%,transparent),transparent 60%);
+  animation:neo-aurora 22s ease-in-out infinite alternate}
+@keyframes neo-aurora{0%{transform:translate3d(-3%,-2%,0) rotate(0deg)}50%{transform:translate3d(4%,3%,0) rotate(8deg)}100%{transform:translate3d(-2%,4%,0) rotate(-6deg)}}
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
 }
@@ -602,6 +610,54 @@ img{height:auto}
   -webkit-background-clip:text;background-clip:text;color:transparent;font-size:1.7rem;margin:.2rem 0 .4rem}
 .gist-links{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.7rem;position:relative;z-index:2}
 .gist-body{position:relative;z-index:2;margin-top:1rem}
+
+/* ---------- SITE-WIDE COSMETICS (глобальные рюшечки) ---------- */
+/* glassy header with animated gradient underline */
+.neo-header{backdrop-filter:blur(14px) saturate(140%);background:color-mix(in srgb,var(--bg) 68%,transparent)}
+.neo-header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent) 70%,transparent),color-mix(in srgb,var(--violet,#b98cff) 70%,transparent),transparent);
+  background-size:200% 100%;animation:neo-sheen 6s linear infinite}
+@keyframes neo-sheen{0%{background-position:0% 0}100%{background-position:200% 0}}
+/* animated gradient brand mark */
+.neo-brand .mark{background:linear-gradient(135deg,var(--accent),var(--accent-2),var(--violet,#b98cff));
+  background-size:200% 200%;animation:neo-mark 6s ease-in-out infinite;color:#fff;font-weight:800;
+  box-shadow:0 0 16px -4px color-mix(in srgb,var(--accent) 60%,transparent)}
+@keyframes neo-mark{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+/* glossy nav links */
+.neo-menu a{position:relative;transition:color .2s}
+.neo-menu a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;
+  transition:transform .25s ease}
+.neo-menu a:hover{color:var(--accent)}
+.neo-menu a:hover::after{transform:scaleX(1)}
+.neo-icon-btn{transition:transform .15s,color .2s,box-shadow .2s,border-color .2s}
+.neo-icon-btn:hover{box-shadow:0 0 14px -3px color-mix(in srgb,var(--accent) 60%,transparent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+/* glossy in-content links */
+.neo-post-body a,.neo-prose a,.prose a{color:var(--accent);text-decoration:none;
+  background-image:linear-gradient(var(--accent),var(--accent));background-size:0% 1.5px;background-repeat:no-repeat;
+  background-position:0 100%;transition:background-size .25s ease,color .2s}
+.neo-post-body a:hover,.neo-prose a:hover,.prose a:hover{background-size:100% 1.5px}
+/* scroll progress bar */
+.neo-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;pointer-events:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet,#b98cff));
+  box-shadow:0 0 10px -1px color-mix(in srgb,var(--accent) 70%,transparent)}
+/* selection tint */
+::selection{background:color-mix(in srgb,var(--accent) 30%,transparent);color:var(--text)}
+/* focus glow everywhere */
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 45%,transparent)}
+/* entrance animation for posts/sections (cards keep their own neo-card-in) */
+@keyframes neo-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.neo-post,.neo-section,.neo-row{animation:neo-rise .5s ease both}
+@media (prefers-reduced-motion: no-preference){
+  .neo-post,.neo-section,.neo-row{animation:neo-rise .5s ease both}
+}
+/* cute floating decorative orbs (non-interactive) */
+.neo-spark{position:fixed;bottom:18px;right:74px;z-index:55;font-size:1.1rem;pointer-events:none;
+  filter:drop-shadow(0 0 8px color-mix(in srgb,var(--accent) 70%,transparent));animation:neo-bob 3.6s ease-in-out infinite}
+/* back-to-top glow */
+#neo-backtotop{box-shadow:0 6px 18px -6px color-mix(in srgb,var(--accent) 55%,transparent)}
+#neo-backtotop:hover{box-shadow:0 0 18px -3px color-mix(in srgb,var(--accent) 70%,transparent)}
 
 /* ---------- PRINT ---------- */
 @media print{

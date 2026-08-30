@@ -607,3 +607,31 @@ img { height: auto; }
 .m-plot { font-size:.76rem; margin:0 0 .5rem; }
 .m-plot summary { cursor:pointer; color:var(--accent,#6ee7b7); font-weight:600; }
 .m-plot p { margin:.35rem 0 0; color:var(--muted,#9aa); line-height:1.4; }
+
+/* ---------- SITE-WIDE COSMETICS (theme pages) ---------- */
+/* aurora glow behind theme pages */
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(60vmax 60vmax at 12% 8%,color-mix(in srgb,rgb(var(--color-primary-500)) 14%,transparent),transparent 60%),
+    radial-gradient(50vmax 50vmax at 88% 22%,color-mix(in srgb,var(--violet,#b98cff) 12%,transparent),transparent 60%),
+    radial-gradient(46vmax 46vmax at 60% 92%,color-mix(in srgb,rgb(var(--color-primary-400)) 10%,transparent),transparent 60%)}
+/* gradient underline on site header */
+header nav, .site-header{border-bottom:1px solid rgba(var(--ring),.4)}
+.site-header::after,header nav::after{content:"";display:block;height:1px;
+  background:linear-gradient(90deg,transparent,rgb(var(--color-primary-500)),var(--violet,#b98cff),transparent);
+  background-size:200% 100%;animation:neo-sheen 6s linear infinite}
+@keyframes neo-sheen{0%{background-position:0% 0}100%{background-position:200% 0}}
+/* selection tint */
+::selection{background:color-mix(in srgb,rgb(var(--color-primary-500)) 30%,transparent);color:inherit}
+/* focus glow */
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:none;box-shadow:0 0 0 3px color-mix(in srgb,rgb(var(--color-primary-500)) 45%,transparent)}
+/* glossy in-content links */
+.prose a, .repo-body a, .gist-body a{color:rgb(var(--color-primary-300));text-decoration:none;
+  background-image:linear-gradient(rgb(var(--color-primary-300)),rgb(var(--color-primary-300)));
+  background-size:0% 1.5px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .25s ease}
+.prose a:hover, .repo-body a:hover, .gist-body a:hover{background-size:100% 1.5px}
+/* entrance for posts */
+@keyframes neo-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.prose, .repo-page, .gist-page, .awesome-preview{animation:neo-rise .5s ease both}
+@media (prefers-reduced-motion: no-preference){.prose,.repo-page,.gist-page,.awesome-preview{animation:neo-rise .5s ease both}}
