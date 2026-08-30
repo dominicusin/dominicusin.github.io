@@ -73,3 +73,108 @@
   }
 })();
 </script>
+
+{{/* Ergonomics: instant filter, copy buttons, keyboard shortcuts, TOC scrollspy, heading copy. */}}
+<script>
+(function () {
+  "use strict";
+  try {
+    // ---- instant client-side filter on list pages ----
+    var grids = [".repo-grid", ".neo-awesome-grid"];
+    grids.forEach(function (sel) {
+      var grid = document.querySelector(sel);
+      if (!grid) return;
+      var wrap = grid.parentElement;
+      if (!wrap || wrap.querySelector(".neo-filter")) return;
+      var input = document.createElement("input");
+      input.type = "search"; input.className = "neo-filter";
+      input.placeholder = "Фильтровать…"; input.setAttribute("aria-label", "Фильтровать список");
+      var count = document.createElement("span");
+      count.className = "neo-filter-count";
+      var cards = Array.prototype.slice.call(grid.children);
+      function update() {
+        var q = input.value.trim().toLowerCase(), shown = 0;
+        cards.forEach(function (c) {
+          var txt = (c.textContent || "").toLowerCase();
+          var ok = !q || txt.indexOf(q) !== -1;
+          c.style.display = ok ? "" : "none";
+          if (ok) shown++;
+        });
+        count.textContent = q ? (shown + " / " + cards.length) : "";
+      }
+      input.addEventListener("input", update);
+      wrap.insertBefore(count, grid);
+      wrap.insertBefore(input, grid);
+    });
+
+    // ---- copy-to-clipboard on code blocks ----
+    if (navigator.clipboard) {
+      document.querySelectorAll("pre > code, pre").forEach(function (block) {
+        var pre = block.tagName === "PRE" ? block : block.parentElement;
+        if (!pre || pre.parentElement.querySelector(".copy-btn")) return;
+        var btn = document.createElement("button");
+        btn.className = "copy-btn"; btn.type = "button"; btn.textContent = "Копировать";
+        btn.setAttribute("aria-label", "Копировать код");
+        btn.addEventListener("click", function () {
+          var code = pre.querySelector("code") ? pre.querySelector("code").innerText : pre.innerText;
+          navigator.clipboard.writeText(code).then(function () {
+            btn.textContent = "Скопировано ✓"; btn.classList.add("copied");
+            setTimeout(function () { btn.textContent = "Копировать"; btn.classList.remove("copied"); }, 1500);
+          });
+        });
+        pre.style.position = "relative";
+        pre.appendChild(btn);
+      });
+    }
+
+    // ---- heading copy-links ----
+    document.querySelectorAll(".neo-post-body h2, .neo-post-body h3, .neo-prose h2, .neo-prose h3").forEach(function (h) {
+      if (!h.id) return;
+      var a = document.createElement("a");
+      a.className = "head-anchor"; a.href = "#" + h.id; a.textContent = "🔗";
+      a.setAttribute("aria-label", "Скопировать ссылку"); a.title = "Скопировать ссылку";
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        try { navigator.clipboard.writeText(location.href.split("#")[0] + "#" + h.id);
+          a.textContent = "✓"; setTimeout(function(){ a.textContent = "🔗"; }, 1200); } catch (err) {}
+      });
+      h.appendChild(a);
+    });
+
+    // ---- TOC scrollspy ----
+    var tocLinks = document.querySelectorAll(".neo-toc a[href^='#']");
+    if (tocLinks.length && "IntersectionObserver" in window) {
+      var map = {};
+      tocLinks.forEach(function (l) { var id = l.getAttribute("href").slice(1); if (id) map[id] = l; });
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            tocLinks.forEach(function (l) { l.classList.remove("active"); });
+            var link = map[en.target.id]; if (link) link.classList.add("active");
+          }
+        });
+      }, { rootMargin: "-80px 0px -70% 0px" });
+      Object.keys(map).forEach(function (id) {
+        var t = document.getElementById(id); if (t) obs.observe(t);
+      });
+    }
+
+    // ---- keyboard shortcuts ----
+    var reduce = document.documentElement.getAttribute("data-reduce-motion") === "true";
+    document.addEventListener("keydown", function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      var t = e.target, tag = t && t.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || (t && t.isContentEditable)) return;
+      if (e.key === "/") { var s = document.getElementById("neo-search-open"); if (s) { e.preventDefault(); s.click(); } }
+      else if (e.key === "Escape") { var d = document.getElementById("neo-drawer"); if (d) d.classList.remove("open"); }
+      else if (e.key === "t" || e.key === "T") {
+        var root = document.documentElement;
+        var cur = root.getAttribute("data-theme");
+        root.setAttribute("data-theme", cur === "light" ? "dark" : "light");
+        try { localStorage.setItem("neo-theme", root.getAttribute("data-theme")); } catch (err) {}
+      }
+      else if (e.key === "b" || e.key === "B") { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+    });
+  } catch (e) {}
+})();
+</script>
