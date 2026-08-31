@@ -1,0 +1,18 @@
+{{/* Analytics dashboard — Neo design system (standalone). Shows local page-view analytics. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>{{ .Title }}</h2>
+    <span class="more">Локальная статистика</span>
+  </div>
+  {{ .Content }}
+  <div id="neo-analytics-dashboard"></div>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+</body>
+</html>
