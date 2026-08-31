@@ -1,7 +1,7 @@
 {{/*
   Neo head partial — loads Neo CSS + custom.js.
   SEO-ready: Open Graph, Twitter Cards, canonical, JSON-LD.
-  Performance: preconnect, dns-prefetch, async CSS loading.
+  Performance: critical CSS inline, async main CSS, preconnect, resource hints.
   Emits a proper <head> element.
 */}}
 <head>
@@ -15,6 +15,13 @@
 {{ $description := "" }}
 {{ if .Description }}{{ $description = .Description }}{{ else if .Summary }}{{ $description = .Summary | plainify | truncate 160 }}{{ else }}{{ $description = site.Params.description }}{{ end }}
 <meta name="description" content="{{ $description }}">
+
+{{/* Performance: preconnect + dns-prefetch */}}
+<link rel="preconnect" href="{{ site.BaseURL }}" crossorigin>
+<link rel="dns-prefetch" href="{{ site.BaseURL }}">
+<link rel="preconnect" href="https://github.com" crossorigin>
+<link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="/images/icon.svg">
 
 {{/* Canonical URL */}}
 <link rel="canonical" href="{{ .Permalink }}">
@@ -40,6 +47,16 @@
 {{/* RSS */}}
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .Permalink }}">{{ end }}
 
+{{/* Critical CSS: inline for first paint */}}
+{{ partial "neo-critical.html" . }}
+
+{{/* Main CSS: preload then swap to stylesheet */}}
+{{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
+<link rel="preload" href="{{ $css.RelPermalink }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ $css.RelPermalink }}"></noscript>
+
+{{/* Store */}}
+{{ partial "neo-store.html" . }}
 
 {{/* JS */}}
 {{ $js := resources.Get "js/custom.js" | minify | fingerprint }}
