@@ -1,0 +1,180 @@
+{{/* AI Features page — semantic search, recommendations, knowledge graph. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🤖 AI Features</h2>
+    <span class="more">Artificial intelligence for content discovery</span>
+  </div>
+  {{ .Content }}
+
+  <section class="neo-ai-search">
+    <h3>Semantic Search</h3>
+    <p>Search by meaning, not just keywords.</p>
+    <div class="neo-ai-search-box">
+      <input type="text" id="neo-ai-search-input" class="neo-search-input" placeholder="Ask a question or describe what you're looking for..." />
+      <button class="neo-btn neo-btn-primary" id="neo-ai-search-btn">Search</button>
+    </div>
+    <div id="neo-ai-search-results" class="neo-ai-results"></div>
+  </section>
+
+  <section class="neo-ai-recommendations">
+    <h3>Recommended for You</h3>
+    <div id="neo-ai-recommendations" class="neo-featured">
+      <div class="neo-ai-loading">Loading recommendations...</div>
+    </div>
+  </section>
+
+  <section class="neo-ai-graph">
+    <h3>Knowledge Graph</h3>
+    <p>Explore connections between topics.</p>
+    <div id="neo-ai-graph-container" class="neo-ai-graph-container"></div>
+  </section>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+
+<script type="module">
+import { h, render, useState, useEffect, useCallback } from 'https://esm.sh/preact@10.24.0';
+import htm from 'https://esm.sh/htm@3.1.1';
+
+const html = htm.bind(h);
+
+// Simple vector search using cosine similarity
+function cosineSimilarity(a, b) {
+  if (!a || !b || a.length !== b.length) return 0;
+  let dot = 0, normA = 0, normB = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    normA += a[i] * a[i];
+    normB += b[i] * b[i];
+  }
+  return dot / (Math.sqrt(normA) * Math.sqrt(normB) || 1);
+}
+
+// Simple bag-of-words embedding (for demo — in production use proper embeddings)
+function simpleEmbed(text, vocab) {
+  const words = text.toLowerCase().split(/\s+/);
+  return vocab.map(word => words.includes(word) ? 1 : 0);
+}
+
+function AIApp() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // Build vocabulary from all posts
+  useEffect(async () => {
+    try {
+      const resp = await fetch('/index.json');
+      const posts = await resp.json();
+      
+      // Build simple vocabulary
+      const vocabSet = new Set();
+      posts.forEach(p => {
+        const text = (p.title + ' ' + (p.description || '') + ' ' + (p.tags || []).join(' ')).toLowerCase();
+        text.split(/\s+/).forEach(w => w.length > 3 && vocabSet.add(w));
+      });
+      const vocab = Array.from(vocabSet).slice(0, 200);
+
+      // Generate embeddings
+      const embedded = posts.map(p => ({
+        ...p,
+        embedding: simpleEmbed((p.title + ' ' + (p.description || '') + ' ' + (p.tags || []).join(' ')).toLowerCase(), vocab)
+      }));
+
+      // Get user reading history from localStorage
+      const history = JSON.parse(localStorage.getItem('neo-recently-viewed') || '[]');
+      
+      // Simple recommendations: based on tags in history
+      const historyTags = new Set();
+      history.forEach(h => {
+        (h.tags || []).forEach(t => historyTags.add(t));
+      });
+
+      const recs = embedded
+        .filter(p => p.tags && p.tags.some(t => historyTags.has(t)))
+        .slice(0, 3);
+      setRecommendations(recs);
+
+      // Store for search
+      window._aiData = { vocab, embedded };
+    } catch (e) {
+      console.error('Failed to load AI data:', e);
+    }
+  }, []);
+
+  const handleSearch = useCallback(() => {
+    if (!query.trim() || !window._aiData) return;
+    setLoading(true);
+
+    const { vocab, embedded } = window._aiData;
+    const queryEmbedding = simpleEmbed(query.toLowerCase(), vocab);
+
+    const scored = embedded
+      .map(p => ({ ...p, score: cosineSimilarity(queryEmbedding, p.embedding) }))
+      .filter(p => p.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+
+    setResults(scored);
+    setLoading(false);
+  }, [query]);
+
+  return html`
+    <section class="neo-ai-search">
+      <h3>Semantic Search</h3>
+      <p>Search by meaning, not just keywords.</p>
+      <div class="neo-ai-search-box">
+        <input type="text" class="neo-search-input" placeholder="Ask a question..."
+          value=${query} onInput=${(e) => setQuery(e.target.value)} />
+        <button class="neo-btn neo-btn-primary" onClick=${handleSearch}>Search</button>
+      </div>
+      ${loading && html`<div class="neo-ai-loading">Searching...</div>`}
+      <div class="neo-ai-results">
+        ${results.map(r => html`
+          <a class="neo-row" href=${r.permalink || r.RelPermalink}>
+            <span class="title">${r.title}</span>
+            <span class="tag">${(r.tags || []).slice(0, 2).join(', ')}</span>
+          </a>
+        `)}
+      </div>
+    </section>
+
+    <section class="neo-ai-recommendations">
+      <h3>Recommended for You</h3>
+      <div class="neo-featured">
+        ${recommendations.length === 0
+          ? html`<p>Read some posts to get personalized recommendations!</p>`
+          : recommendations.map(r => html`
+            <article class="neo-card">
+              <h4><a href=${r.permalink || r.RelPermalink}>${r.title}</a></h4>
+              <div class="repo-pills">${(r.tags || []).slice(0, 3).map(t => html`<span class="repo-pill">${t}</span>`)}</div>
+            </article>
+          `)
+        }
+      </div>
+    </section>
+  `;
+}
+
+const root = document.getElementById('neo-ai-app');
+if (root) render(h(AIApp), root);
+</script>
+
+<style>
+.neo-ai-search{margin:2rem 0}
+.neo-ai-search h3{margin-bottom:.5rem}
+.neo-ai-search p{color:var(--muted);margin-bottom:1rem}
+.neo-ai-search-box{display:flex;gap:.5rem;margin-bottom:1rem}
+.neo-ai-results{display:flex;flex-direction:column;gap:.3rem}
+.neo-ai-loading{padding:1rem;color:var(--muted)}
+.neo-ai-recommendations{margin:2rem 0}
+.neo-ai-recommendations h3{margin-bottom:1rem}
+</style>
+</body>
+</html>
