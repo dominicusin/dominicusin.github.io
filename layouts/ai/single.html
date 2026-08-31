@@ -1,0 +1,238 @@
+{{/* AI Chat — LLM interface with site-aware responses. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🤖 AI Chat</h2>
+    <span class="more">Site-aware LLM assistant</span>
+  </div>
+  {{ .Content }}
+
+  <div id="neo-ai-chat">
+    <div class="neo-ai-loading">Loading chat...</div>
+  </div>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+
+<script type="module">
+import { h, render, useState, useEffect, useCallback, useRef } from 'https://esm.sh/preact@10.24.0';
+import htm from 'https://esm.sh/htm@3.1.1';
+
+const html = htm.bind(h);
+
+function AIChat() {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [model, setModel] = useState('gpt-4o-mini');
+  const [context, setContext] = useState([]);
+  const [showSettings, setShowSettings] = useState(false);
+  const [apiKey, setApiKey] = useState('');
+  const [provider, setProvider] = useState('openai');
+  const messagesEnd = useRef(null);
+
+  useEffect(() => {
+    // Load saved settings
+    const saved = localStorage.getItem('neo-ai-settings');
+    if (saved) {
+      try {
+        const s = JSON.parse(saved);
+        setModel(s.model || 'gpt-4o-mini');
+        setProvider(s.provider || 'openai');
+        setApiKey(s.apiKey || '');
+      } catch (e) {}
+    }
+  }, []);
+
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const sendMessage = useCallback(async () => {
+    if (!input.trim() || loading) return;
+
+    const userMsg = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMsg]);
+    setInput('');
+    setLoading(true);
+
+    try {
+      // Build context from site index
+      const siteContext = context.slice(0, 5).map(c => 
+        `${c.title}: ${c.description || ''}`
+      ).join('\n');
+
+      const systemPrompt = `You are an AI assistant for dominicusin.github.io, a decentralized engineering knowledge platform.
+Site context:
+${siteContext}
+
+Rules:
+- Answer in the same language as the question
+- Be concise and technical
+- Reference specific posts when helpful
+- If unsure, say you don't know`;
+
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            ...messages.slice(-6),
+            userMsg
+          ],
+          max_tokens: 1024,
+          temperature: 0.7
+        })
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error?.message || 'API error');
+      }
+
+      const data = await response.json();
+      const aiMsg = { role: 'assistant', content: data.choices[0].message.content };
+      setMessages(prev => [...prev, aiMsg]);
+    } catch (e) {
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: `Error: ${e.message}. Please check your API key.`,
+        error: true 
+      }]);
+    }
+    setLoading(false);
+  }, [input, loading, messages, context, apiKey, model]);
+
+  const saveSettings = useCallback(() => {
+    localStorage.setItem('neo-ai-settings', JSON.stringify({ model, provider, apiKey }));
+    setShowSettings(false);
+  }, [model, provider, apiKey]);
+
+  const clearChat = useCallback(() => {
+    setMessages([]);
+  }, []);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }, [sendMessage]);
+
+  return html`
+    <div class="neo-ai-chat">
+      <div class="neo-ai-toolbar">
+        <div class="neo-ai-models">
+          <select value=${provider} onChange=${e => setProvider(e.target.value)} class="neo-ai-select">
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic</option>
+            <option value="local">Local</option>
+          </select>
+          <select value=${model} onChange=${e => setModel(e.target.value)} class="neo-ai-select">
+            <option value="gpt-4o-mini">GPT-4o Mini</option>
+            <option value="gpt-4o">GPT-4o</option>
+            <option value="claude-sonnet-4-20250514">Claude Sonnet 4</option>
+          </select>
+        </div>
+        <div class="neo-ai-actions">
+          <button class="neo-btn" onClick=${clearChat}>Clear</button>
+          <button class="neo-btn" onClick=${() => setShowSettings(!showSettings)}>Settings</button>
+        </div>
+      </div>
+
+      ${showSettings && html`
+        <div class="neo-ai-settings">
+          <h4>API Settings</h4>
+          <input 
+            type="password" 
+            placeholder="API Key (stored locally)" 
+            value=${apiKey} 
+            onInput=${e => setApiKey(e.target.value)}
+            class="neo-search-input"
+          />
+          <p class="neo-ai-hint">Your key is stored in localStorage only. Never sent to our servers.</p>
+          <button class="neo-btn neo-btn-primary" onClick=${saveSettings}>Save</button>
+        </div>
+      `}
+
+      <div class="neo-ai-messages">
+        ${messages.length === 0 && html`
+          <div class="neo-ai-empty">
+            <h3>Ask me anything about dominicus.in</h3>
+            <p>I know the site content and can help you find information.</p>
+            <div class="neo-ai-suggestions">
+              <button class="neo-btn" onClick=${() => { setInput('What is Neo Design System?'); }}>Neo Design System</button>
+              <button class="neo-btn" onClick=${() => { setInput('How does DAO governance work?'); }}>DAO Governance</button>
+              <button class="neo-btn" onClick=${() => { setInput('Explain IPFS deploy process'); }}>IPFS Deploy</button>
+            </div>
+          </div>
+        `}
+        ${messages.map((m, i) => html`
+          <div class="neo-ai-msg ${m.role} ${m.error ? 'error' : ''}">
+            <div class="neo-ai-msg-role">${m.role === 'user' ? '👤' : '🤖'}</div>
+            <div class="neo-ai-msg-content">${m.content}</div>
+          </div>
+        `)}
+        ${loading && html`<div class="neo-ai-msg assistant loading"><span>●●●</span></div>`}
+        <div ref=${messagesEnd}></div>
+      </div>
+
+      <div class="neo-ai-input-bar">
+        <textarea
+          placeholder="Ask a question... (Enter to send, Shift+Enter for new line)"
+          value=${input}
+          onInput=${e => setInput(e.target.value)}
+          onKeyDown=${handleKeyDown}
+          rows="2"
+        ></textarea>
+        <button class="neo-btn neo-btn-primary" onClick=${sendMessage} disabled=${loading}>Send</button>
+      </div>
+    </div>
+  `;
+}
+
+function App() {
+  return html`<${AIChat} />`;
+}
+
+const root = document.getElementById('neo-ai-chat');
+if (root) render(h(App), root);
+</script>
+
+<style>
+.neo-ai-chat{margin:2rem 0;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);display:flex;flex-direction:column;max-height:70vh}
+.neo-ai-toolbar{display:flex;justify-content:space-between;align-items:center;padding:.8rem;border-bottom:1px solid var(--line)}
+.neo-ai-models{display:flex;gap:.5rem}
+.neo-ai-select{padding:.4rem .8rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:.85rem}
+.neo-ai-actions{display:flex;gap:.5rem}
+.neo-ai-settings{padding:1rem;border-bottom:1px solid var(--line);background:var(--panel-2)}
+.neo-ai-settings h4{margin-bottom:.5rem}
+.neo-ai-settings input{margin-bottom:.5rem}
+.neo-ai-hint{font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
+.neo-ai-messages{flex:1;overflow-y:auto;padding:1rem;min-height:300px;max-height:50vh}
+.neo-ai-empty{text-align:center;padding:2rem}
+.neo-ai-empty h3{margin-bottom:.5rem}
+.neo-ai-empty p{color:var(--muted);margin-bottom:1rem}
+.neo-ai-suggestions{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.neo-ai-msg{display:flex;gap:.8rem;margin-bottom:1rem}
+.neo-ai-msg.user{flex-direction:row-reverse}
+.neo-ai-msg-role{font-size:1.2rem;flex-shrink:0}
+.neo-ai-msg-content{background:var(--bg);padding:.8rem 1rem;border-radius:var(--radius);max-width:80%;line-height:1.5}
+.neo-ai-msg.user .neo-ai-msg-content{background:color-mix(in srgb,var(--accent) 15%,var(--bg))}
+.neo-ai-msg.error .neo-ai-msg-content{background:color-mix(in srgb,#fb7185 15%,var(--bg));color:#fb7185}
+.neo-ai-msg.loading span{animation:neo-ai-pulse 1.5s infinite;color:var(--muted)}
+@keyframes neo-ai-pulse{0%,100%{opacity:.3}50%{opacity:1}}
+.neo-ai-input-bar{display:flex;gap:.5rem;padding:1rem;border-top:1px solid var(--line)}
+.neo-ai-input-bar textarea{flex:1;padding:.6rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);resize:none;font-family:var(--font)}
+</style>
+</body>
+</html>
