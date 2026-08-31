@@ -34,6 +34,7 @@
   {{ partial "share.html" . }}
   {{ partial "content-graph.html" . }}
   {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}
+  {{ partial "neo-subscribe.html" . }}
 </article>
 </main>
 {{ partial "neo-footer.html" . }}

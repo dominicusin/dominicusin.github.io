@@ -902,6 +902,13 @@ a[href^="http"]:not([href*="dominicusin.github.io"]):not([href*="github.com"]):n
 }
 
 
+
+/* Retention analytics */
+.neo-retention{display:flex;gap:4px;align-items:flex-end;height:120px;margin-top:1rem}
+.neo-retention-day{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%}
+.neo-retention-bar{width:100%;background:linear-gradient(to top,var(--accent),var(--accent-2));border-radius:4px 4px 0 0;min-height:2px;transition:height .3s}
+.neo-retention-day span{font-size:.65rem;color:var(--muted);white-space:nowrap}
+
 @media print{
   .neo-header,.neo-footer,#neo-backtotop,.neo-share,.neo-related,.neo-toc-wrap,.neo-news,.neo-settings,
   .neo-cursor,.neo-orb,.neo-lightbox,.neo-palette,.neo-help,.neo-readbar,.neo-mobile-nav,
