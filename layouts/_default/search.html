@@ -41,13 +41,23 @@
   var kindbar = document.getElementById('neo-kind-filter');
   var curKind = 'all';
 
+  function fuzzyMatch(str, pattern) {
+    str = str.toLowerCase();
+    pattern = pattern.toLowerCase();
+    var si = 0, pi = 0;
+    while (si < str.length && pi < pattern.length) {
+      if (str[si] === pattern[pi]) pi++;
+      si++;
+    }
+    return pi === pattern.length;
+  }
   function render(q){
     q = (q||'').toLowerCase().trim();
     res.innerHTML = '';
     if(!q){ empty.style.display='block'; empty.textContent='Введите запрос для поиска по всему сайту.'; return; }
     var hits = INDEX.filter(function(i){
       if (curKind !== 'all' && i.k !== curKind) return false;
-      return i.t.toLowerCase().indexOf(q) > -1 || (i.g||'').toLowerCase().indexOf(q) > -1 || (i.s||'').toLowerCase().indexOf(q) > -1;
+      return i.t.toLowerCase().indexOf(q) > -1 || (i.g||'').toLowerCase().indexOf(q) > -1 || (i.s||'').toLowerCase().indexOf(q) > -1 || fuzzyMatch(i.t, q);
     }).slice(0, 40);
     if(!hits.length){ empty.style.display='block'; empty.textContent = 'Ничего не найдено по запросу «'+q+'».'; return; }
     empty.style.display='none';
