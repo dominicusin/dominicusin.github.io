@@ -1,20 +1,93 @@
 {{/*
-  Neo head partial — loads Neo CSS + custom.js (theme toggle, back-to-top).
-  Emits a proper <head> element so validators/perf checks that scan for
-  <head> in the built HTML pass. Kept minimal: the Blowfish head.html
-  (fonts, meta, theme scripts, RSS) is NOT reused here to avoid double
-  <head>/class conflicts; Neo pages are self-contained and scoped under .neo-*.
+  Neo head partial — loads Neo CSS + custom.js.
+  SEO-ready: Open Graph, Twitter Cards, canonical, JSON-LD.
+  Emits a proper <head> element.
 */}}
 <head>
 <meta charset="utf-8">
 <meta name="theme-color" content="#4fd1c5">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+
+{{/* Meta description */}}
+{{ $description := "" }}
+{{ if .Description }}{{ $description = .Description }}{{ else if .Summary }}{{ $description = .Summary | plainify | truncate 160 }}{{ else }}{{ $description = site.Params.description }}{{ end }}
+<meta name="description" content="{{ $description }}">
+
+{{/* Canonical URL */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* Open Graph */}}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:locale" content="{{ site.LanguageCode | default "ru" }}">
+{{ $ogImage := "/images/og-default.svg" }}
+{{ if .Params.image }}{{ $ogImage = .Params.image }}{{ end }}
+<meta property="og:image" content="{{ $ogImage | absURL }}">
+
+{{/* Twitter Cards */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}">
+<meta name="twitter:description" content="{{ $description }}">
+<meta name="twitter:image" content="{{ $ogImage | absURL }}">
+
+{{/* RSS */}}
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .Permalink }}">{{ end }}
+
+{{/* CSS */}}
 {{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+
+{{/* JS */}}
 {{ $js := resources.Get "js/custom.js" | minify | fingerprint }}
 <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
+
+{{/* Theme initialization */}}
 <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+
+{{/* JSON-LD Structured Data */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "description": "{{ site.Params.description }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ site.BaseURL }}search/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{ else if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ .Title }}",
+  "description": "{{ $description }}",
+  "url": "{{ .Permalink }}",
+  {{ if .Date }}
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  {{ end }}
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.Title }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.BaseURL }}images/icon.svg"
+    }
+  }
+}
+</script>
+{{ end }}
 </head>
