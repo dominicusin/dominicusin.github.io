@@ -16,16 +16,6 @@
 {{ if .Description }}{{ $description = .Description }}{{ else if .Summary }}{{ $description = .Summary | plainify | truncate 160 }}{{ else }}{{ $description = site.Params.description }}{{ end }}
 <meta name="description" content="{{ $description }}">
 
-<<<<<<< HEAD
-{{/* Performance: preconnect + dns-prefetch */}}
-<link rel="preconnect" href="{{ site.BaseURL }}" crossorigin>
-<link rel="dns-prefetch" href="{{ site.BaseURL }}">
-<link rel="preconnect" href="https://github.com" crossorigin>
-<link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin>
-<link rel="icon" type="image/svg+xml" href="/images/icon.svg">
-
-=======
->>>>>>> origin/main
 {{/* Canonical URL */}}
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="security-policy" href="/.well-known/security.txt">
@@ -50,16 +40,6 @@
 {{/* RSS */}}
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .Permalink }}">{{ end }}
 
-<<<<<<< HEAD
-{{/* CSS: preload + async */}}
-{{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
-<link rel="preload" href="{{ $css.RelPermalink }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="{{ $css.RelPermalink }}"></noscript>
-=======
-{{/* CSS */}}
-{{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
->>>>>>> origin/main
 
 {{/* JS */}}
 {{ $js := resources.Get "js/custom.js" | minify | fingerprint }}
