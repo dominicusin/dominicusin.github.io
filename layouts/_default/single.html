@@ -30,6 +30,7 @@
     {{ with .NextInSection }}<a class="neo-pn pn-next" href="{{ .RelPermalink }}"><span class="pn-dir">След. →</span><span class="pn-t">{{ .Title }}</span></a>{{ end }}
   </nav>
   {{ end }}
+  {{ partial "neo-breadcrumb-ld.html" . }}
   {{ partial "share.html" . }}
   {{ partial "related.html" . }}
   {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}

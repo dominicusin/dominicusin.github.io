@@ -1,0 +1,10 @@
+{{/* Breadcrumbs partial — shows navigation path. Include before content. */}}
+<nav class="neo-crumbs" aria-label="Хлебные крошки">
+  <a href="{{ site.Home.RelPermalink }}">Главная</a>
+  {{ if .Parent }}
+    <span>/</span>
+    <a href="{{ .Parent.RelPermalink }}">{{ .Parent.Title }}</a>
+  {{ end }}
+  <span>/</span>
+  <span>{{ .Title }}</span>
+</nav>
