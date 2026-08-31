@@ -32,7 +32,7 @@
   {{ end }}
   {{ partial "neo-breadcrumb-ld.html" . }}
   {{ partial "share.html" . }}
-  {{ partial "related.html" . }}
+  {{ partial "content-graph.html" . }}
   {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}
 </article>
 </main>

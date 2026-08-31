@@ -1,0 +1,75 @@
+{{/* Content Graph — related posts, series navigation, section links.
+     Shows intelligent connections between content pieces. */}}
+
+{{/* 1. Related posts by tag similarity (best match) */}}
+{{ $related := slice }}
+{{ $pageTags := .Params.tags | default (slice) }}
+
+{{/* Find pages with common tags */}}
+{{ range .Site.RegularPages }}
+  {{ if ne .Permalink $.Permalink }}
+    {{ $common := 0 }}
+    {{ range .Params.tags | default (slice) }}
+      {{ if in $pageTags . }}{{ $common = add $common 1 }}{{ end }}
+    {{ end }}
+    {{ if gt $common 0 }}
+      {{ $related = append . $related }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Limit to 3 */}}
+{{ if gt (len $related) 3 }}{{ $related = first 3 $related }}{{ end }}
+
+{{/* Fallback: recent from same section */}}
+{{ if lt (len $related) 2 }}
+  {{ $related = first 3 (where (where .Site.RegularPages "Section" .Section) "Permalink" "ne" .Permalink) }}
+{{ end }}
+
+{{ if $related }}
+<section class="neo-related" aria-label="Похожие записи">
+  <div class="neo-sec-head"><h2>🔗 Похожие записи</h2></div>
+  <div class="neo-featured">
+    {{ range $related }}
+    <article class="neo-card">
+      <div class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 янв 2006" }}</time></div>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{ with .Params.tags }}
+      <div class="repo-pills" style="margin-top:.5rem">
+        {{ range first 3 . }}<span class="repo-pill" style="font-size:.7rem;padding:.15rem .4rem">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+    </article>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{/* 2. Same section: more from this section */}}
+{{ $sectionPages := where .Site.RegularPages "Section" .Section }}
+{{ if gt (len $sectionPages) 3 }}
+{{ $moreFrom := first 4 (where $sectionPages "Permalink" "ne" .Permalink) }}
+<section class="neo-more-section" aria-label="Еще из раздела {{ .Section }}">
+  <div class="neo-sec-head"><h2>📁 Еще в «{{ .Section }}»</h2></div>
+  <div class="neo-rows">
+    {{ range $moreFrom }}
+    <a class="neo-row" href="{{ .RelPermalink }}">
+      <span class="date">{{ .Date.Format "02 янв 2006" }}</span>
+      <span class="title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{/* 3. Tag cloud for this page's tags */}}
+{{ with .Params.tags }}
+<section class="neo-page-tags" aria-label="Теги">
+  <div class="neo-sec-head"><h2>🏷 Теги</h2></div>
+  <div class="repo-pills">
+    {{ range . }}
+    <a class="repo-pill" href="/tags/{{ . | urlize }}/">#{{ . }}</a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
