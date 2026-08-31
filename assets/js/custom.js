@@ -548,11 +548,13 @@
     try { var analytics = JSON.parse(localStorage.getItem(ANALYTICS_STORE) || "{}"); } catch (e) { var analytics = {}; }
 
     // Track current page view
-    var path = location.pathname.replace(/\/+$/, '') || '/';
-    if (!analytics[path]) analytics[path] = { views: 0, title: document.title, lastViewed: 0 };
+    var path = location.pathname.replace(/\/+$/, '/') || '/';
+    var today = new Date().toISOString().slice(0, 10);
+    if (!analytics[path]) analytics[path] = { views: 0, title: document.title, lastViewed: 0, daily: {} };
     analytics[path].views++;
     analytics[path].title = document.title;
     analytics[path].lastViewed = Date.now();
+    analytics[path].daily[today] = (analytics[path].daily[today] || 0) + 1;
     // Keep only last 50 paths
     var paths = Object.keys(analytics).sort(function (a, b) { return analytics[b].views - analytics[a].views; });
     if (paths.length > 50) {
@@ -659,6 +661,143 @@
         if (mnav) { mnav.classList.remove('open'); }
         location.href = '/favorites/';
       });
+    }
+  } catch (e) {}
+
+  // ---- Wave 12: Search history + fuzzy match + analytics time chart + daily tracking ----
+  try {
+    // Daily tracking for analytics
+    var ANALYTICS_STORE = "neo-analytics";
+    try { var analytics = JSON.parse(localStorage.getItem(ANALYTICS_STORE) || "{}"); } catch (e) { var analytics = {}; }
+    var path = location.pathname.replace(/\/+$/, '/') || '/';
+    var today = new Date().toISOString().slice(0, 10);
+    if (!analytics[path]) analytics[path] = { views: 0, title: document.title, lastViewed: 0, daily: {} };
+    analytics[path].views++;
+    analytics[path].title = document.title;
+    analytics[path].lastViewed = Date.now();
+    analytics[path].daily[today] = (analytics[path].daily[today] || 0) + 1;
+    var paths = Object.keys(analytics).sort(function (a, b) { return analytics[b].views - analytics[a].views; });
+    if (paths.length > 50) paths.slice(50).forEach(function (k) { delete analytics[k]; });
+    try { localStorage.setItem(ANALYTICS_STORE, JSON.stringify(analytics)); } catch (e) {}
+
+    // Search history + fuzzy match
+    var searchHistory = JSON.parse(localStorage.getItem('neo-search-history') || '[]');
+    var searchInput = document.getElementById('neo-search-input');
+    if (searchInput) {
+      var historyBar = document.createElement('div');
+      historyBar.className = 'neo-search-history';
+      searchInput.parentNode.insertBefore(historyBar, searchInput.nextSibling);
+
+      function renderHistory() {
+        historyBar.innerHTML = '';
+        searchHistory.slice(-6).reverse().forEach(function (term) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = term;
+          btn.addEventListener('click', function () {
+            searchInput.value = term;
+            searchInput.dispatchEvent(new Event('input'));
+          });
+          historyBar.appendChild(btn);
+        });
+      }
+
+      function saveHistory(q) {
+        if (!q || q.length < 2) return;
+        searchHistory.push(q);
+        if (searchHistory.length > 20) searchHistory.shift();
+        localStorage.setItem('neo-search-history', JSON.stringify(searchHistory));
+        renderHistory();
+      }
+
+      function fuzzyMatch(str, pattern) {
+        str = str.toLowerCase();
+        pattern = pattern.toLowerCase();
+        var si = 0, pi = 0;
+        while (si < str.length && pi < pattern.length) {
+          if (str[si] === pattern[pi]) pi++;
+          si++;
+        }
+        return pi === pattern.length;
+      }
+
+      renderHistory();
+      var debounceTimer;
+      searchInput.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function () { saveHistory(searchInput.value.trim()); }, 1500);
+      });
+
+      // Enhance search render with fuzzy match
+      var originalRender = window.renderSearch;
+      window.renderSearch = function (q) {
+        if (!q) return;
+        q = q.toLowerCase().trim();
+        var kindbar = document.getElementById('neo-kind-filter');
+        var curKind = kindbar ? (kindbar.querySelector('[aria-pressed="true"]') || {}).dataset || 'all' : 'all';
+        var hits = INDEX.filter(function (i) {
+          if (curKind !== 'all' && i.k !== curKind) return false;
+          return i.t.toLowerCase().indexOf(q) > -1 || (i.g || '').toLowerCase().indexOf(q) > -1 || (i.s || '').toLowerCase().indexOf(q) > -1 || fuzzyMatch(i.t, q);
+        }).slice(0, 40);
+        var res = document.getElementById('neo-search-results');
+        var empty = document.getElementById('neo-search-empty');
+        if (!hits.length) {
+          empty.style.display = 'block';
+          empty.textContent = 'Ничего не найдено по запросу «' + q + '».';
+          return;
+        }
+        empty.style.display = 'none';
+        res.innerHTML = '';
+        hits.forEach(function (h) {
+          var a = document.createElement('a');
+          a.className = 'neo-row';
+          a.href = h.u;
+          var date = document.createElement('span');
+          date.className = 'date';
+          date.textContent = KIND[h.k] || '•';
+          var title = document.createElement('span');
+          title.className = 'title';
+          title.textContent = h.t;
+          a.appendChild(date);
+          a.appendChild(title);
+          if (h.g) {
+            var tag = document.createElement('span');
+            tag.className = 'tag';
+            tag.textContent = (h.g || '').split(' ')[0];
+            a.appendChild(tag);
+          }
+          res.appendChild(a);
+        });
+      };
+    }
+
+    // Time chart
+    var timeSection = document.getElementById('neo-time-chart-section');
+    if (timeSection) {
+      var days = [];
+      for (var i = 6; i >= 0; i--) {
+        var d = new Date();
+        d.setDate(d.getDate() - i);
+        days.push(d.toISOString().slice(0, 10));
+      }
+      var dailyTotals = days.map(function (day) {
+        var total = 0;
+        Object.keys(analytics).forEach(function (p) {
+          if (analytics[p].day) total += analytics[p].daily[day] || 0;
+        });
+        return { day: day.slice(5), views: total };
+      });
+      var maxDaily = Math.max.apply(null, dailyTotals.map(function (d) { return d.views; })) || 1;
+      var html = '<div class="neo-sec-head"><h2>Просмотры за неделю</h2></div>';
+      html += '<div class="neo-time-chart">';
+      dailyTotals.forEach(function (d) {
+        var h = Math.max(4, Math.round((d.views / maxDaily) * 100));
+        html += '<div class="neo-time-bar" style="height:' + h + 'px" title="' + d.day + ': ' + d.views + ' просмотров"></div>';
+      });
+      html += '</div><div class="neo-time-labels">';
+      dailyTotals.forEach(function (d) { html += '<span>' + d.day + '</span>'; });
+      html += '</div>';
+      timeSection.innerHTML = html;
     }
   } catch (e) {}
 

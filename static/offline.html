@@ -1,0 +1,17 @@
+{{/* Offline fallback page — shown when SW can't reach network. */}}
+<!DOCTYPE html>
+<html lang="{{ site.LanguageCode | default "ru" }}" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>Offline — Dominicus In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/neo.min.css">
+</head>
+<body class="offline-page">
+  <main style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:2rem">
+    <h1>📡 Нет подключения</h1>
+    <p style="max-width:400px;color:var(--muted)">Эта страница недоступна в офлайн-режиме. Проверьте подключение к сети и попробуйте снова.</p>
+    <a class="repo-btn" href="/" style="margin-top:1.5rem;display:inline-block">На главную</a>
+  </main>
+</body>
+</html>
