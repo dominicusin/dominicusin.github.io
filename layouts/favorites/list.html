@@ -1,5 +1,5 @@
 {{/* Favorites hub — Neo design system (standalone). Client-rendered from localStorage.
-     Sortable (type filter + name), export/import JSON, local analytics. */}}
+     Sortable (type filter + name), export/import JSON, local analytics, type visualization. */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
@@ -27,6 +27,10 @@
     <button data-type="awesome" aria-pressed="false">⭐ Awesome</button>
     <button data-type="post" aria-pressed="false">📝 Блог</button>
   </div>
+  <div class="neo-fav-viz" id="neo-fav-viz" style="display:none">
+    <canvas id="neo-fav-canvas" width="240" height="240" aria-label="Распределение избранного по типам"></canvas>
+    <div class="neo-fav-legend" id="neo-fav-legend"></div>
+  </div>
   <div id="neo-fav-results" class="repo-grid"></div>
   <p id="neo-fav-empty" class="neo-search-empty" role="status" aria-live="polite">Пока пусто. Нажмите ♥ на любой карточке, чтобы добавить её в избранное.</p>
 </div>
@@ -37,6 +41,7 @@
   "use strict";
   var STORE = "neo-likes-v1", META = "neo-fav-meta";
   var KIND = { post: "📝 Блог", repo: "📦 Репо", gist: "📄 Гист", awesome: "⭐ Awesome" };
+  var COLORS = { post: "#a78bfa", repo: "#4fd1c5",gist: "#fbbf24", awesome: "#34d399" };
   try { var likes = JSON.parse(localStorage.getItem(STORE) || "{}");
         var meta = JSON.parse(localStorage.getItem(META) || "{}"); }
   catch (e) { var likes = {}, meta = {}; }
@@ -45,6 +50,9 @@
   var sortbar = document.getElementById("neo-fav-sort");
   var tools = document.getElementById("neo-fav-tools");
   var sortSelect = document.getElementById("neo-fav-sort-select");
+  var viz = document.getElementById("neo-fav-viz");
+  var canvas = document.getElementById("neo-fav-canvas");
+  var legend = document.getElementById("neo-fav-legend");
   var keys = Object.keys(likes).filter(function (k) { return likes[k]; });
   var curType = "all", curSort = "name";
 
@@ -52,7 +60,7 @@
     return items.sort(function (a, b) {
       var ma = meta[a] || {}, mb = meta[b] || {};
       if (curSort === "type") return (ma.type || "").localeCompare(mb.type || "");
-      if (curSort === "recent") return 0; // insertion order
+      if (curSort === "recent") return 0;
       return (ma.title || a).localeCompare(mb.title || b);
     });
   }
@@ -84,12 +92,63 @@
     if (!keys.length) {
       empty.style.display = "block";
       empty.textContent = "Пока пусто. Нажмите ♥ на любой карточке, чтобы добавить её в избранное.";
+      viz.style.display = "none";
     } else if (!shown) {
       empty.style.display = "block";
       empty.textContent = "Нет элементов выбранного типа.";
     } else {
       empty.style.display = "none";
     }
+    drawChart();
+  }
+
+  function drawChart() {
+    if (!canvas || !legend || !keys.length) { if (viz) viz.style.display = "none"; return; }
+    viz.style.display = "flex";
+    var counts = { post: 0, repo: 0, gist: 0, awesome: 0 };
+    keys.forEach(function (k) {
+      var t = (meta[k] || {}).type || "post";
+      counts[t]++;
+    });
+    var total = keys.length;
+    var ctx = canvas.getContext("2d");
+    var cx = 120, cy = 120, r = 100, ir = 60;
+    ctx.clearRect(0, 0, 240, 240);
+    var start = -Math.PI / 2;
+    Object.keys(counts).forEach(function (t) {
+      if (!counts[t]) return;
+      var angle = (counts[t] / total) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, start + angle);
+      ctx.closePath();
+      ctx.fillStyle = COLORS[t] || "#888";
+      ctx.fill();
+      start += angle;
+    });
+    // inner circle (donut hole)
+    ctx.beginPath();
+    ctx.arc(cx, cy, ir, 0, Math.PI * 2);
+    ctx.fillStyle = "#0b0e14";
+    ctx.fill();
+    // center text
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 28px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(total), cx, cy - 6);
+    ctx.font = "11px sans-serif";
+    ctx.fillStyle = "#9aa";
+    ctx.fillText("избранного", cx, cy + 14);
+    // legend
+    legend.innerHTML = "";
+    Object.keys(counts).forEach(function (t) {
+      if (!counts[t]) return;
+      var item = document.createElement("div");
+      item.className = "neo-fav-legend-item";
+      item.innerHTML = '<span class="neo-fav-legend-dot" style="background:' + (COLORS[t] || "#888") + '"></span>' + KIND[t] + ": " + counts[t];
+      legend.appendChild(item);
+    });
   }
 
   if (sortbar) {
