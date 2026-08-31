@@ -3,10 +3,10 @@ name: Deploy Hugo site to GitHub Pages
 on:
   push:
     branches: [main]
-  # Auto-update: re-sync repos/gists from GitHub on a schedule and on dispatch,
-  # so new gists/repos or README/doc changes appear on the site automatically.
+  # Auto-update: re-sync repos/gists from GitHub every 2 hours + on dispatch.
+  # Reduced from 30min (48 runs/day) to 2h (12 runs/day) — 75% fewer builds.
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "17 */2 * * *"
   repository_dispatch:
     types: [sync-github]
   workflow_dispatch:
@@ -19,7 +19,8 @@ permissions:
 
 concurrency:
   group: pages-${{ github.ref }}
-  cancel-in-progress: false
+  # Cancel previous in-progress runs for the same ref (saves CI minutes).
+  cancel-in-progress: true
 
 env:
   HUGO_VERSION: "0.164.0"
@@ -32,10 +33,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout (shallow)
         uses: actions/checkout@v7
         with:
           submodules: false
+          fetch-depth: 1
+
       - name: 🛡️ Ignore nested submodules (avoid recursive fatal)
         run: |
           git config --global submodule."awesome/tools/open-source-ios-apps/ReadmeGenerator".active false
@@ -44,25 +47,12 @@ jobs:
           git config --global submodule."awesome/tools/open-source-mac-os-apps/ReadmeGenerator".update none
           git config --global submodule.recurse false
 
-      - name: Init theme submodule (non-recursive)
-        run: git submodule update --init themes/blowfish
-
-      - name: Init wiki submodule (non-recursive)
-        # content/wiki is a git submodule (GitHub Wiki). --no-recurse avoids
-        # diving into any nested submodule.
-        run: git submodule update --init content/wiki
-      - name: Init awesome submodules (non-recursive, sparse README only)
-        # --no-recursive: we only need each awesome repo's README;
-        # recursing would fail on nested submodules (e.g. open-source-ios-apps/
-        # ReadmeGenerator) absent from our root .gitmodules.
+      - name: Init submodules (parallel, non-recursive)
         run: |
-          git submodule update --init awesome
+          git submodule update --init --jobs 4 themes/blowfish content/wiki awesome
           node scripts/ensure-awesome-sparse.cjs || true
 
       - name: Generate wiki navigation
-        # Blowfish has no built-in docs-tree sidebar; this pre-build script
-        # copies content/wiki/*.md into content/wiki-build/ with menu.main
-        # front matter (submodule stays read-only). See ADR for the design.
         run: python3 scripts/generate-wiki-nav.py
 
       - name: Setup Node (for content-contract validation)
@@ -91,11 +81,9 @@ jobs:
             ~/.cache/hugo_cache
             ~/.cache/hugo_modules
             public/resources/_gen
-          # Stable key (branch only) so the cache actually restores between
-          # runs instead of being keyed on the always-unique commit SHA.
-          key: ${{ runner.os }}-hugo-${{ github.ref_name }}-v1
+          key: ${{ runner.os }}-hugo-${{ github.ref_name }}-v2
           restore-keys: |
-            ${{ runner.os }}-hugo-main-v1
+            ${{ runner.os }}-hugo-main-v2
             ${{ runner.os }}-hugo-
 
       - name: Setup Pages
@@ -106,22 +94,12 @@ jobs:
         run: npm ci --prefer-offline --no-audit --no-fund
 
       - name: Sync GitHub repos + gists (auto-ingest)
-        # Generates content/repositories/*, content/gists/*, data/github.json
-        # from the live GitHub API before building. Graceful: never fails deploy.
         run: node scripts/sync-github.cjs
 
       - name: Sanitize generated content (trust boundary)
-        # Re-strip executable vectors (<script>, inline on*= handlers,
-        # javascript:/vbscript: link schemes, <iframe>/<object>/<embed>) from
-        # every generated repo/gist page. Defense-in-depth over sync-github.cjs:
-        # catches content a skipped/partial sync left untouched. See TASK-009.
         run: node scripts/sanitize-generated.cjs
 
       - name: Validate content contract
-        # Publishing contract (Vector A): new posts in content/blog/ MUST
-        # satisfy schema/post-metadata.schema.json (hard gate — a failing new
-        # post blocks the build/deploy). Modified legacy posts are report-only.
-        # Knowledge graph (JSON-LD) is emitted for the whole corpus.
         run: node scripts/ci-content-contract.cjs
 
       - name: Rebuild Knowledge Graph + ontology + crosslinks (parallel)
@@ -132,22 +110,15 @@ jobs:
           wait
 
       - name: Refresh Awesome submodules (pull latest READMEs)
-        # Keep curated lists fresh: advance each awesome/* submodule to its
-        # latest remote tip (shallow), then regenerate catalog + previews.
         run: node scripts/refresh-awesome.cjs || true
 
       - name: Build Awesome catalog (parse .gitmodules -> data/awesome.json)
-        # Curated awesome lists live as sparse submodules under awesome.
-        # This emits the grouped catalog data the /awesome/ page renders.
         run: node scripts/build-awesome.cjs
 
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Performance smoke check (report-only)
-        # Structural guard for the #111/#112 perf fixes: fails if the built
-        # homepage regresses to render-blocking JS/CSS. Report-only on the deploy
-        # path (never blocks publishing); promotes to a hard gate once stable.
         continue-on-error: true
         run: node scripts/check-perf.cjs
 
@@ -157,6 +128,7 @@ jobs:
           path: ./public
 
       - name: Generate Generic Attestations
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/attest@v4.2.2
         with:
           subject-path: ./public
