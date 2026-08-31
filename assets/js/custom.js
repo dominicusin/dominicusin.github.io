@@ -821,6 +821,33 @@
     }
   } catch (e) {}
 
+  // ---- Wave 18: Reading experience — font scale + print ----
+  try {
+    var fontScale = localStorage.getItem('neo-font-scale') || 'normal';
+    function applyFontScale(scale) {
+      var sizes = { small: '14px', normal: '16px', large: '18px', xlarge: '20px' };
+      document.documentElement.style.fontSize = sizes[scale] || sizes.normal;
+      localStorage.setItem('neo-font-scale', scale);
+    }
+    applyFontScale(fontScale);
+
+    var fontBtn = document.getElementById('neo-font-toggle');
+    if (fontBtn) {
+      fontBtn.addEventListener('click', function () {
+        var scales = ['small', 'normal', 'large', 'xlarge'];
+        var idx = scales.indexOf(fontScale);
+        fontScale = scales[(idx + 1) % scales.length];
+        applyFontScale(fontScale);
+        announce('Размер шрифта: ' + fontScale);
+      });
+    }
+
+    var printBtn = document.getElementById('neo-print-btn');
+    if (printBtn) {
+      printBtn.addEventListener('click', function () { window.print(); });
+    }
+  } catch (e) {}
+
 })();
 
 
