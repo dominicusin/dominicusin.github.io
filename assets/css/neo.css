@@ -45,6 +45,16 @@
   --grid:rgba(255,255,255,.03);
   color-scheme: dark;
 }
+[data-theme="dracula"]{
+  --bg:#282a36; --bg-2:#21222c; --panel:#44475a; --panel-2:#383a46;
+  --line:#44475a; --line-2:#6272a4;
+  --text:#f8f8f2; --muted:#6272a4; --faint:#6272a4;
+  --accent:#bd93f9; --accent-2:#ff79c6; --violet:#bd93f9;
+  --shadow:0 8px 30px -12px rgba(0,0,0,.7);
+  --grid:rgba(255,255,255,.03);
+  color-scheme: dark;
+}
+
 /* Accents */
 [data-accent="teal"]{--accent:#4fd1c5;--accent-2:#7dd3fc;--violet:#a78bfa}
 [data-accent="violet"]{--accent:#a78bfa;--accent-2:#c4b5fd}

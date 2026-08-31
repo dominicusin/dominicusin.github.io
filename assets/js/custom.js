@@ -622,6 +622,9 @@
 
     // Analytics dashboard page
     var dashEl = document.getElementById('neo-analytics-dashboard');
+
+    // Favorites summary on analytics page
+    var favSumEl = document.getElementById('neo-fav-summary');
     if (dashEl) {
       try {
         var data = JSON.parse(localStorage.getItem('neo-analytics') || '{}');
