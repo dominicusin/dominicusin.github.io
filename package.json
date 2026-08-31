@@ -37,7 +37,9 @@
     "docs": "jsdoc src -d docs/api",
     "precommit": "npm run lint && npm run test",
     "test:dao": "hardhat test",
-    "deploy:dao": "hardhat run scripts/deploy-dao.cjs"
+    "deploy:dao": "hardhat run scripts/deploy-dao.cjs",
+    "test:unit": "vitest run --config vitest.config.mjs",
+    "test:coverage:unit": "vitest run --config vitest.config.mjs --coverage"
   },
   "keywords": [
     "engineering",
@@ -73,6 +75,7 @@
     "eslint": "^10.8.1",
     "ethers": "^6.15.0",
     "hardhat": "^2.22.0",
+    "html-minifier-terser": "^7.2.0",
     "html-validate": "^11.7.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
@@ -82,7 +85,7 @@
     "lighthouse": "^13.4.1",
     "tailwindcss": "^4.3.3",
     "terser": "^5.19.0",
-    "html-minifier-terser": "^7.2.0"
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": ">=22.0.0"
