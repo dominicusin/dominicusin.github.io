@@ -8,6 +8,8 @@
 {{ partial "neo-header.html" . }}
 <main class="neo" id="main">
 <div class="neo-wrap">
+  {{ partial "neo-crumbs.html" . }}
+  {{ partial "neo-breadcrumb-ld.html" . }}
   <div class="neo-sec-head" style="margin-top:20px">
     <h2>{{ .Title }}</h2>
     <span class="more">{{ len .Pages }} записей</span>
