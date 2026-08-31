@@ -1,0 +1,56 @@
+{{/* Newsletter subscription — Neo styled + fediverse share. */}}
+<section class="neo-subscribe" aria-label="Подписка и шаринг">
+  <div class="neo-sec-head"><h2>📬 Подписка</h2></div>
+  <p style="color:var(--muted);margin-bottom:1rem">Новые посты на вашу почту. Без спама.</p>
+  
+  {{/* Newsletter form */}}
+  <form
+    action="{{ site.Params.externalSubscriptionURL | default "https://buttondown.email/api/emails/embed-subscribe/YOUR_USERNAME" }}"
+    method="post"
+    target="popupwindow"
+    onsubmit="window.open(this.action, 'popupwindow', 'scrollbars=yes,width=800,height=600');return true"
+    class="neo-subscribe-form"
+  >
+    <input type="email" name="email" required placeholder="you@example.com" class="neo-subscribe-input" />
+    <button type="submit" class="neo-subscribe-btn">Подписаться</button>
+  </form>
+
+  {{/* Fediverse share */}}
+  <div class="neo-share-fediverse" style="margin-top:1.5rem">
+    <span style="font-size:.85rem;color:var(--muted)">Поделиться в Fediverse:</span>
+    <div class="neo-share-buts" style="display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap">
+      <button class="neo-share-btn" data-share="mastodon" title="Mastodon">🐘 Mastodon</button>
+      <button class="neo-share-btn" data-share="bluesky" title="Bluesky">🦋 Bluesky</button>
+      <button class="neo-share-btn" data-share="reddit" title="Reddit">👽 Reddit</button>
+      <button class="neo-share-btn" data-share="telegram" title="Telegram">✈️ Telegram</button>
+    </div>
+  </div>
+</section>
+
+<style>
+.neo-subscribe{margin:2rem 0;padding:1.5rem;border-radius:14px;background:linear-gradient(160deg,var(--panel-2),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 20%,var(--line))}
+.neo-subscribe-form{display:flex;gap:.5rem;flex-wrap:wrap}
+.neo-subscribe-input{flex:1;min-width:200px;padding:.6rem 1rem;border-radius:10px;border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));background:var(--bg);color:var(--text);font-size:.9rem}
+.neo-subscribe-btn{padding:.6rem 1.2rem;border-radius:10px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#06121a;font-weight:700;cursor:pointer}
+.neo-share-btn{padding:.4rem .8rem;border-radius:8px;border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));background:color-mix(in srgb,var(--panel) 85%,transparent);color:var(--text);font-size:.8rem;cursor:pointer;transition:transform .15s,border-color .2s}
+.neo-share-btn:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));color:var(--accent)}
+</style>
+
+<script>
+(function () {
+  document.querySelectorAll('.neo-share-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var platform = btn.dataset.share;
+      var url = encodeURIComponent(location.href);
+      var title = encodeURIComponent(document.title);
+      var shareUrls = {
+        mastodon: 'https://mastodon.social/share?text=' + title + ' ' + url,
+        bluesky: 'https://bsky.app/intent/compose?text=' + title + ' ' + url,
+        reddit: 'https://www.reddit.com/submit?url=' + url + '&title=' + title,
+        telegram: 'https://t.me/share/url?url=' + url + '&text=' + title
+      };
+      if (shareUrls[platform]) window.open(shareUrls[platform], '_blank', 'width=600,height=500');
+    });
+  });
+})();
+</script>
