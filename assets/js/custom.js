@@ -602,6 +602,63 @@
     });
   } catch (e) {}
 
+  // ---- Wave 9: Analytics Dashboard + Service Worker ----
+  try {
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
+    }
+
+    // PWA install button
+    var pwaBtn = null;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      pwaBtn = document.getElementById('neo-pwa-install');
+      if (pwaBtn) pwaBtn.classList.add('show');
+      pwaBtn.addEventListener('click', function () { e.prompt(); });
+    });
+
+    // Analytics dashboard page
+    var dashEl = document.getElementById('neo-analytics-dashboard');
+    if (dashEl) {
+      try {
+        var data = JSON.parse(localStorage.getItem('neo-analytics') || '{}');
+        var entries = Object.keys(data).map(function (k) { return Object.assign({ path: k }, data[k]); })
+          .sort(function (a, b) { return b.views - a.views; }).slice(0, 20);
+        var totalViews = entries.reduce(function (s, e) { return s + (e.views || 0); }, 0);
+        var maxViews = entries.length ? entries[0].views : 1;
+
+        var html = '<div class="neo-sec-head"><h2>Аналитика просмотров</h2>';
+        html += '<span class="more">' + totalViews + ' просмотров · ' + entries.length + ' страниц</span></div>';
+        html += '<div class="neo-analytics">';
+        entries.forEach(function (e) {
+          var pct = Math.round((e.views / maxViews) * 100);
+          html += '<div class="neo-analytic-row">';
+          html += '<span class="neo-analytic-path" title="' + e.path + '">' + (e.title || e.path) + '</span>';
+          html += '<div class="neo-analytic-bar"><div style="width:' + pct + '%"></div></div>';
+          html += '<span class="neo-analytic-count">' + e.views + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+        dashEl.innerHTML = html;
+      } catch (e) {}
+    }
+  } catch (e) {}
+
+  // ---- Palette: add favorites shortcut ----
+  try {
+    var favBtn = document.querySelector('#neo-fav-toggle');
+    if (favBtn) {
+      favBtn.addEventListener('click', function () {
+        var mnav = document.getElementById('neo-mobile-nav');
+        if (mnav) { mnav.classList.remove('open'); }
+        location.href = '/favorites/';
+      });
+    }
+  } catch (e) {}
+
 })();
 
 
