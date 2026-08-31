@@ -144,7 +144,7 @@
 (function(){
   "use strict";
   try {
-    var reduce = document.documentElement.getAttribute('data-reduce-motion') === 'true';
+    var reduce = (window.neoStore && window.neoStore.get('motion') === 'off') || document.documentElement.getAttribute('data-reduce-motion') === 'true';
     if (reduce) return;
 
     // aurora layer
@@ -372,7 +372,7 @@
     document.body.appendChild(liveRegion);
     // random posts pool (blog posts with dates, for random navigation)
     var RANDOM_POOL = [];
-    try { RANDOM_POOL = JSON.parse(localStorage.getItem('neo-random-pool') || '[]'); } catch (e) { RANDOM_POOL = []; }
+    RANDOM_POOL = (window.neoStore && window.neoStore.get('randomPool')) || [];
     if (!RANDOM_POOL.length) {
       var links = document.querySelectorAll('a[href*="/20"]');
       links.forEach(function (a) {
@@ -381,7 +381,7 @@
           RANDOM_POOL.push({ href: href, title: a.textContent.trim().slice(0, 60) });
         }
       });
-      try { localStorage.setItem('neo-random-pool', JSON.stringify(RANDOM_POOL.slice(0, 50))); } catch (e) {}
+      if (window.neoStore) window.neoStore.setRandomPool(RANDOM_POOL);
     }
 
     function announce(msg) {
@@ -500,7 +500,7 @@
 
   // ---- Ergonomics 4: reading progress + vim-style navigation ----
   try {
-    var reduce = document.documentElement.getAttribute('data-reduce-motion') === 'true';
+    var reduce = (window.neoStore && window.neoStore.get('motion') === 'off') || document.documentElement.getAttribute('data-reduce-motion') === 'true';
 
     // per-article reading progress
     var article = document.querySelector('.neo-post-body, .gist-body, .repo-body, .awesome-preview');
@@ -681,7 +681,7 @@
     try { localStorage.setItem(ANALYTICS_STORE, JSON.stringify(analytics)); } catch (e) {}
 
     // Search history + fuzzy match
-    var searchHistory = JSON.parse(localStorage.getItem('neo-search-history') || '[]');
+    var searchHistory = (window.neoStore && window.neoStore.get('searchHistory')) || [];
     var searchInput = document.getElementById('neo-search-input');
     if (searchInput) {
       var historyBar = document.createElement('div');
@@ -706,7 +706,7 @@
         if (!q || q.length < 2) return;
         searchHistory.push(q);
         if (searchHistory.length > 20) searchHistory.shift();
-        localStorage.setItem('neo-search-history', JSON.stringify(searchHistory));
+        if (window.neoStore) window.neoStore.set('searchHistory', searchHistory);
         renderHistory();
       }
 
@@ -823,11 +823,11 @@
 
   // ---- Wave 18: Reading experience — font scale + print ----
   try {
-    var fontScale = localStorage.getItem('neo-font-scale') || 'normal';
+    var fontScale = (window.neoStore && window.neoStore.get('fontScale')) || 'normal';
     function applyFontScale(scale) {
       var sizes = { small: '14px', normal: '16px', large: '18px', xlarge: '20px' };
       document.documentElement.style.fontSize = sizes[scale] || sizes.normal;
-      localStorage.setItem('neo-font-scale', scale);
+      if (window.neoStore) window.neoStore.set('fontScale', scale);
     }
     applyFontScale(fontScale);
 
