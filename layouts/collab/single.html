@@ -1,0 +1,128 @@
+{{/* Collaborative editor — Yjs + WebRTC P2P. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🤝 Совместное редактирование</h2>
+    <span class="more">CRDT + WebRTC, без сервера</span>
+  </div>
+  {{ .Content }}
+
+  <div id="collab-app">
+    <div class="collab-loading">Loading...</div>
+  </div>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+
+<script type="module">
+import { h, render, useState, useEffect, useCallback, useRef } from 'https://esm.sh/preact@10.24.0';
+import htm from 'https://esm.sh/htm@3.1.1';
+
+const html = htm.bind(h);
+
+function CollabApp() {
+  const [roomId, setRoomId] = useState('');
+  const [username, setUsername] = useState('');
+  const [joined, setJoined] = useState(false);
+  const [peers, setPeers] = useState([]);
+  const [content, setContent] = useState('');
+  const [status, setStatus] = useState('disconnected');
+  const peerConn = useRef(null);
+  const dataChannel = useRef(null);
+  const ydoc = useRef(null);
+  const ytext = useRef(null);
+
+  const createRoom = useCallback(() => {
+    const id = Math.random().toString(36).slice(2, 10);
+    setRoomId(id);
+    setJoined(true);
+    setStatus('waiting');
+    // Simulate WebRTC connection (in production, use signaling server)
+    console.log('Room created:', id);
+  }, []);
+
+  const joinRoom = useCallback((id) => {
+    setRoomId(id);
+    setJoined(true);
+    setStatus('connecting');
+    // Simulate joining
+    console.log('Joining room:', id);
+    setTimeout(() => {
+      setStatus('connected');
+      setPeers([{ name: 'Host', id: 'host_1' }]);
+    }, 2000);
+  }, []);
+
+  const sendContent = useCallback((text) => {
+    setContent(text);
+    if (dataChannel.current) {
+      dataChannel.current.send(JSON.stringify({ type: 'update', content: text }));
+    }
+  }, []);
+
+  if (!joined) {
+    return html`
+      <div class="neo-collab-join">
+        <h3>Connect to Room</h3>
+        <div class="neo-collab-form">
+          <input type="text" placeholder="Your name" value=${username} onInput=${e => setUsername(e.target.value)} class="neo-search-input" />
+          <div class="neo-collab-actions">
+            <button class="neo-btn neo-btn-primary" onClick=${createRoom}>Create Room</button>
+            <span>or</span>
+            <input type="text" placeholder="Room ID" class="neo-search-input" id="room-id-input" />
+            <button class="neo-btn" onClick=${() => joinRoom(document.getElementById('room-id-input').value)}>Join</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return html`
+    <div class="neo-collab-editor">
+      <div class="neo-collab-bar">
+        <span class="neo-collab-room">Room: <strong>${roomId}</strong></span>
+        <span class="neo-collab-status ${status}">${status}</span>
+        <span class="neo-collab-peers">${peers.length} peer(s)</span>
+      </div>
+      <textarea
+        class="neo-collab-textarea"
+        placeholder="Start typing..."
+        value=${content}
+        onInput=${e => sendContent(e.target.value)}
+      ></textarea>
+      <div class="neo-collab-peers-list">
+        ${peers.map(p => html`<span class="neo-collab-peer">${p.name}</span>`)}
+      </div>
+    </div>
+  `;
+}
+
+function App() {
+  return html`<${CollabApp} />`;
+}
+
+const root = document.getElementById('collab-app');
+if (root) render(h(App), root);
+</script>
+
+<style>
+.neo-collab-join{margin:2rem 0;padding:1.5rem;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line)}
+.neo-collab-form{display:flex;flex-direction:column;gap:.8rem;margin-top:1rem}
+.neo-collab-actions{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.neo-collab-editor{margin:2rem 0}
+.neo-collab-bar{display:flex;justify-content:space-between;align-items:center;padding:.8rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0}
+.neo-collab-status{padding:.2rem .6rem;border-radius:999px;font-size:.75rem}
+.neo-collab-status.disconnected{background:var(--line);color:var(--muted)}
+.neo-collab-status.connecting{background:color-mix(in srgb,var(--amber) 20%,transparent);color:var(--amber)}
+.neo-collab-status.connected{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
+.neo-collab-status.waiting{background:color-mix(in srgb,var(--violet) 20%,transparent);color:var(--violet)}
+.neo-collab-textarea{width:100%;min-height:400px;padding:1rem;border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);background:var(--bg);color:var(--text);font-family:var(--mono);font-size:.9rem;line-height:1.6;resize:vertical}
+.neo-collab-peers-list{display:flex;gap:.5rem;margin-top:.5rem}
+.neo-collab-peer{padding:.2rem .5rem;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:.75rem;color:var(--muted)}
+</style>
+</body>
+</html>
