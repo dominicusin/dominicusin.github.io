@@ -1,5 +1,4 @@
-{{/* Search page — Neo design system (standalone). Unified index baked at build.
-     Client-side kind filter (post/repo/gist/awesome) + debounced search. */}}
+{{/* Search 2.0 — full-text, facets, highlight, stats. */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
@@ -28,7 +27,6 @@
 <script>
 (function(){
   "use strict";
-  /* INDEX is build-time baked JSON (trusted, static). */
   var KIND = { post:'📝 Блог', repo:'📦 Репо', gist:'📄 Гист', awesome:'⭐ Awesome' };
   var INDEX = [
     {{ $pages := where site.RegularPages "RelPermalink" "ne" "" }}
@@ -45,6 +43,14 @@
   var kindbar = document.getElementById('neo-kind-filter');
   var curKind = 'all';
 
+  function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function highlight(text, query) {
+    if (!query) return text;
+    var re = new RegExp('(' + escapeRegex(query) + ')', 'gi');
+    return text.replace(re, '<mark class="search-highlight">$1</mark>');
+  }
+
   function fuzzyMatch(str, pattern) {
     str = str.toLowerCase();
     pattern = pattern.toLowerCase();
@@ -55,6 +61,7 @@
     }
     return pi === pattern.length;
   }
+
   function render(q){
     q = (q||'').toLowerCase().trim();
     res.innerHTML = '';
@@ -69,7 +76,7 @@
       var a = document.createElement('a');
       a.className='neo-row'; a.href=h.u;
       var date = document.createElement('span'); date.className='date'; date.textContent = KIND[h.k] || '•';
-      var title = document.createElement('span'); title.className='title'; title.textContent=h.t;
+      var title = document.createElement('span'); title.className='title'; title.innerHTML = highlight(h.t, q);
       a.appendChild(date); a.appendChild(title);
       if(h.g){ var tag = document.createElement('span'); tag.className='tag'; tag.textContent = (h.g||'').split(' ')[0]; a.appendChild(tag); }
       res.appendChild(a);
