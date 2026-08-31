@@ -5,7 +5,21 @@
   "display": "standalone",
   "theme_color": "#4fd1c5",
   "background_color": "#0b0e14",
+  "description": "Decentralized engineering knowledge",
   "icons": [
-    { "src": "/images/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
-  ]
+    { "src": "/images/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "ipns": {
+    "enabled": true,
+    "updateUrl": "/api/ipns-update"
+  },
+  "dao": {
+    "network": "sepolia",
+    "chainId": 11155111,
+    "contracts": {
+      "governanceToken": "",
+      "proposalEngine": "",
+      "soulboundToken": ""
+    }
+  }
 }
