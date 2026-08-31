@@ -728,7 +728,27 @@
         debounceTimer = setTimeout(function () { saveHistory(searchInput.value.trim()); }, 1500);
       });
 
-      // Enhance search render with fuzzy match
+      // Render search stats
+      var statsSection = document.getElementById('neo-search-stats');
+      var popularEl = document.getElementById('neo-search-popular');
+      if (statsSection && popularEl) {
+        var stats = JSON.parse(localStorage.getItem('neo-search-history') || '[]');
+        if (stats.length) {
+          statsSection.style.display = 'block';
+          var counts = {};
+          stats.forEach(function (q) { counts[q] = (counts[q] || 0) + 1; });
+          var sorted = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 8);
+          popularEl.className = 'neo-search-stats-grid';
+          sorted.forEach(function (q) {
+            var span = document.createElement('span');
+            span.className = 'neo-search-stat';
+            span.textContent = q + ' (' + counts[q] + ')';
+            popularEl.appendChild(span);
+          });
+        }
+      }
+
+      // Enhance search render with fuzzy match + highlight
       var originalRender = window.renderSearch;
       window.renderSearch = function (q) {
         if (!q) return;
