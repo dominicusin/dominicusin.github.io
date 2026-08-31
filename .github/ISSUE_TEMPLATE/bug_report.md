@@ -1,52 +1,31 @@
 ---
-name: Bug report
-about: Report a bug or unexpected behavior
-title: 'Bug: '
+name: Bug Report
+about: Report a bug or issue
+title: "[BUG] "
 labels: bug
 assignees: ''
+
 ---
 
-## Description
+**Describe the bug**
+A clear description of what the bug is.
 
-A clear and concise description of what the bug is.
-
-## Steps to Reproduce
-
+**To Reproduce**
+Steps to reproduce:
 1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+2. Click on '...'
+3. See error
 
-## Expected Behavior
+**Expected behavior**
+What you expected to happen.
 
-A clear and concise description of what you expected to happen.
+**Screenshots**
+If applicable, add screenshots.
 
-## Actual Behavior
+**Environment (please complete):**
+- OS: [e.g. iOS]
+- Browser: [e.g. chrome, safari]
+- Version: [e.g. 22]
 
-A clear and concise description of what actually happened.
-
-## Environment
-
-- **OS**: [e.g. macOS, Windows, Linux, iOS]
-- **Browser**: [e.g. chrome, safari]
-- **Browser Version**: [e.g. 22]
-- **URL**: [if applicable]
-- **Hugo Version**: [e.g. 0.164.0]
-- **Node.js Version**: [e.g. 24.0.0]
-
-## Screenshots
-
-If applicable, add screenshots to help explain your problem. You can drag and drop
-images here.
-
-## Additional Context
-
+**Additional context**
 Add any other context about the problem here.
-
-## Possible Solution
-
-If you have suggestions on how to fix the issue, please describe them here.
-
-## Related Issues
-
-Link to any related issues here.
