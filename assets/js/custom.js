@@ -625,12 +625,11 @@
     // Analytics dashboard page
     var dashEl = document.getElementById('neo-analytics-dashboard');
 
-    // Favorites summary on analytics page
-    var favSumEl = document.getElementById('neo-fav-summary');
+    // Analytics via neoStore
+    var analyticsData = (window.neoStore && window.neoStore.get('analytics')) || {};
     if (dashEl) {
       try {
-        var data = JSON.parse(localStorage.getItem('neo-analytics') || '{}');
-        var entries = Object.keys(data).map(function (k) { return Object.assign({ path: k }, data[k]); })
+        var entries = Object.keys(analyticsData).map(function (k) { return Object.assign({ path: k }, analyticsData[k]); })
           .sort(function (a, b) { return b.views - a.views; }).slice(0, 20);
         var totalViews = entries.reduce(function (s, e) { return s + (e.views || 0); }, 0);
         var maxViews = entries.length ? entries[0].views : 1;
@@ -648,6 +647,35 @@
         });
         html += '</div>';
         dashEl.innerHTML = html;
+      } catch (e) {}
+    }
+
+    // Retention analytics (cohorts)
+    var retentionEl = document.getElementById('neo-retention-section');
+    if (retentionEl && window.neoStore) {
+      try {
+        var retData = window.neoStore.get('analytics') || {};
+        var days = {};
+        Object.keys(retData).forEach(function (path) {
+          var d = retData[path];
+          if (d.daily) {
+            Object.keys(d.daily).forEach(function (day) {
+              days[day] = (days[day] || 0) + d.daily[day];
+            });
+          }
+        });
+        var dayKeys = Object.keys(days).sort().slice(-14);
+        if (dayKeys.length > 1) {
+          var maxDay = Math.max.apply(null, dayKeys.map(function (d) { return days[d]; }));
+          var retHtml = '<div class="neo-sec-head"><h2>📈 Удержание (14 дней)</h2></div>';
+          retHtml += '<div class="neo-retention">';
+          dayKeys.forEach(function (day) {
+            var pct = Math.round((days[day] / maxDay) * 100);
+            retHtml += '<div class="neo-retention-day"><div class="neo-retention-bar" style="height:' + pct + '%"></div><span>' + day.slice(5) + '</span></div>';
+          });
+          retHtml += '</div>';
+          retentionEl.innerHTML = retHtml;
+        }
       } catch (e) {}
     }
   } catch (e) {}
