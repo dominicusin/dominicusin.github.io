@@ -8,6 +8,7 @@
 <meta charset="utf-8">
 <meta name="theme-color" content="#4fd1c5">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com https://www.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
 
 {{/* Meta description */}}
@@ -27,6 +28,7 @@
 >>>>>>> origin/main
 {{/* Canonical URL */}}
 <link rel="canonical" href="{{ .Permalink }}">
+<link rel="security-policy" href="/.well-known/security.txt">
 
 {{/* Open Graph */}}
 <meta property="og:site_name" content="{{ site.Title }}">
