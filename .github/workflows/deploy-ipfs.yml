@@ -1,0 +1,46 @@
+name: Deploy to IPFS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-ipfs:
+    name: Deploy to IPFS via Pinata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (shallow)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Setup Hugo (extended)
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.164.0"
+          extended: true
+
+      - name: Build Hugo site
+        run: hugo --gc --minify
+
+      - name: Upload to Pinata (IPFS)
+        env:
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+          PINATA_GATEWAY: ${{ secrets.PINATA_GATEWAY || 'gateway.pinata.cloud' }}
+        run: node scripts/deploy-ipfs.cjs
+
+      - name: Show IPFS URL
+        run: |
+          CID=$(cat .ipfs-cid)
+          echo "ipfs://$CID"
+          echo "https://gateway.pinata.cloud/ipfs/$CID"
+          echo "https://ipfs.io/ipfs/$CID"
