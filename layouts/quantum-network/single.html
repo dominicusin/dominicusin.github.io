@@ -1,0 +1,13 @@
+{{/* Quantum Networking */}}
+<!DOCTYPE html><html lang="ru" data-theme="dark">{{ partial "neo-head.html" . }}<body>
+{{ partial "neo-header.html" . }}<main class="neo" id="main"><div class="neo-wrap">
+<div class="neo-sec-head" style="margin-top:20px"><h2>🌐 Quantum Network</h2>
+<span class="more">Квантовая сеть</span></div>
+<section class="neo-qn">
+<div class="neo-qn-grid">
+<div class="neo-qn-card"><h3>QKD</h3><span class="neo-qn-status active">Active</span><p>Key distribution</p></div>
+<div class="neo-qn-card"><h3>Entanglement</h3><span class="neo-qn-status beta">Beta</span><p>Communication</p></div>
+<div class="neo-qn-card"><h3>Repeaters</h3><span class="neo-qn-status planned">Planned</span><p>Long-distance</p></div>
+</div></section></div></main>{{ partial "neo-footer.html" . }}
+<style>.neo-qn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0}.neo-qn-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center}.neo-qn-card h3{margin-bottom:.5rem}.neo-qn-status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;margin-bottom:.5rem}.neo-qn-status.active{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}.neo-qn-status.beta{background:color-mix(in srgb,var(--violet) 20%,transparent);color:var(--violet)}.neo-qn-status.planned{background:var(--line);color:var(--muted)}.neo-qn-card p{color:var(--muted);font-size:.85rem}</style>
+</body></html>

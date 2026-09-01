@@ -1,0 +1,13 @@
+{{/* Space-Grade Infrastructure */}}
+<!DOCTYPE html><html lang="ru" data-theme="dark">{{ partial "neo-head.html" . }}<body>
+{{ partial "neo-header.html" . }}<main class="neo" id="main"><div class="neo-wrap">
+<div class="neo-sec-head" style="margin-top:20px"><h2>🚀 Space-Grade</h2>
+<span class="more">Инфраструктура космического уровня</span></div>
+<section class="neo-sg">
+<div class="neo-sg-grid">
+<div class="neo-sg-card"><h3>Satellite CDN</h3><span class="neo-sg-status active">Active</span><p>Starlink</p></div>
+<div class="neo-sg-card"><h3>Space Storage</h3><span class="neo-sg-status beta">Beta</span><p>Orbital</p></div>
+<div class="neo-sg-card"><h3>Lunar DC</h3><span class="neo-sg-status planned">Planned</span><p>Moon</p></div>
+</div></section></div></main>{{ partial "neo-footer.html" . }}
+<style>.neo-sg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0}.neo-sg-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center}.neo-sg-card h3{margin-bottom:.5rem}.neo-sg-status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;margin-bottom:.5rem}.neo-sg-status.active{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}.neo-sg-status.beta{background:color-mix(in srgb,var(--violet) 20%,transparent);color:var(--violet)}.neo-sg-status.planned{background:var(--line);color:var(--muted)}.neo-sg-card p{color:var(--muted);font-size:.85rem}</style>
+</body></html>
