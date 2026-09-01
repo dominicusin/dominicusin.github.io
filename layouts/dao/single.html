@@ -1,4 +1,4 @@
-{{/* DAO Governance dApp — Preact + ethers.js SPA embedded in Hugo. */}}
+{{/* DAO Governance 2.0 — full on-chain governance UI. */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
@@ -6,58 +6,75 @@
 {{ partial "neo-header.html" . }}
 <main class="neo" id="main">
 <div class="neo-wrap">
-  <div class="neo-sec-head" style="margin-top:20px"><h2>🏛 DAO Governance</h2>
-    <span class="more">Decentralized decision making</span>
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🏛 DAO Governance 2.0</h2>
+    <span class="more">On-chain proposals, voting, delegation</span>
   </div>
 
   <div id="dao-app">
-    <div class="neo-dao-loading">Loading...</div>
+    <div class="dao-loading">Loading...</div>
   </div>
 </div>
 </main>
 {{ partial "neo-footer.html" . }}
 
-<!-- Preact + htm (no build step) -->
 <script type="module">
-import { h, render, useState, useEffect, useCallback } from 'https://esm.sh/preact@10.24.0';
+import { h, render, useState, useEffect, useCallback, useRef } from 'https://esm.sh/preact@10.24.0';
 import htm from 'https://esm.sh/htm@3.1.1';
 import { ethers } from 'https://esm.sh/ethers@6.13.0';
 
 const html = htm.bind(h);
 
-// Contract addresses (Sepolia testnet — update after deploy)
 const TOKEN_ADDR = '{{ site.Params.daoTokenAddress }}';
 const ENGINE_ADDR = '{{ site.Params.daoEngineAddress }}';
 
 const TOKEN_ABI = [
   'function balanceOf(address) view returns (uint256)',
+  'function getCurrentVotes(address) view returns (uint256)',
+  'function delegates(address) view returns (address)',
   'function delegate(address)',
-  'function getVotes(address) view returns (uint256)',
   'function name() view returns (string)',
   'function symbol() view returns (string)',
-  'function totalSupply() view returns (uint256)'
+  'function totalSupply() view returns (uint256)',
+  'function approve(address,uint256) returns (bool)',
+  'function transfer(address,uint256) returns (bool)'
 ];
 
 const ENGINE_ABI = [
   'function proposalCount() view returns (uint256)',
-  'function proposals(uint256) view returns (uint256 id, address proposer, string description, uint256 forVotes, uint256 againstVotes, uint256 startBlock, uint256 endBlock, bool executed)',
-  'function vote(uint256 proposalId, bool support)',
-  'function execute(uint256 proposalId)',
-  'function hasVoted(uint256, address) view returns (bool)',
-  'function state(uint256) view returns (uint8)'
+  'function proposals(uint256) view returns (uint256 id, address proposer, string description, bytes32 ipfsHash, uint256 forVotes, uint256 againstVotes, uint256 startBlock, uint256 endBlock, uint256 executeAfter, bool executed, bool canceled)',
+  'function state(uint256) view returns (uint8)',
+  'function propose(string,bytes32) returns (uint256)',
+  'function castVote(uint256,bool)',
+  'function queue(uint256)',
+  'function execute(uint256)',
+  'function cancel(uint256)',
+  'function hasVoted(uint256,address) view returns (bool)',
+  'function PROPOSAL_THRESHOLD() view returns (uint256)',
+  'function VOTING_PERIOD() view returns (uint256)',
+  'function TIMELOCK_DELAY() view returns (uint256)',
+  'function QUORUM_BPS() view returns (uint256)'
 ];
 
-function useWallet() {
+function DAOApp() {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [address, setAddress] = useState(null);
   const [chainId, setChainId] = useState(null);
+  const [balance, setBalance] = useState('0');
+  const [votes, setVotes] = useState('0');
+  const [delegated, setDelegated] = useState(null);
+  const [proposals, setProposals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [txPending, setTxPending] = useState(false);
+  const [newProposal, setNewProposal] = useState({ description: '', ipfsHash: '' });
+  const [delegateTo, setDelegateTo] = useState('');
   const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('proposals');
 
   const connect = useCallback(async () => {
     try {
       if (!window.ethereum) {
-        setError('No wallet detected. Install MetaMask or WalletConnect.');
+        setError('No wallet detected');
         return;
       }
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -79,110 +96,50 @@ function useWallet() {
     setSigner(null);
     setAddress(null);
     setChainId(null);
+    setBalance('0');
+    setVotes('0');
   }, []);
 
-  return { provider, signer, address, chainId, error, connect, disconnect };
-}
+  const loadData = useCallback(async () => {
+    if (!provider || !address || !ENGINE_ADDR) return;
+    try {
+      const token = new ethers.Contract(TOKEN_ADDR, TOKEN_ABI, provider);
+      const engine = new ethers.Contract(ENGINE_ADDR, ENGINE_ABI, provider);
 
-function useToken(provider, address) {
-  const [balance, setBalance] = useState('0');
-  const [votes, setVotes] = useState('0');
-  const [symbol, setSymbol] = useState('');
-  const [totalSupply, setTotalSupply] = useState('0');
+      const [b, v, d, count] = await Promise.all([
+        token.balanceOf(address),
+        token.getCurrentVotes(address),
+        token.delegates(address),
+        engine.proposalCount()
+      ]);
 
-  useEffect(() => {
-    if (!provider || !address || !TOKEN_ADDR) return;
-    const token = new ethers.Contract(TOKEN_ADDR, TOKEN_ABI, provider);
-    Promise.all([
-      token.balanceOf(address),
-      token.getVotes(address),
-      token.symbol(),
-      token.totalSupply()
-    ]).then(([b, v, s, ts]) => {
       setBalance(ethers.formatEther(b));
       setVotes(ethers.formatEther(v));
-      setSymbol(s);
-      setTotalSupply(ethers.formatEther(ts));
-    }).catch(() => {});
-  }, [provider, address]);
+      setDelegated(d);
 
-  return { balance, votes, symbol, totalSupply };
-}
-
-function ProposalCard({ proposal, onVote, onExecute, provider, address }) {
-  const { id, proposer, description, forVotes, againstVotes, startBlock, endBlock, executed } = proposal;
-  const total = Number(ethers.formatEther(forVotes)) + Number(ethers.formatEther(againstVotes));
-  const forPct = total > 0 ? (Number(ethers.formatEther(forVotes)) / total * 100).toFixed(1) : 0;
-  const againstPct = total > 0 ? (Number(ethers.formatEther(againstVotes)) / total * 100).toFixed(1) : 0;
-
-  return html`
-    <div class="neo-dao-proposal">
-      <div class="neo-dao-proposal-head">
-        <span class="neo-dao-proposal-id">#${Number(id)}</span>
-        <span class="neo-dao-proposal-status ${executed ? 'executed' : 'active'}">
-          ${executed ? 'Executed' : 'Active'}
-        </span>
-      </div>
-      <p class="neo-dao-proposal-desc">${description}</p>
-      <div class="neo-dao-proposal-meta">
-        <span>Proposer: ${proposer.slice(0, 6)}...${proposer.slice(-4)}</span>
-        <span>End: Block ${Number(endBlock)}</span>
-      </div>
-      <div class="neo-dao-votes">
-        <div class="neo-dao-vote-bar">
-          <div class="neo-dao-vote-for" style="width:${forPct}%"></div>
-          <div class="neo-dao-vote-against" style="width:${againstPct}%"></div>
-        </div>
-        <div class="neo-dao-vote-labels">
-          <span class="neo-dao-vote-for-label">For: ${forPct}%</span>
-          <span class="neo-dao-vote-against-label">Against: ${againstPct}%</span>
-        </div>
-      </div>
-      ${!executed && html`
-        <div class="neo-dao-proposal-actions">
-          <button class="neo-btn neo-btn-primary" onClick=${() => onVote(id, true)}>Vote For</button>
-          <button class="neo-btn" onClick=${() => onVote(id, false)}>Vote Against</button>
-          <button class="neo-btn" onClick=${() => onExecute(id)}>Execute</button>
-        </div>
-      `}
-    </div>
-  `;
-}
-
-function DAOApp({ provider, signer, address, connect, error: walletError }) {
-  const [proposals, setProposals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [txPending, setTxPending] = useState(false);
-  const [newProposalDesc, setNewProposalDesc] = useState('');
-  const { balance, votes, symbol, totalSupply } = useToken(provider, address);
-
-  const loadProposals = useCallback(async () => {
-    if (!provider || !ENGINE_ADDR) return;
-    try {
-      const engine = new ethers.Contract(ENGINE_ADDR, ENGINE_ABI, provider);
-      const count = await engine.proposalCount();
       const items = [];
       for (let i = 1; i <= Number(count); i++) {
         const p = await engine.proposals(i);
-        items.push(p);
+        const st = await engine.state(i);
+        items.push({ ...p, state: Number(st) });
       }
       setProposals(items);
     } catch (err) {
-      console.error('Failed to load proposals:', err);
+      console.error('Load error:', err);
     }
     setLoading(false);
-  }, [provider]);
+  }, [provider, address]);
 
-  useEffect(() => { loadProposals(); }, [loadProposals]);
+  useEffect(() => { loadData(); }, [loadData]);
 
   const handleVote = async (id, support) => {
     if (!signer) return;
     setTxPending(true);
     try {
       const engine = new ethers.Contract(ENGINE_ADDR, ENGINE_ABI, signer);
-      const tx = await engine.vote(id, support);
+      const tx = await engine.castVote(id, support);
       await tx.wait();
-      await loadProposals();
+      await loadData();
     } catch (err) {
       alert('Vote failed: ' + err.message);
     }
@@ -196,7 +153,7 @@ function DAOApp({ provider, signer, address, connect, error: walletError }) {
       const engine = new ethers.Contract(ENGINE_ADDR, ENGINE_ABI, signer);
       const tx = await engine.execute(id);
       await tx.wait();
-      await loadProposals();
+      await loadData();
     } catch (err) {
       alert('Execute failed: ' + err.message);
     }
@@ -204,126 +161,180 @@ function DAOApp({ provider, signer, address, connect, error: walletError }) {
   };
 
   const handlePropose = async () => {
-    if (!signer || !newProposalDesc) return;
+    if (!signer || !newProposal.description) return;
     setTxPending(true);
     try {
       const engine = new ethers.Contract(ENGINE_ADDR, ENGINE_ABI, signer);
-      const tx = await engine.propose(newProposalDesc);
+      const ipfsHash = newProposal.ipfsHash ? ethers.encodeBytes32String(newProposal.ipfsHash) : ethers.ZeroHash;
+      const tx = await engine.propose(newProposal.description, ipfsHash);
       await tx.wait();
-      setNewProposalDesc('');
-      await loadProposals();
+      setNewProposal({ description: '', ipfsHash: '' });
+      await loadData();
     } catch (err) {
       alert('Propose failed: ' + err.message);
     }
     setTxPending(false);
   };
 
+  const handleDelegate = async () => {
+    if (!signer || !delegateTo) return;
+    setTxPending(true);
+    try {
+      const token = new ethers.Contract(TOKEN_ADDR, TOKEN_ABI, signer);
+      const tx = await token.delegate(delegateTo);
+      await tx.wait();
+      await loadData();
+    } catch (err) {
+      alert('Delegate failed: ' + err.message);
+    }
+    setTxPending(false);
+  };
+
+  const stateNames = ['Pending', 'Active', 'Succeeded', 'Queued', 'Executed', 'Defeated', 'Canceled'];
+
   if (!provider) {
     return html`
-      <div class="neo-dao-connect">
+      <div class="dao-connect">
         <h3>Connect Wallet</h3>
         <p>Connect your wallet to participate in governance</p>
         <button class="neo-btn neo-btn-primary" onClick=${connect}>Connect Wallet</button>
-        ${walletError && html`<p class="neo-dao-error">${walletError}</p>`}
+        ${error && html`<p class="dao-error">${error}</p>`}
       </div>
     `;
   }
 
   return html`
-    <div class="neo-dao-dashboard">
-      <div class="neo-dao-stats">
-        <div class="neo-dao-stat">
-          <span class="neo-dao-stat-label">Balance</span>
-          <span class="neo-dao-stat-value">${Number(balance).toFixed(2)} ${symbol}</span>
-        </div>
-        <div class="neo-dao-stat">
-          <span class="neo-dao-stat-label">Voting Power</span>
-          <span class="neo-dao-stat-value">${Number(votes).toFixed(2)}</span>
-        </div>
-        <div class="neo-dao-stat">
-          <span class="neo-dao-stat-label">Total Supply</span>
-          <span class="neo-dao-stat-value">${Number(totalSupply).toFixed(0)} ${symbol}</span>
-        </div>
-        <div class="neo-dao-stat">
-          <span class="neo-dao-stat-label">Proposals</span>
-          <span class="neo-dao-stat-value">${proposals.length}</span>
-        </div>
+    <div class="dao-dashboard">
+      <div class="dao-stats">
+        <div class="dao-stat"><span class="dao-stat-label">Balance</span><span class="dao-stat-value">${Number(balance).toFixed(2)} KNOW</span></div>
+        <div class="dao-stat"><span class="dao-stat-label">Voting Power</span><span class="dao-stat-value">${Number(votes).toFixed(2)}</span></div>
+        <div class="dao-stat"><span class="dao-stat-label">Delegated To</span><span class="dao-stat-value">${delegated ? delegated.slice(0,6) + '...' + delegated.slice(-4) : 'Self'}</span></div>
+        <div class="dao-stat"><span class="dao-stat-label">Proposals</span><span class="dao-stat-value">${proposals.length}</span></div>
       </div>
 
-      <div class="neo-dao-propose">
-        <h3>Create Proposal</h3>
-        <textarea
-          placeholder="Describe your proposal..."
-          value=${newProposalDesc}
-          onInput=${(e) => setNewProposalDesc(e.target.value)}
-        ></textarea>
-        <button class="neo-btn neo-btn-primary" onClick=${handlePropose} disabled=${txPending}>
-          ${txPending ? 'Submitting...' : 'Submit Proposal'}
-        </button>
+      <div class="dao-tabs">
+        <button class=${activeTab === 'proposals' ? 'active' : ''} onClick=${() => setActiveTab('proposals')}>Proposals</button>
+        <button class=${activeTab === 'create' ? 'active' : ''} onClick=${() => setActiveTab('create')}>Create</button>
+        <button class=${activeTab === 'delegate' ? 'active' : ''} onClick=${() => setActiveTab('delegate')}>Delegate</button>
       </div>
 
-      <div class="neo-dao-proposals">
-        <h3>Proposals</h3>
-        ${loading
-          ? html`<div class="neo-dao-loading">Loading proposals...</div>`
-          : proposals.length === 0
-            ? html`<p>No proposals yet</p>`
-            : proposals.map(p => html`
-              <${ProposalCard}
-                key=${p.id}
-                proposal=${p}
-                onVote=${handleVote}
-                onExecute=${handleExecute}
-                provider=${provider}
-                address=${address}
-              />
-            `)
-        }
-      </div>
+      ${activeTab === 'proposals' && html`
+        <div class="dao-proposals">
+          ${loading
+            ? html`<div class="dao-loading">Loading...</div>`
+            : proposals.length === 0
+              ? html`<p>No proposals yet</p>`
+              : proposals.map(p => {
+                  const total = Number(ethers.formatEther(p.forVotes)) + Number(ethers.formatEther(p.againstVotes));
+                  const forPct = total > 0 ? (Number(ethers.formatEther(p.forVotes)) / total * 100).toFixed(1) : 0;
+                  return html`
+                    <div class="dao-proposal" key=${p.id}>
+                      <div class="dao-proposal-head">
+                        <span class="dao-proposal-id">#${Number(p.id)}</span>
+                        <span class="dao-proposal-state state-${p.state}">${stateNames[p.state]}</span>
+                      </div>
+                      <p class="dao-proposal-desc">${p.description}</p>
+                      <div class="dao-proposal-meta">
+                        <span>Proposer: ${p.proposer.slice(0,6)}...${p.proposer.slice(-4)}</span>
+                        <span>End: ${new Date(Number(p.endBlock) * 1000).toLocaleDateString()}</span>
+                      </div>
+                      <div class="dao-vote-bar">
+                        <div class="dao-vote-for" style="width:${forPct}%"></div>
+                        <div class="dao-vote-against" style="width:${100 - forPct}%"></div>
+                      </div>
+                      <div class="dao-vote-labels">
+                        <span>For: ${forPct}%</span>
+                        <span>Against: ${(100 - forPct).toFixed(1)}%</span>
+                      </div>
+                      ${p.state === 1 && html`
+                        <div class="dao-proposal-actions">
+                          <button class="neo-btn neo-btn-primary" onClick=${() => handleVote(Number(p.id), true)} disabled=${txPending}>Vote For</button>
+                          <button class="neo-btn" onClick=${() => handleVote(Number(p.id), false)} disabled=${txPending}>Vote Against</button>
+                        </div>
+                      `}
+                      ${p.state === 2 && html`
+                        <div class="dao-proposal-actions">
+                          <button class="neo-btn" onClick=${() => handleExecute(Number(p.id))} disabled=${txPending}>Queue</button>
+                        </div>
+                      `}
+                      ${p.state === 3 && html`
+                        <div class="dao-proposal-actions">
+                          <button class="neo-btn neo-btn-primary" onClick=${() => handleExecute(Number(p.id))} disabled=${txPending}>Execute</button>
+                        </div>
+                      `}
+                    </div>
+                  `;
+                })
+          }
+        </div>
+      `}
+
+      ${activeTab === 'create' && html`
+        <div class="dao-create">
+          <h3>Create Proposal</h3>
+          <p class="dao-hint">Minimum 100 KNOW required to propose</p>
+          <textarea placeholder="Proposal description..." value=${newProposal.description} onInput=${e => setNewProposal(p => ({ ...p, description: e.target.value }))} rows="4"></textarea>
+          <input type="text" placeholder="IPFS hash (optional)" value=${newProposal.ipfsHash} onInput=${e => setNewProposal(p => ({ ...p, ipfsHash: e.target.value }))} />
+          <button class="neo-btn neo-btn-primary" onClick=${handlePropose} disabled=${txPending}>Submit Proposal</button>
+        </div>
+      `}
+
+      ${activeTab === 'delegate' && html`
+        <div class="dao-delegate">
+          <h3>Delegate Votes</h3>
+          <p class="dao-hint">Delegate your voting power to another address</p>
+          <input type="text" placeholder="Address (0x...)" value=${delegateTo} onInput=${e => setDelegateTo(e.target.value)} />
+          <button class="neo-btn neo-btn-primary" onClick=${handleDelegate} disabled=${txPending}>Delegate</button>
+        </div>
+      `}
     </div>
   `;
 }
 
 function App() {
-  const wallet = useWallet();
-  return html`<${DAOApp} ...${wallet} />`;
+  return html`<${DAOApp} />`;
 }
 
-// Mount
 const root = document.getElementById('dao-app');
 if (root) render(h(App), root);
 </script>
 
 <style>
-.neo-dao-loading{text-align:center;padding:2rem;color:var(--muted)}
-.neo-dao-connect{text-align:center;padding:3rem}
-.neo-dao-connect h3{margin-bottom:.5rem}
-.neo-dao-connect p{color:var(--muted);margin-bottom:1rem}
-.neo-dao-error{color:#fb7185;margin-top:.5rem}
-.neo-dao-dashboard{display:flex;flex-direction:column;gap:1.5rem}
-.neo-dao-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem}
-.neo-dao-stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;text-align:center}
-.neo-dao-stat-label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.3rem}
-.neo-dao-stat-value{display:block;font-size:1.1rem;font-weight:700}
-.neo-dao-propose{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem}
-.neo-dao-propose h3{margin-bottom:.5rem}
-.neo-dao-propose textarea{width:100%;min-height:80px;padding:.5rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);margin-bottom:.5rem;resize:vertical}
-.neo-dao-proposals{display:flex;flex-direction:column;gap:1rem}
-.neo-dao-proposals h3{margin-bottom:.5rem}
-.neo-dao-proposal{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem}
-.neo-dao-proposal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
-.neo-dao-proposal-id{font-weight:700;color:var(--accent)}
-.neo-dao-proposal-status{font-size:.75rem;padding:.15rem .5rem;border-radius:999px}
-.neo-dao-proposal-status.active{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
-.neo-dao-proposal-status.executed{background:color-mix(in srgb,var(--muted) 20%,transparent);color:var(--muted)}
-.neo-dao-proposal-desc{margin:.5rem 0;color:var(--text)}
-.neo-dao-proposal-meta{display:flex;gap:1rem;font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
-.neo-dao-votes{margin:.5rem 0}
-.neo-dao-vote-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--panel-2)}
-.neo-dao-vote-for{background:var(--accent)}
-.neo-dao-vote-against{background:#fb7185}
-.neo-dao-vote-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.2rem}
-.neo-dao-proposal-actions{display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap}
+.dao-loading{text-align:center;padding:2rem;color:var(--muted)}
+.dao-connect{text-align:center;padding:3rem}
+.dao-connect h3{margin-bottom:.5rem}
+.dao-connect p{color:var(--muted);margin-bottom:1rem}
+.dao-error{color:#fb7185;margin-top:.5rem}
+.dao-dashboard{display:flex;flex-direction:column;gap:1.5rem}
+.dao-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem}
+.dao-stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;text-align:center}
+.dao-stat-label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.3rem}
+.dao-stat-value{display:block;font-size:1.1rem;font-weight:700}
+.dao-tabs{display:flex;gap:.5rem;border-bottom:1px solid var(--line);padding-bottom:.5rem}
+.dao-tabs button{padding:.5rem 1rem;border:none;background:transparent;color:var(--muted);cursor:pointer;border-radius:8px}
+.dao-tabs button.active{background:var(--panel);color:var(--accent)}
+.dao-proposals{display:flex;flex-direction:column;gap:1rem}
+.dao-proposal{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem}
+.dao-proposal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.dao-proposal-id{font-weight:700;color:var(--accent)}
+.dao-proposal-state{font-size:.75rem;padding:.15rem .5rem;border-radius:999px}
+.dao-proposal-state.state-1{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
+.dao-proposal-state.state-2{background:color-mix(in srgb,var(--green,#22c55e) 20%,transparent);color:var(--green,#22c55e)}
+.dao-proposal-state.state-4{background:color-mix(in srgb,var(--red,#ef4444) 20%,transparent);color:var(--red,#ef4444)}
+.dao-proposal-state.state-3{background:color-mix(in srgb,var(--amber) 20%,transparent);color:var(--amber)}
+.dao-proposal-state.state-0,.dao-proposal-state.state-5,.dao-proposal-state.state-6{background:var(--line);color:var(--muted)}
+.dao-proposal-desc{margin:.5rem 0;color:var(--text)}
+.dao-proposal-meta{display:flex;gap:1rem;font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
+.dao-vote-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--panel-2)}
+.dao-vote-for{background:var(--green,#22c55e)}
+.dao-vote-against{background:var(--red,#ef4444)}
+.dao-vote-labels{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:.2rem}
+.dao-proposal-actions{display:flex;gap:.5rem;margin-top:.5rem}
+.dao-create,.dao-delegate{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem}
+.dao-create h3,.dao-delegate h3{margin-bottom:.5rem}
+.dao-hint{font-size:.8rem;color:var(--muted);margin-bottom:1rem}
+.dao-create textarea,.dao-create input,.dao-delegate input{width:100%;padding:.6rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);margin-bottom:.5rem;font-family:var(--font)}
+.dao-create textarea{resize:vertical}
 </style>
 </body>
 </html>
