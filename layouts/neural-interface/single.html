@@ -1,0 +1,183 @@
+{{/* Direct Neural Interface — thought recognition, brain-to-brain. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🧠 Neural Interface</h2>
+    <span class="more">Прямой нейроинтерфейс</span>
+  </div>
+  {{ .Content }}
+
+  <div id="neo-neural-app">
+    <div class="neo-neural-loading">Loading...</div>
+  </div>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+
+<script type="module">
+import { h, render, useState, useEffect, useCallback } from 'https://esm.sh/preact@10.24.0';
+import htm from 'https://esm.sh/htm@3.1.1';
+
+const html = htm.bind(h);
+
+function NeuralApp() {
+  const [connected, setConnected] = useState(false);
+  const [thought, setThought] = useState('');
+  const [brainwaves, setBrainwaves] = useState({ alpha: 0, beta: 0, theta: 0, delta: 0, gamma: 0 });
+  const [focus, setFocus] = useState(0);
+  const [meditation, setMeditation] = useState(0);
+  const [memory, setMemory] = useState([]);
+  const [cognitive, setCognitive] = useState({ attention: 0, creativity: 0, logic: 0 });
+
+  const connect = useCallback(async () => {
+    setConnected(true);
+    // Simulate brainwave data
+    const interval = setInterval(() => {
+      setBrainwaves({
+        alpha: Math.random() * 100,
+        beta: Math.random() * 100,
+        theta: Math.random() * 100,
+        delta: Math.random() * 100,
+        gamma: Math.random() * 100
+      });
+      setFocus(Math.random() * 100);
+      setMeditation(Math.random() * 100);
+      setCognitive({
+        attention: Math.random() * 100,
+        creativity: Math.random() * 100,
+        logic: Math.random() * 100
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const disconnect = useCallback(() => {
+    setConnected(false);
+  }, []);
+
+  const addToMemory = useCallback((item) => {
+    setMemory(prev => [{ text: item, time: new Date().toLocaleTimeString() }, ...prev].slice(0, 10));
+  }, []);
+
+  return html`
+    <div class="neo-neural">
+      <div class="neo-neural-status">
+        <h3>Connection Status</h3>
+        ${connected ? html`
+          <div class="neo-neural-connected">
+            <span class="neo-neural-indicator active"></span>
+            <span>Neural Link Active</span>
+          </div>
+          <button class="neo-btn" onClick=${disconnect}>Disconnect</button>
+        ` : html`
+          <div class="neo-neural-disconnected">
+            <span class="neo-neural-indicator"></span>
+            <span>No Neural Connection</span>
+          </div>
+          <button class="neo-btn neo-btn-primary" onClick=${connect}>Connect Neural Lace</button>
+        `}
+      </div>
+
+      ${connected && html`
+        <div class="neo-neural-dashboard">
+          <div class="neo-neural-brainwaves">
+            <h3>Brainwaves</h3>
+            <div class="neo-neural-bars">
+              ${Object.entries(brainwaves).map(([band, value]) => html`
+                <div class="neo-neural-band" key=${band}>
+                  <span class="neo-neural-band-name">${band}</span>
+                  <div class="neo-neural-bar"><div style="width:${value}%"></div></div>
+                  <span class="neo-neural-band-value">${Math.round(value)}%</span>
+                </div>
+              `)}
+            </div>
+          </div>
+
+          <div class="neo-neural-metrics">
+            <div class="neo-neural-metric">
+              <span class="neo-neural-label">Focus</span>
+              <span class="neo-neural-value">${Math.round(focus)}%</span>
+            </div>
+            <div class="neo-neural-metric">
+              <span class="neo-neural-label">Meditation</span>
+              <span class="neo-neural-value">${Math.round(meditation)}%</span>
+            </div>
+          </div>
+
+          <div class="neo-neural-cognitive">
+            <h3>Cognitive Augmentation</h3>
+            <div class="neo-neural-cog-grid">
+              <div class="neo-neural-cog">
+                <span>Attention</span>
+                <div class="neo-neural-bar"><div style="width:${cognitive.attention}%"></div></div>
+              </div>
+              <div class="neo-neural-cog">
+                <span>Creativity</span>
+                <div class="neo-neural-bar"><div style="width:${cognitive.creativity}%"></div></div>
+              </div>
+              <div class="neo-neural-cog">
+                <span>Logic</span>
+                <div class="neo-neural-bar"><div style="width:${cognitive.logic}%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="neo-neural-memory">
+            <h3>Memory Enhancement</h3>
+            <div class="neo-neural-memory-list">
+              ${memory.length === 0 ? html`<p>No memories yet. Think to record.</p>` : ''}
+              ${memory.map((m, i) => html`
+                <div class="neo-neural-memory-item" key=${i}>
+                  <span class="neo-neural-memory-text">${m.text}</span>
+                  <span class="neo-neural-memory-time">${m.time}</span>
+                </div>
+              `)}
+            </div>
+          </div>
+        </div>
+      `}
+    </div>
+  `;
+}
+
+function App() {
+  return html`<${NeuralApp} />`;
+}
+
+const root = document.getElementById('neo-neural-app');
+if (root) render(h(App), root);
+</script>
+
+<style>
+.neo-neural{margin:2rem 0}
+.neo-neural-status{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center;margin-bottom:1rem}
+.neo-neural-connected,.neo-neural-disconnected{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:1rem}
+.neo-neural-indicator{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--muted)}
+.neo-neural-indicator.active{background:var(--green,#22c55e);box-shadow:0 0 10px var(--green,#22c55e)}
+.neo-neural-dashboard{display:grid;gap:1rem}
+.neo-neural-brainwaves,.neo-neural-cognitive,.neo-neural-memory{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem}
+.neo-neural-brainwaves h3,.neo-neural-cognitive h3,.neo-neural-memory h3{margin-bottom:1rem}
+.neo-neural-bars{display:flex;flex-direction:column;gap:.5rem}
+.neo-neural-band{display:grid;grid-template-columns:60px 1fr 40px;align-items:center;gap:.5rem}
+.neo-neural-band-name{font-size:.85rem;color:var(--muted);text-transform:capitalize}
+.neo-neural-bar{height:10px;background:var(--bg);border-radius:5px;overflow:hidden}
+.neo-neural-bar div{height:100%;background:var(--accent);border-radius:5px;transition:width .3s}
+.neo-neural-band-value{font-size:.85rem;text-align:right}
+.neo-neural-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.neo-neural-metric{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;text-align:center}
+.neo-neural-label{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.3rem}
+.neo-neural-value{display:block;font-size:1.5rem;font-weight:700}
+.neo-neural-cog-grid{display:flex;flex-direction:column;gap:.5rem}
+.neo-neural-cog{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:.5rem}
+.neo-neural-cog span{font-size:.85rem;color:var(--muted)}
+.neo-neural-memory-list{display:flex;flex-direction:column;gap:.3rem}
+.neo-neural-memory-item{display:flex;justify-content:space-between;padding:.5rem;background:var(--bg);border-radius:8px}
+.neo-neural-memory-text{font-size:.9rem}
+.neo-neural-memory-time{font-size:.75rem;color:var(--faint)}
+</style>
+</body>
+</html>
