@@ -1,0 +1,222 @@
+{{/* Knowledge Graph — interactive semantic graph. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🕸 Knowledge Graph</h2>
+    <span class="more">Семантический граф знаний</span>
+  </div>
+  {{ .Content }}
+
+  <div id="neo-kg-app">
+    <div class="neo-kg-loading">Loading graph...</div>
+  </div>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+
+<script type="module">
+import { h, render, useState, useEffect, useCallback, useRef } from 'https://esm.sh/preact@10.24.0';
+import htm from 'https://esm.sh/htm@3.1.1';
+
+const html = htm.bind(h);
+
+function KnowledgeGraph() {
+  const [nodes, setNodes] = useState([]);
+  const [links, setLinks] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [query, setQuery] = useState('');
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(null);
+  const svgRef = useRef(null);
+
+  // Build graph from site index
+  useEffect(async () => {
+    try {
+      const resp = await fetch('/index.json');
+      const posts = await resp.json();
+
+      // Extract entities (nodes)
+      const nodeMap = new Map();
+      const tagCounts = {};
+
+      posts.forEach((p, idx) => {
+        // Add post node
+        const postId = `post_${idx}`;
+        nodeMap.set(postId, {
+          id: postId,
+          label: p.title.length > 20 ? p.title.substring(0, 20) + '...' : p.title,
+          type: 'post',
+          size: 8,
+          color: 'var(--accent)',
+          data: p
+        });
+
+        // Extract tags as entity nodes
+        if (p.tags) {
+          p.tags.forEach(tag => {
+            const tagId = `tag_${tag}`;
+            if (!nodeMap.has(tagId)) {
+              nodeMap.set(tagId, {
+                id: tagId,
+                label: tag,
+                type: 'tag',
+                size: 12,
+                color: 'var(--violet)',
+                count: 0
+              });
+            }
+            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+
+            // Link post to tag
+            // (links created below)
+          });
+        }
+      });
+
+      // Update tag counts
+      for (const node of nodeMap.values()) {
+        if (node.type === 'tag') {
+          node.count = tagCounts[node.label] || 1;
+          node.size = Math.min(20, 8 + node.count * 2);
+        }
+      }
+
+      // Create links
+      const linkArr = [];
+      posts.forEach((p, idx) => {
+        const postId = `post_${idx}`;
+        if (p.tags) {
+          p.tags.forEach(tag => {
+            const tagId = `tag_${tag}`;
+            linkArr.push({
+              source: postId,
+              target: tagId,
+              weight: 1
+            });
+          });
+        }
+      });
+
+      setNodes(Array.from(nodeMap.values()));
+      setLinks(linkArr);
+    } catch (e) {
+      console.error('Graph load error:', e);
+    }
+  }, []);
+
+  // Search
+  const results = query
+    ? nodes.filter(n => n.label.toLowerCase().includes(query.toLowerCase())).slice(0, 10)
+    : [];
+
+  // Zoom handlers
+  const handleZoom = useCallback((delta) => {
+    setZoom(z => Math.max(0.3, Math.min(3, z + delta)));
+  }, []);
+
+  return html`
+    <div class="neo-kg-container">
+      <div class="neo-kg-controls">
+        <input
+          type="text"
+          placeholder="Search entities..."
+          value=${query}
+          onInput=${e => setQuery(e.target.value)}
+          class="neo-kg-search"
+        />
+        <div class="neo-kg-zoom">
+          <button class="neo-btn" onClick=${() => handleZoom(0.2)}>+</button>
+          <span>${Math.round(zoom * 100)}%</span>
+          <button class="neo-btn" onClick=${() => handleZoom(-0.2)}>−</button>
+        </div>
+      </div>
+
+      ${query && results.length > 0 && html`
+        <div class="neo-kg-results">
+          ${results.map(n => html`
+            <div class="neo-kg-result" key=${n.id} onClick=${() => setSelected(n)}>
+              <span class="neo-kg-result-label">${n.label}</span>
+              <span class="neo-kg-result-type">${n.type}${n.count ? ' (' + n.count + ')' : ''}</span>
+            </div>
+          `)}
+        </div>
+      `}
+
+      <div class="neo-kg-canvas">
+        <svg ref=${svgRef} viewBox="0 0 800 600" class="neo-kg-svg">
+          <g transform="translate(${pan.x},${pan.y}) scale(${zoom})">
+            <!-- Links -->
+            ${links.slice(0, 200).map(l => {
+              const source = nodes.find(n => n.id === l.source);
+              const target = nodes.find(n => n.id === l.target);
+              if (!source || !target) return null;
+              const sx = (source.x || 400 + (Math.random() - 0.5) * 300);
+              const sy = (source.y || 300 + (Math.random() - 0.5) * 200);
+              const tx = (target.x || 400 + (Math.random() - 0.5) * 300);
+              const ty = (target.y || 300 + (Math.random() - 0.5) * 200);
+              return html`<line x1=${sx} y1=${sy} x2=${tx} y2=${ty} stroke="var(--line)" stroke-width="1" opacity="0.4" />`;
+            })}
+
+            <!-- Nodes -->
+            ${nodes.slice(0, 50).map(n => {
+              const x = n.x || 400 + (Math.random() - 0.5) * 300;
+              const y = n.y || 300 + (Math.random() - 0.5) * 200;
+              return html`
+                <g key=${n.id} class="neo-kg-node" transform="translate(${x},${y})" onClick=${() => setSelected(n)}>
+                  <circle r=${n.size} fill=${n.color} opacity="0.8" />
+                  <text y=${n.size + 12} text-anchor="middle" fill="var(--text)" font-size="10">${n.label}</text>
+                </g>
+              `;
+            })}
+          </g>
+        </svg>
+      </div>
+
+      ${selected && html`
+        <div class="neo-kg-detail">
+          <h4>${selected.label}</h4>
+          <p>Type: ${selected.type}</p>
+          ${selected.data && html`<a href=${selected.data.permalink || selected.data.RelPermalink} class="neo-btn">View Post</a>`}
+          ${selected.count && html`<p>Connections: ${selected.count}</p>`}
+        </div>
+      `}
+
+      <div class="neo-kg-stats">
+        <span>${nodes.length} nodes</span>
+        <span>${links.length} edges</span>
+      </div>
+    </div>
+  `;
+}
+
+function App() {
+  return html`<${KnowledgeGraph} />`;
+}
+
+const root = document.getElementById('neo-kg-app');
+if (root) render(h(App), root);
+</script>
+
+<style>
+.neo-kg-container{margin:2rem 0;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden}
+.neo-kg-controls{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-bottom:1px solid var(--line)}
+.neo-kg-search{flex:1;max-width:300px;padding:.5rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
+.neo-kg-zoom{display:flex;align-items:center;gap:.5rem}
+.neo-kg-results{padding:.5rem;background:var(--panel-2);border-bottom:1px solid var(--line);display:flex;gap:.5rem;flex-wrap:wrap}
+.neo-kg-result{padding:.3rem .8rem;background:var(--bg);border-radius:999px;font-size:.8rem;cursor:pointer}
+.neo-kg-result:hover{background:color-mix(in srgb,var(--accent) 20%,var(--bg))}
+.neo-kg-result-type{color:var(--faint)}
+.neo-kg-canvas{height:500px;background:var(--bg);position:relative;overflow:hidden;cursor:grab}
+.neo-kg-svg{width:100%;height:100%}
+.neo-kg-node{cursor:pointer;transition:opacity .2s}
+.neo-kg-node:hover circle{opacity:1;filter:brightness(1.2)}
+.neo-kg-detail{padding:1rem;border-top:1px solid var(--line);background:var(--panel-2)}
+.neo-kg-stats{display:flex;gap:1rem;padding:.5rem 1rem;font-size:.8rem;color:var(--faint);border-top:1px solid var(--line)}
+</style>
+</body>
+</html>
