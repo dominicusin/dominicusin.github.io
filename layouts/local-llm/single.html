@@ -1,0 +1,41 @@
+{{/* Local LLM Inference — WebGPU browser inference. */}}
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🧠 Local LLM</h2>
+    <span class="more">Локальный вывод LLM в браузере</span>
+  </div>
+  <section class="neo-llm">
+    <div class="neo-llm-card">
+      <h3>WebGPU Inference</h3>
+      <p>Вывод на GPU через WebGPU</p>
+      <span class="neo-llm-status beta">Beta</span>
+    </div>
+    <div class="neo-llm-card">
+      <h3>Model Cache</h3>
+      <p>Кэширование моделей</p>
+      <span class="neo-llm-status active">Active</span>
+    </div>
+    <div class="neo-llm-card">
+      <h3>4-bit Quantization</h3>
+      <p>Квантизация для скорости</p>
+      <span class="neo-llm-status active">Active</span>
+    </div>
+  </section>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+<style>
+.neo-llm{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0}
+.neo-llm-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center}
+.neo-llm-card h3{margin-bottom:.5rem}
+.neo-llm-card p{color:var(--muted);margin-bottom:1rem}
+.neo-llm-status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
+.neo-llm-status.beta{background:color-mix(in srgb,var(--violet) 20%,transparent);color:var(--violet)}
+</style>
+</body>
+</html>

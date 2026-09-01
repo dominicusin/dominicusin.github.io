@@ -1,0 +1,41 @@
+{{/* Cross-Chain Bridge — multi-chain KNOW token. */}}
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🌉 Cross-Chain Bridge</h2>
+    <span class="more">Мультичейн KNOW токен</span>
+  </div>
+  <section class="neo-cc">
+    <div class="neo-cc-chain">
+      <h3>Ethereum</h3>
+      <span class="neo-cc-status active">Active</span>
+    </div>
+    <div class="neo-cc-chain">
+      <h3>Polygon</h3>
+      <span class="neo-cc-status active">Active</span>
+    </div>
+    <div class="neo-cc-chain">
+      <h3>Arbitrum</h3>
+      <span class="neo-cc-status active">Active</span>
+    </div>
+    <div class="neo-cc-chain">
+      <h3>Optimism</h3>
+      <span class="neo-cc-status planned">Planned</span>
+    </div>
+  </section>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+<style>
+.neo-cc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:2rem 0}
+.neo-cc-chain{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;text-align:center}
+.neo-cc-chain h3{margin-bottom:.3rem}
+.neo-cc-status{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.7rem;background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
+.neo-cc-status.planned{background:var(--line);color:var(--muted)}
+</style>
+</body>
+</html>
