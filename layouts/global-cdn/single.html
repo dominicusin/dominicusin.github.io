@@ -1,0 +1,48 @@
+{{/* Global CDN Network — multi-CDN dashboard. */}}
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>🌐 Global CDN</h2>
+    <span class="more">Глобальная CDN сеть</span>
+  </div>
+  <section class="neo-cdn">
+    <div class="neo-cdn-grid">
+      <div class="neo-cdn-card">
+        <h3>Edge Locations</h3>
+        <span class="neo-cdn-value">100+</span>
+        <p>Worldwide</p>
+      </div>
+      <div class="neo-cdn-card">
+        <h3>Avg Latency</h3>
+        <span class="neo-cdn-value">&lt;30ms</span>
+        <p>Global</p>
+      </div>
+      <div class="neo-cdn-card">
+        <h3>Uptime</h3>
+        <span class="neo-cdn-value">99.99%</span>
+        <p>Last 30 days</p>
+      </div>
+      <div class="neo-cdn-card">
+        <h3>DDoS Protection</h3>
+        <span class="neo-cdn-status active">Active</span>
+        <p>Multi-layer</p>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+<style>
+.neo-cdn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0}
+.neo-cdn-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center}
+.neo-cdn-card h3{margin-bottom:.5rem}
+.neo-cdn-status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent);margin-bottom:.5rem}
+.neo-cdn-value{font-size:2rem;font-weight:700;color:var(--green,#22c55e)}
+.neo-cdn-card p{color:var(--muted);font-size:.85rem}
+</style>
+</body>
+</html>
