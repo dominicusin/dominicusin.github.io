@@ -1,0 +1,86 @@
+{{/* Social Features — user profiles, activity feed, notifications. */}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+{{ partial "neo-head.html" . }}
+<body>
+{{ partial "neo-header.html" . }}
+<main class="neo" id="main">
+<div class="neo-wrap">
+  <div class="neo-sec-head" style="margin-top:20px"><h2>👥 Social</h2>
+    <span class="more">Социальная платформа для инженеров</span>
+  </div>
+
+  <section class="neo-user-profile">
+    <h3>User Profile</h3>
+    <div class="neo-profile-card">
+      <div class="neo-profile-avatar">👤</div>
+      <div class="neo-profile-info">
+        <h4 class="neo-profile-name">Username</h4>
+        <p class="neo-profile-bio">Bio description</p>
+        <div class="neo-profile-stats">
+          <span>Posts: <strong>0</strong></span>
+          <span>Followers: <strong>0</strong></span>
+          <span>Following: <strong>0</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="neo-activity-feed">
+    <h3>Activity Feed</h3>
+    <div class="neo-feed">
+      <div class="neo-feed-item">
+        <div class="neo-feed-icon">📝</div>
+        <div class="neo-feed-content">
+          <p>New post: <strong>Post Title</strong></p>
+          <span class="neo-feed-time">2 hours ago</span>
+        </div>
+      </div>
+      <div class="neo-feed-item">
+        <div class="neo-feed-icon">🏆</div>
+        <div class="neo-feed-content">
+          <p>Achievement unlocked: <strong>First Post</strong></p>
+          <span class="neo-feed-time">1 day ago</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="neo-notifications">
+    <h3>Notifications</h3>
+    <div class="neo-notif-list">
+      <div class="neo-notif-item">
+        <div class="neo-notif-icon">💬</div>
+        <div class="neo-notif-content">
+          <p>New comment on your post</p>
+          <span class="neo-notif-time">5 min ago</span>
+        </div>
+      </div>
+      <div class="neo-notif-item">
+        <div class="neo-notif-icon">👥</div>
+        <div class="neo-notif-content">
+          <p>New follower: <strong>User</strong></p>
+          <span class="neo-notif-time">1 hour ago</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+{{ partial "neo-footer.html" . }}
+
+<style>
+.neo-user-profile,.neo-activity-feed,.neo-notifications{margin:2rem 0}
+.neo-profile-card{display:flex;gap:1rem;padding:1.5rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.neo-profile-avatar{font-size:3rem}
+.neo-profile-name{margin-bottom:.3rem}
+.neo-profile-bio{color:var(--muted);font-size:.9rem;margin-bottom:.5rem}
+.neo-profile-stats{display:flex;gap:1rem;font-size:.85rem;color:var(--muted)}
+.neo-feed,.neo-notif-list{display:flex;flex-direction:column;gap:.5rem}
+.neo-feed-item,.neo-notif-item{display:flex;gap:.8rem;padding:1rem;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.neo-feed-icon,.neo-notif-icon{font-size:1.5rem}
+.neo-feed-content p,.neo-notif-content p{margin-bottom:.2rem}
+.neo-feed-time,.neo-notif-time{font-size:.75rem;color:var(--faint)}
+</style>
+</body>
+</html>
