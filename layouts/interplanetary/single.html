@@ -1,0 +1,13 @@
+{{/* Interplanetary Protocol */}}
+<!DOCTYPE html><html lang="ru" data-theme="dark">{{ partial "neo-head.html" . }}<body>
+{{ partial "neo-header.html" . }}<main class="neo" id="main"><div class="neo-wrap">
+<div class="neo-sec-head" style="margin-top:20px"><h2>🌌 Interplanetary</h2>
+<span class="more">Межпланетный протокол</span></div>
+<section class="neo-ip">
+<div class="neo-ip-grid">
+<div class="neo-ip-card"><h3>DTN</h3><span class="neo-ip-status active">Active</span><p>Delay-tolerant</p></div>
+<div class="neo-ip-card"><h3>IPFS-Space</h3><span class="neo-ip-status beta">Beta</span><p>File system</p></div>
+<div class="neo-ip-card"><h3>Space DAO</h3><span class="neo-ip-status planned">Planned</span><p>Governance</p></div>
+</div></section></div></main>{{ partial "neo-footer.html" . }}
+<style>.neo-ip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0}.neo-ip-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center}.neo-ip-card h3{margin-bottom:.5rem}.neo-ip-status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;margin-bottom:.5rem}.neo-ip-status.active{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}.neo-ip-status.beta{background:color-mix(in srgb,var(--violet) 20%,transparent);color:var(--violet)}.neo-ip-status.planned{background:var(--line);color:var(--muted)}.neo-ip-card p{color:var(--muted);font-size:.85rem}</style>
+</body></html>

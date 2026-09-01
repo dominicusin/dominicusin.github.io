@@ -1,0 +1,13 @@
+{{/* AGI Agent Framework */}}
+<!DOCTYPE html><html lang="ru" data-theme="dark">{{ partial "neo-head.html" . }}<body>
+{{ partial "neo-header.html" . }}<main class="neo" id="main"><div class="neo-wrap">
+<div class="neo-sec-head" style="margin-top:20px"><h2>🧠 AGI Agents</h2>
+<span class="more">Фреймворк для AGI-агентов</span></div>
+<section class="neo-agi">
+<div class="neo-agi-grid">
+<div class="neo-agi-card"><h3>Multi-Modal</h3><span class="neo-agi-status active">Active</span><p>Text, image, video</p></div>
+<div class="neo-agi-card"><h3>Reasoning</h3><span class="neo-agi-status active">Active</span><p>Chain-of-thought</p></div>
+<div class="neo-agi-card"><h3>Memory</h3><span class="neo-agi-status active">Active</span><p>Persistent</p></div>
+</div></section></div></main>{{ partial "neo-footer.html" . }}
+<style>.neo-agi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0}.neo-agi-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;text-align:center}.neo-agi-card h3{margin-bottom:.5rem}.neo-agi-status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent);margin-bottom:.5rem}.neo-agi-card p{color:var(--muted);font-size:.85rem}</style>
+</body></html>
