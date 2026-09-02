@@ -1,0 +1,69 @@
+{
+  "repository": "dominicusin/dominicusin.github.io",
+  "snapshot": {
+    "agent": {
+      "agent_dir": true,
+      "evidence_dir": true,
+      "orchestrator": true,
+      "policy": true,
+      "risk_policy": true,
+      "truth_policy": true,
+      "workers": true
+    },
+    "architecture": {
+      "engineering_plane": {
+        "contracts": true,
+        "src": true,
+        "tests": true
+      },
+      "publishing_plane": {
+        "assets": true,
+        "content": true,
+        "layouts": 66,
+        "static": true
+      },
+      "two_plane_separation": true
+    },
+    "ci": {
+      "hugo_yml_exists": true,
+      "quality_checks": 3,
+      "quality_yml_exists": true,
+      "workflow_count": 28
+    },
+    "content": {
+      "blog_posts": 60,
+      "content_pages": 71,
+      "gists": 107,
+      "repositories": 1,
+      "total": 239
+    },
+    "dependencies": {
+      "node_engines": ">=22.0.0",
+      "total": 376,
+      "type": "module"
+    },
+    "git": {
+      "branch": "main",
+      "clean": true,
+      "commit": "0b57050c6b4e7865ab2b0792cd9db3396732b5a4"
+    },
+    "hugo": {
+      "config_exists": true,
+      "theme": "blowfish",
+      "version": "0.164.0"
+    },
+    "planning": {
+      "beads": true,
+      "beads_count": 0,
+      "charter": true
+    },
+    "tests": {
+      "has_hardhat": true,
+      "has_jest": true,
+      "has_vitest": true,
+      "scripts_count": 35,
+      "test_files": 33
+    }
+  },
+  "timestamp": "2026-09-02T05:23:52.758161+00:00"
+}
