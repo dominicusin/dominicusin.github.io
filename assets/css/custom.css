@@ -406,7 +406,7 @@ img { height: auto; }
   background:linear-gradient(90deg,rgb(var(--color-primary-500)),rgb(var(--color-primary-300)),var(--accent-2,rgb(var(--color-primary-400))));
   opacity:.9}
 .repo-page:hover{transform:translateY(-4px);border-color:rgba(var(--ring),.6);
-  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px color-mix(in srgb,rgb(var(--color-primary-400)) 45%,transparent)}
+  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px rgba(34,211,238,.45)}
 /* perspective + tilt context */
 .repo-page{transform-style:preserve-3d}
 /* rotating halo (dedicated span) */
@@ -420,14 +420,14 @@ img { height: auto; }
 /* gloss sweep (dedicated span) */
 .card-gloss{position:absolute;inset:0;border-radius:var(--radius);pointer-events:none;z-index:1;overflow:hidden;opacity:0;transition:opacity .35s ease}
 .card-gloss::before{content:"";position:absolute;inset:-40% -10%;
-  background:linear-gradient(115deg,transparent 35%,color-mix(in srgb,#fff 26%,transparent) 50%,transparent 62%);
+  background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.26) 50%,transparent 62%);
   transform:translateX(-30%);mix-blend-mode:screen}
 .repo-page:hover .card-gloss{opacity:1}
 .repo-page:hover .card-gloss::before{animation:neo-glide 1.5s ease}
 @keyframes neo-glide{from{transform:translateX(-30%)}to{transform:translateX(30%)}}
 /* bobbing sparkle */
 .card-sparkle{position:absolute;top:10px;left:12px;z-index:5;font-size:1rem;pointer-events:none;
-  filter:drop-shadow(0 0 7px color-mix(in srgb,rgb(var(--color-primary-400)) 70%,transparent));
+  filter:drop-shadow(0 0 7px rgba(34,211,238,.7));
   animation:neo-bob 3.2s ease-in-out infinite}
 @keyframes neo-bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-4px) rotate(6deg)}}
 /* keep header content above overlays */
@@ -438,35 +438,35 @@ img { height: auto; }
 .repo-descr{position:relative;z-index:2}
 /* glossy pills with glow */
 .repo-pill{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
-.repo-meta:hover .repo-pill{box-shadow:0 0 12px -3px color-mix(in srgb,rgb(var(--color-primary-400)) 50%,transparent)}
+.repo-meta:hover .repo-pill{box-shadow:0 0 12px -3px rgba(34,211,238,.5)}
 .repo-pill:hover{transform:translateY(-2px);border-color:rgba(var(--ring),.7);
-  background:rgba(var(--color-primary-500),.2);box-shadow:0 0 14px -3px color-mix(in srgb,rgb(var(--color-primary-400)) 55%,transparent)}
+  background:rgba(var(--color-primary-500),.2);box-shadow:0 0 14px -3px rgba(34,211,238,.55)}
 .repo-pill--warn{background:rgba(var(--color-amber-500,245 158 11),.16);box-shadow:0 0 12px -4px rgba(var(--color-amber-500,245 158 11),.5)}
 /* button lift + glow */
-.repo-btn{position:relative;z-index:2;box-shadow:0 6px 16px -8px color-mix(in srgb,rgb(var(--color-primary-500)) 70%,transparent)}
-.repo-btn:hover{box-shadow:0 10px 22px -8px color-mix(in srgb,rgb(var(--color-primary-400)) 75%,transparent);
+.repo-btn{position:relative;z-index:2;box-shadow:0 6px 16px -8px rgba(34,211,238,.7)}
+.repo-btn:hover{box-shadow:0 10px 22px -8px rgba(34,211,238,.75);
   border-color:rgba(var(--ring),.7)}
-.repo-btn--ghost:hover{background:rgba(var(--color-primary-500),.12);box-shadow:0 8px 18px -8px color-mix(in srgb,rgb(var(--color-primary-400)) 50%,transparent)}
+.repo-btn--ghost:hover{background:rgba(var(--color-primary-500),.12);box-shadow:0 8px 18px -8px rgba(34,211,238,.5)}
 /* topic chips as accent pills */
 .repo-topic{transition:transform .18s ease,background .18s ease,box-shadow .18s ease}
 .repo-topic:hover{text-decoration:none;transform:translateY(-2px);
   background:rgba(var(--color-primary-500),.16);border-radius:999px;padding:.1rem .45rem;
-  box-shadow:0 0 12px -3px color-mix(in srgb,rgb(var(--color-primary-400)) 50%,transparent)}
+  box-shadow:0 0 12px -3px rgba(34,211,238,.5)}
 /* NEW badge (recently updated) */
 .new-badge{position:absolute;top:11px;left:11px;z-index:3;font-size:.6rem;font-weight:800;letter-spacing:.6px;
   padding:.12rem .5rem;border-radius:999px;text-transform:uppercase;color:#04130c;
   background:linear-gradient(135deg,#5dff9b,#21d4a0);
-  box-shadow:0 0 12px -2px color-mix(in srgb,#5dff9b 60%,transparent);animation:neo-pulse 2.4s ease-in-out infinite}
+  box-shadow:0 0 12px -2px rgba(93,255,155,.6);animation:neo-pulse 2.4s ease-in-out infinite}
 @keyframes neo-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
 /* like button (mirrors neo.css) */
 .like-btn{position:absolute;top:11px;right:11px;z-index:3;display:inline-flex;align-items:center;gap:.3rem;
   font-size:.8rem;font-weight:700;cursor:pointer;user-select:none;padding:.25rem .55rem;border-radius:999px;
-  border:1px solid color-mix(in srgb,rgb(var(--color-primary-400)) 35%,transparent);
-  background:color-mix(in srgb,rgba(var(--bg-elevated),.7) 70%,transparent);color:rgb(var(--color-neutral-300));
+  border:1px solid rgba(34,211,238,.35);
+  background:rgba(21,26,38,.7);color:rgb(var(--color-neutral-300));
   backdrop-filter:blur(4px);transition:color .2s,border-color .2s,background .2s,transform .2s}
-.like-btn:hover{color:rgb(var(--color-primary-300));border-color:color-mix(in srgb,rgb(var(--color-primary-400)) 60%,transparent);transform:translateY(-1px)}
+.like-btn:hover{color:rgb(var(--color-primary-300));border-color:rgba(34,211,238,.6);transform:translateY(-1px)}
 .like-btn .heart{font-size:.9rem;line-height:1;transition:transform .2s}
-.like-btn.liked{color:#ff5d73;border-color:color-mix(in srgb,#ff5d73 55%,transparent);background:color-mix(in srgb,#ff5d73 14%,transparent)}
+.like-btn.liked{color:#ff5d73;border-color:rgba(255,93,115,.55);background:rgba(255,93,115,.14)}
 .like-btn.liked .heart{transform:scale(1.15)}
 @keyframes neo-heart-pop{0%{transform:scale(1)}40%{transform:scale(1.45)}100%{transform:scale(1)}}
 .like-btn.pop .heart{animation:neo-heart-pop .35s ease}
@@ -485,7 +485,7 @@ img { height: auto; }
   background:linear-gradient(90deg,rgb(var(--color-primary-500)),rgb(var(--color-primary-300)),var(--accent-2,rgb(var(--color-primary-400))));
   opacity:.9}
 .gist-page:hover{transform:translateY(-4px);border-color:rgba(var(--ring),.6);
-  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px color-mix(in srgb,rgb(var(--color-primary-400)) 45%,transparent)}
+  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px rgba(34,211,238,.45)}
 .gist-page{transform-style:preserve-3d}
 .gist-page:hover .card-halo{opacity:.85;animation:neo-ang 4s linear infinite}
 .gist-page:hover .card-gloss{opacity:1}
@@ -505,7 +505,7 @@ img { height: auto; }
   background:linear-gradient(90deg,rgb(var(--color-primary-500)),rgb(var(--color-primary-300)),var(--accent-2,rgb(var(--color-primary-400))));
   opacity:.9}
 .awesome-preview:hover{transform:translateY(-4px);border-color:rgba(var(--ring),.6);
-  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px color-mix(in srgb,rgb(var(--color-primary-400)) 45%,transparent)}
+  box-shadow:0 24px 52px -22px rgba(0,0,0,.8),0 0 26px -8px rgba(34,211,238,.45)}
 .awesome-preview{transform-style:preserve-3d}
 .awesome-preview:hover .card-halo{opacity:.85;animation:neo-ang 4s linear infinite}
 .awesome-preview:hover .card-gloss{opacity:1}
@@ -612,9 +612,9 @@ img { height: auto; }
 /* aurora glow behind theme pages */
 body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
   background:
-    radial-gradient(60vmax 60vmax at 12% 8%,color-mix(in srgb,rgb(var(--color-primary-500)) 14%,transparent),transparent 60%),
-    radial-gradient(50vmax 50vmax at 88% 22%,color-mix(in srgb,var(--violet,#b98cff) 12%,transparent),transparent 60%),
-    radial-gradient(46vmax 46vmax at 60% 92%,color-mix(in srgb,rgb(var(--color-primary-400)) 10%,transparent),transparent 60%)}
+    radial-gradient(60vmax 60vmax at 12% 8%,rgba(34,211,238,.14),transparent 60%),
+    radial-gradient(50vmax 50vmax at 88% 22%,rgba(167,139,250,.12),transparent 60%),
+    radial-gradient(46vmax 46vmax at 60% 92%,rgba(125,211,252,.10),transparent 60%)}
 /* gradient underline on site header */
 header nav, .site-header{border-bottom:1px solid rgba(var(--ring),.4)}
 .site-header::after,header nav::after{content:"";display:block;height:1px;
@@ -622,10 +622,10 @@ header nav, .site-header{border-bottom:1px solid rgba(var(--ring),.4)}
   background-size:200% 100%;animation:neo-sheen 6s linear infinite}
 @keyframes neo-sheen{0%{background-position:0% 0}100%{background-position:200% 0}}
 /* selection tint */
-::selection{background:color-mix(in srgb,rgb(var(--color-primary-500)) 30%,transparent);color:inherit}
+:::selection{background:rgba(34,211,238,.3);color:inherit}
 /* focus glow */
 a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
-  outline:none;box-shadow:0 0 0 3px color-mix(in srgb,rgb(var(--color-primary-500)) 45%,transparent)}
+  outline:none;box-shadow:0 0 0 3px rgba(34,211,238,.45)}
 /* glossy in-content links */
 .prose a, .repo-body a, .gist-body a{color:rgb(var(--color-primary-300));text-decoration:none;
   background-image:linear-gradient(rgb(var(--color-primary-300)),rgb(var(--color-primary-300)));
@@ -643,14 +643,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 *::-webkit-scrollbar-thumb:hover{filter:brightness(1.15)}
 html{scrollbar-color:rgb(var(--color-primary-500)) rgba(var(--bg-elevated),.8);scrollbar-width:thin}
 .neo-orb{position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(28px);opacity:.4;
-  background:radial-gradient(circle,color-mix(in srgb,rgb(var(--color-primary-500)) 60%,transparent),transparent 70%);
+  background:radial-gradient(circle,rgba(34,211,238,.6),transparent 70%);
   animation:neo-float 14s ease-in-out infinite}
 .neo-orb.a{width:160px;height:160px;left:3vw;bottom:8vh}
-.neo-orb.b{width:120px;height:120px;right:4vw;top:14vh;background:radial-gradient(circle,color-mix(in srgb,var(--violet,#b98cff) 60%,transparent),transparent 70%);animation-delay:-5s}
-.neo-orb.c{width:90px;height:90px;right:12vw;bottom:20vh;background:radial-gradient(circle,color-mix(in srgb,rgb(var(--color-primary-400)) 60%,transparent),transparent 70%);animation-delay:-9s}
+.neo-orb.b{width:120px;height:120px;right:4vw;top:14vh;background:radial-gradient(circle,rgba(167,139,250,.6),transparent 70%);animation-delay:-5s}
+.neo-orb.c{width:90px;height:90px;right:12vw;bottom:20vh;background:radial-gradient(circle,rgba(125,211,252,.6),transparent 70%);animation-delay:-9s}
 @keyframes neo-float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-26px) translateX(14px)}}
 .neo-cursor{position:fixed;top:0;left:0;width:26px;height:26px;border-radius:50%;z-index:80;pointer-events:none;
-  margin:-13px 0 0 -13px;background:radial-gradient(circle,color-mix(in srgb,rgb(var(--color-primary-500)) 55%,transparent),transparent 70%);
+  margin:-13px 0 0 -13px;background:radial-gradient(circle,rgba(34,211,238,.55),transparent 70%);
   mix-blend-mode:screen;opacity:0;transition:opacity .3s;filter:blur(2px)}
 @media (hover:hover) and (pointer:fine){.neo-cursor{opacity:.55}}
 .neo-sec-head h2{background:linear-gradient(100deg,rgb(var(--color-neutral-100)),rgb(var(--color-primary-300)) 55%,var(--accent-2,rgb(var(--color-primary-400))));
@@ -661,7 +661,7 @@ html{scrollbar-color:rgb(var(--color-primary-500)) rgba(var(--bg-elevated),.8);s
 .repo-btn::before,.neo-btn::before,button.primary::before{content:"";position:absolute;top:0;left:-60%;width:50%;height:100%;
   background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .5s ease}
 .repo-btn:hover::before,.neo-btn:hover::before,button.primary:hover::before{left:130%}
-.neo-chip:hover{transform:translateY(-2px);box-shadow:0 0 16px -4px color-mix(in srgb,rgb(var(--color-primary-500)) 55%,transparent);
-  border-color:color-mix(in srgb,rgb(var(--color-primary-500)) 50%,var(--ring))}
-a:hover{text-shadow:0 0 10px color-mix(in srgb,rgb(var(--color-primary-500)) 40%,transparent)}
+.neo-chip:hover{transform:translateY(-2px);box-shadow:0 0 16px -4px rgba(34,211,238,.55);
+  border-color:rgba(34,211,238,.5)}
+a:hover{text-shadow:0 0 10px rgba(34,211,238,.4)}
 
