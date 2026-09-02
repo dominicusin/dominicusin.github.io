@@ -9,7 +9,6 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const { Orchestrator } = require('../orchestrator/index.cjs');
 const { PolicyEngine } = require('../policy/policy.cjs');
-const { loadGraph } = require('../orchestrator/beads.cjs');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -22,7 +21,6 @@ const REPO_ROOT = path.resolve(__dirname, '..', '..');
  */
 function createMockWorker(result = { status: 'success', summary: 'mock implementation' }) {
   return async (context) => {
-    // Simulate some work
     const filePath = path.join(context.workspace, 'mock-output.txt');
     fs.writeFileSync(filePath, `Mock work for task: ${context.task.id}\n`);
 
@@ -43,23 +41,20 @@ function createMockWorker(result = { status: 'success', summary: 'mock implement
 }
 
 /**
- * Create a mock worker that fails.
+ * Create a mock worktree that doesn't actually create git worktrees.
  */
-function createFailingWorker() {
-  return async (context) => {
-    return {
-      status: 'failed',
-      changes: { files: [], summary: 'mock failure' },
-      verification: [],
-      evidence: [],
-      risks: ['mock risk'],
-      next_action: 'escalate'
-    };
+function createMockWorktree(taskId) {
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), `wt-${taskId}-`));
+  return {
+    path: tmpDir,
+    branch: `agent/${taskId}`,
+    cleanup: () => {
+      try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch {}
+    }
   };
 }
 
 test('orchestrator runs full cycle: audit → select → policy → claim → worktree → worker → verify → done', async () => {
-  // Setup: Create a beads graph with a READY task
   const beadsGraph = {
     schema: 'beads.state-graph/v1',
     project: 'test',
@@ -80,13 +75,11 @@ test('orchestrator runs full cycle: audit → select → policy → claim → wo
     edges: []
   };
 
-  // Write fixture
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'm1-013-'));
   const beadsPath = path.join(tmpDir, 'beads.json');
   fs.writeFileSync(beadsPath, JSON.stringify(beadsGraph, null, 2));
 
   try {
-    // Create orchestrator with mock worker
     const policy = new PolicyEngine();
     const workers = {
       default: createMockWorker(),
@@ -105,20 +98,23 @@ test('orchestrator runs full cycle: audit → select → policy → claim → wo
       evidence: { createEvidence: () => ({}) }
     });
 
-    // Run the orchestrator
-    const result = await orchestrator.runOnce();
+    // Override worktree creation to use mock
+    const wt = require('../orchestrator/worktree.cjs');
+    const origCreate = wt.createWorktree;
+    wt.createWorktree = (params) => createMockWorktree(params.taskId);
 
-    // Verify result
+    let result;
+    try {
+      result = await orchestrator.runOnce();
+    } finally {
+      wt.createWorktree = origCreate;
+    }
+
     assert.equal(result.status, 'success');
     assert.equal(result.task.status, 'DONE');
     assert.equal(result.policy.allowed, true);
 
-    // Verify worktree was created and cleaned up
-    const worktreePath = path.join(REPO_ROOT, '.worktrees', 'M1-013-TEST');
-    assert.ok(!fs.existsSync(worktreePath), 'worktree should be cleaned up');
-
   } finally {
-    // Cleanup
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 });

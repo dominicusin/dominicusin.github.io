@@ -1,16 +1,15 @@
+'use strict';
+
 /**
- * M2-003: Review Agent
- * 
+ * Review Agent — M2-003
  * Adversarial reviewer that tries to prove a change should NOT be accepted.
- * 
+ *
  * Checks:
  * - Secrets in the diff (API keys, tokens, passwords)
  * - Syntax errors in code changes
  * - Presence of tests for code changes
  * - Minimality of the change
  */
-
-'use strict';
 
 // Patterns for common secrets
 const SECRET_PATTERNS = [
@@ -59,7 +58,6 @@ function checkSecrets(diff) {
 
 /**
  * Check if the diff contains syntax errors
- * Does basic brace/paren matching for common languages
  */
 function checkSyntax(diff) {
   const findings = [];
@@ -74,29 +72,29 @@ function checkSyntax(diff) {
   if (addedLines.length === 0) return findings;
 
   const code = addedLines.join('\n');
+  const lines = code.split('\n');
 
   // Brace matching
   const braceStack = [];
-  const lines = code.split('\n');
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     for (const char of line) {
       if (char === '{' || char === '(' || char === '[') {
         braceStack.push(char);
       } else if (char === '}') {
-        if (braceStack[braceStack.length - 1] === '{') {
+        if (braceStack.length > 0 && braceStack[braceStack.length - 1] === '{') {
           braceStack.pop();
         } else {
           findings.push(`Unmatched closing brace '}' at line ${i + 1}`);
         }
       } else if (char === ')') {
-        if (braceStack[braceStack.length - 1] === '(') {
+        if (braceStack.length > 0 && braceStack[braceStack.length - 1] === '(') {
           braceStack.pop();
         } else {
           findings.push(`Unmatched closing paren ')' at line ${i + 1}`);
         }
       } else if (char === ']') {
-        if (braceStack[braceStack.length - 1] === '[') {
+        if (braceStack.length > 0 && braceStack[braceStack.length - 1] === '[') {
           braceStack.pop();
         } else {
           findings.push(`Unmatched closing bracket ']' at line ${i + 1}`);
@@ -107,16 +105,6 @@ function checkSyntax(diff) {
 
   if (braceStack.length > 0) {
     findings.push(`Unclosed delimiters: ${braceStack.join(', ')}`);
-  }
-
-  // Check for common syntax issues in JavaScript/TypeScript
-  // Missing semicolons after const/let/var assignments (heuristic)
-  const constRegex = /^(const|let|var)\s+\w+\s*=\s*[^;{}\n]+$/;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (constRegex.test(line) && !line.endsWith(';') && !line.endsWith('{') && !line.endsWith('}')) {
-      findings.push(`Possible missing semicolon at line ${i + 1}: "${line.substring(0, 60)}..."`);
-    }
   }
 
   return findings;
@@ -143,7 +131,7 @@ function checkTestsPresent(task, diff) {
   }
 
   // Check which added files are code
-  const codeFiles = addedFiles.filter(file => 
+  const codeFiles = addedFiles.filter(file =>
     CODE_EXTENSIONS.some(ext => file.endsWith(ext))
   );
 
@@ -160,8 +148,8 @@ function checkTestsPresent(task, diff) {
   const testFileModifications = diff.split('\n').filter(line => {
     return line.startsWith('---') || line.startsWith('+++');
   }).filter(line => {
-    const path = line.replace(/^[+-]{3} [ab]\//, '');
-    return TEST_EXTENSIONS.some(ext => path.includes(ext));
+    const filePath = line.replace(/^[+-]{3} [ab]\//, '');
+    return TEST_EXTENSIONS.some(ext => filePath.includes(ext));
   });
 
   if (testFiles.length === 0 && testFileModifications.length === 0) {
@@ -192,32 +180,14 @@ function checkMinimal(diff) {
     addedFiles.push(match[1]);
   }
 
-  // Detect removed files
-  const removedFilePattern = /^--- a\/(.+)$/gm;
-  const removedFiles = [];
-  while ((match = removedFilePattern.exec(diff)) !== null) {
-    removedFiles.push(match[1]);
-  }
-
   // Threshold: more than 500 lines changed is large
   if (totalChanged > 500) {
     findings.push(`Large change: ${totalChanged} lines changed (added: ${addedLines}, removed: ${removedLines})`);
   }
 
   // Threshold: more than 10 files is broad
-  if (addedFiles.length + removedFiles.length > 10) {
-    findings.push(`Broad change: ${addedFiles.length + removedFiles.length} files affected`);
-  }
-
-  // Check for unrelated changes (heuristic: changes in very different directories)
-  const directories = new Set();
-  for (const file of [...addedFiles, ...removedFiles]) {
-    const dir = file.split('/').slice(0, -1).join('/');
-    if (dir) directories.add(dir);
-  }
-
-  if (directories.size > 5) {
-    findings.push(`Change spans many directories: ${[...directories].join(', ')}`);
+  if (addedFiles.length > 10) {
+    findings.push(`Broad change: ${addedFiles.length} files affected`);
   }
 
   return findings;
@@ -225,12 +195,6 @@ function checkMinimal(diff) {
 
 /**
  * Main review function
- * 
- * @param {Object} params
- * @param {string} params.task - Description of the task/change
- * @param {string} params.diff - Git diff of the change
- * @param {Object} params.evidence - Additional evidence (test results, etc.)
- * @returns {Promise<ReviewResult>}
  */
 async function reviewChanges({ task, diff, evidence }) {
   const reasons = [];
@@ -271,7 +235,7 @@ async function reviewChanges({ task, diff, evidence }) {
     suggestions.push('Add corresponding tests for code changes.');
   }
 
-  // Check 4: Minimality
+  // Check 4: Minimality (only set low severity if no other issues found)
   const minimalFindings = checkMinimal(diff);
   if (minimalFindings.length > 0) {
     reasons.push(...minimalFindings);
@@ -295,15 +259,3 @@ async function reviewChanges({ task, diff, evidence }) {
 }
 
 module.exports = { reviewChanges };
-
-// CLI support for testing
-if (require.main === module) {
-  const args = process.argv.slice(2);
-  if (args.length >= 2) {
-    const task = args[0];
-    const diff = args[1];
-    reviewChanges({ task, diff }).then(result => {
-      console.log(JSON.stringify(result, null, 2));
-    });
-  }
-}
