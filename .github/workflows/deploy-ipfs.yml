@@ -2,8 +2,11 @@ name: Deploy to IPFS
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
+    inputs:
+      reason:
+        description: 'Optional deployment reason'
+        required: false
+        default: ''
 
 permissions:
   contents: read
