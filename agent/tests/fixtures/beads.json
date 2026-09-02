@@ -1,0 +1,38 @@
+{
+  "schema": "beads.state-graph/v1",
+  "project": "test",
+  "initiative": "test-initiative",
+  "updated": "2026-09-02T00:00:00Z",
+  "nodes": [
+    {
+      "id": "TEST-1",
+      "kind": "task",
+      "title": "Test task with no deps",
+      "status": "pending",
+      "deps": [],
+      "artifacts": ["test.js"],
+      "pr": null
+    },
+    {
+      "id": "TEST-2",
+      "kind": "task",
+      "title": "Test task with dep",
+      "status": "pending",
+      "deps": ["TEST-1"],
+      "artifacts": ["test2.js"],
+      "pr": null
+    },
+    {
+      "id": "TEST-3",
+      "kind": "task",
+      "title": "Test done task",
+      "status": "done",
+      "deps": [],
+      "artifacts": ["test3.js"],
+      "pr": null
+    }
+  ],
+  "edges": [
+    {"from": "TEST-1", "to": "TEST-2"}
+  ]
+}

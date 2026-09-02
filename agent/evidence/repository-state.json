@@ -1,34 +1,29 @@
 {
+  "timestamp": "2026-09-02T06:08:06.940Z",
   "repository": "dominicusin/dominicusin.github.io",
   "snapshot": {
-    "agent": {
-      "agent_dir": true,
-      "evidence_dir": true,
-      "orchestrator": true,
-      "policy": true,
-      "risk_policy": true,
-      "truth_policy": true,
-      "workers": true
+    "git": {
+      "commit": "96d9c81259bda8a47de7c0dba0114617a84c900f",
+      "branch": "main",
+      "clean": true
     },
-    "architecture": {
-      "engineering_plane": {
-        "contracts": true,
-        "src": true,
-        "tests": true
-      },
-      "publishing_plane": {
-        "assets": true,
-        "content": true,
-        "layouts": 66,
-        "static": true
-      },
-      "two_plane_separation": true
+    "hugo": {
+      "version": "0.164.0",
+      "theme": "blowfish",
+      "config_exists": true
     },
     "ci": {
-      "hugo_yml_exists": true,
+      "workflow_count": 28,
       "quality_checks": 3,
       "quality_yml_exists": true,
-      "workflow_count": 28
+      "hugo_yml_exists": true
+    },
+    "tests": {
+      "test_files": 33,
+      "has_jest": true,
+      "has_vitest": true,
+      "has_hardhat": true,
+      "scripts_count": 35
     },
     "content": {
       "blog_posts": 60,
@@ -37,33 +32,39 @@
       "repositories": 1,
       "total": 239
     },
+    "architecture": {
+      "two_plane_separation": true,
+      "publishing_plane": {
+        "layouts": 66,
+        "content": true,
+        "assets": true,
+        "static": true
+      },
+      "engineering_plane": {
+        "src": true,
+        "contracts": true,
+        "tests": true
+      }
+    },
     "dependencies": {
-      "node_engines": ">=22.0.0",
       "total": 376,
+      "node_engines": ">=22.0.0",
       "type": "module"
-    },
-    "git": {
-      "branch": "main",
-      "clean": true,
-      "commit": "0b57050c6b4e7865ab2b0792cd9db3396732b5a4"
-    },
-    "hugo": {
-      "config_exists": true,
-      "theme": "blowfish",
-      "version": "0.164.0"
     },
     "planning": {
       "beads": true,
-      "beads_count": 0,
-      "charter": true
+      "charter": true,
+      "beads_count": 111
     },
-    "tests": {
-      "has_hardhat": true,
-      "has_jest": true,
-      "has_vitest": true,
-      "scripts_count": 35,
-      "test_files": 33
+    "agent": {
+      "agent_dir": true,
+      "policy": true,
+      "truth_policy": true,
+      "risk_policy": true,
+      "orchestrator": true,
+      "workers": true,
+      "evidence_dir": true
     }
   },
-  "timestamp": "2026-09-02T05:23:52.758161+00:00"
+  "snapshot_hash": "68629a84cc43bc81e3c1cda953dc6d86ea5502a3789a9eab4e0157bf1e26904d"
 }
