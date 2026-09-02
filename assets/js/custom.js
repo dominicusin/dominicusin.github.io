@@ -79,6 +79,7 @@
   // Mobile nav toggle
   var burger = document.getElementById('neo-burger');
   var mnav = document.getElementById('neo-mobile-nav');
+  var mClose = document.getElementById('neo-mobile-close');
   if (burger && mnav) {
      mnav.hidden = false;
      burger.addEventListener('click', function (e) {
@@ -86,6 +87,12 @@
        var open = mnav.classList.toggle('open');
        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
      });
+     if (mClose) {
+       mClose.addEventListener('click', function () {
+         mnav.classList.remove('open');
+         burger.setAttribute('aria-expanded', 'false');
+       });
+     }
      mnav.addEventListener('click', function (e) {
        if (e.target.tagName === 'A') { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
      });
