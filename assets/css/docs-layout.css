@@ -1,0 +1,41 @@
+.neo-docs-nav {
+  position: sticky;
+  top: 6rem;
+  height: fit-content;
+}
+.neo-docs-nav h5 {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+}
+.neo-docs-nav nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.neo-docs-nav nav a {
+  color: inherit;
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.4rem;
+  border-left: 2px solid transparent;
+  font-size: 0.95rem;
+}
+.neo-docs-nav nav a.active {
+  border-left-color: #2dd4bf;
+  background: rgba(45, 212, 191, 0.08);
+}
+.neo-docs-content {
+  min-width: 0;
+}
+@media (max-width: 860px) {
+  .neo-wrap {
+    display: block !important;
+  }
+  .neo-docs-nav {
+    position: static;
+    margin-bottom: 1rem;
+  }
+}
