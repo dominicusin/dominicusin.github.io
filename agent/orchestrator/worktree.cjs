@@ -5,7 +5,7 @@
  * Creates and manages isolated worktrees for tasks.
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -39,19 +39,32 @@ function createWorktree({ repository, branch, taskId }) {
   const branchesToTry = [branch, 'HEAD'];
   let lastErr;
   for (const b of branchesToTry) {
-    const cmd = `git worktree add -b ${worktreeBranch} ${worktreePath} ${b}`;
     try {
-      execSync(cmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
+      execFileSync('git', ['worktree', 'add', '-b', worktreeBranch, worktreePath, b], {
+        cwd: repository,
+        encoding: 'utf8',
+        timeout: 30000
+      });
       lastErr = null;
       break;
     } catch (e) {
       lastErr = e;
-      try { execSync(`git branch -D ${worktreeBranch}`, { cwd: repository, encoding: 'utf8', timeout: 10000 }); } catch {}
+      try {
+        execFileSync('git', ['branch', '-D', worktreeBranch], {
+          cwd: repository,
+          encoding: 'utf8',
+          timeout: 10000
+        });
+      } catch {}
       const msg = (e.stderr || e.message || '').toString();
       if (msg.includes('invalid reference') && b !== 'HEAD') continue;
       if (msg.includes('already exists')) {
         try {
-          execSync(`git worktree add ${worktreePath} ${worktreeBranch}`, { cwd: repository, encoding: 'utf8', timeout: 30000 });
+          execFileSync('git', ['worktree', 'add', worktreePath, worktreeBranch], {
+            cwd: repository,
+            encoding: 'utf8',
+            timeout: 30000
+          });
           lastErr = null;
           break;
         } catch (e2) { lastErr = e2; }
@@ -75,7 +88,7 @@ function removeWorktree(worktreePath) {
   if (!fs.existsSync(worktreePath)) return;
 
   try {
-    execSync(`git worktree remove --force ${worktreePath}`, {
+    execFileSync('git', ['worktree', 'remove', '--force', worktreePath], {
       encoding: 'utf8',
       timeout: 30000
     });
