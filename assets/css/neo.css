@@ -261,8 +261,8 @@ body::after{
     position: fixed;
     inset: 0;
     z-index: 140;
-    background: color-mix(in srgb, var(--bg) 84%, transparent);
-    backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(6px);
     border: none;
     border-radius: 0;
     padding: 5.5rem 1rem 2rem;
@@ -271,93 +271,20 @@ body::after{
     box-shadow: none;
     align-items: center;
   }
-  .neo-mobile-head {
+  .neo-mobile-nav.open a {
+    font-size: 1.05rem;
+    padding: .75rem .5rem;
     width: 100%;
-    max-width: 460px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: .5rem;
-  }
-  .neo-mobile-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  .neo-mobile-close {
-    margin-left: auto;
-  }
-  .neo-tree {
-    width: 100%;
-    max-width: 460px;
+    max-width: 420px;
+    text-align: center;
+    background: var(--panel);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--panel) 92%, transparent);
-    backdrop-filter: blur(6px);
-    overflow: hidden;
-  }
-  .neo-tree + .neo-tree {
-    margin-top: .6rem;
-  }
-  .neo-tree summary {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: .7rem .9rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text);
-    user-select: none;
-  }
-  .neo-tree summary::-webkit-details-marker {
-    display: none;
-  }
-  .neo-tree summary::after {
-    content: "+";
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--muted);
-    transition: transform .15s ease;
-  }
-  .neo-tree[open] > summary::after {
-    content: "−";
-  }
-  .neo-tree-body {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem;
-    padding: .4rem .9rem .8rem;
-    border-top: 1px solid var(--line);
-  }
-  .neo-tree-body a {
-    font-size: .95rem;
-    padding: .45rem .5rem;
     border-radius: 10px;
-    color: var(--muted);
-    text-align: left;
-    background: transparent;
-    border: 1px solid transparent;
+    color: var(--text);
   }
-  .neo-tree-body a:hover {
+  .neo-mobile-nav.open a:hover {
     border-color: var(--accent);
     color: var(--accent);
-  }
-  .neo-mobile-footer {
-    width: 100%;
-    max-width: 460px;
-    margin-top: .8rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: .5rem;
-    justify-content: center;
-  }
-  .neo-mobile-footer .neo-theme-opt {
-    flex: 1 1 140px;
   }
 }
 @media(min-width:901px){
