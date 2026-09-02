@@ -21,7 +21,13 @@ jobs:
       - run: npm ci
 
       - name: Run agent tests
-        run: node --test agent/tests/
+        run: |
+          for test_file in agent/tests/*.test.cjs agent/tests/**/*.test.cjs; do
+            if [ -f "$test_file" ]; then
+              echo "Running: $test_file"
+              node --test "$test_file"
+            fi
+          done
 
       - name: Run linter
         run: npm run lint
