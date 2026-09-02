@@ -64,7 +64,11 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
           MIN_CONFIDENCE: ${{ github.event.inputs.min_confidence || '0.6' }}
         run: |
-          node src/agents/link-repair-agent.js ${DRY_RUN == 'true' && '--dry-run' || ''}
+          if [ "$DRY_RUN" = "true" ]; then
+            node src/agents/link-repair-agent.js --dry-run
+          else
+            node src/agents/link-repair-agent.js
+          fi
       
       - name: Upload scan results
         if: always()
