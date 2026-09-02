@@ -58,6 +58,9 @@
 {{/* Store */}}
 {{ partial "neo-store.html" . }}
 
+{{/* Store */}}
+{{ partial "neo-store.html" . }}
+
 {{/* JS */}}
 {{ $js := resources.Get "js/custom.js" | minify | fingerprint }}
 <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>

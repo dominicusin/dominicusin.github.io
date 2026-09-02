@@ -6,19 +6,21 @@
   var STORE_KEY = "neo-store-v1";
   var SCHEMA_VERSION = 1;
 
+  // Schema definition with defaults and migrations
   var SCHEMA = {
     version: SCHEMA_VERSION,
     theme: "dark",
     motion: "on",
     fontScale: "normal",
-    favorites: {},
-    favMeta: {},
-    analytics: {},
-    searchHistory: [],
-    randomPool: [],
-    recentlyViewed: []
+    favorites: {},      // key -> true
+    favMeta: {},        // key -> {title, type, href}
+    analytics: {},      // path -> {views, lastViewed, daily: {}}
+    searchHistory: [],  // ["query", ...]
+    randomPool: [],     // [{href, title}, ...]
+    recentlyViewed: []  // [{href, title}, ...]
   };
 
+  // Migrations from older key-based storage
   function migrate() {
     var legacy = {};
     try { legacy.theme = localStorage.getItem("neo-theme"); } catch (e) {}
@@ -47,6 +49,7 @@
     return legacy;
   }
 
+  // Load store
   function load() {
     var store;
     try {
@@ -56,16 +59,19 @@
       store = {};
     }
 
+    // First run: migrate from legacy keys
     if (!store.version || store.version < SCHEMA_VERSION) {
       var legacy = migrate();
       store = Object.assign({}, SCHEMA, store, legacy);
       store.version = SCHEMA_VERSION;
+      // Clean up legacy keys
       ["neo-theme", "neo-motion-state", "neo-font-scale", "neo-fav-meta", "neo-likes-v1", "neo-analytics", "neo-search-history", "neo-random-pool"].forEach(function (k) {
         try { localStorage.removeItem(k); } catch (e) {}
       });
       save(store);
     }
 
+    // Ensure all schema keys exist
     Object.keys(SCHEMA).forEach(function (k) {
       if (store[k] === undefined) store[k] = SCHEMA[k];
     });
@@ -81,10 +87,13 @@
 
   var store = load();
 
+  // Public API
   window.neoStore = {
     get: function (key) { return store[key]; },
     set: function (key, val) { store[key] = val; save(store); },
     remove: function (key) { delete store[key]; save(store); },
+
+    // Favorites
     toggleFav: function (key, meta) {
       if (store.favorites[key]) {
         delete store.favorites[key];
@@ -102,6 +111,8 @@
         return Object.assign({ key: k }, store.favMeta[k] || {});
       });
     },
+
+    // Analytics
     trackView: function (path, title) {
       if (!store.analytics[path]) {
         store.analytics[path] = { views: 0, title: title, lastViewed: 0, daily: {} };
@@ -112,6 +123,7 @@
       a.lastViewed = Date.now();
       var today = new Date().toISOString().slice(0, 10);
       a.daily[today] = (a.daily[today] || 0) + 1;
+      // Keep only last 50 paths
       var paths = Object.keys(store.analytics).sort(function (a, b) {
         return store.analytics[b].views - store.analytics[a].views;
       });
@@ -120,16 +132,22 @@
       }
       save(store);
     },
+
+    // Search history
     addSearch: function (query) {
       if (!query || query.length < 2) return;
       store.searchHistory.push(query);
       if (store.searchHistory.length > 20) store.searchHistory.shift();
       save(store);
     },
+
+    // Random pool
     setRandomPool: function (pool) {
       store.randomPool = pool.slice(0, 50);
       save(store);
     },
+
+    // Recently viewed
     addRecent: function (item) {
       store.recentlyViewed = store.recentlyViewed.filter(function (r) {
         return r.href !== item.href;
@@ -138,6 +156,8 @@
       if (store.recentlyViewed.length > 8) store.recentlyViewed.pop();
       save(store);
     },
+
+    // Reset
     reset: function () {
       store = Object.assign({}, SCHEMA);
       save(store);
