@@ -50,15 +50,11 @@
 {{/* Critical CSS: inline for first paint */}}
 {{ partial "neo-critical.html" . }}
 
-{{/* Main CSS: preload then swap to stylesheet */}}
+{{/* Main CSS: render-blocking (avoids CLS/FOUC — see AGENTS gotcha on preload+swap CLS ~1.0) */}}
 {{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
-<link rel="preload" href="{{ $css.RelPermalink }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="{{ $css.RelPermalink }}"></noscript>
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+<style>.neo-mobile-nav:not(.open),.neo-drawer:not(.open){display:none}</style>
 
-{{/* Store */}}
-{{ partial "neo-store.html" . }}
-
-{{/* Store */}}
 {{ partial "neo-store.html" . }}
 
 {{/* JS */}}

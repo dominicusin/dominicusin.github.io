@@ -35,7 +35,7 @@
       <button class="neo-icon-btn" id="neo-motion-quick" aria-label="Анимация вкл/выкл" title="Анимация">✦</button>
       <div class="neo-settings">
         <button class="neo-icon-btn" id="neo-settings-btn" aria-label="Настройки" title="Настройки">⚙</button>
-        <div class="neo-drawer" id="neo-drawer" role="dialog" aria-label="Настройки оформления">
+        <div class="neo-drawer" id="neo-drawer" role="dialog" aria-label="Настройки оформления" hidden>
           <h5>Тема оформления</h5>
           <div class="neo-theme-grid" id="neo-theme-grid">
             <div class="neo-theme-opt" data-theme="dark"><span class="neo-sw" style="background:#0b0e14"></span>Тёмная</div>
@@ -85,7 +85,7 @@
       <button class="neo-icon-btn" id="neo-theme-toggle" aria-label="Светлая/тёмная" title="Светлая/тёмная">◐</button>
     </div>
   </div>
-  <nav class="neo-mobile-nav" id="neo-mobile-nav" aria-label="Мобильное меню">
+  <nav class="neo-mobile-nav" id="neo-mobile-nav" aria-label="Мобильное меню" hidden>
     <a href="{{ "blog/" | relURL }}">Блог</a>
     <a href="{{ "repositories/" | relURL }}">Репозитории</a>
     <a href="{{ "gists/" | relURL }}">Гисты</a>
