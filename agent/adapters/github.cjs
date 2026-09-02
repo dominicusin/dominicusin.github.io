@@ -9,6 +9,10 @@ const { execSync } = require('child_process');
 
 // SECURITY: All execSync calls use hardcoded args. No user input in shell strings.
 
+function escapeForDoubleQuotedShellArg(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
 /**
  * Create a PR.
  */
@@ -22,7 +26,7 @@ async function createPR({ head, base, title, body, method }) {
     throw new Error(`method must be one of: ${validMethods.join(', ')}`);
   }
 
-  const cmd = `/everything/bin/gh pr create --head ${head} --base ${base} --title "${title.replace(/"/g, '\\"')}" --body "${body ? body.replace(/"/g, '\\"') : ''}"`;
+  const cmd = `/everything/bin/gh pr create --head ${head} --base ${base} --title "${escapeForDoubleQuotedShellArg(title)}" --body "${body ? escapeForDoubleQuotedShellArg(body) : ''}"`;
 
   try {
     const output = execSync(cmd, { encoding: 'utf8', timeout: 30000 });
@@ -47,7 +51,7 @@ async function updatePR(prNumber, { title, body }) {
   }
 
   try {
-    const cmd = `/everything/bin/gh pr edit ${prNumber}${title ? ` --title "${title.replace(/"/g, '\\"')}"` : ''}${body ? ` --body "${body.replace(/"/g, '\\"')}"` : ''}`;
+    const cmd = `/everything/bin/gh pr edit ${prNumber}${title ? ` --title "${escapeForDoubleQuotedShellArg(title)}"` : ''}${body ? ` --body "${escapeForDoubleQuotedShellArg(body)}"` : ''}`;
     const output = execSync(cmd, { encoding: 'utf8', timeout: 30000 });
     return { success: true, output: output.trim() };
   } catch (e) {
