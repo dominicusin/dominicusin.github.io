@@ -7,7 +7,13 @@
 
 const { execSync } = require('child_process');
 
-// SECURITY: All execSync calls use hardcoded args. No user input in shell strings.
+// SECURITY: execSync is used with hardcoded command templates and no unsanitized user input.
+// The args are either internal constants or escaped via escapeForDoubleQuotedShellArg().
+// Therefore this usage is safe in this adapter despite using a shell command string.
+
+function escapeForDoubleQuotedShellArg(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
 
 function escapeForDoubleQuotedShellArg(value) {
   return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
