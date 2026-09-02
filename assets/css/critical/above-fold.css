@@ -1,11 +1,3 @@
-/* ===========================================================================
-   Neo Design System — presentation layer (fully separable from content).
-   Themes are pure CSS custom properties keyed by [data-theme] on <html>;
-   accents by [data-accent]. Switching is a runtime attribute change with
-   zero content edits. Components are namespaced under .neo-*.
-   =========================================================================== */
-
-/* ---------- THEME TOKENS ---------- */
 :root,
 [data-theme="dark"]{
   --bg:#0b0e14; --bg-2:#10141d; --panel:#151a26; --panel-2:#1b2231;
@@ -27,224 +19,29 @@
   --grid:rgba(15,23,42,.03);
   color-scheme: light;
 }
-[data-theme="solar"]{
-  --bg:#1c1917; --bg-2:#292524; --panel:#292524; --panel-2:#3a3531;
-  --line:#44403c; --line-2:#57534e;
-  --text:#fef3c7; --muted:#d6c3a3; --faint:#a89167;
-  --accent:#fbbf24; --accent-2:#fb923c; --violet:#c084fc;
-  --shadow:0 20px 50px -20px rgba(0,0,0,.6);
-  --grid:rgba(251,191,36,.04);
-  color-scheme: dark;
-}
-[data-theme="mono"]{
-  --bg:#0a0a0a; --bg-2:#111; --panel:#141414; --panel-2:#1c1c1c;
-  --line:#262626; --line-2:#333;
-  --text:#e5e5e5; --muted:#a3a3a3; --faint:#666;
-  --accent:#e5e5e5; --accent-2:#bdbdbd; --violet:#d4d4d4;
-  --shadow:0 20px 50px -20px rgba(0,0,0,.8);
-  --grid:rgba(255,255,255,.03);
-  color-scheme: dark;
-}
-[data-theme="dracula"]{
-  --bg:#282a36; --bg-2:#21222c; --panel:#44475a; --panel-2:#383a46;
-  --line:#44475a; --line-2:#6272a4;
-  --text:#f8f8f2; --muted:#6272a4; --faint:#6272a4;
-  --accent:#bd93f9; --accent-2:#ff79c6; --violet:#bd93f9;
-  --shadow:0 8px 30px -12px rgba(0,0,0,.7);
-  --grid:rgba(255,255,255,.03);
-  color-scheme: dark;
-}
-
-/* Accents */
-[data-accent="teal"]{--accent:#4fd1c5;--accent-2:#7dd3fc;--violet:#a78bfa}
-[data-accent="violet"]{--accent:#a78bfa;--accent-2:#c4b5fd}
-[data-accent="amber"]{--accent:#fbbf24;--accent-2:#fcd34d}
-[data-accent="emerald"]{--accent:#34d399;--accent-2:#6ee7b7}
-[data-accent="rose"]{--accent:#fb7185;--accent-2:#fda4af}
-
-/* Font scale (accessibility) */
-:root{--fs:1}
-html[data-fscale="large"]{--fs:1.12}
-html[data-fscale="xlarge"]{--fs:1.25}
-
-/* ---------- BASE ---------- */
-* { box-sizing:border-box; margin:0; padding:0; }
-body{
-  background:var(--bg); color:var(--text); font-family:var(--sans);
-  font-size:calc(16px * var(--fs)); line-height:1.65;
-  -webkit-font-smoothing:antialiased; overflow-x:hidden;
-  transition:background .3s, color .3s;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-body::before{
-  content:"";position:fixed;inset:0;z-index:-2;
-  background:
-    radial-gradient(900px 500px at 85% -10%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%),
-    radial-gradient(700px 500px at 0% 10%,color-mix(in srgb,var(--violet) 9%,transparent),transparent 55%),
-    var(--bg);
-}
-/* aurora: drifting glow orbs behind everything */
-body::after{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
-                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:44px 44px;
-  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
-          mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
-}
-.neo-aurora{position:fixed;inset:-20vmax;z-index:-3;pointer-events:none;filter:blur(40px);opacity:.55;
-  background:
-    radial-gradient(38vmax 38vmax at 20% 18%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%),
-    radial-gradient(34vmax 34vmax at 82% 30%,color-mix(in srgb,var(--violet,#b98cff) 26%,transparent),transparent 60%),
-    radial-gradient(30vmax 30vmax at 60% 88%,color-mix(in srgb,var(--accent-2) 22%,transparent),transparent 60%);
-  animation:neo-aurora 22s ease-in-out infinite alternate}
-@keyframes neo-aurora{0%{transform:translate3d(-3%,-2%,0) rotate(0deg)}50%{transform:translate3d(4%,3%,0) rotate(8deg)}100%{transform:translate3d(-2%,4%,0) rotate(-6deg)}}
-@media (prefers-reduced-motion: reduce){
-  *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
-}
-html[data-reduce-motion="true"] *{animation:none !important; transition:none !important; scroll-behavior:auto !important}
-
-/* ---------- HEADER + MENU (categories from data) ---------- */
-.neo-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
-  background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line)}
-.neo-nav{max-width:1180px;margin:0 auto;padding:0 24px;height:64px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px}
-.neo-brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.3px;white-space:nowrap}
-.neo-brand .mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#07121a;
-  font-family:var(--mono);font-weight:700;font-size:15px}
-.neo-brand small{display:block;font-weight:500;color:var(--muted);font-size:11px;letter-spacing:.5px}
+.neo-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.neo-nav{max-width:1180px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.neo-brand{display:flex;align-items:center;gap:12px;font-weight:700;white-space:nowrap}
+.neo-brand .mark{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#07121a;font-family:var(--mono);font-weight:700;font-size:15px}
 .neo-menu{display:flex;align-items:center;gap:4px;overflow-x:auto;flex:1}
-.neo-menu a{padding:7px 12px;border-radius:8px;font-size:14px;color:var(--muted);white-space:nowrap;transition:color .2s,background .2s}
-.neo-menu a:hover{color:var(--text);background:var(--panel)}
+.neo-menu a{padding:7px 12px;border-radius:8px;font-size:14px;color:var(--muted);white-space:nowrap}
 .neo-nav-actions{display:flex;align-items:center;gap:8px}
-.neo-icon-btn{background:var(--panel);border:1px solid var(--line-2);border-radius:8px;width:36px;height:36px;
-  cursor:pointer;font-size:15px;color:var(--text);transition:transform .2s,color .2s,background .2s}
-.neo-icon-btn:hover{transform:scale(1.06);color:var(--accent)}
-
-/* Settings drawer */
+.neo-icon-btn{background:var(--panel);border:1px solid var(--line-2);border-radius:8px;width:36px;height:36px;cursor:pointer;font-size:15px;color:var(--text)}
 .neo-settings{position:relative}
-.neo-drawer{position:absolute;right:0;top:48px;width:280px;background:var(--panel);border:1px solid var(--line-2);
-  border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;display:none;z-index:60;font-size:14px}
+.neo-drawer{position:absolute;right:0;top:48px;width:280px;background:var(--panel);border:1px solid var(--line-2);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;display:none;z-index:60;font-size:14px}
 .neo-drawer.open{display:block}
-.neo-drawer h5{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin:14px 0 8px}
-.neo-drawer h5:first-child{margin-top:0}
-.neo-theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.neo-theme-opt,.neo-accent-opt{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line-2);
-  border-radius:8px;cursor:pointer;color:var(--muted);transition:border-color .2s,color .2s}
-.neo-theme-opt.active,.neo-accent-opt.active{border-color:var(--accent);color:var(--text)}
-.neo-sw{width:16px;height:16px;border-radius:4px;border:1px solid var(--line-2)}
-.neo-accent-grid{display:flex;gap:8px;flex-wrap:wrap}
-.neo-accent-opt{width:32px;height:32px;padding:0;justify-content:center}
-.neo-row-opt{display:flex;align-items:center;justify-content:space-between;padding:6px 0;color:var(--muted)}
-.neo-seg{display:flex;border:1px solid var(--line-2);border-radius:8px;overflow:hidden}
-.neo-seg button{background:var(--panel);border:none;color:var(--muted);padding:6px 10px;cursor:pointer;font-size:12px;font-family:var(--mono)}
-.neo-seg button.active{background:var(--accent);color:#07121a}
-
-/* ---------- HERO ---------- */
-.neo-hero{max-width:1180px;margin:0 auto;padding:88px 24px 40px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
-.neo-eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--accent);display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
-.neo-eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);opacity:.6}
-.neo-hero h1{font-size:clamp(34px,5vw,58px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;margin-bottom:22px}
-.neo-hero h1 .grad{background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 50%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.neo-hero p.lead{color:var(--muted);font-size:17.5px;max-width:56ch}
-.neo-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.neo-chip{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line-2);padding:5px 12px;border-radius:999px;background:var(--panel)}
-.neo-chip b{color:var(--accent);font-weight:600}
-
-.neo-term{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.neo-term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--panel-2);border-bottom:1px solid var(--line)}
-.neo-dot{width:11px;height:11px;border-radius:50%}
-.neo-term-bar .path{font-family:var(--mono);font-size:12px;color:var(--faint);margin-left:8px}
-.neo-term-body{padding:22px;font-family:var(--mono);font-size:13.5px;color:var(--muted)}
-.neo-term-body .ln{color:var(--faint);margin-right:16px;user-select:none}
-.neo-term-body .k{color:var(--accent-2)} .neo-term-body .s{color:var(--amber)}
-.neo-term-body .c{color:var(--faint);font-style:italic} .neo-term-body .p{color:var(--accent)}
-.neo-cursor{display:inline-block;width:8px;height:15px;background:var(--accent);vertical-align:-2px;animation:neo-blink 1s steps(1) infinite}
-@keyframes neo-blink{50%{opacity:0}}
-
-/* ---------- SECTIONS ---------- */
-.neo-wrap{max-width:1180px;margin:0 auto;padding:56px 24px}
-.neo-sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap}
-.neo-sec-head h2{font-size:22px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:12px}
-.neo-sec-head h2::before{content:"//";font-family:var(--mono);color:var(--accent);font-size:18px}
-.neo-sec-head .more{font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .2s}
-.neo-sec-head .more:hover{color:var(--accent)}
-
-/* Featured cards */
-.neo-featured{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.neo-card{position:relative;background:linear-gradient(160deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:var(--radius);padding:24px;
-  display:flex;flex-direction:column;gap:14px;overflow:hidden;
-  transition:transform .25s,border-color .25s,background .25s,box-shadow .25s;
-  box-shadow:0 1px 0 rgba(255,255,255,.02) inset, 0 8px 24px -16px rgba(0,0,0,.7);}
-.neo-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet));opacity:0;transition:opacity .25s ease}
-.neo-card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
-  background:linear-gradient(160deg,var(--panel-2),color-mix(in srgb,var(--accent) 7%,var(--panel)));
-  box-shadow:0 18px 40px -20px rgba(0,0,0,.85),0 0 0 1px color-mix(in srgb,var(--accent) 22%,transparent),0 0 28px -6px color-mix(in srgb,var(--accent) 40%,transparent)}
-.neo-card:hover::before{opacity:1}
-.neo-card .meta{font-family:var(--mono);font-size:12px;color:var(--faint);display:flex;gap:10px;align-items:center}
-.neo-card .meta .cat{color:var(--accent)}
-.neo-card h3{font-size:18px;line-height:1.35;font-weight:700;letter-spacing:-.2px}
-.neo-card p{color:var(--muted);font-size:14px;flex:1}
-.neo-card .read{font-family:var(--mono);font-size:12.5px;color:var(--accent-2)}
-.neo-card .read::after{content:" →";transition:transform .2s;display:inline-block}
-.neo-card:hover .read::after{transform:translateX(4px)}
-.neo-card:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 45%,transparent),0 18px 40px -20px rgba(0,0,0,.85)}
-
-/* ---------- LIST CARDS: repositories / gists / awesome ---------- */
-/* These pages load only neo.css; the card classes below are the real,
-   token-driven styles (the custom.css copies are dead on neo routes). */
-.repo-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));margin:1.5rem 0}
-
-/* Shared accent: gradient top bar + glow border that intensifies on hover */
-.repo-card,.gist-card,.awesome-card{
-  position:relative;display:flex;flex-direction:column;gap:.5rem;
-  padding:1.1rem 1.15rem 1rem;border-radius:calc(var(--radius) - 2px);
-  background:linear-gradient(160deg,var(--panel-2),var(--panel));
-  border:1px solid var(--line);
-  text-decoration:none;color:inherit;overflow:hidden;
-  transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease;
-  box-shadow:0 1px 0 rgba(255,255,255,.02) inset, 0 8px 24px -16px rgba(0,0,0,.7);
+.neo-mobile-nav{display:none}
+.neo-burger{display:none}
+@media(max-width:900px){
+  .neo-menu{display:none}
+  .neo-burger{display:flex}
+  .neo-mobile-nav{display:none;flex-direction:column;gap:.5rem;padding:.8rem 1.25rem;background:var(--panel);border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px;position:absolute;top:100%;left:0;right:0;z-index:100;max-height:0;overflow:hidden;opacity:0}
+  .neo-mobile-nav.open{display:flex;max-height:60vh;overflow-y:auto;opacity:1}
 }
-.repo-card::before,.gist-card::before,.awesome-card::before{
-  content:"";position:absolute;inset:0 0 auto 0;height:3px;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--violet));
-  opacity:.0;transition:opacity .25s ease;
+@media(min-width:901px){
+  .neo-burger{display:none}
+  .neo-mobile-nav{display:none!important}
 }
-.repo-card:hover,.gist-card:hover,.awesome-card:hover{
-  transform:translateY(-6px);
-  border-color:color-mix(in srgb,var(--accent) 55%,var(--line));
-  background:linear-gradient(160deg,var(--panel-2),color-mix(in srgb,var(--accent) 7%,var(--panel)));
-  box-shadow:0 18px 40px -20px rgba(0,0,0,.85),
-             0 0 0 1px color-mix(in srgb,var(--accent) 22%,transparent),
-             0 0 28px -6px color-mix(in srgb,var(--accent) 40%,transparent);
-}
-.repo-card:hover::before,.gist-card:hover::before,.awesome-card:hover::before{opacity:1}
-
-/* Header row */
-.repo-card-top{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem}
-.repo-card-name{font-weight:700;color:var(--text);font-size:1rem;line-height:1.25;word-break:break-word}
-.repo-card-owner{font-size:.72rem;color:var(--faint);white-space:nowrap}
-.repo-card-desc{font-size:.84rem;color:var(--muted);margin:0;line-height:1.45;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-
-/* Topics pills — accentuated with gradient + glow */
-.repo-pills{display:flex;flex-wrap:wrap;gap:.4rem}
-.repo-pill{position:relative;font-size:.68rem;font-weight:600;padding:.2rem .6rem;border-radius:999px;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent-2) 12%,transparent));
-  color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 38%,transparent);
-  box-shadow:0 0 10px -3px color-mix(in srgb,var(--accent) 45%,transparent);
-  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
-.repo-card:hover .repo-pill{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 32%,transparent),color-mix(in srgb,var(--accent-2) 18%,transparent));
-  box-shadow:0 0 14px -2px color-mix(in srgb,var(--accent) 60%,transparent);transform:translateY(-1px)}
-
-/* Badges & tags — accented chips */
-.repo-badge{font-size:.64rem;padding:.1rem .5rem;border-radius:999px;font-weight:700;letter-spacing:.4px;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--muted) 22%,transparent),color-mix(in srgb,var(--muted) 10%,transparent));
-  color:var(--muted);border:1px solid color-mix(in srgb,var(--muted) 45%,transparent)}
-.repo-tag{font-size:.64rem;padding:.1rem .5rem;border-radius:999px;font-weight:700;letter-spacing:.3px;
-  background:linear-gradient(135deg,color-mix(in srgb,var(--amber) 26%,transparent),color-mix(in srgb,var(--amber) 12%,transparent));
-  color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 50%,transparent);
-  box-shadow:0 0 10px -3px color-mix(in srgb,var(--amber) 50%,transparent)}
-

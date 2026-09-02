@@ -1,5 +1,5 @@
 {{/* Critical CSS — above-the-fold styles for first paint. */}}
 <style>
 {{ $critical := resources.Get "css/critical/above-fold.css" | minify }}
-{{ $critical.Content }}
+{{ $critical.Content | safeCSS }}
 </style>

@@ -69,28 +69,30 @@
   var btn = document.getElementById('neo-settings-btn');
   var drawer = document.getElementById('neo-drawer');
   if (btn && drawer){
-    btn.addEventListener('click', function(e){ e.stopPropagation(); drawer.classList.toggle('open'); });
-    document.addEventListener('click', function(e){
-      if (!drawer.contains(e.target) && e.target !== btn) drawer.classList.remove('open');
-    });
-  }
+     drawer.hidden = false;
+     btn.addEventListener('click', function(e){ e.stopPropagation(); drawer.classList.toggle('open'); });
+     document.addEventListener('click', function(e){
+       if (!drawer.contains(e.target) && e.target !== btn) drawer.classList.remove('open');
+     });
+   }
 
   // Mobile nav toggle
   var burger = document.getElementById('neo-burger');
   var mnav = document.getElementById('neo-mobile-nav');
   if (burger && mnav) {
-    burger.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = mnav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    mnav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
-    });
-    document.addEventListener('click', function (e) {
-      if (!mnav.contains(e.target) && e.target !== burger) { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
-    });
-  }
+     mnav.hidden = false;
+     burger.addEventListener('click', function (e) {
+       e.stopPropagation();
+       var open = mnav.classList.toggle('open');
+       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+     });
+     mnav.addEventListener('click', function (e) {
+       if (e.target.tagName === 'A') { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+     });
+     document.addEventListener('click', function (e) {
+       if (!mnav.contains(e.target) && e.target !== burger) { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+     });
+   }
 
   // Reduced-motion quick toggle (header ✦ button)
   var mqBtn = document.getElementById('neo-motion-quick');
