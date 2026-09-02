@@ -10,7 +10,7 @@
 
 const { STATES, canTransition } = require('./state-machine.cjs');
 const { loadGraph, getReadyTasks, transitionTask } = require('./beads.cjs');
-const { createWorktree, removeWorktree } = require('./worktree.cjs');
+const worktree = require('./worktree.cjs');
 const { validateWorkerResult } = require('../workers/contracts/worker-contract.cjs');
 const { createEvidence, verifyEvidence } = require('../evidence/evidence.cjs');
 
@@ -70,12 +70,12 @@ class Orchestrator {
     transitionTask(graph, task.id, STATES.CLAIMED);
 
     // 7. Create isolated worktree
-    const worktree = createWorktree({
+    const wt = worktree.createWorktree({
       repository: this.repositoryRoot,
       branch: 'main',
       taskId: task.id
     });
-    this.state.worktree = worktree;
+    this.state.worktree = wt;
 
     try {
       // 8. Execute worker
@@ -85,7 +85,7 @@ class Orchestrator {
         policy: this.policy,
         evidence: this.evidence,
         constraints: { maxRetries: 3 },
-        workspace: worktree.path
+        workspace: wt.path
       };
 
       const worker = this.workers[task.kind] || this.workers.default;
@@ -123,7 +123,7 @@ class Orchestrator {
       };
     } finally {
       // 11. Cleanup worktree
-      worktree.cleanup();
+      wt.cleanup();
     }
   }
 

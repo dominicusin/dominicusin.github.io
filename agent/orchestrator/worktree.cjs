@@ -36,14 +36,29 @@ function createWorktree({ repository, branch, taskId }) {
   }
 
   // Create worktree with new branch
-  const cmd = `git worktree add -b ${worktreeBranch} ${worktreePath} ${branch}`;
-  try {
-    execSync(cmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
-  } catch (e) {
-    // If branch exists, use it
-    const fallbackCmd = `git worktree add ${worktreePath} ${worktreeBranch}`;
-    execSync(fallbackCmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
+  const branchesToTry = [branch, 'HEAD'];
+  let lastErr;
+  for (const b of branchesToTry) {
+    const cmd = `git worktree add -b ${worktreeBranch} ${worktreePath} ${b}`;
+    try {
+      execSync(cmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
+      lastErr = null;
+      break;
+    } catch (e) {
+      lastErr = e;
+      try { execSync(`git branch -D ${worktreeBranch}`, { cwd: repository, encoding: 'utf8', timeout: 10000 }); } catch {}
+      const msg = (e.stderr || e.message || '').toString();
+      if (msg.includes('invalid reference') && b !== 'HEAD') continue;
+      if (msg.includes('already exists')) {
+        try {
+          execSync(`git worktree add ${worktreePath} ${worktreeBranch}`, { cwd: repository, encoding: 'utf8', timeout: 30000 });
+          lastErr = null;
+          break;
+        } catch (e2) { lastErr = e2; }
+      }
+    }
   }
+  if (lastErr) throw lastErr;
 
   return {
     path: worktreePath,
