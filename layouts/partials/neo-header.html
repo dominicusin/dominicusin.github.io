@@ -86,20 +86,110 @@
     </div>
   </div>
   <nav class="neo-mobile-nav" id="neo-mobile-nav" aria-label="Мобильное меню" hidden>
-    <a href="{{ "blog/" | relURL }}">Блог</a>
-    <a href="{{ "repositories/" | relURL }}">Репозитории</a>
-    <a href="{{ "gists/" | relURL }}">Гисты</a>
-    <a href="{{ "ontology/" | relURL }}">Онтология</a>
-    <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
-    <a href="{{ "awesome/" | relURL }}">awesome</a>
-    <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
-    <a href="{{ "categories/" | relURL }}">Категории</a>
-    <a href="{{ "tags/" | relURL }}">Теги</a>
-    <a href="{{ "sitemap.xml" | relURL }}">sitemap</a>
-    <a href="{{ "search/" | relURL }}">Поиск</a>
-    <a href="{{ "archives/" | relURL }}">Архив</a>
-    <a href="{{ "feeds/" | relURL }}">Ленты</a>
-    <a href="{{ "favorites/" | relURL }}">Избранное</a>
-    <a href="{{ "analytics/" | relURL }}">Аналитика</a>
+    <div class="neo-mobile-head">
+      <div class="neo-mobile-title">Навигация</div>
+      <button class="neo-icon-btn neo-mobile-close" id="neo-mobile-close" aria-label="Закрыть меню">✕</button>
+    </div>
+
+    <details class="neo-tree" open>
+      <summary>📝 Блог</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "blog/" | relURL }}">Все записи</a>
+        <a href="{{ "categories/" | relURL }}">Категории</a>
+        <a href="{{ "tags/" | relURL }}">Теги</a>
+        <a href="{{ "archives/" | relURL }}">Архив по годам</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>📦 Репозитории</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "repositories/" | relURL }}">Все репозитории</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>📄 Гисты</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "gists/" | relURL }}">Все гисты</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>🕸 Онтология</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "ontology/" | relURL }}">Граф онтологии</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>🔗 Knowledge Graph</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "knowledge-graph/" | relURL }}">Интерактивный граф</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>⭐ Awesome</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "awesome/" | relURL }}">Каталог</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>📖 Wiki</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "wiki-build/" | relURL }}">Все страницы</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>🗂 Категории</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "categories/" | relURL }}">Все категории</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>🏷 Теги</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "tags/" | relURL }}">Все теги</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>🗺 Карта сайта</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "sitemap.xml" | relURL }}">sitemap.xml</a>
+        <a href="{{ "sitemap/" | relURL }}">Страницы сайта</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>📡 Ленты</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "feeds/" | relURL }}">Все ленты</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>⭐ Избранное</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "favorites/" | relURL }}">Все записи</a>
+      </div>
+    </details>
+
+    <details class="neo-tree">
+      <summary>📊 Аналитика</summary>
+      <div class="neo-tree-body">
+        <a href="{{ "analytics/" | relURL }}">Статистика</a>
+      </div>
+    </details>
+
+    <div class="neo-mobile-footer">
+      <a class="neo-theme-opt" href="{{ "search/" | relURL }}">⌕ Поиск</a>
+      <button class="neo-theme-opt" id="neo-mobile-theme">◐ Сменить тему</button>
+      <button class="neo-theme-opt" id="neo-mobile-share">📤 Поделиться</button>
+    </div>
   </nav>
 </header>

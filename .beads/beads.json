@@ -2,7 +2,7 @@
   "schema": "beads.state-graph/v1",
   "project": "dominicusin.github.io",
   "initiative": "repo-gist-ingestion",
-  "updated": "2026-08-16",
+  "updated": "2026-09-02",
   "nodes": [
     {
       "id": "T1",
@@ -1394,6 +1394,1050 @@
         ".github/workflows/hugo.yml"
       ],
       "pr": 214
+    },
+    {
+      "id": "M2-001",
+      "kind": "task",
+      "title": "M2.1 Git Adapter — git.cjs + worktree.cjs",
+      "status": "pending",
+      "deps": [],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/git/git.cjs",
+        "agent/git/git.test.cjs",
+        "agent/git/worktree.cjs",
+        "agent/git/worktree.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "agent never commits on main",
+        "worktree has requested branch",
+        "worktree starts from requested base",
+        "getStatus/getHead/createBranch/commit/push work"
+      ],
+      "verification": [
+        "node --test agent/git/git.test.cjs",
+        "node --test agent/git/worktree.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-002",
+      "kind": "task",
+      "title": "M2.2 Command Runner — runCommand with timeout/env/evidence",
+      "status": "pending",
+      "deps": [
+        "M2-003"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/runtime/command-runner.cjs",
+        "agent/runtime/command-runner.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "runCommand returns CommandResult {exit_code,stdout,stderr,duration_ms,timed_out,evidence}",
+        "timeout kills process and sets timed_out",
+        "evidence captured for every invocation"
+      ],
+      "verification": [
+        "node --test agent/runtime/command-runner.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-003",
+      "kind": "task",
+      "title": "M2.3 Command Policy — allowlist/denylist for Worker commands",
+      "status": "pending",
+      "deps": [],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/policy/commands.cjs",
+        "agent/tests/command-policy.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "allowlist: git,node,npm,hugo,gh only",
+        "deny rm -rf /, sudo, systemctl, ssh/scp, docker, credential access",
+        "Policy → allow? execute : BLOCK",
+        "worker without policy cannot exec arbitrary shell"
+      ],
+      "verification": [
+        "node --test agent/tests/command-policy.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-004",
+      "kind": "task",
+      "title": "M2.4 Worker Runtime — validate input/output, collect evidence",
+      "status": "pending",
+      "deps": [
+        "M2-001",
+        "M2-002"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/runtime/worker-runtime.cjs",
+        "agent/runtime/worker-runtime.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "validate input → execute worker → validate output → collect evidence",
+        "malformed worker result → FAILED with evidence, no state corruption",
+        "WorkerContext isolated, no global mutable state"
+      ],
+      "verification": [
+        "node --test agent/runtime/worker-runtime.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-005",
+      "kind": "task",
+      "title": "M2.6 Failure Model — classification + signature",
+      "status": "pending",
+      "deps": [],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/runtime/failure.cjs",
+        "agent/runtime/failure.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "classifies TEST_FAILURE/BUILD_FAILURE/TYPE_ERROR/LINT_FAILURE/LINK_FAILURE/A11Y_FAILURE/SECURITY_FAILURE/GIT_FAILURE/CI_FAILURE/TIMEOUT/POLICY_FAILURE/UNKNOWN",
+        "failure signature stable across reruns"
+      ],
+      "verification": [
+        "node --test agent/runtime/failure.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-006",
+      "kind": "task",
+      "title": "M2.7 Failure Diagnosis Worker — diagnose()",
+      "status": "pending",
+      "deps": [
+        "M2-005"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/diagnostician/diagnostician.cjs",
+        "agent/workers/diagnostician/diagnostician.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "diagnose({failure,task,diff,previousAttempts}) → Diagnosis {category,confidence,probableCause,suggestedActions,evidence}",
+        "confidence is metadata, not proof"
+      ],
+      "verification": [
+        "node --test agent/workers/diagnostician/diagnostician.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-007",
+      "kind": "task",
+      "title": "M2.6 Retry Engine — 3 attempts then escalate",
+      "status": "pending",
+      "deps": [
+        "M2-005",
+        "M2-006"
+      ],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/runtime/retry.cjs",
+        "agent/runtime/self-healing.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "attempt1 fix, attempt2 alternative fix, attempt3 escalate",
+        "same error 3x → ESCALATED",
+        "retry creates new WorkerContext from Diagnosis"
+      ],
+      "verification": [
+        "node --test agent/runtime/self-healing.test.cjs",
+        "node --test agent/runtime/retry.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-008",
+      "kind": "task",
+      "title": "M2.8 GitHub Adapter — PR + checks API",
+      "status": "pending",
+      "deps": [
+        "M2-001"
+      ],
+      "priority": "P0",
+      "risk": "R3",
+      "artifacts": [
+        "agent/github/github.cjs",
+        "agent/github/github.test.cjs",
+        "agent/github/pull-request.cjs",
+        "agent/github/ci.cjs"
+      ],
+      "acceptance_criteria": [
+        "createPullRequest({branch,base,title,body}) works via gh/cli mock",
+        "getPullRequest/getChecks/getCheckFailures return typed data",
+        "no secrets leaked in tests (mocked)"
+      ],
+      "verification": [
+        "node --test agent/github/github.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-009",
+      "kind": "task",
+      "title": "M2.9 PR Contract — Task/Risk/Summary/Tests/Evidence/Rollback",
+      "status": "pending",
+      "deps": [
+        "M2-008"
+      ],
+      "priority": "P1",
+      "risk": "R3",
+      "artifacts": [
+        "agent/github/pr-builder.cjs",
+        "agent/github/pr-template.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "PR body contains Task,Risk,Summary,Files changed,Tests,Verification,Evidence,Known risks,Rollback",
+        "verification section lists npm test + lint + hugo build"
+      ],
+      "verification": [
+        "node --test agent/github/pr-template.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-010",
+      "kind": "task",
+      "title": "M2.10 CI Monitor — PR → CI_PENDING/RUNNING/SUCCESS/FAILURE with timeout",
+      "status": "pending",
+      "deps": [
+        "M2-008"
+      ],
+      "priority": "P1",
+      "risk": "R3",
+      "artifacts": [
+        "agent/github/ci-monitor.cjs",
+        "agent/github/ci-monitor.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "state machine PR_CREATED→CI_PENDING→CI_RUNNING→CI_SUCCESS or CI_FAILURE→DIAGNOSE→RETRY",
+        "timeout → CI_TIMEOUT → ESCALATE, no infinite poll",
+        "poll interval bounded, mocked gh api"
+      ],
+      "verification": [
+        "node --test agent/github/ci-monitor.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-011",
+      "kind": "task",
+      "title": "M2.11 Autonomous Execution Loop — runTask SELECT→…→PR→CI",
+      "status": "pending",
+      "deps": [
+        "M2-004",
+        "M2-007",
+        "M2-009",
+        "M2-010",
+        "M2-012"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/orchestrator/loop.cjs",
+        "agent/orchestrator/loop.test.cjs",
+        "agent/orchestrator/orchestrator.cjs"
+      ],
+      "acceptance_criteria": [
+        "runTask does SELECT→POLICY→CLAIM→WORKTREE→WORK→VERIFY→COMMIT→PUSH→PR→CI",
+        "FAIL → DIAGNOSE→RETRY→VERIFY",
+        "PASS → REVIEW gate, never auto-merge"
+      ],
+      "verification": [
+        "node --test agent/orchestrator/loop.test.cjs",
+        "npm run lint",
+        "npm test",
+        "npm run build"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-012",
+      "kind": "task",
+      "title": "M2.12 Human Gate — R1..R4 gating rules",
+      "status": "pending",
+      "deps": [],
+      "priority": "P1",
+      "risk": "R2",
+      "artifacts": [
+        "agent/policy/gates.cjs",
+        "agent/policy/human-gate.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "R1 CI PASS → READY_FOR_REVIEW → HUMAN",
+        "R2 needs AUTOMATED REVIEW → HUMAN",
+        "R3 needs SECURITY → HUMAN APPROVAL",
+        "R4 BLOCKED → HUMAN ONLY, never autonomous"
+      ],
+      "verification": [
+        "node --test agent/policy/human-gate.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-013",
+      "kind": "task",
+      "title": "M2.14 E2E Autonomous Task — real R1 task closed loop",
+      "status": "pending",
+      "deps": [
+        "M2-011",
+        "M2-012"
+      ],
+      "priority": "P2",
+      "risk": "R1",
+      "artifacts": [
+        "tests/e2e/m2-autonomous.test.cjs",
+        "agent/e2e/m2-demo-task.cjs"
+      ],
+      "acceptance_criteria": [
+        "Beads READY → Orchestrator → Worker → commit → PR → CI → READY_FOR_REVIEW",
+        "injected test failure → diagnose→fix→PASS",
+        "3rd repeat same error → ESCALATED"
+      ],
+      "verification": [
+        "node --test tests/e2e/m2-autonomous.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M2-014",
+      "kind": "task",
+      "title": "M2.14 M2 Verification — manifest + beads update",
+      "status": "pending",
+      "deps": [
+        "M2-013"
+      ],
+      "priority": "P2",
+      "risk": "R0",
+      "artifacts": [
+        "docs/M2_VERIFICATION.md",
+        "scripts/verify-m2.cjs",
+        ".beads/beads.json"
+      ],
+      "acceptance_criteria": [
+        "Evidence Manifest written with run_id, commits, PR, checks, evidence",
+        "Beads updated to DONE for R1 demo task",
+        "no auto-merge/deploy occurred"
+      ],
+      "verification": [
+        "node scripts/verify-m2.cjs",
+        "npm run lint",
+        "npm test",
+        "npm run build"
+      ],
+      "initiative": "autonomous-factory-m2"
+    },
+    {
+      "id": "M3-001",
+      "kind": "task",
+      "title": "M3.1 Agent Registry — register/resolve workers",
+      "status": "pending",
+      "deps": [
+        "M2-014"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/registry/registry.cjs",
+        "agent/registry/registry.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "registerWorker/getWorker/listWorkers/resolveWorker(capability) work",
+        "Worker descriptor has name/version/capabilities/riskProfile/inputSchema/outputSchema/allowedCommands",
+        "duplicate register throws, unknown resolve returns null"
+      ],
+      "verification": [
+        "node --test agent/registry/registry.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-002",
+      "kind": "task",
+      "title": "M3.15 Agent Capability Graph",
+      "status": "pending",
+      "deps": [
+        "M3-001"
+      ],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/registry/capabilities.cjs",
+        "agent/registry/capabilities.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "capability map architect/researcher/implementer/tester/security/performance/a11y/reviewer correct",
+        "resolveWorker by capability returns suitable workers",
+        "no worker has undeclared capability"
+      ],
+      "verification": [
+        "node --test agent/registry/capabilities.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-003",
+      "kind": "task",
+      "title": "M3.3 Researcher Worker — evidence-backed findings",
+      "status": "pending",
+      "deps": [
+        "M3-001"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/researcher/researcher.cjs",
+        "agent/workers/researcher/researcher.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "outputs ResearchReport {question,findings,sources,confidence,unknowns}",
+        "unknown≠false, not found≠does not exist",
+        "does not touch filesystem outside reads"
+      ],
+      "verification": [
+        "node --test agent/workers/researcher/researcher.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-004",
+      "kind": "task",
+      "title": "M3.2 Architect Worker — ArchitecturePlan without repo mutation",
+      "status": "pending",
+      "deps": [
+        "M3-001"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/architect/architect.cjs",
+        "agent/workers/architect/architect.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "outputs ArchitecturePlan {goal,constraints,affectedAreas,design,risks,acceptanceCriteria,verificationPlan}",
+        "never modifies repository, only proposes",
+        "affected files + risks enumerated"
+      ],
+      "verification": [
+        "node --test agent/workers/architect/architect.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-005",
+      "kind": "task",
+      "title": "M3.4 Planner Worker — TaskPlan from Arch+Research+Beads",
+      "status": "pending",
+      "deps": [
+        "M3-003",
+        "M3-004"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/planner/planner.cjs",
+        "agent/workers/planner/planner.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "consumes ArchitecturePlan+ResearchReport+Beads graph → TaskPlan {tasks{id,title,scope,dependencies,risk,acceptanceCriteria,verification}}",
+        "planner never writes production code",
+        "TaskPlan deps form acyclic graph"
+      ],
+      "verification": [
+        "node --test agent/workers/planner/planner.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-006",
+      "kind": "task",
+      "title": "M3.5 Implementer Worker — TDD RED→GREEN→REFACTOR",
+      "status": "pending",
+      "deps": [
+        "M3-005",
+        "M3-002"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/workers/implementer/implementer.cjs",
+        "agent/workers/implementer/implementer.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "receives Task+ArchitecturePlan+ResearchReport+WorkerContext → diff+evidence",
+        "implements TDD cycle, tests first",
+        "returns diff + evidence, respects allowedCommands"
+      ],
+      "verification": [
+        "node --test agent/workers/implementer/implementer.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-007",
+      "kind": "task",
+      "title": "M3.6 Tester Worker — TestReport with coverage",
+      "status": "pending",
+      "deps": [
+        "M3-006"
+      ],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/tester/tester.cjs",
+        "agent/workers/tester/tester.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "outputs TestReport {passed,tests,failures,coverage,missingCoverage,evidence}",
+        "does not fix code, only analyzes coverage/failures",
+        "coverage threshold check works"
+      ],
+      "verification": [
+        "node --test agent/workers/tester/tester.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-008",
+      "kind": "task",
+      "title": "M3.7 Security Worker — secrets/deps/workflows/injection/XSS/CSP",
+      "status": "pending",
+      "deps": [
+        "M3-006"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/workers/security/security.cjs",
+        "agent/workers/security/security.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "checks secrets, dependencies, workflow permissions, unsafe commands, injection, XSS, CSP, filesystem boundaries",
+        "flags agent code/.github/workflows/scripts/workers",
+        "no false-negative on known fixture"
+      ],
+      "verification": [
+        "node --test agent/workers/security/security.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-009",
+      "kind": "task",
+      "title": "M3.8 Quality Worker — lint/type/docs/dead-code/complexity",
+      "status": "pending",
+      "deps": [
+        "M3-006"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/quality/quality.cjs",
+        "agent/workers/quality/quality.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "aggregates Lint/Type/API consistency/Documentation/Dead code/Complexity/Architecture violations",
+        "reports violations with file:line",
+        "never blocks on style-only if policy is warn"
+      ],
+      "verification": [
+        "node --test agent/workers/quality/quality.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-010",
+      "kind": "task",
+      "title": "M3.9 Performance Worker — bundle/Hugo/Lighthouse/CWV",
+      "status": "pending",
+      "deps": [
+        "M3-006"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/performance/performance.cjs",
+        "agent/workers/performance/performance.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "checks bundle size, Hugo output, JS assets, images, Lighthouse, Core Web Vitals",
+        "heavy JS/D3 graph flagged as debt, budget enforced",
+        "outputs perf report with budgets"
+      ],
+      "verification": [
+        "node --test agent/workers/performance/performance.test.cjs",
+        "npm run lint",
+        "npm test",
+        "node scripts/check-perf.cjs"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-011",
+      "kind": "task",
+      "title": "M3.10 Accessibility Worker — axe/ARIA/keyboard/contrast",
+      "status": "pending",
+      "deps": [
+        "M3-006"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/workers/accessibility/accessibility.cjs",
+        "agent/workers/accessibility/accessibility.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "checks axe, keyboard nav, ARIA, contrast, headings, forms, screen-reader semantics",
+        "reports violations with WCAG ref",
+        "0 violations on clean fixture"
+      ],
+      "verification": [
+        "node --test agent/workers/accessibility/accessibility.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-012",
+      "kind": "task",
+      "title": "M3.11 Reviewer Worker — adversarial review",
+      "status": "pending",
+      "deps": [
+        "M3-007",
+        "M3-008",
+        "M3-009"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/workers/reviewer/reviewer.cjs",
+        "agent/workers/reviewer/reviewer.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "receives task+arch+diff+tests+evidence+security report, does not trust Implementer",
+        "outputs ReviewResult {decision: approve|request_changes|reject|escalate, findings, risks, missingEvidence}",
+        "checks evidence ↔ commit correspondence, scope, hidden failures"
+      ],
+      "verification": [
+        "node --test agent/workers/reviewer/reviewer.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-013",
+      "kind": "task",
+      "title": "M3.12 Release Worker — ReleaseCandidate (no deploy)",
+      "status": "pending",
+      "deps": [
+        "M3-012"
+      ],
+      "priority": "P1",
+      "risk": "R3",
+      "artifacts": [
+        "agent/workers/release/release.cjs",
+        "agent/workers/release/release.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "produces ReleaseCandidate {commit,pr,checks,evidence,changelog,rollback,risk}",
+        "never deploys, only prepares candidate",
+        "Policy still gates production deploy"
+      ],
+      "verification": [
+        "node --test agent/workers/release/release.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-014",
+      "kind": "task",
+      "title": "M3.17 Shared Evidence Bus — EvidenceEnvelope",
+      "status": "pending",
+      "deps": [
+        "M3-001"
+      ],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/events/evidence-bus.cjs",
+        "agent/events/evidence-bus.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "EvidenceEnvelope {producer,task,run_id,type,payload,evidence,timestamp} validated",
+        "workers exchange only typed envelopes, no free text",
+        "order preserved per run_id"
+      ],
+      "verification": [
+        "node --test agent/events/evidence-bus.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-015",
+      "kind": "task",
+      "title": "M3.19 Agent Event Log — typed events",
+      "status": "pending",
+      "deps": [
+        "M3-014"
+      ],
+      "priority": "P0",
+      "risk": "R1",
+      "artifacts": [
+        "agent/events/events.cjs",
+        "agent/events/events.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "events: TASK_SELECTED..DONE (15 types) emitted",
+        "event schema {event_id,run_id,task_id,actor,event,timestamp,payload,evidence}",
+        "log allows reconstruction of who/when/what/evidence"
+      ],
+      "verification": [
+        "node --test agent/events/events.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-016",
+      "kind": "task",
+      "title": "M3.21 Supervisor — timeout/budget/policy/orphan guard",
+      "status": "pending",
+      "deps": [
+        "M3-015",
+        "M3-002"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/supervisor/supervisor.cjs",
+        "agent/supervisor/supervisor.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "enforces worker timeout, memory/time budget, retry budget, parallel count, policy violations, orphaned worktrees, stale tasks",
+        "WORKER_TIMEOUT → terminate → evidence → retry/escalate",
+        "orphaned worktree cleaned after test"
+      ],
+      "verification": [
+        "node --test agent/supervisor/supervisor.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-017",
+      "kind": "task",
+      "title": "M3.22 Resource Budget — Budget enforcement",
+      "status": "pending",
+      "deps": [
+        "M3-001"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/supervisor/budget.cjs",
+        "agent/supervisor/budget.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "Budget {maxTimeMs,maxRetries,maxWorkers,maxCommands,maxChangedFiles,maxDiffLines} enforced",
+        "R1 example: 30min/3/3/30/1000 passes",
+        "exceeding budget → ESCALATE"
+      ],
+      "verification": [
+        "node --test agent/supervisor/budget.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-018",
+      "kind": "task",
+      "title": "M3.24/25 Scope & Change Guard — SCOPE_VIOLATION",
+      "status": "pending",
+      "deps": [
+        "M3-017",
+        "M3-006"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/policy/scope-guard.cjs",
+        "agent/policy/scope-guard.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "scope e.g. ['agent/**','tests/**'] enforced, out-of-scope change → SCOPE_VIOLATION → ESCALATED",
+        "change budget: expected 5 files vs actual 17 → expansion detected",
+        "adapter check runs on diff before commit"
+      ],
+      "verification": [
+        "node --test agent/policy/scope-guard.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-019",
+      "kind": "task",
+      "title": "M3.27 Multi-Agent Scheduler — ExecutionPlan stages",
+      "status": "pending",
+      "deps": [
+        "M3-002",
+        "M3-017",
+        "M3-014"
+      ],
+      "priority": "P0",
+      "risk": "R2",
+      "artifacts": [
+        "agent/orchestrator/scheduler.cjs",
+        "agent/orchestrator/scheduler.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "schedule({task,capabilities,policy,budget}) → ExecutionPlan stages with parallel flags",
+        "R1/R2/R3 mapping selects correct worker subsets",
+        "1 worktree = 1 write worker invariant held"
+      ],
+      "verification": [
+        "node --test agent/orchestrator/scheduler.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-020",
+      "kind": "task",
+      "title": "M3.16 Parallel Read Workers — safe parallelism",
+      "status": "pending",
+      "deps": [
+        "M3-019",
+        "M3-007",
+        "M3-008",
+        "M3-009"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/orchestrator/parallel.cjs",
+        "agent/orchestrator/parallel.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "TEST/SECURITY/QUALITY run parallel after IMPLEMENT",
+        "read-only workers parallel safe, writers serialized",
+        "no race on single worktree"
+      ],
+      "verification": [
+        "node --test agent/orchestrator/parallel.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-021",
+      "kind": "task",
+      "title": "M3.28 Review Loop — max 2 cycles then escalate",
+      "status": "pending",
+      "deps": [
+        "M3-012",
+        "M3-006"
+      ],
+      "priority": "P1",
+      "risk": "R1",
+      "artifacts": [
+        "agent/orchestrator/review-loop.cjs",
+        "agent/orchestrator/review-loop.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "APPROVE → Release, REQUEST_CHANGES → Implementer→Test→Review",
+        "shares retry budget, max 2 review cycles → ESCALATE",
+        "reviewer findings feed back as structured inputs"
+      ],
+      "verification": [
+        "node --test agent/orchestrator/review-loop.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-022",
+      "kind": "task",
+      "title": "M3.30 Multi-Agent E2E — TASK→…→PR→CI→HUMAN GATE",
+      "status": "pending",
+      "deps": [
+        "M3-019",
+        "M3-020",
+        "M3-021"
+      ],
+      "priority": "P2",
+      "risk": "R1",
+      "artifacts": [
+        "tests/e2e/m3-multi-agent.test.cjs",
+        "agent/e2e/m3-demo.cjs"
+      ],
+      "acceptance_criteria": [
+        "demo task: tiny utility + test + docs through full pipeline RESEARCH→ARCH→PLAN→IMPL→(TEST|SEC|QUAL)→REVIEW→PR→CI→HUMAN",
+        "all evidence envelopes collected",
+        "human gate present at end"
+      ],
+      "verification": [
+        "node --test tests/e2e/m3-multi-agent.test.cjs",
+        "npm run lint",
+        "npm test",
+        "npm run build"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-023",
+      "kind": "task",
+      "title": "M3.31 Failure Injection — falsy test then escalate",
+      "status": "pending",
+      "deps": [
+        "M3-022"
+      ],
+      "priority": "P2",
+      "risk": "R1",
+      "artifacts": [
+        "tests/e2e/m3-failure-injection.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "induced TEST FAILURE → Tester → Diagnosis → Implementer → PASS",
+        "same error 3x → ESCALATED",
+        "retry budget shared with review loop"
+      ],
+      "verification": [
+        "node --test tests/e2e/m3-failure-injection.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-024",
+      "kind": "task",
+      "title": "M3.32/33 Security & Production Safety E2E — POLICY_DENIED",
+      "status": "pending",
+      "deps": [
+        "M3-022",
+        "M3-008",
+        "M3-018"
+      ],
+      "priority": "P2",
+      "risk": "R2",
+      "artifacts": [
+        "tests/e2e/m3-security.test.cjs"
+      ],
+      "acceptance_criteria": [
+        "worker tries to modify .github/workflows/** without scope → POLICY_DENIED",
+        "R4 task (contracts/dao/production secret) cannot reach autonomous release → HUMAN",
+        "test 'R4 task cannot reach autonomous release' passes"
+      ],
+      "verification": [
+        "node --test tests/e2e/m3-security.test.cjs",
+        "npm run lint",
+        "npm test"
+      ],
+      "initiative": "autonomous-factory-m3"
+    },
+    {
+      "id": "M3-025",
+      "kind": "task",
+      "title": "M3 Final Verification — Full Factory Gate",
+      "status": "pending",
+      "deps": [
+        "M3-022",
+        "M3-023",
+        "M3-024"
+      ],
+      "priority": "P2",
+      "risk": "R0",
+      "artifacts": [
+        "docs/M3_VERIFICATION.md",
+        "scripts/verify-m3.cjs",
+        ".beads/beads.json"
+      ],
+      "acceptance_criteria": [
+        "state machine PENDING→READY→…→HUMAN_GATE→DONE validated",
+        "all workers produce typed evidence, no shared mutable LLM memory",
+        "no worker modifies policy or self-assigns risk; R3/R4 never auto-merge"
+      ],
+      "verification": [
+        "node scripts/verify-m3.cjs",
+        "npm run lint",
+        "npm test",
+        "npm run build",
+        "npx hardhat test"
+      ],
+      "initiative": "autonomous-factory-m3"
     }
   ],
   "edges": [
@@ -1701,6 +2745,306 @@
       "from": "T111",
       "to": "T112",
       "type": "next"
+    },
+    {
+      "from": "M2-002",
+      "to": "M2-003",
+      "type": "enables"
+    },
+    {
+      "from": "M2-001",
+      "to": "M2-004",
+      "type": "enables"
+    },
+    {
+      "from": "M2-002",
+      "to": "M2-004",
+      "type": "enables"
+    },
+    {
+      "from": "M2-005",
+      "to": "M2-006",
+      "type": "enables"
+    },
+    {
+      "from": "M2-005",
+      "to": "M2-007",
+      "type": "enables"
+    },
+    {
+      "from": "M2-006",
+      "to": "M2-007",
+      "type": "enables"
+    },
+    {
+      "from": "M2-001",
+      "to": "M2-008",
+      "type": "enables"
+    },
+    {
+      "from": "M2-008",
+      "to": "M2-009",
+      "type": "enables"
+    },
+    {
+      "from": "M2-008",
+      "to": "M2-010",
+      "type": "enables"
+    },
+    {
+      "from": "M2-004",
+      "to": "M2-011",
+      "type": "enables"
+    },
+    {
+      "from": "M2-007",
+      "to": "M2-011",
+      "type": "enables"
+    },
+    {
+      "from": "M2-009",
+      "to": "M2-011",
+      "type": "enables"
+    },
+    {
+      "from": "M2-010",
+      "to": "M2-011",
+      "type": "enables"
+    },
+    {
+      "from": "M2-012",
+      "to": "M2-011",
+      "type": "enables"
+    },
+    {
+      "from": "M2-011",
+      "to": "M2-013",
+      "type": "enables"
+    },
+    {
+      "from": "M2-012",
+      "to": "M2-013",
+      "type": "enables"
+    },
+    {
+      "from": "M2-013",
+      "to": "M2-014",
+      "type": "enables"
+    },
+    {
+      "from": "M2-014",
+      "to": "M3-001",
+      "type": "enables"
+    },
+    {
+      "from": "M3-001",
+      "to": "M3-002",
+      "type": "enables"
+    },
+    {
+      "from": "M3-001",
+      "to": "M3-003",
+      "type": "enables"
+    },
+    {
+      "from": "M3-001",
+      "to": "M3-004",
+      "type": "enables"
+    },
+    {
+      "from": "M3-003",
+      "to": "M3-005",
+      "type": "enables"
+    },
+    {
+      "from": "M3-004",
+      "to": "M3-005",
+      "type": "enables"
+    },
+    {
+      "from": "M3-005",
+      "to": "M3-006",
+      "type": "enables"
+    },
+    {
+      "from": "M3-002",
+      "to": "M3-006",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-007",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-008",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-009",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-010",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-011",
+      "type": "enables"
+    },
+    {
+      "from": "M3-007",
+      "to": "M3-012",
+      "type": "enables"
+    },
+    {
+      "from": "M3-008",
+      "to": "M3-012",
+      "type": "enables"
+    },
+    {
+      "from": "M3-009",
+      "to": "M3-012",
+      "type": "enables"
+    },
+    {
+      "from": "M3-012",
+      "to": "M3-013",
+      "type": "enables"
+    },
+    {
+      "from": "M3-001",
+      "to": "M3-014",
+      "type": "enables"
+    },
+    {
+      "from": "M3-014",
+      "to": "M3-015",
+      "type": "enables"
+    },
+    {
+      "from": "M3-015",
+      "to": "M3-016",
+      "type": "enables"
+    },
+    {
+      "from": "M3-002",
+      "to": "M3-016",
+      "type": "enables"
+    },
+    {
+      "from": "M3-001",
+      "to": "M3-017",
+      "type": "enables"
+    },
+    {
+      "from": "M3-017",
+      "to": "M3-018",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-018",
+      "type": "enables"
+    },
+    {
+      "from": "M3-002",
+      "to": "M3-019",
+      "type": "enables"
+    },
+    {
+      "from": "M3-017",
+      "to": "M3-019",
+      "type": "enables"
+    },
+    {
+      "from": "M3-014",
+      "to": "M3-019",
+      "type": "enables"
+    },
+    {
+      "from": "M3-019",
+      "to": "M3-020",
+      "type": "enables"
+    },
+    {
+      "from": "M3-007",
+      "to": "M3-020",
+      "type": "enables"
+    },
+    {
+      "from": "M3-008",
+      "to": "M3-020",
+      "type": "enables"
+    },
+    {
+      "from": "M3-009",
+      "to": "M3-020",
+      "type": "enables"
+    },
+    {
+      "from": "M3-012",
+      "to": "M3-021",
+      "type": "enables"
+    },
+    {
+      "from": "M3-006",
+      "to": "M3-021",
+      "type": "enables"
+    },
+    {
+      "from": "M3-019",
+      "to": "M3-022",
+      "type": "enables"
+    },
+    {
+      "from": "M3-020",
+      "to": "M3-022",
+      "type": "enables"
+    },
+    {
+      "from": "M3-021",
+      "to": "M3-022",
+      "type": "enables"
+    },
+    {
+      "from": "M3-022",
+      "to": "M3-023",
+      "type": "enables"
+    },
+    {
+      "from": "M3-022",
+      "to": "M3-024",
+      "type": "enables"
+    },
+    {
+      "from": "M3-008",
+      "to": "M3-024",
+      "type": "enables"
+    },
+    {
+      "from": "M3-018",
+      "to": "M3-024",
+      "type": "enables"
+    },
+    {
+      "from": "M3-022",
+      "to": "M3-025",
+      "type": "enables"
+    },
+    {
+      "from": "M3-023",
+      "to": "M3-025",
+      "type": "enables"
+    },
+    {
+      "from": "M3-024",
+      "to": "M3-025",
+      "type": "enables"
     }
   ]
 }
