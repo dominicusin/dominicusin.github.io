@@ -2,8 +2,8 @@ name: Deploy to IPFS
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [deploy-ipfs]
+  push:
+    branches: [main]
 
 permissions:
   contents: read
