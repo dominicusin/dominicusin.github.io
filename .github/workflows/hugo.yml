@@ -118,6 +118,14 @@ jobs:
       - name: Build with Hugo
         run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Generate project documentation
+        run: node scripts/generate-docs.cjs
+
+      - name: Upload docs artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
       - name: Performance smoke check (report-only)
         continue-on-error: true
         run: node scripts/check-perf.cjs

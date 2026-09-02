@@ -6,7 +6,7 @@
 
 baseURL = "https://dominicusin.github.io/"
 title = "Dominicus In"
-languageCode = "ru"
+locale = "ru"
 defaultContentLanguage = "ru"
 enableGitInfo = false
 paginate = 10

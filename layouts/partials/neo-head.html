@@ -33,7 +33,7 @@
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
-<meta property="og:locale" content="{{ site.LanguageCode | default "ru" }}">
+<meta property="og:locale" content="{{ site.Language.Locale | default "ru" }}">
 {{ $ogImage := "/images/og-default.svg" }}
 {{ if .Params.image }}{{ $ogImage = .Params.image }}{{ end }}
 <meta property="og:image" content="{{ $ogImage | absURL }}">
