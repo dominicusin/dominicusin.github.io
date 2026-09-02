@@ -5,7 +5,7 @@
  * Creates and manages isolated worktrees for tasks.
  */
 
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -36,14 +36,42 @@ function createWorktree({ repository, branch, taskId }) {
   }
 
   // Create worktree with new branch
-  const cmd = `/everything/bin/git worktree add -b ${worktreeBranch} ${worktreePath} ${branch}`;
-  try {
-    execSync(cmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
-  } catch (e) {
-    // If branch exists, use it
-    const fallbackCmd = `/everything/bin/git worktree add ${worktreePath} ${worktreeBranch}`;
-    execSync(fallbackCmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
+  const branchesToTry = [branch, 'HEAD'];
+  let lastErr;
+  for (const b of branchesToTry) {
+    try {
+      execFileSync('git', ['worktree', 'add', '-b', worktreeBranch, worktreePath, b], {
+        cwd: repository,
+        encoding: 'utf8',
+        timeout: 30000
+      });
+      lastErr = null;
+      break;
+    } catch (e) {
+      lastErr = e;
+      try {
+        execFileSync('git', ['branch', '-D', worktreeBranch], {
+          cwd: repository,
+          encoding: 'utf8',
+          timeout: 10000
+        });
+      } catch {}
+      const msg = (e.stderr || e.message || '').toString();
+      if (msg.includes('invalid reference') && b !== 'HEAD') continue;
+      if (msg.includes('already exists')) {
+        try {
+          execFileSync('git', ['worktree', 'add', worktreePath, worktreeBranch], {
+            cwd: repository,
+            encoding: 'utf8',
+            timeout: 30000
+          });
+          lastErr = null;
+          break;
+        } catch (e2) { lastErr = e2; }
+      }
+    }
   }
+  if (lastErr) throw lastErr;
 
   return {
     path: worktreePath,
@@ -60,7 +88,7 @@ function removeWorktree(worktreePath) {
   if (!fs.existsSync(worktreePath)) return;
 
   try {
-    execSync(`/everything/bin/git worktree remove --force ${worktreePath}`, {
+    execFileSync('git', ['worktree', 'remove', '--force', worktreePath], {
       encoding: 'utf8',
       timeout: 30000
     });
@@ -88,7 +116,7 @@ function isIsolated(worktreePath) {
 
   try {
     // Check that worktree is not on main branch
-    const branch = execSync('/everything/bin/git branch --show-current', {
+    const branch = execSync('git branch --show-current', {
       cwd: worktreePath,
       encoding: 'utf8'
     }).trim();
@@ -96,7 +124,7 @@ function isIsolated(worktreePath) {
     if (branch === 'main') return false;
 
     // Check that worktree exists in git's list
-    const list = execSync('/everything/bin/git worktree list --porcelain', {
+    const list = execSync('git worktree list --porcelain', {
       encoding: 'utf8'
     });
 
