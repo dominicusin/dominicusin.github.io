@@ -36,12 +36,12 @@ function createWorktree({ repository, branch, taskId }) {
   }
 
   // Create worktree with new branch
-  const cmd = `/everything/bin/git worktree add -b ${worktreeBranch} ${worktreePath} ${branch}`;
+  const cmd = `git worktree add -b ${worktreeBranch} ${worktreePath} ${branch}`;
   try {
     execSync(cmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
   } catch (e) {
     // If branch exists, use it
-    const fallbackCmd = `/everything/bin/git worktree add ${worktreePath} ${worktreeBranch}`;
+    const fallbackCmd = `git worktree add ${worktreePath} ${worktreeBranch}`;
     execSync(fallbackCmd, { cwd: repository, encoding: 'utf8', timeout: 30000 });
   }
 
@@ -60,7 +60,7 @@ function removeWorktree(worktreePath) {
   if (!fs.existsSync(worktreePath)) return;
 
   try {
-    execSync(`/everything/bin/git worktree remove --force ${worktreePath}`, {
+    execSync(`git worktree remove --force ${worktreePath}`, {
       encoding: 'utf8',
       timeout: 30000
     });
@@ -88,7 +88,7 @@ function isIsolated(worktreePath) {
 
   try {
     // Check that worktree is not on main branch
-    const branch = execSync('/everything/bin/git branch --show-current', {
+    const branch = execSync('git branch --show-current', {
       cwd: worktreePath,
       encoding: 'utf8'
     }).trim();
@@ -96,7 +96,7 @@ function isIsolated(worktreePath) {
     if (branch === 'main') return false;
 
     // Check that worktree exists in git's list
-    const list = execSync('/everything/bin/git worktree list --porcelain', {
+    const list = execSync('git worktree list --porcelain', {
       encoding: 'utf8'
     });
 
