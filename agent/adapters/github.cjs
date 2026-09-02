@@ -15,6 +15,10 @@ function escapeForDoubleQuotedShellArg(value) {
   return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
+function escapeForDoubleQuotedShellArg(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
 /**
  * Create a PR.
  */
