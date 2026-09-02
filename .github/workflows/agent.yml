@@ -7,6 +7,9 @@ on:
       - 'agent/**'
       - '.github/workflows/agent.yml'
 
+permissions:
+  contents: read
+
 jobs:
   agent-tests:
     runs-on: ubuntu-latest
