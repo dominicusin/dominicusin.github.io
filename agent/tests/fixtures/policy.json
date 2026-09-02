@@ -1,0 +1,24 @@
+{
+  "risk_classes": {
+    "R0": {
+      "autonomy": "full",
+      "gate": "none"
+    },
+    "R1": {
+      "autonomy": "full",
+      "gate": "ci"
+    },
+    "R2": {
+      "autonomy": "full",
+      "gate": "review"
+    },
+    "R3": {
+      "autonomy": "guarded",
+      "gate": "review"
+    },
+    "R4": {
+      "autonomy": "human",
+      "gate": "human"
+    }
+  }
+}
