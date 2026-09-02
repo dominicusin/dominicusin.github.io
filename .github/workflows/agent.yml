@@ -1,0 +1,45 @@
+name: '🤖 Agent CI'
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'agent/**'
+      - '.github/workflows/agent.yml'
+
+jobs:
+  agent-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Run agent tests
+        run: node --test agent/tests/
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run existing tests
+        run: npm test
+
+      - name: Hugo build
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.164.0'
+          extended: true
+
+      - run: hugo --gc --minify
+
+      - name: Upload agent artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-evidence
+          path: agent/evidence/runs/
+          retention-days: 30
