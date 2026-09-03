@@ -1,0 +1,54 @@
+// ============================================================================
+// Tokens: colors, typography, spacing
+// ============================================================================
+
+// Colors
+$color-bg: #ffffff;
+$color-surface: #f8f9fa;
+$color-border: #e5e7eb;
+$color-text: #1a1a1a;
+$color-text-secondary: #6b7280;
+$color-text-tertiary: #9ca3af;
+$color-accent: #2563eb;
+$color-accent-hover: #1d4ed8;
+
+// Dark mode colors
+$dark-bg: #0f0f0f;
+$dark-surface: #1a1a1a;
+$dark-border: #2a2a2a;
+$dark-text: #e5e5e5;
+$dark-text-secondary: #a3a3a3;
+$dark-text-tertiary: #737373;
+$dark-accent: #60a5fa;
+
+// Typography
+$font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+$font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+// Spacing
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
+$space-16: 4rem;
+
+// Layout
+$max-width: 680px;
+
+// Radius
+$radius-sm: 4px;
+$radius: 6px;
+$radius-lg: 8px;
+
+// Transitions
+$transition: 150ms ease;
+
+// Breakpoints
+$bp-tablet: 768px;
+$bp-desktop: 1024px;

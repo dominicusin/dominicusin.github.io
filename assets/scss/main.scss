@@ -1,21 +1,596 @@
 // ============================================================================
-// Main entry point — imports all SCSS partials
+// Clean Design System — minimal, clear, readable
 // ============================================================================
 
-// Abstracts (tokens, mixins, functions)
-@use 'abstracts';
+@use 'tokens' as *;
 
-// Base (reset, typography, base elements)
-@use 'base';
+// ============================================================================
+// Reset & Base
+// ============================================================================
 
-// Components (buttons, cards, tags, forms)
-@use 'components';
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-// Layout (header, footer, navigation)
-@use 'layout';
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
 
-// Pages (homepage, post, sections)
-@use 'pages';
+body {
+  font-family: $font-sans;
+  font-size: 16px;
+  line-height: 1.6;
+  color: $color-text;
+  background: $color-bg;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-// Themes (dark mode)
-@use 'themes';
+a {
+  color: $color-accent;
+  text-decoration: none;
+  transition: color $transition;
+  &:hover { color: $color-accent-hover; }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: $radius;
+}
+
+code {
+  font-family: $font-mono;
+  font-size: 0.9em;
+  background: $color-surface;
+  padding: 0.15em 0.4em;
+  border-radius: $radius-sm;
+}
+
+pre {
+  font-family: $font-mono;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  padding: $space-4;
+  overflow-x: auto;
+  margin-bottom: $space-4;
+  code { background: none; padding: 0; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-serif;
+  font-weight: 600;
+  line-height: 1.25;
+  color: $color-text;
+}
+
+h1 { font-size: 2rem; margin-bottom: $space-4; }
+h2 { font-size: 1.5rem; margin-bottom: $space-3; }
+h3 { font-size: 1.25rem; margin-bottom: $space-2; }
+p { margin-bottom: $space-4; }
+
+blockquote {
+  border-left: 3px solid $color-accent;
+  padding-left: $space-4;
+  margin: $space-6 0;
+  color: $color-text-secondary;
+  font-style: italic;
+}
+
+// ============================================================================
+// Layout
+// ============================================================================
+
+.container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $space-6;
+}
+
+// ============================================================================
+// Header
+// ============================================================================
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid $color-border;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $space-6;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  font-weight: 700;
+  color: $color-text;
+  font-family: $font-serif;
+  &:hover { color: $color-text; }
+}
+
+.brand-mark {
+  display: inline-grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: $radius-sm;
+  background: $color-accent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+  a {
+    color: $color-text-secondary;
+    font-size: 0.9rem;
+    font-weight: 500;
+    &:hover { color: $color-text; }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: $radius;
+  border: none;
+  background: transparent;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: background $transition, color $transition;
+  &:hover { background: $color-surface; color: $color-text; }
+}
+
+.burger { display: none; }
+
+// ============================================================================
+// Mobile Nav
+// ============================================================================
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 280px;
+  background: $color-bg;
+  border-right: 1px solid $color-border;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  overflow-y: auto;
+  padding: $space-6;
+  &.open { transform: translateX(0); }
+}
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-8;
+}
+
+.mobile-nav-group { margin-bottom: $space-6; }
+
+.mobile-nav-group-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-text-tertiary;
+  margin-bottom: $space-2;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: $space-2 0;
+  color: $color-text;
+  font-size: 0.95rem;
+  &:hover { color: $color-accent; }
+}
+
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  &.open { opacity: 1; pointer-events: auto; }
+}
+
+// ============================================================================
+// Hero
+// ============================================================================
+
+.hero {
+  padding: $space-16 0;
+  text-align: center;
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: $space-4; }
+  p { font-size: 1.15rem; color: $color-text-secondary; max-width: 500px; margin: 0 auto $space-8; }
+}
+
+.hero-cta {
+  display: flex;
+  gap: $space-3;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+// ============================================================================
+// Buttons
+// ============================================================================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-2 $space-5;
+  border-radius: $radius;
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all $transition;
+}
+
+.btn-primary {
+  background: $color-accent;
+  color: #fff;
+  &:hover { background: $color-accent-hover; color: #fff; }
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: $color-border;
+  color: $color-text;
+  &:hover { border-color: $color-text; }
+}
+
+// ============================================================================
+// Cards
+// ============================================================================
+
+.card {
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $space-6;
+  transition: border-color $transition;
+  &:hover { border-color: $color-accent; }
+}
+
+.card-meta { font-size: 0.85rem; color: $color-text-tertiary; margin-bottom: $space-2; }
+.card-title { font-family: $font-serif; font-size: 1.25rem; font-weight: 600; margin-bottom: $space-2; }
+.card-excerpt { color: $color-text-secondary; font-size: 0.95rem; }
+
+// ============================================================================
+// Tags
+// ============================================================================
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-3;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $color-text-secondary;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  transition: all $transition;
+  &:hover { color: $color-accent; border-color: $color-accent; }
+}
+
+// ============================================================================
+// Post List
+// ============================================================================
+
+.post-list { display: flex; flex-direction: column; gap: $space-4; }
+
+.post-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4 0;
+  border-bottom: 1px solid $color-border;
+  &:last-child { border-bottom: none; }
+}
+
+.post-date { font-size: 0.85rem; color: $color-text-tertiary; white-space: nowrap; }
+.post-title { font-family: $font-serif; font-size: 1.1rem; font-weight: 600; color: $color-text; }
+.post-meta { font-size: 0.85rem; color: $color-text-tertiary; }
+
+// ============================================================================
+// Post
+// ============================================================================
+
+.post { padding: $space-12 0; }
+
+.post-header {
+  margin-bottom: $space-8;
+  padding-bottom: $space-6;
+  border-bottom: 1px solid $color-border;
+  h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: $space-4; }
+}
+
+.post-meta {
+  display: flex;
+  gap: $space-3;
+  align-items: center;
+  color: $color-text-secondary;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.post-content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  h2 { margin-top: $space-10; }
+  h3 { margin-top: $space-8; }
+  img { margin: $space-6 0; }
+}
+
+// ============================================================================
+// Post Nav
+// ============================================================================
+
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-4;
+  margin-top: $space-10;
+  padding-top: $space-6;
+  border-top: 1px solid $color-border;
+}
+
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  padding: $space-4;
+  background: $color-surface;
+  border-radius: $radius;
+}
+
+.post-nav-label { font-size: 0.8rem; color: $color-text-tertiary; }
+.post-nav-title { font-weight: 500; color: $color-text; }
+
+// ============================================================================
+// Section Header
+// ============================================================================
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: $space-10 0 $space-6;
+  padding-bottom: $space-3;
+  border-bottom: 1px solid $color-border;
+  h2 { font-family: $font-serif; font-size: 1.25rem; }
+}
+
+// ============================================================================
+// Grid
+// ============================================================================
+
+.grid { display: grid; gap: $space-4; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+// ============================================================================
+// Category Grid
+// ============================================================================
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $space-3;
+}
+
+.category-card {
+  padding: $space-4;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius;
+  text-align: center;
+  transition: border-color $transition;
+  &:hover { border-color: $color-accent; }
+}
+
+.category-name { font-weight: 600; font-size: 0.9rem; }
+.category-count { font-size: 0.8rem; color: $color-text-tertiary; }
+
+// ============================================================================
+// Newsletter
+// ============================================================================
+
+.newsletter {
+  text-align: center;
+  padding: $space-12 0;
+  h3 { font-family: $font-serif; font-size: 1.5rem; margin-bottom: $space-3; }
+  p { color: $color-text-secondary; margin-bottom: $space-6; }
+}
+
+.newsletter-form {
+  display: flex;
+  gap: $space-3;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input {
+  flex: 1;
+  padding: $space-2 $space-4;
+  border-radius: $radius;
+  border: 1px solid $color-border;
+  background: $color-bg;
+  color: $color-text;
+  font-size: 0.95rem;
+  transition: border-color $transition;
+  &:focus { outline: none; border-color: $color-accent; }
+}
+
+// ============================================================================
+// Scroll Top
+// ============================================================================
+
+.scroll-top {
+  position: fixed;
+  bottom: $space-6;
+  right: $space-6;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid $color-border;
+  background: $color-bg;
+  color: $color-text-secondary;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  font-size: 1.2rem;
+  &.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  &:hover { border-color: $color-accent; color: $color-accent; }
+}
+
+// ============================================================================
+// Footer
+// ============================================================================
+
+.site-footer {
+  margin-top: $space-16;
+  padding: $space-12 0;
+  border-top: 1px solid $color-border;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: $space-8;
+  margin-bottom: $space-8;
+}
+
+.footer-brand p { color: $color-text-secondary; font-size: 0.9rem; }
+
+.footer-col h5 {
+  font-family: $font-sans;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $color-text-tertiary;
+  margin-bottom: $space-3;
+}
+
+.footer-col a {
+  display: block;
+  padding: $space-1 0;
+  color: $color-text-secondary;
+  font-size: 0.9rem;
+  &:hover { color: $color-text; }
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $space-6;
+  border-top: 1px solid $color-border;
+  font-size: 0.85rem;
+  color: $color-text-tertiary;
+}
+
+// ============================================================================
+// Dark Mode
+// ============================================================================
+
+[data-theme="dark"] {
+  body { background: #0f0f0f; color: #e5e5e5; }
+  h1, h2, h3, h4, h5, h6 { color: #e5e5e5; }
+  a { color: #60a5fa; &:hover { color: #93c5fd; } }
+
+  .site-header { background: rgba(15,15,15,0.95); border-bottom-color: #2a2a2a; }
+  .nav a { color: #a3a3a3; &:hover { color: #e5e5e5; } }
+  .icon-btn { color: #a3a3a3; &:hover { background: #1a1a1a; color: #e5e5e5; } }
+
+  .mobile-nav { background: #0f0f0f; border-right-color: #2a2a2a; }
+  .mobile-nav a { color: #e5e5e5; &:hover { color: #60a5fa; } }
+
+  .card { background: #0f0f0f; border-color: #2a2a2a; &:hover { border-color: #60a5fa; } }
+  .post-item { border-bottom-color: #2a2a2a; }
+  .post-title { color: #e5e5e5; }
+
+  .tag { background: #1a1a1a; border-color: #2a2a2a; color: #a3a3a3; &:hover { color: #60a5fa; border-color: #60a5fa; } }
+  .post-nav-link { background: #1a1a1a; }
+  .post-nav-title { color: #e5e5e5; }
+
+  .site-footer { border-top-color: #2a2a2a; }
+  .footer-col a { color: #a3a3a3; &:hover { color: #e5e5e5; } }
+  .footer-bottom { border-top-color: #2a2a2a; }
+  .section-header { border-bottom-color: #2a2a2a; }
+
+  .category-card { background: #1a1a1a; border-color: #2a2a2a; &:hover { border-color: #60a5fa; } }
+  .newsletter p { color: #a3a3a3; }
+
+  .input { background: #0f0f0f; border-color: #2a2a2a; color: #e5e5e5; &:focus { border-color: #60a5fa; } }
+
+  .scroll-top { background: #0f0f0f; border-color: #2a2a2a; color: #a3a3a3; &:hover { border-color: #60a5fa; color: #60a5fa; } }
+
+  code { background: #1a1a1a; }
+  pre { background: #1a1a1a; border-color: #2a2a2a; }
+  blockquote { color: #a3a3a3; }
+
+  .btn-ghost { border-color: #2a2a2a; color: #e5e5e5; &:hover { border-color: #e5e5e5; } }
+  .btn-primary { background: #60a5fa; &:hover { background: #93c5fd; } }
+}
+
+// ============================================================================
+// Responsive
+// ============================================================================
+
+@media (max-width: $bp-tablet) {
+  .nav { display: none; }
+  .burger { display: inline-flex; }
+  .footer-grid { grid-template-columns: 1fr; gap: $space-6; }
+  .post-item { grid-template-columns: 1fr; gap: $space-1; }
+  .hero { padding: $space-12 0; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+}
+
+@media (min-width: $bp-desktop) {
+  .nav { display: flex; }
+  .burger { display: none; }
+}

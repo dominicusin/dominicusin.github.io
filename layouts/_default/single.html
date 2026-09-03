@@ -1,46 +1,97 @@
-{{/*
-  Single post — unified design system.
-*/}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.Locale | default "ru" }}" data-theme="dark">
-{{ partial "neo-head.html" . }}
-<body{{ with .PrevInSection }} data-prev="{{ .RelPermalink }}"{{ end }}{{ with .NextInSection }} data-next="{{ .RelPermalink }}"{{ end }}>
-{{ partial "neo-header.html" . }}
-<main class="container" id="main">
-<article class="post-layout">
-  <div class="post-body">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>{{ .Title }} · {{ site.Title }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  {{/* Fonts */}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+  {{/* CSS */}}
+  {{ with resources.Get "css/compiled.css" }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{ end }}
+
+  {{/* JS */}}
+  <script src="{{ "js/theme-init.js" | relURL }}" defer></script>
+  <script src="{{ "js/scroll-to-top.js" | relURL }}" defer></script>
+  <script src="{{ "js/custom.js" | relURL }}" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>{{ site.Title }}</span>
+    </a>
+
+    <nav class="nav" aria-label="Навигация">
+      <a href="{{ "blog/" | relURL }}">Блог</a>
+      <a href="{{ "about/" | relURL }}">О сайте</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="theme-toggle" aria-label="Тема">◐</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <article class="post">
     <header class="post-header">
+      <h1>{{ .Title }}</h1>
       <div class="post-meta">
-        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "02 янв 2006" }}</time>
         <span>·</span>
         <span>⏱ {{ .ReadingTime }} мин чтения</span>
         <span>·</span>
         <span>{{ .WordCount }} слов</span>
       </div>
-      <h1>{{ .Title }}</h1>
-      {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
-      <div class="post-meta" style="margin-top:.5rem">
-        {{ range .Params.tags }}<a class="tag" href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+      {{ with .Params.tags }}
+      <div class="post-meta" style="margin-top: 0.5rem">
+        {{ range . }}<a class="tag" href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
       </div>
+      {{ end }}
     </header>
-    {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
-    <div class="post-content">{{ .Content }}</div>
+
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+
     {{ if or .PrevInSection .NextInSection }}
     <nav class="post-nav" aria-label="Навигация по записям">
-      {{ with .PrevInSection }}<a class="pn-card" href="{{ .RelPermalink }}"><span class="more">← Предыдущая</span><span class="title">{{ .Title }}</span><span class="date">{{ .Date.Format "2006-01-02" }}</span></a>{{ end }}
-      {{ with .NextInSection }}<a class="pn-card" href="{{ .RelPermalink }}"><span class="more">Следующая →</span><span class="title">{{ .Title }}</span><span class="date">{{ .Date.Format "2006-01-02" }}</span></a>{{ end }}
+      {{ with .PrevInSection }}
+      <a class="post-nav-link" href="{{ .RelPermalink }}">
+        <span class="post-nav-label">← Предыдущая</span>
+        <span class="post-nav-title">{{ .Title }}</span>
+      </a>
+      {{ end }}
+      {{ with .NextInSection }}
+      <a class="post-nav-link" href="{{ .RelPermalink }}">
+        <span class="post-nav-label">Следующая →</span>
+        <span class="post-nav-title">{{ .Title }}</span>
+      </a>
+      {{ end }}
     </nav>
     {{ end }}
-    {{ partial "share.html" . }}
-    {{ partial "content-graph.html" . }}
-    {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}
-    {{ partial "neo-subscribe.html" . }}
-  </div>
-  <aside class="toc" aria-label="Оглавление">
-    {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
-  </aside>
-</article>
+  </article>
 </main>
-{{ partial "neo-footer.html" . }}
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© {{ now.Year }} · {{ site.Title }}</span>
+      <span>CC0 · Hugo</span>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" aria-label="Наверх">↑</button>
 </body>
 </html>
