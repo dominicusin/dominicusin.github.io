@@ -139,10 +139,7 @@
   {{ if $cssScheme }}
     {{ $cssResources = $cssResources | append $cssScheme }}
   {{ end }}
-  {{ with resources.Get "css/design-system.css" }}
-    {{ $cssResources = $cssResources | append . }}
-  {{ end }}
-  {{ with resources.Get "css/custom.css" }}
+  {{ with resources.Get "css/compiled.css" }}
     {{ $cssResources = $cssResources | append . }}
   {{ end }}
   {{ if not .Site.Params.disableImageZoom | default true }}

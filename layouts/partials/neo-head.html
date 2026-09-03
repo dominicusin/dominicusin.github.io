@@ -56,7 +56,6 @@
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ .Permalink }}">{{ end }}
 
 {{/* Critical CSS: inline for first paint */}}
-{{ partial "neo-critical.html" . }}
 
 {{/* Main CSS: render-blocking (avoids CLS/FOUC — see AGENTS gotcha on preload+swap CLS ~1.0) */}}
 {{ partial "head.html" . }}

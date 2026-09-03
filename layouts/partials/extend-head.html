@@ -5,11 +5,5 @@
   production page. Removed — there is no Vercel deployment, so the include is
   dead weight. If analytics is ever wanted, use a Pages-compatible provider.
 
-  Neo design-system CSS (standalone .neo-* layer, see assets/css/neo.css).
-  Added 2026-08-27: namespace-scoped so it never collides with Blowfish or
-  the movie-grid styles in custom.css. Loaded after the theme styles.
+  Neo CSS is now compiled from SCSS (assets/scss/main.scss).
 */}}
-{{ with resources.Get "css/neo.css" }}
-  {{ $css := . | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
-{{ end }}

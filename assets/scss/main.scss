@@ -1,0 +1,21 @@
+// ============================================================================
+// Main entry point — imports all SCSS partials
+// ============================================================================
+
+// Abstracts (tokens, mixins, functions)
+@use 'abstracts';
+
+// Base (reset, typography, base elements)
+@use 'base';
+
+// Components (buttons, cards, tags, forms)
+@use 'components';
+
+// Layout (header, footer, navigation)
+@use 'layout';
+
+// Pages (homepage, post, sections)
+@use 'pages';
+
+// Themes (dark mode)
+@use 'themes';
