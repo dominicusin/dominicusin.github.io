@@ -83,21 +83,6 @@ body::before{
     radial-gradient(700px 500px at 0% 10%,rgba(167,139,250,.09),transparent 55%),
     var(--bg);
 }
-/* aurora: drifting glow orbs behind everything */
-body::after{
-  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
-                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:44px 44px;
-  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
-          mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);
-}
-.neo-aurora{position:fixed;inset:-20vmax;z-index:-3;pointer-events:none;filter:blur(40px);opacity:.55;
-  background:
-    radial-gradient(38vmax 38vmax at 20% 18%,rgba(79,209,197,.3),transparent 60%),
-    radial-gradient(34vmax 34vmax at 82% 30%,rgba(167,139,250,.26),transparent 60%),
-    radial-gradient(30vmax 30vmax at 60% 88%,rgba(125,211,252,.22),transparent 60%);
-  animation:neo-aurora 22s ease-in-out infinite alternate}
 
 /* ---------- LAYOUT ---------- */
 .neo-wrap{max-width:var(--content-max,720px);margin:0 auto;padding:0 1.25rem}
@@ -218,7 +203,6 @@ body::after{
 .neo-skip:focus{top:0}
 
 /* ---------- ANIMATIONS ---------- */
-@keyframes neo-aurora{
   0%{transform:translate3d(0,0,0) scale(1)}
   100%{transform:translate3d(2vw,-2vh,0) scale(1.05)}
 }
@@ -380,7 +364,7 @@ body::after{
 
 /* ---------- PRINT ---------- */
 @media print{
-  .neo-header,.neo-footer,.neo-burger,.neo-mobile-nav,.neo-aurora,.neo-subscribe,.neo-share-fediverse{display:none!important}
+  .neo-header,.neo-footer,.neo-burger,.neo-mobile-nav, .neo-subscribe,.neo-share-fediverse{display:none!important}
   body{background:#fff;color:#000}
   .neo-post{max-width:none;padding:0}
   a{color:#000;text-decoration:none}
