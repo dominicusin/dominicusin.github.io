@@ -4,192 +4,59 @@
   so adding a category needs no menu edit. A settings drawer (theme/appearance/
   accessibility/search) is wired by custom.js. EN is disabled, so no RU/EN.
 */}}
-<header class="neo-header">
-  <a class="neo-skip" href="#main">Перейти к содержанию</a>
-  <div class="neo-nav">
-    <a class="neo-brand" href="{{ site.Home.RelPermalink }}">
-      <span class="mark">D</span>
-      <span>Dominicus&nbsp;In<small>engineering · systems · data</small></span>
+<header class="site-header">
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+  <div class="container site-header-inner">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span class="brand-text">Dominicus&nbsp;In<small>engineering · systems · data</small></span>
     </a>
 
-    {{/* Explicit primary navigation (ordered as requested) */}}
-    <nav class="neo-menu" aria-label="Разделы">
+    <nav class="primary-nav" aria-label="Разделы">
       <a href="{{ "blog/" | relURL }}">Блог</a>
       <a href="{{ "repositories/" | relURL }}">Репозитории</a>
       <a href="{{ "gists/" | relURL }}">Гисты</a>
-      <a href="{{ "ontology/" | relURL }}">Онтология</a>
       <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
-      <a href="{{ "awesome/" | relURL }}">awesome</a>
-      <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
-      <a href="{{ "categories/" | relURL }}">Категории</a>
-      <a href="{{ "tags/" | relURL }}">Теги</a>
-      <a href="{{ "sitemap.xml" | relURL }}">sitemap</a>
-      <a href="{{ "feeds/" | relURL }}">Ленты</a>
-      <a href="{{ "favorites/" | relURL }}">Избранное</a>
-      <a href="{{ "analytics/" | relURL }}">Аналитика</a>
+      <a href="{{ "awesome/" | relURL }}">Awesome</a>
+      <a href="{{ "about/" | relURL }}">О сайте</a>
     </nav>
 
-    <div class="neo-nav-actions">
-      <button class="neo-icon-btn neo-burger" id="neo-burger" aria-label="Меню" aria-expanded="false" aria-controls="neo-mobile-nav">☰</button>
-      <button class="neo-icon-btn" id="neo-search-open" aria-label="Поиск" title="Поиск">⌕</button>
-      <button class="neo-icon-btn" id="neo-motion-quick" aria-label="Анимация вкл/выкл" title="Анимация">✦</button>
-      <div class="neo-settings">
-        <button class="neo-icon-btn" id="neo-settings-btn" aria-label="Настройки" title="Настройки">⚙</button>
-        <div class="neo-drawer" id="neo-drawer" role="dialog" aria-label="Настройки оформления" hidden>
-          <h5>Тема оформления</h5>
-          <div class="neo-theme-grid" id="neo-theme-grid">
-            <div class="neo-theme-opt" data-theme="dark"><span class="neo-sw" style="background:#0b0e14"></span>Тёмная</div>
-            <div class="neo-theme-opt" data-theme="light"><span class="neo-sw" style="background:#f6f8fb"></span>Светлая</div>
-            <div class="neo-theme-opt" data-theme="solar"><span class="neo-sw" style="background:#1c1917"></span>Solar</div>
-            <div class="neo-theme-opt" data-theme="mono"><span class="neo-sw" style="background:#0a0a0a"></span>Mono</div>
-          </div>
-          <h5>Акцент</h5>
-          <div class="neo-accent-grid" id="neo-accent-grid">
-            <div class="neo-accent-opt" data-accent="teal" style="background:#4fd1c5" title="Teal"></div>
-            <div class="neo-accent-opt" data-accent="violet" style="background:#a78bfa" title="Violet"></div>
-            <div class="neo-accent-opt" data-accent="amber" style="background:#fbbf24" title="Amber"></div>
-            <div class="neo-accent-opt" data-accent="emerald" style="background:#34d399" title="Emerald"></div>
-            <div class="neo-accent-opt" data-accent="rose" style="background:#fb7185" title="Rose"></div>
-          </div>
-          <h5>Доступность</h5>
-          <div class="neo-row-opt">
-            <span>Размер шрифта</span>
-            <div class="neo-seg" id="neo-fscale">
-              <button data-fs="normal">A</button>
-              <button data-fs="large">A+</button>
-              <button data-fs="xlarge">A++</button>
-            </div>
-          </div>
-          <div class="neo-row-opt">
-            <span>Анимация</span>
-            <div class="neo-seg" id="neo-motion">
-              <button data-motion="on">Вкл</button>
-              <button data-motion="off">Выкл</button>
-            </div>
-          </div>
-          <h5>Навигация</h5>
-          <a class="neo-theme-opt" href="{{ "blog/" | relURL }}" style="margin-top:4px">📝 Блог</a>
-          <a class="neo-theme-opt" href="{{ "repositories/" | relURL }}" style="margin-top:4px">📦 Репозитории</a>
-          <a class="neo-theme-opt" href="{{ "gists/" | relURL }}" style="margin-top:4px">📄 Гисты</a>
-          <a class="neo-theme-opt" href="{{ "ontology/" | relURL }}" style="margin-top:4px">🕸 Онтология</a>
-          <a class="neo-theme-opt" href="{{ "knowledge-graph/" | relURL }}" style="margin-top:4px">🔗 Graph</a>
-          <a class="neo-theme-opt" href="{{ "awesome/" | relURL }}" style="margin-top:4px">⭐ awesome</a>
-          <a class="neo-theme-opt" href="{{ "wiki-build/" | relURL }}" style="margin-top:4px">📖 Wiki</a>
-          <a class="neo-theme-opt" href="{{ "categories/" | relURL }}" style="margin-top:4px">🗂 Категории</a>
-          <a class="neo-theme-opt" href="{{ "tags/" | relURL }}" style="margin-top:4px">🏷 Теги</a>
-          <a class="neo-theme-opt" href="{{ "sitemap.xml" | relURL }}" style="margin-top:4px">🗺 sitemap.xml</a>
-          <a class="neo-theme-opt" href="{{ "search/" | relURL }}" style="margin-top:4px">⌕ Поиск по сайту</a>
-          <a class="neo-theme-opt" href="{{ "archives/" | relURL }}" style="margin-top:4px">🗓 Архив по годам</a>
-        </div>
-      </div>
-      <button class="neo-icon-btn" id="neo-theme-toggle" aria-label="Светлая/тёмная" title="Светлая/тёмная">◐</button>
+    <div class="header-actions">
+      <button class="icon-btn" id="neo-search-open" aria-label="Поиск" title="Поиск">⌕</button>
+      <button class="icon-btn" id="neo-theme-toggle" aria-label="Светлая/тёмная" title="Светлая/тёмная">◐</button>
+      <button class="icon-btn burger" id="neo-burger" aria-label="Меню" aria-expanded="false" aria-controls="neo-mobile-nav">☰</button>
     </div>
   </div>
-  <nav class="neo-mobile-nav" id="neo-mobile-nav" aria-label="Мобильное меню" hidden>
-    <div class="neo-mobile-head">
-      <div class="neo-mobile-title">Навигация</div>
-      <button class="neo-icon-btn neo-mobile-close" id="neo-mobile-close" aria-label="Закрыть меню">✕</button>
-    </div>
 
-    <details class="neo-tree" open>
-      <summary>📝 Блог</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "blog/" | relURL }}">Все записи</a>
+  <nav class="mobile-panel" id="neo-mobile-nav" aria-label="Мобильное меню" hidden>
+    <div class="mobile-panel-inner">
+      <div class="mobile-panel-head">
+        <div class="mobile-title">Навигация</div>
+        <button class="icon-btn" id="neo-mobile-close" aria-label="Закрыть меню">✕</button>
+      </div>
+
+      <div class="mobile-group">
+        <div class="mobile-group-title">Основное</div>
+        <a href="{{ "blog/" | relURL }}">Блог</a>
+        <a href="{{ "repositories/" | relURL }}">Репозитории</a>
+        <a href="{{ "gists/" | relURL }}">Гисты</a>
+        <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
+        <a href="{{ "awesome/" | relURL }}">Awesome</a>
+        <a href="{{ "about/" | relURL }}">О сайте</a>
+      </div>
+
+      <div class="mobile-group">
+        <div class="mobile-group-title">Дополнительно</div>
+        <a href="{{ "wiki-build/" | relURL }}">Wiki</a>
         <a href="{{ "categories/" | relURL }}">Категории</a>
         <a href="{{ "tags/" | relURL }}">Теги</a>
-        <a href="{{ "archives/" | relURL }}">Архив по годам</a>
+        <a href="{{ "sitemap.xml" | relURL }}">Карта сайта</a>
+        <a href="{{ "feeds/" | relURL }}">Ленты</a>
+        <a href="{{ "favorites/" | relURL }}">Избранное</a>
+        <a href="{{ "analytics/" | relURL }}">Аналитика</a>
+        <a href="{{ "ontology/" | relURL }}">Онтология</a>
+        <a href="{{ "search/" | relURL }}">Поиск</a>
       </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>📦 Репозитории</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "repositories/" | relURL }}">Все репозитории</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>📄 Гисты</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "gists/" | relURL }}">Все гисты</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>🕸 Онтология</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "ontology/" | relURL }}">Граф онтологии</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>🔗 Knowledge Graph</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "knowledge-graph/" | relURL }}">Интерактивный граф</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>⭐ Awesome</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "awesome/" | relURL }}">Каталог</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>📖 Wiki</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "wiki-build/" | relURL }}">Все страницы</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>🗂 Категории</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "categories/" | relURL }}">Все категории</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>🏷 Теги</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "tags/" | relURL }}">Все теги</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>🗺 Карта сайта</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "sitemap.xml" | relURL }}">sitemap.xml</a>
-        <a href="{{ "sitemap/" | relURL }}">Страницы сайта</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>📡 Ленты</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "feeds/" | relURL }}">Все ленты</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>⭐ Избранное</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "favorites/" | relURL }}">Все записи</a>
-      </div>
-    </details>
-
-    <details class="neo-tree">
-      <summary>📊 Аналитика</summary>
-      <div class="neo-tree-body">
-        <a href="{{ "analytics/" | relURL }}">Статистика</a>
-      </div>
-    </details>
-
-    <div class="neo-mobile-footer">
-      <a class="neo-theme-opt" href="{{ "search/" | relURL }}">⌕ Поиск</a>
-      <button class="neo-theme-opt" id="neo-mobile-theme">◐ Сменить тему</button>
-      <button class="neo-theme-opt" id="neo-mobile-share">📤 Поделиться</button>
     </div>
   </nav>
 </header>

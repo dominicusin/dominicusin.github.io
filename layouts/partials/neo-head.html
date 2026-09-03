@@ -51,8 +51,9 @@
 {{ partial "neo-critical.html" . }}
 
 {{/* Main CSS: render-blocking (avoids CLS/FOUC — see AGENTS gotcha on preload+swap CLS ~1.0) */}}
-{{ $css := resources.Get "css/neo.css" | minify | fingerprint }}
-<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{ partial "head.html" . }}
+
+{{/* Critical inline helpers for legacy Neo classes until templates are migrated */}}
 <style>.neo-mobile-nav:not(.open),.neo-drawer:not(.open){display:none}</style>
 
 {{ partial "neo-store.html" . }}
@@ -62,7 +63,10 @@
 <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
 
 {{/* Theme initialization */}}
-<script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+{{ with resources.Get "js/theme-init.js" }}
+  {{ $jsTheme := . | resources.Minify | resources.Fingerprint "sha512" }}
+  <script defer src="{{ $jsTheme.RelPermalink }}" integrity="{{ $jsTheme.Data.Integrity }}"></script>
+{{ end }}
 
 {{/* JSON-LD Structured Data */}}
 {{ if .IsHome }}

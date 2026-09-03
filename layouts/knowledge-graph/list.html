@@ -1,23 +1,4 @@
 {{/*
-  Knowledge Graph section list — renders .Content (which contains the D3
-  #kg-root graph + scripts). Standalone Neo document.
+  Knowledge Graph section list — unified design system.
 */}}
-<!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
-{{ partial "neo-head.html" . }}
-<body>
-{{ partial "neo-header.html" . }}
-<main class="neo" id="main">
-<article class="neo-post">
-  <nav class="neo-crumbs"><a href="{{ site.Home.RelPermalink }}">Главная</a><span>/</span><span>{{ .Title }}</span></nav>
-  <header class="neo-post-head">
-    <div class="neo-eyebrow">{{ .Date.Format "2006-01-02" }}</div>
-    <h1>{{ .Title }}</h1>
-    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
-  </header>
-  <div class="neo-post-body">{{ .Content }}</div>
-</article>
-</main>
-{{ partial "neo-footer.html" . }}
-</body>
-</html>
+{{ partial "neo-base.html" . }}

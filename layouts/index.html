@@ -1,6 +1,5 @@
 {{/*
-  Homepage — Neo design system (standalone full document, does NOT use
-  baseof so it won't inherit Tailwind). Reuses the Neo partials only.
+  Homepage — unified design system.
 */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
@@ -9,81 +8,68 @@
 {{ partial "neo-header.html" . }}
 {{ $blog := where site.RegularPages "Section" "blog" }}
 {{ $blog = sort $blog "Date" "desc" }}
-
-<main class="neo" id="main">
-  <section class="neo-hero">
-    <div>
-      <div class="neo-eyebrow">~ dominicusin.github.io</div>
-      <h1>Инженерный блог<br/><span class="grad">о системах и данных</span></h1>
-      <p class="lead">{{ site.Params.description | default "Промышленная инженерия, системная инженерия и наука о данных." }}</p>
-      <div class="neo-tags">
-        {{ range first 6 site.Taxonomies.tags.ByCount }}
-          <a class="neo-chip" href="{{ .Page.RelPermalink }}"><b>#</b> {{ .Page.Title }}</a>
-        {{ end }}
-      </div>
+<main class="container" id="main">
+  <section class="hero">
+    <h1>Инженерный блог<br/><span class="grad">о системах и данных</span></h1>
+    <p class="lead">{{ site.Params.description | default "Промышленная инженерия, системная инженерия и наука о данных." }}</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="{{ "blog/" | relURL }}">Перейти в блог</a>
+      <a class="btn btn-ghost" href="{{ "about/" | relURL }}">О проекте</a>
     </div>
-    <div class="neo-term">
-      <div class="neo-term-bar">
-        <span class="neo-dot" style="background:#ff5f57"></span>
-        <span class="neo-dot" style="background:#febc2e"></span>
-        <span class="neo-dot" style="background:#28c840"></span>
-        <span class="path">~/engineering-blog — zsh</span>
-      </div>
-      <div class="neo-term-body">
-        <div><span class="ln">1</span> <span class="p">$</span> <span class="k">git</span> log --oneline -3</div>
-        <div><span class="ln">2</span> <span class="c"># {{ with index $blog 0 }}{{ .Title }}{{ end }} · и другие записи</span></div>
-        <div><span class="ln">3</span> <span class="p">$</span> <span class="k">hugo</span> server --bind 0.0.0.0</div>
-        <div><span class="ln">4</span> <span class="c"># Watching for changes… live at :1313</span></div>
-        <div><span class="ln">5</span> <span class="p">$</span> <span class="k">guix</span> <span class="s">pull</span> <span class="c"># update the world</span></div>
-        <div><span class="ln">6</span> <span class="p">$</span> <span class="k">zpool</span> <span class="s">status</span> <span class="c"># all good</span></div>
-        <div><span class="ln">7</span> <span class="p">$</span> <span class="neo-cursor"></span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="neo-wrap">
-    <div class="neo-sec-head"><h2>Избранное</h2><a class="more" href="{{ "blog/" | relURL }}">все посты →</a></div>
-    <div class="neo-featured">
-      {{ range first 3 $blog }}
-      <article class="neo-card">
-        <div class="meta">{{ with .Params.categories }}<span class="cat">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <p>{{ .Summary | truncate 140 }}</p>
-        <a class="read" href="{{ .RelPermalink }}">Читать</a>
-      </article>
+    <div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap;color:var(--ink-600);font-size:.85rem">
+      {{ range first 6 site.Taxonomies.tags.ByCount }}
+        <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>
       {{ end }}
     </div>
   </section>
 
-  <section class="neo-wrap">
-    <div class="neo-sec-head"><h2>Последние записи</h2><a class="more" href="{{ "blog/" | relURL }}">архив →</a></div>
-    <div class="neo-rows">
+  <section>
+    <div class="section-header"><h2>Избранное</h2><a class="more" href="{{ "blog/" | relURL }}">все посты →</a></div>
+    <div class="editorial-grid">
+      {{ range first 3 $blog }}
+        <article class="card">
+          <div class="editorial-meta">{{ with .Params.categories }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p>{{ .Summary | truncate 180 }}</p>
+          <div class="editorial-meta"><span>⏱ {{ .ReadingTime }} мин</span><span>· {{ .WordCount }} слов</span></div>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header"><h2>Последние записи</h2><a class="more" href="{{ "blog/" | relURL }}">архив →</a></div>
+    <div class="recent-rows">
       {{ range first 10 $blog }}
-      <a class="neo-row" href="{{ .RelPermalink }}">
+      <a class="recent-row" href="{{ .RelPermalink }}">
         <span class="date">{{ .Date.Format "2006-01-02" }}</span>
         <span class="title">{{ .Title }}</span>
-        {{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}
+        <span class="meta">{{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span style="color:var(--ink-500)">⏱ {{ .ReadingTime }} мин</span></span>
       </a>
       {{ end }}
     </div>
   </section>
 
-  <section class="neo-wrap">
-    <div class="neo-sec-head"><h2>Категории</h2><a class="more" href="{{ "categories/" | relURL }}">все →</a></div>
-    <div class="neo-cats">
+  <section>
+    <div class="section-header"><h2>Категории</h2><a class="more" href="{{ "categories/" | relURL }}">все →</a></div>
+    <div class="category-grid">
       {{ range site.Taxonomies.categories.ByCount }}
-      <a class="neo-cat" href="{{ .Page.RelPermalink }}"><div class="ico">▸</div><h4>{{ .Page.Title }}</h4><span>{{ .Count }} записей</span></a>
+      <a class="category-card" href="{{ .Page.RelPermalink }}">
+        <div class="cat-icon">▸</div>
+        <div class="cat-name">{{ .Page.Title }}</div>
+        <div class="cat-count">{{ .Count }} записей</div>
+      </a>
       {{ end }}
     </div>
   </section>
 
-  <section class="neo-wrap">
-    <div class="neo-news">
-      <div><h3>Подпишитесь на обновления</h3><p>Новые записи блога прямо в почту. Никакого спама — только инженерия, системы и данные.</p></div>
-      <form action="{{ site.Params.newsletterAction | default "#" }}" method="post">
-        <input type="email" name="email" placeholder="you@example.com" required /><button type="submit">Подписаться</button>
-      </form>
-    </div>
+  <section class="newsletter">
+    <h3>Подпишитесь на обновления</h3>
+    <p>Новые записи блога прямо в почту. Никакого спама — только инженерия, системы и данные.</p>
+    <form class="newsletter-form" action="{{ site.Params.newsletterAction | default "#" }}" method="post">
+      <input class="input" type="email" name="email" placeholder="you@example.com" required />
+      <button class="btn btn-primary" type="submit">Подписаться</button>
+    </form>
   </section>
 </main>
 {{ partial "neo-footer.html" . }}
