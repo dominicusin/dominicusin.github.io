@@ -63,7 +63,10 @@
 <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
 
 {{/* Theme initialization */}}
-<script type="module">(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+{{ with resources.Get "js/theme-init.js" }}
+  {{ $jsTheme := . | resources.Minify | resources.Fingerprint "sha512" }}
+  <script defer src="{{ $jsTheme.RelPermalink }}" integrity="{{ $jsTheme.Data.Integrity }}"></script>
+{{ end }}
 
 {{/* JSON-LD Structured Data */}}
 {{ if .IsHome }}
