@@ -80,26 +80,41 @@
   var burger = document.getElementById('neo-burger');
   var mnav = document.getElementById('neo-mobile-nav');
   var mClose = document.getElementById('neo-mobile-close');
+  var mBackdrop = document.getElementById('neo-mobile-backdrop');
+  function toggleMobileNav(open) {
+    if (!mnav) return;
+    var isopen = (open === undefined) ? !mnav.classList.contains('open') : open;
+    mnav.classList.toggle('open', isopen);
+    if (mBackdrop) mBackdrop.classList.toggle('open', isopen);
+    if (burger) burger.setAttribute('aria-expanded', String(isopen));
+    if (mnav) { mnav.hidden = !isopen; }
+    return isopen;
+  }
   if (burger && mnav) {
-     mnav.hidden = false;
-     burger.addEventListener('click', function (e) {
-       e.stopPropagation();
-       var open = mnav.classList.toggle('open');
-       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-     });
-     if (mClose) {
-       mClose.addEventListener('click', function () {
-         mnav.classList.remove('open');
-         burger.setAttribute('aria-expanded', 'false');
-       });
-     }
-     mnav.addEventListener('click', function (e) {
-       if (e.target.tagName === 'A') { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
-     });
-     document.addEventListener('click', function (e) {
-       if (!mnav.contains(e.target) && e.target !== burger) { mnav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
-     });
-   }
+    mnav.hidden = false;
+    burger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMobileNav();
+    });
+    if (mClose) {
+      mClose.addEventListener('click', function () { toggleMobileNav(false); });
+    }
+    if (mBackdrop) {
+      mBackdrop.addEventListener('click', function () { toggleMobileNav(false); });
+    }
+    mnav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+        if (!e.target.closest('#neo-mobile-close')) toggleMobileNav(false);
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!mnav.contains(e.target) && e.target !== burger && !mBackdrop?.contains(e.target)) {
+        toggleMobileNav(false);
+      }
+    });
+  }
+  // expose for palette favorites shortcut
+  window.__toggleMobileNav = toggleMobileNav;
 
   // Reduced-motion quick toggle (header ✦ button)
   var mqBtn = document.getElementById('neo-motion-quick');
@@ -695,7 +710,7 @@
     if (favBtn) {
       favBtn.addEventListener('click', function () {
         var mnav = document.getElementById('neo-mobile-nav');
-        if (mnav) { mnav.classList.remove('open'); }
+        if (mnav) { window.__toggleMobileNav(false); }
         location.href = '/favorites/';
       });
     }
