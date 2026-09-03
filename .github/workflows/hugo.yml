@@ -49,11 +49,7 @@ jobs:
 
       - name: Init submodules (parallel, non-recursive)
         run: |
-          git submodule update --init --jobs 4 themes/blowfish content/wiki awesome
-          node scripts/ensure-awesome-sparse.cjs || true
-
-      - name: Generate wiki navigation
-        run: python3 scripts/generate-wiki-nav.py
+          git submodule update --init --jobs 4 themes/blowfish awesome
 
       - name: Setup Node (for content-contract validation)
         uses: actions/setup-node@v7
