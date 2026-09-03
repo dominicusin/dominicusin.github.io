@@ -630,11 +630,3 @@ code {
   .burger { display: none; }
 }
 
-/* ---------- LEGACY RESET ---------- */
-.neo-aurora,
-.neo-cursor,
-.neo-orb,
-.card-sparkle,
-.card-gloss,
-.shimmer,
-.card-halo { display: none !important; }
