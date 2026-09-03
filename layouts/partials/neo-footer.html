@@ -3,38 +3,37 @@
   cloud, auto-generated from the tags taxonomy with font-size scaled by
   mention count (raw data -> tag cloud). Reuses subscription.html (Buttondown).
 */}}
-<footer class="neo-footer">
-  <div class="neo-foot">
-    <div>
-      <div class="neo-brand"><span class="mark">D</span>Dominicus In</div>
-      <p style="margin-top:10px">© {{ now.Year }} · CC0 · Hugo + Blowfish</p>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">D</span><span>Dominicus In</span></div>
+      <p>© {{ now.Year }} · CC0 · Hugo + Blowfish</p>
     </div>
-    <div class="neo-foot-cols">
-      <div class="neo-foot-col">
-        <h5>Разделы</h5>
-        {{ range first 6 site.Taxonomies.categories.ByCount }}<a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>{{ end }}
-      </div>
-      <div class="neo-foot-col">
-        <h5>Ссылки</h5>
-        <a href="https://github.com/dominicusin">GitHub</a>
-        <a href="{{ "feed.xml" | relURL }}">RSS</a>
-        <a href="{{ "search/" | relURL }}">Поиск</a>
-        <a href="{{ "analytics/" | relURL }}">Аналитика</a>
-        <a href="{{ "sitemap/" | relURL }}">Карта сайта</a>
-      </div>
+
+    <div class="footer-col">
+      <h5>Разделы</h5>
+      {{ range first 6 site.Taxonomies.categories.ByCount }}<a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>{{ end }}
+    </div>
+
+    <div class="footer-col">
+      <h5>Ссылки</h5>
+      <a href="https://github.com/dominicusin">GitHub</a>
+      <a href="{{ "feed.xml" | relURL }}">RSS</a>
+      <a href="{{ "search/" | relURL }}">Поиск</a>
+      <a href="{{ "analytics/" | relURL }}">Аналитика</a>
+      <a href="{{ "sitemap/" | relURL }}">Карта сайта</a>
     </div>
   </div>
 
-  {{/* Tag cloud from data, sized by count */}}
-  <nav class="neo-tagcloud-foot" aria-label="Облако тегов">
+  <nav class="footer-tags" aria-label="Облако тегов">
     {{ $max := 0 }}{{ range site.Taxonomies.tags.Alphabetical }}{{ if gt .Count $max }}{{ $max = .Count }}{{ end }}{{ end }}
     {{ range site.Taxonomies.tags.Alphabetical }}
       {{ $size := 12 }}
       {{ if gt $max 1 }}{{ $size = add 12 (mul 16 (div (sub .Count 1.0) (sub $max 1.0))) }}{{ end }}
-      <a class="neo-tc" style="font-size:{{ $size | lang.FormatNumber 0 }}px" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>
+      <a class="tag" style="font-size:{{ $size | lang.FormatNumber 0 }}px" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>
     {{ end }}
   </nav>
 
   {{ partial "subscription.html" . }}
-<button id="neo-pwa-install">📲 Установить приложение</button>
+  <button id="neo-pwa-install" class="btn btn-ghost" style="margin-top:1rem">📲 Установить приложение</button>
 </footer>
