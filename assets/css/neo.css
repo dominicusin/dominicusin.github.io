@@ -216,61 +216,62 @@ body::before{
 @media(max-width:900px){
   .neo-menu{display:none}
   .neo-burger{display:flex}
-  .neo-mobile-nav {
-    display: none;
-    flex-direction: column;
-    gap: .5rem;
-    padding: .8rem 1.25rem;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-top: none;
-    border-radius: 0 0 12px 12px;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .3s ease, opacity .2s ease;
-    opacity: 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+  /* Mobile menu: slide-in side panel (NOT fullscreen) so page content stays
+     visible and tappable behind the nav overlay. z-index sits below the
+     sticky header (z-50) so the header row is never covered. */
+  .neo-mobile-nav{
+    display:none;
+    flex-direction:column;
+    gap:.5rem;
+    padding:5.5rem 1.25rem 2rem;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    border-radius:0;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    z-index:100;
+    max-width:calc(100vw - 1rem);
+    width:min(320px,80vw);
+    max-height:none;
+    overflow-y:auto;
+    opacity:0;
+    transform:translateX(-100%);
+    transition:transform .25s ease,opacity .25s ease;
   }
-  .neo-mobile-nav.open {
-    display: flex;
-    flex-direction: column;
-    max-height: none;
-    overflow-y: auto;
-    opacity: 1;
-    position: fixed;
-    inset: 0;
-    z-index: 140;
-    background: rgba(11, 14, 20, 0.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: none;
-    border-radius: 0;
-    padding: 5.5rem 1rem 2rem;
-    max-width: none;
-    margin: 0;
-    box-shadow: none;
-    align-items: center;
+  .neo-mobile-nav.open{
+    display:flex;
+    opacity:1;
+    transform:translateX(0);
   }
-  [data-theme="light"] .neo-mobile-nav.open {
-    background: rgba(246, 248, 251, 0.88);
+  .neo-mobile-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:95;
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(2px);
+    -webkit-backdrop-filter:blur(2px);
   }
-  [data-theme="solar"] .neo-mobile-nav.open {
-    background: rgba(28, 25, 23, 0.88);
+  .neo-mobile-backdrop.open{
+    display:block;
   }
-  [data-theme="mono"] .neo-mobile-nav.open {
-    background: rgba(10, 10, 10, 0.88);
+  [data-theme="light"] .neo-mobile-nav.open{
+    background:rgba(246,248,251,.88);
   }
-  [data-theme="dracula"] .neo-mobile-nav.open {
-    background: rgba(40, 42, 54, 0.88);
+  [data-theme="solar"] .neo-mobile-nav.open{
+    background:rgba(28,25,23,.88);
   }
-  .neo-mobile-head {
-    width: 100%;
-    max-width: 460px;
+  [data-theme="mono"] .neo-mobile-nav.open{
+    background:rgba(10,10,10,.88);
+  }
+  [data-theme="dracula"] .neo-mobile-nav.open{
+    background:rgba(40,42,54,.88);
+  }
+  .neo-mobile-head{
+    width:100%;
+    max-width:460px;
     display: flex;
     align-items: center;
     justify-content: space-between;
