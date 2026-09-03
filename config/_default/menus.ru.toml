@@ -15,15 +15,9 @@
   weight = 2
 
 [[menus.main]]
-  name = "Knowledge Graph"
-  url = "/knowledge-graph/"
-  weight = 3
-
-[[menus.main]]
-  name = "Профиль"
-  identifier = "profile"
+  name = "About"
   url = "/about/"
-  weight = 4
+  weight = 3
 
 [[menus.main]]
   name = "Об авторе"

@@ -1,90 +1,84 @@
-{{/*
-  Homepage — unified design system.
-*/}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.Locale | default "ru" }}" data-theme="dark">
-{{ partial "neo-head.html" . }}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>{{ site.Title }}</title>
+  <meta name="description" content="{{ site.Params.description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  {{/* Fonts */}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+  {{/* CSS */}}
+  {{ with resources.Get "css/compiled.css" }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{ end }}
+
+  {{/* JS */}}
+  <script src="{{ "js/theme-init.js" | relURL }}" defer></script>
+  <script src="{{ "js/scroll-to-top.js" | relURL }}" defer></script>
+  <script src="{{ "js/custom.js" | relURL }}" defer></script>
+</head>
 <body>
-{{ partial "neo-header.html" . }}
-{{ $blog := where site.RegularPages "Section" "blog" }}
-{{ $blog = sort $blog "Date" "desc" }}
-<main class="container" id="main">
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span>{{ site.Title }}</span>
+    </a>
+
+    <nav class="nav" aria-label="Навигация">
+      <a href="{{ "blog/" | relURL }}">Блог</a>
+      <a href="{{ "about/" | relURL }}">О сайте</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="theme-toggle" aria-label="Тема">◐</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
   <section class="hero">
-    <h1>Инженерный блог<br/><span class="grad">о системах и данных</span></h1>
-    <p class="lead">{{ site.Params.description | default "Промышленная инженерия, системная инженерия и наука о данных." }}</p>
-    <div class="cta">
+    <h1>Инженерный блог<br/>о системах и данных</h1>
+    <p>Промышленная инженерия, системная инженерия и наука о данных.</p>
+    <div class="hero-cta">
       <a class="btn btn-primary" href="{{ "blog/" | relURL }}">Перейти в блог</a>
-      <a class="btn btn-ghost" href="{{ "about/" | relURL }}">О проекте</a>
-    </div>
-    <div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap;color:var(--ink-600);font-size:.85rem">
-      {{ range first 6 site.Taxonomies.tags.ByCount }}
-        <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>
-      {{ end }}
     </div>
   </section>
 
-  <section>
-    <div class="section-header"><h2>Избранное</h2><a class="more" href="{{ "blog/" | relURL }}">все посты →</a></div>
-    {{ $featured := first 3 $blog }}
-    {{ $lead := index $featured 0 }}
-    {{ $rest := after 1 $featured }}
-    <div class="editorial-featured">
-      {{ with $lead }}
-      <article class="card card-lead">
-        <div class="editorial-meta">{{ with .Params.categories }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <p>{{ .Summary | truncate 220 }}</p>
-        <div class="editorial-meta"><span>⏱ {{ .ReadingTime }} мин</span><span>· {{ .WordCount }} слов</span></div>
-      </article>
-      {{ end }}
-      <div class="editorial-side">
-        {{ range $rest }}
-        <article class="card card-sub">
-          <div class="editorial-meta">{{ with .Params.categories }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
-          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-          <p>{{ .Summary | truncate 100 }}</p>
-          <div class="editorial-meta"><span>⏱ {{ .ReadingTime }} мин</span></div>
-        </article>
-        {{ end }}
-      </div>
-    </div>
-  </section>
+  {{ $blog := where site.RegularPages "Section" "blog" }}
+  {{ $blog = sort $blog "Date" "desc" }}
 
   <section>
-    <div class="section-header"><h2>Последние записи</h2><a class="more" href="{{ "blog/" | relURL }}">архив →</a></div>
-    <div class="recent-rows">
+    <div class="section-header">
+      <h2>Последние записи</h2>
+    </div>
+    <div class="post-list">
       {{ range first 10 $blog }}
-      <a class="recent-row" href="{{ .RelPermalink }}">
-        <span class="date">{{ .Date.Format "2006-01-02" }}</span>
-        <span class="title">{{ .Title }}</span>
-        <span class="meta">{{ with .Params.tags }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span style="color:var(--ink-500)">⏱ {{ .ReadingTime }} мин</span></span>
-      </a>
+      <div class="post-item">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="post-meta">⏱ {{ .ReadingTime }} мин</span>
+      </div>
       {{ end }}
     </div>
-  </section>
-
-  <section>
-    <div class="section-header"><h2>Категории</h2><a class="more" href="{{ "categories/" | relURL }}">все →</a></div>
-    <div class="category-grid">
-      {{ range site.Taxonomies.categories.ByCount }}
-      <a class="category-card" href="{{ .Page.RelPermalink }}">
-        <div class="cat-icon">▸</div>
-        <div class="cat-name">{{ .Page.Title }}</div>
-        <div class="cat-count">{{ .Count }} записей</div>
-      </a>
-      {{ end }}
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <h3>Подпишитесь на обновления</h3>
-    <p>Новые записи блога прямо в почту. Никакого спама — только инженерия, системы и данные.</p>
-    <form class="newsletter-form" action="{{ site.Params.newsletterAction | default "#" }}" method="post">
-      <input class="input" type="email" name="email" placeholder="you@example.com" required />
-      <button class="btn btn-primary" type="submit">Подписаться</button>
-    </form>
   </section>
 </main>
-{{ partial "neo-footer.html" . }}
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© {{ now.Year }} · {{ site.Title }}</span>
+      <span>CC0 · Hugo</span>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scroll-top" aria-label="Наверх">↑</button>
 </body>
 </html>
