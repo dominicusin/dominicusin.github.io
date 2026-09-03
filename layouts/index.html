@@ -2,7 +2,7 @@
   Homepage — unified design system.
 */}}
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+<html lang="{{ site.Language.Locale | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
 <body>
 {{ partial "neo-header.html" . }}
@@ -25,15 +25,28 @@
 
   <section>
     <div class="section-header"><h2>Избранное</h2><a class="more" href="{{ "blog/" | relURL }}">все посты →</a></div>
-    <div class="editorial-grid">
-      {{ range first 3 $blog }}
-        <article class="card">
+    {{ $featured := first 3 $blog }}
+    {{ $lead := index $featured 0 }}
+    {{ $rest := after 1 $featured }}
+    <div class="editorial-featured">
+      {{ with $lead }}
+      <article class="card card-lead">
+        <div class="editorial-meta">{{ with .Params.categories }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Summary | truncate 220 }}</p>
+        <div class="editorial-meta"><span>⏱ {{ .ReadingTime }} мин</span><span>· {{ .WordCount }} слов</span></div>
+      </article>
+      {{ end }}
+      <div class="editorial-side">
+        {{ range $rest }}
+        <article class="card card-sub">
           <div class="editorial-meta">{{ with .Params.categories }}<span class="tag">{{ index . 0 }}</span>{{ end }}<span>{{ .Date.Format "02 янв 2006" }}</span></div>
           <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-          <p>{{ .Summary | truncate 180 }}</p>
-          <div class="editorial-meta"><span>⏱ {{ .ReadingTime }} мин</span><span>· {{ .WordCount }} слов</span></div>
+          <p>{{ .Summary | truncate 100 }}</p>
+          <div class="editorial-meta"><span>⏱ {{ .ReadingTime }} мин</span></div>
         </article>
-      {{ end }}
+        {{ end }}
+      </div>
     </div>
   </section>
 
