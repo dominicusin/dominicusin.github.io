@@ -135,3 +135,7 @@ jobs:
         # og-default.png). Regressions surface as warnings.
         run: node scripts/check-og-image.cjs
         continue-on-error: true
+
+      - name: 🎭 Playwright visual regression (screenshots of key pages)
+        run: npx playwright test --update-snapshots
+        continue-on-error: true
