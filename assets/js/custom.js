@@ -87,11 +87,11 @@
     mnav.classList.toggle('open', isopen);
     if (mBackdrop) mBackdrop.classList.toggle('open', isopen);
     if (burger) burger.setAttribute('aria-expanded', String(isopen));
-    if (mnav) { mnav.hidden = !isopen; }
+    mnav.hidden = !isopen;
     return isopen;
   }
   if (burger && mnav) {
-    mnav.hidden = false;
+    mnav.hidden = true;
     burger.addEventListener('click', function (e) {
       e.stopPropagation();
       toggleMobileNav();
@@ -103,17 +103,9 @@
       mBackdrop.addEventListener('click', function () { toggleMobileNav(false); });
     }
     mnav.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-        if (!e.target.closest('#neo-mobile-close')) toggleMobileNav(false);
-      }
-    });
-    document.addEventListener('click', function (e) {
-      if (!mnav.contains(e.target) && e.target !== burger && !mBackdrop?.contains(e.target)) {
-        toggleMobileNav(false);
-      }
+      if (e.target.tagName === 'A') toggleMobileNav(false);
     });
   }
-  // expose for palette favorites shortcut
   window.__toggleMobileNav = toggleMobileNav;
 
   // Reduced-motion quick toggle (header ✦ button)

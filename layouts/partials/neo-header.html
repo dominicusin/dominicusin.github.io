@@ -1,8 +1,7 @@
 {{/*
-  Neo header — presentation layer. The primary navigation is auto-generated
-  from the site's categories taxonomy (raw data -> categories -> common menu),
-  so adding a category needs no menu edit. A settings drawer (theme/appearance/
-  accessibility/search) is wired by custom.js. EN is disabled, so no RU/EN.
+  Neo header — presentation layer.
+  Desktop: 6 primary links + search + theme toggle.
+  Mobile: slide-in side panel with grouped links, no accordion.
 */}}
 <header class="site-header">
   <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -16,7 +15,7 @@
       <a href="{{ "blog/" | relURL }}">Блог</a>
       <a href="{{ "repositories/" | relURL }}">Репозитории</a>
       <a href="{{ "gists/" | relURL }}">Гисты</a>
-      <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
+      <a href="{{ "knowledge-graph/" | relURL }}">Граф знаний</a>
       <a href="{{ "awesome/" | relURL }}">Awesome</a>
       <a href="{{ "about/" | relURL }}">О сайте</a>
     </nav>
@@ -28,6 +27,7 @@
     </div>
   </div>
 
+  {{/* Mobile slide-in panel — simple grouped links, no accordion */}}
   <nav class="mobile-panel neo-mobile-nav" id="neo-mobile-nav" aria-label="Мобильное меню" hidden>
     <div class="mobile-panel-inner">
       <div class="mobile-panel-head">
@@ -40,7 +40,7 @@
         <a href="{{ "blog/" | relURL }}">Блог</a>
         <a href="{{ "repositories/" | relURL }}">Репозитории</a>
         <a href="{{ "gists/" | relURL }}">Гисты</a>
-        <a href="{{ "knowledge-graph/" | relURL }}">Graph</a>
+        <a href="{{ "knowledge-graph/" | relURL }}">Граф знаний</a>
         <a href="{{ "awesome/" | relURL }}">Awesome</a>
         <a href="{{ "about/" | relURL }}">О сайте</a>
       </div>
