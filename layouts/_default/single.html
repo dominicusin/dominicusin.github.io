@@ -1,40 +1,44 @@
 {{/*
-  Single post — Neo design system (standalone full document).
+  Single post — unified design system.
 */}}
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
 <body{{ with .PrevInSection }} data-prev="{{ .RelPermalink }}"{{ end }}{{ with .NextInSection }} data-next="{{ .RelPermalink }}"{{ end }}>
 {{ partial "neo-header.html" . }}
-<main class="neo" id="main">
-<article class="neo-post">
-  <nav class="neo-crumbs">
-    <a href="{{ site.Home.RelPermalink }}">Главная</a>
-    {{ with .Parent }}<span>/</span><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
-    <span>/</span><span>{{ .Title }}</span>
-  </nav>
-  <header class="neo-post-head">
-    <div class="neo-eyebrow">
-      <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" data-time="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
-      {{ range .Params.tags }} · <a href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
-    </div>
-    <h1>{{ .Title }}</h1>
-    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
-    <div class="neo-post-meta"><span>⏱ {{ .ReadingTime }} мин чтения</span><span>· {{ .WordCount }} слов</span></div>
-  </header>
-  {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
-  <div class="neo-post-body">{{ .Content }}</div>
-  {{ if or .PrevInSection .NextInSection }}
-  <nav class="neo-prevnext" aria-label="Навигация по записям">
-    {{ with .PrevInSection }}<a class="neo-pn pn-prev" href="{{ .RelPermalink }}"><span class="pn-dir">← Пред.</span><span class="pn-t">{{ .Title }}</span></a>{{ end }}
-    {{ with .NextInSection }}<a class="neo-pn pn-next" href="{{ .RelPermalink }}"><span class="pn-dir">След. →</span><span class="pn-t">{{ .Title }}</span></a>{{ end }}
-  </nav>
-  {{ end }}
-  {{ partial "neo-breadcrumb-ld.html" . }}
-  {{ partial "share.html" . }}
-  {{ partial "content-graph.html" . }}
-  {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}
-  {{ partial "neo-subscribe.html" . }}
+<main class="container" id="main">
+<article class="post-layout">
+  <div class="post-body">
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2006-01-02" }}</time>
+        <span>·</span>
+        <span>⏱ {{ .ReadingTime }} мин чтения</span>
+        <span>·</span>
+        <span>{{ .WordCount }} слов</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+      <div class="post-meta" style="margin-top:.5rem">
+        {{ range .Params.tags }}<a class="tag" href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+      </div>
+    </header>
+    {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
+    <div class="post-content">{{ .Content }}</div>
+    {{ if or .PrevInSection .NextInSection }}
+    <nav class="post-nav" aria-label="Навигация по записям">
+      {{ with .PrevInSection }}<a class="pn-card" href="{{ .RelPermalink }}"><span class="more">← Предыдущая</span><span class="title">{{ .Title }}</span><span class="date">{{ .Date.Format "2006-01-02" }}</span></a>{{ end }}
+      {{ with .NextInSection }}<a class="pn-card" href="{{ .RelPermalink }}"><span class="more">Следующая →</span><span class="title">{{ .Title }}</span><span class="date">{{ .Date.Format "2006-01-02" }}</span></a>{{ end }}
+    </nav>
+    {{ end }}
+    {{ partial "share.html" . }}
+    {{ partial "content-graph.html" . }}
+    {{ if or .Params.comments .Site.Params.article.showComments }}{{ partial "comments.html" . }}{{ end }}
+    {{ partial "neo-subscribe.html" . }}
+  </div>
+  <aside class="toc" aria-label="Оглавление">
+    {{ if or .Params.toc .TableOfContents }}{{ partial "toc.html" . }}{{ end }}
+  </aside>
 </article>
 </main>
 {{ partial "neo-footer.html" . }}

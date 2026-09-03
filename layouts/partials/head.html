@@ -139,19 +139,11 @@
   {{ if $cssScheme }}
     {{ $cssResources = $cssResources | append $cssScheme }}
   {{ end }}
-  {{ with resources.Get "css/main.css" }}
+  {{ with resources.Get "css/design-system.css" }}
     {{ $cssResources = $cssResources | append . }}
   {{ end }}
   {{ with resources.Get "css/custom.css" }}
     {{ $cssResources = $cssResources | append . }}
-  {{ end }}
-  {{/* Emerald glass/neo-modern homepage layer (2026-08-21). Rules are scoped to
-       .home-container, so it is safe to ship on every route; included
-       unconditionally to avoid a stale resource-cache key. */}}
-  {{ with resources.Get "css/home-emerald.css" }}
-    {{ $cssResources = $cssResources | append . }}
-  {{ else }}
-    {{ warnf "home-emerald.css NOT FOUND via resources.Get" }}
   {{ end }}
   {{ if not .Site.Params.disableImageZoom | default true }}
     {{ with resources.Get "lib/zoom/style.css" }}
@@ -173,15 +165,9 @@
     href="{{ $cssBundle.RelPermalink }}"
     integrity="{{ $cssBundle.Data.Integrity }}">
 
-  {{/* JS deferred (was "loaded immediately" in theme — now deferred for LCP) */}}
-  {{ with resources.Get "js/appearance.js" }}
-    {{ $jsAppearance := . | resources.ExecuteAsTemplate "js/appearance.js" . | resources.Minify | resources.Fingerprint $alg }}
-    <script
-      defer
-      type="text/javascript"
-      src="{{ $jsAppearance.RelPermalink }}"
-      integrity="{{ $jsAppearance.Data.Integrity }}"></script>
-  {{ end }}
+  {{/* NOTE: appearance.js removed because asset is absent and its template
+       execution path references .Site.Params.Logo, which breaks render.
+       Theme switching is handled by the inline init in neo-head.html. */}}
   {{ if templates.Exists "partials/language-redirect.html" }}
     {{ partial "language-redirect.html" . }}
   {{ end }}

@@ -1,21 +1,4 @@
-{{/* Analytics dashboard — Neo design system (standalone). Shows local page-view analytics + retention. */}}
-<!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
-{{ partial "neo-head.html" . }}
-<body>
-{{ partial "neo-header.html" . }}
-<main class="neo" id="main">
-<div class="neo-wrap">
-  <div class="neo-sec-head" style="margin-top:20px"><h2>{{ .Title }}</h2>
-    <span class="more">Локальная статистика</span>
-  </div>
-  {{ .Content }}
-  <div id="neo-analytics-dashboard"></div>
-  <div id="neo-time-chart-section"></div>
-  <div id="neo-retention-section"></div>
-  <div id="neo-fav-summary" class="neo-fav-summary"></div>
-</div>
-</main>
-{{ partial "neo-footer.html" . }}
-</body>
-</html>
+{{/*
+  Analytics dashboard — unified design system.
+*/}}
+{{ partial "neo-base.html" . }}
