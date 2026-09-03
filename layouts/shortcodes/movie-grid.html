@@ -1,5 +1,5 @@
 {{- /* Renders a responsive movie poster grid from data/movies.json */ -}}
-{{- $movies := .Site.Data.movies -}}
+{{- $movies := hugo.Data.movies -}}
 <div class="movie-grid">
 {{- range $movies -}}
   {{- $h := mod (mul (len .title) 37) 360 -}}

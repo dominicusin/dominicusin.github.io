@@ -2,7 +2,7 @@
   Single post — unified design system.
 */}}
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode | default "ru" }}" data-theme="dark">
+<html lang="{{ site.Language.Locale | default "ru" }}" data-theme="dark">
 {{ partial "neo-head.html" . }}
 <body{{ with .PrevInSection }} data-prev="{{ .RelPermalink }}"{{ end }}{{ with .NextInSection }} data-next="{{ .RelPermalink }}"{{ end }}>
 {{ partial "neo-header.html" . }}
