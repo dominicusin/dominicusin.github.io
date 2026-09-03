@@ -173,43 +173,52 @@
   {{ end }}
   {{ $enableA11y := .Site.Params.enableA11y | default false }}
   {{ if $enableA11y }}
-    {{ $jsA11y := resources.Get "js/a11y.js" | resources.Minify | resources.Fingerprint $alg }}
-    <script defer src="{{ $jsA11y.RelPermalink }}" integrity="{{ $jsA11y.Data.Integrity }}"></script>
+    {{ with resources.Get "js/a11y.js" }}
+      {{ $jsA11y := . | resources.Minify | resources.Fingerprint $alg }}
+      <script defer src="{{ $jsA11y.RelPermalink }}" integrity="{{ $jsA11y.Data.Integrity }}"></script>
+    {{ end }}
   {{ end }}
   {{ $showZenMode := .Params.showZenMode | default (.Site.Params.article.showZenMode | default false) }}
   {{ $shouldIncludeZenMode := or $enableA11y $showZenMode }}
   {{ if and .IsPage $shouldIncludeZenMode }}
-    {{ $jsZenMode := resources.Get "js/zen-mode.js" | resources.Minify | resources.Fingerprint $alg }}
-    <script
-      defer
-      type="text/javascript"
-      src="{{ $jsZenMode.RelPermalink }}"
-      integrity="{{ $jsZenMode.Data.Integrity }}"></script>
+    {{ with resources.Get "js/zen-mode.js" }}
+      {{ $jsZenMode := . | resources.Minify | resources.Fingerprint $alg }}
+      <script
+        defer
+        type="text/javascript"
+        src="{{ $jsZenMode.RelPermalink }}"
+        integrity="{{ $jsZenMode.Data.Integrity }}"></script>
+    {{ end }}
   {{ end }}
   {{ if not .Site.Params.disableImageZoom | default true }}
-    {{ $zoomJS := resources.Get "lib/zoom/zoom.min.umd.js" | resources.Fingerprint $alg }}
-    <script defer src="{{ $zoomJS.RelPermalink }}" integrity="{{ $zoomJS.Data.Integrity }}"></script>
+    {{ with resources.Get "lib/zoom/zoom.min.umd.js" }}
+      {{ $zoomJS := . | resources.Fingerprint $alg }}
+      <script defer src="{{ $zoomJS.RelPermalink }}" integrity="{{ $zoomJS.Data.Integrity }}"></script>
+    {{ end }}
   {{ end }}
 
   {{/* JS deferred */}}
   {{ $jsResources := slice }}
   {{ if site.Params.footer.showScrollToTop | default true }}
-    {{ $jsResources = $jsResources | append (resources.Get "js/scroll-to-top.js") }}
+    {{ with resources.Get "js/scroll-to-top.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
   {{ end }}
   {{ if .Site.Params.enableSearch | default false }}
     {{ $fuseRaw := resources.Get "lib/fuse/fuse.min.cjs" }}
-    {{ $fuse := resources.FromString "lib/fuse/fuse.min.js" (replace $fuseRaw.Content "module.exports=" "window.Fuse=") }}
-    {{ $jsResources = $jsResources | append $fuse | append (resources.Get "js/search.js") }}
+    {{ if $fuseRaw }}
+      {{ $fuse := resources.FromString "lib/fuse/fuse.min.js" (replace $fuseRaw.Content "module.exports=" "window.Fuse=") }}
+      {{ $jsResources = $jsResources | append $fuse }}
+      {{ with resources.Get "js/search.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
+    {{ end }}
   {{ end }}
   {{ if .Site.Params.enableCodeCopy | default false }}
-    {{ $jsResources = $jsResources | append (resources.Get "js/code.js") }}
+    {{ with resources.Get "js/code.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
   {{ end }}
   {{ if .Site.Params.rtl | default false }}
-    {{ $jsResources = $jsResources | append (resources.Get "js/rtl.js") }}
+    {{ with resources.Get "js/rtl.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
   {{ end }}
-  {{ $jsResources = $jsResources | append (resources.Get "js/katex-render.js") }}
-  {{ $jsResources = $jsResources | append (resources.Get "js/print-support.js") }}
-  {{ $jsResources = $jsResources | append (resources.Get "js/email.js") }}
+  {{ with resources.Get "js/katex-render.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
+  {{ with resources.Get "js/print-support.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
+  {{ with resources.Get "js/email.js" }}{{ $jsResources = $jsResources | append . }}{{ end }}
   {{ if $jsResources }}
     {{ $bundleJS := $jsResources | resources.Concat "js/main.bundle.js" | resources.Minify | resources.Fingerprint $alg }}
     <script
