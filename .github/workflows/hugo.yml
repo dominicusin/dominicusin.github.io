@@ -27,7 +27,7 @@ env:
   HUGO_ENVIRONMENT: production
   HUGO_ENV: production
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  INCLUDE_WIKI: "1"
+  INCLUDE_WIKI: "0"
 
 jobs:
   build:
@@ -49,11 +49,14 @@ jobs:
 
       - name: Init submodules (parallel, non-recursive)
         run: |
-          git submodule update --init --jobs 4 themes/blowfish content/wiki awesome
+          git submodule update --init --jobs 4 themes/blowfish awesome
           node scripts/ensure-awesome-sparse.cjs || true
 
       - name: Generate wiki navigation
-        run: python3 scripts/generate-wiki-nav.py
+        run: |
+          if [ "$INCLUDE_WIKI" = "1" ]; then
+            python3 scripts/generate-wiki-nav.py || true
+          fi
 
       - name: Setup Node (for content-contract validation)
         uses: actions/setup-node@v7
@@ -120,11 +123,6 @@ jobs:
 
       - name: Generate project documentation
         run: node scripts/generate-docs.cjs
-
-      - name: Upload docs artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
 
       - name: Performance smoke check (report-only)
         continue-on-error: true
