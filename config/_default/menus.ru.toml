@@ -80,6 +80,12 @@
   weight = 3
 
 [[menus.main]]
+  name = "Knowledge Graph"
+  url = "/knowledge-graph/"
+  weight = 4
+
+
+[[menus.main]]
   name = "Community"
   url = "/community/"
   weight = 7

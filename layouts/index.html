@@ -14,58 +14,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
   {{/* CSS */}}
-  {{ with resources.Get "css/compiled.css" }}
-    <link rel="stylesheet" href="{{ .RelPermalink }}">
-  {{ end }}
-
-  {{/* JS */}}
-  <script src="{{ "js/theme-init.js" | relURL }}" defer></script>
-  <script src="{{ "js/scroll-to-top.js" | relURL }}" defer></script>
-  <script src="{{ "js/custom.js" | relURL }}" defer></script>
-</head>
-<body>
-<header class="site-header">
-  <div class="site-header-inner">
-    <a class="brand" href="{{ site.Home.RelPermalink }}">
-      <span class="brand-mark" aria-hidden="true">D</span>
-      <span>{{ site.Title }}</span>
-    </a>
-
-    <nav class="nav" aria-label="Навигация">
-      <a href="{{ "blog/" | relURL }}">Блог</a>
-      <a href="{{ "about/" | relURL }}">О сайте</a>
-    </nav>
-
-    <div class="header-actions">
-      <button class="icon-btn" id="theme-toggle" aria-label="Тема">◐</button>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <section class="hero">
+  {{ partial "head.html" . }}
+  {{ partial "header.html" . }}
+  <main class="container">
+    <section class="hero">
     <h1>Инженерный блог<br/>о системах и данных</h1>
     <p>Промышленная инженерия, системная инженерия и наука о данных.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="{{ "blog/" | relURL }}">Перейти в блог</a>
-    </div>
-  </section>
-
-  {{ $blog := where site.RegularPages "Section" "blog" }}
-  {{ $blog = sort $blog "Date" "desc" }}
-
-  <section>
-    <div class="section-header">
-      <h2>Последние записи</h2>
-    </div>
-    <div class="post-list">
-      {{ range first 10 $blog }}
-      <div class="post-item">
-        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
-        <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-        <span class="post-meta">⏱ {{ .ReadingTime }} мин</span>
-      </div>
-      {{ end }}
     </div>
   </section>
 </main>
@@ -80,5 +36,7 @@
 </footer>
 
 <button class="scroll-top" id="scroll-top" aria-label="Наверх">↑</button>
+{{ partial "footer.html" . }}
+{{ partial "scroll-to-top.html" . }}
 </body>
 </html>
