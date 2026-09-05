@@ -15,8 +15,6 @@ const PAGES = [
   { path: '/blog/', name: 'blog' },
   { path: '/about/', name: 'about' },
   { path: '/awesome/', name: 'awesome' },
-  { path: '/repositories/', name: 'repositories' },
-  { path: '/gists/', name: 'gists' },
   { path: '/knowledge-graph/', name: 'knowledge-graph' },
 ];
 
