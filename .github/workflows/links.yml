@@ -69,6 +69,7 @@ jobs:
           else
             node src/agents/link-repair-agent.js
           fi
+        continue-on-error: true  # Link repair is best-effort; link-check is authoritative
       
       - name: Upload scan results
         if: always()
