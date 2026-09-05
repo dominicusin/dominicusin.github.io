@@ -1,4 +1,6 @@
 // Visual regression — no console errors except known dev-only warnings.
+const { test, expect } = require('@playwright/test');
+
 const IGNORED_ERRORS = [
   /giscus is not installed on this repository/,
   /giscus/,         // giscus errors only in dev/CI (not configured for localhost)
