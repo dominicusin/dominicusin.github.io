@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-05T00:44:56.252Z",
+  "generatedAt": "2026-09-05T00:51:36.573Z",
   "groups": [
     {
       "slug": "development",
       "name": "Разработка",
       "order": 1,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "awesome-nodejs",
@@ -15,7 +15,7 @@
           "url": "https://github.com/sindresorhus/awesome-nodejs",
           "readme": "readme.md",
           "gh": "https://github.com/sindresorhus/awesome-nodejs",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-python",
@@ -25,7 +25,7 @@
           "url": "https://github.com/vinta/awesome-python",
           "readme": "README.md",
           "gh": "https://github.com/vinta/awesome-python",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -33,7 +33,7 @@
       "slug": "web",
       "name": "Web & Frontend",
       "order": 2,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "frontend-dev-bookmarks",
@@ -43,7 +43,7 @@
           "url": "https://github.com/dypsilon/frontend-dev-bookmarks",
           "readme": "README.md",
           "gh": "https://github.com/dypsilon/frontend-dev-bookmarks",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -51,7 +51,7 @@
       "slug": "devops",
       "name": "DevOps & Инфраструктура",
       "order": 3,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "awesome-kubernetes",
@@ -61,7 +61,7 @@
           "url": "https://github.com/ramitsurana/awesome-kubernetes",
           "readme": "docs/README.md",
           "gh": "https://github.com/ramitsurana/awesome-kubernetes",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-nix",
@@ -71,7 +71,7 @@
           "url": "https://github.com/nix-community/awesome-nix",
           "readme": "README.md",
           "gh": "https://github.com/nix-community/awesome-nix",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -79,7 +79,7 @@
       "slug": "security",
       "name": "Безопасность",
       "order": 4,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "awesome-security",
@@ -89,7 +89,7 @@
           "url": "https://github.com/sbilly/awesome-security",
           "readme": "README.md",
           "gh": "https://github.com/sbilly/awesome-security",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -97,7 +97,7 @@
       "slug": "data",
       "name": "Данные & ML",
       "order": 5,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "awesome-machine-learning",
@@ -107,7 +107,7 @@
           "url": "https://github.com/josephmisiti/awesome-machine-learning",
           "readme": "README.md",
           "gh": "https://github.com/josephmisiti/awesome-machine-learning",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -115,7 +115,7 @@
       "slug": "blockchain",
       "name": "Блокчейн & DAO",
       "order": 6,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "awesome-blockchain",
@@ -125,7 +125,7 @@
           "url": "https://github.com/yjjnls/awesome-blockchain",
           "readme": "README.md",
           "gh": "https://github.com/yjjnls/awesome-blockchain",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -133,7 +133,7 @@
       "slug": "systems",
       "name": "Системы & Языки",
       "order": 7,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "papers-we-love",
@@ -143,7 +143,7 @@
           "url": "https://github.com/papers-we-love/papers-we-love",
           "readme": "README.md",
           "gh": "https://github.com/papers-we-love/papers-we-love",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     },
@@ -151,7 +151,7 @@
       "slug": "tools",
       "name": "Инструменты & Прочее",
       "order": 8,
-      "refreshedAt": "2026-09-05T00:44:56.252Z",
+      "refreshedAt": "2026-09-05T00:51:36.573Z",
       "repos": [
         {
           "slug": "500-ai-machine-learning-deep-learning-computer-vision-nlp-projects-with-code",
@@ -161,7 +161,7 @@
           "url": "https://github.com/ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code",
           "readme": "README.md",
           "gh": "https://github.com/ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-agent-skills",
@@ -171,7 +171,7 @@
           "url": "https://github.com/VoltAgent/awesome-agent-skills",
           "readme": "README.md",
           "gh": "https://github.com/VoltAgent/awesome-agent-skills",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-android-ui",
@@ -181,7 +181,7 @@
           "url": "https://github.com/wasabeef/awesome-android-ui",
           "readme": "README.md",
           "gh": "https://github.com/wasabeef/awesome-android-ui",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-claude-code",
@@ -191,7 +191,7 @@
           "url": "https://github.com/hesreallyhim/awesome-claude-code",
           "readme": "README.md",
           "gh": "https://github.com/hesreallyhim/awesome-claude-code",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-compose",
@@ -201,7 +201,7 @@
           "url": "https://github.com/docker/awesome-compose",
           "readme": "README.md",
           "gh": "https://github.com/docker/awesome-compose",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-copilot",
@@ -211,7 +211,7 @@
           "url": "https://github.com/github/awesome-copilot",
           "readme": "README.md",
           "gh": "https://github.com/github/awesome-copilot",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-courses",
@@ -221,7 +221,7 @@
           "url": "https://github.com/prakhar1989/awesome-courses",
           "readme": "README.md",
           "gh": "https://github.com/prakhar1989/awesome-courses",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-cpp",
@@ -231,7 +231,7 @@
           "url": "https://github.com/fffaraz/awesome-cpp",
           "readme": "README.md",
           "gh": "https://github.com/fffaraz/awesome-cpp",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-cto",
@@ -241,7 +241,7 @@
           "url": "https://github.com/kuchin/awesome-cto",
           "readme": "README.md",
           "gh": "https://github.com/kuchin/awesome-cto",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-cursorrules",
@@ -251,7 +251,7 @@
           "url": "https://github.com/PatrickJS/awesome-cursorrules",
           "readme": "README.md",
           "gh": "https://github.com/PatrickJS/awesome-cursorrules",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-deepseek-integration",
@@ -261,7 +261,7 @@
           "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
           "readme": "README.md",
           "gh": "https://github.com/deepseek-ai/awesome-deepseek-integration",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-design-patterns",
@@ -271,7 +271,7 @@
           "url": "https://github.com/DovAmir/awesome-design-patterns",
           "readme": "README.md",
           "gh": "https://github.com/DovAmir/awesome-design-patterns",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-design-tools",
@@ -281,7 +281,7 @@
           "url": "https://github.com/goabstract/Awesome-Design-Tools",
           "readme": "README.md",
           "gh": "https://github.com/goabstract/Awesome-Design-Tools",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-docker",
@@ -291,7 +291,7 @@
           "url": "https://github.com/veggiemonk/awesome-docker",
           "readme": "README.md",
           "gh": "https://github.com/veggiemonk/awesome-docker",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-flutter",
@@ -301,7 +301,7 @@
           "url": "https://github.com/Solido/awesome-flutter",
           "readme": "README.md",
           "gh": "https://github.com/Solido/awesome-flutter",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-for-beginners",
@@ -311,7 +311,7 @@
           "url": "https://github.com/MunGell/awesome-for-beginners",
           "readme": "README.md",
           "gh": "https://github.com/MunGell/awesome-for-beginners",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-github-profile-readme",
@@ -321,7 +321,7 @@
           "url": "https://github.com/abhisheknaiidu/awesome-github-profile-readme",
           "readme": "README.md",
           "gh": "https://github.com/abhisheknaiidu/awesome-github-profile-readme",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-go",
@@ -331,7 +331,7 @@
           "url": "https://github.com/avelino/awesome-go",
           "readme": "README.md",
           "gh": "https://github.com/avelino/awesome-go",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-hacking",
@@ -341,7 +341,7 @@
           "url": "https://github.com/Hack-with-Github/Awesome-Hacking",
           "readme": "README.md",
           "gh": "https://github.com/Hack-with-Github/Awesome-Hacking",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-interview-questions",
@@ -351,7 +351,7 @@
           "url": "https://github.com/DopplerHQ/awesome-interview-questions",
           "readme": "README.md",
           "gh": "https://github.com/DopplerHQ/awesome-interview-questions",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-ios",
@@ -361,7 +361,7 @@
           "url": "https://github.com/vsouza/awesome-ios",
           "readme": "README.md",
           "gh": "https://github.com/vsouza/awesome-ios",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-java",
@@ -371,7 +371,7 @@
           "url": "https://github.com/akullpp/awesome-java",
           "readme": "README.md",
           "gh": "https://github.com/akullpp/awesome-java",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-mac",
@@ -381,7 +381,7 @@
           "url": "https://github.com/jaywcjlove/awesome-mac",
           "readme": "README.md",
           "gh": "https://github.com/jaywcjlove/awesome-mac",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-macos-command-line",
@@ -391,7 +391,7 @@
           "url": "https://github.com/herrbischoff/awesome-macos-command-line",
           "readme": "README.md",
           "gh": "https://github.com/herrbischoff/awesome-macos-command-line",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-openclaw-skills",
@@ -401,7 +401,7 @@
           "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
           "readme": "README.md",
           "gh": "https://github.com/VoltAgent/awesome-openclaw-skills",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-php",
@@ -411,7 +411,7 @@
           "url": "https://github.com/ziadoz/awesome-php",
           "readme": "README.md",
           "gh": "https://github.com/ziadoz/awesome-php",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-react",
@@ -421,7 +421,7 @@
           "url": "https://github.com/enaqx/awesome-react",
           "readme": "README.md",
           "gh": "https://github.com/enaqx/awesome-react",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-react-components",
@@ -431,7 +431,7 @@
           "url": "https://github.com/brillout/awesome-react-components",
           "readme": "README.md",
           "gh": "https://github.com/brillout/awesome-react-components",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-remote-job",
@@ -441,7 +441,7 @@
           "url": "https://github.com/lukasz-madon/awesome-remote-job",
           "readme": "README.md",
           "gh": "https://github.com/lukasz-madon/awesome-remote-job",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-rust",
@@ -451,7 +451,7 @@
           "url": "https://github.com/rust-unofficial/awesome-rust",
           "readme": "README.md",
           "gh": "https://github.com/rust-unofficial/awesome-rust",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-scalability",
@@ -461,7 +461,7 @@
           "url": "https://github.com/binhnguyennus/awesome-scalability",
           "readme": "README.md",
           "gh": "https://github.com/binhnguyennus/awesome-scalability",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-selfhosted",
@@ -471,7 +471,7 @@
           "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "readme": "README.md",
           "gh": "https://github.com/awesome-selfhosted/awesome-selfhosted",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-shell",
@@ -481,7 +481,7 @@
           "url": "https://github.com/alebcay/awesome-shell",
           "readme": "README.md",
           "gh": "https://github.com/alebcay/awesome-shell",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-sysadmin",
@@ -491,7 +491,7 @@
           "url": "https://github.com/awesome-foss/awesome-sysadmin",
           "readme": "README.md",
           "gh": "https://github.com/awesome-foss/awesome-sysadmin",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "awesome-system-design-resources",
@@ -501,7 +501,7 @@
           "url": "https://github.com/ashishps1/awesome-system-design-resources",
           "readme": "README.md",
           "gh": "https://github.com/ashishps1/awesome-system-design-resources",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "css-protips",
@@ -511,7 +511,7 @@
           "url": "https://github.com/AllThingsSmitty/css-protips",
           "readme": "README.md",
           "gh": "https://github.com/AllThingsSmitty/css-protips",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "data-engineer-handbook",
@@ -521,7 +521,7 @@
           "url": "https://github.com/DataExpert-io/data-engineer-handbook",
           "readme": "README.md",
           "gh": "https://github.com/DataExpert-io/data-engineer-handbook",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "github-cheat-sheet",
@@ -531,7 +531,7 @@
           "url": "https://github.com/tiimgreen/github-cheat-sheet",
           "readme": "README.md",
           "gh": "https://github.com/tiimgreen/github-cheat-sheet",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "open-source-ios-apps",
@@ -541,7 +541,7 @@
           "url": "https://github.com/dkhamsing/open-source-ios-apps",
           "readme": "README.md",
           "gh": "https://github.com/dkhamsing/open-source-ios-apps",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "open-source-mac-os-apps",
@@ -551,7 +551,7 @@
           "url": "https://github.com/serhii-londar/open-source-mac-os-apps",
           "readme": "README.md",
           "gh": "https://github.com/serhii-londar/open-source-mac-os-apps",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "ruview",
@@ -561,7 +561,7 @@
           "url": "https://github.com/ruvnet/RuView",
           "readme": "README.md",
           "gh": "https://github.com/ruvnet/RuView",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         },
         {
           "slug": "the-book-of-secret-knowledge",
@@ -571,7 +571,7 @@
           "url": "https://github.com/trimstray/the-book-of-secret-knowledge",
           "readme": "README.md",
           "gh": "https://github.com/trimstray/the-book-of-secret-knowledge",
-          "refreshedAt": "2026-09-05T00:44:56.252Z"
+          "refreshedAt": "2026-09-05T00:51:36.573Z"
         }
       ]
     }

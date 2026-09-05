@@ -1,0 +1,12 @@
+{{ if .Site.Params.enableSearch | default true }}
+<div id="search-modal" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center" style="display:none;">
+  <div class="bg-white dark:bg-neutral-900 rounded-lg shadow-xl max-w-lg w-full mx-4 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-bold">Поиск</h2>
+      <button id="search-close" class="icon-btn" aria-label="Закрыть">✕</button>
+    </div>
+    <input id="search-input" type="search" placeholder="Введите для поиска..." class="w-full px-4 py-2 border rounded-lg dark:bg-neutral-800 dark:border-neutral-600" autofocus>
+    <div id="search-results" class="mt-4 space-y-2 max-h-80 overflow-y-auto"></div>
+  </div>
+</div>
+{{ end }}

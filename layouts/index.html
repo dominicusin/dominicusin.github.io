@@ -24,24 +24,6 @@
       <a class="btn btn-primary" href="{{ "blog/" | relURL }}">Перейти в блог</a>
     </div>
   </section>
-
-  {{ $blog := where site.RegularPages "Section" "blog" }}
-  {{ $blog = sort $blog "Date" "desc" }}
-
-  <section>
-    <div class="section-header">
-      <h2>Последние записи</h2>
-    </div>
-    <div class="post-list">
-      {{ range first 10 $blog }}
-      <div class="post-item">
-        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
-        <a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
-        <span class="post-meta">⏱ {{ .ReadingTime }} мин</span>
-      </div>
-      {{ end }}
-    </div>
-  </section>
 </main>
 
 <footer class="site-footer">
@@ -54,7 +36,6 @@
 </footer>
 
 <button class="scroll-top" id="scroll-top" aria-label="Наверх">↑</button>
-
 {{ partial "footer.html" . }}
 {{ partial "scroll-to-top.html" . }}
 </body>
