@@ -57,7 +57,7 @@
       {{ else }}
         type="button"
       {{ end }}
-      {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
+      aria-label="{{ or .Name .Pre .Title }}"
       aria-haspopup="true"
       aria-expanded="false"
       class="flex items-center text-sm font-medium bf-icon-color-hover"

@@ -23,7 +23,8 @@ test.describe('Visual regression', () => {
       const resp = await page.goto(p.path);
       expect(resp.status()).toBeLessThan(400);
       // Wait for first meaningful paint
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('load');
+      await page.waitForTimeout(500);
       // No console errors
       expect(errors).toEqual([]);
       // Screenshot for visual diff
