@@ -144,8 +144,7 @@
   {{ $enableA11y := .Site.Params.enableA11y | default false }}
   {{ if $enableA11y }}
     {{ $jsA11y := resources.Get "js/a11y.js" | resources.Minify | resources.Fingerprint $alg }}
-    
-    <script defer src="{{ $jsA11y.RelPermalink }}" integrity="{{ $jsA11y.Data.Integrity }}"></script>
+    <script src="{{ $jsA11y.RelPermalink }}" integrity="{{ $jsA11y.Data.Integrity }}"></script>
   {{ end }}
   {{ $showZenMode := .Params.showZenMode | default (.Site.Params.article.showZenMode | default false) }}
   {{ $shouldIncludeZenMode := or $enableA11y $showZenMode }}
