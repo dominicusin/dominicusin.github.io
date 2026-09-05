@@ -159,7 +159,7 @@
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   {{/* Load the Firebase module (and its ~300KB of gstatic imports) after the
     page is idle so it never competes with rendering-critical resources. */}}
-  <script>
+  <script defer id="firebase-load">
     (function () {
       var load = function () {
         import("{{ $firebase.RelPermalink }}");

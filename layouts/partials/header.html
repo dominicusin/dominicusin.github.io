@@ -66,14 +66,12 @@
 {{ end }}
 
 {{ if .Site.Params.highlightCurrentMenuArea }}
-  <script>
+  <script defer>
     (function () {
       var mainmenu = document.querySelector(".main-menu");
       if (!mainmenu) return;
-
       var path = window.location.pathname;
       var links = mainmenu.querySelectorAll('a[href="' + path + '"]');
-
       links.forEach(function (link) {
         var targets = link.querySelectorAll("span");
         targets.forEach(function (el) {

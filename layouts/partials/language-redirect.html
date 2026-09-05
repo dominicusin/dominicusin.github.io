@@ -21,7 +21,7 @@
   {{ end }}
 
   {{ $config := dict "enabled" true "storageKey" ($params.storageKey | default "blowfish_preferred_language") "fallbackLanguage" $fallbackLanguage "browserRedirectHomeOnly" $browserRedirectHomeOnly "storedLanguageRedirect" $storedLanguageRedirect "currentLanguage" .Language.Lang "currentLanguageCode" (.Language.LanguageCode | default "") "isHome" .IsHome "translations" $translations }}
-  <script>
+  <script defer>
     window.BlowfishLanguageRedirectConfig = {{ $config | jsonify | safeJS }};
   </script>
   {{ $alg := site.Params.fingerprintAlgorithm | default "sha512" }}

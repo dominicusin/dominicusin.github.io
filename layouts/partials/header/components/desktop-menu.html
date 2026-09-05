@@ -47,80 +47,79 @@
 
 {{ define "DesktopMenu" }}
   {{ if .HasChildren }}
-    <div class="nested-menu">
-      <div class="cursor-pointer flex items-center">
-        <a
-          {{ if .URL }}
-            href="{{ .URL }}"
-            {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
-              target="_blank"
-            {{ end }}
-          {{ else }}
-            tabindex="0"
-          {{ end }}
-          {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
-          aria-haspopup="true"
-          aria-expanded="false"
-          class="flex items-center text-sm font-medium bf-icon-color-hover"
-          title="{{ .Title }}">
-          {{ if .Pre }}
-            <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
-              {{ partial "icon.html" .Pre }}
-            </span>
-          {{ end }}
-          <span class="text-sm font-medium break-normal" title="{{ .Title }}">
-            {{ .Name | markdownify }}
-          </span>
-          <span>
-            {{ partial "icon.html" "chevron-down" }}
-          </span>
-        </a>
-      </div>
-      <div class="menuhide">
-        <div class="p-5 mt-2 rounded-xl border border-neutral-200/80 bg-neutral/95 shadow-2xl shadow-neutral-900/20 dark:border-neutral-700/80 dark:bg-neutral-800/95">
-          <div class="flex flex-col space-y-3">
-            {{ range .Children }}
-              <a
-                href="{{ .URL }}"
-                {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
-                  target="_blank"
-                {{ end }}
-                {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
-                class="flex items-center bf-icon-color-hover">
-                {{ if .Pre }}
-                  <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
-                    {{ partial "icon.html" .Pre }}
-                  </span>
-                {{ end }}
-                <span class="text-sm font-sm" title="{{ .Title }}">
-                  {{ .Name | markdownify }}
-                </span>
-              </a>
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </div>
-  {{ else }}
-    <a
-      href="{{ .URL }}"
-      {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
-        target="_blank"
+  <div class="nested-menu">
+  <div class="cursor-pointer flex items-center">
+    <button
+      {{ if .URL }}
+        {{ if or (strings.HasPrefix .URL "http:") (strings.HasPrefix .URL "https:") }}
+        {{ else }}
+        {{ end }}
+      {{ else }}
+        type="button"
       {{ end }}
-      class="flex items-center bf-icon-color-hover"
       {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
+      aria-haspopup="true"
+      aria-expanded="false"
+      class="flex items-center text-sm font-medium bf-icon-color-hover"
       title="{{ .Title }}">
       {{ if .Pre }}
         <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
           {{ partial "icon.html" .Pre }}
         </span>
       {{ end }}
-      {{ if .Name }}
-        <span class="text-sm font-medium break-normal">
-          {{ .Name | markdownify }}
-        </span>
-      {{ end }}
-    </a>
+      <span class="text-sm font-medium break-normal" title="{{ .Title }}">
+        {{ .Name | markdownify }}
+      </span>
+      <span>
+        {{ partial "icon.html" "chevron-down" }}
+      </span>
+    </button>
+  </div>
+  <div class="menuhide">
+    <div class="p-5 mt-2 rounded-xl border border-neutral-200/80 bg-neutral/95 shadow-2xl shadow-neutral-900/20 dark:border-neutral-700/80 dark:bg-neutral-800/95">
+      <div class="flex flex-col space-y-3">
+        {{ range .Children }}
+          <a
+            href="{{ .URL }}"
+            {{ if or (strings.HasPrefix .URL "http:") (strings.HasPrefix .URL "https:") }}
+              target="_blank"
+            {{ end }}
+            {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
+            class="flex items-center bf-icon-color-hover">
+            {{ if .Pre }}
+              <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
+                {{ partial "icon.html" .Pre }}
+              </span>
+            {{ end }}
+            <span class="text-sm font-sm" title="{{ .Title }}">
+              {{ .Name | markdownify }}
+            </span>
+          </a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  </div>
+  {{ else }}
+  <a
+  href="{{ .URL }}"
+  {{ if or (strings.HasPrefix .URL "http:") (strings.HasPrefix .URL "https:") }}
+    target="_blank"
   {{ end }}
-{{ end }}
+  class="flex items-center bf-icon-color-hover"
+  {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
+  title="{{ .Title }}">
+  {{ if .Pre }}
+    <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
+      {{ partial "icon.html" .Pre }}
+    </span>
+  {{ end }}
+  {{ if .Name }}
+    <span class="text-sm font-medium break-normal">
+      {{ .Name | markdownify }}
+    </span>
+  {{ end }}
+  </a>
+  {{ end }}
+  {{ end }}
 {{ partial "search-modal.html" . }}
