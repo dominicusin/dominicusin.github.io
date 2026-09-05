@@ -1,0 +1,31 @@
+{{ $giscusRepo := .Site.Params.giscus.repo | default "dominicusin/dominicusin.github.io-discussions" }}
+{{ $giscusCategory := .Site.Params.giscus.category | default "General" }}
+{{ $giscusRepoID := .Site.Params.giscus.repoID | default "R_kgDOJ_7qkQ" }}
+{{ $giscusCategoryID := .Site.Params.giscus.categoryID | default "DIC_kwDOJ_7qkQ4" }}
+
+<div id="giscus-container"
+  data-giscus-repo="{{ $giscusRepo }}"
+  data-giscus-category="{{ $giscusCategory }}"
+  data-giscus-mapping="pathname"
+  data-giscus-strict="0"
+  data-giscus-reactions-enabled="1"
+  data-giscus-input-position="top"
+  data-giscus-lang="ru"
+  data-giscus-theme="preferred_color_scheme"
+  data-giscus-loading="lazy">
+</div>
+<script src="https://giscus.app/client.js"
+  data-repo="{{ $giscusRepo }}"
+  data-repo-id="{{ $giscusRepoID }}"
+  data-category="{{ $giscusCategory }}"
+  data-category-id="{{ $giscusCategoryID }}"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-input-position="top"
+  data-lang="ru"
+  data-theme="preferred_color_scheme"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async>
+</script>
