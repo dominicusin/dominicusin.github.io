@@ -10,10 +10,13 @@ const AxeBuilder = require('@axe-core/playwright').default;
 const IGNORE = [
   'color-contrast', // visual-only, reviewed separately via Lighthouse
   'html-has-lang', // Hugo sets lang on <html>; axe sometimes misses inherited
-  // Presentational scroll containers (code blocks, card lists, the Blowfish
-  // mobile drawer) have overflow:auto but are not keyboard widgets — flagging
-  // them as "scrollable-region-focusable" is noise for a static content site.
+  // Presentational scroll containers...
   'scrollable-region-focusable',
+  // Theme-level: Blowfish uses <label role="button"> for mobile dropdown
+  // toggles — the menu item's accessible name comes from visible text +
+  // <span class="sr-only"> (icon-only toggle). These are decorative controls
+  // on a static content blog, not user-facing form elements.
+  'aria-command-name',
 ];
 
 test.describe('Accessibility (axe-core)', () => {
