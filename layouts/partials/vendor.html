@@ -74,6 +74,7 @@
   {{ $jsShortcodeGallery := resources.Get "js/shortcodes/gallery.js" }}
   {{ $jsShortcodeGallery = $jsShortcodeGallery | resources.Minify | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
   <script
+    defer
     type="text/javascript"
     src="{{ $jsShortcodeGallery.RelPermalink }}"
     integrity="{{ $jsShortcodeGallery.Data.Integrity }}"></script>
@@ -109,9 +110,10 @@
   {{ $youtubeLiteLib := resources.Get "lib/lite-youtube-embed/lite-yt-embed.js" }}
   {{ $youtubeLiteLib = $youtubeLiteLib | resources.Fingerprint (.Site.Params.fingerprintAlgorithm | default "sha512") }}
   <script
-    type="text/javascript"
-    src="{{ $youtubeLiteLib.RelPermalink }}"
-    integrity="{{ $youtubeLiteLib.Data.Integrity }}"></script>
+  defer
+  type="text/javascript"
+  src="{{ $youtubeLiteLib.RelPermalink }}"
+  integrity="{{ $youtubeLiteLib.Data.Integrity }}"></script>
 {{ end }}
 
 {{/* Repo cards */}}
