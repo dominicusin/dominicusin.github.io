@@ -6,6 +6,10 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+// Reduce motion
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
 body { font-family: $font-sans; font-size: 16px; line-height: 1.6; color: $text; background: $bg; -webkit-font-smoothing: antialiased; }
 a { color: $accent; text-decoration: none; transition: color $transition; &:hover { color: #1d4ed8; } }
 img { max-width: 100%; height: auto; border-radius: $radius; }
