@@ -21,7 +21,8 @@
         height="96"
         alt="{{ $.Site.Params.Author.name | default " Author" }}"
         src="{{ $final.RelPermalink }}"
-        data-zoom-src="{{ $squareImage.RelPermalink }}" />
+        data-zoom-src="{{ $squareImage.RelPermalink }}"
+        loading="lazy" />
     {{ end }}
   {{ end }}
   <div class="place-self-center">
