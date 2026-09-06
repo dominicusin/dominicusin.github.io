@@ -11,7 +11,7 @@ tags:
 - awesome-list
 - free-resources
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Awesome-Selfhosted"
 ---
 author: DominicusIn

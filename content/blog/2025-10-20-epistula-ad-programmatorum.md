@@ -11,7 +11,7 @@ tags:
 - programming
 - essay
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Epistula ad Programmatorum"
 ---
 author: DominicusIn

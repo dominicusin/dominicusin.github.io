@@ -11,7 +11,7 @@ tags:
 - humor
 - craft
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Three Virtues"
 ---
 author: DominicusIn

@@ -11,7 +11,7 @@ tags:
 - productivity
 - automation
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Prepare my Windows workstation"
 ---
 author: DominicusIn

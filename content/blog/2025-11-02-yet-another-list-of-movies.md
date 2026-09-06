@@ -10,7 +10,7 @@ tags:
 - movies
 - awesome-list
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "YA movies's list"
 ---
 author: DominicusIn

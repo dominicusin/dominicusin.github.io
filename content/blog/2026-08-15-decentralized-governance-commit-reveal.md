@@ -15,7 +15,7 @@ description: 'Как устроен смарт-контракт DAO в этом 
   с капом, soulbound-репутация, commit-reveal схема против фронтраннинга и двухдневный
   таймлок перед исполнением.'
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Децентрализованное управление: commit-reveal голосование и таймлоки"
 ---
 author: DominicusIn

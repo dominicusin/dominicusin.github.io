@@ -12,7 +12,7 @@ tags:
 - programming
 - awesome-list
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "free-programming-books"
 ---
 author: DominicusIn
