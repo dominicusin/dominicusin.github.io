@@ -1,0 +1,3 @@
+{{ $src := .Destination | relURL }}
+{{ $alt := .PlainText }}
+<img src="{{ $src }}" alt="{{ $alt }}" loading="lazy" decoding="async">
