@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang }}" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>Страница не найдена &#183; {{ site.Title }}</title>
+  <meta name="description" content="Страница не найдена. Возможно, она была переименована или удалена.">
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  {{/* Fonts */}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+  {{/* CSS */}}
+  <link rel="stylesheet" href="{{ "css/compiled/main.css" | relURL }}">
+  <style>
+    .error-code { font-size: 5rem; font-weight: 900; line-height: 1; }
+    .error-container { max-width: 40rem; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <main class="error-container flex-grow flex flex-col justify-center">
+    <div class="error-code text-neutral-900 dark:text-white mb-4">404</div>
+    <h1 class="text-3xl font-bold mb-4 text-neutral-900 dark:text-white">Страница не найдена</h1>
+    <p class="text-neutral-600 dark:text-neutral-400 mb-8 max-w-md mx-auto">
+      Возможно, страница была переименована или удалена.
+      Проверьте адрес или вернитесь на главную.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/" class="btn btn-primary">На главную</a>
+      <a href="/blog/" class="btn btn-outline">В блог</a>
+      <button id="search-open-404" class="btn btn-outline">Найти по сайту</button>
+    </div>
+  </main>
+  {{ partial "footer.html" . }}
+  <script defer>
+    document.getElementById('search-open-404').addEventListener('click', function() {
+      var modal = document.getElementById('search-modal');
+      if (modal) modal.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
