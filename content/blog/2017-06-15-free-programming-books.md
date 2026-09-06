@@ -11,7 +11,7 @@ tags:
 - free-resources
 - programming
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Free Programming Books"
 ---
 author: DominicusIn

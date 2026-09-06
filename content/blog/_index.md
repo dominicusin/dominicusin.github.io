@@ -9,7 +9,7 @@ tags:
 - meta
 - about
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Blog"
 ---
 author: DominicusIn

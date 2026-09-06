@@ -11,7 +11,7 @@ tags:
 - privacy
 - hardening
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "macOS-Security-and-Privacy-Guide"
 ---
 author: DominicusIn

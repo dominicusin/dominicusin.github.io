@@ -11,7 +11,7 @@ tags:
 - cli
 - cloud
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "gcloud cheat sheet"
 ---
 author: DominicusIn

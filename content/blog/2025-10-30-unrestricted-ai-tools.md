@@ -12,7 +12,7 @@ tags:
 - tools
 - nsfw
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Unrestricted AI Tools"
 ---
 author: DominicusIn

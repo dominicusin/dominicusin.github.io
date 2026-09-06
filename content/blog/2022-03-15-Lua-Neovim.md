@@ -11,7 +11,7 @@ tags:
 - lua
 - editors
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Lua  Neovim"
 ---
 author: DominicusIn

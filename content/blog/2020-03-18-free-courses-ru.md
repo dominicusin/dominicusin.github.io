@@ -11,7 +11,7 @@ tags:
 - courses
 - awesome-list
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "free-courses"
 ---
 author: DominicusIn

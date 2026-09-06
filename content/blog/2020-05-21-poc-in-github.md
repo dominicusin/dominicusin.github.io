@@ -11,7 +11,7 @@ tags:
 - github
 - security
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "PoC in GitHub"
 ---
 author: DominicusIn

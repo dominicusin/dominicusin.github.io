@@ -11,7 +11,7 @@ tags:
 - awesome-list
 - applications
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "A Collection of Awesome AI Applications"
 ---
 author: DominicusIn

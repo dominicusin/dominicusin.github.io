@@ -11,7 +11,7 @@ tags:
 - interview
 - devops
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Linux System Administrator(DevOp) Interview Questions"
 ---
 author: DominicusIn

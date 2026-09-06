@@ -11,7 +11,7 @@ tags:
 - darknet
 - privacy
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Dark Web Links"
 ---
 author: DominicusIn

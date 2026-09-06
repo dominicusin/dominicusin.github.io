@@ -12,7 +12,7 @@ tags:
 - free-resources
 - awesome-list
 
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "free-podcasts-screencasts"
 ---
 author: DominicusIn
