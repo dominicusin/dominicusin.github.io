@@ -2,7 +2,7 @@
 title: Knowledge Graph
 date: '2025-12-29T20:01:00.000Z'
 slug: knowledge-graph
-image: /assets/images/og-default.png
+image: /images/og-default.png
 alt: "Knowledge Graph"
 ---
 
