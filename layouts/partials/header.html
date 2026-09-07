@@ -1,5 +1,11 @@
 {{ partial "search-modal.html" . }}
 
+<a
+  href="#main-content"
+  class="sr-only focus:not-sr-only bg-neutral-900 text-white px-4 py-2 text-sm font-medium rounded-md absolute top-4 left-4 z-50">
+  Перейти к основному содержимому
+</a>
+
 <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
   {{ if .Site.Params.Logo }}
     {{ $logo := resources.Get .Site.Params.Logo }}
