@@ -249,6 +249,11 @@
   {{ end }}
 
   {{/* Preconnect for external services */}}
+  {{ if .IsPage }}
+    {{ with .NextInSection }}
+    <link rel="prefetch" href="{{ .RelPermalink }}" as="document">
+    {{ end }}
+  {{ end }}
   <link rel="preconnect" href="https://giscus.app" crossorigin>
   <link rel="preconnect" href="https://api.github.com">
   <link rel="preconnect" href="https://assets-global.website-files.com">
