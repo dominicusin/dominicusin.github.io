@@ -246,4 +246,10 @@
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ . }}"
       crossorigin="anonymous"></script>
-  {{ end }}</head>
+  {{ end }}
+
+  {{/* Preconnect for external services */}}
+  <link rel="preconnect" href="https://giscus.app" crossorigin>
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="preconnect" href="https://assets-global.website-files.com">
+</head>
