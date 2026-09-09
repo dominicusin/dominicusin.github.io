@@ -15,6 +15,48 @@
     }
   }
   </script>
+{{ else if and (or (eq .Kind "section") (eq .Kind "taxonomy") (eq .Kind "term")) (eq .Section "blog") }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "{{ .Title | safeJS }}",
+    "description": "{{ .Site.Params.description | safeJS }}",
+    "url": "{{ .Permalink }}",
+    "publisher": {
+      "@type": "Person",
+      "name": "{{ .Site.Params.Author.name | safeJS }}"
+    },
+    "blogPost": [
+      {{- $posts := where .Pages "Section" "blog" | first 10 -}}
+      {{- range $i, $page := $posts -}}
+        {{- if $i }}, {{ end -}}
+        {
+          "@type": "BlogPosting",
+          "headline": "{{ $page.Title | safeJS }}",
+          "url": "{{ $page.RelPermalink }}"
+        }
+      {{- end -}}
+    ],
+    "numberOfItems": {{ len .Pages }}
+  }
+  </script>
+{{ else if eq .Section "knowledge-graph" }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Knowledge Graph",
+    "description": "Interactive semantic relationship visualization between posts, concepts, people and projects.",
+    "url": "{{ .Permalink }}",
+    "applicationCategory": "Visualization",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    }
+  }
+  </script>
 {{ else }}
   {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
   {{- /* Resolve the author: first `authors` front matter key looked up in data/authors/, else the site author. */ -}}
