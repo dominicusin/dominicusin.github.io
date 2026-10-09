@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "Curriculum Vitae"
 ---
-author: DominicusIn
 
 # Domini
 

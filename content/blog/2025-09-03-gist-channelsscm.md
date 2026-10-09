@@ -17,7 +17,6 @@ gist_url: https://gist.github.com/dominicusin/a94364c9e2c9e742d0c94dc58a706361
 image: /images/og-default.png
 alt: "channels.scm"
 ---
-author: DominicusIn
 
 channels.scm
 

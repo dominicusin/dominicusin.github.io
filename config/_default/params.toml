@@ -5,10 +5,14 @@
 # --- Core appearance ---
 colorScheme = "dominicusin"
 defaultAppearance = "dark"
-description = "Engineering blog & decentralized web notes by Dominicus In."
+description = "Инженерный блокнот Dominicus In: системная и промышленная инженерия, данные и технологии."
 showDarkModeToggle = true
 showLanguageSelector = false       # EN not configured (no content/en); avoid dead /en/* links
 mainSections = ["blog"]
+
+[Author]
+  name = "Dominicus In"
+  links = [{ github = "https://github.com/dominicusin" }, { linkedin = "https://www.linkedin.com/in/dominicusin" }, { telegram = "https://t.me/dominicusin" }]
 
 # --- Feature flags ---
 enableSearch = true          # client-side Fuse.js search (index.json)

@@ -1,6 +1,6 @@
 ---
-title: Blog
-description: Engineering blog & decentralized web notes by Dominicus In.
+title: Блог
+description: Заметки о системной и промышленной инженерии, данных и технологиях.
 aliases:
 - /posts/
 categories:
@@ -12,5 +12,3 @@ tags:
 image: /images/og-default.png
 alt: "Blog"
 ---
-author: DominicusIn
-

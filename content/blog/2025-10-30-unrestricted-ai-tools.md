@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "Unrestricted AI Tools"
 ---
-author: DominicusIn
 
 # Unrestricted AI Tools
 

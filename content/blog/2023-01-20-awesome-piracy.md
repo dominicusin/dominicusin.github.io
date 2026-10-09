@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Awesome Piracy"
 ---
-author: DominicusIn
 
 # Awesome Piracy [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 

@@ -13,7 +13,6 @@ tags:
 image: /images/og-default.png
 alt: "programmers"
 ---
-author: DominicusIn
 
  1. Good programmers never read manuals and rarely use online help - they easily get a grasp of a new program, simply because they have already tried every single program in this field before.
 

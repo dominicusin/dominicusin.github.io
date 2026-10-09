@@ -1,0 +1,18 @@
+{{ define "main" }}
+  <article class="about-page">
+    <header class="about-page-header">
+      <p class="about-page-eyebrow">ЛИЧНЫЙ ИНЖЕНЕРНЫЙ БЛОКНОТ</p>
+      <h1>Dominicus In</h1>
+      <p class="about-page-intro">{{ .Description }}</p>
+      <nav class="about-page-links" aria-label="Профили автора">
+        <a href="https://github.com/dominicusin" target="_blank" rel="me noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a href="https://www.linkedin.com/in/dominicusin" target="_blank" rel="me noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a href="https://t.me/dominicusin" target="_blank" rel="me noopener noreferrer">Telegram <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <div class="about-page-content prose dark:prose-invert">
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}

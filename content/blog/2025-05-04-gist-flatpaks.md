@@ -17,7 +17,6 @@ gist_url: https://gist.github.com/dominicusin/93445e617b848ab12e5b0a7026f25752
 image: /images/og-default.png
 alt: "flatpaks"
 ---
-author: DominicusIn
 
 flatpaks
 

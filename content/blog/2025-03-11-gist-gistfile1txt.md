@@ -15,7 +15,6 @@ gist_url: https://gist.github.com/dominicusin/09e979be90a5a188026c91453113f5fa
 image: /images/og-default.png
 alt: "gistfile1 txt"
 ---
-author: DominicusIn
 
 [View on GitHub Gist](https://gist.github.com/dominicusin/09e979be90a5a188026c91453113f5fa)
 

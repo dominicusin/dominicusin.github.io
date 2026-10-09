@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Linux System Administrator(DevOp) Interview Questions"
 ---
-author: DominicusIn
 
 Linux System Administrator/DevOp Interview Questions
 ====================================================

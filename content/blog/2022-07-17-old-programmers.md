@@ -13,7 +13,6 @@ tags:
 image: /images/og-default.png
 alt: "old programmers"
 ---
-author: DominicusIn
 
 The old programmers never die...
 

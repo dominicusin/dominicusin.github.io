@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "free-podcasts-screencasts"
 ---
-author: DominicusIn
 
 ### Index
 

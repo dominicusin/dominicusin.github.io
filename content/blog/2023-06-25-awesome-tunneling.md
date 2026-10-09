@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "Awesome tunneling"
 ---
-author: DominicusIn
 
 forked from anderspitman/awesome-tunneling
 

@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Lua  Neovim"
 ---
-author: DominicusIn
 
 # Начало работы с Lua в Neovim
 

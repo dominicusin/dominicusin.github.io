@@ -13,7 +13,6 @@ tags:
 image: /images/og-default.png
 alt: "Google Interview Questions"
 ---
-author: DominicusIn
 
 ##Google Interview Questions: Product Marketing Manager
 - Why do you want to join Google?

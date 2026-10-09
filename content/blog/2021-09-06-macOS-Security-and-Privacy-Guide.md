@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "macOS-Security-and-Privacy-Guide"
 ---
-author: DominicusIn
 
 This guide is a collection of techniques for improving the security and privacy of a modern Apple Macintosh computer ("MacBook") running a recent version of macOS (formerly known as "OS X").
 

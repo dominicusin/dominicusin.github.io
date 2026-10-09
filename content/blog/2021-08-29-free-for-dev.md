@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "free-for.dev"
 ---
-author: DominicusIn
 
 # free-for.dev
 

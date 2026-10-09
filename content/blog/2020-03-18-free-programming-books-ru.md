@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "free-programming-books"
 ---
-author: DominicusIn
 
 ### Index
 

@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Linux Networking commands"
 ---
-author: DominicusIn
 
 
  1. [arpwatch](https://linux.die.net/man/8/arpwatch) – Ethernet Activity Monitor.

@@ -1,43 +1,96 @@
-<!DOCTYPE html>
-<html lang="{{ site.Language.Locale | default "ru" }}" data-theme="dark">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2563eb">
-  <title>{{ site.Title }}</title>
-  <meta name="description" content="{{ site.Params.description }}">
-  <link rel="canonical" href="{{ .Permalink }}">
-
-  {{/* Fonts — preload Newsreader (heading font) for faster LCP */}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"></noscript>
-
-  {{/* CSS */}}
+<!doctype html>
+<html lang="{{ site.Params.isoCode | default (site.Language.Locale | default "ru") }}" dir="{{ cond (site.Params.rtl | default false) "rtl" "ltr" }}" class="scroll-smooth" data-default-appearance="{{ site.Params.defaultAppearance | default "light" }}" data-auto-appearance="{{ site.Params.autoSwitchAppearance | default true }}">
   {{ partial "head.html" . }}
-  {{ partial "header.html" . }}
-  <main id="main-content" class="container">
-    <section class="hero">
-    <h1>Инженерный блог<br/>о системах и данных</h1>
-    <p>Промышленная инженерия, системная инженерия и наука о данных.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="{{ "blog/" | relURL }}">Перейти в блог</a>
-    </div>
-  </section>
-</main>
+  {{ partialCached "init.html" . }}
+  <body class="flex flex-col min-h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral{{ if site.Params.enableStyledScrollbar | default true }} bf-scrollbar{{ end }}">
+    <div id="the-top" class="absolute flex self-center"></div>
+    <header>
+      {{ $header := print "header/" site.Params.header.layout ".html" }}
+      {{ if templates.Exists (printf "partials/%s" $header) }}
+        {{ partial $header . }}
+      {{ else }}
+        {{ partial "header/basic.html" . }}
+      {{ end }}
+    </header>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-bottom">
-      <span>© {{ now.Year }} · {{ site.Title }}</span>
-      <span>CC0 · Hugo</span>
-    </div>
-  </div>
-</footer>
+    <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow home-main">
+      <div class="home-shell">
+        <section class="home-hero" aria-labelledby="home-title">
+          <div class="home-hero-copy">
+            <p class="home-eyebrow"><span class="home-status-dot" aria-hidden="true"></span> ИНЖЕНЕРНЫЕ ЗАМЕТКИ · С 2015 ГОДА</p>
+          <h1 id="home-title">Видеть целое.<br><span>Улучшать детали.</span></h1>
+            <p class="home-intro">Записи о системной и промышленной инженерии, анализе данных, открытых технологиях и практических инструментах.</p>
+            <div class="home-actions">
+              <a class="home-button home-button-primary" href="{{ "blog/" | relURL }}">Читать блог <span aria-hidden="true">↗</span></a>
+              <a class="home-button home-button-secondary" href="{{ "about/" | relURL }}">Об авторе</a>
+            </div>
+          </div>
 
-<button class="scroll-top" id="scroll-top" aria-label="Наверх">↑</button>
-{{ partial "footer.html" . }}
-{{ partial "scroll-to-top.html" . }}
-</body>
+          <div class="home-hero-art" aria-hidden="true">
+            <div class="home-orbit home-orbit-outer"></div>
+            <div class="home-orbit home-orbit-inner"></div>
+            <div class="home-orbit-core">DI</div>
+            <span class="home-orbit-label home-orbit-label-top">SYSTEMS</span>
+            <span class="home-orbit-label home-orbit-label-right">DATA</span>
+            <span class="home-orbit-label home-orbit-label-bottom">ENGINEERING</span>
+          </div>
+          <span class="home-hero-index" aria-hidden="true">01 / FIELD NOTES</span>
+        </section>
+
+        <section class="home-topics" aria-label="Разделы сайта">
+          <a class="home-topic" href="{{ "categories/" | relURL }}">
+            <span class="home-topic-number">01</span>
+            <span class="home-topic-copy"><strong>Инженерия и системы</strong><span>Методы, процессы, решения</span></span>
+            <span class="home-topic-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="home-topic" href="{{ "knowledge-graph/" | relURL }}">
+            <span class="home-topic-number">02</span>
+            <span class="home-topic-copy"><strong>Граф знаний</strong><span>Идеи и связи между ними</span></span>
+            <span class="home-topic-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="home-topic" href="{{ "awesome/" | relURL }}">
+            <span class="home-topic-number">03</span>
+            <span class="home-topic-copy"><strong>Открытые подборки</strong><span>Инструменты и полезные ссылки</span></span>
+            <span class="home-topic-arrow" aria-hidden="true">↗</span>
+          </a>
+        </section>
+
+        <section class="home-latest" aria-labelledby="latest-title">
+          <div class="home-section-heading">
+            <div>
+              <p class="home-eyebrow">ИЗ ЗАПИСНОЙ КНИЖКИ</p>
+              <h2 id="latest-title">Недавние публикации</h2>
+            </div>
+            <a class="home-text-link" href="{{ "blog/" | relURL }}">Все записи <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="home-post-list">
+            {{ range first 3 (where site.RegularPages "Section" "blog") }}
+              <article class="home-post">
+                <time class="home-post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+                <div class="home-post-copy">
+                  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                  {{ with .Description }}<p>{{ . | plainify | htmlUnescape | truncate 150 }}</p>{{ end }}
+                </div>
+                <a class="home-post-arrow" href="{{ .RelPermalink }}" aria-label="Открыть публикацию: {{ .Title }}">↗</a>
+              </article>
+            {{ else }}
+              <p class="home-empty">Новые записи скоро появятся в блоге.</p>
+            {{ end }}
+          </div>
+        </section>
+
+        <section class="home-note" aria-label="О сайте">
+          <span class="home-note-mark" aria-hidden="true">✳</span>
+          <p>Личный инженерный блокнот: наблюдения, полезные ссылки и идеи, к которым хочется вернуться.</p>
+          <a href="{{ "archives/" | relURL }}">Открыть архив <span aria-hidden="true">→</span></a>
+        </section>
+      </div>
+    </main>
+
+    {{ partial "scroll-to-top.html" . }}
+    {{ partial "footer.html" . }}
+    </div>
+  </body>
 </html>
