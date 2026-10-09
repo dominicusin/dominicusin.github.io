@@ -1,11 +1,12 @@
 name: 🧪 R&D Tests
 
-# Isolated R&D test gate (TASK-C2 / T89). Runs the experimental-plane suites
-# (src/ jest + contracts/dao hardhat) separately from the production Hugo build
-# so a flaky R&D test cannot block the GitHub Pages deploy. Triggered on any
-# change touching the R&D surface. Not a required status check for merge
-# (the required checks are "test" + "build" in hugo.yml), but it surfaces R&D
-# regressions on every relevant push/PR.
+# STATUS: disabled manually in GitHub Actions after the DAO test job failed on
+# main (last updated 2026-08-25). Do not describe this workflow as an active
+# check. Re-enable it after repairing and verifying the DAO test suite.
+#
+# When enabled, this isolates the experimental-plane suites (src/ Jest and
+# contracts/dao Hardhat) from the production Hugo build, so an R&D failure does
+# not block the Pages deploy. The job is not a required status check for merge.
 
 on:
   push:

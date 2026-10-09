@@ -1,122 +1,74 @@
-# dominicusin.github.io — Engineering Blog (Hugo + Blowfish)
+# dominicusin.github.io
 
-[![Deploy](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml/badge.svg)](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml)
-[![Tests](https://img.shields.io/badge/tests-277%20jest%20%2B%209%20hardhat-brightgreen)](tests/)
+[![Pages](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml/badge.svg)](https://github.com/dominicusin/dominicusin.github.io/actions/workflows/hugo.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> Static engineering blog built with **Hugo** + the **Blowfish** theme, deployed to GitHub Pages.
-> Migrated from the legacy Jekyll + esbuild stack (see `docs/SSG_MIGRATION_PLAN.md`).
+Personal engineering blog and knowledge library: [dominicusin.github.io](https://dominicusin.github.io/).
+The public site is built with Hugo and the Blowfish theme, with Russian as its primary language.
 
-Domini's personal engineering blog: industrial engineering, systems engineering, and data science,
-plus decentralized-web / DAO notes.
+## How the project fits together
 
-## 🚀 Architecture (two planes)
+The repository has two clear parts:
 
-This repository deliberately separates **publishing** from **engineering tooling**:
+- **Website:** Hugo content, templates, theme, and generated site data. This is the only part published to GitHub Pages.
+- **Engineering archive:** `src/`, `contracts/dao/`, and their tests. These are retained experiments; they are not shipped with the site.
 
-- **Publishing Plane** — the website.
-  - Generator: Hugo (extended) + Blowfish theme (git submodule at `themes/blowfish`).
-  - Content: `content/` (blog posts in `content/blog/`, `content/people/`, `content/domini/`).
-  - Config: `config/_default/` (`hugo.toml`, `config.toml`, `params` inline, `menus.*.toml`, `languages.toml`).
-  - Comments: [giscus](https://giscus.app) (GitHub Discussions backend, category "Announcements").
-  - Subscription: Buttondown form (`layouts/partials/subscription.html`).
-  - i18n: `i18n/{ru,en}.yaml` (ru default, en secondary).
-  - Build/deploy: `.github/workflows/hugo.yml` → GitHub Pages (single publisher).
-- **Engineering Plane** — smart-contract / DAO tooling (kept separate, NOT deployed to the site).
-  - `contracts/dao/` — Solidity sources.
-  - `tests/hardhat/` — Hardhat tests (`npx hardhat test`, 9 passing).
-  - `scripts/` — content-contract + knowledge-graph generation.
-  - `src/` — v4.0 frontend modules (CRDT/P2P/DAO/BCI adapters). Retained for the engineering
-    substrate; not bundled into the static site (Hugo ignores `src/`).
+The architecture boundary and its rationale are recorded in
+[`docs/adr/0002-two-plane-architecture.md`](docs/adr/0002-two-plane-architecture.md).
+The current implementation overview is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
-See [`docs/adr/0002-two-plane-architecture.md`](docs/adr/0002-two-plane-architecture.md) for the
-formal two-plane boundary, integration points, and DAO lifecycle.
+## Build and preview the site
 
-## 🛠 Local development
+Requirements: Node.js 24, Hugo Extended 0.164.0, and the Blowfish theme submodule.
 
-```bash
-# 1. Install Hugo (extended) — e.g. via Go:
-#    CGO_ENABLED=0 go install github.com/gohugoio/hugo@v0.164.0
-# 2. Init the theme submodule:
-git submodule update --init --recursive
-# 3. Run the dev server (drafts included):
+```sh
+git submodule update --init themes/blowfish
+npm ci --prefix scripts
+node scripts/sync-github.cjs
+node scripts/build-knowledge-graph.cjs
+node scripts/build-ontology-feed.cjs
+node scripts/build-crosslinks.cjs
+node scripts/build-awesome.cjs
 hugo server -D
-# 4. Production build:
-hugo --gc --minify
 ```
 
-The site is served from `public/` after a build. `public/` and `resources/` are git-ignored.
+Open the local URL printed by Hugo. To create the production output in `public/`:
 
-## 📦 Content model
+```sh
+hugo --gc --minify --baseURL "https://dominicusin.github.io/"
+```
 
-- Posts live in `content/blog/` as `YYYY-MM-DD-slug.md`. Frontmatter is normalized
-  (title, date ISO-8601, categories, tags, authors, draft, slug).
-- Legacy permalinks are preserved via Hugo `aliases` (e.g. `/2015/11/19/first.html` → `/2015/11/19/first/`).
-- The `content/posts` → `content/blog` rename keeps post URLs intact; `/posts/` now aliases `/blog/`.
-- Every **new** post (added in a PR) is validated as a **hard gate** against
-  `schema/post-metadata.schema.json` in CI (`scripts/ci-content-contract.cjs`):
-  an invalid new post **blocks the deploy**. Modified legacy posts (e.g. 2015
-  posts lacking tags/author) are report-only and do not block.
-- Author hint: run `node scripts/ci-content-contract.cjs` locally before push to
-  self-check; `node scripts/validate-frontmatter.cjs content/blog/<file>` validates a single post.
+The deploy workflow runs the data generators and Hugo build in this order, then publishes the `public/` artifact to GitHub Pages. Pushes to `main` and the scheduled repository sync both use this workflow. The `quality.yml` workflow checks pull requests and never deploys.
 
-## 🔧 Key files
+## Where to work
 
-| Path | Purpose |
-|------|---------|
-| `config/_default/hugo.toml` | Site + Blowfish params, permalinks, outputs, giscus, subscription URL |
-| `config/_default/config.toml` | `theme = "blowfish"` declaration |
-| `themes/blowfish` | Theme submodule (v2.105.0) |
-| `content/` | All site content |
-| `layouts/partials/comments.html` | giscus + subscription injection |
-| `i18n/` | ru/en translations |
-| `contracts/dao/`, `tests/hardhat/` | DAO engineering plane |
-| `.github/workflows/hugo.yml` | The only GitHub Pages publisher |
+| Area | Source of truth |
+| --- | --- |
+| Posts and pages | `content/` |
+| Site settings and navigation | `config/_default/` |
+| Theme overrides | `layouts/`, `assets/`, `static/`, `i18n/` |
+| Generated site data | `data/`, `static/data/`, generated by `scripts/` |
+| Content rules | `schema/post-metadata.schema.json`, `docs/CONTENT_CONTRACT.md` |
+| Publishing and operations | `docs/PUBLISHING.md`, `docs/OPERATIONS.md` |
+| Frozen engineering archive | `src/`, `contracts/dao/`, `tests/` |
 
-## ⚙️ CI/CD (single publisher model)
+New articles belong in `content/blog/`. Keep front matter aligned with the content schema; CI checks new articles before they can be published. Use Hugo aliases when changing a page URL so existing links continue to work.
 
-Only `.github/workflows/hugo.yml` deploys to GitHub Pages. Other workflows are
-quality/support and never flip the Pages source.
+## Project checks
 
-| Workflow | Purpose | Deploys? |
-|----------|---------|----------|
-| `hugo.yml` | Build + **content-contract hard gate (new posts)** + deploy to Pages | ✅ yes |
-| `hugo-build-check.yml` | Build-only sanity check | ❌ |
-| `security.yml` | Node audit + Trivy + Semgrep (weekly) | ❌ |
-| `performance.yml` | Lighthouse audit against live Pages URL | ❌ |
-| `dependency-update.yml` | Dependabot-driven bumps | ❌ |
-| `link-repair.yml` | Scheduled broken-link check | ❌ |
-| `deploy-dao.yml` | `test` job (Hardhat, no secrets) + guarded `deploy` (needs secrets) | ❌ (separate track) |
-| `vr-export.yml` | Build-only VR artifact (no Pages flip) | ❌ |
-| `sync_gists.yml`, `analytics.yml`, `fediverse-notify.yml` | Post-deploy integrations | ❌ |
-| `deploy-ipfs.yml` | **DISABLED** (legacy Jekyll + compromised Pinata) | ❌ |
+The required pull request gate is **Quality CI**. It installs the root Node dependencies, builds Hugo, checks content and internal links, and runs the repository lint step. The Playwright workflow runs separately. The R&D test workflow is currently disabled in GitHub Actions because its DAO test job fails on `main`; its suites are not part of the required pull request gate.
 
-> The legacy Jekyll CI (`ci.yml`, `jekyll.yml`, `ci-cd.yml`) was removed in
-> Phase 7. Do not reintroduce `bundle exec jekyll build` — the site is Hugo-only.
+Useful local commands:
 
-## 🧠 Knowledge Hub (Engineering Knowledge Platform)
+```sh
+npm ci
+npm run lint
+npm test
+npx hardhat test
+```
 
-The site is more than a blog: it is a navigable knowledge base.
+These commands are available for local work on the engineering archive. The site build uses the nested tooling dependencies installed with `npm ci --prefix scripts`.
 
-- **Knowledge Graph** (`/knowledge-graph/`) — interactive concept/post explorer
-  backed by `/data/knowledge-graph.json` (JSON-LD, generated each build). Noscript
-  fallback via `/categories/` + `/tags/`.
-- **Community** (`/community/`) — giscus (GitHub Discussions) comments + Buttondown
-  subscription, with discussion norms and a privacy note.
-- **Editorial strategy**: `docs/EDITORIAL_STRATEGY.md` (content directions, taxonomy,
-  people/domini rules, author checklist).
-- **DAO track**: `docs/DAO_ROADMAP.md` (contracts, test/deploy, threat model).
-- **Architecture**: `docs/adr/0002-two-plane-architecture.md` (Publishing vs Engineering).
-- **Content contract**: `docs/CONTENT_CONTRACT.md` (new posts are a hard gate).
+## License
 
-## 🧹 Legacy (removed)
-
-The legacy Jekyll + esbuild stack (`_config.yml`, `Gemfile`, `_layouts/`, `_includes/`,
-`_sass/`, `_posts/`, `_site/`, `js/`, `build.js`, `build-jekyll.rb`) and the Jekyll CI workflows
-(`ci.yml`, `jekyll.yml`, `ci-cd.yml`) were **removed** in Phase 7 (rollback point tagged
-`pre-phase7-legacy`). The Hugo site is the sole publisher. `src/` (DAO/CRDT modules) and
-`contracts/dao/` are retained as the engineering plane.
-
-## 📄 License
-
-MIT — see `LICENSE`.
+MIT. See [`LICENSE`](LICENSE).
