@@ -63,6 +63,38 @@
     {{ end }}
   {{ end }}
 
+  {{/* GitHub indexes use their source names instead of Hugo's page title. */}}
+  {{ if eq .Section "repositories" }}
+    <section class="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {{ range (.Paginate (.Pages.ByTitle)).Pages }}
+        {{ $name := .Params.repo_name | default .LinkTitle | default .Title }}
+        <article class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+          <h2 class="mt-0 text-xl font-bold"><a href="{{ .RelPermalink }}">{{ $name }}</a></h2>
+          {{ with .Params.description }}<p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{{ . | plainify | htmlEscape }}</p>{{ end }}
+          <div class="mt-4 flex flex-wrap gap-3 text-sm">
+            <a href="{{ .Params.repo_url }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            {{ with .Params.language }}<span>{{ . }}</span>{{ end }}
+            {{ with .Params.stars }}<span>★ {{ . }}</span>{{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  {{ else if eq .Section "gists" }}
+    <section class="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {{ range (.Paginate ((.Pages.ByParam "updated_at").Reverse)).Pages }}
+        {{ $name := .Params.description | default .Title }}
+        {{ if eq $name .Params.gist_id }}{{ $name = .Params.gist_name | default $name }}{{ end }}
+        <article class="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
+          <h2 class="mt-0 text-xl font-bold"><a href="{{ .RelPermalink }}">{{ $name | plainify | htmlEscape }}</a></h2>
+          {{ with .Params.updated_at }}<p class="mt-2 text-sm text-neutral-500">Обновлён {{ (time .).Format "02.01.2006" }}</p>{{ end }}
+          <div class="mt-4 flex flex-wrap gap-3 text-sm">
+            <a href="{{ .Params.gist_url }}" target="_blank" rel="noopener noreferrer">Открыть gist ↗</a>
+            {{ with .Params.files }}<span>{{ len . }} файлов</span>{{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  {{ else }}
   {{/* Articles grid */}}
   {{ if gt .Pages 0 }}
     {{ $cardView := .Params.cardView | default (site.Params.list.cardView | default false) }}
@@ -111,6 +143,7 @@
         <em>{{ i18n "list.no_articles" | emojify }}</em>
       </p>
     </section>
+  {{ end }}
   {{ end }}
 
   {{/* Pagination */}}

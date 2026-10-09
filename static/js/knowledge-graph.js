@@ -21,7 +21,7 @@
     gist: 'var(--kg-gist, #fbbf24)',
     org: 'var(--kg-org, #c084fc)'
   };
-  var LABELS = { post: 'Post', concept: 'Concept', person: 'Person', project: 'Project', dao: 'DAO contract', repository: 'Repository', gist: 'Gist', org: 'Organization' };
+  var LABELS = { post: 'Публикация', concept: 'Тема', person: 'Человек', project: 'Проект', dao: 'Контракт DAO', repository: 'Репозиторий', gist: 'Gist', org: 'Организация' };
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -33,7 +33,7 @@
   fetch('/data/knowledge-graph.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(init)
-    .catch(function (e) { root.innerHTML = ''; root.appendChild(el('p', 'kg-error', 'Could not load knowledge graph data: ' + e.message)); });
+    .catch(function () { root.innerHTML = ''; root.appendChild(el('p', 'kg-error', 'Не удалось загрузить данные графа. Попробуйте обновить страницу позже.')); });
 
   function init(data) {
     var nodes = data.nodes.map(function (n) { return Object.assign({}, n); });
@@ -47,8 +47,8 @@
 
     // Controls
     var controls = el('div', 'kg-controls');
-    var search = el('input', 'kg-search'); search.type = 'search'; search.placeholder = 'Search the graph…';
-    var reset = el('button', 'kg-btn', 'Reset view');
+    var search = el('input', 'kg-search'); search.type = 'search'; search.placeholder = 'Найти в графе…';
+    var reset = el('button', 'kg-btn', 'Сбросить вид');
     controls.appendChild(search); controls.appendChild(reset);
     wrap.appendChild(controls);
 
@@ -73,7 +73,7 @@
     var stage = el('div', 'kg-stage');
     var svgHost = el('div', 'kg-svg');
     var panel = el('div', 'kg-panel');
-    panel.appendChild(el('p', 'kg-panel-empty', 'Select a node to see details.'));
+    panel.appendChild(el('p', 'kg-panel-empty', 'Выберите узел, чтобы увидеть подробности.'));
     stage.appendChild(svgHost); stage.appendChild(panel);
     wrap.appendChild(stage);
 
@@ -206,15 +206,15 @@
       panel.appendChild(el('span', 'kg-panel-type', LABELS[d.type] || d.type));
       if (d.date) panel.appendChild(el('p', 'kg-panel-date', String(d.date).slice(0, 10)));
       if (d.url && d.url.indexOf('http') === 0) {
-        var a = el('a', 'kg-panel-link', 'Open ↗'); a.href = d.url; a.target = '_blank'; a.rel = 'noopener'; panel.appendChild(a);
+        var a = el('a', 'kg-panel-link', 'Открыть ↗'); a.href = d.url; a.target = '_blank'; a.rel = 'noopener'; panel.appendChild(a);
       } else if (d.url) {
-        var b = el('a', 'kg-panel-link', 'Open post →'); b.href = d.url; panel.appendChild(b);
+        var b = el('a', 'kg-panel-link', 'Открыть публикацию →'); b.href = d.url; panel.appendChild(b);
       }
       var rel = links.filter(function (l) { return (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id; })
         .map(function (l) { var other = (l.source.id || l.source) === d.id ? (l.target.id || l.target) : (l.source.id || l.source); return byId[other]; })
         .filter(Boolean).slice(0, 12);
       if (rel.length) {
-        panel.appendChild(el('p', 'kg-panel-sub', 'Connected (' + rel.length + '):'));
+        panel.appendChild(el('p', 'kg-panel-sub', 'Связи (' + rel.length + '):'));
         var ul = el('ul', 'kg-panel-rel');
         rel.forEach(function (r) {
           var li = el('li'); var ra = el('a', null, r.label); ra.href = '#'; ra.addEventListener('click', function (e) { e.preventDefault(); focusNode(r.id); });
@@ -253,7 +253,7 @@
       fitView();
       node.classed('kg-dim', false).classed('kg-selected', false);
       link.classed('kg-dim', false).classed('kg-edge-hi', false);
-      panel.innerHTML = ''; panel.appendChild(el('p', 'kg-panel-empty', 'Select a node to see details.'));
+      panel.innerHTML = ''; panel.appendChild(el('p', 'kg-panel-empty', 'Выберите узел, чтобы увидеть подробности.'));
     });
 
     window.addEventListener('resize', function () {

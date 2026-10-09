@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <header class="mb-8 max-w-prose">
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="prose mt-4 dark:prose-invert">{{ .Content }}</div>
+  </header>
+  <section class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {{ range $slug, $person := hugo.Data.authors }}
+      <article class="rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
+        <h2 class="mt-0 text-xl font-bold">{{ $person.name | default ($slug | humanize) }}</h2>
+        {{ with $person.bio }}<p class="text-sm text-neutral-600 dark:text-neutral-300">{{ . }}</p>{{ end }}
+        <div class="flex flex-wrap gap-3 text-sm">
+          {{ with $person.social.github }}<a href="{{ . }}">GitHub ↗</a>{{ end }}
+          {{ with $person.social.telegram }}<a href="{{ . }}">Telegram ↗</a>{{ end }}
+          {{ with $person.social.linkedin }}<a href="{{ . }}">LinkedIn ↗</a>{{ end }}
+        </div>
+      </article>
+    {{ else }}
+      <p>Профили пока не добавлены.</p>
+    {{ end }}
+  </section>
+{{ end }}
