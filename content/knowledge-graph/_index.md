@@ -1,5 +1,5 @@
 ---
-title: Knowledge Graph
+title: Граф знаний
 date: '2025-12-29T20:01:00.000Z'
 slug: knowledge-graph
 image: /images/og-default.png
@@ -9,7 +9,7 @@ alt: "Knowledge Graph"
 Интерактивная карта взаимосвязей между постами, концепциями, людьми и проектами.
 Визуализирует семантические связи по тегам, категориям и датам.
 
-<div id="knowledge-graph-svg" class="mt-8">
+<div id="kg-root" class="mt-8" aria-live="polite">
   <!-- D3.js visualization loads here via JS -->
   <noscript>
     <p class="mb-4">Визуализация графа требует JavaScript. Вот текстовая версия связей:</p>
@@ -23,6 +23,9 @@ alt: "Knowledge Graph"
   </noscript>
 </div>
 
+<script defer src="/js/d3.v7.min.js"></script>
+<script defer src="/js/knowledge-graph.js"></script>
+
 ## Как работает
 
 Данный раздел генерируется из реестра тегов и категорий. Каждый узел — это пост,
@@ -31,6 +34,6 @@ alt: "Knowledge Graph"
 
 ## Статистика
 
-- **{{ len .Site.Pages }}** страниц в блоге
-- **{{ len .Site.Tags }}** уникальных тегов
-- **{{ len .Site.Categories }}** уникальных категорий
+- **{{ len (where .Site.RegularPages "Section" "blog") }}** публикаций в блоге
+- **{{ len .Site.Taxonomies.tags }}** уникальных тегов
+- **{{ len .Site.Taxonomies.categories }}** уникальных категорий

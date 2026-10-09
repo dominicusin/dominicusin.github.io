@@ -17,6 +17,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
 
 const ROOT = process.cwd();
 const TAXONOMY = path.join(ROOT, 'docs', 'TAXONOMY.md');
@@ -26,29 +27,10 @@ const OUT = path.join(ROOT, 'static', 'data', 'ontology.json');
 
 function readFrontmatter(file) {
   const raw = fs.readFileSync(file, 'utf8');
-  if (!raw.startsWith('---')) return {};
-  const end = raw.indexOf('\n---', 3);
-  if (end === -1) return {};
-  const fm = raw.slice(3, end).trim();
-  const out = {};
-  let key = null, collecting = null, buf = [];
-  const flush = () => { if (key) out[key] = (collecting ? buf : buf[0] || ''); key = null; collecting = null; buf = []; };
-  for (const line of fm.split('\n')) {
-    const m = line.match(/^([A-Za-z_]+):\s*(.*)$/);
-    if (m && !line.startsWith(' ')) {
-      flush();
-      key = m[1];
-      const val = m[2].trim();
-      if (val === '' || val === '[') { collecting = (val === '['); if (!collecting) buf = ['']; }
-      else buf = [val];
-    } else if (line.match(/^\s*-\s+(.*)$/) && collecting) {
-      buf.push(line.match(/^\s*-\s+(.*)$/)[1].replace(/^["']|["']$/g, ''));
-    } else if (collecting) {
-      buf.push(line.trim().replace(/^["']|["']$/g, ''));
-    }
-  }
-  flush();
-  return out;
+  const match = raw.match(/^---\s*\n([\s\S]*?)\n---(?:\s|$)/);
+  if (!match) return {};
+  try { return yaml.load(match[1]) || {}; }
+  catch (error) { console.warn(`⚠ could not parse frontmatter in ${file}: ${error.message}`); return {}; }
 }
 
 function parseTaxonomyCategories() {
@@ -57,10 +39,10 @@ function parseTaxonomyCategories() {
   // Categories live in the block under "## Categories (domains)" up to the next "## ".
   const block = (md.match(/## Categories \(domains\)([\s\S]*?)\n## /) || [null, ''])[1];
   const cats = [];
-  const reTable = /\|\s*`([a-z0-9-]+)`\s*\|/g;
+  const reTable = /\|\s*`([a-z0-9-]+)`\s*\|\s*([^|]+)\s*\|/g;
   let m;
-  while ((m = reTable.exec(block))) cats.push(m[1]);
-  if (cats.length) return cats.map(c => ({ title: c, slug: c }));
+  while ((m = reTable.exec(block))) cats.push({ slug: m[1], title: m[2].trim() });
+  if (cats.length) return cats;
   // Fallback: ### headings in that block
   const reHeading = /^###\s+([A-Za-z0-9_ -]+)/gm;
   while ((m = reHeading.exec(block))) cats.push(m[1].trim());
@@ -88,19 +70,22 @@ function main() {
   const posts = walk(CONTENT, []).map(readFrontmatter);
 
   const tagPostCount = {};
-  const catPostCount = {};
+  const tagsByCategory = {};
   for (const p of posts) {
-    for (const t of normList(p.tags)) tagPostCount[t] = (tagPostCount[t] || 0) + 1;
-    for (const c of normList(p.categories)) catPostCount[c] = (catPostCount[c] || 0) + 1;
+    const tags = normList(p.tags);
+    const pageCategories = normList(p.categories);
+    for (const t of tags) tagPostCount[t] = (tagPostCount[t] || 0) + 1;
+    for (const c of pageCategories) {
+      const key = String(c).toLowerCase();
+      tagsByCategory[key] = tagsByCategory[key] || new Set();
+      tags.forEach(t => tagsByCategory[key].add(t));
+    }
   }
 
-  // Attach tags to their category where the category name appears in the tag,
-  // otherwise group under an "uncategorized" bucket derived from tag vocabulary.
   const lattice = categories.map(c => ({
     slug: c.slug,
     title: c.title,
-    tags: Object.keys(tagPostCount)
-      .filter(t => t.toLowerCase().includes(c.slug.replace(/-/g, ' ')) || t.toLowerCase().includes(c.slug))
+    tags: [...(tagsByCategory[c.slug.toLowerCase()] || new Set())]
       .map(t => ({ slug: t, postCount: tagPostCount[t], repoCount: 0, gistCount: 0 })),
   }));
 
@@ -110,6 +95,7 @@ function main() {
     categories: lattice,
     repositories: [],
     gists: [],
+    repositoryTopics: [],
   };
 
   if (fs.existsSync(GH)) {
@@ -117,21 +103,19 @@ function main() {
       const gh = JSON.parse(fs.readFileSync(GH, 'utf8'));
       feed.repositories = (gh.repos || []).map(r => ({
         id: `repo:${r.fullName || r.owner + '/' + r.name}`,
-        owner: r.owner, name: r.name, topics: r.topics || [],
+        owner: r.owner, name: r.name, url: r.html_url || `https://github.com/${r.owner}/${r.name}`, topics: r.topics || [],
       }));
       feed.gists = (gh.gists || []).map(g => ({
-        id: `gist:${g.id}`, description: g.description || '', fileCount: (g.files || []).length,
+        id: `gist:${g.id}`, description: g.description || '', url: g.html_url || `https://gist.github.com/${g.id}`, fileCount: (g.files || []).length,
       }));
       // Facet counts: how many repos/gists reference each tag (by topic overlap).
-      const topicSet = new Set();
-      for (const r of feed.repositories) r.topics.forEach(t => topicSet.add(t));
-      for (const t of topicSet) {
-        const repoCount = feed.repositories.filter(r => r.topics.includes(t)).length;
-        const gistCount = 0;
+      const topicCounts = new Map();
+      for (const r of feed.repositories) for (const t of r.topics) topicCounts.set(t, (topicCounts.get(t) || 0) + 1);
+      feed.repositoryTopics = [...topicCounts.entries()].map(([slug, repoCount]) => ({ slug, repoCount })).sort((a, b) => b.repoCount - a.repoCount || a.slug.localeCompare(b.slug));
+      for (const { slug: t, repoCount } of feed.repositoryTopics) {
         for (const cat of feed.categories) {
           const tag = cat.tags.find(x => x.slug === t);
-          if (tag) { tag.repoCount = repoCount; tag.gistCount = gistCount; }
-          else cat.tags.push({ slug: t, postCount: tagPostCount[t] || 0, repoCount, gistCount });
+          if (tag) tag.repoCount = repoCount;
         }
       }
     } catch (e) {

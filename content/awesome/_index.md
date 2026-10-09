@@ -1,5 +1,5 @@
 ---
-title: Awesome
+title: Подборки
 description: "Курируемые awesome-списки из внешних репозиториев, сгруппированные по темам."
 layout: awesome
 # menu defined in config/_default/menus.ru.toml to avoid duplicate
