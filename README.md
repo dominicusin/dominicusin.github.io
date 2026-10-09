@@ -56,7 +56,7 @@ New articles belong in `content/blog/`. Keep front matter aligned with the conte
 
 ## Project checks
 
-The required pull request gate is the **Quality CI** workflow. It installs the root Node dependencies, builds Hugo, checks content and internal links, and runs the repository lint step. The separate R&D workflow handles the retained JavaScript and Solidity suites for changes to those areas.
+The required pull request gate is **Quality CI**. It installs the root Node dependencies, builds Hugo, checks content and internal links, and runs the repository lint step. The Playwright workflow runs separately. The R&D test workflow is currently disabled in GitHub Actions because its DAO test job fails on `main`; its suites are not part of the required pull request gate.
 
 Useful local commands:
 
@@ -67,7 +67,7 @@ npm test
 npx hardhat test
 ```
 
-These commands cover the engineering archive. The site build uses the nested tooling dependencies installed with `npm ci --prefix scripts`.
+These commands are available for local work on the engineering archive. The site build uses the nested tooling dependencies installed with `npm ci --prefix scripts`.
 
 ## License
 

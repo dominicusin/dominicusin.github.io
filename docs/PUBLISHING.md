@@ -43,7 +43,7 @@ articles and generate the graph, ontology feed, crosslinks, and curated-list dat
 |----------|------|----------------|
 | `hugo.yml` | Generate site data, build Hugo, and publish to GitHub Pages | Builds and publishes the site |
 | `quality.yml` | Hugo build, content contract, lint, internal-link checks, and report-only audits | Required PR check; blocks merge on failure |
-| `test-rnd.yml` | Jest and Hardhat checks for changes to the engineering archive | Separate R&D check |
+| `test-rnd.yml` | Jest and Hardhat checks for the engineering archive | Disabled in GitHub Actions; its DAO job currently fails on `main` |
 | `e2e.yml` | Playwright end-to-end checks | Separate check |
 | `performance.yml` | Lighthouse performance audit | Separate check |
 | `security.yml` | npm audit, Trivy, and Semgrep scans | Separate check |

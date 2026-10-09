@@ -16,7 +16,7 @@ src/ contracts/ tests/   Retained engineering experiments and test suites
 .github/workflows/       Build, quality, security, and integration automation
 ```
 
-`content/`, `config/`, `layouts/`, theme overrides, and generated data form the publishing path. `src/` and `contracts/dao/` are an independent, retained R&D archive; Hugo does not bundle them into the website. Their tests run in a separate workflow.
+`content/`, `config/`, `layouts/`, theme overrides, and generated data form the publishing path. `src/` and `contracts/dao/` are an independent, retained R&D archive; Hugo does not bundle them into the website. The R&D test workflow is currently disabled in GitHub Actions because the DAO test job fails on `main`.
 
 ## Site build and publication
 
@@ -28,7 +28,7 @@ src/ contracts/ tests/   Retained engineering experiments and test suites
 4. refreshes the knowledge graph, ontology feed, crosslinks, and curated-list catalog;
 5. builds the site with Hugo and uploads the result to GitHub Pages.
 
-`.github/workflows/quality.yml` is the required pull request quality gate. It builds the site, checks new article metadata and internal links, and runs lint and reporting checks. It does not publish. Separate workflows handle R&D tests, end-to-end checks, security scans, and scheduled integrations.
+`.github/workflows/quality.yml` is the required pull request quality gate. It builds the site, checks new article metadata and internal links, and runs lint and reporting checks. It does not publish. Separate active workflows handle end-to-end checks, security scans, and scheduled integrations. The R&D test workflow is disabled and does not validate pull requests.
 
 ## Content and generated data
 

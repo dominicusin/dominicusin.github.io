@@ -37,5 +37,5 @@ npx hardhat test
 
 - Open changes against `main` and describe the user-visible or maintenance outcome.
 - The required **Quality CI** check builds Hugo and checks content metadata, lint, and internal links. Playwright and security workflows run separately.
-- Changes to the engineering archive also trigger the R&D workflow.
+- The R&D test workflow is currently disabled because its DAO test job fails on `main`; archive test commands remain available locally.
 - Keep generated build output, dependency folders, and Hugo caches out of commits.
