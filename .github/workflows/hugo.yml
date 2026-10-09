@@ -3,8 +3,8 @@ name: Deploy Hugo site to GitHub Pages
 on:
   push:
     branches: [main]
-  # Auto-update: re-sync repos/gists from GitHub every 2 hours + on dispatch.
-  # Reduced from 30min (48 runs/day) to 2h (12 runs/day) — 75% fewer builds.
+  # Refresh GitHub repos/gists every 2 hours; curated submodules update weekly
+  # in awesome.yml, keeping the publishing job focused on rendering and deploy.
   schedule:
     - cron: "17 */2 * * *"
   repository_dispatch:
@@ -67,9 +67,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-node-site-tools-${{ hashFiles('scripts/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-site-tools-
 
       - name: Setup Hugo (extended)
         uses: peaceiris/actions-hugo@v3
@@ -93,8 +93,8 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Install deps (content-contract scripts)
-        run: npm ci --prefer-offline --no-audit --no-fund
+      - name: Install site-build dependencies
+        run: npm ci --prefix scripts --prefer-offline --no-audit --no-fund
 
       - name: Sync GitHub repos + gists (auto-ingest)
         run: node scripts/sync-github.cjs
@@ -111,9 +111,6 @@ jobs:
           node scripts/build-ontology-feed.cjs &
           node scripts/build-crosslinks.cjs &
           wait
-
-      - name: Refresh Awesome submodules (pull latest READMEs)
-        run: node scripts/refresh-awesome.cjs || true
 
       - name: Build Awesome catalog (parse .gitmodules -> data/awesome.json)
         run: node scripts/build-awesome.cjs
