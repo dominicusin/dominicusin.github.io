@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "gcloud cheat sheet"
 ---
-author: DominicusIn
 
 ## References
 * [have fun with them](https://cloudplatform.googleblog.com/2016/06/filtering-and-formatting-fun-with.html)

@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "PoC in GitHub"
 ---
-author: DominicusIn
 
 # PoC in GitHub
 

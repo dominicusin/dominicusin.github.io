@@ -13,7 +13,6 @@ tags:
 image: /images/og-default.png
 alt: "it-podcast"
 ---
-author: DominicusIn
 
 russia-it-podcast
 =================

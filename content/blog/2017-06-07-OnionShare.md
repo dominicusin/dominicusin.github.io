@@ -13,7 +13,6 @@ tags:
 image: /images/og-default.png
 alt: "OnionShare"
 ---
-author: DominicusIn
 
 # OnionShare
 

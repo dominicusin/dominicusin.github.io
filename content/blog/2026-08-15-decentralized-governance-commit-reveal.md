@@ -18,7 +18,6 @@ description: 'Как устроен смарт-контракт DAO в этом 
 image: /images/og-default.png
 alt: "Децентрализованное управление: commit-reveal голосование и таймлоки"
 ---
-author: DominicusIn
 
 
 ## Зачем отдельный контур управления

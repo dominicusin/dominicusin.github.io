@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "HipChat Alternatives"
 ---
-author: DominicusIn
 
 ## HipChat Alternatives
 

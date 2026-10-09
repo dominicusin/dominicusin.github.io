@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "A Collection of Awesome AI Applications"
 ---
-author: DominicusIn
 
 
 [https://github.com/ai-collection/ai-collection/blob/main/README.md](https://github.com/ai-collection/ai-collection/blob/main/README.md)

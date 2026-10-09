@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "Awesome Machine Learning for Cyber Security"
 ---
-author: DominicusIn
 
 # Awesome Machine Learning for Cyber Security [![Awesom](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 

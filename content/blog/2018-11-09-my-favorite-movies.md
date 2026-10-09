@@ -12,7 +12,6 @@ tags:
 image: /images/og-default.png
 alt: "My favorite movies"
 ---
-author: DominicusIn
 
 # **My favorite movies**
 

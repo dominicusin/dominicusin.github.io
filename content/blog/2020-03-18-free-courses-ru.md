@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "free-courses"
 ---
-author: DominicusIn
 
 ### Index
 

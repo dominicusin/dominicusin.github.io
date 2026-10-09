@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Dark Web Links"
 ---
-author: DominicusIn
 
 # Dark Web Links v3
 

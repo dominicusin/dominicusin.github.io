@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Three Virtues"
 ---
-author: DominicusIn
 
 According to Larry Wall, There are three great virtues of a programmer: Laziness, Impatience and Hubris
 

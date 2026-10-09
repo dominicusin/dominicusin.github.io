@@ -1,47 +1,22 @@
-# Language-scoped main menu for the RU-default site.
-# Blowfish ships a default menus.en.toml; for the "ru" site Hugo uses this
-# file, so it must contain the FULL menu (Hugo replaces, not merges, the
-# theme default). "Карта сайта" renders the XSLT-styled sitemap
-# (static/sitemap.xsl + the <?xml-stylesheet?> PI from layouts/sitemap.xml).
+# Compact, Russian-first navigation. Deep links stay available in their menus.
 
 [[menus.main]]
-  name = "Главная"
-  url = "/"
+  name = "Блог"
+  identifier = "blog"
+  url = "/blog/"
   weight = 1
 
 [[menus.main]]
   name = "Архив"
   url = "/archives/"
-  weight = 2
-
-[[menus.main]]
-  name = "About"
-  url = "/about/"
-  weight = 3
-
-[[menus.main]]
-  name = "Об авторе"
-  url = "/about/"
-  parent = "profile"
+  parent = "blog"
   weight = 1
-
-[[menus.main]]
-  name = "Люди"
-  url = "/people/"
-  parent = "profile"
-  weight = 2
-
-[[menus.main]]
-  name = "Domini"
-  url = "/domini/"
-  parent = "profile"
-  weight = 3
 
 [[menus.main]]
   name = "Темы"
   identifier = "topics"
   url = "/categories/"
-  weight = 5
+  weight = 2
 
 [[menus.main]]
   name = "Категории"
@@ -56,51 +31,60 @@
   weight = 2
 
 [[menus.main]]
-  name = "Код"
-  identifier = "code"
-  url = "/repositories/"
-  weight = 6
+  name = "Проекты"
+  identifier = "projects"
+  url = "/projects/"
+  weight = 3
+
+[[menus.main]]
+  name = "Граф знаний"
+  url = "/knowledge-graph/"
+  parent = "projects"
+  weight = 1
 
 [[menus.main]]
   name = "Репозитории"
   url = "/repositories/"
-  parent = "code"
-  weight = 1
+  parent = "projects"
+  weight = 2
 
 [[menus.main]]
   name = "Гисты"
   url = "/gists/"
-  parent = "code"
-  weight = 2
+  parent = "projects"
+  weight = 3
 
 [[menus.main]]
   name = "Онтология"
   url = "/ontology/"
-  parent = "code"
-  weight = 3
-
-[[menus.main]]
-  name = "Knowledge Graph"
-  url = "/knowledge-graph/"
+  parent = "projects"
   weight = 4
 
-
 [[menus.main]]
-  name = "Community"
-  url = "/community/"
-  weight = 7
-
-[[menus.main]]
-  name = "Projects"
-  url = "/projects/"
-  weight = 8
-
-[[menus.main]]
-  name = "Карта сайта"
-  url = "/sitemap.xml"
-  weight = 9
-
-[[menus.main]]
-  name = "Awesome"
+  name = "Подборки"
   url = "/awesome/"
-  weight = 10
+  parent = "projects"
+  weight = 5
+
+[[menus.main]]
+  name = "Сообщество"
+  url = "/community/"
+  weight = 4
+
+[[menus.main]]
+  name = "Об авторе"
+  identifier = "about"
+  url = "/about/"
+  weight = 5
+
+[[menus.main]]
+  name = "Люди"
+  url = "/people/"
+  parent = "about"
+  weight = 1
+
+[[menus.main]]
+  name = "Domini"
+  url = "/domini/"
+  parent = "about"
+  weight = 2

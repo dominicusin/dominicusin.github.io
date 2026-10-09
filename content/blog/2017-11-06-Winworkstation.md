@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Prepare my Windows workstation"
 ---
-author: DominicusIn
 
 # Prepare my Windows workstation
 

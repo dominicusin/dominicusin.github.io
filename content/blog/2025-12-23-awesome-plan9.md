@@ -2,6 +2,7 @@
 title: Awesome Plan9
 date: '2025-12-23T09:37:00.000Z'
 slug: awesome-plan9
+description: "Подборка библиотек и программ для Plan 9 и 9front."
 aliases:
 - /2025/12/23/awesome-plan9.html
 categories:
@@ -14,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "Awesome Plan9"
 ---
-author: DominicusIn
 
 # Awesome Plan9
 

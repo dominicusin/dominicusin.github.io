@@ -13,7 +13,6 @@ tags:
 image: /images/og-default.png
 alt: "YA movies's list"
 ---
-author: DominicusIn
 
 * ***[Зеленее травы (2019) Greener Grass](https://www.imdb.com/title/tt7422822/)***
 

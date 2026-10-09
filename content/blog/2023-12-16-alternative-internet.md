@@ -15,7 +15,6 @@ tags:
 image: /images/og-default.png
 alt: "Alternative Internet"
 ---
-author: DominicusIn
 
 # Alternative Internet
 

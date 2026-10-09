@@ -14,7 +14,6 @@ tags:
 image: /images/og-default.png
 alt: "Awesome-Selfhosted"
 ---
-author: DominicusIn
 
 # Awesome-Selfhosted
 
