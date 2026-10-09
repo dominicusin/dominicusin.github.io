@@ -69,14 +69,14 @@ function generateSlug(title) {
  */
 function generateFrontmatter({ title, date, slug, keywords, tags }) {
   const parts = [
-    `title: "${title.replace(/"/g, '\\"')}"`,
+    `title: ${JSON.stringify(title)}`,
     `date: ${date}`,
     `slug: ${slug}`,
     `draft: false`,
-    `description: "${title}"`,
+    `description: ${JSON.stringify(title)}`,
     `categories: ["blog"]`,
-    `tags: [${tags.map(t => `"${t}"`).join(', ')}]`,
-    `keywords: [${keywords.map(k => `"${k}"`).join(', ')}]`,
+    `tags: [${tags.map(t => JSON.stringify(t)).join(', ')}]`,
+    `keywords: [${keywords.map(k => JSON.stringify(k)).join(', ')}]`,
     `author: "dominicusin"`
   ];
 

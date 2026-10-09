@@ -1,71 +1,96 @@
-name: 🔒 Security Scan
+name: Security Scanning
+
 on:
   push:
     branches: [main]
+    paths:
+      - "*.js"
+      - "*.cjs"
+      - "*.mjs"
+      - "**/*.js"
+      - "**/*.cjs"
+      - "**/*.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/**"
+      - ".github/codeql/**"
+      - "agent/**"
+      - "src/**"
   pull_request:
     branches: [main]
+    paths:
+      - "*.js"
+      - "*.cjs"
+      - "*.mjs"
+      - "**/*.js"
+      - "**/*.cjs"
+      - "**/*.mjs"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/**"
+      - ".github/codeql/**"
+      - "agent/**"
+      - "src/**"
   schedule:
-    # Run weekly on Mondays at 4 AM UTC
-    - cron: '0 4 * * 1'
+    - cron: "0 3 * * 1"
   workflow_dispatch:
 
 permissions:
   contents: read
-  actions: read
-  security-events: write
-  id-token: write
 
 jobs:
-  security-scan:
-    name: 🔒 Security Vulnerability Scan
+  npm-audit:
+    name: npm Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+
+      - name: Audit locked dependencies
+        run: |
+          npm audit --json > npm-audit.json || true
+          node -e '
+            const report = require("./npm-audit.json");
+            const counts = report.metadata?.vulnerabilities || {};
+            console.log("npm audit:", JSON.stringify(counts));
+            if ((counts.critical || 0) > 0) {
+              console.error("Critical dependency vulnerabilities found.");
+              process.exit(1);
+            }
+          '
+
+      - name: Upload npm audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm-audit.json
+          retention-days: 30
+
+  filesystem-scan:
+    name: Trivy and Semgrep
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      actions: read
       security-events: write
     steps:
-      - name: 📥 Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v7
 
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: '24'
-          cache: 'npm'
-
-      - name: 🔍 Node.js Security Audit
-        # Surface findings by severity (no longer silently masked by `|| true`).
-        # This repo ships a STATIC Hugo site — node_modules never reaches
-        # production, so npm audit is informational. Gate ONLY on `critical`
-        # (a real emergency; currently 0). moderate/high are reported as
-        # warnings (mostly dev/CI tooling: hardhat, lighthouse, puppeteer,
-        # undici — upstream transitive issues needing major bumps that would
-        # break those tools). Findings are always uploaded as npm-audit.json.
-        run: |
-          npm audit --audit-level=moderate || true
-          npm audit --json > npm-audit.json || true
-          node -e '
-            const a = require("./npm-audit.json");
-            const m = (a.metadata && a.metadata.vulnerabilities) || {};
-            const crit = m.critical || 0;
-            console.log("🔒 npm audit summary:", JSON.stringify(m));
-            if (crit > 0) {
-              console.error("❌ Blocking: " + crit + " critical vulnerabilities present.");
-              process.exit(1);
-            }
-            console.log("✅ No critical vulnerabilities — moderate/high reported as warnings (dev/CI tooling; not in production bundle).");
-          '
-
-      - name: 🔍 Trivy Vulnerability Scanner
-        # Pinned to a release tag (not @master) per supply-chain policy.
+      - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: trivy-results.sarif
 
-      - name: 🚨 Semgrep Security Analysis
+      - name: Semgrep security analysis
         uses: semgrep/semgrep-action@v1
         continue-on-error: true
         with:
@@ -73,21 +98,30 @@ jobs:
             p/security-audit
             p/secrets
             p/cwe-top-25
-          generate-sarif: '1'
+          generate-sarif: "1"
 
-      - name: 📤 Upload Security Reports
+      - name: Upload security reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: security-reports
           path: |
-            npm-audit.json
             trivy-results.sarif
             semgrep.sarif
+          retention-days: 30
 
-      - name: 📊 Security Score
-        run: |
-          echo "🔒 Security Analysis Summary:"
-          echo "- Node.js dependencies: ✅ Scanned"
-          echo "- File system vulnerabilities: ✅ Scanned (Trivy)"
-          echo "- Code security patterns: ✅ Scanned (Semgrep)"
-          echo "- Secrets detection: ✅ Scanned"
+  secret-scan:
+    name: Gitleaks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout history
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Scan for secrets
+        uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

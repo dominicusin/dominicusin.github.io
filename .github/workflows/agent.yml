@@ -38,14 +38,6 @@ jobs:
       - name: Run existing tests
         run: npm test
 
-      - name: Hugo build
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: '0.164.0'
-          extended: true
-
-      - run: hugo --gc --minify
-
       - name: Upload agent artifacts
         uses: actions/upload-artifact@v4
         with:

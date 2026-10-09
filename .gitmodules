@@ -168,3 +168,6 @@
 	path = awesome/tools/tvlist-awesome-m3u-m3u8
 	url = https://github.com/imDazui/Tvlist-awesome-m3u-m3u8
 
+[submodule "awesome/tools/awesome-ai-agents"]
+	path = awesome/tools/awesome-ai-agents
+	url = https://github.com/e2b-dev/awesome-ai-agents

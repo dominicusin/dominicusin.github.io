@@ -29,6 +29,23 @@ test('generateFrontmatter produces valid YAML', () => {
   assert.ok(fm.includes('tags: ["testing"]'));
 });
 
+test('generateFrontmatter keeps quotes, backslashes, and newlines inside YAML scalars', () => {
+  const title = 'A "quoted" title\\with a newline\n draft: true';
+  const fm = generateFrontmatter({
+    title,
+    date: '2026-09-02',
+    slug: 'safe-title',
+    keywords: ['quoted "keyword"', 'path\\segment'],
+    tags: ['tag\\name']
+  });
+
+  assert.ok(fm.includes(`title: ${JSON.stringify(title)}`));
+  assert.ok(fm.includes(`description: ${JSON.stringify(title)}`));
+  assert.ok(fm.includes(`keywords: [${JSON.stringify('quoted "keyword"')}, ${JSON.stringify('path\\segment')}]`));
+  assert.ok(fm.includes(`tags: [${JSON.stringify('tag\\name')}]`));
+  assert.equal(fm.includes('\n draft: true'), false);
+});
+
 test('generateContent creates markdown with frontmatter', async () => {
   const result = await generateContent({
     topic: 'Test Topic',

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-05T00:51:36.573Z",
+  "generatedAt": "2026-10-05T14:36:38.215Z",
   "groups": [
     {
       "slug": "development",
       "name": "Разработка",
       "order": 1,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "awesome-nodejs",
@@ -15,7 +15,9 @@
           "url": "https://github.com/sindresorhus/awesome-nodejs",
           "readme": "readme.md",
           "gh": "https://github.com/sindresorhus/awesome-nodejs",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 67008,
+          "description": ":zap: Delightful Node.js packages and resources [BECAUSE OF TOO MUCH SPAM AND LOW-QUALITY SUBMISSIONS, SUBMISSIONS ARE PAUSED TEMPORARILY]"
         },
         {
           "slug": "awesome-python",
@@ -25,7 +27,9 @@
           "url": "https://github.com/vinta/awesome-python",
           "readme": "README.md",
           "gh": "https://github.com/vinta/awesome-python",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 325319,
+          "description": "The definitive list that answers \"I want to do X in Python, which tool should I use?\""
         }
       ]
     },
@@ -33,7 +37,7 @@
       "slug": "web",
       "name": "Web & Frontend",
       "order": 2,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "frontend-dev-bookmarks",
@@ -43,7 +47,9 @@
           "url": "https://github.com/dypsilon/frontend-dev-bookmarks",
           "readme": "README.md",
           "gh": "https://github.com/dypsilon/frontend-dev-bookmarks",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 47586,
+          "description": "Manually curated collection of resources for frontend web developers."
         }
       ]
     },
@@ -51,7 +57,7 @@
       "slug": "devops",
       "name": "DevOps & Инфраструктура",
       "order": 3,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "awesome-kubernetes",
@@ -61,7 +67,9 @@
           "url": "https://github.com/ramitsurana/awesome-kubernetes",
           "readme": "docs/README.md",
           "gh": "https://github.com/ramitsurana/awesome-kubernetes",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 16111,
+          "description": "A curated list for awesome kubernetes sources :ship::tada:"
         },
         {
           "slug": "awesome-nix",
@@ -71,7 +79,9 @@
           "url": "https://github.com/nix-community/awesome-nix",
           "readme": "README.md",
           "gh": "https://github.com/nix-community/awesome-nix",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 5482,
+          "description": "😎 A curated list of the best resources in the Nix community [maintainer=@cyntheticfox]"
         }
       ]
     },
@@ -79,7 +89,7 @@
       "slug": "security",
       "name": "Безопасность",
       "order": 4,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "awesome-security",
@@ -89,7 +99,9 @@
           "url": "https://github.com/sbilly/awesome-security",
           "readme": "README.md",
           "gh": "https://github.com/sbilly/awesome-security",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 14944,
+          "description": "A collection of awesome software, libraries, documents, books, resources and cools stuffs about security."
         }
       ]
     },
@@ -97,7 +109,7 @@
       "slug": "data",
       "name": "Данные & ML",
       "order": 5,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "awesome-machine-learning",
@@ -107,7 +119,9 @@
           "url": "https://github.com/josephmisiti/awesome-machine-learning",
           "readme": "README.md",
           "gh": "https://github.com/josephmisiti/awesome-machine-learning",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 74518,
+          "description": "A curated list of awesome Machine Learning frameworks, libraries and software."
         }
       ]
     },
@@ -115,7 +129,7 @@
       "slug": "blockchain",
       "name": "Блокчейн & DAO",
       "order": 6,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "awesome-blockchain",
@@ -125,7 +139,9 @@
           "url": "https://github.com/yjjnls/awesome-blockchain",
           "readme": "README.md",
           "gh": "https://github.com/yjjnls/awesome-blockchain",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 3630,
+          "description": "⚡️Curated list of resources for the development and applications of blockchain."
         }
       ]
     },
@@ -133,7 +149,7 @@
       "slug": "systems",
       "name": "Системы & Языки",
       "order": 7,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "papers-we-love",
@@ -143,7 +159,9 @@
           "url": "https://github.com/papers-we-love/papers-we-love",
           "readme": "README.md",
           "gh": "https://github.com/papers-we-love/papers-we-love",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 110252,
+          "description": "Papers from the computer science community to read and discuss."
         }
       ]
     },
@@ -151,7 +169,7 @@
       "slug": "tools",
       "name": "Инструменты & Прочее",
       "order": 8,
-      "refreshedAt": "2026-09-05T00:51:36.573Z",
+      "refreshedAt": "2026-10-05T14:36:38.215Z",
       "repos": [
         {
           "slug": "500-ai-machine-learning-deep-learning-computer-vision-nlp-projects-with-code",
@@ -161,7 +179,9 @@
           "url": "https://github.com/ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code",
           "readme": "README.md",
           "gh": "https://github.com/ashishpatel26/500-AI-Machine-learning-Deep-learning-Computer-vision-NLP-Projects-with-code",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 37111,
+          "description": "500 AI Machine learning Deep learning Computer vision NLP Projects with code"
         },
         {
           "slug": "awesome-agent-skills",
@@ -171,7 +191,9 @@
           "url": "https://github.com/VoltAgent/awesome-agent-skills",
           "readme": "README.md",
           "gh": "https://github.com/VoltAgent/awesome-agent-skills",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 35223,
+          "description": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more."
         },
         {
           "slug": "awesome-android-ui",
@@ -181,7 +203,9 @@
           "url": "https://github.com/wasabeef/awesome-android-ui",
           "readme": "README.md",
           "gh": "https://github.com/wasabeef/awesome-android-ui",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 57835,
+          "description": "A curated list of awesome Android UI/UX libraries"
         },
         {
           "slug": "awesome-claude-code",
@@ -191,7 +215,9 @@
           "url": "https://github.com/hesreallyhim/awesome-claude-code",
           "readme": "README.md",
           "gh": "https://github.com/hesreallyhim/awesome-claude-code",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 55090,
+          "description": "A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from the unstoppable team at Anthropic PBC. A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top notch developer tooling, and also we have plugins"
         },
         {
           "slug": "awesome-compose",
@@ -201,7 +227,9 @@
           "url": "https://github.com/docker/awesome-compose",
           "readme": "README.md",
           "gh": "https://github.com/docker/awesome-compose",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 46465,
+          "description": "Awesome Docker Compose samples"
         },
         {
           "slug": "awesome-copilot",
@@ -211,7 +239,9 @@
           "url": "https://github.com/github/awesome-copilot",
           "readme": "README.md",
           "gh": "https://github.com/github/awesome-copilot",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 39717,
+          "description": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot."
         },
         {
           "slug": "awesome-courses",
@@ -221,7 +251,9 @@
           "url": "https://github.com/prakhar1989/awesome-courses",
           "readme": "README.md",
           "gh": "https://github.com/prakhar1989/awesome-courses",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 71604,
+          "description": ":books: List of awesome university courses for learning Computer Science!"
         },
         {
           "slug": "awesome-cpp",
@@ -231,7 +263,9 @@
           "url": "https://github.com/fffaraz/awesome-cpp",
           "readme": "README.md",
           "gh": "https://github.com/fffaraz/awesome-cpp",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 73630,
+          "description": "A curated list of awesome C++ (or C) frameworks, libraries, resources, and shiny things. Inspired by awesome-... stuff."
         },
         {
           "slug": "awesome-cto",
@@ -241,7 +275,9 @@
           "url": "https://github.com/kuchin/awesome-cto",
           "readme": "README.md",
           "gh": "https://github.com/kuchin/awesome-cto",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 35545,
+          "description": "A curated and opinionated list of resources for Chief Technology Officers, with the emphasis on startups"
         },
         {
           "slug": "awesome-cursorrules",
@@ -251,7 +287,9 @@
           "url": "https://github.com/PatrickJS/awesome-cursorrules",
           "readme": "README.md",
           "gh": "https://github.com/PatrickJS/awesome-cursorrules",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 40877,
+          "description": "📄  Configuration files that enhance Cursor AI editor experience with custom rules and behaviors"
         },
         {
           "slug": "awesome-deepseek-integration",
@@ -261,7 +299,9 @@
           "url": "https://github.com/deepseek-ai/awesome-deepseek-integration",
           "readme": "README.md",
           "gh": "https://github.com/deepseek-ai/awesome-deepseek-integration",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 39306,
+          "description": "Integrate the DeepSeek API into popular software"
         },
         {
           "slug": "awesome-design-patterns",
@@ -271,7 +311,9 @@
           "url": "https://github.com/DovAmir/awesome-design-patterns",
           "readme": "README.md",
           "gh": "https://github.com/DovAmir/awesome-design-patterns",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 49216,
+          "description": "A curated list of software and architecture related design patterns."
         },
         {
           "slug": "awesome-design-tools",
@@ -281,7 +323,9 @@
           "url": "https://github.com/goabstract/Awesome-Design-Tools",
           "readme": "README.md",
           "gh": "https://github.com/goabstract/Awesome-Design-Tools",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 41397,
+          "description": "The best design tools and plugins for everything 👉"
         },
         {
           "slug": "awesome-docker",
@@ -291,7 +335,9 @@
           "url": "https://github.com/veggiemonk/awesome-docker",
           "readme": "README.md",
           "gh": "https://github.com/veggiemonk/awesome-docker",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 36967,
+          "description": ":whale: A curated list of Docker resources and projects"
         },
         {
           "slug": "awesome-flutter",
@@ -301,7 +347,9 @@
           "url": "https://github.com/Solido/awesome-flutter",
           "readme": "README.md",
           "gh": "https://github.com/Solido/awesome-flutter",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 61416,
+          "description": "An awesome list that curates the best Flutter libraries, tools, tutorials, articles and more."
         },
         {
           "slug": "awesome-for-beginners",
@@ -311,7 +359,9 @@
           "url": "https://github.com/MunGell/awesome-for-beginners",
           "readme": "README.md",
           "gh": "https://github.com/MunGell/awesome-for-beginners",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 89888,
+          "description": "A list of awesome beginners-friendly projects."
         },
         {
           "slug": "awesome-github-profile-readme",
@@ -321,7 +371,9 @@
           "url": "https://github.com/abhisheknaiidu/awesome-github-profile-readme",
           "readme": "README.md",
           "gh": "https://github.com/abhisheknaiidu/awesome-github-profile-readme",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 31254,
+          "description": "😎 A curated list of awesome GitHub Profile which updates in real time "
         },
         {
           "slug": "awesome-go",
@@ -331,7 +383,9 @@
           "url": "https://github.com/avelino/awesome-go",
           "readme": "README.md",
           "gh": "https://github.com/avelino/awesome-go",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 187048,
+          "description": "A curated list of awesome Go frameworks, libraries and software"
         },
         {
           "slug": "awesome-hacking",
@@ -341,7 +395,9 @@
           "url": "https://github.com/Hack-with-Github/Awesome-Hacking",
           "readme": "README.md",
           "gh": "https://github.com/Hack-with-Github/Awesome-Hacking",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 121904,
+          "description": "A collection of various awesome lists for hackers, pentesters and security researchers"
         },
         {
           "slug": "awesome-interview-questions",
@@ -351,7 +407,9 @@
           "url": "https://github.com/DopplerHQ/awesome-interview-questions",
           "readme": "README.md",
           "gh": "https://github.com/DopplerHQ/awesome-interview-questions",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 84813,
+          "description": ":octocat: A curated awesome list of lists of interview questions. Feel free to contribute! :mortar_board: "
         },
         {
           "slug": "awesome-ios",
@@ -361,7 +419,9 @@
           "url": "https://github.com/vsouza/awesome-ios",
           "readme": "README.md",
           "gh": "https://github.com/vsouza/awesome-ios",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 53525,
+          "description": "A curated list of awesome iOS ecosystem, including Objective-C and Swift Projects "
         },
         {
           "slug": "awesome-java",
@@ -371,7 +431,9 @@
           "url": "https://github.com/akullpp/awesome-java",
           "readme": "README.md",
           "gh": "https://github.com/akullpp/awesome-java",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 49166,
+          "description": "A curated list of awesome frameworks, libraries and software for the Java programming language."
         },
         {
           "slug": "awesome-mac",
@@ -381,7 +443,9 @@
           "url": "https://github.com/jaywcjlove/awesome-mac",
           "readme": "README.md",
           "gh": "https://github.com/jaywcjlove/awesome-mac",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 115444,
+          "description": " This project is dedicated to collecting high-quality macOS software and organizing them systematically by different categories for easy search and use."
         },
         {
           "slug": "awesome-macos-command-line",
@@ -391,7 +455,9 @@
           "url": "https://github.com/herrbischoff/awesome-macos-command-line",
           "readme": "README.md",
           "gh": "https://github.com/herrbischoff/awesome-macos-command-line",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 30962,
+          "description": "Use your macOS terminal shell to do awesome things."
         },
         {
           "slug": "awesome-openclaw-skills",
@@ -401,7 +467,9 @@
           "url": "https://github.com/VoltAgent/awesome-openclaw-skills",
           "readme": "README.md",
           "gh": "https://github.com/VoltAgent/awesome-openclaw-skills",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 52956,
+          "description": "The awesome collection of OpenClaw skills. 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry.🦞"
         },
         {
           "slug": "awesome-php",
@@ -411,7 +479,9 @@
           "url": "https://github.com/ziadoz/awesome-php",
           "readme": "README.md",
           "gh": "https://github.com/ziadoz/awesome-php",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 32727,
+          "description": "A curated list of amazingly awesome PHP libraries, resources and shiny things."
         },
         {
           "slug": "awesome-react",
@@ -421,7 +491,9 @@
           "url": "https://github.com/enaqx/awesome-react",
           "readme": "README.md",
           "gh": "https://github.com/enaqx/awesome-react",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 74803,
+          "description": "A collection of awesome things regarding React ecosystem"
         },
         {
           "slug": "awesome-react-components",
@@ -431,7 +503,9 @@
           "url": "https://github.com/brillout/awesome-react-components",
           "readme": "README.md",
           "gh": "https://github.com/brillout/awesome-react-components",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 48555,
+          "description": "Curated List of React Components & Libraries."
         },
         {
           "slug": "awesome-remote-job",
@@ -441,7 +515,9 @@
           "url": "https://github.com/lukasz-madon/awesome-remote-job",
           "readme": "README.md",
           "gh": "https://github.com/lukasz-madon/awesome-remote-job",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 49229,
+          "description": "A curated list of awesome remote jobs and resources. Inspired by https://github.com/vinta/awesome-python"
         },
         {
           "slug": "awesome-rust",
@@ -451,7 +527,9 @@
           "url": "https://github.com/rust-unofficial/awesome-rust",
           "readme": "README.md",
           "gh": "https://github.com/rust-unofficial/awesome-rust",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 59677,
+          "description": "A curated list of Rust code and resources."
         },
         {
           "slug": "awesome-scalability",
@@ -461,7 +539,9 @@
           "url": "https://github.com/binhnguyennus/awesome-scalability",
           "readme": "README.md",
           "gh": "https://github.com/binhnguyennus/awesome-scalability",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 74521,
+          "description": "The Patterns of Scalable, Reliable, and Performant Large-Scale Systems"
         },
         {
           "slug": "awesome-selfhosted",
@@ -471,7 +551,9 @@
           "url": "https://github.com/awesome-selfhosted/awesome-selfhosted",
           "readme": "README.md",
           "gh": "https://github.com/awesome-selfhosted/awesome-selfhosted",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 324030,
+          "description": "A list of Free Software network services and web applications which can be hosted on your own servers"
         },
         {
           "slug": "awesome-shell",
@@ -481,7 +563,9 @@
           "url": "https://github.com/alebcay/awesome-shell",
           "readme": "README.md",
           "gh": "https://github.com/alebcay/awesome-shell",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 37721,
+          "description": "A curated list of awesome command-line frameworks, toolkits, guides and gizmos. Inspired by awesome-php."
         },
         {
           "slug": "awesome-sysadmin",
@@ -491,7 +575,9 @@
           "url": "https://github.com/awesome-foss/awesome-sysadmin",
           "readme": "README.md",
           "gh": "https://github.com/awesome-foss/awesome-sysadmin",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 35333,
+          "description": "A curated list of amazingly awesome open-source sysadmin resources."
         },
         {
           "slug": "awesome-system-design-resources",
@@ -501,7 +587,9 @@
           "url": "https://github.com/ashishps1/awesome-system-design-resources",
           "readme": "README.md",
           "gh": "https://github.com/ashishps1/awesome-system-design-resources",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 42022,
+          "description": "Learn System Design concepts and prepare for interviews using free resources."
         },
         {
           "slug": "css-protips",
@@ -511,7 +599,9 @@
           "url": "https://github.com/AllThingsSmitty/css-protips",
           "readme": "README.md",
           "gh": "https://github.com/AllThingsSmitty/css-protips",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 30284,
+          "description": "A collection of tips to help take your CSS skills pro. 🕹 "
         },
         {
           "slug": "data-engineer-handbook",
@@ -521,7 +611,9 @@
           "url": "https://github.com/DataExpert-io/data-engineer-handbook",
           "readme": "README.md",
           "gh": "https://github.com/DataExpert-io/data-engineer-handbook",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 44352,
+          "description": "This is a repo with links to everything you'd ever want to learn about data engineering"
         },
         {
           "slug": "github-cheat-sheet",
@@ -531,7 +623,9 @@
           "url": "https://github.com/tiimgreen/github-cheat-sheet",
           "readme": "README.md",
           "gh": "https://github.com/tiimgreen/github-cheat-sheet",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 59469,
+          "description": "A list of cool features of Git and GitHub."
         },
         {
           "slug": "open-source-ios-apps",
@@ -541,7 +635,9 @@
           "url": "https://github.com/dkhamsing/open-source-ios-apps",
           "readme": "README.md",
           "gh": "https://github.com/dkhamsing/open-source-ios-apps",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 52416,
+          "description": ":iphone: Collaborative List of Open-Source iOS Apps"
         },
         {
           "slug": "open-source-mac-os-apps",
@@ -551,7 +647,9 @@
           "url": "https://github.com/serhii-londar/open-source-mac-os-apps",
           "readme": "README.md",
           "gh": "https://github.com/serhii-londar/open-source-mac-os-apps",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 50650,
+          "description": "🚀 Awesome list of open source applications for macOS. https://t.me/s/opensourcemacosapps"
         },
         {
           "slug": "ruview",
@@ -561,7 +659,9 @@
           "url": "https://github.com/ruvnet/RuView",
           "readme": "README.md",
           "gh": "https://github.com/ruvnet/RuView",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 96483,
+          "description": "π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single pixel of video."
         },
         {
           "slug": "the-book-of-secret-knowledge",
@@ -571,7 +671,9 @@
           "url": "https://github.com/trimstray/the-book-of-secret-knowledge",
           "readme": "README.md",
           "gh": "https://github.com/trimstray/the-book-of-secret-knowledge",
-          "refreshedAt": "2026-09-05T00:51:36.573Z"
+          "refreshedAt": "2026-10-05T14:36:38.215Z",
+          "stars": 248022,
+          "description": "A collection of inspiring lists, manuals, cheatsheets, blogs, hacks, one-liners, cli/web tools and more."
         }
       ]
     }

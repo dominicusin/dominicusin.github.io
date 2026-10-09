@@ -9,7 +9,6 @@ updates:
       time: "09:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
-    auto-merge: true
     labels:
       - "dependencies"
     ignore:
@@ -26,7 +25,6 @@ updates:
       time: "10:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
-    auto-merge: true
     labels:
       - "dependencies"
     groups:
@@ -38,12 +36,12 @@ updates:
       prefix: "deps"
       prefix-development: "dev-deps"
 
-  # Maintain dependencies for Ruby (if applicable)
-  - package-ecosystem: "bundler"
-    directory: "/"
+  # Small dependency set required by the Hugo publishing scripts.
+  - package-ecosystem: "npm"
+    directory: "/scripts"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "10:00"
+      day: "monday"
+      time: "10:30"
       timezone: "UTC"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
