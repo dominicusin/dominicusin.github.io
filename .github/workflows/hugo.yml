@@ -47,9 +47,9 @@ jobs:
           git config --global submodule."awesome/tools/open-source-mac-os-apps/ReadmeGenerator".update none
           git config --global submodule.recurse false
 
-      - name: Init submodules (parallel, non-recursive)
+      - name: Init Hugo theme submodule
         run: |
-          git submodule update --init --jobs 4 themes/blowfish awesome
+          git submodule update --init themes/blowfish
           node scripts/ensure-awesome-sparse.cjs || true
 
       - name: Generate wiki navigation
