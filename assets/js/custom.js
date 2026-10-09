@@ -540,14 +540,6 @@
 
     // vim-style navigation: g h (home), g b (blog), n / p (prev/next post)
     var gPending = false, gTimer = null;
-    var navPrev = document.body.getAttribute('data-prev');
-    var navNext = document.body.getAttribute('data-next');
-    function safeLocalTarget(value) {
-      var safe = typeof value === 'string' && /^\/(?!\/)[a-zA-Z0-9/._\-~%]*(\?[a-zA-Z0-9=._\-~%&+-]*)?(#[a-zA-Z0-9=._\-~%&+-]*)?$/.test(value);
-      return safe ? value : '';
-    }
-    var safePrev = safeLocalTarget(navPrev);
-    var safeNext = safeLocalTarget(navNext);
     document.addEventListener('keydown', function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       var tag = e.target && e.target.tagName;
@@ -559,8 +551,6 @@
         return;
       }
       if (e.key === 'g') { gPending = true; gTimer = setTimeout(function () { gPending = false; }, 800); return; }
-      if ((e.key === 'n' || e.key === 'N') && safeNext) { e.preventDefault(); location.href = safeNext; }
-      else if ((e.key === 'p' || e.key === 'P') && safePrev) { e.preventDefault(); location.href = safePrev; }
     });
   } catch (e) {}
 
@@ -899,4 +889,3 @@
   } catch (e) {}
 
 })();
-
