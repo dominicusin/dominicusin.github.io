@@ -5,7 +5,7 @@
  * Manages PR lifecycle: create → CI → review → merge → deploy → postcheck.
  */
 
-const { execSync } = require('child_process');
+const { execFileSync, execSync } = require('child_process');
 const { createEvidence } = require('../evidence/evidence.cjs');
 
 // SECURITY: All execSync calls use hardcoded args. No user input in shell strings.
@@ -26,10 +26,10 @@ class ReleaseAgent {
    * @returns {Object} PR info
    */
   createPR({ head, base, title, body }) {
-    const cmd = `/everything/bin/gh pr create --head ${head} --base ${base} --title "${title.replace(/"/g, '\\"')}" --body "${body.replace(/"/g, '\\'').replace(/\n/g, '\\n')}"`;
-
     try {
-      const output = execSync(cmd, {
+      const output = execFileSync('/everything/bin/gh', [
+        'pr', 'create', '--head', head, '--base', base, '--title', title, '--body', body
+      ], {
         cwd: this.repository,
         encoding: 'utf8',
         timeout: 30000
