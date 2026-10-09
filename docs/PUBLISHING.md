@@ -4,13 +4,13 @@ How to publish content to `dominicusin.github.io` without breaking the pipeline.
 The site is built by Hugo (Blowfish theme) and deployed via GitHub Pages.
 Architecture is the **two-plane** model (see `docs/adr/0002-two-plane-architecture.md`):
 
-- **Publishing Plane** — `content/`, `config/_default/`, `layouts/`, `static/`, `i18n/`.
-  Deployed to GitHub Pages by `.github/workflows/hugo.yml` (the only publisher).
-- **Engineering Plane** — `contracts/dao/`, `tests/hardhat/`, `src/`. Never deployed
-  to Pages; tested by the DAO/Hardhat jobs.
-- **Content Governance Plane** — `schema/post-metadata.schema.json`,
-  `scripts/ci-content-contract.cjs`, `scripts/validate-frontmatter.cjs`,
-  `scripts/build-knowledge-graph.cjs`. Validates and links content.
+- **Website** — `content/`, `config/`, `layouts/`, `assets/`, `static/`, `i18n/`,
+  and the build-time generators. `.github/workflows/hugo.yml` is the only publisher.
+- **Engineering archive** — `src/`, `contracts/dao/`, and their tests. It is
+  retained for research and is not shipped with the website.
+
+The article schema and scripts are part of the publishing workflow: they validate
+articles and generate the graph, ontology feed, crosslinks, and curated-list data.
 
 ## Author checklist before pushing a new post
 
@@ -41,15 +41,16 @@ Architecture is the **two-plane** model (see `docs/adr/0002-two-plane-architectu
 
 | Workflow | What | Blocks deploy? |
 |----------|------|----------------|
-| `hugo.yml` | Build + **content-contract hard gate (new posts)** + deploy | ✅ (it is the deploy) |
-| `quality.yml` | Build + content-contract (report) + jest + hardhat + lint + broken-link check | PR check (separate track) |
-| `e2e.yml` | Playwright smoke + axe-core a11y | separate track |
-| `performance.yml` | Lighthouse budget (LCP≤2.5s, CLS≤0.1) | separate track (fails job, not site) |
-| `security.yml` | npm audit + Trivy + Semgrep | separate track |
+| `hugo.yml` | Generate site data, build Hugo, and publish to GitHub Pages | ✅ (it is the deploy) |
+| `quality.yml` | Required PR gate: Hugo build, content contract, lint, internal-link checks, and report-only audits | No; blocks merge when required checks fail |
+| `test-rnd.yml` | Jest and Hardhat checks for changes to the engineering archive | No; separate from the publishing gate |
+| `e2e.yml` | Playwright end-to-end checks | No; separate check |
+| `performance.yml` | Lighthouse performance audit | No; separate check |
+| `security.yml` | npm audit, Trivy, and Semgrep scans | No; separate check |
 
 ## Knowledge Graph
 
-Every build regenerates `static/data/knowledge-graph.json` (JSON-LD) from the
+Every deployment regenerates `static/data/knowledge-graph.json` (JSON-LD) from the
 published content. It is rendered by the `/knowledge-graph/` page widget.
 Concepts come from post `tags`/taxonomy; to make a post appear in the graph,
 give it meaningful `tags`.
