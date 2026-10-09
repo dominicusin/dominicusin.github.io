@@ -1,0 +1,9 @@
+{{ $terms := .GetTerms "tags" }}
+{{ if and (gt (len $terms) 0) (.Params.showTags | default (.Site.Params.article.showTags | default true)) }}
+  <nav class="mb-8 flex flex-wrap items-center gap-2" aria-label="Теги">
+    <span class="text-sm font-semibold text-neutral-600 dark:text-neutral-300">Теги:</span>
+    {{ range $terms }}
+      <a class="rounded-full border border-neutral-300 px-3 py-1 text-sm text-neutral-700 hover:border-primary-500 hover:text-primary-600 dark:border-neutral-600 dark:text-neutral-200" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{ end }}
+  </nav>
+{{ end }}
