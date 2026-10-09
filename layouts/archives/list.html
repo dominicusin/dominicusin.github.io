@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <header class="mb-10">
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="prose mt-4 dark:prose-invert">{{ .Content }}</div>
+  </header>
+  {{ $posts := where site.RegularPages "Section" "blog" }}
+  {{ range $posts.GroupByDate "2006" }}
+    <section class="mb-12">
+      <h2 class="mb-5 border-b border-neutral-200 pb-2 text-2xl font-bold dark:border-neutral-700">{{ .Key }} <span class="text-base font-normal text-neutral-500">{{ len .Pages }}</span></h2>
+      <ol class="space-y-3">
+        {{ range .Pages }}
+          <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <time class="min-w-24 text-sm text-neutral-500" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+            <a class="font-medium hover:text-primary-600" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          </li>
+        {{ end }}
+      </ol>
+    </section>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,8 @@
+{{ $terms := .GetTerms "categories" }}
+{{ if and (gt (len $terms) 0) (.Params.showCategories | default (.Site.Params.article.showCategories | default true)) }}
+  <nav class="mt-4 flex flex-wrap gap-2" aria-label="Категории">
+    {{ range $terms }}
+      <a class="rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-200" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{ end }}
+  </nav>
+{{ end }}

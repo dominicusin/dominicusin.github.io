@@ -176,9 +176,27 @@ function balanceHtmlTags(html) {
   return html + stack.reverse().map((n) => `</${n}>`).join('');
 }
 
-function writePreviews(entries) {
+async function readmeFromGitHub(entry) {
+  const match = entry.gh.match(/github\.com\/([^/]+)\/([^/]+)$/i);
+  if (!match) return '';
+  const [, owner, repo] = match;
+  const branches = [entry.defaultBranch, 'main', 'master'].filter((x, i, a) => x && a.indexOf(x) === i);
+  for (const branch of branches) {
+    try {
+      const file = entry.readme.split('/').map(encodeURIComponent).join('/');
+      const ref = branch.split('/').map(encodeURIComponent).join('/');
+      const response = await fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${file}`, {
+        headers: { 'User-Agent': 'dominicusin-site-build' }, signal: AbortSignal.timeout(12000),
+      });
+      if (response.ok) return await response.text();
+    } catch {}
+  }
+  return '';
+}
+
+async function writePreviews(entries) {
   const keep = new Set();
-  for (const e of entries) {
+  await Promise.all(entries.map(async (e) => {
     const key = `${e.group}/${e.name}`;
     keep.add(key);
     const src = path.join(ROOT, e.path, e.readme);
@@ -186,7 +204,10 @@ function writePreviews(entries) {
     fs.mkdirSync(dir, { recursive: true });
     let body = '';
     try {
-      const raw = fs.readFileSync(src, 'utf8');
+      let raw;
+      try { raw = fs.readFileSync(src, 'utf8'); }
+      catch { raw = await readmeFromGitHub(e); }
+      if (!raw) throw new Error('README unavailable');
       const lines = raw.split('\n');
       // Drop a leading "# Title" line (the repo name already is the H1).
       let start = 0;
@@ -201,7 +222,7 @@ function writePreviews(entries) {
       // that would otherwise break the rendered preview/page layout.
       body = balanceHtmlTags(body);
     } catch (err) {
-      body = `_Не удалось прочитать ${e.readme} субмодуля._`;
+      body = `Полный README сейчас недоступен для сборки. [Откройте исходный список на GitHub](${e.gh}).`;
     }
     const md = [
       '---',
@@ -217,7 +238,7 @@ function writePreviews(entries) {
       body,
     ].join('\n') + '\n';
     fs.writeFileSync(path.join(dir, 'index.md'), md);
-  }
+  }));
   clearStalePreviews(keep);
 }
 
@@ -229,15 +250,15 @@ function saveMetaCache(c) { try { fs.mkdirSync(path.dirname(META_CACHE), { recur
 async function fetchRepoMeta(gh) {
   const m = gh.match(/github\.com[/:]([^/]+)\/([^/.]+)(?:\.git)?$/i); if (!m) return null;
   const full = `${m[1]}/${m[2]}`; const cache = loadMetaCache(); const hit = cache[full];
-  if (hit && Date.now() - (hit.ts||0) < META_TTL_MS) return { stars: hit.stars, description: hit.description };
+  if (hit && Date.now() - (hit.ts||0) < META_TTL_MS) return { stars: hit.stars, description: hit.description, defaultBranch: hit.defaultBranch || 'main' };
   try {
     const headers = { 'Accept': 'application/vnd.github+json', 'User-Agent': 'build-awesome' };
     if (process.env.GITHUB_TOKEN) headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN}`;
     const res = await fetch(`https://api.github.com/repos/${full}`, { headers });
     if (!res.ok) return null;
     const j = await res.json();
-    const meta = { stars: j.stargazers_count ?? null, description: j.description ?? null, ts: Date.now() };
-    cache[full] = meta; saveMetaCache(cache); return { stars: meta.stars, description: meta.description };
+    const meta = { stars: j.stargazers_count ?? null, description: j.description ?? null, defaultBranch: j.default_branch || 'main', ts: Date.now() };
+    cache[full] = meta; saveMetaCache(cache); return { stars: meta.stars, description: meta.description, defaultBranch: meta.defaultBranch };
   } catch { return null; }
 }
 function countCJK(text){const m=(text||'').match(/[\u3400-\u9fff\uf900-\ufaff]/g);return m?m.length:0;}
@@ -295,11 +316,11 @@ async function main() {
     })
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 
-  await Promise.all(entries.map(async (e) => { const meta = await fetchRepoMeta(e.gh); if (meta) { e.stars = meta.stars; e.description = meta.description; } }));
+  await Promise.all(entries.map(async (e) => { const meta = await fetchRepoMeta(e.gh); if (meta) { e.stars = meta.stars; e.description = meta.description; e.defaultBranch = meta.defaultBranch; } }));
   for (const g of groups) for (const r of g.repos) { const src = entries.find((x) => x.name === r.name && x.group === r.group); if (src) { r.stars = src.stars; r.description = src.description; } }
   const total = groups.reduce((n, g) => n + g.repos.length, 0);
   writeOut({ generatedAt: GENERATED_AT, groups, total });
-  writePreviews(entries);
+  await writePreviews(entries);
   ensureIndex();
   console.log(`[awesome] catalog: ${groups.length} groups, ${total} lists -> ${path.relative(ROOT, OUT)}`);
 }

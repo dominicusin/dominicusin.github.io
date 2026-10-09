@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <header class="mb-8 max-w-prose">
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="prose mt-4 dark:prose-invert">{{ .Content }}</div>
+  </header>
+  <div id="ontology-root" class="space-y-8" aria-live="polite">
+    <p class="text-neutral-500">Загружаю тематический указатель…</p>
+    <noscript><p>Включите JavaScript, чтобы открыть категории и связанные с ними темы.</p></noscript>
+  </div>
+  <script defer src="/js/ontology.js"></script>
+{{ end }}
