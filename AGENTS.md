@@ -6,7 +6,8 @@
 > production SSG and stays — no migration to Astro/Jekyll. `docs/SSG_MIGRATION_PLAN.md`
 > is **superseded** (its original plan was based on a stale snapshot); `docs/STRATEGIC_PLAN_2026-2027.md`
 > carries a stale baseline — see its reconciliation header. Source of truth for
-> current state: this file + `ROADMAP.md` + `AUDIT-2026-08.md`.
+> current state: this file + `docs/ROADMAP_STATUS.md` +
+> `docs/architecture/AUDIT-2026-08.md`.
 
 ## Overview
 
@@ -113,6 +114,7 @@ in CI, so the version there is authoritative.
 | Lines | 76.57% |
 
 This is the **official baseline** (not the aspirational 85% target, which
-requires an E2E/Playwright layer — tracked in `ROADMAP.md` / `AUDIT-2026-08.md`,
-not in the (stale-baseline) `STRATEGIC_PLAN_2026-2027.md`.
+requires an E2E/Playwright layer — tracked in `docs/ROADMAP_STATUS.md` /
+`docs/architecture/AUDIT-2026-08.md`, not in the (stale-baseline)
+`STRATEGIC_PLAN_2026-2027.md`.
 Do not regress below these numbers on the `src/` plane without adding tests.
