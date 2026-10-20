@@ -86,7 +86,7 @@ sharing:
 search:
   input_placeholder: "Поиск по сайту…"
   close_button_title: "Закрыть поиск"
-  open_button_title: "Открыть поиск"
+  open_button_title: "Открыть поиск (⌘K)"
 
 # Code block copy button (layouts/partials/head.html)
 code.copy: "Копировать"
