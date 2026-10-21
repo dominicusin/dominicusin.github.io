@@ -330,7 +330,7 @@
     "lru-cache": "^11.5.2",
     "make-dir": "^5.1.0",
     "makeerror": "^1.0.12",
-    "markdown-it": "^15.0.0",
+    "markdown-it": "^15.0.3",
     "markdown-it-anchor": "^10.0.0",
     "marked": "^18.1.0",
     "mdn-data": "^2.37.2",
