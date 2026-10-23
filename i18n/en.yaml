@@ -63,7 +63,12 @@ subscribe_button: "Subscribe"
 # Search (Blowfish built-in)
 search_input_placeholder: "Search the site…"
 search_close_button_title: "Close search"
-search.open_button_title: "Open search"
+
+# Blowfish reads search.* as a nested i18n map, not dotted scalar keys.
+search:
+  input_placeholder: "Search the site…"
+  close_button_title: "Close search"
+  open_button_title: "Open search (⌘K)"
 
 # Code block copy button (layouts/partials/head.html)
 code.copy: "Copy"
