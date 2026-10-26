@@ -171,3 +171,6 @@
 [submodule "awesome/tools/awesome-ai-agents"]
 	path = awesome/tools/awesome-ai-agents
 	url = https://github.com/e2b-dev/awesome-ai-agents
+[submodule "awesome/tools/awesome-quant"]
+	path = awesome/tools/awesome-quant
+	url = https://github.com/wilsonfreitas/awesome-quant
