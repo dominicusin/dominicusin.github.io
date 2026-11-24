@@ -3,6 +3,6 @@
   "private": true,
   "description": "Minimal dependencies for Hugo content validation in CI",
   "dependencies": {
-    "js-yaml": "^5.4.1"
+    "js-yaml": "^5.5.0"
   }
 }
