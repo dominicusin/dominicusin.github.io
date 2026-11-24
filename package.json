@@ -243,7 +243,7 @@
     "get-caller-file": "^2.0.5",
     "get-package-type": "^0.1.0",
     "get-stream": "^9.0.1",
-    "glob": "^13.0.6",
+    "glob": "^14.0.2",
     "glob-parent": "^6.0.2",
     "globals": "^17.13.0",
     "graceful-fs": "^4.2.11",
