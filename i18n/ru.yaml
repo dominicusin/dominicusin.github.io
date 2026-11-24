@@ -82,8 +82,11 @@ sharing:
   bluesky: "Поделиться в Bluesky"
   mastodon: "Поделиться в Mastodon"
 
-# Search (Blowfish built-in) — open button title (mobile-menu.html)
-search.open_button_title: "Открыть поиск"
+# Search (Blowfish reads these as a nested i18n map; a dotted scalar does not override it)
+search:
+  input_placeholder: "Поиск по сайту…"
+  close_button_title: "Закрыть поиск"
+  open_button_title: "Открыть поиск (⌘K)"
 
 # Code block copy button (layouts/partials/head.html)
 code.copy: "Копировать"
