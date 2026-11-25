@@ -52,6 +52,15 @@ jobs:
           git submodule update --init themes/blowfish
           node scripts/ensure-awesome-sparse.cjs || true
 
+      - name: Verify pinned submodule commits
+        run: |
+          git submodule status themes/blowfish awesome > /tmp/submodules.txt || true
+          cat /tmp/submodules.txt
+          if grep -q '^+' /tmp/submodules.txt; then
+            echo "::error::A submodule is checked out at a different commit than the pinned gitlink"
+            exit 1
+          fi
+
       - name: Generate wiki navigation
         run: |
           if [ "$INCLUDE_WIKI" = "1" ]; then
